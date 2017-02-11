@@ -1,0 +1,47 @@
+<div class="form-group">
+    <ul>
+        <li><b><span translate="stepApp.job.title">Title</span></b><br>
+            <p><span class="form-control-static">{{job.cat.cat == 'Other' ? category.cat : job.cat.cat}}</span></p>
+        </li>
+
+        </li><b><span translate="stepApp.job.vacancy">Vacancy</span></b><br>
+        <p><span class="form-control-static">{{job.vacancy}}</span></p>
+        </li>
+        </li><b><span translate="stepApp.job.type">Job Type</span></b><br>
+        <p><span class="form-control-static">{{job.jobType.name}}</span></p>
+        </li>
+        <li><b><span translate="stepApp.job.description">Description</span></b><br>
+            <p><span class="form-control-static">{{job.description}}</span></p>
+        </li>
+        <li><b><span translate="stepApp.job.educationRequirements">EducationRequirements</span></b><br><span
+            class="form-control-static">{{job.educationRequirements}}</span></li>
+        <li><b><span translate="stepApp.job.experienceRequirements">Experience</span></b><br><span
+            class="form-control-static">{{job.experienceRequirements}}</span></li>
+        <li><b><span translate="stepApp.job.otherRequirements">OtherRequirements</span></b><br><span
+            class="form-control-static">{{job.otherRequirements}}</span>
+        </li>
+        <li><b><span translate="stepApp.job.country">Location</span></b><br><span
+            class="form-control-static">{{job.country.name}}</span>
+        </li>
+        <li><b><span translate="stepApp.job.publishedAt">Location</span></b><br><span
+            class="form-control-static">{{job.publishedAt | date}}</span>
+        </li>
+        <li><b><span translate="stepApp.job.range">Salary Range</span></b><br><span class="form-control-static">{{job.minimumSalary}}</span>-<span
+            class="form-control-static">{{job.maximumSalary}}</span></li>
+        <li><b><span translate="stepApp.job.benefits">Other Benefits</span></b><br><span
+            class="form-control-static">{{job.benefits}}</span></li>
+        <li><b><span translate="stepApp.job.applicationDeadline">Deadline</span></b><br><span
+            class="form-control-static">{{job.applicationDeadline | date : format : timezone}}</span></li>
+       <!-- <li><b><span translate="stepApp.job.status">Status</span></b><br><span
+            class="form-control-static">{{job.status}}</span></li>
+-->
+
+    </ul>
+</div>
+<span ng-click="previewJob('false')" class="btn btn-primary"> &nbsp;<span
+    translate="entity.action.back">Back</span>
+							</span>
+<button type="submit" ng-disabled="editForm.$invalid || isSaving"
+        class="btn btn-primary">
+    &nbsp;<span translate="entity.action.post-job">Submit</span>
+</button>

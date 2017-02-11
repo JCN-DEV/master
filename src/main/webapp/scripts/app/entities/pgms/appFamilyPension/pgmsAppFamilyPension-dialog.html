@@ -1,0 +1,472 @@
+<div class="service-form-area">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="modal-title" id="myPgmsAppFamilyPensionLabel" translate="stepApp.pgmsAppFamilyPension.home.createOrEditLabel">Create or edit a PgmsAppFamilyPension</h4>
+        </div>
+        <div class="panel-body bg-panel">
+            <jh-alert-error></jh-alert-error>
+
+            <form class="form-horizontal" name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+                <div ng-show="viewFamilyAppForm">
+
+                    <div class="row">
+                        <div class="col-md-4  col-sm-4 col-xs-4">
+                            <label class="control-label" translate="stepApp.pgmsAppFamilyPension.appEmpId" for="field_appEmpId">appEmpId</label>
+                            <div class="input-margin">
+                                <select class="form-control" id="field_appEmpId" name="appEmpId" ng-model="pgmsAppFamilyPension.appEmpId" ng-options="HrEmployeeInfo as HrEmployeeInfo.employeeId for HrEmployeeInfo in hremployeeinfos track by HrEmployeeInfo.id">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4  col-sm-4 col-xs-4">
+                            <label class="control-label" translate="stepApp.pgmsAppFamilyPension.empNid" for="field_empNid">EmpNid</label>
+                            <div class="input-margin">
+                                <input type="text" class="form-control" name="empNid" id="field_empNid"
+                                       ng-model="pgmsAppFamilyPension.empNid"
+                                       ng-remote-method="GET"
+                                       ng-remote-throttle="500"
+                                       ng-minlength="17"
+                                       ng-maxlength="17"
+                                       required numeric-only-mobile/>
+                                <div ng-show="editForm.empNid.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.empNid.$error.minlength" translate="entity.validation.minlength" translate-value-min="17">
+                                        National ID will be in 17 digit length.
+                                    </p>
+                                    <p class="help-block"
+                                       ng-show="editForm.empNid.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="17">
+                                        National ID will be in 17 digit length.
+                                    </p>
+                                </div>
+                                <!--<select class="form-control" id="field_empNid" name="empNid" ng-model="pgmsAppFamilyPension.empNid" ng-options="HrEmployeeInfo as HrEmployeeInfo.nationalId for HrEmployeeInfo in hremployeeinfos track by HrEmployeeInfo.id">
+                                    <option value=""></option>
+                                </select>-->
+                            </div>
+                        </div>
+                        <div class="col-md-4  col-sm-4 col-xs-4">
+                            <!--
+                                <span ng-if="iisAgencyInfo.id == null">
+                                ng-click="employeeInfo(pgmsAppFamilyPension.empNid,pgmsAppFamilyPension.empNid)"
+                             -->
+                            <span>
+                                <input type="button" ng-click="employeeInfo(pgmsAppFamilyPension.appEmpId,pgmsAppFamilyPension.empNid)"  value="Search" style="margin-top: 20px" class="btn btn-info"/>
+                            </span>
+
+                        </div>
+
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6  col-sm-6 col-xs-6">
+                            <label class="control-label" translate="stepApp.pgmsAppFamilyPension.empName" for="field_empName">EmpName</label>
+                            <div class="input-margin">
+                                <input type="text" class="form-control" name="empName" id="field_empName"
+                                       ng-model="pgmsAppFamilyPension.empName"
+                                       required />
+                                <div ng-show="editForm.empName.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.empName.$error.required" translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6  col-sm-6 col-xs-6">
+                            <label class="control-label" translate="stepApp.pgmsAppFamilyPension.empDepartment" for="field_empDepartment">EmpDepartment</label>
+                            <div class="input-margin">
+                                <input type="text" class="form-control" name="empDepartment" id="field_empDepartment"
+                                       ng-model="pgmsAppFamilyPension.empDepartment"
+                                       required />
+                                <div ng-show="editForm.empDepartment.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.empDepartment.$error.required" translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6  col-sm-6 col-xs-6">
+                            <label class="control-label" translate="stepApp.pgmsAppFamilyPension.empDesignation" for="field_empDesignation">EmpDesignation</label>
+                            <div class="input-margin">
+                                <input type="text" class="form-control" name="empDesignation" id="field_empDesignation"
+                                       ng-model="pgmsAppFamilyPension.empDesignation"
+                                       required />
+                                <div ng-show="editForm.empDesignation.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.empDesignation.$error.required" translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6  col-sm-6 col-xs-6">
+                            <label class="control-label" translate="stepApp.pgmsAppFamilyPension.nomineeStatus"> NomineeStatus </label>
+                            <div class="input-margin">
+                                <label class="radio-inline">
+                                    <input type="radio" data-ng-model="pgmsAppFamilyPension.nomineeStatus" name="nomineeStatus" data-ng-value="true">&nbsp;Yes&nbsp;&nbsp;
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" data-ng-model="pgmsAppFamilyPension.nomineeStatus" name="nomineeStatus" data-ng-value="false">&nbsp;No
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6  col-sm-6 col-xs-6">
+                            <label class="control-label" translate="stepApp.pgmsAppFamilyPension.nomineNid" for="field_nomineNid">NomineNid</label>
+                            <div class="input-margin">
+                                <input type="text" class="form-control" name="nomineNid" id="field_nomineNid"
+                                       ng-model="pgmsAppFamilyPension.nomineNid"
+                                       ng-remote-method="GET"
+                                       ng-remote-throttle="500"
+                                       ng-minlength="17"
+                                       ng-maxlength="17"
+                                       required numeric-only-mobile/>
+                                <div ng-show="editForm.nomineNid.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.nomineNid.$error.required" translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+                                    <p class="help-block"
+                                       ng-show="editForm.nomineNid.$error.minlength" translate="entity.validation.minlength" translate-value-min="17">
+                                        National ID will be in 17 digit length.
+                                    </p>
+                                    <p class="help-block"
+                                       ng-show="editForm.nomineNid.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="17">
+                                        National ID will be in 17 digit length.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6  col-sm-6 col-xs-6">
+                            <label class="control-label" translate="stepApp.pgmsAppFamilyPension.nomineName" for="field_nomineName">NomineName</label>
+                            <div class="input-margin">
+                                <input type="text" class="form-control" name="nomineName" id="field_nomineName"
+                                       ng-model="pgmsAppFamilyPension.nomineName"
+                                       required />
+                                <div ng-show="editForm.nomineName.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.nomineName.$error.required" translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                   </div>
+                    <div class="row">
+                        <div class="col-md-6  col-sm-6 col-xs-6">
+                            <label class="control-label" translate="stepApp.pgmsAppFamilyPension.nomineGender">NomineGender</label>
+                            <div class="input-margin">
+                                <label class="radio-inline">
+                                    <input type="radio" data-ng-model="pgmsAppFamilyPension.nomineGender" name="nomineGender" value="male">&nbsp;Male&nbsp;&nbsp;
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" data-ng-model="pgmsAppFamilyPension.nomineGender" name="nomineGender" value="female">&nbsp;Female&nbsp;&nbsp;
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" data-ng-model="pgmsAppFamilyPension.nomineGender" name="nomineGender" value="other">&nbsp;Other
+                                </label>
+                                <div ng-show="editForm.nomineGender.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.nomineGender.$error.required" translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6  col-sm-6 col-xs-6">
+                            <label class="control-label" translate="stepApp.pgmsAppFamilyPension.nomineDob" for="field_nomineDob">NomineDob</label>
+                            <div class="input-margin">
+                                <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.nomineDob"
+                                       datepicker-options="calendar.dateOptions" close-text="Close"
+                                       ng-click="calendar.open($event, 'nomineDob')" class="form-control" name="nomineDob" id="field_nomineDob"
+                                       ng-model="pgmsAppFamilyPension.nomineDob"
+                                       required />
+                                <div ng-show="editForm.nomineDob.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.nomineDob.$error.required" translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6  col-sm-6 col-xs-6">
+                            <label class="control-label" translate="stepApp.pgmsAppFamilyPension.nomineRelation" for="field_nomineRelation">NomineRelation</label>
+                            <div class="input-margin">
+                                <input type="text" class="form-control" name="nomineRelation" id="field_nomineRelation"
+                                       ng-model="pgmsAppFamilyPension.nomineRelation"
+                                       required />
+                                <div ng-show="editForm.nomineRelation.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.nomineRelation.$error.required" translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6  col-sm-6 col-xs-6">
+                            <label class="control-label" translate="stepApp.pgmsAppFamilyPension.nomineOccupation" for="field_nomineOccupation">NomineOccupation</label>
+                            <div class="input-margin">
+                                <input type="text" class="form-control" name="nomineOccupation" id="field_nomineOccupation"
+                                       ng-model="pgmsAppFamilyPension.nomineOccupation"
+                                       required />
+                                <div ng-show="editForm.nomineOccupation.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.nomineOccupation.$error.required" translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6  col-sm-6 col-xs-6">
+                            <label class="control-label" translate="stepApp.pgmsAppFamilyPension.nomineDesignation" for="field_nomineDesignation">NomineDesignation</label>
+                            <div class="input-margin">
+                                <input type="text" class="form-control" name="nomineDesignation" id="field_nomineDesignation"
+                                       ng-model="pgmsAppFamilyPension.nomineDesignation"
+                                       required />
+                                <div ng-show="editForm.nomineDesignation.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.nomineDesignation.$error.required" translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6  col-sm-6 col-xs-6">
+                            <label class="control-label" translate="stepApp.pgmsAppFamilyPension.nominePreAddress" for="field_nominePreAddress">NominePreAddress</label>
+                            <div class="input-margin">
+                                <textarea class="form-control" name="nominePreAddress" id="field_nominePreAddress" cols="20" rows="2" ng-maxlength="150"
+                                          ng-model="pgmsAppFamilyPension.nominePreAddress"> </textarea>
+                                <div ng-show="editForm.nominePreAddress.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.nominePreAddress.$error.required" translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6  col-sm-6 col-xs-6">
+                            <label class="control-label" translate="stepApp.pgmsAppFamilyPension.nomineParAddress" for="field_nomineParAddress">NomineParAddress</label>
+                            <div class="input-margin">
+                                <textarea class="form-control" name="nomineParAddress" id="field_nomineParAddress" cols="20" rows="2" ng-maxlength="150"
+                                          ng-model="pgmsAppFamilyPension.nomineParAddress"> </textarea>
+                                <div ng-show="editForm.nomineParAddress.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.nomineParAddress.$error.required" translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6  col-sm-6 col-xs-6">
+                            <label class="control-label" translate="stepApp.pgmsAppFamilyPension.nomineContNo" for="field_nomineContNo">NomineContNo</label>
+                            <div class="input-margin">
+                                <input type="text" class="form-control" name="nomineContNo" id="field_nomineContNo"
+                                       ng-model="pgmsAppFamilyPension.nomineContNo"
+                                       ng-minlength="11"
+                                       ng-maxlength="18"
+                                       required numeric-only-mobile/>
+                                <div ng-show="editForm.nomineContNo.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.nomineContNo.$error.required" translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+                                    <p class="help-block"
+                                       ng-show="editForm.nomineContNo.$error.minlength" translate="entity.validation.minlength" translate-value-min="11">
+                                        This field is required to be at least 11 characters.
+                                    </p>
+                                    <p class="help-block"
+                                       ng-show="editForm.nomineContNo.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="18">
+                                        This field cannot be longer than 18 characters.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6  col-sm-6 col-xs-6">
+                            <label class="control-label" translate="stepApp.pgmsAppFamilyPension.nomineBankName" for="field_nomineBankName">NomineBankName</label>
+                            <div class="input-margin">
+                                <input type="text" class="form-control" name="nomineBankName" id="field_nomineBankName"
+                                       ng-model="pgmsAppFamilyPension.nomineBankName"
+                                       required />
+                                <div ng-show="editForm.nomineBankName.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.nomineBankName.$error.required" translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6  col-sm-6 col-xs-6">
+                            <label class="control-label" translate="stepApp.pgmsAppFamilyPension.nomineBranchName" for="field_nomineBranchName">NomineBranchName</label>
+                            <div class="input-margin">
+                                <input type="text" class="form-control" name="nomineBranchName" id="field_nomineBranchName"
+                                       ng-model="pgmsAppFamilyPension.nomineBranchName"
+                                       required />
+                                <div ng-show="editForm.nomineBranchName.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.nomineBranchName.$error.required" translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6  col-sm-6 col-xs-6">
+                            <label class="control-label" translate="stepApp.pgmsAppFamilyPension.nomineAccNo" for="field_nomineAccNo">NomineAccNo</label>
+                            <div class="input-margin">
+                                <input type="text" class="form-control" name="nomineAccNo" id="field_nomineAccNo"
+                                       ng-model="pgmsAppFamilyPension.nomineAccNo"
+                                       required />
+                                <div ng-show="editForm.nomineAccNo.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.nomineAccNo.$error.required" translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6  col-sm-6 col-xs-6">
+                            <label class="control-label" translate="stepApp.pgmsAppFamilyPension.applyDate" for="field_applyDate">ApplyDate</label>
+                            <div class="input-margin">
+                                <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.applyDate"
+                                       datepicker-options="calendar.dateOptions" close-text="Close"
+                                       ng-click="calendar.open($event, 'applyDate')" class="form-control" name="applyDate" id="field_applyDate"
+                                       ng-model="pgmsAppFamilyPension.applyDate"
+                                       required />
+                                <div ng-show="editForm.applyDate.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.applyDate.$error.required" translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"
+                                ng-click="showHideForm(false, true)"
+                                class="btn btn-info">
+                            &nbsp;<span> Next </span> &nbsp; <i class="fa fa-angle-double-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div ng-show="viewAttachForm">
+                    <div class="panel-body bg-panel" ng-repeat="pgmsAppFamilyAttach in pgmsAppFamilyAttachList">
+                        <div class="row">
+                            <div class="col-md-4  col-sm-4 col-xs-4">
+                                <label class="control-label" translate="stepApp.pgmsAppFamilyAttach.attachName">attachName</label>
+                                <span class="form-control-static">{{pgmsAppFamilyAttach.attachName.attachName}}</span>
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-xs-4" ngf-change="setAttachment($file, pgmsAppFamilyAttach)">
+                                <label class="control-label" translate="stepApp.pgmsAppFamilyAttach.attachment" for="field_attachment">Attachment</label>
+                                <div class="input-margin">
+                                    <div>
+                                        <div class="help-block clearfix">
+                                            <span class="pull-left">{{pgmsAppFamilyAttach.attachmentContentType}} {{byteSize(pgmsAppFamilyAttach.attachment)}}</span>
+                                            <button ng-click="pgmsAppFamilyAttach.attachment=null;pgmsAppFamilyAttach.attachmentContentType=null;"
+                                                    ng-if="pgmsAppFamilyAttach.attachment"
+                                                    class="btn btn-default btn-xs pull-right">
+                                                <span class="glyphicon glyphicon-remove"></span>
+                                            </button>
+                                        </div>
+                                        <button type="file" ngf-select class="btn btn-default btn-block"
+                                                ngf-change="setAttachment($file, pgmsAppFamilyAttach)" translate="entity.action.addblob">
+                                            Add blob
+                                        </button>
+                                    </div>
+                                    <input type="hidden" class="form-control" name="attachment" id="field_attachment"
+                                           ng-model="pgmsAppFamilyAttach.attachment"
+                                    />
+                                    <input type="hidden" class="form-control" name="attachmentContentType" id="field_attachmentContentType"
+                                           ng-model="pgmsAppFamilyAttach.attachmentContentType" />
+                                    <a ng-if="pgmsAppFamilyAttach.attachmentContentType"
+                                       ng-show="!pgmsAppFamilyAttach.id"
+                                       class="btn btn-link" ng-click="previewDoc(pgmsAppFamilyAttach)">View</a>
+                                </div>
+                            </div>
+                            <div class="col-md-4  col-sm-4 col-xs-4">
+
+                                <div class="input-margin">
+                                   <!-- <button ng-click="saveAttachment(pgmsAppFamilyAttach, $index)"
+                                            type="button" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary btn-sm">
+                                        <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                                    </button>-->
+                                    <button type="button" ng-show="pgmsAppFamilyAttach.id"
+                                            ng-click="delete(pgmsAppFamilyAttach)"
+                                            class="btn btn-danger btn-sm">
+                                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6  col-sm-6 col-xs-6">
+                            <label class="control-label" translate="stepApp.pgmsAppFamilyPension.activeStatus">ActiveStatus</label>
+                            <div class="input-margin">
+                                <label class="radio-inline">
+                                    <input type="radio" data-ng-model="pgmsAppFamilyPension.activeStatus" name="activeStatus" data-ng-value="true">&nbsp;Active&nbsp;&nbsp;
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" data-ng-model="pgmsAppFamilyPension.activeStatus" name="activeStatus" data-ng-value="false">&nbsp;Inactive
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"
+                                ng-click="showHideForm(true, false)"
+                                class="btn btn-info">
+                            <i class="fa fa-angle-double-left"></i>&nbsp;<span> Prev </span>
+                        </button>
+                        <button type="button" class="btn btn-default" class="btn " data-dismiss="modal" onclick="window.history.back()">
+                            <i class="fa fa-angle-double-left"></i>&nbsp;<span translate="entity.action.back">Back</span>
+                        </button>
+                        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.apply">Apply</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deletePgmsAppFamilyAttachConfirmation">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="deleteForm" ng-submit="confirmDelete(pgmsAppFamilyAttach)">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                            ng-click="clear()">&times;</button>
+                    <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                </div>
+                <div class="modal-body">
+                    <p translate="stepApp.pgmsAppFamilyAttach.delete.question" translate-values="{id: '{{pgmsAppFamilyAttach.id}}'}">Are you sure you want to delete this PgmsAppFamilyAttach?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                        <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                    </button>
+                    <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete">Delete</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

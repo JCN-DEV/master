@@ -1,0 +1,61 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+<!--
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"                 ng-click="clear()">&times;</button>
+-->
+        <h4 class="modal-title" id="myAlmLeaveGroupLabel" translate="stepApp.almLeaveGroup.home.createOrEditLabel">Create or edit a AlmLeaveGroup</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+
+        <div class="form-group">
+            <label translate="stepApp.almLeaveGroup.leaveGroupName" for="field_leaveGroupName">LeaveGroupName</label>
+
+            <input type="text" class="form-control" name="leaveGroupName" id="field_leaveGroupName"
+                   ng-model="almLeaveGroup.leaveGroupName"
+                   ng-remote-validate="/api/almLeaveGroups/checkname/"
+                   ng-remote-method="GET"
+                   ng-remote-throttle="500"
+                   required />
+            <span class="message" ng-show="editForm.leaveGroupName.$pending">validating...</span>
+            <div ng-show="editForm.leaveGroupName.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.leaveGroupName.$error.ngRemoteValidate">
+                    Group Name already exists
+                </p>
+            </div>
+            <div ng-show="editForm.leaveGroupName.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.leaveGroupName.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.almLeaveGroup.description" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description"
+                    ng-model="almLeaveGroup.description"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.almLeaveGroup.activeStatus" for="field_activeStatus">ActiveStatus</label>
+
+            <span class="form-control">
+                    <input type="radio" data-ng-model="almLeaveGroup.activeStatus" name="activeStatus" data-ng-value="true">&nbsp;Active&nbsp;|&nbsp;
+                    <input type="radio" data-ng-model="almLeaveGroup.activeStatus" name="activeStatus" data-ng-value="false">&nbsp;Inactive
+                </span>
+        </div>
+
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default"  data-dismiss="modal" onclick="window.history.back()">
+            <i class="fa fa-angle-double-left"></i>&nbsp;<span translate="entity.action.back">Back</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

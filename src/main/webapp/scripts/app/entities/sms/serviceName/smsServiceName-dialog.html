@@ -1,0 +1,177 @@
+<!--START service name doalog-->
+<div class="service-form-area">
+    <div class="panel panel-default">
+        <div class="panel-heading" >
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                    ng-click="clear()">&times;</button>
+            <h4 class="modal-title" id="mySmsServiceNameLabel" translate="stepApp.smsServiceName.home.createOrEditLabel">SmsServiceName</h4>
+        </div>
+        <div class="panel-body bg-panel">
+            <jh-alert-error></jh-alert-error>
+
+            <form  class="form-horizontal " name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+                <div class=" col-md-6 col-sm-12 col-xs-12 ">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.smsServiceName.serviceName" for="field_serviceName">ServiceName</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="serviceName" id="field_serviceName"
+                                   ng-model="smsServiceName.serviceName"
+                                   required />
+                            <div ng-show="editForm.serviceName.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.serviceName.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label  class="control-label" translate="stepApp.smsServiceName.smsServiceType" for="field_smsServiceType">smsServiceType</label>
+
+                        <div class="input-margin">
+                            <select  id="field_smsServiceType" name="smsServiceType" ng-model="smsServiceName.smsServiceType" ng-options="smsServiceType as smsServiceType.serviceTypeName for smsServiceType in smsservicetypes track by smsServiceType.id">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group">
+
+                        <label class="control-label" translate="stepApp.smsServiceName.description" for="field_description">Description</label>
+                        <div class="input-margin">
+
+                    <textarea type="text" class="form-control" nname="description" id="field_description" row="2" cols="30"
+                              ng-model="smsServiceName.description"
+                              required > </textarea>
+                            <div ng-show="editForm.description.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.description.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.smsServiceName.activeStatus" for="field_activeStatus">ActiveStatus</label>
+
+
+                        <input type="checkbox" class="form-control checkbox-inline" name="activeStatus" id="field_activeStatus" ng-model="smsServiceName.activeStatus" />
+
+
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    <span>{{responseMessage}}&nbsp;</span>
+                </div>
+
+
+
+
+                <div class="col-md-12">
+                    <div class="form-group">
+
+                        <div class="right-side">
+                            <button type="button" class="btn btn-default" class="btn " data-dismiss="modal" onclick="window.history.back()">
+                                <i class="fa fa-angle-double-left"></i>&nbsp;<span translate="entity.action.back">Back</span>
+                            </button>
+                            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                                <i class="fa fa-hdd-o"></i>&nbsp;<span translate="entity.action.save">Save</span>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+
+        </div>
+    </div>
+</div>
+<!--END service name doalog--->
+
+<!--<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="mySmsServiceNameLabel" translate="stepApp.smsServiceName.home.createOrEditLabel">Create or edit a SmsServiceName</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group" ng-hide="true">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="smsServiceName.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.smsServiceName.serviceName" for="field_serviceName">ServiceName</label>
+            <input type="text" class="form-control" name="serviceName" id="field_serviceName"
+                    ng-model="smsServiceName.serviceName"
+                    required />
+            <div ng-show="editForm.serviceName.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.serviceName.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.smsServiceName.description" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description"
+                    ng-model="smsServiceName.description"
+                    required />
+            <div ng-show="editForm.description.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.description.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.smsServiceName.smsServiceType" for="field_smsServiceType">smsServiceType</label>
+            <select class="form-control" id="field_smsServiceType" name="smsServiceType" ng-model="smsServiceName.smsServiceType" ng-options="smsServiceType as smsServiceType.serviceTypeName for smsServiceType in smsservicetypes | filter:{activeStatus:true} | orderBy:'smsServiceType.id':false">
+                <option value=""></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.smsServiceName.activeStatus" for="field_activeStatus">ActiveStatus</label>
+            <input type="checkbox" class="form-control" name="activeStatus" id="field_activeStatus" ng-model="smsServiceName.activeStatus" />
+        </div>
+
+        <div class="form-group">
+            <span>{{responseMessage}}&nbsp;</span>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" class="btn pull-left" data-dismiss="modal" onclick="window.history.back()">
+            <span class=" glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back">Back</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

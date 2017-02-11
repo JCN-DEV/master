@@ -1,0 +1,143 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+            <h4  id="myEmployeeLoanRulesSetupLabel" translate="stepApp.employeeLoanRulesSetup.home.createOrEditLabel">Create or edit a
+                EmployeeLoanRulesSetup</h4>
+        <div class="col-md-12 padding-tb">
+            <jh-alert-error></jh-alert-error>
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.employeeLoanRulesSetup.employeeLoanTypeSetup"
+                       for="field_employeeLoanTypeSetup">Employee LoanType</label>
+                <select class="form-control" id="field_employeeLoanTypeSetup" name="employeeLoanTypeSetup"
+                        ng-model="employeeLoanRulesSetup.employeeLoanTypeSetup"
+                        ng-options="employeeLoanTypeSetup as employeeLoanTypeSetup.loanTypeName for employeeLoanTypeSetup in employeeloantypesetups track by employeeLoanTypeSetup.id">
+                    <option value=""></option>
+                </select>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.employeeLoanRulesSetup.loanName" for="field_loanName">Loan Name</label>
+                <input type="text" class="form-control" name="loanName" id="field_loanName"
+                       ng-model="employeeLoanRulesSetup.loanName"
+                       ng-remote-validate = "/api/employeeLoanTypeSetups/isLoanNameUnique/"
+                       ng-remote-method="GET"
+                       required/>
+                <div ng-show="editForm.loanName.$invalid">
+                    <p style="color:red"
+                       ng-show="editForm.loanName.$error.ngRemoteValidate">
+                        This Code is already exist
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.loanName.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.employeeLoanRulesSetup.loanRulesDescription" for="field_loanRulesDescription">Loan
+                    Rules Description</label>
+                <input type="text" class="form-control" name="loanRulesDescription" id="field_loanRulesDescription"
+                       ng-model="employeeLoanRulesSetup.loanRulesDescription"
+                />
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.employeeLoanRulesSetup.maximumWithdrawal" for="field_maximumWithdrawal">Maximum
+                    Withdrawal</label>
+                <input type="number" class="form-control" name="maximumWithdrawal" id="field_maximumWithdrawal"
+                       ng-model="employeeLoanRulesSetup.maximumWithdrawal"
+                       required/>
+                <div ng-show="editForm.maximumWithdrawal.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.maximumWithdrawal.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.maximumWithdrawal.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.employeeLoanRulesSetup.minimumAmountBasic" for="field_minimumAmountBasic">Minimum
+                    Amount Basic</label>
+                <input type="number" class="form-control" name="minimumAmountBasic" id="field_minimumAmountBasic"
+                       ng-model="employeeLoanRulesSetup.minimumAmountBasic"
+                       required/>
+                <div ng-show="editForm.minimumAmountBasic.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.minimumAmountBasic.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.minimumAmountBasic.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.employeeLoanRulesSetup.installment" for="field_installment">Maximum
+                    Installment</label>
+                <input type="number" class="form-control" name="installment" id="field_installment"
+                       ng-model="employeeLoanRulesSetup.installment"
+                       required/>
+                <div ng-show="editForm.installment.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.installment.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.installment.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.employeeLoanRulesSetup.interest" for="field_interest">Interest</label>
+                <input type="number" class="form-control" name="interest" id="field_interest"
+                       ng-model="employeeLoanRulesSetup.interest"
+                       required/>
+                <div ng-show="editForm.interest.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.interest.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.interest.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.employeeLoanRulesSetup.status" for="field_status">Status</label>
+
+                <div id="field_status">
+                    <label class="radio-inline"><input type="radio" name="status" value="true"
+                                                       ng-checked="(employeeLoanRulesSetup.status == true || employeeLoanRulesSetup.status== null)"
+                                                       ng-model="employeeLoanRulesSetup.status"><span
+                        translate="entity.action.activate">Active</span></label>
+                    <label class="radio-inline"><input type="radio" name="status" value="false"
+                                                       ng-checked="(employeeLoanRulesSetup.status == false && employeeLoanRulesSetup.status != null)"
+                                                       ng-model="employeeLoanRulesSetup.status"><span
+                        translate="entity.action.deactivate">Deactive</span></label>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-12 padding-tb text-right">
+            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.history.back()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

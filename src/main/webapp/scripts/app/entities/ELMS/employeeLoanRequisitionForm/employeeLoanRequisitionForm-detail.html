@@ -1,0 +1,97 @@
+<div class="col-md-12 common-table">
+    <h2><span translate="stepApp.employeeLoanRequisitionForm.detail.title">EmployeeLoanRequisitionForm</span> {{employeeLoanRequisitionForm.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="stepApp.employeeLoanRequisitionForm.employeeLoanTypeSetup">employeeLoanTypeSetup</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="employeeLoanTypeSetup.detail({id:employeeLoanRequisitionForm.employeeLoanTypeSetup.id})">{{employeeLoanRequisitionForm.employeeLoanTypeSetup.loanTypeName}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.employeeLoanRequisitionForm.employeeLoanRulesSetup">employeeLoanRulesSetup</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="employeeLoanRulesSetup.detail({id:employeeLoanRequisitionForm.employeeLoanRulesSetup.id})">{{employeeLoanRequisitionForm.employeeLoanRulesSetup.loanName}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.employeeLoanRequisitionForm.loanRequisitionCode">LoanRequisitionCode</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{employeeLoanRequisitionForm.loanRequisitionCode}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.employeeLoanRequisitionForm.employeeID">Employee ID</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{employeeLoanRequisitionForm.employeeInfo.employeeId}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.employeeLoanRequisitionForm.amount">Amount</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{employeeLoanRequisitionForm.amount}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.employeeLoanRequisitionForm.installment">Installment</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{employeeLoanRequisitionForm.installment}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.employeeLoanRequisitionForm.approveStatus">ApproveStatus</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{employeeLoanRequisitionForm.approveStatus}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.employeeLoanRequisitionForm.createDate">Apply Date</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{employeeLoanRequisitionForm.createDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th ng-click="order('name', reverse=!reverse)" translate="stepApp.employeeLoanRequisitionForm.attachment.name">Name</th>
+                <th ng-click="order('remarks', reverse=!reverse)" translate="stepApp.employeeLoanRequisitionForm.attachment.remarks">Remarks</th>
+                <th translate="stepApp.employeeLoanRequisitionForm.attachment.action">Action</th>
+            </tr>
+            </thead>
+            <tbody id="accordion"  ng-repeat="attachment in attachments  | filter:filter | orderBy:predicate:reverse track by attachment.id">
+            <tr data-parent="#accordion" ng-click="displayAttachment(attachment)" data-toggle="collapse" data-target="#{{attachment.id}}" aria-expanded="false" aria-controls="{{attachment.id}}">
+
+                <td><a href="javascript:void(0)" ng-click="previewImage(attachment.file, attachment.fileContentType,'Image of '+attachment.name)">{{attachment.name}}</a></td>
+                <td>{{attachment.remarks}}</td>
+                <td><a href="javascript:void(0)" ng-click="previewImage(attachment.file, attachment.fileContentType,'Image of '+attachment.name)"></span>&nbsp;<span translate="entity.action.view"> View</span></a></td>
+
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

@@ -1,0 +1,129 @@
+<!--
+the file was empty at the server. so that I commented all
+-->
+
+
+<!--
+<div class="">
+    <div class="col-md-3 bs-docs-sidebar responsive_padding">
+        <ng-include src="'scripts/app/entities/dlExistBookInfo/digitalLibrary-left-menu.html'"></ng-include>
+    </div>
+    <div class="col-md-9">
+
+        <div>
+            <h2 translate="stepApp.dlBookType.home.title" style="margin: 10px 0px"></h2>
+    &lt;!&ndash;<h2 translate="stepApp.dlBookType.home.title">DlBookTypes</h2>&ndash;&gt;
+    <jh-alert></jh-alert>
+    <div class="">
+        <div class="row">
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group btn_input_left">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="">
+                        <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="col-md-4 text-right btn_center">
+                <button class="btn btn-primary" ui-sref="dlBookType.new">
+                    <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.dlBookType.home.btbAdd">Create a new DlBookType</span>
+                </button>
+            </div>
+
+        </div>
+    </div><br>
+
+    <div class="modal fade" id="deleteDlBookTypeConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(dlBookType.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p translate="stepApp.dlBookType.delete.question" translate-values="{id: '{{dlBookType.id}}'}">Are you sure you want to delete this DlBookType?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="global.field.id">ID</th>
+                    <th translate="stepApp.dlBookType.typeName">TypeName</th>
+                    <th translate="stepApp.dlBookType.description">Description</th>
+                    &lt;!&ndash;<th translate="stepApp.dlBookType.createdDate">CreatedDate</th>&ndash;&gt;
+                    &lt;!&ndash;<th translate="stepApp.dlBookType.updatedDate">UpdatedDate</th>&ndash;&gt;
+                    &lt;!&ndash;<th translate="stepApp.dlBookType.createdBy">CreatedBy</th>&ndash;&gt;
+                    &lt;!&ndash;<th translate="stepApp.dlBookType.updatedBy">UpdatedBy</th>&ndash;&gt;
+                    &lt;!&ndash;<th translate="stepApp.dlBookType.status">Status</th>&ndash;&gt;
+                    <th translate="stepApp.dlBookType.dlBookCat">dlBookCat</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="dlBookType in dlBookTypes track by dlBookType.id">
+                    <td><a ui-sref="dlBookType.detail({id:dlBookType.id})">{{dlBookType.id}}</a></td>
+                    <td>{{dlBookType.typeName}}</td>
+                    <td>{{dlBookType.description}}</td>
+                        &lt;!&ndash;<td>{{dlBookType.createdDate | date:'mediumDate'}}</td>&ndash;&gt;
+                        &lt;!&ndash;<td>{{dlBookType.updatedDate | date:'mediumDate'}}</td>&ndash;&gt;
+                    &lt;!&ndash;<td>{{dlBookType.createdBy}}</td>&ndash;&gt;
+                    &lt;!&ndash;<td>{{dlBookType.updatedBy}}</td>&ndash;&gt;
+                    &lt;!&ndash;<td>{{dlBookType.status}}</td>&ndash;&gt;
+                    <td>
+                        <a ui-sref="dlBookCat.detail({id:dlBookType.dlBookCat.id})">{{dlBookType.dlBookCat.catName}}</a>
+                    </td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="dlBookType.detail({id:dlBookType.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="dlBookType.edit({id:dlBookType.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="delete(dlBookType.id)"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        &lt;!&ndash;<nav>&ndash;&gt;
+            &lt;!&ndash;<ul class="pagination">&ndash;&gt;
+                &lt;!&ndash;<li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>&ndash;&gt;
+                &lt;!&ndash;<li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>&ndash;&gt;
+                &lt;!&ndash;<li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>&ndash;&gt;
+                &lt;!&ndash;<li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>&ndash;&gt;
+                &lt;!&ndash;<li class="active"><a>{{page + 1}}</a></li>&ndash;&gt;
+                &lt;!&ndash;<li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>&ndash;&gt;
+                &lt;!&ndash;<li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>&ndash;&gt;
+                &lt;!&ndash;<li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>&ndash;&gt;
+                &lt;!&ndash;<li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>&ndash;&gt;
+            &lt;!&ndash;</ul>&ndash;&gt;
+        &lt;!&ndash;</nav>&ndash;&gt;
+    </div>
+</div>
+</div></div>
+-->

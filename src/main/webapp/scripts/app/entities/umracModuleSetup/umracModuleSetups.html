@@ -1,0 +1,167 @@
+<div class="row" xmlns="http://www.w3.org/1999/html">
+    <div class="col-md-3">
+        <ng-include src="'scripts/app/entities/umrac/umrac-left-menu.html'"></ng-include>
+    </div>
+    <div class="col-md-9">
+       <!-- <jh-alert></jh-alert>-->
+        <div class="user-form-area">
+            <div class="panel panel-default">
+                <div class="panel-heading" translate="stepApp.umracModuleSetup.home.title">
+                    FeePaymentCategorySetups
+                </div>
+                <div class="panel-body bg-panel">
+                    <jh-alert></jh-alert>
+                    <div class=" col-md-12 col-sm-12 col-xs-12 ">
+                        <div class="form-group su_btn_center">
+
+                            <form name="searchForm" class="form-inline">
+                                <div class="form-group">
+                                    <input type="text" class="form-control su_searchbox" ng-model="searchQuery" id="searchQuery"
+                                           placeholder="search">
+                                    <button class="btn btn-primary su_searchbtn" ng-click="search()"><i class="fa fa-search-plus"></i>
+
+                                    </button>
+
+                                </div>
+
+                            </form>
+
+                            <button class="btn btn-primary pull-right text-right" ui-sref="umracModuleSetup.new">
+                                <i class="fa fa-plus"></i>
+                                <span translate="stepApp.umracModuleSetup.home.createLabel">Add New</span>
+                            </button>
+
+                        </div>
+                    </div>
+                    <div class="modal animated zoomIn" id="deleteUmracModuleSetupConfirmation">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form name="deleteForm" ng-submit="confirmDelete(umracModuleSetup.id)">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                                ng-click="clear()">&times;</button>
+                                        <h4 class="modal-title" translate="entity.delete.title">Confirm delete
+                                            operation</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p translate="stepApp.umracModuleSetup.delete.question"
+                                           translate-values="{id: '{{umracModuleSetup.id}}'}">Are you sure you want to
+                                            delete
+                                            this UmracModuleSetup?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal"
+                                                ng-click="clear()">
+                                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                                            translate="entity.action.cancel">Cancel</span>
+                                        </button>
+                                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                                            translate="entity.action.delete">Delete</span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 col-xs-12 table-responsive">
+                        <div class="">
+                            <table class="table  ">
+                                <thead>
+                                <tr>
+                                    <th translate="global.field.id">ID</th>
+                                    <th translate="stepApp.umracModuleSetup.moduleId">ModuleId</th>
+                                    <th translate="stepApp.umracModuleSetup.moduleName">ModuleName</th>
+                                    <th translate="stepApp.umracModuleSetup.moduleUrl">ModuleUrl</th>
+                                    <!--<th translate="stepApp.umracModuleSetup.description">Description</th>-->
+                                    <th translate="stepApp.umracModuleSetup.status">Status</th>
+                                    <!--<th translate="stepApp.umracModuleSetup.createDate">CreateDate</th>-->
+                                    <!--<th translate="stepApp.umracModuleSetup.createBy">CreateBy</th>-->
+                                    <!--<th translate="stepApp.umracModuleSetup.updatedBy">UpdatedBy</th>-->
+                                    <!--<th translate="stepApp.umracModuleSetup.updatedTime">UpdatedTime</th>-->
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="umracModuleSetup in umracModuleSetups track by umracModuleSetup.id">
+                                    <td><a ui-sref="umracModuleSetup.detail({id:umracModuleSetup.id})">{{umracModuleSetup.id}}</a>
+                                    </td>
+                                    <td>{{umracModuleSetup.moduleId}}</td>
+                                    <td>{{umracModuleSetup.moduleName}}</td>
+                                    <td>{{umracModuleSetup.moduleUrl}}</td>
+                                    <!--<td>{{umracModuleSetup.description}}</td>-->
+                                    <td ng-if="umracModuleSetup.status">Active</td>
+                                    <td ng-if="!umracModuleSetup.status">InActive</td>
+                                    <!--<td>{{umracModuleSetup.createDate | date:'mediumDate'}}</td>-->
+                                    <!--<td>{{umracModuleSetup.createBy}}</td>-->
+                                    <!--<td>{{umracModuleSetup.updatedBy}}</td>-->
+                                    <!--<td>{{umracModuleSetup.updatedTime | date:'mediumDate'}}</td>-->
+                                    <td class="text-right">
+                                        <button type="submit"
+                                                ui-sref="umracModuleSetup.detail({id:umracModuleSetup.id})"
+                                                class="btn btn-info btn-sm">
+                                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span
+                                            translate="entity.action.view"> View</span>
+                                        </button>
+                                        <button type="submit"
+                                                ui-sref="umracModuleSetup.edit({id:umracModuleSetup.id})"
+                                                class="btn btn-primary btn-sm">
+                                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                                            translate="entity.action.edit"> Edit</span>
+                                        </button>
+                                        <button type="submit"
+                                                ng-click="delete(umracModuleSetup.id)"
+                                                class="btn btn-danger btn-sm">
+                                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                                            translate="entity.action.delete"> Delete</span>
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <nav>
+                                <ul class="pagination">
+                                    <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                                    <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                                    <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                                    <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                                    <li class="active"><a>{{page + 1}}</a></li>
+                                    <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                                    <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                                    <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                                    <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!--<div>-->
+<!--<h2 translate="stepApp.umracModuleSetup.home.title">UmracModuleSetups</h2>-->
+<!--<jh-alert></jh-alert>-->
+<!--<div class="container">-->
+<!--<div class="row">-->
+<!--<div class="col-md-4">-->
+<!--<button class="btn btn-primary" ui-sref="umracModuleSetup.new">-->
+<!--<span class="glyphicon glyphicon-flash"></span> <span-->
+<!--translate="stepApp.umracModuleSetup.home.createLabel">Create a new UmracModuleSetup</span>-->
+<!--</button>-->
+<!--</div>-->
+<!--<div class="col-md-8">-->
+<!--<form name="searchForm" class="form-inline">-->
+<!--<div class="form-group">-->
+<!--<input type="text" class="form-control" ng-model="searchQuery" id="searchQuery"-->
+<!--placeholder="query">-->
+<!--</div>-->
+<!--<button class="btn btn-info" ng-click="search()"><span-->
+<!--class="glyphicon glyphicon-search"></span> <span>Search a UmracModuleSetup</span>-->
+<!--</button>-->
+<!--</form>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->

@@ -1,0 +1,50 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myInstituteInfraInfoLabel" translate="stepApp.instituteInfraInfo.home.createOrEditLabel">Create or edit a InstituteInfraInfo</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="instituteInfraInfo.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instituteInfraInfo.status" for="field_status">Status</label>
+            <input type="number" class="form-control" name="status" id="field_status"
+                    ng-model="instituteInfraInfo.status"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.instituteInfraInfo.institute" for="field_institute">institute</label>
+            <select class="form-control" id="field_institute" name="institute" ng-model="instituteInfraInfo.institute" ng-options="institute as institute.name for institute in institutes | orderBy:'id' track by institute.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instituteInfraInfo.instBuilding" for="field_instBuilding">instBuilding</label>
+            <select class="form-control" id="field_instBuilding" name="instBuilding" ng-model="instituteInfraInfo.instBuilding" ng-options="instBuilding as instBuilding.totalArea for instBuilding in instbuildings | orderBy:'id' track by instBuilding.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instituteInfraInfo.instLand" for="field_instLand">instLand</label>
+            <select class="form-control" id="field_instLand" name="instLand" ng-model="instituteInfraInfo.instLand" ng-options="instLand as instLand.mouja for instLand in instlands | orderBy:'id' track by instLand.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

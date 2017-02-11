@@ -1,0 +1,59 @@
+<div class="col-md-12 common-list">
+    <h2 translate="stepApp.trainingRequisitionForm.home.title">Training Requisition Pending</h2>
+    <div class="col-md-12 padding-tb">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+    </div>
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th class="text-center" translate="global.form.serial">serial</th>
+                <th translate="stepApp.trainingRequisitionForm.trainingCategorySetup">trainingCategorySetup</th>
+                <th translate="stepApp.trainingRequisitionForm.trainingType">TrainingType</th>
+                <th translate="stepApp.trainingRequisitionForm.requisitionCode">RequisitionCode</th>
+                <th translate="stepApp.trainingRequisitionForm.session">Session</th>
+                <th translate="stepApp.trainingRequisitionForm.applyDate">ApplyDate</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr dir-paginate="trainingRequisitionForm in trainingRequisitionForms | filter:q | itemsPerPage: pageSize track by trainingRequisitionForm.id"
+                current-page="currentPage">
+                <td class="text-center">{{pageSize*(currentPage-1)+$index+1}}</td>
+                <td>
+                    <a ui-sref="trainingInfo.trainingCategorySetup.detail({id:trainingRequisitionForm.trainingCategorySetup.id})">{{trainingRequisitionForm.trainingCategorySetup.categoryName}}</a>
+                </td>
+                <td>{{trainingRequisitionForm.trainingType}}</td>
+                <td>{{trainingRequisitionForm.requisitionCode}}</td>
+                <td>{{trainingRequisitionForm.session}}</td>
+                <td>{{trainingRequisitionForm.applyDate | date:'mediumDate'}}</td>
+
+                <td class="text-right">
+                    <button type="submit"
+                            ui-sref="trainingInfo.viewAndApprove({reqID:trainingRequisitionForm.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-check"></span>&nbsp;<span translate="view&approve"> View & Approve</span>
+                    </button>
+
+                    <button type="submit"
+                            class="btn btn-danger btn-sm"
+                            ui-sref="trainingInfo.reject({reqID:trainingRequisitionForm.id})"
+                             has-any-authority="ROLE_DG">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                        translate="entity.action.reject" ui-sref-active="active">Reject</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav class="no-print">
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                     template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+</div>

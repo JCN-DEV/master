@@ -1,0 +1,97 @@
+<div class="language-add">
+    <h3>Add Language Proficiency</h3>
+</div>
+<form name="jpLanguageForm" role="form" novalidate ng-submit="saveLanguage()" show-validation>
+
+    <div class="panel-body no_padding admin-info" ng-repeat="jpLanguageProficiency in jpLanguageProficiencys">
+        <div class="col-sm-12 no_padding">
+            <h3 >Language {{$index + 1}}</h3>
+        <!--<jh-alert-error></jh-alert-error>-->
+        <div class="panel-body pnl-border">
+            <div class="form-group col-sm-6 hide">
+                <input type="hidden" class="form-control" id="id" name="id"
+                       ng-model="jpLanguageProficiency.id" readonly/>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.jpLanguageProficiency.name" for="field_lang_name">Name</label>
+                <input type="text" class="form-control" name="name" id="field_lang_name"
+                       ng-model="jpLanguageProficiency.name"
+                       required ng-minlength="3"/>
+
+                <div ng-show="jpLanguageForm.name.$invalid">
+                    <p class="help-block"
+                       ng-show="jpLanguageForm.name.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+
+                    <p class="help-block"
+                       ng-show="jpLanguageForm.name.$error.minlength" translate="entity.validation.minlength"
+                       translate-value-min="3">
+                        This field is required to be at least 3 characters.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.jpLanguageProficiency.reading" for="field_reading">Reading</label>
+
+                <select class="form-control" name="reading" ng-model="jpLanguageProficiency.reading"
+                        id="field_reading">
+                    <option value="Average">Average</option>
+                    <option value="Good">Good</option>
+                    <option value="Excellent">Excellent</option>
+                </select>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.jpLanguageProficiency.writing" for="field_writing">Writing</label>
+                <select class="form-control" name="writing" ng-model="jpLanguageProficiency.writing"
+                        id="field_writing">
+                    <option value="Average">Average</option>
+                    <option value="Good">Good</option>
+                    <option value="Excellent">Excellent</option>
+                </select>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.jpLanguageProficiency.speaking" for="field_speaking">Speaking</label>
+
+                <select class="form-control" name="speaking" ng-model="jpLanguageProficiency.speaking"
+                        id="field_speaking">
+                    <option value="Average">Average</option>
+                    <option value="Good">Good</option>
+                    <option value="Excellent">Excellent</option>
+                </select>
+
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.jpLanguageProficiency.listening" for="field_listening">Listening</label>
+                <select class="form-control" name="listening" ng-model="jpLanguageProficiency.listening"
+                        id="field_listening">
+                    <option value="Average">Average</option>
+                    <option value="Good">Good</option>
+                    <option value="Excellent">Excellent</option>
+                </select>
+
+            </div>
+</div>
+            </div>
+
+        </div>
+    </div>
+    <div class="panel-footer">
+        <a class="btn btn-link" ng-disabled="editForm.$invalid || isSaving" ng-click="AddMoreLanguage()">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.addMore">Add More</span>
+        </a>
+    </div>
+    <div class="panel-footer">
+        <div class="col-sm-12 text-right">
+            <!--<button type="button" class="btn btn-default" ng-click="changeLanguageMode(true)">-->
+            <button type="button" class="btn btn-default" ng-click="cancel()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="jpLanguageForm.$invalid || isSaving" class="btn btn-primary">
+                <!--<span class="glyphicon glyphicon-save"></span>&nbsp;--><span translate="entity.action.save">Save</span>
+            </button>
+        </div>
+    </div>
+
+</form>
+

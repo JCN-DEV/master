@@ -1,0 +1,288 @@
+<div class="col-sm-12 common-table">
+    <h2><span translate="stepApp.instFinancialInfo.detail.title">InstFinancialInfo</span></h2>
+    <div class="col-sm-12 text-right padding-tb">
+        <!-- <button class="btn btn-primary" ui-sref="instituteInfo.financialInfo.new" ng-hide="instFinancialInfos[0].id">
+             <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.instFinancialInfo.home.createLabel">Create a new InstFinancialInfo</span>
+         </button>-->
+        <!--{{instFinancialInfos}}-->
+        <!--<button type="submit" ng-show="!hideAddNewButton"
+                ui-sref="instituteInfo.financialInfo.edit({id:instFinancialInfos[0].id})"
+                class="btn btn-primary">
+            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+        </button>-->
+
+        <!--<button type="submit" ng-show="hideAddNewButton"
+                ui-sref="instituteInfo.financialInfo.new"
+                class="btn btn-primary">
+            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+            translate="stepApp.instFinancialInfo.home.createLabel"> Edit</span>
+        </button>-->
+        <button type="submit" ng-if="instFinancialInfos.length == 0"
+                ui-sref="instituteInfo.financialInfo.new"
+                class="btn btn-primary">
+            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+            translate="stepApp.instFinancialInfo.home.createLabel"> Add</span>
+        </button>
+    </div>
+
+    <!--<div class="panel-heading">-->
+    <!--<h2  class="header-margin"><span  translate="stepApp.instFinancialInfo.detail.title">InstFinancialInfo</span>-->
+    <!--<div class="pull-right">-->
+    <!--<button class="btn btn-primary" ui-sref="instituteInfo.financialInfo.new" ng-hide="hideAddNewButton">-->
+    <!--<span class="glyphicon glyphicon-flash"></span> <span translate="stepApp.instFinancialInfo.home.createLabel">Create a new InstFinancialInfo</span>-->
+    <!--</button>-->
+    <!--<button type="submit" ng-hide="instFinancialInfo.status != 1"-->
+    <!--ui-sref="instituteInfo.financialInfo.edit({id:instFinancialInfo.id})"-->
+    <!--class="btn btn-primary">-->
+    <!--<span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>-->
+    <!--</button>-->
+    <!--</div>-->
+
+    <!--</h2>-->
+    <!--</div>-->
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped" ng-repeat="instFinancialInfo in instFinancialInfos">
+            <thead>
+            <tr>
+
+                <th colspan="2"><button type="submit"
+                        ui-sref="instituteInfo.financialInfo.edit({id:instFinancialInfo.id})"
+                        class="btn btn-primary pull-right">
+                    <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                </button>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--<tr>
+                <td>
+                    <span translate="stepApp.instFinancialInfo.bankName">BankName</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instFinancialInfo.bankName}}</span>
+                </td>
+            </tr>-->
+            <tr>
+                <td>
+                    <span translate="stepApp.instFinancialInfo.bankName">BankName</span>
+                </td>
+                <!--<td>
+                    <a class="form-control-static" ui-sref="bankSetup.detail({id:instFinancialInfo.bankSetup.id})">{{instFinancialInfo.bankSetup.name}}</a>
+
+                </td>-->
+                <td>
+                    <span class="form-control-static">{{instFinancialInfo.bankSetup.name}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instGenInfo.division">Division</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instFinancialInfo.bankBranch.upazila.district.division.name}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instGenInfo.district">District</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instFinancialInfo.bankBranch.upazila.district.name}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instGenInfo.upazila">Upazilla</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instFinancialInfo.bankBranch.upazila.name}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instFinancialInfo.branchName">BranchName</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instFinancialInfo.bankBranch.brName}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instFinancialInfo.accountType">AccountType</span>
+                </td>
+                <td>
+                    <span class="form-control-static"
+                          translate="{{'stepApp.accountType.' + instFinancialInfo.accountType}}">{{instFinancialInfo.accountType}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instFinancialInfo.accountNo">AccountNo</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instFinancialInfo.accountNo}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instFinancialInfo.issueDate">IssueDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instFinancialInfo.issueDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instFinancialInfo.expireDate">ExpireDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instFinancialInfo.expireDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instFinancialInfo.amount">Amount</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instFinancialInfo.amount}} BDT.</span>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer">
+        <button type="submit"
+                onclick="window.history.back()"
+                class="btn btn-info">
+            <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+        </button>
+    </div>
+    <div class="no-print   text-right">
+        <button type="submit" name="submit" onclick="window.print()" class="btn btn-primary">
+            <span class="glyphicon glyphicon-print"></span>&nbsp;<span
+            translate="entity.action.print">Print</span>
+        </button>
+    </div>
+</div>
+
+
+<!--
+<div class="pnl-border" ng-hide="instFinancialInfos[0].id">
+    <form name="editForm" role="form" class="panel panel-primary" novalidate  ng-submit="save()" show-validation>
+        <div class="col-sm-12 col-head">
+            <div class="col-sm-12  col-head-heading">
+                <h3 class="header-margin"  id="myInstFinancialInfoLabel" translate="stepApp.instFinancialInfo.home.createOrEditLabel">Create or edit a InstFinancialInfo</h3>
+            </div>
+        </div>
+        <div class="panel-body no_padding" ng-repeat="instFinancialInfo in instFinancialInfos">
+            <div class="col-sm-12 admin-info no_padding cross-btn">
+                <div class="col-sm-11 text-left no_padding" style="color: #ffffff;" translate="stepApp.instFinancialInfo.bankTitle">
+                    <h3 >Bank Information</h3>
+                </div>
+                <div class="col-sm-1 text-right no_padding">
+                    <input type="button" ng-hide="instFinancialInfo.id !=null" class="btn btn-link pull-right cross-btn-color" ng-click="removeBankInfo(instFinancialInfo)"  value="X"/>
+                </div>
+
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instFinancialInfo.bankName" for="field_bankName">Bank Name</label>
+                <input type="text" class="form-control" name="bankName" id="field_bankName"
+                       ng-model="instFinancialInfo.bankName"
+                       required />
+                <div ng-show="editForm.bankName.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.bankName.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instFinancialInfo.branchName" for="field_branchName">Branch Name</label>
+                <input type="text" class="form-control" name="branchName" id="field_branchName"
+                       ng-model="instFinancialInfo.branchName"
+                       required />
+                <div ng-show="editForm.branchName.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.branchName.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instFinancialInfo.accountType" for="field_accountType">Account Type</label>
+                <select class="form-control" name="accountType" ng-model="instFinancialInfo.accountType" id="field_accountType" required>
+                    <option value="General_Fund" translate="stepApp.accountType.General_Fund">General Fund</option>
+                    <option value="Preserved_Fund" translate="stepApp.accountType.Preserved_Fund">Preserved Fund</option>
+                </select>
+                <div ng-show="editForm.accountType.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.accountType.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instFinancialInfo.accountNo" for="field_accountNo">Account No</label>
+                <input type="text" class="form-control" name="accountNo" id="field_accountNo"
+                       ng-model="instFinancialInfo.accountNo"
+                       required />
+                <div ng-show="editForm.accountNo.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.accountNo.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instFinancialInfo.issueDate" for="field_issueDate">Issue Date</label>
+                <input type="text" class="form-control" name="issueDate" id="field_issueDate"
+                       ng-model="instFinancialInfo.issueDate"
+                       datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened['issueDate'+$index]"
+                       datepicker-options="calendar.dateOptions" close-text="Close" ng-click="calendar.open($event, 'issueDate'+$index)"
+                    />
+            </div>
+
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instFinancialInfo.expireDate" for="field_expireDate">Expire Date</label>
+                <input type="text" class="form-control" name="expireDate" id="field_expireDate"
+                       ng-model="instFinancialInfo.expireDate"
+                       datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened['expireDate'+$index]"
+                       datepicker-options="calendar.dateOptions" close-text="Close" ng-click="calendar.open($event, 'expireDate'+$index)"
+                    />
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instFinancialInfo.amount" for="field_amount">Amount</label>
+                <input type="number" class="form-control" name="amount" id="field_amount" placeholder="BDT"
+                       ng-model="instFinancialInfo.amount"
+                       required />
+                <div ng-show="editForm.amount.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.amount.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.amount.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <input type="button" class="btn btn-link" ng-click="addMore()" ng-disabled="editForm.$invalid || isSaving" value="Add More"/>
+        </div>
+        <div class="modal-footer">
+            <a type="button" class="btn btn-default" class="btn pull-left"  data-dismiss="modal" onclick="window.history.back()">
+                <span class=" glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back">Back</span>
+            </a>
+            <a type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+            </a>
+            <button type="submit"  ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+            </button>
+        </div>
+    </form>
+</div>
+
+-->

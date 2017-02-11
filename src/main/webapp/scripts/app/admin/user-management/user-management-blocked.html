@@ -1,0 +1,138 @@
+<ng-include src="'scripts/app/entities/auditLog/audit-log-left-menu.html'"></ng-include>
+<div class="col-md-9 lbl-dash">
+    <div class="col-md-12 common-list">
+			<h2>Blocked Users</h2> <!-- translate="user-management.home.title" -->
+		<div class="col-sm-12">
+			<div class="col-md-12 padding-tb">
+                <div class="col-md-6 ">
+                    <div class="col-md-6 no_padding">
+
+                        <div class="input-group">
+
+                            <input ng-model="q" id="search" type="text" class="form-control"  placeholder="{{'global.home.searchhere' | translate}}">
+                        </div>
+                    </div>
+                    <div class="col-md-6 no_padding">
+                        <div class="input-group">
+                            <input type="number" class="form-control" ng-model="pageSize" placeholder="{{'global.home.itemperpage' | translate}}">
+                        </div>
+                    </div>
+                </div>
+				<!--<form name="searchForm" ng-submit="search()" class="form-inline"
+					novalidate show-validation="">
+					<div class="form-group">
+						<input
+							placeholder="{{'user-management.home.searchPlaceholder'|translate}}"
+							type="text" class="form-control" ng-model="searchQuery"
+							id="searchQuery" />
+					</div>
+					<button type="submit" class="btn btn-default">
+						<i class="glyphicon glyphicon-search" aria-label="search"></i> <span
+							translate="user-management.home.searchLabel">Search</span>
+					</button>
+				</form>-->
+				<div class="col-md-6  text-right no_padding">
+                    <button ng-disabled="!areAllUsersSelected" class="btn btn-default"
+                            ng-click="sync()">
+                        <i class="glyphicon glyphicon-refresh" aria-label="sync"></i> <span
+                        translate="user-management.home.sync">sync</span>
+                    </button>
+
+                    <button ng-disabled="!areAllUsersSelected" class="btn btn-default"
+                            ng-click="export()">
+                        <i class="glyphicon glyphicon-export" aria-label="export"></i> <span
+                        translate="user-management.home.export">export</span>
+                    </button>
+
+                    <button ng-disabled="!areAllUsersSelected" class="btn btn-default"
+                            ng-click="import()">
+                        <i class="glyphicon glyphicon-import" aria-label="import"></i> <span
+                        translate="user-management.home.import">import</span>
+                    </button>
+
+                    <button ng-disabled="!areAllUsersSelected"
+                            class="btn btn-default btn-danger" ng-click="deleteSelected()">
+                        <i class="glyphicon glyphicon-trash" aria-label="delete"></i> <span
+                        translate="entity.action.delete">delete</span>
+                    </button>
+				</div>
+			</div>
+		</div>
+
+	<div class="col-md-12 table-responsive no_padding">
+
+		<table class="table table-striped user-mngmt">
+			<caption class="caption notice text-center">
+				<span translate="entity.action.found"
+					translate-values="{found: '{{users.length}}', total: '{{total}}'}">{{users.length}}
+					users retrieved from total of {{total}} users </span>
+			</caption>
+			<thead>
+				<tr>
+                    <th translate="global.form.serial">Serial</th>
+					<th><input type="checkbox" ng-model="areAllUsersSelected"
+						ng-change="updateUsersSelection(users, areAllUsersSelected)" /></th>
+					<th ng-click="order('id', reverse=!reverse)"
+						translate="global.field.id">ID</th>
+					<th ng-click="order('login', reverse=!reverse)"
+						translate="user-management.login">Login</th>
+					<th ng-click="order('email', reverse=!reverse)"
+						translate="user-management.email">Email</th>
+					<th ng-click="order('active', reverse=!reverse)" translate="user-management.activated">Activated</th>
+					<th ng-click="order('langKey', reverse=!reverse)"
+						translate="user-management.langKey">LangKey</th>
+					<th translate="user-management.profiles">Profiles</th>
+					<th ng-click="order('createdDate', reverse=!reverse)"
+						translate="user-management.createdDate">CreatedDate</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<!--<tr  dir-paginate="user in users  | filter:q | itemsPerPage: pageSize">-->
+                <tr dir-paginate="user in users | filter:q | itemsPerPage: pageSize track by user.id"
+                    current-page="currentPage">
+
+                <td>{{pageSize * (currentPage-1) + $index+1}}</td>
+					<td><input type="checkbox" ng-model="user.isSelected" /></td>
+					<td><a ui-sref="user-management-detail({login:user.login})">{{user.id}}</a></td>
+					<td>{{user.login}}</td>
+					<td>{{user.email}}</td>
+					<td><span class="label label-danger"
+						ng-click="setActive(user, true)" ng-show="!user.activated"
+						translate="user-management.deactivated" style="cursor: pointer;">Desactivated</span>
+						<span class="label label-success"
+						ng-click="setActive(user, false)" ng-show="user.activated"
+						translate="user-management.activated" style="cursor: pointer;">Activated</span>
+					</td>
+					<td>{{user.langKey}}</td>
+					<td>
+						<div ng-repeat="authority in user.authorities">
+							<span class="label label-info">{{ authority }}</span>
+						</div>
+					</td>
+					<td>{{user.createdDate | date:'dd/MM/yy HH:mm'}}</td>
+					<td class="text-right">
+						<div class="btn-group">
+							<button type="submit"
+								ui-sref="user-management-detail({login:user.login})"
+								class="btn btn-success btn-sm">
+								<span class="glyphicon glyphicon-eye-open"></span>
+							</button>
+							<button type="submit"
+								ui-sref="user-management.edit({login:user.login})"
+								class="btn btn-primary btn-sm">
+								<span class="glyphicon glyphicon-pencil"></span>
+							</button>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+
+        <nav>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+	</div>
+</div>
+</div>

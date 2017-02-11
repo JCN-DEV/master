@@ -1,0 +1,607 @@
+<div class="application_information">
+    <h3>Application Information</h3>
+    <form name="editForm" class="form form-horizontal" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header bg-primary">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myEmployeeLabel" translate="stepApp.employee.home.createOrEditLabel">Create or edit a Employee</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group hide">
+            <label class="col-sm-3 control-label" for="id" translate="global.field.id">ID</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="id" name="id" ng-model="employee.id" readonly />
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+            <div class="form-group">
+            <label class="col-sm-6 col-lg-6 control-label" translate="stepApp.employee.name" for="field_name">Name</label>
+            <div class="col-sm-6 col-lg-6">
+                <input type="text" class="form-control" name="name" id="field_name"
+                       ng-model="employee.name"
+                       required ng-minlength="2" />
+                <div ng-show="editForm.name.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.name.$error.minlength" translate="entity.validation.minlength" translate-value-min="2">
+                        This field is required to be at least 2 characters.
+                    </p>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.nameEnglish" for="field_nameEnglish">NameEnglish</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="nameEnglish" id="field_nameEnglish"
+                       ng-model="employee.nameEnglish"
+                    />
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.father" for="field_father">Father</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="father" id="field_father"
+                       ng-model="employee.father"
+                    />
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.mother" for="field_mother">Mother</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="mother" id="field_mother"
+                       ng-model="employee.mother"
+                    />
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.presentAddress" for="field_presentAddress">PresentAddress</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="presentAddress" id="field_presentAddress"
+                       ng-model="employee.presentAddress"
+                       required ng-minlength="5" />
+                <div ng-show="editForm.presentAddress.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.presentAddress.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.presentAddress.$error.minlength" translate="entity.validation.minlength" translate-value-min="5">
+                        This field is required to be at least 5 characters.
+                    </p>
+                </div>
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.permanentAddress" for="field_permanentAddress">PermanentAddress</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="permanentAddress" id="field_permanentAddress"
+                       ng-model="employee.permanentAddress"
+                       required ng-minlength="5" />
+                <div ng-show="editForm.permanentAddress.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.permanentAddress.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.permanentAddress.$error.minlength" translate="entity.validation.minlength" translate-value-min="5">
+                        This field is required to be at least 5 characters.
+                    </p>
+                </div>
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.gender" for="field_gender">Gender</label>
+            <div class="col-sm-9">
+                <select class="form-control" name="gender" ng-model="employee.gender" id="field_gender">
+                    <option value="Male" translate="stepApp.Gender.Male">Male</option>
+                    <option value="Female" translate="stepApp.Gender.Female">Female</option>
+                    <option value="Other" translate="stepApp.Gender.Other">Other</option>
+                </select>
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.dob" for="field_dob">Dob</label>
+            <div class="col-sm-9">
+                <input type="date" class="form-control" name="dob" id="field_dob"
+                       ng-model="employee.dob"
+                    />
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.zipCode" for="field_zipCode">ZipCode</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="zipCode" id="field_zipCode"
+                       ng-model="employee.zipCode"
+                       required ng-minlength="4" />
+                <div ng-show="editForm.zipCode.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.zipCode.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.zipCode.$error.minlength" translate="entity.validation.minlength" translate-value-min="4">
+                        This field is required to be at least 4 characters.
+                    </p>
+                </div>
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.registrationCertificateSubject" for="field_registrationCertificateSubject">RegistrationCertificateSubject</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="registrationCertificateSubject" id="field_registrationCertificateSubject"
+                       ng-model="employee.registrationCertificateSubject"
+                    />
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.registrationExamYear" for="field_registrationExamYear">RegistrationExamYear</label>
+            <div class="col-sm-9">
+                <input type="number" class="form-control" name="registrationExamYear" id="field_registrationExamYear"
+                       ng-model="employee.registrationExamYear"
+                       required />
+                <div ng-show="editForm.registrationExamYear.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.registrationExamYear.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.registrationExamYear.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.registrationCetificateNo" for="field_registrationCetificateNo">RegistrationCetificateNo</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="registrationCetificateNo" id="field_registrationCetificateNo"
+                       ng-model="employee.registrationCetificateNo"
+                       required ng-maxlength="60" />
+                <div ng-show="editForm.registrationCetificateNo.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.registrationCetificateNo.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.registrationCetificateNo.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="60">
+                        This field cannot be longer than 60 characters.
+                    </p>
+                </div>
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.indexNo" for="field_indexNo">IndexNo</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="indexNo" id="field_indexNo"
+                       ng-model="employee.indexNo"
+                    />
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.bankName" for="field_bankName">BankName</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="bankName" id="field_bankName"
+                       ng-model="employee.bankName"
+                    />
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.bankBranch" for="field_bankBranch">BankBranch</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="bankBranch" id="field_bankBranch"
+                       ng-model="employee.bankBranch"
+                    />
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.bankAccountNo" for="field_bankAccountNo">BankAccountNo</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="bankAccountNo" id="field_bankAccountNo"
+                       ng-model="employee.bankAccountNo"
+                    />
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.designation" for="field_designation">Designation</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="designation" id="field_designation"
+                       ng-model="employee.designation"
+                    />
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.subject" for="field_subject">Subject</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="subject" id="field_subject"
+                       ng-model="employee.subject"
+                    />
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.payScale" for="field_payScale">PayScale</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="payScale" id="field_payScale"
+                       ng-model="employee.payScale"
+                    />
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.payScaleCode" for="field_payScaleCode">PayScaleCode</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="payScaleCode" id="field_payScaleCode"
+                       ng-model="employee.payScaleCode"
+                    />
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.month" for="field_month">Month</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="month" id="field_month"
+                       ng-model="employee.month"
+                    />
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.monthlySalaryGovtProvided" for="field_monthlySalaryGovtProvided">MonthlySalaryGovtProvided</label>
+            <div class="col-sm-9">
+                <input type="number" class="form-control" name="monthlySalaryGovtProvided" id="field_monthlySalaryGovtProvided"
+                       ng-model="employee.monthlySalaryGovtProvided"
+                    />
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.monthlySalaryInstituteProvided" for="field_monthlySalaryInstituteProvided">MonthlySalaryInstituteProvided</label>
+            <div class="col-sm-9">
+                <input type="number" class="form-control" name="monthlySalaryInstituteProvided" id="field_monthlySalaryInstituteProvided"
+                       ng-model="employee.monthlySalaryInstituteProvided"
+                    />
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.gbResolutionReceiveDate" for="field_gbResolutionReceiveDate">GbResolutionReceiveDate</label>
+            <div class="col-sm-9">
+                <input type="date" class="form-control" name="gbResolutionReceiveDate" id="field_gbResolutionReceiveDate"
+                       ng-model="employee.gbResolutionReceiveDate"
+                    />
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.gbResolutionAgendaNo" for="field_gbResolutionAgendaNo">GbResolutionAgendaNo</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="gbResolutionAgendaNo" id="field_gbResolutionAgendaNo"
+                       ng-model="employee.gbResolutionAgendaNo"
+                    />
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.circularPaperName" for="field_circularPaperName">CircularPaperName</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="circularPaperName" id="field_circularPaperName"
+                       ng-model="employee.circularPaperName"
+                    />
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.circularPublishedDate" for="field_circularPublishedDate">CircularPublishedDate</label>
+            <div class="col-sm-9">
+                <input type="date" class="form-control" name="circularPublishedDate" id="field_circularPublishedDate"
+                       ng-model="employee.circularPublishedDate"
+                    />
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.recruitExamDate" for="field_recruitExamDate">RecruitExamDate</label>
+            <div class="col-sm-9">
+                <input type="date" class="form-control" name="recruitExamDate" id="field_recruitExamDate"
+                       ng-model="employee.recruitExamDate"
+                    />
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.recruitApproveGBResolutionDate" for="field_recruitApproveGBResolutionDate">RecruitApproveGBResolutionDate</label>
+            <div class="col-sm-9">
+                <input type="date" class="form-control" name="recruitApproveGBResolutionDate" id="field_recruitApproveGBResolutionDate"
+                       ng-model="employee.recruitApproveGBResolutionDate"
+                    />
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.recruitPermitAgendaNo" for="field_recruitPermitAgendaNo">RecruitPermitAgendaNo</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="recruitPermitAgendaNo" id="field_recruitPermitAgendaNo"
+                       ng-model="employee.recruitPermitAgendaNo"
+                    />
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.recruitmentDate" for="field_recruitmentDate">RecruitmentDate</label>
+            <div class="col-sm-9">
+                <input type="date" class="form-control" name="recruitmentDate" id="field_recruitmentDate"
+                       ng-model="employee.recruitmentDate"
+                    />
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.presentInstituteJoinDate" for="field_presentInstituteJoinDate">PresentInstituteJoinDate</label>
+            <div class="col-sm-9">
+                <input type="date" class="form-control" name="presentInstituteJoinDate" id="field_presentInstituteJoinDate"
+                       ng-model="employee.presentInstituteJoinDate"
+                    />
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.presentPostJoinDate" for="field_presentPostJoinDate">PresentPostJoinDate</label>
+            <div class="col-sm-9">
+                <input type="date" class="form-control" name="presentPostJoinDate" id="field_presentPostJoinDate"
+                       ng-model="employee.presentPostJoinDate"
+                    />
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.dgRepresentativeType" for="field_dgRepresentativeType">DgRepresentativeType</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="dgRepresentativeType" id="field_dgRepresentativeType"
+                       ng-model="employee.dgRepresentativeType"
+                       required />
+                <div ng-show="editForm.dgRepresentativeType.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.dgRepresentativeType.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.dgRepresentativeName" for="field_dgRepresentativeName">DgRepresentativeName</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="dgRepresentativeName" id="field_dgRepresentativeName"
+                       ng-model="employee.dgRepresentativeName"
+                       required />
+                <div ng-show="editForm.dgRepresentativeName.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.dgRepresentativeName.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.dgRepresentativeDesignation" for="field_dgRepresentativeDesignation">DgRepresentativeDesignation</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="dgRepresentativeDesignation" id="field_dgRepresentativeDesignation"
+                       ng-model="employee.dgRepresentativeDesignation"
+                       required />
+                <div ng-show="editForm.dgRepresentativeDesignation.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.dgRepresentativeDesignation.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+            </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.dgRepresentativeAddress" for="field_dgRepresentativeAddress">DgRepresentativeAddress</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="dgRepresentativeAddress" id="field_dgRepresentativeAddress"
+                       ng-model="employee.dgRepresentativeAddress"
+                       required />
+                <div ng-show="editForm.dgRepresentativeAddress.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.dgRepresentativeAddress.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.representativeType" for="field_representativeType">RepresentativeType</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="representativeType" id="field_representativeType"
+                       ng-model="employee.representativeType"
+                       required />
+                <div ng-show="editForm.representativeType.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.representativeType.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.boardRepresentativeName" for="field_boardRepresentativeName">BoardRepresentativeName</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="boardRepresentativeName" id="field_boardRepresentativeName"
+                       ng-model="employee.boardRepresentativeName"
+                       required />
+                <div ng-show="editForm.boardRepresentativeName.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.boardRepresentativeName.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.boardRepresentativeDesignation" for="field_boardRepresentativeDesignation">BoardRepresentativeDesignation</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="boardRepresentativeDesignation" id="field_boardRepresentativeDesignation"
+                       ng-model="employee.boardRepresentativeDesignation"
+                       required />
+                <div ng-show="editForm.boardRepresentativeDesignation.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.boardRepresentativeDesignation.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+            </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.boardRepresentativeAddress" for="field_boardRepresentativeAddress">BoardRepresentativeAddress</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="boardRepresentativeAddress" id="field_boardRepresentativeAddress"
+                       ng-model="employee.boardRepresentativeAddress"
+                       required />
+                <div ng-show="editForm.boardRepresentativeAddress.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.boardRepresentativeAddress.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.salaryCode" for="field_salaryCode">SalaryCode</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="salaryCode" id="field_salaryCode"
+                       ng-model="employee.salaryCode"
+                       required />
+                <div ng-show="editForm.salaryCode.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.salaryCode.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.manager" for="field_manager">manager</label>
+            <div class="col-sm-9">
+                <select class="form-control" id="field_manager" name="manager" ng-model="employee.manager" ng-options="user as user.login for user in users track by user.id">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.institute" for="field_institute">institute</label>
+            <div class="col-sm-9">
+                <select class="form-control" id="field_institute" name="institute" ng-model="employee.institute" ng-options="institute as institute.name for institute in institutes track by institute.id">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.payScale" for="field_payScale">payScale</label>
+            <div class="col-sm-9">
+                <select class="form-control" id="field_payScale" multiple name="payScale" ng-model="employee.payScales" ng-options="payScale as payScale.code for payScale in payscales track by payScale.id"></select>
+            </div>
+        </div>
+            </div>
+        <div class="col-lg-6 col-md-6 no_padding">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.employee.user" for="field_user">user</label>
+            <div class="col-sm-9">
+                <select class="form-control" id="field_user" name="user" ng-model="employee.user" ng-options="user as user.login for user in users track by user.id">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+            </div>
+    </div>
+    <div class="modal-footer">
+        <div class="form-group">
+            <div class="col-md-offset-4 col-md-8">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+</div>

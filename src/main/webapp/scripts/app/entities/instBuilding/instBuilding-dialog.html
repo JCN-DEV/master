@@ -1,0 +1,92 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myInstBuildingLabel" translate="stepApp.instBuilding.home.createOrEditLabel">Create or edit a InstBuilding</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="instBuilding.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instBuilding.totalArea" for="field_totalArea">TotalArea</label>
+            <input type="text" class="form-control" name="totalArea" id="field_totalArea"
+                    ng-model="instBuilding.totalArea"
+                    required />
+            <div ng-show="editForm.totalArea.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.totalArea.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instBuilding.totalRoom" for="field_totalRoom">TotalRoom</label>
+            <input type="number" class="form-control" name="totalRoom" id="field_totalRoom"
+                    ng-model="instBuilding.totalRoom"
+                    required />
+            <div ng-show="editForm.totalRoom.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.totalRoom.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.totalRoom.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instBuilding.classRoom" for="field_classRoom">ClassRoom</label>
+            <input type="number" class="form-control" name="classRoom" id="field_classRoom"
+                    ng-model="instBuilding.classRoom"
+                    required />
+            <div ng-show="editForm.classRoom.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.classRoom.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.classRoom.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instBuilding.officeRoom" for="field_officeRoom">OfficeRoom</label>
+            <input type="number" class="form-control" name="officeRoom" id="field_officeRoom"
+                    ng-model="instBuilding.officeRoom"
+                    required />
+            <div ng-show="editForm.officeRoom.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.officeRoom.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.officeRoom.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instBuilding.otherRoom" for="field_otherRoom">OtherRoom</label>
+            <input type="number" class="form-control" name="otherRoom" id="field_otherRoom"
+                    ng-model="instBuilding.otherRoom"
+                     />
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

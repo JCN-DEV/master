@@ -1,0 +1,236 @@
+<div class="">
+    <div class="col-md-3">
+        <ng-include src="'scripts/app/entities/jobPortal/jp-employer-menu.html'"></ng-include>
+    </div>
+
+    <div class="col-md-9 lbl-dash">
+        <div class="col-md-12 no_padding common-table" ng-show="!isNewProfile">
+            <h2 translate="stepApp.employer.companyInfo">Company Information</h2>
+            <div ng-class="editEmployer == false ? 'show' : 'hide'" class="col-sm-12 col-md-12 no_padding">
+                <div class="col-md-12 padding-tb">
+                    <span ng-show="isProfilePending" class="pull-right">Company Profile is Awating for Admin Approval</span>
+                    <button ng-show="!isProfilePending" class="pull-right btn btn-primary"
+                            ng-click="editEmployerProfile(true)">
+                        <span class="glyphicon glyphicon-edit"></span>Edit
+                    </button>
+                </div>
+                <div class="col-md-12 table-responsive no_padding">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th translate="entity.detail.field"></th>
+                            <th translate="entity.detail.value"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td width="30%">
+                                <span translate="stepApp.employer.companyName">Name</span>
+                            </td>
+                            <td width="70%">
+                                <span class="">{{employer.name}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span translate="stepApp.employer.alternativeCompanyName">AlternativeCompanyName</span>
+                            </td>
+                            <td>
+                                <span class="">{{employer.alternativeCompanyName}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span translate="stepApp.employer.contactPersonName">ContactPersonName</span>
+                            </td>
+                            <td>
+                                <span class="">{{employer.contactPersonName}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span translate="stepApp.employer.personDesignation">PersonDesignation</span>
+                            </td>
+                            <td>
+                                <span class="">{{employer.personDesignation}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span translate="stepApp.employer.contactNumber">ContactNumber</span>
+                            </td>
+                            <td>
+                                <span class="">{{employer.contactNumber}}</span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span translate="stepApp.employer.address">Address</span>
+                            </td>
+                            <td>
+                                <span class="">{{employer.address}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span translate="stepApp.employer.country">country</span>
+                            </td>
+                            <td>
+                                <a class="form-control-static" ui-sref="country.detail({id:employer.country.id})">{{employer.country.name}}</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span translate="stepApp.employer.division">division</span>
+                            </td>
+                            <td>
+                                <a class="form-control-static">{{employer.upazila.district.division.name}}</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span translate="stepApp.employer.district">district</span>
+                            </td>
+                            <td>
+                                <a class="form-control-static">{{employer.upazila.district.name}}</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span translate="stepApp.employer.thana">upazila</span>
+                            </td>
+                            <td>
+                                <a class="form-control-static">{{employer.upazila.name}}</a>
+                            </td>
+                        </tr>
+                        <tr ng-if="employer.city">
+                            <td>
+                                <span translate="stepApp.employer.city">City</span>
+                            </td>
+                            <td>
+                                <span class="">{{employer.city}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span translate="stepApp.employer.zipCode">ZipCode</span>
+                            </td>
+                            <td>
+                                <span class="">{{employer.zipCode}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span translate="stepApp.employer.companyWebsite">CompanyWebsite</span>
+                            </td>
+                            <td>
+                                <span class="">{{employer.companyWebsite}}</span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span translate="stepApp.employer.organizationCategory">Category</span>
+                            </td>
+                            <td ng-hide="tempEmployer.status == 'pending'">
+                                <span class="form-control-static">{{employer.organizationCategory.name}}</span>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <span translate="stepApp.employer.organizationType">Type</span>
+                            </td>
+                            <td ng-hide="tempEmployer.status == 'pending'">
+                                <span class="form-control-static">{{employer.organizationType.name}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span translate="stepApp.employer.companyInformation">CompanyInformation</span>
+                            </td>
+                            <td>
+                                <span class="">{{employer.companyInformation}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span translate="stepApp.employer.businessDescription">BusinessDescription</span>
+                            </td>
+                            <td>
+                                <span class="form-control-static">{{employer.businessDescription}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><h3> Institute Information</h3></td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span translate="stepApp.employer.institute">Institute</span>
+                            </td>
+                            <td ng-hide="tempEmployer.status == 'pending'">
+                                <span class="form-control-static">{{employer.institute.name}}</span>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span translate="stepApp.employer.division">Division</span>
+                            </td>
+                            <td ng-hide="tempEmployer.status == 'pending'">
+                                <span
+                                    class="form-control-static">{{employer.institute.upazila.district.division.name}}</span>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <span translate="stepApp.employer.district">District</span>
+                            </td>
+                            <td ng-hide="tempEmployer.status == 'pending'">
+                                <span class="form-control-static">{{employer.institute.upazila.district.name}}</span>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <span translate="stepApp.employer.thana">upazila</span>
+                            </td>
+                            <td ng-hide="tempEmployer.status == 'pending'">
+                                <span class="form-control-static">{{employer.institute.upazila.name}}</span>
+                            </td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-12 no_padding ">
+                    <h2 translate="stepApp.employer.companyLogo">Company
+                        Logo
+                    </h2>
+                    <div class="panel-body">
+                        <center>
+                            <img
+                                data-ng-src="{{'data:' + employer.companyLogoContentType + ';base64,' + employer.companyLogo}}"
+                                style="max-height: 100px;" ng-if="employer.companyLogo"/>
+                            <!-- {{employer.companyLogoContentType}} {{byteSize(employer.companyLogo)}}-->
+                        </center>
+                    </div>
+                </div>
+            </div>
+            <div ng-class="editEmployer== true ? 'show' : 'hide'" class="col-sm-12 col-md-12 no_padding">
+                <span class="pull-right btn-primary edit-employer-back"
+                      ng-click="editEmployerProfile(false)">Back</span>
+                <ng-include src="'scripts/app/entities/employer/edit.html'"></ng-include>
+            </div>
+        </div>
+
+        <div class="ng-cloak" ng-show="isNewProfile">
+            <strong class="alert alert-danger col-sm-12">Your Company Profile is awaiting for admin approval</strong>
+        </div>
+    </div>
+</div>

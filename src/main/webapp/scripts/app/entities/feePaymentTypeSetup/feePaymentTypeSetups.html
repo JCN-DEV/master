@@ -1,0 +1,119 @@
+<div class="row">
+    <div class="col-md-3 bs-docs-sidebar">
+        <ng-include src="'scripts/app/entities/fee/fee-left-menu.html'"></ng-include>
+    </div>
+    <div class="col-md-9">
+        <div>
+            <h2 translate="stepApp.feePaymentTypeSetup.home.title">FeePaymentTypeSetups</h2>
+            <jh-alert></jh-alert>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <button class="btn btn-primary" ui-sref="feePaymentTypeSetup.new">
+                            <span class="glyphicon glyphicon-flash"></span> <span translate="stepApp.feePaymentTypeSetup.home.createLabel">Create a new FeePaymentTypeSetup</span>
+                        </button>
+                    </div>
+                    <div class="col-md-8">
+                        <form name="searchForm" class="form-inline">
+                            <div class="form-group">
+                                <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                            </div>
+                            <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a FeePaymentTypeSetup</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            </br>
+
+            <div class="modal fade" id="deleteFeePaymentTypeSetupConfirmation">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form name="deleteForm" ng-submit="confirmDelete(feePaymentTypeSetup.id)">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                        ng-click="clear()">&times;</button>
+                                <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p translate="stepApp.feePaymentTypeSetup.delete.question" translate-values="{id: '{{feePaymentTypeSetup.id}}'}">Are you sure you want to delete this FeePaymentTypeSetup?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                                </button>
+                                <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                                    <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete">Delete</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th translate="global.field.id">ID</th>
+                        <th translate="stepApp.feePaymentTypeSetup.paymentTypeId">PaymentTypeId</th>
+                        <th translate="stepApp.feePaymentTypeSetup.name">Name</th>
+                        <th translate="stepApp.feePaymentTypeSetup.status">Status</th>
+                        <th translate="stepApp.feePaymentTypeSetup.description">Description</th>
+                        <th translate="stepApp.feePaymentTypeSetup.createDate">CreateDate</th>
+                        <!--<th translate="stepApp.feePaymentTypeSetup.createBy">CreateBy</th>
+                        <th translate="stepApp.feePaymentTypeSetup.updateBy">UpdateBy</th>
+                        <th translate="stepApp.feePaymentTypeSetup.updateDate">UpdateDate</th>-->
+                        <th> translate="stepApp.feePaymentTypeSetup.action">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="feePaymentTypeSetup in feePaymentTypeSetups track by feePaymentTypeSetup.id">
+                        <td><a ui-sref="feePaymentTypeSetup.detail({id:feePaymentTypeSetup.id})">{{feePaymentTypeSetup.id}}</a></td>
+                        <td>{{feePaymentTypeSetup.paymentTypeId}}</td>
+                        <td>{{feePaymentTypeSetup.name}}</td>
+                        <td>{{feePaymentTypeSetup.status}}</td>
+                        <td>{{feePaymentTypeSetup.description}}</td>
+                        <td>{{feePaymentTypeSetup.createDate | date:'mediumDate'}}</td>
+                        <!--<td>{{feePaymentTypeSetup.createBy}}</td>
+                        <td>{{feePaymentTypeSetup.updateBy}}</td>
+                        <td>{{feePaymentTypeSetup.updateDate | date:'mediumDate'}}</td>-->
+                        <td>
+                            <button type="submit"
+                                    ui-sref="feePaymentTypeSetup.detail({id:feePaymentTypeSetup.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="feePaymentTypeSetup.edit({id:feePaymentTypeSetup.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                            </button>
+                            <button type="submit"
+                                    ng-click="delete(feePaymentTypeSetup.id)"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <nav>
+                    <ul class="pagination">
+                        <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                        <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                        <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                        <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                        <li class="active"><a>{{page + 1}}</a></li>
+                        <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                        <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                        <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                        <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+

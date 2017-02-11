@@ -1,0 +1,324 @@
+<div class="col-sm-12 no_padding content-body common-list">
+    <h2 translate="stepApp.hrEmployeeInfo.home.title">HrEmployeeInfos</h2>
+    <!--<jh-alert></jh-alert>-->
+    <div class="col-sm-12 padding-tb">
+        <div class="col-md-8 col-xs-12 no_padding">
+            <div class="col-md-6 no_padding">
+                <b><!--{{ (hrEmployeeInfos | filter:q).length }} Results found--> <span
+                    translate="global.home.searchhere">Search Here :</span></b>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-search"
+                                                                         aria-hidden="true"></i></span>
+                    <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <b><span translate="global.home.itemperpage">Items per page:</span></b>
+                <div class="input-group">
+                    <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <span>Birth Dates:</span>
+            <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.minDate"
+                   datepicker-options="calendar.dateOptions" close-text="Close" max-date="maxDate"
+                   ng-click="calendar.open($event, 'minDate')" ng-model="miscParamDto.minDate"
+                   name="minDate" id="minDate">
+            <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.maxDate"
+                   datepicker-options="calendar.dateOptions" close-text="Close" min-date="minDate"
+                   ng-click="calendar.open($event, 'maxDate')" ng-model="miscParamDto.maxDate"
+                   name="maxDate" id="maxDate">
+            <button type="button" ng-click="searchEmployeeByDateRange(miscParamDto)" class="btn btn-info btn-sm">Search</button>
+            <button type="button" ng-click="loadAll()" class="btn btn-info btn-sm">Reset</button>
+            {{dateRangeSearchMsg}}
+        </div>
+    </div>
+    <div class="col-sm-12 no_padding table-responsive">
+        <table class="table table-striped ">
+            <thead>
+            <tr>
+                <th><span translate="global.form.serial">Serial No</span></th>
+                <th><span translate="stepApp.hrEmployeeInfo.fullName">FullName</span></th>
+                <th></th>
+                <th><span translate="stepApp.hrEmployeeInfo.designationInfo">designationInfo</span></th>
+                <th><span translate="stepApp.hrEmployeeInfo.birthDate">BirthDate</span></th>
+                <th><span translate="stepApp.hrEmployeeInfo.emailAddress">EmailAddress</span></th>
+                <th><span translate="stepApp.hrEmployeeInfo.mobileNumber">MobileNumber</span></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- ng-repeat="hrEmployeeInfo in hrEmployeeInfos | filter: dateRangeFilter('birthDate', startDate, endDate)" -->
+            <tr ng-animate="'animate'"
+                dir-paginate="hrEmployeeInfo in hrEmployeeInfos | filter:q | itemsPerPage: pageSize track by hrEmployeeInfo.id"
+                current-page="currentPage">
+                <td><a ui-sref="hrEmployeeInfo.detail({id:hrEmployeeInfo.id})">{{$index + 1}}</a></td>
+                <td>{{hrEmployeeInfo.fullName}}<br /> [{{hrEmployeeInfo.employeeId}}]
+                </td>
+                <td>
+                    <a ng-if="hrEmployeeInfo.empPhotoContentType" ng-click="previewImage(hrEmployeeInfo)">
+                        <img dyna-src="{{hrEmployeeInfo.fileContentUrl}}" class="img-thumbnail" width="60" height="60"/>
+                    </a>
+                </td>
+                <td>
+                    <a ui-sref="hrDesignationSetup.detail({id:hrEmployeeInfo.designationInfo.id})">{{hrEmployeeInfo.designationInfo.designationInfo.designationName}}</a>
+                </td>
+                <td>{{hrEmployeeInfo.birthDate | date:'mediumDate'}}</td>
+                <td>{{hrEmployeeInfo.emailAddress}}</td>
+                <td>{{hrEmployeeInfo.mobileNumber}}</td>
+                <td class="text-right">
+                    <button type="button" ng-click="viewShortPDA(hrEmployeeInfo)" class="btn btn-info btn-sm"
+                            translate="global.menu.entities.shortPDA">Short PDA
+                    </button>
+                    <button ng-if="hrEmployeeInfo.logStatus != 5" type="button"
+                            ng-click="activateDeactivateConfirmation('deactive',hrEmployeeInfo)"
+                            class="btn btn-danger btn-sm" translate="global.menu.entities.deactive">
+                        Deactivate
+                    </button>
+                    <button ng-if="hrEmployeeInfo.logStatus == 5" type="button"
+                            ng-click="activateDeactivateConfirmation('activate',hrEmployeeInfo)"
+                            class="btn btn-primary btn-sm" translate="global.menu.entities.activate">
+                        Activate
+                    </button>
+                    <button type="button" ng-hide="true"
+                            ui-sref="hrEmployeeInfo.edit({id:hrEmployeeInfo.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                        translate="entity.action.edit"> Edit</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <nav>
+        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                 template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+    </nav>
+</div>
+<div class="modal fade" id="employeeShortPDAModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                        ng-click="clear()">&times;</button>
+                <h4 class="modal-title">Employee Short PDA </h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th translate="entity.detail.field">Field</th>
+                            <th translate="entity.detail.value">Value</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!--
+                        <tr>
+                            <td colspan="2" align="center">
+                                <img dyna-src="{{hrEmployeeInfo.fileContentUrl}}" class="img-thumbnail"
+                                     style="width:150px; height:200px"/>
+                            </td>
+                        </tr> -->
+                        <tr>
+                            <td>
+                                <span translate="stepApp.hrEmployeeInfo.fullName">FullName</span>
+                            </td>
+                            <td>
+                                <span class="form-control-static">{{hrEmployeeInfo.fullName}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span translate="stepApp.hrEmployeeInfo.employeeId">employeeId</span>
+                            </td>
+                            <td>
+                                <span class="form-control-static">{{hrEmployeeInfo.employeeId}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span translate="stepApp.hrEmployeeInfo.departmentInfo">departmentInfo</span>
+                            </td>
+                            <td>
+                                <span class="form-control-static">{{hrEmployeeInfo.departmentInfo.departmentInfo.departmentName}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span translate="stepApp.hrEmployeeInfo.designationInfo">designationInfo</span>
+                            </td>
+                            <td>
+                                <span class="form-control-static">{{hrEmployeeInfo.designationInfo.designationInfo.designationName}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span translate="stepApp.hrEmployeeInfo.user">user</span>
+                            </td>
+                            <td>
+                                <span class="form-control-static">{{hrEmployeeInfo.user.login}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span translate="stepApp.hrEmployeeInfo.workArea">workArea</span>
+                            </td>
+                            <td>
+                                <span class="form-control-static">{{hrEmployeeInfo.workArea.typeName}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span translate="stepApp.hrEmployeeInfo.workAreaDtl">workAreaDtl</span>
+                            </td>
+                            <td>
+                                <span class="form-control-static">{{hrEmployeeInfo.workAreaDtl.name}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span translate="stepApp.hrEmployeeInfo.employeeType">employeeType</span>
+                            </td>
+                            <td>
+                                <span class="form-control-static">{{hrEmployeeInfo.employeeType.typeName}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span translate="stepApp.hrEmployeeInfo.emailAddress">EmailAddress</span>
+                            </td>
+                            <td>
+                                <span class="form-control-static">{{hrEmployeeInfo.emailAddress}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span translate="stepApp.hrEmployeeInfo.mobileNumber">MobileNumber</span>
+                            </td>
+                            <td>
+                                <span class="form-control-static">{{hrEmployeeInfo.mobileNumber}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span translate="stepApp.hrEmployeeInfo.birthDate">BirthDate</span>
+                            </td>
+                            <td>
+                                <span
+                                    class="form-control-static">{{hrEmployeeInfo.birthDate | date:'mediumDate'}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span translate="stepApp.hrEmployeeInfo.dateOfJoining">dateOfJoining</span>
+                            </td>
+                            <td>
+                                <span
+                                    class="form-control-static">{{hrEmployeeInfo.dateOfJoining | date:'mediumDate'}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>PRD Date</span>
+                            </td>
+                            <td>
+                                <span class="form-control-static">{{hrEmployeeInfo.prlDate | date:'mediumDate'}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>Retirement Date</span>
+                            </td>
+                            <td>
+                                <span
+                                    class="form-control-static">{{hrEmployeeInfo.retirementDate | date:'mediumDate'}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span translate="stepApp.hrEmployeeInfo.apointmentGoDate">ApointmentGoDate</span>
+                            </td>
+                            <td>
+                                <span class="form-control-static">{{hrEmployeeInfo.apointmentGoDate | date:'mediumDate'}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span translate="stepApp.hrEmployeeInfo.presentId">PresentId</span>
+                            </td>
+                            <td>
+                                <span class="form-control-static">{{hrEmployeeInfo.presentId}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span translate="stepApp.hrEmployeeInfo.nationalId">NationalId</span>
+                            </td>
+                            <td>
+                                <span class="form-control-static">{{hrEmployeeInfo.nationalId}}</span>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.close">Close</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal animated bounceInUp" id="employeeActivateDeactiveConfForm">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="approvalForm" ng-submit="activateDeactivateEmployee(approvalObj)">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                            ng-click="clearConf()">&times;</button>
+                    <h4 class="modal-title" translate="entity.delete.title">Account Activation/Deactivation of
+                        {{approvalObj.entityName}}</h4>
+                </div>
+                <div class="modal-body">
+                    <div ng-if="approvalObj.actionType == 'activate'">
+                        <p>Are you sure you want to activate the employee ?</p>
+                    </div>
+                    <div ng-if="approvalObj.actionType == 'deactive'">
+                        <p>Are you sure you want to deactivate the employee ?</p>
+                    </div>
+                    <div ng-if="approvalObj.actionType == 'deactive'">
+                        <label class="control-label" for="field_logcomments">Comments</label>
+                        <textarea class="form-control" name="logComments" id="field_logcomments"
+                                  ng-model="approvalObj.logComments"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clearConf()">
+                        <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.close">close</span>
+                    </button>
+                    <span ng-if="approvalObj.actionType == 'activate'">
+                        <button type="submit" ng-disabled="approvalForm.$invalid" class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                            translate="stepApp.hrmHome.buttonTextActivate">Activate</span>
+                        </button>
+                    </span>
+                    <span ng-if="approvalObj.actionType == 'deactive'">
+                        <button type="submit" ng-disabled="approvalForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                            translate="stepApp.hrmHome.buttonTextDeactivate">Deactivate</span>
+                        </button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

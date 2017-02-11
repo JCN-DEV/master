@@ -1,0 +1,127 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="panel-header">
+       <h4 class="panel-heading" id="myCmsSemesterLabel" translate="stepApp.cmsSemester.home.createOrEditLabel">Create or edit a CmsSemester</h4>
+    </div>
+    <div class="panel-body">
+        <!--<jh-alert-error></jh-alert-error>-->
+<!--
+        <div ng-show="message != '' " class="alert alert-danger">{{message}}</div>
+-->
+        <!--<div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="cmsSemester.id" readonly />
+        </div>-->
+        <div class="form-group col-md-6">
+            <label translate="stepApp.cmsSemester.cmsCurriculum" for="field_cmsCurriculum">cmsCurriculum</label>
+            <select ng-change="enableCodeAndName()" class="form-control" id="field_cmsCurriculum" name="cmsCurriculum" ng-model="cmsSemester.cmsCurriculum" ng-options="cmsCurriculum as cmsCurriculum.name for cmsCurriculum in cmscurriculums | filter:cmsCurriculum.status='true'">
+                <option value="">Select</option>
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+            <label ng-show="!isDiploma" class="control-label" translate="stepApp.cmsSemester.code" for="field_code">Code</label>
+            <label ng-show="isDiploma" class="control-label" translate="stepApp.cmsSemester.yearCode" for="field_code">Code</label>
+            <input type="text" class="form-control" name="code" id="field_code"
+                    ng-model="cmsSemester.code" ng-blur="checkSemesterUniqueness()"
+                     />
+<!--            <div ng-show="editForm.code.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.code.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>-->
+        </div>
+        <div class="form-group col-md-6" ng-show="!isDiploma">
+            <label class="control-label" translate="stepApp.cmsSemester.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                    ng-model="cmsSemester.name" ng-blur="checkSemesterUniqueness()"
+                     />
+            <!--<div ng-show="editForm.name.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>-->
+            <div ng-show="uniqueError">
+                <p class="alert alert-danger"
+                   ng-show="uniqueError">
+                    The Syllabus, Subject Code and Subject name combination should be unique.
+                </p>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label class="control-label" translate="stepApp.cmsSemester.year" for="field_year">Year</label>
+            <input type="number" class="form-control" name="year" id="field_year" min="0"
+                    ng-model="cmsSemester.year"
+                    required />
+            <div ng-show="editForm.year.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.year.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.year.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label class="control-label" translate="stepApp.cmsSemester.duration" for="field_duration">Duration</label>
+            <input type="number" class="form-control" name="duration" id="field_duration" min="0"
+                    ng-model="cmsSemester.duration"
+                    required />
+            <div ng-show="editForm.duration.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.duration.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.duration.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label class="control-label" translate="stepApp.cmsSemester.description" for="field_description">Description</label>
+            <textarea  class="form-control" name="description" id="field_description"
+                    ng-model="cmsSemester.description"
+                     />
+        </div>
+       <!-- <div class="form-group col-sm-1">
+            <label class="control-label" translate="stepApp.cmsSemester.status" for="field_status">Status</label>
+            <input type="checkbox" class="form-control" name="status" id="field_status"
+                    ng-model="cmsSemester.status"
+                     />
+        </div>-->
+        <div class="col-md-6 col-sm-12 col-xs-12">
+            <div class="form-group">
+                <label class="control-label" translate="stepApp.cmsCurriculum.status" >Status</label>
+
+                <div class="input-margin">
+                    <label  class="radio-inline"><input type="radio" name="status" value="true" checked="true" ng-checked="cmsSemester.status == true" ng-model="cmsCurriculum.status"><span translate="entity.action.activate">Activate</span></label>
+                    <label class="radio-inline"><input type="radio" name="status"  value="false" ng-checked="cmsSemester.status == false" ng-model="cmsSemester.status"><span translate="entity.action.deactivate">Deactivate</span></label>
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+    <div class="modal-footer">
+        <button type="submit"
+                onclick="window.history.back()"
+                class="btn btn-info">
+            <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+        </button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.clear">Clear</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving || uniqueError" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

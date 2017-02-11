@@ -1,0 +1,95 @@
+
+<div class="col-md-12 common-table">
+    <h2><span translate="stepApp.mpoVacancyRole.detail.title">MpoVacancyRole</span></h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <!--<thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>-->
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="stepApp.mpoVacancyRole.vacancyRoleType">VacancyRoleType</span>
+                </td>
+                <td>
+                    <span class="form-control-static" translate="{{'stepApp.VacancyRoleType.' + mpoVacancyRole.vacancyRoleType}}">{{mpoVacancyRole.vacancyRoleType}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.mpoVacancyRole.totalVacancy">TotalVacancy</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{mpoVacancyRole.totalVacancy}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.mpoVacancyRole.cmsCurriculum">cmsCurriculum</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="cmsCurriculum.detail({id:mpoVacancyRole.cmsCurriculum.id})">{{mpoVacancyRole.cmsCurriculum.name}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.mpoVacancyRole.crateDate">CrateDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{mpoVacancyRole.crateDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.mpoVacancyRole.updateDate">UpdateDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{mpoVacancyRole.updateDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <!--<tr>
+                <td>
+                    <span translate="stepApp.mpoVacancyRole.status">Status</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{mpoVacancyRole.status}}</span>
+                </td>
+            </tr>-->
+            <tr ng-if="mpoVacancyRole.vacancyRoleType === 'Special'">
+                <td>
+                    <span translate="stepApp.mpoVacancyRole.totalTrade">TotalTrade</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{mpoVacancyRole.totalTrade}}</span>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-body no_padding admin-info" ng-repeat="mpoVacancyRoleDesgnation in mpoVacancyRoleDesgnations">
+
+        <div class="form-group col-md-4">
+            <label translate="stepApp.mpoVacancyRoleDesgnations.instEmplDesignation" for="field_instEmplDesignation">instEmplDesignation</label>&nbsp;:
+            <label>{{mpoVacancyRoleDesgnation.instEmplDesignation.name}}</label>
+        </div>
+        <div class="form-group col-md-4">
+            <label translate="stepApp.mpoVacancyRoleDesgnations.cmsSubject" for="field_cmsSubject">cmsSubject</label>&nbsp;:
+            <label>{{mpoVacancyRoleDesgnation.cmsSubject.name}}</label>
+
+        </div>
+        <div class="form-group col-md-4">
+            <label translate="stepApp.mpoVacancyRoleDesgnations.totalPost" for="field_totalPost">TotalPost</label>&nbsp;:
+            <label>{{mpoVacancyRoleDesgnation.totalPost}}</label>
+
+        </div>
+    </div>
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info no-print">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

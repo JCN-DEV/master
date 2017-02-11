@@ -1,0 +1,107 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div class="modal-header">
+<!--
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"                 ng-click="clear()">&times;</button>
+-->
+        <h4 class="modal-title" id="myAlmEmpLeaveBalanceLabel" translate="stepApp.almEmpLeaveBalance.home.createOrEditLabel">Create or edit a AlmEmpLeaveBalance</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.almEmpLeaveBalance.employeeInfo" for="field_employeeInfo">employeeInfo</label>
+                <select class="form-control" id="field_employeeInfo" name="employeeInfo" ng-model="almEmpLeaveBalance.employeeInfo" ng-options="HrEmployeeInfo as HrEmployeeInfo.fullName for HrEmployeeInfo in hremployeeinfos track by HrEmployeeInfo.id">
+                    <option value=""></option>
+                </select>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.almEmpLeaveBalance.almLeaveType" for="field_almLeaveType">almLeaveType</label>
+                <select class="form-control" id="field_almLeaveType" name="almLeaveType" ng-model="almEmpLeaveBalance.almLeaveType" ng-options="AlmLeaveType as AlmLeaveType.leaveTypeName for AlmLeaveType in almleavetype track by AlmLeaveType.id">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.almEmpLeaveBalance.yearOpenDate" for="field_yearOpenDate">YearOpenDate</label>
+                <input type="date" class="form-control" name="yearOpenDate" id="field_yearOpenDate"
+                       ng-model="almEmpLeaveBalance.yearOpenDate"
+                    />
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.almEmpLeaveBalance.year" for="field_year">Year</label>
+                <input type="number" class="form-control" name="year" id="field_year"
+                       ng-model="almEmpLeaveBalance.year"
+                    />
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.almEmpLeaveBalance.leaveEarned" for="field_leaveEarned">LeaveEarned</label>
+                <input type="number" class="form-control" name="leaveEarned" id="field_leaveEarned"
+                       ng-model="almEmpLeaveBalance.leaveEarned"
+                    />
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.almEmpLeaveBalance.leaveTaken" for="field_leaveTaken">LeaveTaken</label>
+                <input type="number" class="form-control" name="leaveTaken" id="field_leaveTaken"
+                       ng-model="almEmpLeaveBalance.leaveTaken"
+                    />
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.almEmpLeaveBalance.leaveForwarded" for="field_leaveForwarded">LeaveForwarded</label>
+                <input type="number" class="form-control" name="leaveForwarded" id="field_leaveForwarded"
+                       ng-model="almEmpLeaveBalance.leaveForwarded"
+                    />
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.almEmpLeaveBalance.attendanceLeave" for="field_attendanceLeave">AttendanceLeave</label>
+                <input type="number" class="form-control" name="attendanceLeave" id="field_attendanceLeave"
+                       ng-model="almEmpLeaveBalance.attendanceLeave"
+                    />
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.almEmpLeaveBalance.leaveOnApply" for="field_leaveOnApply">LeaveOnApply</label>
+                <input type="number" class="form-control" name="leaveOnApply" id="field_leaveOnApply"
+                       ng-model="almEmpLeaveBalance.leaveOnApply"
+                    />
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.almEmpLeaveBalance.leaveBalance" for="field_leaveBalance">LeaveBalance</label>
+                <input type="number" class="form-control" name="leaveBalance" id="field_leaveBalance"
+                       ng-model="almEmpLeaveBalance.leaveBalance"
+                    />
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.almEmpLeaveBalance.activeStatus" for="field_activeStatus">ActiveStatus</label>
+           <span class="form-control">
+                    <input type="radio" data-ng-model="almEmpLeaveBalance.activeStatus" name="activeStatus" data-ng-value="true">&nbsp;Active&nbsp;|&nbsp;
+                    <input type="radio" data-ng-model="almEmpLeaveBalance.activeStatus" name="activeStatus" data-ng-value="false">&nbsp;Inactive
+                </span>
+            </div>
+
+
+
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

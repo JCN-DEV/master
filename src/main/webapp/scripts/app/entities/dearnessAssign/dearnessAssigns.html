@@ -1,0 +1,127 @@
+<div class="col-md-3">
+    <ng-include src="'scripts/app/account/mpo/mpo-left-menu.html'"></ng-include>
+</div>
+
+<div class="col-md-9 lbl-dash">
+    <div class="col-md-12 common-list no_padding">
+    <h2 class="heading_center" translate="stepApp.dearnessAssign.home.title">DearnessAssigns</h2>
+        <div class="col-md-12 padding-bt">
+            <div class="col-xs-4 no_padding">
+                <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+            </div>
+            <div class="col-xs-4">
+                <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+            </div>
+            <div class="col-xs-4 no_padding text-right ">
+                <button class="btn btn-primary " ui-sref="dearnessAssign.new" >
+                    <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.dearnessAssign.home.createLabel">Create a new DearnessAssign</span>
+                </button>
+            </div>
+        </div>
+    <!--<div class="col-sm-12  padding-tb no-print">
+            <div class="col-md-8 no_padding ">
+                <div class="col-md-6 no_padding">
+                    <b> <span translate="global.home.searchhere"></span>:</b>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1"><i class="fa fa-search" aria-hidden="true"></i></span>
+                        <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <b><span translate="global.home.itemperpage"></span>:</b>
+                    <div class="input-group">
+                        <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 no_padding text-right btn-top">
+                <button class="btn btn-primary " ui-sref="dearnessAssign.new" style="margin: 10px 0px">
+                    <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.dearnessAssign.home.createLabel">Create a new DearnessAssign</span>
+                </button>
+            </div>
+        </div>-->
+
+    <div class="modal fade" id="deleteDearnessAssignConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(dearnessAssign.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p translate="stepApp.dearnessAssign.delete.question" translate-values="{id: '{{dearnessAssign.id}}'}">Are you sure you want to delete this DearnessAssign?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class=" col-md-12 no_padding table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="global.form.serial">Serial</th>
+                    <th translate="global.field.id">ID</th>
+                    <th translate="stepApp.dearnessAssign.amount">Amount</th>
+                    <th translate="stepApp.dearnessAssign.status">Status</th>
+                    <!--<th translate="stepApp.dearnessAssign.createBy">CreateBy</th>
+                    <th translate="stepApp.dearnessAssign.createDate">CreateDate</th>
+                    <th translate="stepApp.dearnessAssign.updateBy">UpdateBy</th>
+                    <th translate="stepApp.dearnessAssign.updateDate">UpdateDate</th>-->
+                    <th translate="stepApp.dearnessAssign.remarks">Remarks</th>
+                    <!--<th translate="stepApp.dearnessAssign.PayCodeSerial">PayCodeSerial</th>-->
+                    <!--<th translate="stepApp.dearnessAssign.payCode">payCode</th>-->
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr dir-paginate="dearnessAssign in dearnessAssigns | filter:q | itemsPerPage: pageSize track by dearnessAssign.id" current-page="currentPage">
+                    <td>{{$index+1}}</td>
+                <td><a ui-sref="dearnessAssign.detail({id:dearnessAssign.id})">{{dearnessAssign.id}}</a></td>
+                    <td>{{dearnessAssign.amount}}</td>
+                    <td>{{dearnessAssign.status ?  'Active' : 'Inactive'}}</td>
+                    <!--<td>{{dearnessAssign.createBy}}</td>
+                        <td>{{dearnessAssign.createDate | date:'mediumDate'}}</td>
+                    <td>{{dearnessAssign.updateBy}}</td>
+                        <td>{{dearnessAssign.updateDate | date:'mediumDate'}}</td>-->
+                    <td>{{dearnessAssign.remarks}}</td>
+                    <!--<td>{{dearnessAssign.PayCodeSerial}}</td>-->
+                    <!--<td>-->
+                        <!--<a ui-sref="PayScale.detail({id:dearnessAssign.payCode.id})">{{dearnessAssign.payCode.code}}</a>-->
+                    <!--</td>-->
+                    <td class="text-right no-print">
+                        <button type="submit"
+                                ui-sref="dearnessAssign.detail({id:dearnessAssign.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="dearnessAssign.edit({id:dearnessAssign.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="delete(dearnessAssign.id)"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav class="no-print">
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+</div>
+</div>

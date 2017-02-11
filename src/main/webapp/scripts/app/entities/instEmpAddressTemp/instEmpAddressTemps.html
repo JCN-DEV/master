@@ -1,0 +1,119 @@
+<div>
+    <h2 translate="stepApp.instEmpAddressTemp.home.title">InstEmpAddressTemps</h2>
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" ui-sref="instEmpAddressTemp.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="stepApp.instEmpAddressTemp.home.createLabel">Create a new InstEmpAddressTemp</span>
+                </button>
+            </div>
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a InstEmpAddressTemp</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteInstEmpAddressTempConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(instEmpAddressTemp.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p translate="stepApp.instEmpAddressTemp.delete.question" translate-values="{id: '{{instEmpAddressTemp.id}}'}">Are you sure you want to delete this InstEmpAddressTemp?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="global.field.id">ID</th>
+                    <th translate="stepApp.instEmpAddressTemp.villageOrHouse">VillageOrHouse</th>
+                    <th translate="stepApp.instEmpAddressTemp.roadBlockSector">RoadBlockSector</th>
+                    <th translate="stepApp.instEmpAddressTemp.post">Post</th>
+                    <th translate="stepApp.instEmpAddressTemp.prevVillageOrHouse">PrevVillageOrHouse</th>
+                    <th translate="stepApp.instEmpAddressTemp.prevRoadBlockSector">PrevRoadBlockSector</th>
+                    <th translate="stepApp.instEmpAddressTemp.prevPost">PrevPost</th>
+                    <th translate="stepApp.instEmpAddressTemp.status">Status</th>
+                    <th translate="stepApp.instEmpAddressTemp.instEmployee">instEmployee</th>
+                    <th translate="stepApp.instEmpAddressTemp.upazila">upazila</th>
+                    <th translate="stepApp.instEmpAddressTemp.prevUpazila">prevUpazila</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="instEmpAddressTemp in instEmpAddressTemps track by instEmpAddressTemp.id">
+                    <td><a ui-sref="instEmpAddressTemp.detail({id:instEmpAddressTemp.id})">{{instEmpAddressTemp.id}}</a></td>
+                    <td>{{instEmpAddressTemp.villageOrHouse}}</td>
+                    <td>{{instEmpAddressTemp.roadBlockSector}}</td>
+                    <td>{{instEmpAddressTemp.post}}</td>
+                    <td>{{instEmpAddressTemp.prevVillageOrHouse}}</td>
+                    <td>{{instEmpAddressTemp.prevRoadBlockSector}}</td>
+                    <td>{{instEmpAddressTemp.prevPost}}</td>
+                    <td>{{instEmpAddressTemp.status}}</td>
+                    <td>
+                        <a ui-sref="instEmployee.detail({id:instEmpAddressTemp.instEmployee.id})">{{instEmpAddressTemp.instEmployee.name}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="upazila.detail({id:instEmpAddressTemp.upazila.id})">{{instEmpAddressTemp.upazila.name}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="upazila.detail({id:instEmpAddressTemp.prevUpazila.id})">{{instEmpAddressTemp.prevUpazila.name}}</a>
+                    </td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="instEmpAddressTemp.detail({id:instEmpAddressTemp.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="instEmpAddressTemp.edit({id:instEmpAddressTemp.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="delete(instEmpAddressTemp.id)"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pagination">
+                <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                <li class="active"><a>{{page + 1}}</a></li>
+                <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>

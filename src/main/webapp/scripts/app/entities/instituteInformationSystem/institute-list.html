@@ -1,0 +1,109 @@
+<div class="col-sm-12 common-list">
+    <h2 ng-show="location=='/institute-info/pending-institute-list'" class="header-margin"
+        translate="stepApp.instGenInfo.home.institutePList">InstGenInfos</h2>
+
+    <h2 ng-show="location=='/institute-info/institute-list'" class="header-margin"
+        translate="stepApp.instGenInfo.home.instituteList">InstGenInfos</h2>
+    <div class="col-md-12 padding-tb no-print">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+        <div class="col-xs-4 no_padding text-right ">
+
+        </div>
+    </div>
+
+
+
+    <!--<div class="col-sm-12 padding-tb no_padding no-print">
+        <div class="col-md-4 no_padding">
+            <b><span translate="global.home.searchhere">Search Here :</span></b>
+            <div class="input-group">
+                <span class="input-group-addon dlbtn" id="basic-addon1"><i class="fa fa-search"></i></span>
+                <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+            </div>
+        </div>
+        <div class="col-md-4 no_padding">
+            <b><span translate="global.home.itemperpage">Items per page:</span></b>
+            <div class="input-group">
+                <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+            </div>
+        </div>
+    </div>-->
+    <div class="col-sm-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th class="text-center" translate="global.form.serial">serial</th>
+                <th translate="stepApp.instGenInfo.code">Code</th>
+                <th translate="stepApp.instGenInfo.name">Name</th>
+                <th ng-show="showapprove" translate="stepApp.instGenInfo.approvedDate">Approved Date</th>
+                <th ng-show="!showapprove" translate="stepApp.instGenInfo.submittedDate">submitted Date</th>
+                <th translate="stepApp.instGenInfo.status">Status</th>
+                <th class="text-right no-print" translate="stepApp.instGenInfo.action" ng-hide="hideofAction">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--for pagination and real time search  dir-paginate="instGenInfo in instGenInfos | filter:q | itemsPerPage: pageSize" current-page="currentPage" -->
+            <tr ng-animate="'animate'" dir-paginate="instGenInfo in instGenInfos | filter:q | itemsPerPage: pageSize"
+                current-page="currentPage">
+                <td class="text-center">{{pageSize*(currentPage-1)+$index+1}}</td>
+                <td>{{instGenInfo.code}}</td>
+                <td>{{instGenInfo.name}}</td>
+                <td><span>{{instGenInfo.submitedDate | date:'medium'}}</span></td>
+                <td>{{(instGenInfo.status === 0 ? "Insert" : (instGenInfo.status === 1 ? "Approved" :(instGenInfo.status
+                    === -1 ? "Rejected":"Update")))}}
+                </td>
+                <td class="text-right no-print" ng-hide="instGenInfo.status== -1 || instGenInfo.status==1">
+                    <button type="submit"
+                            has-any-authority="ROLE_ADMIN"
+                            ui-sref="instituteInfo.approve({id: instGenInfo.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-check"></span>&nbsp;<span
+                        translate="entity.action.viewNapprove" ui-sref-active="active">Approve</span>
+                    </button>
+                    <button ng-if="instGenInfo.status == 0 || instGenInfo.status == null" type="submit"
+                            ui-sref="instituteInfo.generalInfo.reject({id:instGenInfo.id})"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                        translate="entity.action.reject" ui-sref-active="active">Reject</span>
+                    </button>
+                </td>
+                <!--<td class="text-right no-print"  ng-show="instGenInfo.status==-1 || instGenInfo.status==1">-->
+                <td class="text-right no-print"  ng-show="instGenInfo.status==-1 || instGenInfo.status==1">
+                    <button type="submit"
+                            has-any-authority="ROLE_ADMIN"
+                            ui-sref="instituteInfo.view({id: instGenInfo.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-check"></span>&nbsp;<span
+                        translate="entity.action.view"></span>
+                    </button>
+                    <!--<button type="submit"
+                       ui-sref="instituteInfo.generalInfo.reject({id:instGenInfo.id})"
+                       class="btn btn-danger btn-sm">
+                       <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                       translate="entity.action.delete" ui-sref-active="active">Delete</span>
+                       </button>-->
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <!--for pagination and real time search add bellow nav tab -->
+        <nav class="no-print">
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                     template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+    <div class="col-md-12 no-print text-right">
+        <button type="submit" class="btn btn-sm btn-primary no-print" onclick="window.print()" >
+            <i class="fa fa-print"></i>&nbsp;
+            <span translate="entity.action.print" >Print</span>
+        </button>
+    </div>
+    <div style="color:#fff" ng-if="currentPageNumber" class="col-md-12 text-center">
+        {{currentPageNumber}}
+    </div>
+</div>

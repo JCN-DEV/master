@@ -1,0 +1,403 @@
+<div class="col-sm-12 common-table">
+    <h2 translate="stepApp.instEmployee.detail.title">Employee's PersonalInformation</span></h2>
+    <div class="col-sm-12 padding-tb text-right no-print">
+        <button ng-show="hideAddButton"
+                ui-sref="employeeInfo.personalInfo.edit({id:employeeInfo.id ,allInfo:allInfo})"
+                class="btn btn-primary btn-sm">
+            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.add"> Add</span>
+        </button>
+        <button type="submit" ng-if="instEmployee.mpoAppStatus < 3"
+                ui-sref="employeeInfo.personalInfo.edit({id:employeeInfo.id ,allInfo:allInfo})"
+                class="btn btn-primary btn-sm">
+            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit">Edit</span>
+        </button>
+    </div>
+
+    <div class="col-sm-12 no_padding">
+        <div class="col-sm-12 no_padding">
+            <h3 translate="stepApp.instEmployee.personalInfo">Personal Information</h3>
+            <div class="col-sm-9 no_padding">
+                <table class="table table-striped">
+                    <thead></thead>
+                    <tbody>
+                    <tr>
+                        <td translate="stepApp.instEmployee.fatherName"></td>
+                        <td>{{instEmployee.fatherName}}</td>
+                        <td translate="stepApp.instEmployee.motherName"></td>
+                        <td>{{instEmployee.motherName}}</td>
+                    </tr>
+                    <tr>
+                        <td translate="stepApp.instEmployee.gender"></td>
+                        <td>{{instEmployee.gender}}</td>
+                        <td translate="stepApp.instEmployee.dob"></td>
+                        <td>{{instEmployee.dob}}</td>
+                    </tr>
+                    <tr>
+                        <td translate="stepApp.instEmployee.level"></td>
+                        <td>{{instEmployee.level}}</td>
+                        <td translate="stepApp.instEmployee.quota"></td>
+                        <td>{{instEmployee.quota}}</td>
+                    </tr>
+                    <tr>
+                        <td translate="stepApp.instEmployee.maritalStatus"></td>
+                        <td>{{instEmployee.maritalStatus}}</td>
+                        <td translate="stepApp.instEmployee.religion"></td>
+                        <td>{{instEmployee.religion.name}}</td>
+                    </tr>
+                    <tr>
+                        <td translate="stepApp.instEmployee.bloodGroup"></td>
+                        <td>
+                            <span ng-if="instEmployee.bloodGroup == 'A_POSITIVE'">A(+)</span>
+                            <span ng-if="instEmployee.bloodGroup == 'A_NEGATIVE'">A(-)</span>
+                            <span ng-if="instEmployee.bloodGroup == 'B_POSITIVE'">B(+)</span>
+                            <span ng-if="instEmployee.bloodGroup == 'B_NEGATIVE'">B(-)</span>
+                            <span ng-if="instEmployee.bloodGroup == 'O_POSITIVE'">O(+)</span>
+                            <span ng-if="instEmployee.bloodGroup == 'O_NEGATIVE'">O(-)</span>
+                            <span ng-if="instEmployee.bloodGroup == 'AB_POSITIVE'">AB(+)</span>
+                            <span ng-if="instEmployee.bloodGroup == 'AB_NEGATIVE'">AB(-)</span>
+                        </td>
+                        <td translate="stepApp.instEmployee.nationality"></td>
+                        <td>{{instEmployee.nationality}}</td>
+                    </tr>
+                    <tr>
+                        <td translate="stepApp.instEmployee.tin"></td>
+                        <td>{{instEmployee.tin}}</td>
+                        <td translate="stepApp.instEmployee.birthCertNo"></td>
+                        <td>{{instEmployee.birthCertNo}}</td>
+                    </tr>
+                    <tr>
+                        <td translate="stepApp.instEmployee.birthCertImage"></td>
+                        <td>
+                            <a href="javascript:void(0)"
+                               ng-click="previewBirthImage(instEmployee.birthCertImage, instEmployee.birthCertImageContentType,instEmployee.name)">
+                                <span class="form-control-static">{{instEmployee.birthCertNoName}}</span>
+                            </a>
+                        </td>
+                        <td translate="stepApp.instEmployee.nid"></td>
+                        <td>{{instEmployee.nid}}</td>
+                    </tr>
+                    <tr>
+                        <td translate="stepApp.instEmployee.nidImage"></td>
+                        <td colspan="3">
+                            <a href="javascript:void(0)"
+                               ng-click="previewNidImage(instEmployee.nidImage, instEmployee.nidImageContentType,instEmployee.name)">
+                                <span class="form-control-static">{{instEmployee.nidImageName}}</span>
+                            </a>
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-sm-3 no_padding">
+                <div class="border-img">
+                    <div class="img-thumb" ng-hide="instEmployee.image ==null">
+                        <img ng-src="{{url}}" alt="STUDENT IMAGE">
+                    </div>
+                    <div ng-hide="instEmployee.image !=null" class="img-thumb">
+                        <img src="/assets/images/admin.png"/>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 no_padding" ng-show="hideRegistration">
+            <h3 translate="stepApp.instEmployee.instituteInfo">Institute Information</h3>
+            <table class="table table-striped">
+                <tr>
+                    <th>
+                        <span translate="stepApp.instEmployee.institute">Institute</span>
+                    </th>
+                    <td>
+                        <span class="form-control-static">{{instEmployee.institute.name}}</span>
+                    </td>
+                    <th>
+                        <span translate="stepApp.instEmployee.upazila">Upazila</span>
+                    </th>
+                    <td>
+                        <span class="form-control-static">{{instEmployee.institute.upazila.name}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span translate="stepApp.instEmployee.district">District</span>
+                    </th>
+                    <td>
+                        <span class="form-control-static">{{instEmployee.institute.upazila.district.name}}</span>
+                    </td>
+                    <th>
+                        <span translate="stepApp.instEmployee.division">Division</span>
+                    </th>
+                    <td>
+                        <span
+                            class="form-control-static">{{instEmployee.institute.upazila.district.division.name}}</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-sm-12 no_padding" ng-show="hideRegistration">
+            <h3 translate="stepApp.instEmployee.registeredInfo">registeredInfo</h3>
+            <table class="table table-striped">
+                <tr>
+                    <th>
+                        <span
+                            translate="stepApp.instEmployee.registeredCertificateSubject">registeredCertificateSubject</span>
+                    </th>
+                    <td>
+                        <span class="form-control-static">{{instEmployee.registeredCertificateSubject}}</span>
+                    </td>
+                    <th>
+                        <span translate="stepApp.instEmployee.registrationExamYear">registrationExamYear</span>
+                    </th>
+                    <td>
+                        <span class="form-control-static">{{instEmployee.registrationExamYear}}</span>
+                    </td>
+
+
+                </tr>
+                <tr>
+                    <th>
+                        <span translate="stepApp.instEmployee.registeredCertificateNo">registeredCertificateNo</span>
+                    </th>
+                    <td>
+                        <span class="form-control-static">{{instEmployee.registeredCertificateNo}}</span>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+        <div class="col-sm-12 no_padding">
+            <h3 translate="stepApp.instEmployee.home.registrationInfo">Registration Information</h3>
+            <table class="table table-striped">
+                <tr>
+                    <th>
+                        <span translate="stepApp.instEmployee.code">Code</span>
+                    </th>
+                    <td>
+                        <span class="form-control-static">{{instEmployee.code}}</span>
+                    </td>
+                    <th>
+                        <span translate="stepApp.instEmployee.name">Name</span>
+                    </th>
+                    <td>
+                        <span class="form-control-static">{{instEmployee.name}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span translate="stepApp.instEmployee.category">category</span>
+                    </th>
+                    <td>
+                        <span class="form-control-static">{{instEmployee.category}}</span>
+                    </td>
+                    <th>
+                        <span translate="stepApp.instEmployee.level">level</span>
+                    </th>
+                    <td>
+                        <span class="form-control-static">{{instEmployee.level}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span translate="stepApp.instEmployee.designation">designation</span>
+                    </th>
+                    <td>
+                        <span class="form-control-static">{{instEmployee.designationSetup.designationInfo.designationName}}</span>
+                    </td>
+                    <th>
+                        <span translate="stepApp.instEmployee.typeOfPosition">typeOfPosition</span>
+                    </th>
+                    <td>
+                        <span class="form-control-static">{{instEmployee.typeOfPosition}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span translate="stepApp.instEmployee.courseTech">courseTech</span>
+                    </th>
+                    <td>
+                        <span class="form-control-static">{{instEmployee.cmsSubAssign.cmsTrade.name}}</span>
+                    </td>
+                    <th>
+                        <span translate="stepApp.instEmployee.courseSub">courseSub</span>
+                    </th>
+                    <td>
+                        <span class="form-control-static">{{instEmployee.cmsSubAssign.cmsSubject.name}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span translate="stepApp.instEmployee.email">email</span>
+                    </th>
+                    <td>
+                        <span class="form-control-static">{{instEmployee.email}}</span>
+                    </td>
+                    <th>
+                        <span translate="stepApp.instEmployee.contactNo">contactNo</span>
+                    </th>
+                    <td>
+                        <span class="form-control-static">{{instEmployee.contactNo}}</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-sm-12 no_padding">
+            <h3 translate="stepApp.instEmplBankInfo.bankInformation">Bank Information</h3>
+            <table class="table table-striped">
+                <tbody>
+                <!--<tr>
+                    <th>
+                        <span translate="stepApp.instEmplBankInfo.bankName">BankName</span>
+                    </th>
+                    <td>
+                        <span class="form-control-static">{{instEmplBankInfo.bankName}}</span>
+                    </td>
+                </tr>-->
+                <tr>
+                    <td>
+                        <span translate="stepApp.instEmplBankInfo.bankName">BankName</span>
+                    </td>
+                    <td>
+                        <a class="form-control-static" ui-sref="bankSetup.detail({id:instEmplBankInfo.bankSetup.id})">{{instEmplBankInfo.bankSetup.name}}</a>
+
+                    </td>
+                    <!--<td>
+                        <span class="form-control-static">{{instFinancialInfo.bankSetup.name}}</span>
+                    </td>-->
+                </tr>
+                <tr>
+                    <th>
+                        <span translate="stepApp.instEmplBankInfo.bankBranch">BankBranch</span>
+                    </th>
+                    <td>
+                        <span class="form-control-static">{{instEmplBankInfo.bankBranc.brName}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span translate="stepApp.instEmplBankInfo.bankAccountNo">BankAccountNo</span>
+                    </th>
+                    <td>
+                        <span class="form-control-static">{{instEmplBankInfo.bankAccountNo}}</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-12 no_padding">
+            <h3 translate="stepApp.instEmployee.conPerName">ConPerName</h3>
+            <table class="table table-striped">
+                <tbody>
+                <tr>
+                    <th>
+                        <span translate="stepApp.instEmployee.conPersName"> >Name </span>
+                    </th>
+                    <td>
+                        <span class="form-control-static">{{instEmployee.conPerName}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span translate="stepApp.instEmployee.conPerMobile">ConPerMobile</span>
+                    </th>
+                    <td>
+                        <span class="form-control-static">{{instEmployee.conPerMobile}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span translate="stepApp.instEmployee.conPerAddress">ConPerAddress</span>
+                    </th>
+                    <td colspan="3">
+                        <span class="form-control-static">{{instEmployee.conPerAddress}}</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-12 no_padding">
+            <h3 translate="stepApp.instEmployee.EmpAddress">Employee Address</h3>
+            <div id="address-div1" class="col-md-6">
+                <!-- <h3> Employee Address</h3>-->
+                <div class="row">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th colspan="2" translate="stepApp.instEmployee.preEmpAddress"> Present Address</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="app_re_info" translate="stepApp.instEmployee.villageHouse">Village/House</td>
+                            <td>{{instEmpAddress.villageOrHouse}}</td>
+                        </tr>
+                        <tr>
+                            <td class="app_re_info" translate="stepApp.instEmployee.roadBlock">Road/Block</td>
+                            <td>{{instEmpAddress.roadBlockSector}}</td>
+                        </tr>
+                        <tr>
+                            <td class="app_re_info" translate="stepApp.instEmployee.upazila">Upazilla</td>
+                            <td>{{instEmpAddress.upazila.name}}</td>
+                        </tr>
+                        <tr>
+                            <td class="app_re_info" translate="stepApp.instEmployee.district">District</td>
+                            <td>{{instEmpAddress.upazila.district.name}}</td>
+                        </tr>
+                        <tr>
+                            <td class="app_re_info" translate="stepApp.instEmployee.division">Division</td>
+                            <td>{{instEmpAddress.upazila.district.division.name}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="address-div2" class="col-md-6 eipi-addr">
+                <!--<h3>Permanent Address</h3>-->
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th colspan="2" translate="stepApp.instEmployee.perEmpAddress"> Permanent Address</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="app_re_info" translate="stepApp.instEmployee.villageHouse">Village/House</td>
+                        <td>{{instEmpAddress.prevVillageOrHouse}}</td>
+                    </tr>
+                    <tr>
+                        <td class="app_re_info" translate="stepApp.instEmployee.roadBlock">Road/Block</td>
+                        <td>{{instEmpAddress.prevRoadBlockSector}}</td>
+                    </tr>
+                    <tr>
+                        <td class="app_re_info" translate="stepApp.instEmployee.upazila">Upazilla</td>
+                        <td>{{instEmpAddress.prevUpazila.name}}</td>
+                    </tr>
+                    <tr>
+                        <td class="app_re_info" translate="stepApp.instEmployee.district">District</td>
+                        <td>{{instEmpAddress.prevUpazila.district.name}}</td>
+                    </tr>
+                    <tr>
+                        <td class="app_re_info" translate="stepApp.instEmployee.division">Division</td>
+                        <td>{{instEmpAddress.prevUpazila.district.division.name}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <button type="submit "
+                onclick="window.history.back()"
+                class="btn btn-info no-print">
+            <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+        </button>
+        <div class="no-print   text-right" >
+            <button type="submit" name="submit" onclick="window.print()" class="btn btn-primary">
+                <span class="glyphicon glyphicon-print"></span>&nbsp;<span
+                translate="entity.action.print">Print</span>
+            </button>
+        </div>
+    </div>
+</div>
+

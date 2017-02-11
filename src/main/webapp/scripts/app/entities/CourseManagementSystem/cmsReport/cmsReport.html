@@ -1,0 +1,178 @@
+
+
+
+
+<form class="form-horizontal" name="rptForm" role="form" class="panel panel-primary" novalidate>
+    <h2 class="panel-title" ><span translate="stepApp.cmsCurriculum.detail.report"></span></h2>
+    <div class="col-md-12">
+      <!--  <div class="col-md-6">
+            <label for="rptRptName">Select Report</label>
+            <select
+                name="rptRptName" id="rptRptName"
+                required
+                ng-change="reportChange()"
+                class="form-control" id="cmsReport" name="cmsReport"
+                ng-model="jasperReport.id"
+                ng-options="jasperReport as jasperReport.name for jasperReport in jasperReports track by jasperReport.id">
+                <option value=""></option>
+            </select>
+
+        </div>-->
+
+
+        <div class="col-md-6 col-sm-12 col-xs-12">
+            <div class="form-group">
+                <label  class="control-label" for="rptRptName"><span translate="stepApp.cmsCurriculum.detail.select"></span></label>
+
+                <div class="input-margin">
+                    <select
+                        name="rptRptName" id="rptRptName"
+                        required
+                        ng-change="reportChange()"
+                        class="form-control" id="cmsReport" name="cmsReport"
+                        ng-model="jasperReport.id"
+                        ng-options="jasperReport as jasperReport.name for jasperReport in jasperReports track by jasperReport.id">
+                        <option value=""></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!--<div class=" col-md-6 no_padding">-->
+            <!--<label class="col-md-12">&nbsp;</label>-->
+                    <!--&lt;!&ndash;<span>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<button type="button" class="btn btn-primary" ng-click="reportPreview()">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<span class="glyphicon glyphicon-save"></span>&nbsp;<span>Generate Report</span>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</button>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</span>&ndash;&gt;-->
+
+        <!--</div>-->
+    </div>
+
+    <div>
+        <span ng-initial="countValue =0"></span>
+        <div ng-repeat="jasperReportParameter in jasperReportParameters track by $index">
+            <div ng-if="jasperReportParameter.type == 'combo'">
+                <div class="form-group col-sm-4 input-margin">
+                    <label class="col-sm-12 control-label" for="{{jasperReportParameter.name}}">{{jasperReportParameter.flevel}}</label>
+                    <div class="col-sm-12">
+                        <select class="form-control" id="{{jasperReportParameter.name}}"
+                                name="{{jasperReportParameter.flevel}}"
+                                ng-options="{{jasperReportParameter.servicename}} as {{jasperReportParameter.servicename}}.{{jasperReportParameter.combodisplayfield}} for {{jasperReportParameter.servicename}} in {{jasperReportParameter.servicename}}s"
+                                ng-model="jasperReportParameter.actiontype" required="false">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            <div ng-if="jasperReportParameter.type == 'date'">
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-12 control-label"
+                           for="date{{$index}}">{{jasperReportParameter.flevel}}</label>
+                    <div class="col-sm-12">
+                        <input datepicker-popup="{{calendar.dateFormat}}"
+                               is-open="calendar.opened.date"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               ng-click="calendar.open($event, 'date')" class="form-control"
+                               name="date{{$index}}" id="date{{$index}}"
+                               ng-model="jasperReportParameter.actiontype"
+                               placeholder="yyyy-MM-dd"
+                        />
+
+                        <div>
+                            <p class="help-block"
+                               ng-show="rptForm.date{{$index}}.$error.date">
+                                Not a valid date!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="jasperReportParameter.type == 'month'">
+
+                <div class="form-group col-sm-4 input-margin">
+                    <label class="col-sm-12 control-label" for="month{{$index}}">{{jasperReportParameter.flevel}}</label>
+                    <div class="col-sm-12">
+
+                        <select class="form-control" id="month{{$index}}"
+                                name="{{jasperReportParameter.flevel}}"
+                                ng-model="jasperReportParameter.actiontype" required="false">
+                                    <option value="January">January</option>
+                                    <option value="February">February</option>
+                                    <option value="March">March</option>
+                                    <option value="April">April</option>
+                                    <option value="May">May</option>
+                                    <option value="June">June</option>
+                                    <option value="July">July</option>
+                                    <option value="August">August</option>
+                                    <option value="September">September</option>
+                                    <option value="October">October</option>
+                                    <option value="November">November</option>
+                                    <option value="December">December</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+
+            <div ng-if="jasperReportParameter.type == 'text'">
+
+                <div class="form-group col-sm-4 input-margin">
+                    <label class="col-sm-12 control-label"
+                           for="txt{{$index}}">{{jasperReportParameter.flevel}}</label>
+                    <div class="col-sm-12">
+
+                        <input type="text"
+
+                               class="form-control"
+                               name="txt{{$index}}"
+                               id="txt{{$index}}"
+                               ng-model="jasperReportParameter.actiontype"
+                               ng-init="jasperReportParameter.actiontype=''"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="jasperReportParameter.type == 'year'">
+
+                <div class="form-group col-sm-4 input-margin">
+                    <label class="col-sm-12 control-label"
+                           for="year{{$index}}">{{jasperReportParameter.flevel}}</label>
+                    <div class="col-sm-12">
+
+                        <input type="number"
+
+                               class="form-control"
+                               name="txt{{$index}}"
+                               id="year{{$index}}"
+                               ng-model="jasperReportParameter.actiontype"
+                               ng-init="jasperReportParameter.actiontype=''"
+                               min="1990"
+                               max="2999"
+                            />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="col-md-12 col-xs-12 col-sm-12 text-left su_btn_center">
+            <button type="button" class="btn btn-primary" ng-click="reportPreview()">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Generate Report</span>
+            </button>
+        </div>
+    </div>
+</form>
+<br>
+<iframe id="myiFrame"
+        style="top:0px; left:0px; bottom:0px; right:0px;
+    width:100%; height:600px;border:none; margin:0; padding:0; overflow:hidden; z-index:999999;"
+        ng-src="{{url}}">
+</iframe>
+
+
+
+

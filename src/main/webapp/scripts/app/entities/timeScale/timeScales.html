@@ -1,0 +1,112 @@
+<div class="row">
+    <div class="col-md-3">
+        <ng-include src="'scripts/components/navbar/left-menu.html'"></ng-include>
+    </div>
+    <div class="col-md-9">
+
+    </div>
+</div>
+
+<div>
+    <h2 class="page-header" translate="stepApp.timeScale.home.title">TimeScales</h2>
+    <jh-alert></jh-alert>
+    <div class="row">
+        <div class="col-md-4">
+            <button class="btn btn-primary" ui-sref="timeScale.new">
+                <span class="glyphicon glyphicon-flash"></span> <span translate="stepApp.timeScale.home.createLabel">Create a new TimeScale</span>
+            </button>
+        </div>
+        <div class="col-md-8">
+            <form name="searchForm" class="form-inline pull-right" novalidate show-validation>
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="search for..." required>
+                </div>
+                <button ng-disabled="searchForm.$invalid" class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span translate="entity.action.search">Search a TimeScale</span>
+                </button>
+                <button ng-disabled="!areAllTimeScalesSelected" class="btn btn-default" ng-click="sync()">
+                    <i class="glyphicon glyphicon-refresh" aria-label="sync"></i>
+                    <span translate="entity.action.sync">sync</span>
+                </button>
+                <button ng-disabled="!areAllTimeScalesSelected" class="btn btn-default" ng-click="export()">
+                    <i class="glyphicon glyphicon-export" aria-label="export"></i>
+                    <span translate="entity.action.export">export</span>
+                </button>
+
+                <button ng-disabled="!areAllTimeScalesSelected" class="btn btn-default" ng-click="import()">
+                    <i class="glyphicon glyphicon-import" aria-label="import"></i>
+                    <span translate="entity.action.import">import</span>
+                </button>
+
+                <button ng-disabled="!areAllTimeScalesSelected" class="btn btn-default btn-danger" ng-click="deleteSelected()">
+                    <i class="glyphicon glyphicon-trash" aria-label="delete"></i>
+                    <span translate="entity.action.delete">delete</span>
+                </button>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-striped">
+	        <caption class="caption notice text-center">
+	            <div translate="entity.action.found"
+	                 translate-values="{found: '{{timeScales.length}}', total: '{{total}}'}">{{timeScales.length}} timeScales retrieved from total of {{total}} timeScales
+	            </div>
+	        </caption>
+
+            <thead>
+                <tr>
+	                <th><input type="checkbox" ng-model="areAllTimeScalesSelected" ng-change="updateTimeScalesSelection(timeScales, areAllTimeScalesSelected)"></th>
+                    <th ng-click="order('id', reverse=!reverse)" translate="global.field.id">ID</th>
+                    <th ng-click="order('level', reverse=!reverse)" translate="stepApp.timeScale.level">Level</th>
+                    <th ng-click="order('classGrade', reverse=!reverse)" translate="stepApp.timeScale.classGrade">ClassGrade</th>
+                    <th ng-click="order('salaryAmount', reverse=!reverse)" translate="stepApp.timeScale.salaryAmount">SalaryAmount</th>
+                    <th translate="stepApp.timeScale.payScale">payScale</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="timeScale in timeScales  | filter:filter | orderBy:predicate:reverse track by timeScale.id">
+				    <td><input type="checkbox" ng-model="timeScale.isSelected"/></td>
+                    <td><a ui-sref="timeScale.detail({id:timeScale.id})">{{timeScale.id}}</a></td>
+                    <td translate="{{'stepApp.TimeScaleLevel.' + timeScale.level}}">{{timeScale.level}}</td>
+                    <td>{{timeScale.classGrade}}</td>
+                    <td>{{timeScale.salaryAmount}}</td>
+                    <td>
+                        <a ui-sref="payScale.detail({id:timeScale.payScale.id})">{{timeScale.payScale.id}}</a>
+                    </td>
+                    <td class="btn-group">
+                        <button type="submit"
+                                ui-sref="timeScale.detail({id:timeScale.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="timeScale.edit({id:timeScale.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="timeScale.delete({id:timeScale.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pagination">
+                <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                <li class="active"><a>{{page + 1}}</a></li>
+                <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>

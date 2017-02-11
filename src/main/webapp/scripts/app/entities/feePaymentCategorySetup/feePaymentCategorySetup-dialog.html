@@ -1,0 +1,109 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myFeePaymentCategorySetupLabel" translate="stepApp.feePaymentCategorySetup.home.createOrEditLabel">Create or edit a FeePaymentCategorySetup</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="row">
+            <!--<div class="form-group col-md-6">
+                <label for="id" translate="global.field.id">ID</label>
+                <input type="text" class="form-control" id="id" name="id"
+                       ng-model="feePaymentCategorySetup.id" readonly />
+            </div>-->
+            <div class="form-group col-md-6">
+                <label translate="stepApp.feePaymentCategorySetup.paymentCategoryId" for="field_paymentCategoryId">PaymentCategoryId</label>
+                <input type="text" class="form-control" name="paymentCategoryId" id="field_paymentCategoryId"
+                       ng-model="feePaymentCategorySetup.paymentCategoryId"
+                       required />
+                <div ng-show="editForm.paymentCategoryId.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.paymentCategoryId.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.feePaymentCategorySetup.name" for="field_name">Name</label>
+                <input type="text" class="form-control" name="name" id="field_name"
+                       ng-model="feePaymentCategorySetup.name"
+                       required />
+                <div ng-show="editForm.name.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="form-group col-md-6">
+                <label translate="stepApp.feePaymentCategorySetup.status" for="field_status">Status</label><br>
+
+                <select name="status" ng-model="feePaymentCategorySetup.status" id="field_status" required>
+                    <option value="">---Please select---</option>
+                    <option value="1">Active</option>
+                    <option value="0">InActive</option>
+                </select>
+                <!--<input type="text" class="form-control" name="status" id="field_status"
+                       ng-model="feePaymentCategorySetup.status"
+                       required />-->
+                <div ng-show="editForm.status.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.status.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.feePaymentCategorySetup.createDate" for="field_createDate">CreateDate</label>
+                <input type="date" class="form-control" name="createDate" id="field_createDate"
+                       ng-model="feePaymentCategorySetup.createDate"
+                    />
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="form-group col-md-12">
+                <label translate="stepApp.feePaymentCategorySetup.description" for="field_description">Description</label>
+            <textarea type="text" class="form-control" name="description" id="field_description"
+                      ng-model="feePaymentCategorySetup.description"
+                />
+            </div>
+        </div>
+
+
+        <!--<div class="form-group">
+            <label translate="stepApp.feePaymentCategorySetup.createBy" for="field_createBy">CreateBy</label>
+            <input type="number" class="form-control" name="createBy" id="field_createBy"
+                    ng-model="feePaymentCategorySetup.createBy"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.feePaymentCategorySetup.updateBy" for="field_updateBy">UpdateBy</label>
+            <input type="number" class="form-control" name="updateBy" id="field_updateBy"
+                    ng-model="feePaymentCategorySetup.updateBy"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.feePaymentCategorySetup.updateDate" for="field_updateDate">UpdateDate</label>
+            <input type="date" class="form-control" name="updateDate" id="field_updateDate"
+                    ng-model="feePaymentCategorySetup.updateDate"
+                     />
+        </div>-->
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

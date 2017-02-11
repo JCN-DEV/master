@@ -1,0 +1,197 @@
+<div class="col-sm-12 common-table">
+    <h2 translate="stepApp.instEmployee.home.instEmployeeEmploymentInfo">Inst Empl Experience</h2>
+    <div class="col-sm-12 text-right padding-tb no-print">
+        <button ng-if="instEmplExperiences[0].id != null &&  instEmplExperiences[0].instEmployee.mpoAppStatus < 3"
+                ui-sref="employeeInfo.experienceInfo.edit"
+                class="btn btn-primary btn-sm">
+            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+        </button>
+        <button ng-if="instEmplExperiences[0].id == null"
+                ui-sref="employeeInfo.experienceInfo.new"
+                class="btn btn-primary btn-sm">
+            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.add"> Add</span>
+        </button>
+    </div>
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped" ng-repeat="instEmplExperience in instEmplExperiences">
+            <thead>
+            <tr>
+                <th class="edu-history" colspan="4"><span translate="stepApp.instEmplExperience.experienceNo">Experience</span> {{$index +
+                    1}}
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmplExperience.instituteName">InstituteName</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmplExperience.instituteName}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmplExperience.indexNo">IndexNo</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmplExperience.indexNo}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmplExperience.address">Address</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmplExperience.address}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmplExperience.designation">Designation</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmplExperience.designation}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmplExperience.subject">Subject</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmplExperience.subject}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmplExperience.salaryCode">SalaryCode</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmplExperience.salaryCode}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmplExperience.joiningDate">JoiningDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmplExperience.joiningDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmplExperience.mpoEnlistingDate">MpoEnlistingDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmplExperience.mpoEnlistingDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmplExperience.resignDate">ResignDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmplExperience.resignDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmplExperience.dateOfPaymentReceived">DateOfPaymentReceived</span>
+                </td>
+                <td>
+                    <span
+                        class="form-control-static">{{instEmplExperience.dateOfPaymentReceived | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <!--<tr>
+                <td>
+                    <span translate="stepApp.instEmplExperience.startDate">StartDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmplExperience.startDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmplExperience.endDate">EndDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmplExperience.endDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>-->
+            <!--<tr>
+                <td>
+                    <span translate="stepApp.instEmplExperience.vacationFrom">VacationFrom</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmplExperience.vacationFrom | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmplExperience.vacationTo">VacationTo</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmplExperience.vacationTo | date:'mediumDate'}}</span>
+                </td>
+            </tr>-->
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmplExperience.totalExpFrom">TotalExpFrom</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmplExperience.totalExpFrom | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+
+            <tr ng-if="instEmplExperience.current != null && !instEmplExperience.current">
+                <td>
+                    <span translate="stepApp.instEmplExperience.totalExpTo">TotalExpTo</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmplExperience.totalExpTo | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr ng-if="instEmplExperience.current">
+                <td>
+                    <span translate="stepApp.instEmplExperience.current">Current</span>
+                </td>
+                <!--<td>
+                    <span class="form-control-static">{{instEmplExperience.current}}</span>
+                </td>-->
+
+                <td>
+                    <span style="color: #005f00" ng-show="instEmplExperience.current == true"
+                          class="form-control-static"><span translate="stepApp.instEmplExperience.yes">yes</span></span>
+                    <span style="color: red" ng-show="instEmplExperience.current == false"
+                          class="form-control-static"><span translate="stepApp.instEmplExperience.no">no</span></span>
+                </td>
+            </tr>
+            <!-- <tr>
+                 <td>
+                     <span translate="stepApp.instEmplExperience.attachment">Attachment</span>
+                 </td>
+                 <td>
+                     <span class="form-control-static">{{instEmplExperience.attachment}}</span>
+                     <div >{{instEmplExperience.attachmentContentType}}  {{byteSize(instEmplExperience.attachment)}}</div>
+                 </td>
+             </tr>-->
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info no-print">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+    <div class="col-md-12 no-print text-right">
+        <button type="submit" class="btn btn-sm btn-primary no-print" onclick="window.print()" >
+            <i class="fa fa-print"></i>&nbsp;
+            <span translate="entity.action.print" >Print</span>
+        </button>
+    </div>
+    <div style="color:#fff" ng-if="currentPageNumber" class="col-md-12 text-center">
+        {{currentPageNumber}}
+    </div>
+</div>

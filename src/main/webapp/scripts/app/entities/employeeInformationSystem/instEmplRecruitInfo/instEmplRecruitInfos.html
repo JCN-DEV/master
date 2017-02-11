@@ -1,0 +1,118 @@
+<div>
+    <h2 translate="stepApp.instEmplRecruitInfo.home.title">InstEmplRecruitInfos</h2>
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" ui-sref="instEmplRecruitInfo.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="stepApp.instEmplRecruitInfo.home.createLabel">Create a new InstEmplRecruitInfo</span>
+                </button>
+            </div>
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a InstEmplRecruitInfo</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="global.field.id">ID</th>
+                    <th translate="stepApp.instEmplRecruitInfo.salaryScale">SalaryScale</th>
+                    <th translate="stepApp.instEmplRecruitInfo.salaryCode">SalaryCode</th>
+                    <th translate="stepApp.instEmplRecruitInfo.monthlySalaryGovtProvided">MonthlySalaryGovtProvided</th>
+                    <th translate="stepApp.instEmplRecruitInfo.monthlySalaryInstituteProvided">MonthlySalaryInstituteProvided</th>
+                    <th translate="stepApp.instEmplRecruitInfo.gbResolutionReceiveDate">GbResolutionReceiveDate</th>
+                    <th translate="stepApp.instEmplRecruitInfo.gbResolutionAgendaNo">GbResolutionAgendaNo</th>
+                    <th translate="stepApp.instEmplRecruitInfo.circularPaperName">CircularPaperName</th>
+                    <th translate="stepApp.instEmplRecruitInfo.circularPublishedDate">CircularPublishedDate</th>
+                    <th translate="stepApp.instEmplRecruitInfo.recruitExamReceiveDate">RecruitExamReceiveDate</th>
+                    <th translate="stepApp.instEmplRecruitInfo.dgRepresentativeName">DgRepresentativeName</th>
+                    <th translate="stepApp.instEmplRecruitInfo.dgRepresentativeDesignation">DgRepresentativeDesignation</th>
+                    <th translate="stepApp.instEmplRecruitInfo.dgRepresentativeAddress">DgRepresentativeAddress</th>
+                    <th translate="stepApp.instEmplRecruitInfo.boardRepresentativeName">BoardRepresentativeName</th>
+                    <th translate="stepApp.instEmplRecruitInfo.boardRepresentativeDesignation">BoardRepresentativeDesignation</th>
+                    <th translate="stepApp.instEmplRecruitInfo.boardRepresentativeAddress">BoardRepresentativeAddress</th>
+                    <th translate="stepApp.instEmplRecruitInfo.recruitApproveGBResolutionDate">RecruitApproveGBResolutionDate</th>
+                    <th translate="stepApp.instEmplRecruitInfo.recruitPermitAgendaNo">RecruitPermitAgendaNo</th>
+                    <th translate="stepApp.instEmplRecruitInfo.recruitmentDate">RecruitmentDate</th>
+                    <th translate="stepApp.instEmplRecruitInfo.presentInstituteJoinDate">PresentInstituteJoinDate</th>
+                    <th translate="stepApp.instEmplRecruitInfo.presentPostJoinDate">PresentPostJoinDate</th>
+                    <th translate="stepApp.instEmplRecruitInfo.dgRepresentativeRecordNo">DgRepresentativeRecordNo</th>
+                    <th translate="stepApp.instEmplRecruitInfo.boardRepresentativeRecordNo">BoardRepresentativeRecordNo</th>
+                    <th translate="stepApp.instEmplRecruitInfo.department">Department</th>
+                    <th translate="stepApp.instEmplRecruitInfo.instEmployee">instEmployee</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="instEmplRecruitInfo in instEmplRecruitInfos track by instEmplRecruitInfo.id">
+                    <td><a ui-sref="instEmplRecruitInfo.detail({id:instEmplRecruitInfo.id})">{{instEmplRecruitInfo.id}}</a></td>
+                    <td>{{instEmplRecruitInfo.salaryScale}}</td>
+                    <td>{{instEmplRecruitInfo.salaryCode}}</td>
+                    <td>{{instEmplRecruitInfo.monthlySalaryGovtProvided}}</td>
+                    <td>{{instEmplRecruitInfo.monthlySalaryInstituteProvided}}</td>
+                        <td>{{instEmplRecruitInfo.gbResolutionReceiveDate | date:'mediumDate'}}</td>
+                    <td>{{instEmplRecruitInfo.gbResolutionAgendaNo}}</td>
+                    <td>{{instEmplRecruitInfo.circularPaperName}}</td>
+                        <td>{{instEmplRecruitInfo.circularPublishedDate | date:'mediumDate'}}</td>
+                        <td>{{instEmplRecruitInfo.recruitExamReceiveDate | date:'mediumDate'}}</td>
+                    <td>{{instEmplRecruitInfo.dgRepresentativeName}}</td>
+                    <td>{{instEmplRecruitInfo.dgRepresentativeDesignation}}</td>
+                    <td>{{instEmplRecruitInfo.dgRepresentativeAddress}}</td>
+                    <td>{{instEmplRecruitInfo.boardRepresentativeName}}</td>
+                    <td>{{instEmplRecruitInfo.boardRepresentativeDesignation}}</td>
+                    <td>{{instEmplRecruitInfo.boardRepresentativeAddress}}</td>
+                        <td>{{instEmplRecruitInfo.recruitApproveGBResolutionDate | date:'mediumDate'}}</td>
+                    <td>{{instEmplRecruitInfo.recruitPermitAgendaNo}}</td>
+                        <td>{{instEmplRecruitInfo.recruitmentDate | date:'mediumDate'}}</td>
+                        <td>{{instEmplRecruitInfo.presentInstituteJoinDate | date:'mediumDate'}}</td>
+                        <td>{{instEmplRecruitInfo.presentPostJoinDate | date:'mediumDate'}}</td>
+                    <td>{{instEmplRecruitInfo.dgRepresentativeRecordNo}}</td>
+                    <td>{{instEmplRecruitInfo.boardRepresentativeRecordNo}}</td>
+                    <td>{{instEmplRecruitInfo.department}}</td>
+                    <td>
+                        <a ui-sref="instEmployee.detail({id:instEmplRecruitInfo.instEmployee.id})">{{instEmplRecruitInfo.instEmployee.name}}</a>
+                    </td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="instEmplRecruitInfo.detail({id:instEmplRecruitInfo.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="instEmplRecruitInfo.edit({id:instEmplRecruitInfo.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="instEmplRecruitInfo.delete({id:instEmplRecruitInfo.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pagination">
+                <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                <li class="active"><a>{{page + 1}}</a></li>
+                <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>

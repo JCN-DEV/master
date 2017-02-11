@@ -1,0 +1,109 @@
+<div class="col-sm-12 common-list">
+    <h2 translate="stepApp.miscTypeSetup.home.title">MiscTypeSetups</h2>
+    <div class="col-sm-12 padding-tb no-print">
+        <div class="col-md-12">
+            <div class="col-xs-4 no_padding">
+                <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+            </div>
+            <div class="col-xs-4">
+                <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+            </div>
+
+        </div>
+        <div class="col-md-4 col-xs-12 text-right no_padding dlbtn-top">
+
+        </div>
+
+        <div class="col-sm-12 padding-tb">
+            <div class="col-md-9 col-xs-12 no_padding">
+                <form name="searchForm" class="form-inline">
+                    <label class="control-label" translate="stepApp.miscTypeSetup.typeCategory"
+                           for="field_typeCategory">TypeCategory</label>
+                    <select ng-change="loadMiscTypes()" class="form-control" name="typeCategory" ng-model="typeCategory"  id="field_typeCategory">
+                        <option selected value="">Please select category</option>
+                        <option value="Employee" translate="stepApp.miscTypeCategory.Employee">Employee</option>
+                        <option value="Encadrement" translate="stepApp.miscTypeCategory.Encadrement">Encadrement</option>
+                        <option value="NomineeRelationship" translate="stepApp.miscTypeCategory.NomineeRelationship">NomineeRelationship</option>
+                        <option value="EducationBoard" translate="stepApp.miscTypeCategory.EducationBoard">EducationBoard</option>
+                        <option value="EducationLevel" translate="stepApp.miscTypeCategory.EducationLevel">EducationLevel</option>
+                        <option value="TrainingType" translate="stepApp.miscTypeCategory.TrainingType">TrainingType</option>
+                        <option value="TransferType" translate="stepApp.miscTypeCategory.TransferType">TransferType</option>
+                        <option value="JobCategory" translate="stepApp.miscTypeCategory.JobCategory">JobCategory</option>
+                        <option value="LoanType" translate="stepApp.miscTypeCategory.LoanType">LoanType</option>
+                        <option value="ObjectionType" translate="stepApp.miscTypeCategory.ObjectionType">Objection Type</option>
+                        <option value="EmployeeWorkArea" translate="stepApp.miscTypeCategory.EmployeeWorkArea">Employee Work Type</option>
+                        <option value="BankName" translate="stepApp.miscTypeCategory.BankName">BankName</option>
+                        <option value="Teacher" translate="stepApp.miscTypeCategory.Teacher">Teacher</option>
+                        <option value="PunishmentType" translate="stepApp.miscTypeCategory.PunishmentType">PunishmentType</option>
+                        <option value="SourceOfFund" translate="stepApp.miscTypeCategory.SourceOfFund">SourceOfFund</option>
+                        <option value="CourseType" translate="stepApp.miscTypeCategory.CourseType">CourseType</option>
+                        <option value="PublicationType" translate="stepApp.miscTypeCategory.PublicationType">PublicationType</option>
+                        <option value="MembershipCategory" translate="stepApp.miscTypeCategory.MembershipCategory">MembershipCategory</option>
+                    </select>
+
+                    <span class="form-control">
+                        <input type="radio" ng-change="loadMiscTypes()" ng-model="categoryStat" name="categoryStatus"
+                               value="true">&nbsp;Active&nbsp;|&nbsp;
+                        <input type="radio" ng-change="loadMiscTypes()" ng-model="categoryStat" name="categoryStatus"
+                               value="false">&nbsp;Inactive&nbsp;|&nbsp;
+                        <input type="radio" ng-change="loadMiscTypes()" ng-model="categoryStat" name="categoryStatus"
+                               value="all">&nbsp;All
+                    </span>
+                </form>
+            </div>
+            <div class="col-md-3 col-xs-12 text-right no_padding su_btn_center">
+                <button class="btn btn-primary su_sea_pri" ui-sref="miscTypeSetup.new">
+                    <span class="glyphicon glyphicon-plus"></span> <span
+                    translate="stepApp.miscTypeSetup.home.createLabel">Create a new MiscTypeSetup</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th><span translate="global.form.serial">serial</span></th>
+                <th><span translate="global.field.id">ID</span></th>
+                <th><span translate="stepApp.miscTypeSetup.typeCategory">TypeCategory</span></th>
+                <th><span translate="stepApp.miscTypeSetup.typeName">TypeName</span></th>
+                <th><span translate="stepApp.miscTypeSetup.typeTitle">TypeTitle</span></th>
+                <th><span translate="stepApp.miscTypeSetup.typeCode">TypeCode</span></th>
+                <th><span translate="stepApp.miscTypeSetup.activeStatus">ActiveStatus</span></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr dir-paginate="miscTypeSetup in miscTypeSetups | filter:q | itemsPerPage: pageSize track by miscTypeSetup.id" current-page="currentPage">
+                <td>{{pageSize * (currentPage-1)+$index+1}}</td>
+                <td><a ui-sref="miscTypeSetup.detail({id:miscTypeSetup.id})">{{miscTypeSetup.id}}</a></td>
+                <td translate="{{'stepApp.miscTypeCategory.' + miscTypeSetup.typeCategory}}">
+                    {{miscTypeSetup.typeCategory}}
+                </td>
+                <td>{{miscTypeSetup.typeName}}</td>
+                <td>{{miscTypeSetup.typeTitle}}</td>
+                <td>{{miscTypeSetup.typeCode}}</td>
+                <td>{{miscTypeSetup.activeStatus ? 'Active' : 'Inactive'}}</td>
+                <td class="hrm-button text-right no-print">
+                    <button type="submit" ng-hide="true"
+                            ui-sref="miscTypeSetup.detail({id:miscTypeSetup.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="miscTypeSetup.edit({id:miscTypeSetup.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                        translate="entity.action.edit"> Edit</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center no-print">
+        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                 template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+    </div>
+</div>

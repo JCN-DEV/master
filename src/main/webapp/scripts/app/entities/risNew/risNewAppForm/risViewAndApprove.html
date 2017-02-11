@@ -1,0 +1,151 @@
+<div class="col-md-12 common-list">
+    <div class="user-form-area">
+        <div class="panel panel-primary">
+            <h2 translate="stepApp.risNewAppForm.viewApp">RisNewAppForms</h2>
+            <div class=" bg-panel">
+                <div class="col-md-12 padding-tb">
+                    <div class="col-xs-4 no_padding">
+                        <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+                    </div>
+                    <div class="col-xs-4">
+                        <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+                    </div>
+                    <div class="col-xs-4 no_padding text-right ">
+                    </div>
+                </div>
+                <!--<div class="col-sm-12 padding-tb no-print">
+                    <div class="col-md-8 col-xs-12 no_padding">
+                        <div class="col-md-6 no_padding">
+                            <b><span translate="global.home.searchhere">Search Here :</span></b>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1"><i class="fa fa-search"
+                                                                                     aria-hidden="true"></i></span>
+                                <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <b><span translate="global.home.itemperpage">Items per page:</span></b>
+                            <div class="input-group col-sm-4">
+                                <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+
+                <div class=" col-sm-12 table-responsive no_padding">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th translate="stepApp.risNewAppForm.serial">serial</th>
+                            <th><input type="checkbox" ng-model="areAllSelected"
+                                       ng-change="requestSelection(getEmployedd, areAllSelected)"/></th>
+                            <th translate="stepApp.risNewAppForm.position">position</th>
+                            <th translate="stepApp.risNewAppForm.department">department</th>
+                            <th translate="stepApp.risNewAppForm.allocated">Allocated</th>
+                            <th translate="stepApp.risNewAppForm.ASSIGN">Current Employee(Total)</th>
+                            <th translate="stepApp.risNewAppForm.available">Available</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-animate="'animate'"
+                            dir-paginate="getEmployed in getEmployedd | filter:q | itemsPerPage: pageSize track by $index"
+                            current-page="currentPage">
+                            <td class="text-center">{{pageSize*(currentPage-1)+$index+1}}</td>
+                            <td><input type="checkbox" ng-model="getEmployed.isSelected"/></td>
+                            <!--<td><input type="checkbox" checklist-model="getEmployedd" ng-click="checkFirst()"></td>-->
+                            <td>{{getEmployed.DESIGNATION_NAME}}</td>
+                            <td>{{getEmployed.DEPARTMENT_NAME}}</td>
+                            <td>{{getEmployed.ALLOCATED}}</td>
+                            <td>{{getEmployed.ASSIGNED}}</td>
+                            <td>{{getEmployed.VACANT}}</td>
+
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="col-sm-12 text-right no-print">
+                        <button type="submit" ng-click="newJobReqAll()"
+                                class="btn btn-success btn-sm">
+                            <i class="fa fa-fast-forward" aria-hidden="true"></i>&nbsp;<span>Request Job</span>
+                        </button>
+                    </div>
+                    <nav>
+                        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                                 template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="modal fade" id="newJobReq">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form name="approveForm" ng-submit="confirmNewJobReq()">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                        ng-click="clear()">&times;</button>
+                                <h4 class="modal-title">New Job Request</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p> Are You Sure you want to Request the Job</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                                    translate="entity.action.cancel">Cancel</span>
+                                </button>
+                                <button type="submit" ng-disabled="approveForm.$invalid" class="btn btn-success">
+                                    <span
+                                        class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span>New Job Request</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="modal fade" id="newJobReqAll">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form name="approveForm" ng-submit="saveItems(risNewAppForm.circularNo)">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                        ng-click="clear()">&times;</button>
+                                <h4 class="modal-title">All Job Request</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p> Are You Sure you want to Request All the Job</p>
+                                <div class="col-sm-12">
+                                    <div class="form-group col-sm-6">
+                                        <label translate="stepApp.risNewAppForm.circularNo" for="field_circularNo">field_circularNo</label>
+                                        <input type="text" class="form-control" name="educationalInstitute"
+                                               id="field_circularNo"
+                                               ng-model="risNewAppForm.circularNo"
+                                               ng-blur="checkIfExistCircular(risNewAppForm.circularNo)"/>
+                                    </div>
+                                    <div class="col-sm-12" ng-if="dataFound">
+                                        <p class="circular-no">{{dataFound}}</p>
+                                    </div>
+                                    <div class="col-sm-12" ng-if="validCircular">
+                                        <p class="valid-circular-no">{{validCircular}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                                    translate="entity.action.cancel">Cancel</span>
+                                </button>
+                                <button type="submit" ng-disabled="dataFound" class="btn btn-success">
+                                    <span
+                                        class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span>Request All</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

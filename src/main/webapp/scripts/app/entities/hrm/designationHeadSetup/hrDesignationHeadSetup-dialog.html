@@ -1,0 +1,140 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="hrDesignationHeadSetup.id == null" class="modal-title" id="myHrDesignationHeadSetupLabel"
+            translate="stepApp.hrDesignationHeadSetup.home.createOrEditLabel">Create or edit a
+            HrDesignationHeadSetup</h4>
+        <h4 ng-show="hrDesignationHeadSetup.id != null" class="modal-title" id="myHrDesignationHeadSetupLabel2"
+            translate="stepApp.hrDesignationHeadSetup.home.EditLabel">Create or edit a HrDesignationHeadSetup</h4>
+        <div class="modal-body col-md-12 padding-tb">
+
+            <div class="row">
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label translate="stepApp.hrDesignationHeadSetup.desigType" for="field_desigType">Type</label>
+                        <select class="form-control" name="type" ng-model="hrDesignationHeadSetup.desigType" id="field_desigType">
+                            <option value="HRM" translate="stepApp.designationType.HRM">HRM</option>
+                            <option value="Teacher" translate="stepApp.designationType.Teacher">Teacher</option>
+                            <option value="Staff" translate="stepApp.designationType.Staff">Staff</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrDesignationHeadSetup.designationCode"
+                               for="field_designationCode">DesignationCode</label>
+                        <input type="text" class="form-control" name="designationCode" id="field_designationCode"
+                               ng-model="hrDesignationHeadSetup.designationCode"
+                               ng-remote-validate="/api/hrDesignationHeadSetups/checkcode/"
+                               ng-remote-method="GET"
+                               ng-remote-throttle="500"
+                               required/>
+                        <span class="message" ng-show="editForm.designationCode.$pending">validating...</span>
+                        <div ng-show="editForm.designationCode.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.designationCode.$error.ngRemoteValidate">
+                                Designation code already exists !!!
+                            </p>
+                        </div>
+                        <div ng-show="editForm.designationCode.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.designationCode.$error.required"
+                               translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group ">
+                        <label class="control-label" translate="stepApp.hrDesignationHeadSetup.designationName"
+                               for="field_designationName">DesignationName</label>
+                        <input type="text" class="form-control" name="designationName" id="field_designationName"
+                               ng-model="hrDesignationHeadSetup.designationName"
+                               ng-remote-validate="/api/hrDesignationHeadSetups/checkname/"
+                               ng-remote-method="GET"
+                               ng-remote-throttle="500"
+                               required/>
+                        <span class="message" ng-show="editForm.designationName.$pending">validating...</span>
+                        <div ng-show="editForm.designationName.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.designationName.$error.ngRemoteValidate">
+                                Designation name already exists !!!
+                            </p>
+                        </div>
+                        <div ng-show="editForm.designationName.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.designationName.$error.required"
+                               translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrDesignationHeadSetup.designationLevel" for="field_designationLevel">DesignationLevel</label>
+                        <select class="form-control" id="field_designationLevel" name="designationLevel"
+                                ng-model="hrDesignationHeadSetup.designationLevel"
+                                ng-options="year for year in levelList">
+                            <option value="">{{'stepApp.hrDesignationHeadSetup.designationLevel' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrDesignationHeadSetup.designationDetail"
+                           for="field_designationDetail">DesignationDetail</label>
+                <textarea class="form-control" name="designationDetail" id="field_designationDetail"
+                          ng-model="hrDesignationHeadSetup.designationDetail" ng-maxlength="200"></textarea>
+                    <div ng-show="editForm.designationDetail.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.designationDetail.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="200">
+                            This field cannot be longer than 200 characters.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="control-label"
+                           translate="stepApp.hrDesignationHeadSetup.activeStatus">ActiveStatus</label>
+                 <span class="form-control">
+                    <input type="radio" data-ng-model="hrDesignationHeadSetup.activeStatus" name="activeStatus"
+                           data-ng-value="true">&nbsp;Active&nbsp;|&nbsp;
+                    <input type="radio" data-ng-model="hrDesignationHeadSetup.activeStatus" name="activeStatus"
+                           data-ng-value="false">&nbsp;Inactive
+                </span>
+                    <div ng-show="editForm.activeStatus.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" class="btn " data-dismiss="modal"
+                    onclick="window.history.back()">
+                <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;<span
+                translate="entity.action.back">Back</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="hrDesignationHeadSetup.id == null" translate="entity.action.save">Save</span>
+                <span ng-show="hrDesignationHeadSetup.id != null" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

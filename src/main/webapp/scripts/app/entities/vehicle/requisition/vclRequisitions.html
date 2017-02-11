@@ -1,0 +1,78 @@
+<div>
+    <h2>User Requisitions</h2>
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" ui-sref="vclRequisition.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="stepApp.vclRequisition.home.createLabel">Create a new VclRequisition</span>
+                </button>
+            </div>
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
+                    <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="requisitionType"><span translate="stepApp.vclRequisition.requisitionType">RequisitionType</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="vehicleType"><span translate="stepApp.vclRequisition.vehicleType">VehicleType</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="requisitionStatus"><span translate="stepApp.vclRequisition.requisitionStatus">RequisitionStatus</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="activeStatus"><span translate="stepApp.vclRequisition.activeStatus">ActiveStatus</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="vclRequisition in vclRequisitions | filter:{ createBy:loggedInUser.id} track by vclRequisition.id">
+                    <td><a ui-sref="vclRequisition.detail({id:vclRequisition.id})">{{vclRequisition.id}}</a></td>
+                    <td translate="{{'stepApp.requisitionTypes.' + vclRequisition.requisitionType}}">{{vclRequisition.requisitionType}}</td>
+                    <td translate="{{'stepApp.vehicleTypes.' + vclRequisition.vehicleType}}">{{vclRequisition.vehicleType}}</td>
+                    <td translate="{{'stepApp.requisitionStatus.' + vclRequisition.requisitionStatus}}">{{vclRequisition.requisitionStatus}}</td>
+                    <td>{{vclRequisition.activeStatus}}</td>
+                    <td>
+                        <span ng-if="vclRequisition.requisitionStatus == 'Approved'">
+                            <button type="submit" ui-sref="vclRequisition.reqdetail({id:vclRequisition.id})"
+                                    class="btn btn-info btn-sm">Approved Detail
+                            </button>
+                        </span>
+                        <span ng-if="vclRequisition.requisitionStatus != 'Approved'">
+                            <button type="submit"
+                                    ui-sref="vclRequisition.detail({id:vclRequisition.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                            </button>
+                        </span>
+
+                        <button type="submit"
+                                ui-sref="vclRequisition.edit({id:vclRequisition.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+
+                        <span ng-if="vclRequisition.activeStatus == true">
+                            <button type="submit"
+                                    ui-sref="vclRequisition.delete({id:vclRequisition.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.close"> Close</span>
+                            </button>
+                        </span>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <uib-pagination class="pagination-sm" total-items="totalItems" ng-model="page" ng-change="loadAll()"></uib-pagination>
+    </div>
+</div>

@@ -1,0 +1,62 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myPrlSalaryGenerationLogLabel" translate="stepApp.prlSalaryGenerationLog.home.createOrEditLabel">Create or edit a PrlSalaryGenerationLog</h4>
+    </div>
+    <div class="modal-body">
+       <!-- <jh-alert-error></jh-alert-error>-->
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.prlSalaryGenerationLog.generatedSalaryInfo" for="field_generatedSalaryInfo">generatedSalaryInfo</label>
+                <select class="form-control" id="field_generatedSalaryInfo" name="generatedSalaryInfo" ng-model="prlSalaryGenerationLog.generatedSalaryInfo" ng-options="PrlGeneratedSalaryInfo as PrlGeneratedSalaryInfo.salaryType for PrlGeneratedSalaryInfo in prlgeneratedsalaryinfos track by PrlGeneratedSalaryInfo.id">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" translate="stepApp.prlSalaryGenerationLog.generateDate" for="field_generateDate">GenerateDate</label>
+                <input type="date" class="form-control" name="generateDate" id="field_generateDate"
+                       ng-model="prlSalaryGenerationLog.generateDate"
+                    />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" translate="stepApp.prlSalaryGenerationLog.comments" for="field_comments">Comments</label>
+                <input type="text" class="form-control" name="comments" id="field_comments"
+                       ng-model="prlSalaryGenerationLog.comments"
+                    />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" translate="stepApp.prlSalaryGenerationLog.actionStatus" for="field_actionStatus">ActionStatus</label>
+                <input type="text" class="form-control" name="actionStatus" id="field_actionStatus"
+                       ng-model="prlSalaryGenerationLog.actionStatus"
+                    />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" translate="stepApp.prlSalaryGenerationLog.generateBy" for="field_generateBy">GenerateBy</label>
+                <input type="text" class="form-control" name="generateBy" id="field_generateBy"
+                       ng-model="prlSalaryGenerationLog.generateBy"
+                    />
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-default" class="btn " data-dismiss="modal" onclick="window.history.back()">
+                <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;<span translate="entity.action.back">Back</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+            </button>
+        </div>
+    </div>
+</form>

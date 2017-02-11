@@ -1,0 +1,55 @@
+<!--<div class="row">
+    <div class="col-md-3">
+        <ng-include src="'scripts/app/account/mpo/mpo-left-menu.html'"></ng-include>
+    </div>
+
+    <div class="col-md-9">-->
+<div class="col-md-12 lbl-dash">
+    <div class="col-md-12 no_padding">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+        <div class="col-xs-4 no_padding text-right ">
+
+        </div>
+    </div>
+    <br/>
+    <div class="col-md-12 common-table no_padding">
+        <table class=" table table-responsive table-striped">
+            <thead>
+            <th translate="stepApp.mpo.serial">serial</th>
+            <th translate="stepApp.mpo.basicamount">BASIC AMOUNT</th>
+            <th translate="stepApp.mpo.alcode">CODE</th>
+            <th translate="stepApp.mpo.houseallowance">HOUSE ALLOWANCE</th>
+            <th translate="stepApp.mpo.medicalallowance">MEDICAL ALLOWANCE</th>
+            <th translate="stepApp.mpo.retirementamout">RETIREMENT AMOUNT</th>
+            <th translate="stepApp.mpo.welfareamount">WELFARE AMOUNT</th>
+            <th translate="stepApp.mpo.total">Total</th>
+            </thead>
+            <tbody>
+            <tr ng-repeat="salary in salaryReports">
+            <tr dir-paginate="salary in salaryReports | filter:q | itemsPerPage: pageSize " current-page="currentPage">
+
+            <td>{{$index+1}}</td>
+                <td>{{salary.BASIC_AMOUNT}}</td>
+                <td>{{salary.CODE}}</td>
+                <td>{{salary.HOUSE_ALLOWANCE}}</td>
+                <td>{{salary.MEDICAL_ALLOWANCE}}</td>
+                <td>{{salary.RETIREMENTAMOUNT}}</td>
+                <td>{{salary.WELFAREAMOUNT}}</td>
+                <td>{{salary.TOTAL}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <nav class="no-print">
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+</div>
+<!--
+    </div>
+</div>
+-->

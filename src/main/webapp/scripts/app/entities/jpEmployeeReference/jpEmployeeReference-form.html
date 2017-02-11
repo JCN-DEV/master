@@ -1,0 +1,141 @@
+<div class="education-add">
+    <h3>Add Reference</h3>
+</div>
+        <form name="editForm" role="form" novalidate ng-submit="saveReference()" show-validation>
+            <div>
+               <!-- <jh-alert-error></jh-alert-error>-->
+                <div class="panel-body pnl-border">
+                <div class="form-group col-sm-6 hide">
+
+                    <input type="hidden" class="form-control" id="id" name="id"
+                           ng-model="jpEmployeeReference.id" readonly/>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.jpEmployeeReference.name" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                           ng-model="jpEmployeeReference.name"
+                           required ng-maxlength="50"/>
+
+                    <div ng-show="editForm.name.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+
+                        <p class="help-block"
+                           ng-show="editForm.name.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="50">
+                            This field cannot be longer than 50 characters.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.jpEmployeeReference.email" for="field_email">Email</label>
+                    <input type="text" class="form-control" name="email" id="field_email"
+                           ng-model="jpEmployeeReference.email"
+                           required/>
+
+                    <div ng-show="editForm.email.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.email.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.jpEmployeeReference.organisation"
+                           for="field_organisation">Organisation</label>
+                    <input type="text" class="form-control" name="organisation" id="field_organisation"
+                           ng-model="jpEmployeeReference.organisation"
+                           required ng-maxlength="100"/>
+
+                    <div ng-show="editForm.organisation.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.organisation.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+
+                        <p class="help-block"
+                           ng-show="editForm.organisation.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="100">
+                            This field cannot be longer than 100 characters.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.jpEmployeeReference.designation"
+                           for="field_designation">Designation</label>
+                    <input type="text" class="form-control" name="designation" id="field_designation"
+                           ng-model="jpEmployeeReference.designation"
+                           ng-maxlength="100"/>
+
+                    <div ng-show="editForm.designation.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.designation.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="100">
+                            This field cannot be longer than 100 characters.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.jpEmployeeReference.relation" for="field_relation">Relation</label>
+                    <input type="text" class="form-control" name="relation" id="field_relation"
+                           ng-model="jpEmployeeReference.relation" placeholder="How many years do you know each other?"
+                           ng-maxlength="100"/>
+
+                    <div ng-show="editForm.relation.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.relation.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="100">
+                            This field cannot be longer than 100 characters.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.jpEmployeeReference.phone" for="field_phone">Phone</label>
+                    <input type="text" class="form-control" name="phone" id="field_phone"
+                           ng-model="jpEmployeeReference.phone"
+                           ng-pattern="/^\d+$/"
+                           ng-maxlength="11" maxlength="11"/>
+
+                    <div ng-show="editForm.phone.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.phone.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="11">
+                            This field cannot be longer than 11 characters.
+                        </p>
+
+                        <p class="help-block"
+                           ng-show="editForm.phone.$error.pattern">
+                            Input Only Number
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.jpEmployeeReference.address" for="field_address">Address</label>
+                    <!--<input type="text" class="form-control" name="address" id="field_address"
+                           ng-model="jpEmployeeReference.address"
+                        /> -->
+                    <textarea class="form-control" name="address" id="field_address"
+                           ng-model="jpEmployeeReference.address"
+                        ></textarea>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.jpEmployeeReference.remarks" for="field_remarks">Remarks</label>
+                    <input type="text" class="form-control" name="remarks" id="field_remarks"
+                           ng-model="jpEmployeeReference.remarks"
+                        />
+                </div>
+
+                    <div class="col-sm-12 text-right">
+                        <button type="button" class="btn btn-default" ng-click="changeReferenceMode(true)">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.back">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                            <!--<span class="glyphicon glyphicon-save"></span>&nbsp;--><span translate="entity.action.save">Save</span>
+                        </button>
+                    </div>
+            </div>
+            </div>
+
+        </form>

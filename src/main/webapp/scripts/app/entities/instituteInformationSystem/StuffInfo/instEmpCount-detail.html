@@ -1,0 +1,225 @@
+<div class="col-md-12 common-table">
+    <h2><span translate="stepApp.instEmpCount.detail.title">InstEmpCount</span></h2>
+    <div class="col-sm-12 text-right padding-tb no-print">
+        <button type="submit" ng-hide="!instEmpCount.id"
+                ui-sref="instituteInfo.stuffInfo.edit({id:instEmpCount.id})"
+                class="btn btn-primary">
+            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+        </button>
+    </div>
+    <div class="col-md-12 staff-info no_padding" ng-hide="!instEmpCount.id">
+        <div class="col-md-12 table-responsive no_padding">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <!--<th translate="entity.detail.field">Field</th>-->
+                    <!--<th translate="entity.detail.value">Value</th>-->
+                    <th colspan="3" class="total-th" translate="stepApp.instEmpCount.totalTeacher"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <span translate="stepApp.instEmpCount.totalMaleTeacher">TotalMaleTeacher</span>
+                    </td>
+                    <td>
+                        <span class="form-control-static">{{instEmpCount.totalMaleTeacher}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="stepApp.instEmpCount.totalFemaleTeacher">TotalFemaleTeacher</span>
+                    </td>
+                    <td>
+                        <span class="form-control-static">{{instEmpCount.totalFemaleTeacher}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="stepApp.instEmpCount.totalTeacher">TotalTeacher</span>
+                    </td>
+                    <td>
+                        <span class="form-control-static">{{instEmpCount.totalMaleTeacher + instEmpCount.totalFemaleTeacher}}</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <table class="table table-striped">
+                <thead>
+                <th colspan="6" class="total-th" translate="stepApp.instEmpCount.totalEmployee"></th>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <span translate="stepApp.instEmpCount.totalMaleEmployee">TotalMaleEmployee</span>
+                    </td>
+                    <td>
+                        <span class="form-control-static">{{instEmpCount.totalMaleEmployee}}</span>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="stepApp.instEmpCount.totalFemaleEmployee">TotalFemaleEmployee</span>
+                    </td>
+                    <td>
+                        <span class="form-control-static">{{instEmpCount.totalFemaleEmployee}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="stepApp.instEmpCount.totalEmployee">TotalTeacher</span>
+                    </td>
+                    <td>
+                        <span class="form-control-static">{{instEmpCount.totalMaleEmployee + instEmpCount.totalFemaleEmployee}}</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="table table-striped">
+                <thead>
+                <th colspan="6" class="total-th" translate="stepApp.instEmpCount.Total">Total</th>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <span translate="stepApp.instEmpCount.totalGranted">TotalGranted</span>
+                    </td>
+                    <td>
+                        <span class="form-control-static">{{instEmpCount.totalGranted}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="stepApp.instEmpCount.totalEngaged">TotalEngaged</span>
+                    </td>
+                    <td>
+                        <span class="form-control-static">{{instEmpCount.totalEngaged}}</span>
+                    </td>
+                </tr>
+
+                <!--<tr>-->
+                <!--<td>-->
+                <!--<span translate="stepApp.instEmpCount.status">Status</span>-->
+                <!--</td>-->
+                <!--<td>-->
+                <!--<span class="form-control-static">{{instEmpCount.status}}</span>-->
+                <!--</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                <!--<td>-->
+                <!--<span translate="stepApp.instEmpCount.institute">institute</span>-->
+                <!--</td>-->
+                <!--<td>-->
+                <!--<a class="form-control-static" ui-sref="institute.detail({id:instEmpCount.institute.id})">{{instEmpCount.institute.name}}</a>-->
+                <!--</td>-->
+                <!--</tr>-->
+                </tbody>
+            </table>
+        </div>
+        <!--<div class="panel-footer">
+            <button type="submit"
+                    onclick="window.history.back()"
+                    class="btn btn-info">
+                <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+            </button>
+        </div>-->
+        <div class="no-print   text-right padding-tb">
+            <button type="submit" name="submit" onclick="window.print()" class="btn btn-primary">
+                <span class="glyphicon glyphicon-print"></span>&nbsp;<span
+                translate="entity.action.print">Print</span>
+            </button>
+        </div>
+    </div>
+
+
+    <div ng-hide="instEmpCount.id">
+        <form id="notEmptyForm" name="editForm" role="form" class="form-vertical panel panel-primary" novalidate
+              ng-submit="save()">
+            <h2 id="myInstEmpSpouseInfoLabel" translate="stepApp.instEmpCount.home.createOrEditLabel">Create or
+                edit a InstEmpCount</h2>
+            <!--<jh-alert-error></jh-alert-error>-->
+            <!--<div class="form-group">-->
+            <!--<label for="id" translate="global.field.id">ID</label>-->
+            <!--<input type="text" class="form-control" id="id" name="id"-->
+            <!--ng-model="instEmpCount.id" readonly />-->
+            <!--</div>-->
+
+            <div class="panel-body">
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instEmpCount.totalMaleTeacher" for="field_totalMaleTeacher">TotalMaleTeacher</label>
+                    <input type="number" class="form-control" name="totalMaleTeacher" id="field_totalMaleTeacher"
+                           ng-model="instEmpCount.totalMaleTeacher" required=""/>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instEmpCount.totalFemaleTeacher" for="field_totalFemaleTeacher">TotalFemaleTeacher</label>
+                    <input type="number" class="form-control" name="totalFemaleTeacher" id="field_totalFemaleTeacher"
+                           ng-model="instEmpCount.totalFemaleTeacher"
+                           required/>
+                </div>
+                <div class="col-md-12 no_padding text-center">
+                    <div class="form-group col-md-4 col-md-offset-4">
+                        <label for="totalTeacher" translate="stepApp.instEmpCount.totalTeacher">Total Teacher</label>
+                        <input type="text" class="form-control" id="totalTeacher" name="totalTeacher"
+                               placeholder="{{instEmpCount.totalMaleTeacher+instEmpCount.totalFemaleTeacher}}"
+                               readonly/>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instEmpCount.totalMaleEmployee" for="field_totalMaleEmployee">TotalMaleEmployee</label>
+                    <input type="number" class="form-control" name="totalMaleEmployee" id="field_totalMaleEmployee"
+                           ng-model="instEmpCount.totalMaleEmployee" required/>
+                </div>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instEmpCount.totalFemaleEmployee" for="field_totalFemaleEmployee">TotalFemaleEmployee</label>
+                    <input type="number" class="form-control" name="totalFemaleEmployee" id="field_totalFemaleEmployee"
+                           ng-model="instEmpCount.totalFemaleEmployee" required/>
+                </div>
+                <div class="col-md-12 no_padding text-center">
+                    <div class="form-group col-md-4 col-md-offset-4">
+                        <label for="totalEmployee" translate="stepApp.instEmpCount.totalEmployee">Total Teacher</label>
+                        <input type="text" class="form-control" id="totalEmployee" name="totalTeacher"
+                               placeholder="{{instEmpCount.totalMaleEmployee+instEmpCount.totalFemaleEmployee}}"
+                               readonly/>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instEmpCount.totalGranted" for="field_totalGranted">TotalGranted</label>
+                    <input type="number" class="form-control" name="totalGranted"
+                           ng-change="totalGranted(instEmpCount.totalGranted)" id="field_totalGranted"
+                           ng-model="instEmpCount.totalGranted" required/>
+                    <div ng-show="showMessage">
+                        Total Granted Employee Cannot be greater than total staff
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instEmpCount.totalEngaged" for="field_totalEngaged">TotalEngaged</label>
+                    <input type="number" class="form-control" name="totalEngaged"
+                           placeholder="{{instEmpCount.totalMaleTeacher+instEmpCount.totalFemaleTeacher+instEmpCount.totalMaleEmployee+instEmpCount.totalFemaleEmployee}}"
+                           id="field_totalEngaged"
+                           ng-model="instEmpCount.totalEngaged" readonly/>
+                </div>
+                <!--<div class="form-group">-->
+                <!--<label translate="stepApp.instEmpCount.institute" for="field_institute">institute</label>-->
+                <!--<select class="form-control" id="field_institute" name="institute" ng-model="instEmpCount.institute" ng-options="institute as institute.name for institute in institutes | orderBy:'id' track by institute.id">-->
+                <!--<option value=""></option>-->
+                <!--</select>-->
+                <!--</div>-->
+            </div>
+            <div class="modal-footer">
+                <a type="button" class="btn btn-default" class="btn pull-left" data-dismiss="modal"
+                   onclick="window.history.back()">
+                    <span class=" glyphicon glyphicon-arrow-left"></span>&nbsp;<span
+                    translate="entity.action.back">Back</span>
+                </a>
+                <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,500 @@
+<div class="col-sm-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()">
+        <h4 has-any-authority="ROLE_ADMIN" class="modal-title" id="myDlBookIssueLabel"
+            translate="stepApp.dlBookIssue.home.createOrEditLabel">Create or
+            edit a DlBookIssue</h4>
+        <br>
+
+        <div class="col-sm-12 no_padding">
+
+
+            <div class="modal-body col-sm-12">
+                <hr>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group col-sm-6" has-any-authority="ROLE_INSTITUTE">
+                            <label translate="stepApp.dlBookIssue.studentId" for="field_isbnNo">studentId</label>
+                            <input
+
+                                ng-blur="instituteStudentInfos(sisStudentInfoId)"
+
+                                type="text"
+                                class="form-control" name="isbnNo" id="field_isbnNo"
+                                ng-model="sisStudentInfoId"
+                                placeholder="Enter student-ID"
+
+                                />
+
+                        </div>
+
+                        <div class="col-md-6" ng-if="dlBookIssue.sisStudentInfo.id" has-any-authority="ROLE_INSTITUTE">
+                            <div ng-if="studentInfoError != null" class="col-sm-12">
+                                <p class="b-error">{{studentInfoError}}</p>
+                            </div>
+                            <div ng-if="notStudentFound != null" class="col-sm-12">
+                                <p class="b-error">{{notStudentFound}}</p>
+                            </div>
+                            <div ng-if="dlBookIssue.sisStudentInfo.id != null"
+                                 class="col-sm-12 no_padding inst-info-by-code">
+                                <!--<div class="form-group col-sm-6">
+                                    <div class="col-sm-12">
+                                        <p>Author Name:&nbsp; {{isbnBookInfo.authorName}}</p>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <div class="col-sm-12">
+                                        <p>Contact No: &nbsp;{{isbnBookInfo.callNo}}</p>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <div class="col-sm-12">
+                                        <p>Total Copies: &nbsp;{{isbnBookInfo.totalCopies}}</p>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <div class="col-sm-12">
+                                        <p>Edition: &nbsp;{{isbnBookInfo.edition}}</p>
+                                    </div>
+                                </div>-->
+                                <div class="col-md-12">
+                                    <table class="table dl-table">
+                                        <tbody>
+                                        <tr>
+                                            <th><strong> Name:</strong></th>
+                                            <th><strong>Father Name:</strong></th>
+                                            <th><strong>Gender:</strong></th>
+                                            <th><strong>Mobile No:</strong></th>
+                                            <th><strong>Shift:</strong></th>
+                                        </tr>
+                                        <tr>
+                                            <td>{{dlBookIssue.sisStudentInfo.name}}</td>
+                                            <td>{{dlBookIssue.sisStudentInfo.fatherName}}</td>
+                                            <td>{{dlBookIssue.sisStudentInfo.gender}}</td>
+                                            <td>{{dlBookIssue.sisStudentInfo.mobileNo}}</td>
+                                            <td>{{dlBookIssue.sisStudentInfo.shift}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="col-md-12" has-any-authority="ROLE_INSTITUTE">
+                            <label translate="stepApp.dlBookIssue.bookIds" for="field_isbnNo">bookId</label>
+                            <input ng-blur="isbnBookInfos(dlBookIssue.bookId)" type="text" class="form-control"
+                                   name="bookId"
+                                   id="field_isbnNo"
+                                   ng-model="dlBookIssue.bookId"
+                                   placeholder="Enter Book-ID"
+
+                                />
+                        </div>
+
+                        <div class="col-md-12" has-any-authority="ROLE_INSTITUTE">
+                            <label translate="stepApp.dlBookIssue.editions" for="field_isbnNo">edition</label>
+                            <select type="text" class="form-control" name="edition"
+                                    id="field_isbnNo"
+                                    ng-change="getEditionInfo(dlBookIssue.dlBookEdition)"
+                                    ng-model="dlBookIssue.dlBookEdition"
+                                    ng-blur="getAllParamiter(sisStudentInfoId,dlBookIssue.bookId,dlBookIssue.dlBookEdition)"
+
+                                    ng-options="dlBookEdition as dlBookEdition.edition for dlBookEdition in editionWiseBook"
+                                    placeholder="Select Book Edition"
+
+                                >
+                                <option value=""> Select Book Edition</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6" ng-if="dlBookIssue.bookId">
+                        <div ng-if="isbnInfoError != null" class="col-sm-6">
+                            <p class="b-error">{{isbnInfoError}}</p>
+                        </div>
+                        <div ng-if="notIsbnFound != null" class="col-sm-6">
+                            <p class="b-error">{{notIsbnFound}}</p>
+                        </div>
+                        <div ng-if="isbnBookInfo != null" class="col-sm-12 no_padding inst-info-by-code">
+                            <!--<div class="form-group col-sm-6">
+                                <div class="col-sm-12">
+                                    <p>Author Name:&nbsp; {{isbnBookInfo.authorName}}</p>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <div class="col-sm-12">
+                                    <p>Contact No: &nbsp;{{isbnBookInfo.callNo}}</p>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <div class="col-sm-12">
+                                    <p>Total Copies: &nbsp;{{isbnBookInfo.totalCopies}}</p>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <div class="col-sm-12">
+                                    <p>Edition: &nbsp;{{isbnBookInfo.edition}}</p>
+                                </div>
+                            </div>-->
+                            <div class="col-md-12">
+                                <table class="table dl-table">
+                                    <tbody>
+                                    <tr>
+                                        <th><strong>Book Title:</strong></th>
+                                        <th><strong>Author Name:</strong></th>
+                                        <th><strong>Self No:</strong></th>
+                                        <th><strong>Available Copies:</strong></th>
+                                        <th><strong>Edition:</strong></th>
+                                    </tr>
+                                    <tr>
+                                        <td>{{isbnBookInfo.title}}</td>
+                                        <td>{{isbnBookInfo.authorName}}</td>
+                                        <td>{{isbnBookInfo.callNo}}</td>
+                                        <td>{{answer.totalCopies}}</td>
+                                        <td>{{answer.edition}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div ng-if="availableError != null" class="col-sm-12" has-any-authority="ROLE_INSTITUTE">
+                                <p class="b-error">{{availableError}}</p>
+                            </div>
+                            <div ng-if="takeError != null" class="col-sm-12" has-any-authority="ROLE_INSTITUTE">
+                                <p class="b-error">{{takeError}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group col-sm-12" has-any-authority="ROLE_INSTITUTE">
+                            <label translate="stepApp.dlBookIssue.returnDate" for="field_returnDate">ReturnDate</label>
+                            <input type="text" class="form-control" name="returnDate" id="field_returnDate"
+                                   is-open="showdp" min-date="dtmax"
+                                   ng-model="dlBookIssue.returnDate"
+                                   datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.returnDate"
+                                   datepicker-options="calendar.dateOptions" close-text="Close"
+
+                                   ng-click="showcalendar($event,'returnDate')"
+                                   placeholder="yyyy-mm-dd"
+
+                                />
+                        </div>
+                        <!--ng-click="calendar.open($event, 'returnDate')"-->
+                        <!--<div class="form-group col-sm-12" has-any-authority="ROLE_INSTITUTE">-->
+                        <!--<label translate="stepApp.dlBookIssue.pStatus" for="field_pStatus">PStatus</label>-->
+
+                        <!--<div id="field_pStatus">-->
+                        <!--<label class="radio-inline"><input type="radio" name="pStatus" value="true"-->
+                        <!--ng-checked="(dlBookIssue.pStatus == true || dlBookIssue.pStatus == null)"-->
+                        <!--ng-model="dlBookIssue.pStatus"><span-->
+                        <!--translate="entity.action.activate">Active</span></label>-->
+                        <!--<label class="radio-inline"><input type="radio" name="pStatus" value="false"-->
+                        <!--ng-checked="(dlBookIssue.pStatus == false && dlBookIssue.pStatus != null)"-->
+                        <!--ng-model="dlBookIssue.pStatus"><span-->
+                        <!--translate="entity.action.deactivate">Deactive</span></label>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                    </div>
+                </div>
+
+
+                <!--<div class="form-group col-sm-6" has-any-authority="ROLE_INSTITUTE">-->
+                <!--<label translate="stepApp.dlBookIssue.noOfCopies" for="field_noOfCopies">NoOfCopies</label>-->
+                <!--<input type="number" class="form-control" name="noOfCopies" id="field_noOfCopies"-->
+                <!--placeholder="no of copies"-->
+                <!--ng-model="dlBookIssue.noOfCopies" min="0" ng-blur="checkAvailable(dlBookIssue.noOfCopies)"-->
+                <!--/>-->
+                <!--<span ng-if="dlBookIssue.isbnNo">-->
+                <!--<p style="color:green;"> Available copies:  <span style="color:red; border: 1px dotted;-->
+                <!--border-radius: 20%;">{{isbnBookInfo.totalCopies}}</span></p>-->
+                <!--</span>-->
+                <!--<div ng-if="availableError != null" class="col-sm-12">-->
+                <!--<p class="b-error">{{availableError}}</p>-->
+                <!--</div>-->
+
+                <!--</div>-->
+
+
+                <!--<div class="form-group col-sm-6">
+                    <label translate="stepApp.dlBookIssue.createdDate" for="field_createdDate">CreatedDate</label>
+                    <input type="date" class="form-control" name="createdDate" id="field_createdDate"
+                            ng-model="dlBookIssue.createdDate"
+                             />
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.dlBookIssue.updatedDate" for="field_updatedDate">UpdatedDate</label>
+                    <input type="date" class="form-control" name="updatedDate" id="field_updatedDate"
+                            ng-model="dlBookIssue.updatedDate"
+                             />
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.dlBookIssue.createdBy" for="field_createdBy">CreatedBy</label>
+                    <input type="number" class="form-control" name="createdBy" id="field_createdBy"
+                            ng-model="dlBookIssue.createdBy"
+                             />
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.dlBookIssue.updatedBy" for="field_updatedBy">UpdatedBy</label>
+                    <input type="number" class="form-control" name="updatedBy" id="field_updatedBy"
+                            ng-model="dlBookIssue.updatedBy"
+                             />
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.dlBookIssue.status" for="field_status">Status</label>
+                    <input type="number" class="form-control" name="status" id="field_status"
+                            ng-model="dlBookIssue.status"
+                             />
+                </div>-->
+
+                <!--<div class="form-group col-sm-6">
+                    <label translate="stepApp.dlBookIssue.instEmployee" for="field_instEmployee">instEmployee</label>
+                    <select class="form-control" id="field_instEmployee" name="instEmployee"
+                            ng-model="dlBookIssue.instEmployee" ng-options="instEmployee as instEmployee.name for instEmployee in instemployees track by instEmployee.id">
+                        <option value=""></option>
+                    </select>
+                </div>-->
+
+
+                <!--<div class="form-group col-sm-6">
+                    <label  translate="stepApp.dlBookIssue.instEmployee" for="field_instEmployee">instEmployee</label>
+                    <input class="form-control" ng-blur="getEmployeeInfo(dlBookIssue.instEmployeeCode)"
+                           id="field_instEmployee" type="text" name="instEmployee" ng-model="dlBookIssue.instEmployeeCode" placeholder="Enter Employee Code"
+                           >
+                </div>
+                <!--<div class="form-group col-sm-6">-->
+                <!--<label  translate="stepApp.dlBookIssue.instEmployee" for="field_instEmployee">instEmployee</label>-->
+                <!--<input class="form-control" ng-blur="getEmployeeInfo(dlBookIssue.instEmployeeCode)"-->
+                <!--id="field_instEmployee" type="text" name="instEmployee" ng-model="dlBookIssue.instEmployeeCode" placeholder="Enter Employee Code"-->
+                <!-->
+                <!--</div>-->
+                <div ng-if="getEmplInfoByCode != null" class="col-md-12" has-any-authority="ROLE_INSTITUTE">
+                    <table class="table dl-table">
+                        <tbody>
+                        <tr>
+                            <th><strong>Institute Name:</strong></th>
+                            <th><strong>Name:</strong></th>
+                            <th><strong>Email:</strong></th>
+                            <th><strong>Contact No:</strong></th>
+                            <th><strong>Category:</strong></th>
+                            <th><strong>Employee Type:</strong></th>
+                        </tr>
+                        <tr>
+                            <td>{{getEmplInfoByCode.institute.name}}</td>
+                            <td>{{getEmplInfoByCode.name}}</td>
+                            <td>{{getEmplInfoByCode.email}}</td>
+                            <td>{{getEmplInfoByCode.contactNo}}</td>
+                            <td>{{getEmplInfoByCode.category}}</td>
+                            <td>{{getEmplInfoByCode.instEmplDesignation.name}}</td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div ng-if="EmpInfoError != null">{{EmpInfoError}}</div>
+                    <div ng-if="notFound != null">{{notFound}}</div>
+                    <div ng-if="EmpInfoError != null" class="col-sm-12">
+                        <p class="b-error">{{EmpInfoError}}</p>
+                    </div>
+
+                    <div ng-if="notFound != null" class="col-sm-12">
+                        <p class="b-error">{{notFound}}</p>
+                    </div>
+                </div>
+
+
+                <!--<div ng-if="getEmplInfoByCode != null" class="col-sm-12 no_padding inst-info-by-code">
+                    <div class="form-group col-sm-6">
+                        <div class="col-sm-12">
+                            <p>Institute Name:&nbsp; {{getEmplInfoByCode.institute.name}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <div class="col-sm-12">
+                            <p>Name:&nbsp; {{getEmplInfoByCode.name}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <div class="col-sm-12">
+                            <p>Email: &nbsp;{{getEmplInfoByCode.email}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <div class="col-sm-12">
+                            <p>Contact No: &nbsp;{{getEmplInfoByCode.contactNo}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <div class="col-sm-12">
+                            <p>Category: &nbsp;{{getEmplInfoByCode.category}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <div class="col-sm-12">
+                            <p>Employee Type: &nbsp;{{getEmplInfoByCode.instEmplDesignation.name}}</p>
+                        </div>
+                    </div>
+
+                </div>-->
+
+
+                <div class="form-group col-sm-6" has-any-authority="ROLE_GOVT_STUDENT">
+                    <label translate="stepApp.dlBookIssue.dlContTypeSet" for="field_division">Content Types</label>
+                    <select class="form-control" id="field_division"
+                            ng-change="updatedDlContCatSet(dlBookIssue.dlContTypeSet)" name="dlContTypeSet"
+                            ng-model="dlBookIssue.dlContTypeSet"
+                            ng-options="dlContTypeSet as dlContTypeSet.name for dlContTypeSet in dlContTypeSets track by dlContTypeSet.id"
+
+                        >
+                        <option value=""> {{dlContTypeSet}}</option>
+                    </select>
+                </div>
+
+
+                <div class="form-group col-sm-6" has-any-authority="ROLE_GOVT_STUDENT">
+                    <label translate="stepApp.dlBookIssue.dlContCatSet" for="field_district">dlContCatSet</label>
+                    <select class="form-control" id="field_district" ng-disabled="!(dlBookIssue.dlContTypeSet)"
+                            ng-change="updatedDlContSCatSet(dlBookIssue.dlContCatSet)" name="dlContCatSet"
+                            ng-model="dlBookIssue.dlContCatSet"
+                            ng-options="dlContCatSet as dlContCatSet.name for dlContCatSet in dlContCatSets track by dlContCatSet.id"
+                        >
+                        <option value=""> {{dlContCatSet}}</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-sm-6" has-any-authority="ROLE_GOVT_STUDENT">
+
+                    <label translate="stepApp.dlBookIssue.dlContSCatSet" for="field_upazila">dlContSCatSet</label>
+                    <select class="form-control" id="field_upazila" ng-disabled="!(dlBookIssue.dlContCatSet)"
+                            name="dlContSCatSet"
+                            ng-change="updatedDlBooksTitle(dlBookIssue.dlContSCatSet)" name="dlContSCatSet"
+
+                            ng-model="dlBookIssue.dlContSCatSet"
+                            ng-options="dlContSCatSet as dlContSCatSet.name for dlContSCatSet in dlContSCatSets track by dlContSCatSet.id"
+                        >
+                        <option value=""> {{dlContSCatSet}}</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-sm-6" has-any-authority="ROLE_GOVT_STUDENT">
+
+                    <label translate="stepApp.dlBookIssue.title" for="field_upazila">title</label>
+                    <select class="form-control" id="" ng-disabled="!(dlBookIssue.dlContSCatSet)"
+                            name="dlContSCatSet" ng-model="dlBookIssue.title"
+                            ng-change=loadAuthorByBookTitle(dlBookIssue.title)
+
+                            ng-options="dlBookInfo.title as dlBookInfo.title+' By '+dlBookInfo.authorName for dlBookInfo in BookTitle track by dlBookInfo.id"
+                        >
+                        <option value=""> {{dlBookInfo.title}}</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-sm-6" has-any-authority="ROLE_GOVT_STUDENT">
+
+                    <label translate="stepApp.dlBookIssue.author" for="field_upazila">author</label>
+                    <select class="form-control" id="" ng-disabled="!(dlBookIssue.title)"
+                            name="dlContSCatSet" ng-model="dlBookIssue.dlBookInfo"
+                            ng-change="getAllEditionByAuthorName(dlBookIssue.dlBookInfo)"
+                            ng-options="dlBookInfo as dlBookInfo.authorName for dlBookInfo in tt"
+                        >
+                        <option value=""> {{dlBookInfo.authorName}}</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-sm-6" has-any-authority="ROLE_GOVT_STUDENT">
+
+                    <label translate="stepApp.dlBookIssue.edition" for="field_upazila">Edition</label>
+                    <select class="form-control" id="" ng-disabled="!(dlBookIssue.dlBookInfo)"
+                            name="dlContSCatSet" ng-model="dlBookIssue.dlBookEdition"
+                            ng-change="getEditionInfo(dlBookIssue.dlBookEdition,tt,dlBookIssue.dlBookEdition)"
+
+
+                            ng-options="dlBookEdition as dlBookEdition.edition for dlBookEdition in bookEdition"
+                        >
+                        <option value=""> {{dlBookInfo.edition}}</option>
+                    </select>
+
+                </div>
+
+                <div ng-if="availableError != null" class="col-sm-12" has-any-authority="ROLE_GOVT_STUDENT">
+                    <p class="b-error">{{availableError}}</p>
+                </div>
+
+                <div ng-if="StdTakeError != null" class="col-sm-12" has-any-authority="ROLE_GOVT_STUDENT">
+                    <p class="b-error">{{StdTakeError}}</p>
+                </div>
+
+                <div has-any-authority="ROLE_GOVT_STUDENT" class="form-group col-sm-6">
+                    <label translate="stepApp.dlBookIssue.expecRecvDate" for="field_returnDate">ReturnDate</label>
+                    <input type="text" class="form-control" name="expecRecvDate" id="field_returnDate" is-open="showdp"
+                           min-date="dtmax"
+                           ng-model="dlBookIssue.expecRecvDate"
+                           datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.expecRecvDate"
+                           datepicker-options="calendar.dateOptions" close-text="Close"
+                           ng-click="showcalendar($event,'returnDate')"
+                           placeholder="yyyy-mm-dd"
+                        />
+                </div>
+
+                <div class="form-group col-sm-6" has-any-authority="ROLE_GOVT_STUDENT">
+                    <label translate="stepApp.dlBookIssue.remarks" for="field_pStatus">PStatus</label>
+                    <textarea class="col-xs-12" ng-model="dlBookIssue.remarks"></textarea>
+                </div>
+
+                <!--<div class="form-group col-sm-6">-->
+                <!--<label translate="stepApp.dlBookIssue.dlContTypeSet" for="field_dlContTypeSet">dlContTypeSet</label>-->
+                <!--<select required class="form-control" id="field_dlContTypeSet" name="dlContTypeSet"-->
+                <!--ng-model="dlBookIssue.dlContTypeSet"-->
+                <!--ng-options="dlContTypeSet as dlContTypeSet.name for dlContTypeSet in dlconttypesets | filter:dlContTypeSet.pStatus='true'">-->
+                <!--<option value="">{{dlBookIssue.dlContTypeSet.name}}</option>-->
+                <!--</select>-->
+                <!--</div>-->
+                <!--<div class="form-group col-sm-6">-->
+                <!--<label translate="stepApp.dlBookIssue.dlContCatSet" for="field_dlContCatSet">dlContCatSet</label>-->
+                <!--<select required class="form-control" id="field_dlContCatSet" name="dlContCatSet"-->
+                <!--ng-model="dlBookIssue.dlContCatSet"-->
+                <!--ng-options="dlContCatSet as dlContCatSet.name for dlContCatSet in dlcontcatsets | filter:dlContCatSet.pStatus='true'">-->
+                <!--<option value="">{{dlBookIssue.dlContCatSet.name}}</option>-->
+                <!--</select>-->
+                <!--</div>-->
+                <!--<div class="form-group col-sm-6">-->
+                <!--<label translate="stepApp.dlBookIssue.dlContSCatSet" for="field_dlContSCatSet">dlContSCatSet</label>-->
+                <!--<select required class="form-control" id="field_dlContSCatSet" name="dlContSCatSet"-->
+                <!--ng-model="dlBookIssue.dlContSCatSet"-->
+                <!--ng-options="dlContSCatSet as dlContSCatSet.name for dlContSCatSet in dlcontscatsets | filter:dlContSCatSet.pStatus='true'">-->
+                <!--<option value="">{{dlBookIssue.dlContSCatSet.name}}</option>-->
+                <!--</select>-->
+                <!--</div>-->
+                <!-- <div class="form-group col-sm-6">
+                     <label translate="stepApp.dlBookIssue.DlBookReturn" for="field_DlBookReturn">DlBookReturn</label>
+                     <select required class="form-control" id="field_DlBookReturn" name="DlBookReturn" ng-model="dlBookIssue.dlBookReturn" ng-options="DlBookReturn as DlBookReturn.issueId for DlBookReturn in dlbookreturns track by DlBookReturn.id">
+                         <option value=""></option>
+                     </select>
+                 </div>-->
+            </div>
+
+
+            <div class="modal-footer col-sm-12">
+                <button type="button" class="btn btn-default" ui-sref="libraryInfo.dlBookIssue">
+                    <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span
+                    translate="entity.action.back">Back</span>
+                </button>
+                <button type="submit" has-any-authority="ROLE_INSTITUTE"
+                        ng-disabled="editForm.$invalid || isSaving || issueSave || takenCheck" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                </button>
+
+                <button type="submit" has-any-authority="ROLE_GOVT_STUDENT" ng-disabled="issueSave || stdtakenCheck"
+                        class="btn btn-primary">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,116 @@
+<div class="service-form-area">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="modal-title" id="myPgmsPenRulesLabel" translate="stepApp.pgmsPenRules.home.createOrEditLabel">Create or edit a PgmsPenRules</h4>
+        </div>
+        <div class="panel-body bg-panel">
+            <jh-alert-error></jh-alert-error>
+            <form class="form-horizontal" name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsPenRules.quotaType" for="field_quotaType">QuotaType</label>
+                        <div class="input-margin">
+                            <select class="form-control" name="quotaType" ng-model="pgmsPenRules.quotaType" id="field_quotaType">
+                                <option value="NA" translate="stepApp.penQuota.NA">NA</option>
+                                <option value="FreedomFighter" translate="stepApp.penQuota.FreedomFighter">FreedomFighter</option>
+                                <option value="ChileOfFreedomFighter" translate="stepApp.penQuota.ChileOfFreedomFighter">ChileOfFreedomFighter</option>
+                                <option value="GrandChildOfFreedomFighter" translate="stepApp.penQuota.GrandChildOfFreedomFighter">GrandChildOfFreedomFighter</option>
+                                <option value="Tribal" translate="stepApp.penQuota.Tribal">Tribal</option>
+                                <option value="Others" translate="stepApp.penQuota.Others">Others</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsPenRules.minAgeLimit" for="field_minAgeLimit">MinAgeLimit</label>
+                        <div class="input-margin">
+                            <input type="number" class="form-control" name="minAgeLimit" id="field_minAgeLimit"
+                                   ng-model="pgmsPenRules.minAgeLimit"
+                                   required />
+                            <div ng-show="editForm.minAgeLimit.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.minAgeLimit.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.minAgeLimit.$error.number" translate="entity.validation.number">
+                                    This field should be a number.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsPenRules.maxAgeLimit" for="field_maxAgeLimit">MaxAgeLimit</label>
+                        <div class="input-margin">
+                            <input type="number" class="form-control" name="maxAgeLimit" id="field_maxAgeLimit"
+                                   ng-model="pgmsPenRules.maxAgeLimit"
+                                   required />
+                            <div ng-show="editForm.maxAgeLimit.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.maxAgeLimit.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.maxAgeLimit.$error.number" translate="entity.validation.number">
+                                    This field should be a number.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsPenRules.minWorkDuration" for="field_minWorkDuration">MinWorkDuration</label>
+                        <div class="input-margin">
+                            <input type="number" class="form-control" name="minWorkDuration" id="field_minWorkDuration"
+                                   ng-model="pgmsPenRules.minWorkDuration"
+                                   required />
+                            <div ng-show="editForm.minWorkDuration.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.minWorkDuration.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.minWorkDuration.$error.number" translate="entity.validation.number">
+                                    This field should be a number.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsPenRules.causeType">CauseType</label>
+                        <div class="input-margin">
+                            <label class="radio-inline">
+                                <input type="checkbox" class="form-control" name="disable" id="field_disable" ng-model="pgmsPenRules.disable" /> Disable
+                            </label>
+                            <label class="radio-inline">
+                                <input type="checkbox" class="form-control" name="senile" id="field_senile" ng-model="pgmsPenRules.senile" /> Senile
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsPenRules.activeStatus">ActiveStatus</label>
+                        <div class="input-margin">
+                            <label class="radio-inline">
+                                <input type="radio" data-ng-model="pgmsPenRules.activeStatus" name="activeStatus" data-ng-value="true">&nbsp;Active&nbsp;&nbsp;
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" data-ng-model="pgmsPenRules.activeStatus" name="activeStatus" data-ng-value="false">&nbsp;Inactive
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" class="btn " data-dismiss="modal" onclick="window.history.back()">
+                        <i class="fa fa-angle-double-left"></i>&nbsp;<span translate="entity.action.back">Back</span>
+                    </button>
+                    <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

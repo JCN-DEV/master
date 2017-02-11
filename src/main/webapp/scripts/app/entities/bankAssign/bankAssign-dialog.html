@@ -1,0 +1,68 @@
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div class="modal-header">
+
+        <h4 class="modal-title" id="myBankAssignLabel" translate="stepApp.bankAssign.home.createOrEditLabel">Create or
+            edit a BankAssign</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.bankBranch.bankSetup" for="field_bankSetup">bankSetup</label>
+            <select class="form-control" id="field_bankSetup" name="bankSetup" ng-model="bankAssign.bank" required
+                    ng-options="bankSetup as bankSetup.name for bankSetup in banksetups track by bankSetup.id">
+                <option value=""></option>
+            </select>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.bankBranch.division" for="field_division">Division</label>
+            <select class="form-control" id="field_division"
+                    ng-change="updatedDistrict(bankBranch.division)" name="division"
+                    ng-model="bankBranch.division" required
+                    ng-options="division as division.name for division in divisions track by division.id"
+                >
+                <option value=""> {{division}}</option>
+            </select>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.bankBranch.district" for="field_district">District</label>
+            <select class="form-control" id="field_district" ng-disabled="!(bankBranch.division)"
+                    ng-change="updatedUpazila(bankBranch.district)" name="district"
+                    ng-model="bankBranch.district" required=""
+                    ng-options="district as district.name for district in districts track by district.id"
+                >
+                <option value=""> {{district}}</option>
+            </select>
+        </div>
+
+        <div class="form-group col-sm-12">
+            <div class="form-group col-sm-12">
+                <label translate="stepApp.bankAssign.upazila" for="field_district">upazila</label>
+            </div>
+            <div class="form-group col-sm-12" ng-if="upazilas.length > 0">
+                <input type="checkbox" ng-model="areAllSelected"
+                       ng-change="updateUpazilaSelection(upazilas, areAllSelected)"/> Select All
+            </div>
+
+                <div ng-repeat="upazila in upazilas track by upazila.id">
+                    <div class="col-sm-4">
+                    <input type="checkbox" ng-model="upazila.isSelected"/>
+                    {{upazila.name}}
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" onclick="window.history.back()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+            translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

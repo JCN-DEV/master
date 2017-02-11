@@ -1,0 +1,50 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myTimeScaleApplicationEditLogLabel" translate="stepApp.timeScaleApplicationEditLog.home.createOrEditLabel">Create or edit a TimeScaleApplicationEditLog</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="timeScaleApplicationEditLog.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.timeScaleApplicationEditLog.status" for="field_status">Status</label>
+            <input type="number" class="form-control" name="status" id="field_status"
+                    ng-model="timeScaleApplicationEditLog.status"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.timeScaleApplicationEditLog.remarks" for="field_remarks">Remarks</label>
+            <input type="text" class="form-control" name="remarks" id="field_remarks"
+                    ng-model="timeScaleApplicationEditLog.remarks"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.timeScaleApplicationEditLog.date" for="field_date">Date</label>
+            <input type="date" class="form-control" name="date" id="field_date"
+                    ng-model="timeScaleApplicationEditLog.date"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.timeScaleApplicationEditLog.timeScaleApplicationId" for="field_timeScaleApplicationId">timeScaleApplicationId</label>
+            <select class="form-control" id="field_timeScaleApplicationId" name="timeScaleApplicationId" ng-model="timeScaleApplicationEditLog.timeScaleApplicationId" ng-options="timeScaleApplication as timeScaleApplication.id for timeScaleApplication in timescaleapplications track by timeScaleApplication.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

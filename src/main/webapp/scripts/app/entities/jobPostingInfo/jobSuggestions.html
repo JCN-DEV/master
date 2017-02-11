@@ -1,0 +1,384 @@
+<div class="col-sm-3">
+    <ng-include src="'scripts/app/entities/sis/left-menu.html'"></ng-include>
+    <!--<ul class="custom-menu" id="left-menu1">
+        &lt;!&ndash; <li class="">
+             <a  class=""  data-toggle="collapse" data-parent="#left-menu1" data-target="#firstLink"><i class="fa fa-tachometer"></i>
+                 <span translate="stepApp.leftmenu.sis"></span> </span><i class="pull-right fa fa-angle-down"></i></a>
+             <ul id="firstLink" class="collapse search-accordion sis_menu">
+                 &lt;!&ndash;<li >
+                     <a class=""  ui-sref="sisQuota" ui-sref-active="active">
+                         <i class="fa fa-cogs"></i><span translate="global.menu.entities.sisQuota">Quota Setup</span>
+                     </a>
+                 </li>&ndash;&gt;&ndash;&gt;
+        <li has-any-authority="ROLE_ADMIN,ROLE_GOVT_STUDENT" >
+            <a class=""  ui-sref="sisStudentInfo" ui-sref-active="active">
+                <i class="fa fa-info-circle"></i><span translate="global.menu.entities.sisStudentInfo">Student Info</span>
+            </a>
+        </li>
+        <li has-any-authority="ROLE_ADMIN,ROLE_GOVT_STUDENT">
+            <a class=""  ui-sref="sisEducationHistory" ui-sref-active="active">
+                <i class="fa fa-history"></i><span translate="global.menu.entities.sisEducationHistory">Education History</span>
+            </a>
+        </li>
+
+        <li has-any-authority="ROLE_ADMIN,ROLE_GOVT_STUDENT">
+            <a class=""  ui-sref="jobPlacementInfo" ui-sref-active="active">
+                <i class="fa fa-pencil-square-o"></i>
+                <span translate="global.menu.entities.jobPlacementInfo">Job Placement Info</span>
+
+            </a>
+        </li>
+        <li has-any-authority="ROLE_ADMIN">
+            <a   ui-sref="jobPostingInfo" ui-sref-active="active">
+                <i class="fa fa-pencil-square-o"></i>
+                <span translate="global.menu.entities.jobPostingInfo">Job Posting Info</span>
+
+            </a>
+        </li>
+        <li has-any-authority="ROLE_ADMIN,ROLE_GOVT_STUDENT">
+            <a   ui-sref="jobSuggestions" ui-sref-active="active">
+                <i class="fa fa-pencil-square-o"></i>
+                <span translate="global.menu.entities.jobSuggestions">Job Suggestions Info</span>
+
+            </a>
+        </li>
+        <li  has-any-authority="ROLE_ADMIN" >
+            <a ui-sref="sisStudentReg" ui-sref-active="active" >
+                <span class="fa fa-pencil-square-o"></span>
+            &#xA0;<span translate="global.menu.entities.sisStudentReg">sisStudentReg</span></a></li>
+
+        &lt;!&ndash; </ul>&ndash;&gt;
+        </li>
+    </ul>-->
+</div>
+<!--<div class="col-md-9 no_padding">
+   <div class="col-md-6">
+       &lt;!&ndash;<td>
+           <button type="submit"
+
+                   ng-click="previewCategory(); NoData()"
+                   class="btn btn-warning btn-sm" tooltip="Please click to Show Category">
+               <span class="glyphicon glyphicon-picture"></span>
+           </button>
+           <h2 translate="stepApp.jobPostingInfo.home.JobTitle">Job List</h2>
+       </td>&ndash;&gt;
+       &lt;!&ndash;ng-if="showIt" &ndash;&gt; &lt;!&ndash;ng-hide="showIt"&ndash;&gt;
+       <h2 translate="stepApp.jobPostingInfo.home.JobTitle">Job List</h2>
+       <div class="table-responsive">
+           <table class="table table-striped">
+               &lt;!&ndash;<caption class="caption notice text-center">
+        <span translate="entity.action.found"
+                          translate-values="{found: '{{cat.length}}', total: '{{total}}'}">{{cat.length}}
+   	   cat retrieved from total of {{total}} cat </span>
+               </caption>&ndash;&gt;
+               <thead>
+               <tr>
+                   <th ng-click="order('title', reverse=!reverse)"
+                       translate="stepApp.jobPostingInfo.jobTitle">Title</th>
+                   <th ng-click="order('organizatinName', reverse=!reverse)"
+                       translate="stepApp.jobPostingInfo.organizatinName">Organizatin Name</th>
+                   <th ng-click="order('applicationDateLine', reverse=!reverse)"
+                       translate="stepApp.jobPostingInfo.applicationDateLine">application DateLine</th>
+
+                   <th><button type="submit"
+
+                               ng-click="previewCategory(); NoData()"
+                               class="btn btn-warning btn-sm" tooltip="Please click to Show Category">
+                       <span class="glyphicon glyphicon-picture"></span>
+                   </button></th>
+               </tr>
+               </thead>
+               <tbody>
+               <tr ng-repeat="job in jobs track by job.id">
+                   <td>
+                       <a ui-sref="job.detail({id:job.id})">{{job.cat.cat}}</a>
+                       &lt;!&ndash;<span class="form-control-static">{{job.cat.cat}}</span>&ndash;&gt;
+                   </td>
+                   <td>
+                       &lt;!&ndash;<a ui-sref="employer.detail({id:job.employer.id})">{{job.employer.name}}</a>&ndash;&gt;
+                       <span class="form-control-static">{{job.employer.name}}</span>
+                   </td>
+                   <td>
+                       <span class="form-control-static">{{job.applicationDeadline | date:'mediumDate'}}</span>
+                   </td>
+
+               </tr>
+               </tbody>
+           </table>
+           <nav>
+               <ul class="pagination">
+                   <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                   <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                   <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                   <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                   <li class="active"><a>{{page + 1}}</a></li>
+                   <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                   <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                   <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                   <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+               </ul>
+           </nav>
+       </div>
+
+   </div>
+
+   <div class="col-md-6">
+       <div>
+           <form name="searchForm" class="form-inline">
+               <div class="form-group">
+                   <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery">
+               </div>
+               <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span>
+               </button>
+           </form>
+       </div>
+       <h2 translate="stepApp.jobPostingInfo.home.titles">JobSuggestionInfos</h2>
+       <div class="table-responsive">
+           <table class="table table-striped">
+               <thead>
+               <tr>
+                   &lt;!&ndash;<th translate="global.field.id">ID</th>&ndash;&gt;
+                   &lt;!&ndash;<th translate="stepApp.jobPostingInfo.jobPostId">JobPostId</th>&ndash;&gt;
+                   <th translate="stepApp.jobPostingInfo.jobTitle">JobTitle</th>
+                   <th translate="stepApp.jobPostingInfo.organizatinName">OrganizatinName</th>
+                   &lt;!&ndash;<th translate="stepApp.jobPostingInfo.jobNature">jobNature</th>
+                   <th translate="stepApp.jobPostingInfo.jobVacancy">JobVacancy</th>
+                   <th translate="stepApp.jobPostingInfo.salaryRange">SalaryRange</th>
+                   <th translate="stepApp.jobPostingInfo.jobSource">JobSource</th>
+                   <th translate="stepApp.jobPostingInfo.publishedDate">PublishedDate</th>&ndash;&gt;
+                   <th translate="stepApp.jobPostingInfo.applicationDateLine">ApplicationDateLine</th>
+                   &lt;!&ndash;<th translate="stepApp.jobPostingInfo.jobDescription">JobDescription</th>&ndash;&gt;
+                   &lt;!&ndash;<th translate="stepApp.jobPostingInfo.jobFileName">JobFileName</th>&ndash;&gt;
+                   &lt;!&ndash;<th translate="stepApp.jobPostingInfo.upload">Upload</th>&ndash;&gt;
+                   &lt;!&ndash;<th translate="stepApp.jobPostingInfo.createDate">CreateDate</th>
+                   <th translate="stepApp.jobPostingInfo.createBy">CreateBy</th>
+                   <th translate="stepApp.jobPostingInfo.updateBy">UpdateBy</th>
+                   <th translate="stepApp.jobPostingInfo.updateDate">UpdateDate</th>&ndash;&gt;
+
+                   <th></th>
+               </tr>
+               </thead>
+               <tbody>
+               <tr ng-repeat="jobPostingInfo in jobPostingInfos track by jobPostingInfo.id">
+                   &lt;!&ndash;<td><a ui-sref="jobPostingInfo.detail({id:jobPostingInfo.id})">{{jobPostingInfo.id}}</a></td>&ndash;&gt;
+                   &lt;!&ndash;<td>{{jobPostingInfo.jobPostId}}</td>&ndash;&gt;
+
+                   <td>
+                       <a ui-sref="jobPostingInfo.detail({id:jobPostingInfo.id})">{{jobPostingInfo.jobTitle}}</a>
+                   </td>
+                   <td>
+                       <a ui-sref="jobPostingInfo.detail({id:jobPostingInfo.id})">{{jobPostingInfo.organizatinName}}</a>
+                   </td>
+                   &lt;!&ndash;<td>
+                       <a ui-sref="jobType.detail({id:jobPostingInfo.jobNature.id})">{{jobPostingInfo.jobNature.name}}</a>
+                   </td>&ndash;&gt;
+                   &lt;!&ndash; <td>{{jobPostingInfo.jobVacancy}}</td>
+                    <td>{{jobPostingInfo.salaryRange}}</td>
+                    <td>{{jobPostingInfo.jobSource}}</td>
+                    <td>{{jobPostingInfo.publishedDate | date:'mediumDate'}}</td>&ndash;&gt;
+                   <td>
+                       <a ui-sref="jobPostingInfo.detail({id:jobPostingInfo.id})">{{jobPostingInfo.applicationDateLine | date:'mediumDate'}}</a>
+                   </td>
+                   &lt;!&ndash;<td>{{jobPostingInfo.jobDescription}}</td>&ndash;&gt;
+                   &lt;!&ndash;<td>{{jobPostingInfo.jobFileName}}</td>&ndash;&gt;
+                   &lt;!&ndash;<td>
+                       &lt;!&ndash;{{jobPostingInfo.upload}}&ndash;&gt;
+                       <button type="submit"
+                               ng-click="previewImage(jobPostingInfo.upload, jobPostingInfo.uploadContentType, jobPostingInfo.jobFileName)"
+                               class="btn btn-warning btn-sm" tooltip="Show JobPosting">
+                           <span class="glyphicon glyphicon-picture"></span>
+
+                       </button>
+
+                   </td>&ndash;&gt;
+                   &lt;!&ndash;<td>{{jobPostingInfo.createDate | date:'mediumDate'}}</td>
+               <td>{{jobPostingInfo.createBy}}</td>
+               <td>{{jobPostingInfo.updateBy}}</td>
+                   <td>{{jobPostingInfo.updateDate | date:'mediumDate'}}</td>&ndash;&gt;
+
+               </tr>
+               </tbody>
+           </table>
+           <nav>
+               <ul class="pagination">
+                   <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                   <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                   <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                   <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                   <li class="active"><a>{{page + 1}}</a></li>
+                   <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                   <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                   <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                   <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+               </ul>
+           </nav>
+       </div>
+   </div>
+   </div>-->
+<div class="common-list col-sm-9 no_padding">
+    <div class="col-md-6 ">
+        <!--<td>
+           <button type="submit"
+
+                   ng-click="previewCategory(); NoData()"
+                   class="btn btn-warning btn-sm" tooltip="Please click to Show Category">
+               <span class="glyphicon glyphicon-picture"></span>
+           </button>
+           <h2 translate="stepApp.jobPostingInfo.home.JobTitle">Job List</h2>
+           </td>-->
+        <!--ng-if="showIt" --> <!--ng-hide="showIt"-->
+        <div class="padding-bt">
+            <form name="searchForm" class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery">
+                </div>
+                <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span>
+                </button>
+            </form>
+        </div>
+        <h2 translate="stepApp.jobPostingInfo.home.JobTitle">Job List</h2>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <!--<caption class="caption notice text-center">
+                   <span translate="entity.action.found"
+                         translate-values="{found: '{{cat.length}}', total: '{{total}}'}">{{cat.length}}
+                     cat retrieved from total of {{total}} cat </span>
+                   </caption>-->
+                <thead>
+                <tr>
+                    <th ng-click="order('title', reverse=!reverse)"
+                        translate="stepApp.jobPostingInfo.jobTitle">Title</th>
+                    <th ng-click="order('organizatinName', reverse=!reverse)"
+                        translate="stepApp.jobPostingInfo.organizatinName">Organizatin Name</th>
+                    <th ng-click="order('applicationDateLine', reverse=!reverse)"
+                        translate="stepApp.jobPostingInfo.applicationDateLine">application DateLine</th>
+                    <th>
+                     <span type="submit"
+                           ng-click="previewCategory(); NoData()"
+                           class="" tooltip="Please click to Show Category">
+                     <span class="glyphicon glyphicon-cog"></span>
+                     </span>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="job in jobs track by job.id" >
+                    <td>
+                        <a ui-sref="job.detail({id:job.id})">{{job.cat.cat}}</a>
+                        <!--<span class="form-control-static">{{job.cat.cat}}</span>-->
+                    </td>
+                    <td>
+                        <!--<a ui-sref="employer.detail({id:job.employer.id})">{{job.employer.name}}</a>-->
+                        <span class="form-control-static">{{job.employer.name}}</span>
+                    </td>
+                    <td>
+                        <span class="form-control-static">{{job.applicationDeadline | date:'mediumDate'}}</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <!--<nav>
+               <ul class="pagination">
+                   <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                   <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                   <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                   <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                   <li class="active"><a>{{page + 1}}</a></li>
+                   <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                   <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                   <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                   <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+               </ul>
+               </nav>-->
+        </div>
+    </div>
+    <div class="col-md-6  ">
+        <div class="padding-bt">
+            <form name="searchForm" class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery">
+                </div>
+                <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span>
+                </button>
+            </form>
+        </div>
+        <h2 translate="stepApp.jobPostingInfo.home.titles">JobSuggestionInfos</h2>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <!--<th translate="global.field.id">ID</th>-->
+                    <!--<th translate="stepApp.jobPostingInfo.jobPostId">JobPostId</th>-->
+                    <th translate="stepApp.jobPostingInfo.jobTitle">JobTitle</th>
+                    <th translate="stepApp.jobPostingInfo.organizatinName">OrganizatinName</th>
+                    <!--<th translate="stepApp.jobPostingInfo.jobNature">jobNature</th>
+                       <th translate="stepApp.jobPostingInfo.jobVacancy">JobVacancy</th>
+                       <th translate="stepApp.jobPostingInfo.salaryRange">SalaryRange</th>
+                       <th translate="stepApp.jobPostingInfo.jobSource">JobSource</th>
+                       <th translate="stepApp.jobPostingInfo.publishedDate">PublishedDate</th>-->
+                    <th translate="stepApp.jobPostingInfo.applicationDateLine" style="text-align: right">ApplicationDateLine</th>
+                    <!--<th translate="stepApp.jobPostingInfo.jobDescription">JobDescription</th>-->
+                    <!--<th translate="stepApp.jobPostingInfo.jobFileName">JobFileName</th>-->
+                    <!--<th translate="stepApp.jobPostingInfo.upload">Upload</th>-->
+                    <!--<th translate="stepApp.jobPostingInfo.createDate">CreateDate</th>
+                       <th translate="stepApp.jobPostingInfo.createBy">CreateBy</th>
+                       <th translate="stepApp.jobPostingInfo.updateBy">UpdateBy</th>
+                       <th translate="stepApp.jobPostingInfo.updateDate">UpdateDate</th>-->
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="jobPostingInfo in jobPostingInfos track by jobPostingInfo.id">
+                    <!--<td><a ui-sref="jobPostingInfo.detail({id:jobPostingInfo.id})">{{jobPostingInfo.id}}</a></td>-->
+                    <!--<td>{{jobPostingInfo.jobPostId}}</td>-->
+                    <td>
+                        <a ui-sref="jobPostingInfo.detail({id:jobPostingInfo.id})">{{jobPostingInfo.jobTitle}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="jobPostingInfo.detail({id:jobPostingInfo.id})">{{jobPostingInfo.organizatinName}}</a>
+                    </td>
+                    <!--<td>
+                       <a ui-sref="jobType.detail({id:jobPostingInfo.jobNature.id})">{{jobPostingInfo.jobNature.name}}</a>
+                       </td>-->
+                    <!-- <td>{{jobPostingInfo.jobVacancy}}</td>
+                       <td>{{jobPostingInfo.salaryRange}}</td>
+                       <td>{{jobPostingInfo.jobSource}}</td>
+                       <td>{{jobPostingInfo.publishedDate | date:'mediumDate'}}</td>-->
+                    <td style="text-align: right">
+                        <a ui-sref="jobPostingInfo.detail({id:jobPostingInfo.id})">{{jobPostingInfo.applicationDateLine | date:'mediumDate'}}</a>
+                    </td>
+                    <!--<td>{{jobPostingInfo.jobDescription}}</td>-->
+                    <!--<td>{{jobPostingInfo.jobFileName}}</td>-->
+                    <!--<td>
+                       &lt;!&ndash;{{jobPostingInfo.upload}}&ndash;&gt;
+                       <button type="submit"
+                               ng-click="previewImage(jobPostingInfo.upload, jobPostingInfo.uploadContentType, jobPostingInfo.jobFileName)"
+                               class="btn btn-warning btn-sm" tooltip="Show JobPosting">
+                           <span class="glyphicon glyphicon-picture"></span>
+
+                       </button>
+
+                       </td>-->
+                    <!--<td>{{jobPostingInfo.createDate | date:'mediumDate'}}</td>
+                       <td>{{jobPostingInfo.createBy}}</td>
+                       <td>{{jobPostingInfo.updateBy}}</td>
+                           <td>{{jobPostingInfo.updateDate | date:'mediumDate'}}</td>-->
+                </tr>
+                </tbody>
+            </table>
+            <!--<nav>
+               <ul class="pagination">
+                   <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                   <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                   <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                   <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                   <li class="active"><a>{{page + 1}}</a></li>
+                   <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                   <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                   <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                   <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+               </ul>
+               </nav>-->
+        </div>
+    </div>
+</div>

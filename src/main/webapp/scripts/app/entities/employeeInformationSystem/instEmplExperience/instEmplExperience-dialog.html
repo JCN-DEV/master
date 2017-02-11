@@ -1,0 +1,399 @@
+<div class="col-sm-12 common-dialogue" xmlns="http://www.w3.org/1999/html">
+    <h4 class="modal-title" id="myInstEmpEduQualiLabel"
+        translate="stepApp.instEmployee.home.instEmployeeEmploymentInfo">Create or edit a InstEmplExperience</h4>
+    <form class="col-md-12 no_padding" name="editForm" role="form" class="panel panel-primary " novalidate
+          ng-submit="save()" show-validation>
+        <div class="col-md-12 no_padding" ng-repeat="instEmplExperience in instEmplExperiences">
+            <div class="col-sm-12 no_padding expe-info">
+                <h3><span translate="stepApp.instEmplExperience.expInfo"></span> {{$index + 1}} </h3>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instEmplExperience.instituteName"
+                           for="field_instituteName">InstituteName</label>
+                    <input type="text" class="form-control" name="instituteName" id="field_instituteName"
+                           ng-model="instEmplExperience.instituteName"
+                           ng-maxlength="50"
+                           required
+                           placeholder="{{'stepApp.instEmplExperience.instituteName' | translate}}"
+                           tooltip="{{'stepApp.instEmplExperience.instituteName' | translate}}"
+                    />
+                    <div ng-show="editForm.instituteName.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.instituteName.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="50">
+                            This field cannot be longer than 50 characters.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instEmplExperience.designation"
+                           for="field_designation">Designation</label>
+                    <input type="text" class="form-control" name="designation" id="field_designation"
+                           ng-model="instEmplExperience.designation"
+                           placeholder="{{'stepApp.instEmplExperience.designation' | translate}}"
+                           tooltip="{{'stepApp.instEmplExperience.designation' | translate}}"
+                           ng-maxlength="512" required/>
+                    <div ng-show="editForm.designation.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.designation.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="512">
+                            This field cannot be longer than 512 characters.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instEmplExperience.subject" for="field_subject">Subject</label>
+                    <input type="text" class="form-control" name="subject" id="field_subject"
+                           ng-model="instEmplExperience.subject"
+                           placeholder="{{'stepApp.instEmplExperience.subject' | translate}}"
+                           tooltip="{{'stepApp.instEmplExperience.subject' | translate}}"
+                           ng-maxlength="512" required/>
+                    <div ng-show="editForm.subject.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.subject.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="512">
+                            This field cannot be longer than 512 characters.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instEmplExperience.indexNo" for="field_indexNo">IndexNo</label>
+                    <input type="text" class="form-control" name="indexNo" id="field_indexNo"
+                           ng-model="instEmplExperience.indexNo"
+                           placeholder="{{'stepApp.instEmplExperience.indexNo' | translate}}"
+                           tooltip="{{'stepApp.instEmplExperience.indexNo' | translate}}"
+                           ng-maxlength="50"/>
+                    <div ng-show="editForm.indexNo.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.indexNo.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="50">
+                            This field cannot be longer than 50 characters.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instEmplExperience.mpoEnlistingDate" for="field_mpoEnlistingDate">MpoEnlistingDate</label>
+                    <input type="text" class="form-control" name="mpoEnlistingDate" id="field_mpoEnlistingDate"
+                           ng-model="instEmplExperience.mpoEnlistingDate"
+                           datepicker-popup="{{calendar.dateFormat}}"
+                           is-open="calendar.opened['mpoEnlistingDate'+$index]"
+                           placeholder="{{'entity.placeholder.dateformat' | translate}}"
+                           datepicker-options="calendar.dateOptions" close-text="Close"
+                           ng-click="calendar.open($event, 'mpoEnlistingDate'+$index)"
+                           tooltip="{{'stepApp.instEmplExperience.mpoEnlistingDate' | translate}}"
+                    />
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instEmplExperience.salaryCode">SalaryCode</label>
+                    <!-- <input type="text" class="form-control" name="salaryCode" id="field_salaryCode"
+                             ng-model="instEmplExperience.salaryCode"
+                             ng-maxlength="50" />
+                     <div ng-show="editForm.salaryCode.$invalid">
+                         <p class="help-block"
+                             ng-show="editForm.salaryCode.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="50">
+                             This field cannot be longer than 50 characters.
+                         </p>
+                     </div>-->
+
+                    <select class="form-control" ng-model="instEmplExperience.salaryCode" name="code" id="field_code"
+                            tooltip="{{'stepApp.instEmplExperience.salaryCode' | translate}}"
+                    >
+                        <option value="" translate="stepApp.instEmplExperience.salaryCode">Select Salary Code</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                    </select>
+                    <!--<input type="text" class="form-control" name="code" id="field_code"
+                           ng-model="payScale.code"
+                           ng-pattern="/^[0-9]*$/" ng-maxlength="2"
+                           required/>-->
+
+                    <div ng-show="editForm.salaryCode.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.salaryCode.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="2">
+                            This field cannot be longer than 2 characters.
+                        </p>
+                        <p class="help-block"
+                           ng-show="editForm.salaryCode.$error.pattern" translate="entity.validation.number">
+                            Only number is allow for pay scale code.
+                        </p>
+                        <p class="help-block"
+                           ng-show="editForm.salaryCode.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <label translate="stepApp.instEmplExperience.address" for="field_address">Address</label>
+                    <textarea type="text" class="form-control" name="address" id="field_address"
+                              ng-model="instEmplExperience.address"
+                              ng-maxlength="512" required
+                              rows="3"
+                              cols="30"
+                              placeholder="{{'stepApp.instEmplExperience.address' | translate}}"
+                              tooltip="{{'stepApp.instEmplExperience.address' | translate}}"
+                    >
+                    </textarea>
+                    <div ng-show="editForm.address.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.address.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="512">
+                            This field cannot be longer than 512 characters.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instEmplExperience.joiningDate" for="field_joiningDate">JoiningDate</label>
+                <input type="text" class="form-control" name="joiningDate" id="field_joiningDate"
+                       ng-model="instEmplExperience.joiningDate"
+                       datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened['joiningDate'+$index]"
+                       placeholder="{{'entity.placeholder.dateformat' | translate}}"
+                       datepicker-options="calendar.dateOptions" close-text="Close"
+                       ng-click="calendar.open($event, 'joiningDate'+$index)"
+                       ng-blur="deadlineValidation1(instEmplExperience)"
+                       tooltip="{{'stepApp.instEmplExperience.joiningDate' | translate}}"
+
+                       required/>
+                <p translate="stepApp.instEmplExperience.errMsg2" ng-show="dateError1"
+                   style="font-size: 0.9em; color:#ff2432;">Need a valid date !</p>
+
+            </div>
+
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instEmplExperience.resignDate" for="field_resignDate">ResignDate</label>
+                <input type="text" class="form-control" name="resignDate" id="field_resignDate"
+                       ng-model="instEmplExperience.resignDate"
+                       datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened['resignDate'+$index]"
+                       placeholder="{{'entity.placeholder.dateformat' | translate}}"
+                       datepicker-options="calendar.dateOptions" close-text="Close"
+                       ng-click="calendar.open($event, 'resignDate'+$index)"
+                       ng-blur="deadlineValidation1(instEmplExperience)"
+                       tooltip="{{'stepApp.instEmplExperience.resignDate' | translate}}"
+                       required/>
+                <p translate="stepApp.instEmplExperience.errMsg1" ng-show="dateError1"
+                   style="font-size: 0.9em; color:#ff2432;">Need a valid date !</p>
+            </div>
+
+            <!--<div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.instGenInfo.dateOfMpo" for="field_dateOfMpo">Date of MPO</label>
+                    <input type="text"  class="form-control" ng-disabled="mpoRelatedFieldDisable" name="dateOfMpo" id="field_dateOfMpo"
+                           ng-model="instGenInfo.dateOfMpo"  placeholder="Date of MPO"
+                           datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.dateOfMpo"
+                           datepicker-options="calendar.dateOptions" close-text="Close" ng-click="calendar.open($event, 'dateOfMpo')"
+                           ng-blur="deadlineValidation1()" />
+                    <p translate="stepApp.instGenInfo.errMsg1" ng-show="dateError1" style="font-size: 0.9em; color:#ff2432;">Need a valid date !</p>
+
+                </div>
+            </div>-->
+
+
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instEmplExperience.dateOfPaymentReceived" for="field_dateOfPaymentReceived">DateOfPaymentReceived</label>
+                <input type="text" class="form-control" name="dateOfPaymentReceived" id="field_dateOfPaymentReceived"
+                       ng-model="instEmplExperience.dateOfPaymentReceived"
+                       datepicker-popup="{{calendar.dateFormat}}"
+                       is-open="calendar.opened['dateOfPaymentReceived'+$index]"
+                       placeholder="{{'entity.placeholder.dateformat' | translate}}"
+                       datepicker-options="calendar.dateOptions" close-text="Close"
+                       ng-click="calendar.open($event, 'dateOfPaymentReceived'+$index)"
+                       tooltip="{{'stepApp.instEmplExperience.dateOfPaymentReceived' | translate}}"
+                />
+            </div>
+            <!-- <div class="form-group col-md-6">
+                 <label translate="stepApp.instEmplExperience.startDate" for="field_startDate">StartDate</label>
+                 <input type="text" class="form-control" name="startDate" id="field_startDate"
+                         ng-model="instEmplExperience.startDate"
+                         datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened['startDate'+$index]" placeholder="{{'entity.placeholder.dateformat' | translate}}"
+                         datepicker-options="calendar.dateOptions" close-text="Close" ng-click="calendar.open($event, 'startDate'+$index)"
+                         required/>
+             </div>
+             <div class="form-group col-md-6">
+                 <label translate="stepApp.instEmplExperience.endDate" for="field_endDate">EndDate</label>
+                 <input type="text" class="form-control" name="endDate" id="field_endDate"
+                         ng-model="instEmplExperience.endDate"
+                         datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened['endDate'+$index]" placeholder="{{'entity.placeholder.dateformat' | translate}}"
+                         datepicker-options="calendar.dateOptions" close-text="Close" ng-click="calendar.open($event, 'endDate'+$index)"
+                          />
+             </div>-->
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instEmplExperience.vacationFrom" for="field_vacationFrom">VacationFrom</label>
+                <input type="text" class="form-control" name="vacationFrom" id="field_vacationFrom"
+                       ng-model="instEmplExperience.vacationFrom"
+                       datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened['vacationFrom'+$index]"
+                       placeholder="{{'entity.placeholder.dateformat' | translate}}"
+                       datepicker-options="calendar.dateOptions" close-text="Close"
+                       ng-click="calendar.open($event, 'vacationFrom'+$index)"
+                       ng-blur="vacationDateValidation(instEmplExperience)"
+                       tooltip="{{'stepApp.instEmplExperience.vacationFrom' | translate}}"
+                />
+                <p translate="stepApp.instEmplExperience.errMsg4" ng-show="vacationError1"
+                   style="font-size: 0.9em; color:#ff2432;">Need a valid date !</p>
+
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instEmplExperience.vacationTo" for="field_vacationTo">VacationTo</label>
+                <input type="text" class="form-control" name="vacationTo" id="field_vacationTo"
+                       ng-model="instEmplExperience.vacationTo"
+                       datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened['vacationTo'+$index]"
+                       placeholder="{{'entity.placeholder.dateformat' | translate}}"
+                       datepicker-options="calendar.dateOptions" close-text="Close"
+                       ng-click="calendar.open($event, 'vacationTo'+$index)"
+                       ng-blur="vacationDateValidation(instEmplExperience)"
+                       tooltip="{{'stepApp.instEmplExperience.vacationTo' | translate}}"
+                />
+                <p translate="stepApp.instEmplExperience.errMsg3" ng-show="vacationError1"
+                   style="font-size: 0.9em; color:#ff2432;">Need a valid date !</p>
+
+            </div>
+
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instEmplExperience.totalExpFrom" for="field_vacationTo">VacationTo</label>
+                <input type="text" class="form-control" name="totalExpFrom" id="field_totalExpFrom"
+                       ng-model="instEmplExperience.totalExpFrom"
+                       datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened['totalExpFrom'+$index]"
+                       placeholder="{{'entity.placeholder.dateformat' | translate}}"
+                       datepicker-options="calendar.dateOptions" close-text="Close"
+                       ng-click="calendar.open($event, 'totalExpFrom'+$index)"
+                       tooltip="{{'stepApp.instEmplExperience.totalExpFrom' | translate}}"
+                />
+            </div>
+
+            <div class="form-group col-md-6" ng-show="instEmplExperience.current==false">
+                <label translate="stepApp.instEmplExperience.totalExpTo" for="field_vacationTo">VacationTo</label>
+                <input type="text" class="form-control" name="totalExpTo" id="field_totalExpFrom"
+                       ng-model="instEmplExperience.totalExpTo"
+                       datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened['totalExpTo'+$index]"
+                       placeholder="{{'entity.placeholder.dateformat' | translate}}"
+                       datepicker-options="calendar.dateOptions" close-text="Close"
+                       ng-click="calendar.open($event, 'totalExpTo'+$index)"
+                       tooltip="{{'stepApp.instEmplExperience.totalExpTo' | translate}}"
+                />
+            </div>
+
+
+            <!--<div class="form-group col-md-6">
+                <label translate="stepApp.instEmplExperience.totalExpFrom" for="field_totalExpFrom">TotalExpFrom</label>
+                <input type="text" class="form-control" name="totalExpFrom" id="field_totalExpFrom"
+                        ng-model="instEmplExperience.totalExpFrom"
+                        datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened['totalExpFrom']" placeholder="{{'entity.placeholder.dateformat' | translate}}"
+                        datepicker-options="calendar.dateOptions" close-text="Close" ng-click="calendar.open($event, 'totalExpFrom'+$index)"
+                         />
+            </div>-->
+            <!--  <div class="form-group col-md-6">
+                  <label translate="stepApp.instEmplExperience.totalExpTo" for="field_totalExpTo">TotalExpTo</label>
+                  <input type="text" class="form-control" name="totalExpTo" id="field_totalExpTo"
+                          ng-model="instEmplExperience.totalExpTo"
+                          datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened['totalExpTo']" placeholder="{{'entity.placeholder.dateformat' | translate}}"
+                          datepicker-options="calendar.dateOptions" close-text="Close" ng-click="calendar.open($event, 'totalExpTo'+$index)"
+                           />
+              </div>-->
+            <!--<div class="form-group col-md-6">
+                <label translate="stepApp.instEmplExperience.current" for="field_current">Current</label>
+                <input type="checkbox" class="form-control" name="current" id="field_current"
+                        ng-model="instEmplExperience.current"
+                         />
+            </div>-->
+
+            <!-- <div class="form-group col-md-6">
+
+                     <label translate="stepApp.instEmplExperience.current" ></label>
+
+                        <input  type="checkbox" name="currentradio" ng-model="instEmplExperience.current" >
+
+                 </div>-->
+
+            <div class="form-group col-md-6">
+                <label class="control-label" translate="stepApp.instEmplExperience.current"
+                       for="field_gender">gender</label>
+                <div id="field_gender">
+                    <!--<label ng-repeat="instGenInfolocality in instGenInfolocalitys" class="radio-inline btn btn-default"><input type="radio" name="locality" ng-model="instGenInfo.locality" ng-value="{{instGenInfolocality.id}}">{{instGenInfolocality.code}}</label>-->
+                    <label class="radio-inline btn btn-default">
+                        <input type="radio" id="field_citycorporation"
+                               name="gender"
+                               ng-model="instEmplExperience.current"
+                               tooltip="{{'stepApp.instEmplExperience.current' | translate}}"
+                               ng-value="true"><span
+                        translate="stepApp.instEmplExperience.yes" for="field_citycorporation">
+                        Yes</span>
+                    </label>
+                    <label class="radio-inline btn btn-default">
+                        <input type="radio" id="field_municipilaty"
+                               name="gender"
+                               tooltip="{{'stepApp.instEmplExperience.current' | translate}}"
+                               ng-model="instEmplExperience.current"
+                               ng-value="false"><span
+                        translate="stepApp.instEmplExperience.no" for="field_municipilaty">
+                        No</span>
+                    </label>
+                </div>
+
+            </div>
+
+
+            <!--<div class="form-group col-md-6" ngf-drop ngf-change="setAttachment($file, instEmplExperience)">
+                <label translate="stepApp.instEmplExperience.attachment" for="field_attachment">Attachment</label>
+                <div>
+                    <div class="help-block clearfix">
+                        <span class="pull-left">{{instEmplExperience.attachmentContentType}} {{byteSize(instEmplExperience.attachment)}}</span>
+                        <button ng-click="instEmplExperience.attachment=null;instEmplExperience.attachmentContentType=null;"
+                                ng-if="instEmplExperience.attachment"
+                                class="btn btn-default btn-xs pull-right">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </div>
+                    &lt;!&ndash;<button type="file" ngf-select class="btn btn-default btn-block"
+                            ngf-change="setAttachment($file, instEmplExperience)" translate="entity.action.addblob">
+                        Add blob
+                    </button>&ndash;&gt;
+                    <input type="file" ngf-select class="btn btn-default btn-block"
+                            ngf-change="setAttachment($file, instEmplExperience)" translate="entity.action.addblob">
+                    </input>
+                </div>
+                <input type="hidden" class="form-control" name="attachment" id="field_attachment"
+                        ng-model="instEmplExperience.attachment"
+                         />
+                <input type="hidden" class="form-control" name="attachmentContentType" id="field_attachmentContentType"
+                        ng-model="instEmplExperience.attachmentContentType" />
+            </div>-->
+        </div>
+        <div class="col-md-12 text-right padding-tb">
+            <button type="button" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary"
+                    ng-click="AddMore()"><span translate="entity.action.addMore">addMore</span>
+            </button>
+            <!--<span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>-->
+        </div>
+        <div class="col-md-12 text-right no_padding">
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-hide="instEmplExperiences.length > 0" translate="entity.action.save">Save</span>
+                <span ng-show="instEmplExperiences.length > 0" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

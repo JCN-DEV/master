@@ -1,0 +1,92 @@
+<div>
+    <h2 translate="stepApp.instLand.home.title">InstLands</h2>
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" ui-sref="instLand.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="stepApp.instLand.home.createLabel">Create a new InstLand</span>
+                </button>
+            </div>
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a InstLand</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="global.field.id">ID</th>
+                    <th translate="stepApp.instLand.mouja">Mouja</th>
+                    <th translate="stepApp.instLand.jlNo">JlNo</th>
+                    <th translate="stepApp.instLand.ledgerNo">LedgerNo</th>
+                    <th translate="stepApp.instLand.dagNo">DagNo</th>
+                    <th translate="stepApp.instLand.amountOfLand">AmountOfLand</th>
+                    <th translate="stepApp.instLand.landRegistrationLedgerNo">LandRegistrationLedgerNo</th>
+                    <th translate="stepApp.instLand.landRegistrationDate">LandRegistrationDate</th>
+                    <th translate="stepApp.instLand.lastTaxPaymentDate">LastTaxPaymentDate</th>
+                    <th translate="stepApp.instLand.boundaryNorth">BoundaryNorth</th>
+                    <th translate="stepApp.instLand.boundarySouth">BoundarySouth</th>
+                    <th translate="stepApp.instLand.boundaryEast">BoundaryEast</th>
+                    <th translate="stepApp.instLand.boundaryWest">BoundaryWest</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="instLand in instLands track by instLand.id">
+                    <td><a ui-sref="instLand.detail({id:instLand.id})">{{instLand.id}}</a></td>
+                    <td>{{instLand.mouja}}</td>
+                    <td>{{instLand.jlNo}}</td>
+                    <td>{{instLand.ledgerNo}}</td>
+                    <td>{{instLand.dagNo}}</td>
+                    <td>{{instLand.amountOfLand}}</td>
+                    <td>{{instLand.landRegistrationLedgerNo}}</td>
+                        <td>{{instLand.landRegistrationDate | date:'mediumDate'}}</td>
+                        <td>{{instLand.lastTaxPaymentDate | date:'mediumDate'}}</td>
+                    <td>{{instLand.boundaryNorth}}</td>
+                    <td>{{instLand.boundarySouth}}</td>
+                    <td>{{instLand.boundaryEast}}</td>
+                    <td>{{instLand.boundaryWest}}</td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="instLand.detail({id:instLand.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="instLand.edit({id:instLand.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="instLand.delete({id:instLand.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pagination">
+                <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                <li class="active"><a>{{page + 1}}</a></li>
+                <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>

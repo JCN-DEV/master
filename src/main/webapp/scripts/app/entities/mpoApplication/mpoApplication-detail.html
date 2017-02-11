@@ -1,0 +1,54 @@
+
+<div>
+    <h2><span translate="stepApp.mpoApplication.detail.title">MpoApplication</span> {{mpoApplication.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="stepApp.mpoApplication.name">Name</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{mpoApplication.name}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.mpoApplication.date">Date</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{mpoApplication.date | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.mpoApplication.employee">employee</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="employee.detail({id:mpoApplication.employee.id})">{{mpoApplication.employee.name}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.mpoApplication.institute">institute</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="institute.detail({id:mpoApplication.institute.id})">{{mpoApplication.institute.name}}</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

@@ -1,0 +1,86 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myRisAppFormEduQLabel" translate="stepApp.risAppFormEduQ.home.createOrEditLabel">Create or edit a RisAppFormEduQ</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="risAppFormEduQ.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.risAppFormEduQ.examName" for="field_examName">ExamName</label>
+            <input type="text" class="form-control" name="examName" id="field_examName"
+                    ng-model="risAppFormEduQ.examName"
+                    required />
+            <div ng-show="editForm.examName.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.examName.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.risAppFormEduQ.subject" for="field_subject">Subject</label>
+            <input type="text" class="form-control" name="subject" id="field_subject"
+                    ng-model="risAppFormEduQ.subject"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.risAppFormEduQ.educationalInstitute" for="field_educationalInstitute">EducationalInstitute</label>
+            <input type="text" class="form-control" name="educationalInstitute" id="field_educationalInstitute"
+                    ng-model="risAppFormEduQ.educationalInstitute"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.risAppFormEduQ.passingYear" for="field_passingYear">PassingYear</label>
+            <input type="number" class="form-control" name="passingYear" id="field_passingYear"
+                    ng-model="risAppFormEduQ.passingYear"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.risAppFormEduQ.boardUniversity" for="field_boardUniversity">BoardUniversity</label>
+            <input type="text" class="form-control" name="boardUniversity" id="field_boardUniversity"
+                    ng-model="risAppFormEduQ.boardUniversity"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.risAppFormEduQ.additionalInformation" for="field_additionalInformation">AdditionalInformation</label>
+            <input type="text" class="form-control" name="additionalInformation" id="field_additionalInformation"
+                    ng-model="risAppFormEduQ.additionalInformation"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.risAppFormEduQ.experience" for="field_experience">Experience</label>
+            <input type="text" class="form-control" name="experience" id="field_experience"
+                    ng-model="risAppFormEduQ.experience"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.risAppFormEduQ.qouta" for="field_qouta">Qouta</label>
+            <input type="text" class="form-control" name="qouta" id="field_qouta"
+                    ng-model="risAppFormEduQ.qouta"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.risAppFormEduQ.eduQuali" for="field_eduQuali">eduQuali</label>
+            <select class="form-control" id="field_eduQuali" name="eduQuali" ng-model="risAppFormEduQ.eduQuali" ng-options="RisNewAppFormTwo as RisNewAppFormTwo.id for RisNewAppFormTwo in risnewappformtwos track by RisNewAppFormTwo.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,525 @@
+<div class="col-md-12 common-dialogue">
+    <h4 ng-show="assetRecord.id == null" id="myAssetTypeSetupLabel"
+        translate="stepApp.assetRecord.home.createOrEditLabel">Create AssetTypeSetup</h4>
+    <h4 ng-show="assetRecord.id != null" id="myAssetTypeSetupLabel" translate="stepApp.assetRecord.home.EditLabel">
+        Create AssetTypeSetup</h4>
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <div class=" col-md-6 ">
+            <div class="form-group">
+                <label class=" control-label" translate="stepApp.assetRecord.recordCode" for="field_recordCode">AssetCode</label>
+                <input type="text" class="form-control" name="recordCode" id="field_recordCode"
+                       ng-model="assetRecord.recordCode" required ng-minlength="3" readonly/>
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <label class="  control-label" translate="stepApp.assetRecord.assetTypeSetup"
+                       for="field_assetTypeSetup">assetTypeSetup</label>
+                <select class="form-control" id="field_assetTypeSetup" name="assetTypeSetup"
+                        ng-model="assetRecord.assetTypeSetup"
+                        ng-options="assetTypeSetup as assetTypeSetup.typeName for assetTypeSetup in assettypesetups | filter:filterAssetCatTypeSupplierByStatus() track by assetTypeSetup.id">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <label class="  control-label" translate="stepApp.assetRecord.assetCategorySetup"
+                       for="field_assetCategorySetup">assetCategorySetup</label>
+                <select class="form-control" id="field_assetCategorySetup" name="assetCategorySetup"
+                        ng-model="assetRecord.assetCategorySetup"
+                        ng-options="assetCategorySetup as assetCategorySetup.categoryName for assetCategorySetup in assetcategorysetups | filter:filterAssetCatTypeSupplierByStatus() track by assetCategorySetup.id">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <label class="  control-label" translate="stepApp.assetRecord.assetName"
+                       for="field_assetName">AssetName</label>
+                <div class="input-margin">
+                    <input type="text" class="form-control" name="assetName" id="field_assetName"
+                           ng-model="assetRecord.assetName"
+                           required ng-minlength="3"/>
+                    <div ng-show="editForm.assetName.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.assetName.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                        <p class="help-block"
+                           ng-show="editForm.assetName.$error.minlength" translate="entity.validation.minlength"
+                           translate-value-min="3">
+                            This field is required to be at least 3 characters.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <label class="  control-label" translate="stepApp.assetRecord.color" for="field_color">Color</label>
+                <div class="input-margin">
+                    <input type="text" class="form-control" name="color" id="field_color"
+                           ng-model="assetRecord.color"
+                           required ng-minlength="3"/>
+                    <div ng-show="editForm.color.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.color.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                        <p class="help-block"
+                           ng-show="editForm.color.$error.minlength" translate="entity.validation.minlength"
+                           translate-value-min="3">
+                            This field is required to be at least 3 characters.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <label class="  control-label" translate="stepApp.assetRecord.manufacturingCountry"
+                       for="field_manufacturingCountryr">Manufacturing Country</label>
+                <div class="input-margin">
+                    <input type="text" class="form-control" name="manufacturingCountry"
+                           id="field_manufacturingCountryr"
+                           ng-model="assetRecord.manufacturingCountry"
+                           required ng-minlength="3"/>
+                    <div ng-show="editForm.manufacturingCountry.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.manufacturingCountry.$error.required"
+                           translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                        <p class="help-block"
+                           ng-show="editForm.manufacturingCountry.$error.minlength"
+                           translate="entity.validation.minlength" translate-value-min="3">
+                            This field is required to be at least 3 characters.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <label translate="stepApp.assetRecord.assetaccuisition" class="  control-label"
+                       for="field_assetAccuisition">Accuisition</label>
+
+                <select class="form-control" name="assetAccuisition" id="field_assetAccuisition"
+                        ng-model="assetRecord.assetAccuisition"
+                        ng-options="assetAccuisitionSetup as assetAccuisitionSetup.name for assetAccuisitionSetup in assetAccuisitionSetups | filter:filterAssetCatTypeSupplierByStatus() track by assetAccuisitionSetup.id">
+                    <option value="Select Accuisition"></option>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <label class="  control-label" translate="stepApp.assetRecord.assetSupplier"
+                       for="field_assetSupplier">assetSupplier</label>
+                <select class="form-control" name="assetSupplier" id="field_assetSupplier" ng-model="assetRecord.assetSupplier"
+                        ng-options="assetSupplier as assetSupplier.name for assetSupplier in assetsuppliers | filter:filterAssetCatTypeSupplierByStatus() track by assetSupplier.id">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <label class="  control-label" translate="stepApp.assetRecord.vendorName" for="field_vendorName">VendorName</label>
+                <input type="text" class="form-control" name="vendorName" id="field_vendorName"
+                       ng-model="assetRecord.vendorName"
+                       required ng-minlength="3"/>
+                <div ng-show="editForm.vendorName.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.vendorName.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.vendorName.$error.minlength" translate="entity.validation.minlength"
+                       translate-value-min="3">
+                        This field is required to be at least 3 characters.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+        <!--<div class="col-md-6 ">-->
+        <!--<div class="form-group">-->
+        <!--<label  class="control-label" translate="stepApp.assetRecord.purchaseDate" for="field_purchaseDate">PurchaseDate</label>-->
+
+        <!--<div class="input-margin">-->
+        <!--<input type="date" class="form-control"name="purchaseDate" id="field_purchaseDate"-->
+        <!--ng-model="assetRecord.purchaseDate"-->
+        <!--/>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+
+
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <label class="control-label" translate="stepApp.assetRecord.purchaseDate" for="field_expectedDate">purchase
+                    Date</label>
+                <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.expectedDate"
+                       datepicker-options="calendar.dateOptions" close-text="Close"
+                       ng-click="calendar.open($event, 'expectedDate')" class="form-control" name="expectedDate"
+                       id="field_expectedDate"
+                       ng-model="assetRecord.purchaseDate"
+                       required/>
+                <div ng-show="editForm.expectedDate.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.expectedDate.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <label class="control-label" translate="stepApp.assetRecord.expireDate" for="field_expireDate">Expire
+                    Date </label>
+                <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.expireDate"
+                       datepicker-options="calendar.dateOptions" close-text="Close"
+                       ng-click="calendar.open($event, 'expireDate')" class="form-control" name="expireDate"
+                       id="field_expireDate"
+                       ng-model="assetRecord.expireDate"
+                       />
+                <div ng-show="editForm.expireDate.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.expireDate.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <label class="  control-label" translate="stepApp.assetRecord.orderNo"
+                       for="field_orderNo">OrderNo</label>
+                <input type="text" class="form-control" name="orderNo" id="field_orderNo"
+                       ng-model="assetRecord.orderNo"
+                       />
+                <div ng-show="editForm.orderNo.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.orderNo.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <label class="  control-label" translate="stepApp.assetRecord.quantity"
+                       for="field_quantity">Quantity</label>
+                <input type="number" class="form-control" name="quantity" id="field_quantity"
+                       ng-model="assetRecord.quantity" required>
+                <div ng-show="editForm.quantity.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.quantity.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.quantity.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <label class="  control-label" translate="stepApp.assetRecord.price" for="field_price">Price</label>
+                <input type="number" class="form-control" name="price" id="field_price"
+                       ng-model="assetRecord.price" required>
+                <div ng-show="editForm.price.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.price.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.price.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <label class="  control-label" translate="stepApp.assetRecord.warranty"
+                       for="field_warranty">Warranty</label>
+                <input type="text" class="form-control" name="warranty" id="field_warranty"
+                       ng-model="assetRecord.warranty"
+                       required/>
+                <div ng-show="editForm.warranty.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.warranty.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <!--<p class="help-block"
+                       ng-show="editForm.warranty.$error.minlength" translate="entity.validation.minlength" translate-value-min="3">
+                        This field is required to be at least 3 characters.
+                    </p>-->
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <label class=" control-label" translate="stepApp.assetRecord.status">Status</label>
+                <label class="radio-inline">
+                    <input type="radio" ng-checked="assetRecord.status == true"
+                           name="optradio" name="status" value="true"
+                           ng-model="assetRecord.status">Active</label>
+                <label class="radio-inline">
+                    <input type="radio" ng-checked="assetRecord.status == false"
+                           name="optradio" name="status" value="false"
+                           ng-model="assetRecord.status">Inactive</label>
+            </div>
+        </div>
+
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <label class=" control-label" translate="stepApp.assetRecord.statusAsset">Status</label>
+                <label class="radio-inline">
+                    <input type="radio" ng-checked="assetRecord.statusAsset == 1"
+                           name="optradiostatusAsset" name="statusAsset" value="1"
+                           ng-model="assetRecord.statusAsset">Available</label>
+                <label class="radio-inline">
+                    <input type="radio" ng-checked="assetRecord.statusAsset == 2"
+                           name="optradiostatusAsset" name="statusAsset" value="2"
+                           ng-model="assetRecord.statusAsset">Unavailable</label>
+                <label class="radio-inline">
+                    <input type="radio" ng-checked="assetRecord.statusAsset == 3"
+                           name="optradiostatusAsset" name="statusAsset" value="3"
+                           ng-model="assetRecord.statusAsset">Transferable</label>
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <label class=" control-label" translate="stepApp.assetRecord.assetGroup">Status</label>
+                <label class="radio-inline">
+                    <input type="radio" ng-checked="assetRecord.assetGroup == 1"
+                           name="optradiassetGroupo" name="assetGroup" value="1"
+                           ng-model="assetRecord.assetGroup">Fixed</label>
+                <label class="radio-inline">
+                    <input type="radio" ng-checked="assetRecord.assetGroup == 2"
+                           name="optradiassetGroupo" name="assetGroup" value="2"
+                           ng-model="assetRecord.assetGroup">Item</label>
+            </div>
+        </div>
+
+
+        <!--<div class="col-md-6 ">-->
+        <!--<div class="form-group">-->
+        <!--<label  class=" control-label"  translate="stepApp.assetRecord.status" for="field_status">Status</label>-->
+
+        <!--<div class="input-margin">-->
+        <!--<input type="checkbox" class="form-control" name="status" id="field_status" ng-model="assetRecord.status">-->
+        <!--&lt;!&ndash;  <label class="checkbox-inline"><input type="checkbox" name="optradio" name="status" id="field_status"   ng-model="assetTypeSetup.status">Unuseable</label>-->
+        <!--<label class="checkbox-inline"><input type="checkbox" name="optradio" name="status" id="field_status"   ng-model="assetTypeSetup.status">Repairing</label>&ndash;&gt;-->
+
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+
+
+        <div class="col-md-12 text-right">
+            <button type="submit" class="btn btn-info" onclick="window.history.back()">
+                <i class="fa fa-angle-double-left"></i>
+                <span translate="entity.action.back">Back</span>
+            </button>
+            <button type="submit" class="btn btn-primary" ng-disabled="editForm.$invalid || editForm.$submitted">
+                <i class="fa fa-hdd-o"></i>
+                <span ng-show="assetRecord.id == null" translate="entity.action.save">Save</span>
+                <span ng-show="assetRecord.id != null" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>
+<!--===End asset records===-->
+
+
+<!--<div  class="panel panel-primary">-->
+
+<!--<div class="panel-heading">-->
+
+<!--<div>-->
+<!--<h4 id="myAssetTypeSetupLabel" translate="stepApp.assetRecord.home.createOrEditLabel">Create AssetTypeSetup</h4>-->
+<!--</div>-->
+
+<!--</div>-->
+
+
+<!--<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>-->
+
+<!--<div class="modal-body">-->
+<!--<jh-alert-error></jh-alert-error>-->
+
+
+<!--<div class="form-group">-->
+<!--<label translate="stepApp.assetRecord.recordCode" for="field_recordCode">AssetName</label>-->
+<!--<input type="text" class="form-control" name="assetName" id="field_recordCode"-->
+<!--ng-model="assetReco-->
+
+<!--rd.recordCode"-->
+<!--required ng-minlength="3" />-->
+<!--<div ng-show="editForm.assetName.$invalid">-->
+<!--<p class="help-block"-->
+<!--ng-show="editForm.assetName.$error.required" translate="entity.validation.required">-->
+<!--This field is required.-->
+<!--</p>-->
+<!--<p class="help-block"-->
+<!--ng-show="editForm.assetName.$error.minlength" translate="entity.validation.minlength" translate-value-min="3">-->
+<!--This field is required to be at least 3 characters.-->
+<!--</p>-->
+<!--</div>-->
+<!--</div>-->
+<!--<>-->
+
+<!--<div class="form-group">-->
+<!--<label translate="stepApp.assetRecord.assetName" for="field_assetName">AssetName</label>-->
+<!--<input type="text" class="form-control" name="assetName" id="field_assetName"-->
+<!--ng-model="assetRecord.assetName"-->
+<!--required ng-minlength="3" />-->
+<!--<div ng-show="editForm.assetName.$invalid">-->
+<!--<p class="help-block"-->
+<!--ng-show="editForm.assetName.$error.required" translate="entity.validation.required">-->
+<!--This field is required.-->
+<!--</p>-->
+<!--<p class="help-block"-->
+<!--ng-show="editForm.assetName.$error.minlength" translate="entity.validation.minlength" translate-value-min="3">-->
+<!--This field is required to be at least 3 characters.-->
+<!--</p>-->
+<!--</div>-->
+<!--</div>-->
+<!--<>-->
+<!--<div class="form-group">-->
+<!--<label translate="stepApp.assetRecord.vendorName" for="field_vendorName">VendorName</label>-->
+<!--<input type="text" class="form-control" name="vendorName" id="field_vendorName"-->
+<!--ng-model="assetRecord.vendorName"-->
+<!--required ng-minlength="3" />-->
+<!--<div ng-show="editForm.vendorName.$invalid">-->
+<!--<p class="help-block"-->
+<!--ng-show="editForm.vendorName.$error.required" translate="entity.validation.required">-->
+<!--This field is required.-->
+<!--</p>-->
+<!--<p class="help-block"-->
+<!--ng-show="editForm.vendorName.$error.minlength" translate="entity.validation.minlength" translate-value-min="3">-->
+<!--This field is required to be at least 3 characters.-->
+<!--</p>-->
+<!--</div>-->
+<!--</div>-->
+<!--<>-->
+<!--<div class="form-group">-->
+<!--<label translate="stepApp.assetRecord.supplierName" for="field_supplierName">SupplierName</label>-->
+<!--<input type="text" class="form-control" name="supplierName" id="field_supplierName"-->
+<!--ng-model="assetRecord.supplierName"-->
+<!--required ng-minlength="3" />-->
+<!--<div ng-show="editForm.supplierName.$invalid">-->
+<!--<p class="help-block"-->
+<!--ng-show="editForm.supplierName.$error.required" translate="entity.validation.required">-->
+<!--This field is required.-->
+<!--</p>-->
+<!--<p class="help-block"-->
+<!--ng-show="editForm.supplierName.$error.minlength" translate="entity.validation.minlength" translate-value-min="3">-->
+<!--This field is required to be at least 3 characters.-->
+<!--</p>-->
+<!--</div>-->
+<!--</div>-->
+<!--<>-->
+<!--<div class="form-group">-->
+<!--<label translate="stepApp.assetRecord.purchaseDate" for="field_purchaseDate">PurchaseDate</label>-->
+<!--<input type="date" class="form-control" name="purchaseDate" id="field_purchaseDate"-->
+<!--ng-model="assetRecord.purchaseDate"-->
+<!--/>-->
+<!--</div>-->
+
+<!--<>-->
+
+<!--<div class="form-group">-->
+<!--<label translate="stepApp.assetRecord.orderNo" for="field_orderNo">OrderNo</label>-->
+<!--<input type="text" class="form-control" name="orderNo" id="field_orderNo"-->
+<!--ng-model="assetRecord.orderNo"-->
+<!--required />-->
+<!--<div ng-show="editForm.orderNo.$invalid">-->
+<!--<p class="help-block"-->
+<!--ng-show="editForm.orderNo.$error.required" translate="entity.validation.required">-->
+<!--This field is required.-->
+<!--</p>-->
+<!--</div>-->
+<!--</div>-->
+<!--<>-->
+<!--<div class="form-group">-->
+<!--<label translate="stepApp.assetRecord.price" for="field_price">Price</label>-->
+<!--<input type="number" class="form-control" name="price" id="field_price"-->
+<!--ng-model="assetRecord.price"-->
+<!--<div class="col-md-6 ">-->
+<!--required />-->
+<!--<div ng-show="editForm.price.$invalid">-->
+<!--<p class="help-block"-->
+<!--ng-show="editForm.price.$error.required" translate="entity.validation.required">-->
+<!--This field is required.-->
+<!--</p>-->
+<!--<p class="help-block"-->
+<!--ng-show="editForm.price.$error.number" translate="entity.validation.number">-->
+<!--This field should be a number.-->
+<!--</p>-->
+<!--</div>-->
+<!--</div>-->
+<!--<>-->
+<!--<div class="form-group">-->
+<!--<label translate="stepApp.assetRecord.status" for="field_status">Status</label>-->
+<!--<input type="checkbox" class="form-control" name="status" id="field_status"-->
+<!--ng-model="assetRecord.status"-->
+<!--/>-->
+<!--</div>-->
+<!--<>-->
+
+
+<!--<div class="form-group">-->
+<!--<label translate="stepApp.assetRecord.assetCategorySetup" for="field_assetCategorySetup">assetCategorySetup</label>-->
+<!--<select class="form-control" id="field_assetCategorySetup" name="assetCategorySetup" ng-model="assetRecord.assetCategorySetup" ng-options="assetCategorySetup as assetCategorySetup.categoryName for assetCategorySetup in assetcategorysetups track by assetCategorySetup.id">-->
+<!--<option value=""></option>-->
+<!--</select>-->
+<!--</div>-->
+<!--<>-->
+<!--<div class="form-group">-->
+<!--<label translate="stepApp.assetRecord.assetTypeSetup" for="field_assetTypeSetup">assetTypeSetup</label>-->
+<!--<select class="form-control" id="field_assetTypeSetup" name="assetTypeSetup" ng-model="assetRecord.assetTypeSetup" ng-options="assetTypeSetup as assetTypeSetup.typeName for assetTypeSetup in assettypesetups track by assetTypeSetup.id">-->
+<!--<option value=""></option>-->
+<!--</select>-->
+<!--</div>-->
+<!--<>-->
+<!--<div class="form-group">-->
+<!--<label translate="stepApp.assetRecord.assetSupplier" for="field_assetSupplier">assetSupplier</label>-->
+<!--<select class="form-control" id="field_assetSupplier" name="assetSupplier" ng-model="assetRecord.assetSupplier" ng-options="assetSupplier as assetSupplier.name for assetSupplier in assetsuppliers track by assetSupplier.id">-->
+<!--<option value=""></option>-->
+<!--</select>-->
+
+<!--</div>-->
+
+<!--</div>-->
+<!--<div class="modal-footer">-->
+
+<!--<button type="submit"-->
+<!--onclick="window.history.back()"-->
+<!--class="btn btn-info">-->
+<!--<span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>-->
+<!--</button>-->
+
+<!--<button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">-->
+<!--<span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>-->
+<!--</button>-->
+<!--</div>-->
+<!--</form>-->
+
+<!--</div>-->

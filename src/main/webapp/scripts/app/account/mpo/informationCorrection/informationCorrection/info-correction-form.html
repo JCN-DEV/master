@@ -1,0 +1,159 @@
+<div class="panel-body">
+    <div class="attachment_info">
+        <div class="col-sm-12 timescale-apply">
+            <form name="editForm" class="form form-horizontal col-sm-12" role="form" novalidate ng-submit="save()"
+                  show-validation>
+                <h3 translate="stepApp.informationCorrection.detail.title">Information Correction</h3>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label translate="stepApp.informationCorrection.type" for="field_type">Type</label>
+                        <select class="form-control" id="field_type" name="type" ng-model="infoType" required>
+                            <option value="dob"  translate="stepApp.informationCorrection.dob">Date Of Birth</option>
+                            <option value="name"  translate="stepApp.informationCorrection.name">Name</option>
+                            <option value="indexNo"  translate="stepApp.informationCorrection.indexNo">Index No</option>
+                            <option value="bankAccount"  translate="stepApp.informationCorrection.bankAccountNo">Bank Account</option>
+                            <option value="designation"  translate="stepApp.informationCorrection.instEmplDesignation">Designation</option>
+                        </select>
+                    </div>
+                    <div class="form-group" ng-if="infoType === 'dob'">
+                        <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.dob"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               ng-click="calendar.open($event, 'dob')" class="form-control"
+                               name="dob" id="field_dob" placeholder="date of birth"
+                               ng-model="informationCorrection.dob"/>
+                    </div>
+                    <div class="form-group" ng-if="infoType === 'name'">
+                        <input type="text" class="form-control" name="name" id="field_name"
+                               ng-model="informationCorrection.name" placeholder="input correct name here ..."
+                               ng-maxlength="200" />
+                        <div ng-show="editForm.name.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.name.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="200">
+                                This field cannot be longer than 200 characters.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group"  ng-if="infoType === 'indexNo'">
+                        <input type="text" class="form-control" name="indexNo" id="field_indexNo"
+                               ng-model="informationCorrection.indexNo" placeholder="input correct index number here ..."
+                               ng-maxlength="30" />
+                        <div ng-show="editForm.indexNo.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.indexNo.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="30">
+                                This field cannot be longer than 30 characters.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group"  ng-if="infoType === 'bankAccount'">
+                        <input type="text" class="form-control" name="bankAccountNo" id="field_bankAccountNo" placeholder="input corrected bank account number here ..."
+                               ng-model="informationCorrection.bankAccountNo"
+                            />
+                    </div>
+                    <div class="form-group" ng-if="infoType === 'designation'">
+                        <select class="form-control" id="field_instEmplDesignation" name="instEmplDesignation" ng-model="informationCorrection.instEmplDesignation" ng-options="instEmplDesignation as instEmplDesignation.name for instEmplDesignation in instEmplDesignations track by instEmplDesignation.id">
+                            <option value="">select designation</option>
+                        </select>
+                    </div>
+
+                </div>
+               <div class="col-sm-12">
+                   <h3 translate="{{'stepApp.employee.AttachmentInformation'}}">Attachment Information</h3>
+
+                <div class="attachmentDiv" ng-repeat="attachmentCount in applicantAttachmentCount track by $index">
+                    <div class="col-sm-12">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <select class="form-control" id="field_attachment" name="attachment"
+                                        ng-model="applicantAttachment[attachmentCount].attachment"
+                                        ng-change="setAttachment($index, applicantAttachment[attachmentCount])">
+                                    <option value="" selected="selected" translate="{{'stepApp.employee.AttachmentName'}}">Attachment Name</option>
+                                    <option
+                                        ng-repeat="mpoAttachment in attachmentCategoryList "
+                                        value="{{mpoAttachment}}">
+                                        {{mpoAttachment.attachmentName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" ng-hide="applicantAttachment[attachmentCount].noAttachment">
+                            <div class="form-group" ngf-drop ngf-change="setFile($file, attachment)">
+                                <div>
+                                    <div class="help-block clearfix">
+                                        <span class="pull-left">{{applicantAttachment[attachmentCount].fileContentType}} {{byteSize(applicantAttachment[attachmentCount].file)}}</span>
+                                        <button
+                                            ng-click="applicantAttachment[attachmentCount].file=null;applicantAttachment[attachmentCount].fileContentType=null;"
+                                            ng-if="applicantAttachment[attachmentCount].file"
+                                            class="btn btn-default btn-xs pull-right">
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                        </button>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <input type="file" ngf-select class="btn btn-default btn-sm col-sm-6"
+                                               ngf-change="setFile($file, applicantAttachment[attachmentCount])"
+                                               translate="entity.action.addblob">
+                                        </input>
+                                        <div class="col-sm-6" ng-hide="attachmentCount=='0'">
+                                        <span class="col-sm-6 minus-btn"
+                                              ng-click="removeAttachment(attachmentCount)"><span
+                                            class="glyphicon glyphicon-minus"></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" class="form-control" name="file" id="field_file"
+                                       ng-model="applicantAttachment[attachmentCount].file"
+                                    />
+                                <input type="hidden" class="form-control" name="fileContentType" id="field_fileContentType"
+                                       ng-model="applicantAttachment[attachmentCount].fileContentType"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" ng-show="applicantAttachment[attachmentCount].noAttachment">
+                            <div class="col-sm-12">
+                                <div class="col-sm-6">
+                                    <input class="form-control" type="text"  ng-change="remarksChange(applicantAttachment[attachmentCount].noAttachment,applicantAttachment[attachmentCount].remarks)"
+                                           ng-model="applicantAttachment[attachmentCount].remarks" placeholder="Remarks"/>
+                                </div>
+                                <div class="col-sm-6" ng-hide="attachmentCount=='0'">
+                                <span class="col-sm-6 minus-btn" ng-click="removeAttachment(attachmentCount)"><span
+                                    class="glyphicon glyphicon-minus"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 attachment_file">
+                        <div class="control-lebel">
+                            <div class="col-sm-12">
+                                <input ng-click='selectNoAttachment(applicantAttachment[attachmentCount].noAttachment,applicantAttachment[attachmentCount].attachment,applicantAttachment[attachmentCount].file,applicantAttachment[attachmentCount].remarks)' type="checkbox" id="noAttachment"
+                                       ng-model="applicantAttachment[attachmentCount].noAttachment">
+                                <label class="control-label my_control_lebel"
+                                       for="field_noAttachment" translate="{{'stepApp.employee.dontHave'}}">I don't have this attachment</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="col-sm-12">
+                <span ng-show="showAddMoreButton" class="btn btn-sm btn-primary pull-right"
+                      ng-click="addMoreAttachment()"><span
+                    class="glyphicon glyphicon-plus"></span>Add More Attachment</span>
+                </div>
+                <div class="col-sm-12" ng-show="duplicateError">
+                    <span style="color:red;margin-top:30px;font-size:14px;">You have selected duplicate attachment, please check the selection.</span>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group my_form_group">
+                        <br/>
+
+                        <div class="col-lg-12 pull-right text-right">
+                           <!-- <span class="btn btn-primary pull-left text-left" ng-click="timescalePrev('attachment', 'education')" translate="{{'stepApp.employee.Previous'}}">Previous</span>-->
+
+                            <button ng-disabled="mpoFormHasError" type="submit" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-ok-sign"></span>&nbsp;<span
+                                translate="global.menu.apply">Apply</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

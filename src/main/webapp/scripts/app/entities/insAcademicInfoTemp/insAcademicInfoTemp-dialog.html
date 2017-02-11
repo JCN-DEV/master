@@ -1,0 +1,66 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myInsAcademicInfoTempLabel" translate="stepApp.insAcademicInfoTemp.home.createOrEditLabel">Create or edit a InsAcademicInfoTemp</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="insAcademicInfoTemp.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.insAcademicInfoTemp.counselorName" for="field_counselorName">CounselorName</label>
+            <input type="text" class="form-control" name="counselorName" id="field_counselorName"
+                    ng-model="insAcademicInfoTemp.counselorName"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.insAcademicInfoTemp.curriculum" for="field_curriculum">Curriculum</label>
+            <select class="form-control" name="curriculum" ng-model="insAcademicInfoTemp.curriculum" id="field_curriculum">
+                <option value="SSC_VOC" translate="stepApp.Curriculum.SSC_VOC">SSC_VOC</option>
+                <option value="HSC_VOC" translate="stepApp.Curriculum.HSC_VOC">HSC_VOC</option>
+                <option value="HSC_BM" translate="stepApp.Curriculum.HSC_BM">HSC_BM</option>
+                <option value="MADDRASSA" translate="stepApp.Curriculum.MADDRASSA">MADDRASSA</option>
+                <option value="HONORS" translate="stepApp.Curriculum.HONORS">HONORS</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.insAcademicInfoTemp.totalTechTradeNo" for="field_totalTechTradeNo">TotalTechTradeNo</label>
+            <input type="number" class="form-control" name="totalTechTradeNo" id="field_totalTechTradeNo"
+                    ng-model="insAcademicInfoTemp.totalTechTradeNo"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.insAcademicInfoTemp.tradeTechDetails" for="field_tradeTechDetails">TradeTechDetails</label>
+            <input type="text" class="form-control" name="tradeTechDetails" id="field_tradeTechDetails"
+                    ng-model="insAcademicInfoTemp.tradeTechDetails"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.insAcademicInfoTemp.status" for="field_status">Status</label>
+            <input type="number" class="form-control" name="status" id="field_status"
+                    ng-model="insAcademicInfoTemp.status"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.insAcademicInfoTemp.institute" for="field_institute">institute</label>
+            <select class="form-control" id="field_institute" name="institute" ng-model="insAcademicInfoTemp.institute" ng-options="institute as institute.name for institute in institutes | orderBy:'id' track by institute.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

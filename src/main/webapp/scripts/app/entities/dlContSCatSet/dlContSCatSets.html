@@ -1,0 +1,93 @@
+<div>
+    <h2 translate="stepApp.dlContSCatSet.home.title">DlContSCatSets</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" ui-sref="dlContSCatSet.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="stepApp.dlContSCatSet.home.createLabel">Create a new DlContSCatSet</span>
+                </button>
+            </div>
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a DlContSCatSet</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="global.field.id">ID</th>
+                <th translate="stepApp.dlContSCatSet.code">Code</th>
+                <th translate="stepApp.dlContSCatSet.name">Name</th>
+                <th translate="stepApp.dlContSCatSet.description">Description</th>
+                <th translate="stepApp.dlContSCatSet.pStatus">PStatus</th>
+                <th translate="stepApp.dlContSCatSet.createdDate">CreatedDate</th>
+                <th translate="stepApp.dlContSCatSet.updatedDate">UpdatedDate</th>
+                <th translate="stepApp.dlContSCatSet.createdBy">CreatedBy</th>
+                <th translate="stepApp.dlContSCatSet.updatedBy">UpdatedBy</th>
+                <th translate="stepApp.dlContSCatSet.status">Status</th>
+                <th translate="stepApp.dlContSCatSet.dlContTypeSet">dlContTypeSet</th>
+                <th translate="stepApp.dlContSCatSet.dlContCatSet">dlContCatSet</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="dlContSCatSet in dlContSCatSets track by dlContSCatSet.id">
+                <td><a ui-sref="dlContSCatSet.detail({id:dlContSCatSet.id})">{{dlContSCatSet.id}}</a></td>
+                <td>{{dlContSCatSet.code}}</td>
+                <td>{{dlContSCatSet.name}}</td>
+                <td>{{dlContSCatSet.description}}</td>
+                <td>{{dlContSCatSet.pStatus}}</td>
+                <td>{{dlContSCatSet.createdDate | date:'mediumDate'}}</td>
+                <td>{{dlContSCatSet.updatedDate | date:'mediumDate'}}</td>
+                <td>{{dlContSCatSet.createdBy}}</td>
+                <td>{{dlContSCatSet.updatedBy}}</td>
+                <td>{{dlContSCatSet.status}}</td>
+                <td>
+                    <a ui-sref="dlContTypeSet.detail({id:dlContSCatSet.dlContTypeSet.id})">{{dlContSCatSet.dlContTypeSet.name}}</a>
+                </td>
+                <td>
+                    <a ui-sref="dlContCatSet.detail({id:dlContSCatSet.dlContCatSet.id})">{{dlContSCatSet.dlContCatSet.name}}</a>
+                </td>
+                <td>
+                    <button type="submit"
+                            ui-sref="dlContSCatSet.detail({id:dlContSCatSet.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="dlContSCatSet.edit({id:dlContSCatSet.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="dlContSCatSet.delete({id:dlContSCatSet.id})"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pagination">
+                <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                <li class="active"><a>{{page + 1}}</a></li>
+                <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>

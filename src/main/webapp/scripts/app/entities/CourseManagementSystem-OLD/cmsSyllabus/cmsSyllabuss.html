@@ -1,0 +1,83 @@
+<div class="cmscurriculam">
+    <div class="panel-heading cmsheading">
+        <h3 class="panel-title" translate="stepApp.cmsSyllabus.home.title">CmsSyllabuss</h3>
+    </div>
+    <jh-alert></jh-alert>
+        <div class="row cmsCnew">
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="{{'global.home.searchLabel' | translate}}">
+                    </div>
+                    <button class="btn btn-primary" ng-click="search()"><i class="fa fa-search-plus"></i>
+
+                    </button>
+                </form>
+            </div>
+            <div class="col-md-4 text-right cmsCnew">
+                <button class="btn btn-primary" ui-sref="courseInfo.cmsSyllabus.new">
+                    <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.cmsSyllabus.home.createLabel">Create a new CmsSyllabus</span>
+                </button>
+            </div>
+
+        </div>
+    <div class="table-responsive cmsheadrow">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="global.field.id">ID</th>
+                    <th translate="stepApp.cmsSyllabus.version">Version</th>
+                    <th translate="stepApp.cmsSyllabus.name">Name</th>
+                   <!-- <th translate="stepApp.cmsSyllabus.description">Description</th>-->
+                    <th translate="stepApp.cmsSyllabus.status">Status</th>
+                    <th translate="stepApp.cmsSyllabus.cmsCurriculum">cmsCurriculum</th>
+                    <th translate="entity.action.action">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="cmsSyllabus in cmsSyllabuss track by cmsSyllabus.id">
+                    <td><a ui-sref="cmsSyllabus.detail({id:cmsSyllabus.id})">{{cmsSyllabus.id}}</a></td>
+                    <td>{{cmsSyllabus.version}}</td>
+                    <td>{{cmsSyllabus.name}}</td>
+                   <!-- <td>{{cmsSyllabus.description}}</td>-->
+                    <td>
+                        <span style="color: #005f00"  ng-show="cmsSyllabus.status == true" class="form-control-static"><span translate="entity.action.activate">Active</span></span>
+                        <span style="color: red" ng-show="cmsSyllabus.status == false" class="form-control-static"><span translate="entity.action.deactivate">Deactive</span></span></td>
+                    <td>
+                        <a ui-sref="cmsCurriculum.detail({id:cmsSyllabus.cmsCurriculum.id})">{{cmsSyllabus.cmsCurriculum.name}}</a>
+                    </td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="courseInfo.cmsSyllabus.detail({id:cmsSyllabus.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="courseInfo.cmsSyllabus.edit({id:cmsSyllabus.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <!--<button type="submit"
+                                ui-sref="cmsSyllabus.delete({id:cmsSyllabus.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>-->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pagination">
+                <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                <li class="active"><a>{{page + 1}}</a></li>
+                <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>

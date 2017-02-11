@@ -1,0 +1,108 @@
+<div class="cmscurriculam">
+    <div class="panel-heading cmsheading" ng-show="cmsTrade.code==null">
+        <h3 class="panel-title" id="myCmsSemesterLabel" translate="stepApp.cmsTrade.home.createOrEditLabel">Create or edit a CmsTrade</h3>
+    </div>
+    <div class="panel-heading cmsheading" ng-hide="cmsTrade.code==null" >
+        <h3 class="panel-title" id="" translate="stepApp.cmsTrade.home.edit">Create or edit a CmsTrade</h3>
+    </div>
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+    <div class="panel-body">
+        <jh-alert-error></jh-alert-error>
+        <div ng-show="message != '' " class="alert alert-danger">{{message}}</div>
+        <!--<div class="col-sm-6">
+            <div class="form-group">
+                <label for="id" translate="global.field.id">ID</label>
+                <input type="text" class="form-control" id="id" name="id"
+                        ng-model="cmsTrade.id" readonly />
+            </div>
+        </div>-->
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label translate="stepApp.cmsTrade.cmsCurriculum" for="field_cmsCurriculum">cmsCurriculum</label>
+                <select class="form-control" id="field_cmsCurriculum" name="cmsCurriculum" ng-model="cmsTrade.cmsCurriculum" ng-options="cmsCurriculum as cmsCurriculum.name for cmsCurriculum in cmscurriculums | filter:cmsCurriculum.status='true'">
+                    <option value="">{{cmsTrade.cmsCurriculum.name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="control-label" translate="stepApp.cmsTrade.code" for="field_code">Code</label>
+                <input type="text" class="form-control" name="code" id="field_code"
+                        ng-model="cmsTrade.code"
+                       ng-remote-validate="/api/cmsTrades/code/"
+                       ng-remote-method="GET"
+                        required />
+                <span class="message" ng-show="editForm.code.$pending">validating...</span>
+
+                <div ng-show="editForm.code.$invalid">
+                    <p class="help-block"
+                        ng-show="editForm.code.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+                <div ng-show="editForm.code.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.code.$error.ngRemoteValidate">
+                        This code is already exist
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="control-label" translate="stepApp.cmsTrade.name" for="field_name">Name</label>
+                <input type="text" class="form-control" name="name" id="field_name"
+                        ng-model="cmsTrade.name"
+                        required />
+                <div ng-show="editForm.name.$invalid">
+                    <p class="help-block"
+                        ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="control-label" translate="stepApp.cmsTrade.description" for="field_description">Description</label>
+                <textarea  class="form-control" name="description" id="field_description"
+                        ng-model="cmsTrade.description"
+                         />
+            </div>
+        </div>
+        <!--<div class="col-sm-6">
+            <div class="form-group">
+                <label class="control-label" translate="stepApp.cmsTrade.status" for="field_status">Status</label>
+                <input type="checkbox" class="form-control" name="status" id="field_status"
+                        ng-model="cmsTrade.status"
+                         />
+            </div>
+        </div>-->
+
+        <div class="col-md-6 col-sm-12 col-xs-12">
+            <div class="form-group">
+                <label class="control-label" translate="stepApp.cmsCurriculum.status" >Status</label>
+
+                <div class="input-margin">
+                    <label  class="radio-inline"><input type="radio" name="status" value="true" checked="true" ng-checked="cmsTrade.status == true" ng-model="cmsTrade.status"><span translate="entity.action.activate">Activate</span></label>
+                    <label class="radio-inline"><input type="radio" name="status"  value="false" ng-checked="cmsTrade.status == false" ng-model="cmsTrade.status"><span translate="entity.action.deactivate">Deactivate</span></label>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 text-right">
+            <button type="submit"
+                    onclick="window.history.back()"
+                    class="btn btn-info">
+                <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+            </button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.clear">Clear</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+            </button>
+        </div>
+    </div>
+</form>
+</div>

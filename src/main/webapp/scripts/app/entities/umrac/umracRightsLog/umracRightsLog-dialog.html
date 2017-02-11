@@ -1,0 +1,99 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myUmracRightsLogLabel" translate="stepApp.umracRightsLog.home.createOrEditLabel">Create or edit a UmracRightsLog</h4>
+    </div>
+    <div class="modal-body">
+        <!--<jh-alert-error></jh-alert-error>-->
+        <!--<div class="form-group">-->
+            <!--<label for="id" translate="global.field.id">ID</label>-->
+            <!--<input type="text" class="form-control" id="id" name="id"-->
+                    <!--ng-model="umracRightsLog.id" readonly />-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+            <!--<label translate="stepApp.umracRightsLog.rightId" for="field_rightId">RightId</label>-->
+            <!--<input type="text" class="form-control" name="rightId" id="field_rightId"-->
+                    <!--ng-model="umracRightsLog.rightId"-->
+                     <!--/>-->
+        <!--</div>-->
+        <div class="form-group">
+            <label translate="stepApp.umracRightsLog.roleId" for="field_roleId">RoleId</label>
+            <input type="number" class="form-control" name="roleId" id="field_roleId"
+                    ng-model="umracRightsLog.roleId"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.umracRightsLog.module_id" for="field_module_id">Module_id</label>
+            <input type="number" class="form-control" name="module_id" id="field_module_id"
+                    ng-model="umracRightsLog.module_id"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.umracRightsLog.subModule_id" for="field_subModule_id">SubModule_id</label>
+            <input type="number" class="form-control" name="subModule_id" id="field_subModule_id"
+                    ng-model="umracRightsLog.subModule_id"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.umracRightsLog.rights" for="field_rights">Rights</label>
+            <input type="text" class="form-control" name="rights" id="field_rights"
+                    ng-model="umracRightsLog.rights"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.umracRightsLog.description" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description"
+                    ng-model="umracRightsLog.description"
+                     />
+        </div>
+        <div class="form-group">
+            <h6 class="control-label col-sm-12" translate="stepApp.umracRightsLog.status" >Status</h6>
+            <div class="col-sm-12" ng-init="checked=true">
+                <input type="radio"  name="status" value="true" ng-checked="umracRightsLog.status == true" ng-model="umracRightsLog.status"><span translate="entity.action.activate">Active</span>&nbsp;&nbsp;
+                <input type="radio" name="status"  value="false" ng-checked="umracRightsLog.status == false" ng-model="umracRightsLog.status"><span translate="entity.action.deactivate">Deactive</span>
+            </div>
+        </div>
+        <!--<div class="form-group">-->
+            <!--<label translate="stepApp.umracRightsLog.status" for="field_status">Status</label>-->
+            <!--<input type="checkbox" class="form-control" name="status" id="field_status"-->
+                    <!--ng-model="umracRightsLog.status"-->
+                     <!--/>-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+            <!--<label translate="stepApp.umracRightsLog.changeDate" for="field_changeDate">ChangeDate</label>-->
+            <!--<input type="date" class="form-control" name="changeDate" id="field_changeDate"-->
+                    <!--ng-model="umracRightsLog.changeDate"-->
+                     <!--/>-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+            <!--<label translate="stepApp.umracRightsLog.changeBy" for="field_changeBy">ChangeBy</label>-->
+            <!--<input type="number" class="form-control" name="changeBy" id="field_changeBy"-->
+                    <!--ng-model="umracRightsLog.changeBy"-->
+                     <!--/>-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+            <!--<label translate="stepApp.umracRightsLog.updatedBy" for="field_updatedBy">UpdatedBy</label>-->
+            <!--<input type="number" class="form-control" name="updatedBy" id="field_updatedBy"-->
+                    <!--ng-model="umracRightsLog.updatedBy"-->
+                     <!--/>-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+            <!--<label translate="stepApp.umracRightsLog.updatedTime" for="field_updatedTime">UpdatedTime</label>-->
+            <!--<input type="date" class="form-control" name="updatedTime" id="field_updatedTime"-->
+                    <!--ng-model="umracRightsLog.updatedTime"-->
+                     <!--/>-->
+        <!--</div>-->
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,98 @@
+<div class="service-form-area">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="modal-title" id="myPgmsAppFamilyAttachLabel" translate="stepApp.pgmsAppFamilyAttach.home.createOrEditLabel">Create or edit a PgmsAppFamilyAttach</h4>
+        </div>
+        <div class="panel-body bg-panel">
+            <jh-alert-error></jh-alert-error>
+
+
+            <div class="panel-body bg-panel" ng-repeat="pgmsAppFamilyAttach in pgmsAppFamilyAttachList">
+                <form class="form-horizontal" name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+                    <div class="row">
+                        <div class="col-md-4  col-sm-4 col-xs-4">
+                            <label class="control-label" translate="stepApp.pgmsAppFamilyAttach.attachName">attachName</label>
+                            <span class="form-control-static">{{pgmsAppFamilyAttach.attachName.attachName}}</span>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-4" ngf-change="setAttachment($file, pgmsAppFamilyAttach)">
+                            <label class="control-label" translate="stepApp.pgmsAppFamilyAttach.attachment" for="field_attachment">Attachment</label>
+                            <div class="input-margin">
+                                <div>
+                                    <div class="help-block clearfix">
+                                        <span class="pull-left">{{pgmsAppFamilyAttach.attachmentContentType}} {{byteSize(pgmsAppFamilyAttach.attachment)}}</span>
+                                        <button ng-click="pgmsAppFamilyAttach.attachment=null;pgmsAppFamilyAttach.attachmentContentType=null;"
+                                                ng-if="pgmsAppFamilyAttach.attachment"
+                                                class="btn btn-default btn-xs pull-right">
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                        </button>
+                                    </div>
+                                    <button type="file" ngf-select class="btn btn-default btn-block"
+                                            ngf-change="setAttachment($file, pgmsAppFamilyAttach)" translate="entity.action.addblob">
+                                        Add blob
+                                    </button>
+                                </div>
+                                <input type="hidden" class="form-control" name="attachment" id="field_attachment"
+                                       ng-model="pgmsAppFamilyAttach.attachment"
+                                />
+                                <input type="hidden" class="form-control" name="attachmentContentType" id="field_attachmentContentType"
+                                       ng-model="pgmsAppFamilyAttach.attachmentContentType" />
+                                <a ng-if="pgmsAppFamilyAttach.attachmentContentType" class="btn btn-link" ng-click="previewDoc(pgmsAppFamilyAttach)">View</a>
+                            </div>
+                        </div>
+                        <div class="col-md-4  col-sm-4 col-xs-4">
+
+                            <div class="input-margin">
+                                <button ng-click="saveAttachment(pgmsAppFamilyAttach, $index)"
+                                        type="button" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary btn-sm">
+                                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                                </button>
+                                <button type="button" ng-show="pgmsAppFamilyAttach.id"
+                                        ng-click="delete(pgmsAppFamilyAttach)"
+                                        class="btn btn-danger btn-sm">
+                                    <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" class="btn " data-dismiss="modal" onclick="window.history.back()">
+                    <i class="fa fa-angle-double-left"></i>&nbsp;<span translate="entity.action.back">Back</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deletePgmsAppFamilyAttachConfirmation">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="deleteForm" ng-submit="confirmDelete(pgmsAppFamilyAttach)">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                            ng-click="clear()">&times;</button>
+                    <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                </div>
+                <div class="modal-body">
+                    <p translate="stepApp.pgmsAppFamilyAttach.delete.question" translate-values="{id: '{{pgmsAppFamilyAttach.id}}'}">Are you sure you want to delete this PgmsAppFamilyAttach?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                        <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                    </button>
+                    <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete">Delete</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

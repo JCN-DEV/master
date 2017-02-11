@@ -1,0 +1,340 @@
+<div class="service-form-area">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="modal-title" id="myPgmsAppRetirmntNmineLabel" translate="stepApp.pgmsAppRetirmntNmine.home.createOrEditLabel">Create or edit a PgmsAppRetirmntNmine</h4>
+        </div>
+        <div class="panel-body bg-panel">
+            <jh-alert-error></jh-alert-error>
+            <form class="form-horizontal" name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+                <div> Showing Length: {{pgmsHrNomineeList.length}}</div>
+                <div ng-repeat="retirmntNmine in pgmsHrNomineeList">
+                    <span ng-if="$index<totalList">
+                        <div class="row">
+                            <div class="col-md-4  col-sm-4 col-xs-d">
+                                <label class="control-label" translate="stepApp.pgmsAppRetirmntNmine.appRetirmntPenId">AppRetirmntPenId</label>
+                                <span class="form-control-static">{{retirmntNmine.nomineeName}}</span>
+                            </div>
+                            <div class="col-md-4  col-sm-4 col-xs-4">
+                                <label class="control-label" translate="stepApp.pgmsAppRetirmntNmine.nomineeStatus">NomineeStatus</label>
+                                <div class="input-margin">
+                                    <label class="radio-inline">
+                                        <input type="radio" data-ng-model="retirmntNmine.nomineeStatus" name="nomineeStatus" data-ng-value="true">&nbsp;Yes&nbsp;&nbsp;
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" data-ng-model="retirmntNmine.nomineeStatus" name="nomineeStatus" data-ng-value="false">&nbsp;No
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4  col-sm-4 col-xs-4">
+                                <label class="control-label" translate="stepApp.pgmsAppRetirmntNmine.getPension" for="field_getPension">GetPension</label>
+                                <div class="input-margin">
+                                    <input type="number" class="form-control" name="getPension" id="field_getPension"
+                                           ng-model="retirmntNmine.getPension"
+                                           required />
+                                    <div ng-show="editForm.getPension.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.getPension.$error.required" translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                        <p class="help-block"
+                                           ng-show="editForm.getPension.$error.number" translate="entity.validation.number">
+                                            This field should be a number.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4  col-sm-4 col-xs-d">
+                                <label class="control-label" translate="stepApp.pgmsAppRetirmntNmine.gender">Gender</label>
+                                <span class="form-control-static">{{retirmntNmine.gender}}</span>
+                            </div>
+                            <div class="col-md-4  col-sm-4 col-xs-4"> </div>
+                            <div class="col-md-4  col-sm-4 col-xs-4"> </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4  col-sm-4 col-xs-d">
+                                <label class="control-label" translate="stepApp.pgmsAppRetirmntNmine.dateOfBirth">DateOfBirth</label>
+                                <span class="form-control-static">{{retirmntNmine.dateOfBirth}}</span>
+                            </div>
+                            <div class="col-md-4  col-sm-4 col-xs-4"> </div>
+                            <div class="col-md-4  col-sm-4 col-xs-4"> </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4  col-sm-4 col-xs-d">
+                                <label class="control-label" translate="stepApp.pgmsAppRetirmntNmine.relation">Relation</label>
+                                <span class="form-control-static">{{retirmntNmine.relation}}</span>
+                            </div>
+                            <div class="col-md-4  col-sm-4 col-xs-4"> </div>
+                            <div class="col-md-4  col-sm-4 col-xs-4"> </div>
+                        </div>
+                        <span ng-if="$index>0"><hr></span>
+                    </span>
+                    <span ng-if="$index>=totalList">
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6  col-sm-6 col-xs-6">
+                                <label class="control-label" translate="stepApp.pgmsAppRetirmntNmine.appRetirmntPenId" for="field_appRetirmntPenId">AppRetirmntPenId</label>
+                                <div class="input-margin">
+                                    <input type="number" class="form-control" name="appRetirmntPenId" id="field_appRetirmntPenId"
+                                           ng-model="retirmntNmine.appRetirmntPenId"
+                                           required />
+                                    <div ng-show="editForm.appRetirmntPenId.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.appRetirmntPenId.$error.required" translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                        <p class="help-block"
+                                           ng-show="editForm.appRetirmntPenId.$error.number" translate="entity.validation.number">
+                                            This field should be a number.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6  col-sm-6 col-xs-6">
+                                <label class="control-label" translate="stepApp.pgmsAppRetirmntNmine.nomineeStatus">NomineeStatus</label>
+                                <div class="input-margin">
+                                    <label class="radio-inline">
+                                        <input type="radio" data-ng-model="retirmntNmine.nomineeStatus" name="nomineeStatus" data-ng-value="true">&nbsp;Yes&nbsp;&nbsp;
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" data-ng-model="retirmntNmine.nomineeStatus" name="nomineeStatus" data-ng-value="false">&nbsp;No
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6  col-sm-6 col-xs-6">
+                                <label class="control-label" translate="stepApp.pgmsAppRetirmntNmine.nomineeName" for="field_nomineeName">NomineeName</label>
+                                <div class="input-margin">
+                                    <input type="text" class="form-control" name="nomineeName" id="field_nomineeName"
+                                           ng-model="retirmntNmine.nomineeName"
+                                           required />
+                                    <div ng-show="editForm.nomineeName.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.nomineeName.$error.required" translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6  col-sm-6 col-xs-6">
+                                <label class="control-label" translate="stepApp.pgmsAppRetirmntNmine.gender">Gender</label>
+                                <div class="input-margin">
+                                    <label class="radio-inline">
+                                        <input type="radio" data-ng-model="retirmntNmine.gender" name="gender" value="Male">&nbsp;Male&nbsp;&nbsp;
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" data-ng-model="retirmntNmine.gender" name="gender" value="Female">&nbsp;Female&nbsp;&nbsp;
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" data-ng-model="retirmntNmine.gender" name="gender" value="other">&nbsp;Other
+                                    </label>
+                                    <div ng-show="editForm.gender.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.gender.$error.required" translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6  col-sm-6 col-xs-6">
+                                <label class="control-label" translate="stepApp.pgmsAppRetirmntNmine.relation" for="field_relation">Relation</label>
+                                <div class="input-margin">
+                                    <input type="text" class="form-control" name="relation" id="field_relation"
+                                           ng-model="retirmntNmine.relation"
+                                           required />
+                                    <div ng-show="editForm.relation.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.relation.$error.required" translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6  col-sm-6 col-xs-6">
+                                <label class="control-label" translate="stepApp.pgmsAppRetirmntNmine.dateOfBirth" for="field_dateOfBirth">DateOfBirth</label>
+                                <div class="input-margin">
+                                    <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.dateOfBirth"
+                                           datepicker-options="calendar.dateOptions" close-text="Close"
+                                           ng-click="calendar.open($event, 'dateOfBirth')" class="form-control" name="dateOfBirth" id="field_dateOfBirth"
+                                           ng-model="retirmntNmine.dateOfBirth"
+                                           required />
+                                    <div ng-show="editForm.dateOfBirth.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.dateOfBirth.$error.required" translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6  col-sm-6 col-xs-6">
+                                <label class="control-label" translate="stepApp.pgmsAppRetirmntNmine.presentAddress" for="field_presentAddress">PresentAddress</label>
+                                <div class="input-margin">
+                                   <textarea class="form-control" name="presentAddress" id="field_presentAddress" cols="20" rows="2" ng-maxlength="150"
+                                             ng-model="retirmntNmine.presentAddress" required> </textarea>
+
+                                    <div ng-show="editForm.presentAddress.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.presentAddress.$error.required" translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6  col-sm-6 col-xs-6">
+                                <label class="control-label" translate="stepApp.pgmsAppRetirmntNmine.nid" for="field_nid">Nid</label>
+                                <div class="input-margin">
+                                    <input type="text" class="form-control" name="nid" id="field_nid"
+                                           ng-model="retirmntNmine.nid"
+                                           ng-remote-method="GET"
+                                           ng-remote-throttle="500"
+                                           ng-minlength="17"
+                                           ng-maxlength="17"
+                                           required numeric-only-mobile/>
+                                    <div ng-show="editForm.nid.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.nid.$error.required" translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                        <p class="help-block"
+                                           ng-show="editForm.nid.$error.minlength" translate="entity.validation.minlength" translate-value-min="17">
+                                            National ID will be in 17 digit length.
+                                        </p>
+                                        <p class="help-block"
+                                           ng-show="editForm.nid.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="17">
+                                            National ID will be in 17 digit length.
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6  col-sm-6 col-xs-6">
+                                <label class="control-label" translate="stepApp.pgmsAppRetirmntNmine.occupation" for="field_occupation">Occupation</label>
+                                <div class="input-margin">
+                                    <input type="text" class="form-control" name="occupation" id="field_occupation"
+                                           ng-model="retirmntNmine.occupation"
+                                           required />
+                                    <div ng-show="editForm.occupation.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.occupation.$error.required" translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6  col-sm-6 col-xs-6">
+                                <label class="control-label" translate="stepApp.pgmsAppRetirmntNmine.designation" for="field_designation">Designation</label>
+                                <div class="input-margin">
+                                    <input type="text" class="form-control" name="designation" id="field_designation"
+                                           ng-model="retirmntNmine.designation"
+                                           required />
+                                    <div ng-show="editForm.designation.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.designation.$error.required" translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6  col-sm-6 col-xs-6">
+                                <label class="control-label" translate="stepApp.pgmsAppRetirmntNmine.maritalStatus">MaritalStatus</label>
+                                <div class="input-margin">
+                                    <label class="radio-inline">
+                                        <input type="radio" data-ng-model="retirmntNmine.maritalStatus" name="maritalStatus" value="Married">&nbsp;Married&nbsp;&nbsp;
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" data-ng-model="retirmntNmine.maritalStatus" name="maritalStatus" value="Unmarried">&nbsp;Un Married&nbsp;&nbsp;
+                                    </label>
+                                    <div ng-show="editForm.maritalStatus.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.maritalStatus.$error.required" translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6  col-sm-6 col-xs-6">
+                                <label class="control-label" translate="stepApp.pgmsAppRetirmntNmine.mobileNo" for="field_mobileNo">MobileNo</label>
+                                <div class="input-margin">
+                                    <input type="text" class="form-control" name="mobileNo" id="field_mobileNo"
+                                           ng-model="retirmntNmine.mobileNo"
+                                           ng-minlength="11"
+                                           ng-maxlength="18"
+                                           required numeric-only-mobile/>
+                                    <div ng-show="editForm.mobileNo.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.mobileNo.$error.required" translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                        <p class="help-block"
+                                           ng-show="editForm.mobileNo.$error.minlength" translate="entity.validation.minlength" translate-value-min="11">
+                                            This field is required to be at least 11 Digit.
+                                        </p>
+                                        <p class="help-block"
+                                           ng-show="editForm.mobileNo.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="18">
+                                            This field cannot be longer than 18 Digit.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6  col-sm-6 col-xs-6">
+                                <label class="control-label" translate="stepApp.pgmsAppRetirmntNmine.getPension" for="field_getPension">GetPension</label>
+                                <div class="input-margin">
+                                    <input type="number" class="form-control" name="getPension" id="field_getPension"
+                                           ng-model="retirmntNmine.getPension"
+                                           required />
+                                    <div ng-show="editForm.getPension.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.getPension.$error.required" translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                        <p class="help-block"
+                                           ng-show="editForm.getPension.$error.number" translate="entity.validation.number">
+                                            This field should be a number.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6  col-sm-6 col-xs-6">
+                                <label class="control-label" translate="stepApp.pgmsAppRetirmntNmine.hrNomineeInfo">HrNomineeInfo</label>
+                                <div class="input-margin">
+                                    <label class="radio-inline">
+                                        <input type="radio" data-ng-model="retirmntNmine.hrNomineeInfo" name="hrNomineeInfo" data-ng-value="true">&nbsp;Yes&nbsp;&nbsp;
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" data-ng-model="retirmntNmine.hrNomineeInfo" name="hrNomineeInfo" data-ng-value="false">&nbsp;No
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+                <div class="col-sm-12 no_padding text-right">
+                    <button type="button" class="btn btn-primary" ng-click="addMore()"><i class="fa fa-plus-square"></i>
+                        <span  translate="global.menu.account.addmore">Add More</span>
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" class="btn " data-dismiss="modal" onclick="window.history.back()">
+                        <i class="fa fa-angle-double-left"></i>&nbsp;<span translate="entity.action.back">Back</span>
+                    </button>
+                    <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

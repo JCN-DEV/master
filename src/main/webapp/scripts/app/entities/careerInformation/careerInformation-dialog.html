@@ -1,0 +1,125 @@
+
+<form name="editForm" class="form form-horizontal" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header bg-primary">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myCareerInformationLabel" translate="stepApp.careerInformation.home.createOrEditLabel">Create or edit a CareerInformation</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" for="id" translate="global.field.id">ID</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="id" name="id" ng-model="careerInformation.id" readonly />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.careerInformation.objectives" for="field_objectives">Objectives</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="objectives" id="field_objectives"
+                    ng-model="careerInformation.objectives"
+                    required ng-minlength="3" />
+            <div ng-show="editForm.objectives.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.objectives.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.objectives.$error.minlength" translate="entity.validation.minlength" translate-value-min="3">
+                    This field is required to be at least 3 characters.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.careerInformation.keyword" for="field_keyword">Keyword</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="keyword" id="field_keyword"
+                    ng-model="careerInformation.keyword"
+                    required ng-minlength="2" />
+            <div ng-show="editForm.keyword.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.keyword.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.keyword.$error.minlength" translate="entity.validation.minlength" translate-value-min="2">
+                    This field is required to be at least 2 characters.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.careerInformation.presentSalary" for="field_presentSalary">PresentSalary</label>
+            <div class="col-sm-8">
+            <input type="number" class="form-control" name="presentSalary" id="field_presentSalary"
+                    ng-model="careerInformation.presentSalary"
+                     />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.careerInformation.expectedSalary" for="field_expectedSalary">ExpectedSalary</label>
+            <div class="col-sm-8">
+            <input type="number" class="form-control" name="expectedSalary" id="field_expectedSalary"
+                    ng-model="careerInformation.expectedSalary"
+                     />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.careerInformation.lookForNature" for="field_lookForNature">LookForNature</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="lookForNature" id="field_lookForNature"
+                    ng-model="careerInformation.lookForNature"
+                    required ng-minlength="3" />
+            <div ng-show="editForm.lookForNature.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.lookForNature.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.lookForNature.$error.minlength" translate="entity.validation.minlength" translate-value-min="3">
+                    This field is required to be at least 3 characters.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.careerInformation.availableFrom" for="field_availableFrom">AvailableFrom</label>
+            <div class="col-sm-8">
+            <input type="date" class="form-control" name="availableFrom" id="field_availableFrom"
+                    ng-model="careerInformation.availableFrom"
+                     />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.careerInformation.employee" for="field_employee">employee</label>
+            <div class="col-sm-8">
+                <select class="form-control" id="field_employee" name="employee" ng-model="careerInformation.employee" ng-options="employee as employee.name for employee in employees track by employee.id">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.careerInformation.manager" for="field_manager">manager</label>
+            <div class="col-sm-8">
+                <select class="form-control" id="field_manager" name="manager" ng-model="careerInformation.manager" ng-options="user as user.login for user in users track by user.id">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="form-group">
+            <div class="col-md-offset-4 col-md-8">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

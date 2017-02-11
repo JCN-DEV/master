@@ -1,0 +1,87 @@
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+    <div class="modal-header">
+        <h4 class="modal-title" id="myHrDepartmentHeadInfoLabel" translate="stepApp.hrDepartmentHeadInfo.home.createOrEditLabel">Create or edit a HrDepartmentHeadInfo</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.hrDepartmentHeadInfo.departmentInfo">departmentInfo</label>
+
+                    <div class="input-margin">
+                        {{hrDepartmentHeadInfo.departmentInfo.departmentInfo.departmentName}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.hrDepartmentHeadInfo.headInfo" for="field_headInfo">headInfo</label>
+                    <input placeholder="{{'stepApp.hrDepartmentHeadInfo.headInfo' | translate}}" type="text"
+                           class="form-control autocomplete" autocomplete="off"
+                           ng-model="hrDepartmentHeadInfo.headInfo" typeahead='HrEmployeeInfo as (HrEmployeeInfo.fullName + " " + HrEmployeeInfo.employeeId) for HrEmployeeInfo in hremployeeinfos | filter:$viewValue' id="field_headInfo">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.hrDepartmentHeadInfo.joinDate" for="field_joinDate">JoinDate</label>
+                    <input  datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.joinDate"
+                            datepicker-options="calendar.dateOptions" close-text="Close" max-date="hrDepartmentHeadInfo.endDate"
+                            ng-click="calendar.open($event, 'joinDate')" class="form-control" name="joinDate" id="field_joinDate"
+                           ng-model="hrDepartmentHeadInfo.joinDate"/>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.hrDepartmentHeadInfo.endDate" for="field_endDate">EndDate</label>
+                    <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.endDate"
+                           datepicker-options="calendar.dateOptions" close-text="Close" min-date="hrDepartmentHeadInfo.joinDate"
+                           ng-click="calendar.open($event, 'endDate')" class="form-control" name="endDate" id="field_endDate"
+                           ng-model="hrDepartmentHeadInfo.endDate"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.hrDepartmentHeadInfo.activeHead" for="field_activeHead">ActiveHead</label>
+                    <input type="checkbox" class="form-control" name="activeHead" id="field_activeHead"
+                           ng-model="hrDepartmentHeadInfo.activeHead"/>
+                    <div ng-show="editForm.activeHead.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.activeHead.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.hrDepartmentHeadInfo.activeStatus" for="field_activeStatus">ActiveStatus</label>
+                    <input type="checkbox" class="form-control" name="activeStatus" id="field_activeStatus"
+                           ng-model="hrDepartmentHeadInfo.activeStatus"/>
+                    <div ng-show="editForm.activeStatus.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" class="btn " data-dismiss="modal" onclick="window.history.back()">
+            <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;<span translate="entity.action.back">Back</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,127 @@
+<div class="row">
+
+    <div class="col-sm-3">
+        <ng-include src="'scripts/app/entities/jobPortal/jp-user-menu.html'"></ng-include>
+    </div>
+
+    <div class="col-sm-9">
+        <form ng-if="!jobVisible && hasProfile" name="editForm" role="form" novalidate ng-submit="save()">
+
+            <div class="modal-header bg-primary">
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                        ng-click="clear()">&times;</button>-->
+                <h4 class="modal-title" id="myJobapplicationLabel" translate="stepApp.jobapplication.home.applyjob">
+                    Create or edit a Jobapplication</h4>
+            </div>
+            <div class="modal-body form-horizontal">
+                <div class="col-md-12 col-sm-12">
+                    <h5>{{job.cat.cat}}</h5>
+                </div>
+                <div class="col-sm-12 description">
+                    <table class="table">
+                        <tr>
+                            <td translate="stepApp.employer.companyName">Company Name :</td>
+                            <td>{{job.employer.name}}</td>
+                        </tr>
+                        <tr>
+                            <td translate="stepApp.job.location">Country :</td>
+                            <td >{{job.employer.country.name}}</td>
+                        </tr>
+                        <tr>
+                            <td translate="stepApp.employer.organizationType">Type :</td>
+                            <td >{{job.employer.organizationType.name}}</td>
+                        </tr>
+                    </table>
+                </div>
+                <br><br>
+                <div class="form-group">
+                    <label class="col-sm-4" translate="stepApp.jobapplication.cvType" >CvType</label>
+                    <div class="col-sm-6">
+                        <input type="radio" name="cvType" value="internal" id="internal" ng-model="jobapplication.cvType">Internal
+                        <input type="radio" ng-disabled="!internalResume"  name="cvType" value="external" id="external" ng-model="jobapplication.cvType">External
+                        <a ng-click="clear()" ui-sref="resume.cvAttachment" ng-show="!internalResume">(Upload Resume)</a>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-4 control-label" translate="stepApp.jobapplication.expectedSalary" for="field_expectedSalary">Cv</label>
+                    <div class="col-sm-4">
+
+                        <input type="number" class="form-control" name="expectedSalary" id="field_expectedSalary"
+                               ng-model="jobapplication.expectedSalary"
+                            />
+                    </div>
+                </div>
+                <div ng-show="selectedCvType == 'external'"  class="form-group" ngf-drop ngf-change="setCv($file, jobapplication)">
+                    <label class="col-sm-3 control-label" translate="stepApp.jobapplication.cv" for="field_cv">Cv</label>
+
+                    <div class="col-sm-4">
+                        <div class="help-block">
+                            <span class="pull-left">{{abbreviate(jobapplication.cv)}} {{jobapplication.cvContentType}} {{byteSize(jobapplication.cv)}}</span>
+                            <button ng-click="jobapplication.cv=null;jobapplication.cvContentType=null;"
+                                    ng-if="jobapplication.cv"
+                                    class="btn btn-default btn-xs pull-right">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </div>
+                        <input type="file" accept="application/pdf" type="file" ngf-select class="btn btn-default btn-block"
+                               ngf-change="setCv($file, jobapplication)" translate="entity.action.addblob" value="Browse Resume">
+
+                        <p class="help-block" translate="stepApp.jobapplication.cv_help">help note</p>
+                    </div>
+                    <input type="hidden"  class="form-control" name="cv" id="field_cv"
+                           ng-model="jobapplication.cv"
+                        >
+                    <input type="hidden"  class="form-control" name="cvContentType"
+                           id="field_cvContentType"
+                           ng-model="jobapplication.cvContentType">
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-12 control-label" translate="stepApp.jobapplication.note" for="field_note">Note</label>
+
+                    <div class="col-sm-12">
+                        <textarea type="text" class="form-control" name="note" id="field_note"
+                                  ng-model="jobapplication.note"
+                                  cols="20" rows="5"></textarea>
+                        <p class="help-block" translate="stepApp.jobapplication.note_help">help note</p>
+                    </div>
+                </div>
+                <!--<div class="form-group hide">
+                    <label class="col-sm-3" translate="stepApp.jobapplication.appliedDate" for="field_appliedDate">AppliedDate</label>
+                    <div class="col-sm-4">
+                        <input type="date" class="form-control" name="appliedDate" id="field_appliedDate"
+                               ng-model="jobapplication.appliedDate"/>
+                    </div>
+                </div>-->
+            </div>
+            <!--body-->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" onclick="window.history.back()">
+                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                    translate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" cng-if="!jobVisible" class="btn btn-primary"  ng-disabled="editForm.$invalid || editForm.$submitted" >
+                    </span>&nbsp;Apply
+                </button>
+            </div>
+        </form>
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel" style="background: #0D9947; box-shadow: 0px 2px 16px 1px #6c6c6c; margin-top: 20%">
+                <div class="panel-body report_dialog">
+                    <div ng-if="jobVisible"><h2>Already you have applied for this job!</h2></div>
+                    <div ng-if="!hasProfile"><h2>You did not create your profile. </h2>
+                        <a ui-sref="resume">Create Profile</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+
+

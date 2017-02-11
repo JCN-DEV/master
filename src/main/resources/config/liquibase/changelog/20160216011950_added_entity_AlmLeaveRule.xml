@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <property name="now" value="now()" dbms="mysql,h2"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+    <property name="now" value="sysdate" dbms="oracle"/>
+
+    <property name="autoIncrement" value="true" dbms="mysql,h2,postgresql,oracle"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle"/>
+
+    <!--
+        Added the entity AlmLeaveRule.
+    -->
+    <changeSet id="20160216011950" author="jhipster">
+        <createTable tableName="alm_leave_rule">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <!--<column name="leave_rule_name" type="varchar(255)">-->
+                <!--<constraints nullable="false" />-->
+            <!--</column>-->
+            <column name="no_of_days_entitled" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <column name="max_consecutive_leaves" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <column name="min_gap_between_two_leaves" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <column name="no_of_instance_allowed" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <column name="is_neg_balance_allowed" type="bit"/>
+            <column name="max_neg_balance" type="bigint">
+            </column>
+            <column name="alm_gender" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="applicable_service_length" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <column name="is_certificate_required" type="bit"/>
+            <!--<column name="is_suffix_prefix" type="bit"/>-->
+            <column name="required_no_of_days" type="bigint">
+            </column>
+            <column name="is_earn_leave" type="bit"/>
+            <column name="days_required_to_earn" type="bigint">
+            </column>
+            <column name="no_of_leaves_earned" type="bigint">
+            </column>
+            <column name="is_leave_without_pay" type="bit"/>
+            <column name="is_carry_forward" type="bit"/>
+            <column name="max_carry_forward" type="bigint"/>
+            <column name="max_balance_forward" type="bigint">
+            </column>
+            <column name="active_status" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column name="create_date" type="date"/>
+            <column name="create_by" type="bigint"/>
+            <column name="update_date" type="date"/>
+            <column name="update_by" type="bigint"/>
+            <column name="alm_leave_type_id" type="bigint"/>
+            <column name="alm_leave_group_id" type="bigint"/>
+            <!--<column name="alm_earning_method_id" type="bigint"/>-->
+            <!--<column name="alm_earning_frequency_id" type="bigint"/>-->
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="alm_leave_type_id"
+                                 baseTableName="alm_leave_rule"
+                                 constraintName="fk_almlvrl_lvtype_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="alm_leave_type"/>
+
+        <addForeignKeyConstraint baseColumnNames="alm_leave_group_id"
+                                 baseTableName="alm_leave_rule"
+                                 constraintName="fk_almlvrl_lvgrp_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="alm_leave_group"/>
+
+       <!-- <addForeignKeyConstraint baseColumnNames="alm_earning_frequency_id"
+                                 baseTableName="alm_leave_rule"
+                                 constraintName="fk_almearn_frqn_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="alm_earning_frequency"/>
+
+        <addForeignKeyConstraint baseColumnNames="alm_earning_method_id"
+                                 baseTableName="alm_leave_rule"
+                                 constraintName="fk_almearnl_meth_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="alm_earning_method"/>-->
+
+    </changeSet>
+</databaseChangeLog>

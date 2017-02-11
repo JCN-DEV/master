@@ -1,0 +1,68 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myInstituteGovernBodyLabel" translate="stepApp.instituteGovernBody.home.createOrEditLabel">Create or edit a InstituteGovernBody</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="instituteGovernBody.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instituteGovernBody.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                    ng-model="instituteGovernBody.name"
+                    required />
+            <div ng-show="editForm.name.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instituteGovernBody.position" for="field_position">Position</label>
+            <input type="text" class="form-control" name="position" id="field_position"
+                    ng-model="instituteGovernBody.position"
+                    required />
+            <div ng-show="editForm.position.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.position.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instituteGovernBody.mobileNo" for="field_mobileNo">MobileNo</label>
+            <input type="text" class="form-control" name="mobileNo" id="field_mobileNo"
+                    ng-model="instituteGovernBody.mobileNo"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instituteGovernBody.status" for="field_status">Status</label>
+            <input type="number" class="form-control" name="status" id="field_status"
+                    ng-model="instituteGovernBody.status"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.instituteGovernBody.institute" for="field_institute">institute</label>
+            <select class="form-control" id="field_institute" name="institute" ng-model="instituteGovernBody.institute" ng-options="institute as institute.name for institute in institutes track by institute.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

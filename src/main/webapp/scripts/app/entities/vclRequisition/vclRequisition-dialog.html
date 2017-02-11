@@ -1,0 +1,213 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myVclRequisitionLabel" translate="stepApp.vclRequisition.home.createOrEditLabel">Create or edit a VclRequisition</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vclRequisition.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclRequisition.requisitionType" for="field_requisitionType">RequisitionType</label>
+            <select class="form-control" name="requisitionType" ng-model="vclRequisition.requisitionType" id="field_requisitionType" required>
+                <option value="Personal" translate="stepApp.requisitionTypes.Personal">Personal</option>
+                <option value="Government" translate="stepApp.requisitionTypes.Government">Government</option>
+            </select>
+            <div ng-show="editForm.requisitionType.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.requisitionType.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclRequisition.vehicleType" for="field_vehicleType">VehicleType</label>
+            <select class="form-control" name="vehicleType" ng-model="vclRequisition.vehicleType" id="field_vehicleType" required>
+                <option value="PrivateCar" translate="stepApp.vehicleTypes.PrivateCar">PrivateCar</option>
+                <option value="Truck" translate="stepApp.vehicleTypes.Truck">Truck</option>
+                <option value="Pickup" translate="stepApp.vehicleTypes.Pickup">Pickup</option>
+                <option value="Micro" translate="stepApp.vehicleTypes.Micro">Micro</option>
+            </select>
+            <div ng-show="editForm.vehicleType.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.vehicleType.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclRequisition.sourceLocation" for="field_sourceLocation">SourceLocation</label>
+            <input type="text" class="form-control" name="sourceLocation" id="field_sourceLocation"
+                    ng-model="vclRequisition.sourceLocation"
+                    required />
+            <div ng-show="editForm.sourceLocation.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.sourceLocation.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclRequisition.destinationLocation" for="field_destinationLocation">DestinationLocation</label>
+            <input type="text" class="form-control" name="destinationLocation" id="field_destinationLocation"
+                    ng-model="vclRequisition.destinationLocation"
+                    required />
+            <div ng-show="editForm.destinationLocation.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.destinationLocation.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclRequisition.expectedDate" for="field_expectedDate">ExpectedDate</label>
+            <input type="date" class="form-control" name="expectedDate" id="field_expectedDate"
+                    ng-model="vclRequisition.expectedDate"
+                    required />
+            <div ng-show="editForm.expectedDate.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.expectedDate.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclRequisition.returnDate" for="field_returnDate">ReturnDate</label>
+            <input type="date" class="form-control" name="returnDate" id="field_returnDate"
+                    ng-model="vclRequisition.returnDate"
+                    required />
+            <div ng-show="editForm.returnDate.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.returnDate.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclRequisition.requisitionCause" for="field_requisitionCause">RequisitionCause</label>
+            <input type="text" class="form-control" name="requisitionCause" id="field_requisitionCause"
+                    ng-model="vclRequisition.requisitionCause"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclRequisition.requisitionStatus" for="field_requisitionStatus">RequisitionStatus</label>
+            <select class="form-control" name="requisitionStatus" ng-model="vclRequisition.requisitionStatus" id="field_requisitionStatus" required>
+                <option value="Open" translate="stepApp.requisitionStatus.Open">Open</option>
+                <option value="Approved" translate="stepApp.requisitionStatus.Approved">Approved</option>
+                <option value="Rejected" translate="stepApp.requisitionStatus.Rejected">Rejected</option>
+                <option value="Closed" translate="stepApp.requisitionStatus.Closed">Closed</option>
+            </select>
+            <div ng-show="editForm.requisitionStatus.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.requisitionStatus.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclRequisition.meterReading" for="field_meterReading">MeterReading</label>
+            <input type="text" class="form-control" name="meterReading" id="field_meterReading"
+                    ng-model="vclRequisition.meterReading"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclRequisition.fuelReading" for="field_fuelReading">FuelReading</label>
+            <input type="text" class="form-control" name="fuelReading" id="field_fuelReading"
+                    ng-model="vclRequisition.fuelReading"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclRequisition.billAmount" for="field_billAmount">BillAmount</label>
+            <input type="number" class="form-control" name="billAmount" id="field_billAmount"
+                    ng-model="vclRequisition.billAmount"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclRequisition.expectedArrivalDate" for="field_expectedArrivalDate">ExpectedArrivalDate</label>
+            <input type="date" class="form-control" name="expectedArrivalDate" id="field_expectedArrivalDate"
+                    ng-model="vclRequisition.expectedArrivalDate"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclRequisition.comments" for="field_comments">Comments</label>
+            <input type="text" class="form-control" name="comments" id="field_comments"
+                    ng-model="vclRequisition.comments"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclRequisition.actionDate" for="field_actionDate">ActionDate</label>
+            <input type="date" class="form-control" name="actionDate" id="field_actionDate"
+                    ng-model="vclRequisition.actionDate"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclRequisition.actionBy" for="field_actionBy">ActionBy</label>
+            <input type="number" class="form-control" name="actionBy" id="field_actionBy"
+                    ng-model="vclRequisition.actionBy"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclRequisition.activeStatus" for="field_activeStatus">ActiveStatus</label>
+            <input type="checkbox" class="form-control" name="activeStatus" id="field_activeStatus"
+                    ng-model="vclRequisition.activeStatus"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclRequisition.createDate" for="field_createDate">CreateDate</label>
+            <input type="date" class="form-control" name="createDate" id="field_createDate"
+                    ng-model="vclRequisition.createDate"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclRequisition.createBy" for="field_createBy">CreateBy</label>
+            <input type="number" class="form-control" name="createBy" id="field_createBy"
+                    ng-model="vclRequisition.createBy"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclRequisition.updateDate" for="field_updateDate">UpdateDate</label>
+            <input type="date" class="form-control" name="updateDate" id="field_updateDate"
+                    ng-model="vclRequisition.updateDate"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclRequisition.updateBy" for="field_updateBy">UpdateBy</label>
+            <input type="number" class="form-control" name="updateBy" id="field_updateBy"
+                    ng-model="vclRequisition.updateBy"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.vclRequisition.user" for="field_user">user</label>
+            <select class="form-control" id="field_user" name="user" ng-model="vclRequisition.user" ng-options="User as User.login for User in users track by User.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.vclRequisition.vehicle" for="field_vehicle">vehicle</label>
+            <select class="form-control" id="field_vehicle" name="vehicle" ng-model="vclRequisition.vehicle" ng-options="VclVehicle as VclVehicle.vehicleName for VclVehicle in vclvehicles track by VclVehicle.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.vclRequisition.alterDriver" for="field_alterDriver">alterDriver</label>
+            <select class="form-control" id="field_alterDriver" name="alterDriver" ng-model="vclRequisition.alterDriver" ng-options="VclDriver as VclDriver.driverName for VclDriver in vcldrivers track by VclDriver.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

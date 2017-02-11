@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+#yo jhipster:entity author
+#yo jhipster:entity book
+#yo jhipster:entity careerInformation
+#yo jhipster:entity cat
+##yo jhipster:entity country
+##yo jhipster:entity course
+##yo jhipster:entity district
+##yo jhipster:entity division
+#yo jhipster:entity educationalQualification
+##yo jhipster:entity employee
+##yo jhipster:entity employer
+#yo jhipster:entity experience
+#yo jhipster:entity externalCV
+##yo jhipster:entity institute
+##yo jhipster:entity job
+##yo jhipster:entity jobapplication
+##yo jhipster:entity lang
+#yo jhipster:entity principalRequirement
+#yo jhipster:entity professionalQualification
+#yo jhipster:entity reference
+##yo jhipster:entity result
+##yo jhipster:entity skill
+##yo jhipster:entity staffCount
+##yo jhipster:entity training
+##yo jhipster:entity upazila
+##yo jhipster:entity vacancy
+##yo jhipster:entity applicantEducation
+#yo jhipster:entity payScale
+#yo jhipster:entity lecturerSeniority
+
+yo jhipster:entity aclSid
+yo jhipster:entity aclClass
+yo jhipster:entity aclEntry
+yo jhipster:entity aclObjectIdentity
+yo jhipster:entity module
+yo jhipster:entity AttachmentCategory
+yo jhipster:entity Attachment
+yo jhipster:entity TempEmployer
+yo jhipster:entity MpoApplication

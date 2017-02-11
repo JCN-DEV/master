@@ -1,0 +1,175 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-if="pfmsEmpMembership.id == null" class="modal-title" id="myPfmsEmpMembershipLabel"
+            translate="stepApp.pfmsEmpMembership.home.createOrEditLabel">Create or edit a PfmsEmpMembership</h4>
+        <h4 ng-if="pfmsEmpMembership.id != null" class="modal-title" id="myPfmsEmpMembershipLabel"
+            translate="stepApp.pfmsEmpMembership.home.EditLabel">Create or edit a PfmsEmpMembership</h4>
+        <div class="panel-body">
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMembership.employeeInfo" for="field_employeeInfo">employeeInfo</label>
+                <!--<select class="form-control" id="field_employeeInfo" name="employeeInfo" ng-model="pfmsEmpMembership.employeeInfo" ng-options="HrEmployeeInfo as HrEmployeeInfo.fullName for HrEmployeeInfo in hremployeeinfos track by HrEmployeeInfo.id">-->
+                <!--<option value=""></option>-->
+                <!--</select>-->
+                <div class="input-group">
+                    <input type="text" class="form-control " autocomplete="off"
+                           ng-model="pfmsEmpMembership.employeeInfo"
+                           typeahead='HrEmployeeInfo as (HrEmployeeInfo.fullName + " - " + HrEmployeeInfo.employeeId) for HrEmployeeInfo in hremployeeinfos | filter:$viewValue'
+                           id="field_employeeInfo" required
+                           placeholder="{{'stepApp.pfmsEmpMembership.employeeInfo' | translate}}">
+
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="loadEmployeeInfo()">
+                            <span class="glyphicon"></span>&nbsp;<span translate="stepApp.pfmsEmpMembership.search">Search</span>
+                        </button>
+                    </span>
+
+
+                </div>
+                <div ng-show="!isExitsData">
+                    <p style="color: red">Member is already exists.</p>
+                </div>
+
+            </div>
+            <div class="form-group col-md-6">
+                <label></label>
+
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMembership.departmentName" for="field_almLeaveType">Department</label>
+                <span class="form-control">{{departmentName}}</span>
+            </div>
+
+            <div class="form-group col-md-6 ">
+                <label translate="stepApp.pfmsEmpMembership.designationName" for="field_Designation">Designation</label>
+                <span class="form-control">{{designationName}}</span>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMembership.nationality" for="field_nationality">nationality</label>
+                <span class="form-control">{{nationality}}</span>
+            </div>
+
+            <div class="form-group col-md-6 ">
+                <label translate="stepApp.pfmsEmpMembership.fatherName" for="field_fatherName">fatherName</label>
+                <span class="form-control">{{fatherName}}</span>
+            </div>
+
+            <div class="form-group col-md-6 ">
+                <label translate="stepApp.pfmsEmpMembership.dutySide" for="field_dutySide">dutySide</label>
+                <span class="form-control">{{dutySide}}</span>
+            </div>
+
+
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMembership.initOwnContribute" for="field_initOwnContribute">InitOwnContribute</label>
+                <input type="number" class="form-control" name="initOwnContribute" id="field_initOwnContribute"
+                       ng-model="pfmsEmpMembership.initOwnContribute"
+                       required/>
+                <div ng-show="editForm.initOwnContribute.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.initOwnContribute.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.initOwnContribute.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMembership.initOwnContributeInt" for="field_initOwnContributeInt">InitOwnContributeInt</label>
+                <input type="number" class="form-control" name="initOwnContributeInt" id="field_initOwnContributeInt"
+                       ng-model="pfmsEmpMembership.initOwnContributeInt"
+                       required/>
+                <div ng-show="editForm.initOwnContributeInt.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.initOwnContributeInt.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.initOwnContributeInt.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMembership.curOwnContribute" for="field_curOwnContribute">CurOwnContribute</label>
+                <input type="number" class="form-control" name="curOwnContribute" id="field_curOwnContribute"
+                       ng-model="pfmsEmpMembership.curOwnContribute" ng-change="curContributeChange()"
+                       required/>
+                <div ng-show="editForm.curOwnContribute.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.curOwnContribute.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.curOwnContribute.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMembership.curOwnContributeInt" for="field_curOwnContributeInt">CurOwnContributeInt</label>
+                <input type="number" class="form-control" name="curOwnContributeInt" ng-change="curContributeChange()"
+                       id="field_curOwnContributeInt"
+                       ng-model="pfmsEmpMembership.curOwnContributeInt"
+                       required/>
+                <div ng-show="editForm.curOwnContributeInt.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.curOwnContributeInt.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.curOwnContributeInt.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMembership.curOwnContributeTot" for="field_curOwnContributeTot">CurOwnContributeTot</label>
+                <input type="number" class="form-control" name="curOwnContributeTot" readonly="readonly"
+                       id="field_curOwnContributeTot"
+                       ng-model="pfmsEmpMembership.curOwnContributeTot"
+                       required/>
+                <div ng-show="editForm.curOwnContributeTot.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.curOwnContributeTot.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.curOwnContributeTot.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMembership.activeStatus" for="field_activeStatus">ActiveStatus</label>
+                <input type="radio" data-ng-model="pfmsEmpMembership.activeStatus" name="activeStatus"
+                       data-ng-value="true">&nbsp;Active&nbsp;|&nbsp;
+                <input type="radio" data-ng-model="pfmsEmpMembership.activeStatus" name="activeStatus"
+                       data-ng-value="false">&nbsp;Inactive
+                <div ng-show="editForm.activeStatus.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="panel-footer">
+            <button type="button"
+                    onclick="window.history.back()"
+                    class="btn btn-info"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span
+                translate="entity.action.back"> Back</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted || !isExitsData"
+                    class="btn btn-primary">
+                <span ng-hide="pfmsEmpMembership.id" translate="entity.action.save"></span>
+                <span ng-show="pfmsEmpMembership.id" translate="entity.action.update"></span>
+            </button>
+        </div>
+    </form>
+</div>

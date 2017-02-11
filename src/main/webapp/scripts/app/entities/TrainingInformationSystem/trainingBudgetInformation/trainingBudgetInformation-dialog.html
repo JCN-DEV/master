@@ -1,0 +1,120 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="trainingBudgetInformation.id == null" class="modal-title" id="myTrainingBudgetInformationLabel"
+            translate="stepApp.trainingBudgetInformation.home.createOrEditLabel">Create or edit a
+            TrainingBudgetInformation</h4>
+        <h4 ng-show="trainingBudgetInformation.id != null" class="modal-title" id="myTrainingBudgetInformationLabel"
+            translate="stepApp.trainingBudgetInformation.home.EditLabel">Create or edit a TrainingBudgetInformation</h4>
+        <div class="modal-body col-md-12 padding-tb">
+
+            <div class="col-md-6 no-padding">
+                <div class="form-group">
+                    <label translate="stepApp.trainingBudgetInformation.trainingInitializationInfo"
+                           for="field_trainingInitializationInfo">Training Code</label>
+
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="trainingInitializationInfo" id="field_trainingInitializationInfo"
+                               ng-model="trainingBudgetInformation.trainingCode" placeholder="{{'stepApp.trainingBudgetInformation.trainingInitializationInfo' | translate}}"/>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" ng-click="getTrainingInitializeData()">Search</button>
+                    </span>
+                    </div>
+                    <div class="col-sm-12" ng-if="budgetError">
+                        <span style="color:red;margin-top:30px;font-size:14px;">Budget Information Already Added .</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <table class="table">
+                    <tr>
+                        <td>Training Name:</td>
+                        <td>{{trainingBudgetInformation.trainingInitializationInfo.trainingHeadSetup.headName}}</td>
+                        <td> Training Code:</td>
+                        <td>{{trainingBudgetInformation.trainingInitializationInfo.trainingCode}}</td>
+                    </tr>
+                    <tr>
+                        <td>Number Of Trainee: </td>
+                        <td>
+                            {{trainingBudgetInformation.trainingInitializationInfo.numberOfTrainee}}
+                        </td>
+                        <td >Location:</td>
+                        <td>
+                            {{trainingBudgetInformation.trainingInitializationInfo.location}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Initialize Date:</td>
+                        <td>{{trainingBudgetInformation.trainingInitializationInfo.initializationDate}}</td>
+                        <td>Duration: </td>
+                        <td>{{trainingBudgetInformation.trainingInitializationInfo.duration}} Days</td>
+                    </tr>
+                </table>
+            </div>
+
+
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.trainingBudgetInformation.budgetAmount" for="field_budgetAmount">BudgetAmount</label>
+                    <input type="number" class="form-control" name="budgetAmount" id="field_budgetAmount"
+                           ng-model="trainingBudgetInformation.budgetAmount"
+                        placeholder="{{'stepApp.trainingBudgetInformation.budgetAmount' | translate}}" required/>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.trainingBudgetInformation.expenseAmount" for="field_expenseAmount">ExpenseAmount</label>
+                    <input type="number" class="form-control" name="expenseAmount" id="field_expenseAmount"
+                           ng-model="trainingBudgetInformation.expenseAmount"
+                           placeholder="{{'stepApp.trainingBudgetInformation.expenseAmount' | translate}}" required/>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.trainingBudgetInformation.remarks" for="field_remarks">Remarks</label>
+                    <input type="text" class="form-control" name="remarks" id="field_remarks"
+                           ng-model="trainingBudgetInformation.remarks"
+                           ng-maxlength="250"
+                           placeholder="{{'stepApp.trainingBudgetInformation.remarks' | translate}}"
+                        />
+                    <div ng-show="editForm.remarks.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.remarks.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="250">
+                            This field cannot be longer than 250 characters.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.trainingBudgetInformation.status">Status</label>
+                <span class="form-control">
+                    <input type="radio" data-ng-model="trainingBudgetInformation.status" name="status" ng-checked="true"
+                           data-ng-value="true">&nbsp;<span translate="stepApp.trainingBudgetInformation.active"></span>&nbsp;|&nbsp;
+                    <input type="radio" data-ng-model="trainingBudgetInformation.status" name="status"
+                           data-ng-value="false">&nbsp;<span translate="stepApp.trainingBudgetInformation.inactive"></span>
+                </span>
+                    <div ng-show="editForm.status.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.status.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer col-md-12 no_padding">
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted || budgetInvalid" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="trainingBudgetInformation.id == null" translate="entity.action.save">Save</span>
+                <span ng-show="trainingBudgetInformation.id != null" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

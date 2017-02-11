@@ -1,0 +1,334 @@
+<!---==HRM EMPLOYEE INFO===--->
+
+<div class="service-form-area">
+    <div class="panel panel-default">
+        <div class="panel-heading" >
+             <h4 class="modal-title" id="myHrEmployeeInfoLabel" translate="stepApp.hrEmployeeInfo.home.createOrEditLabel">Create or edit a HrEmployeeInfo</h4>
+        </div>
+        <div class="panel-body bg-panel">
+              <form  class="form-horizontal " name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+                <div class=" col-md-6 col-sm-12 col-xs-12 ">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmployeeInfo.departmentInfo" for="field_departmentInfo">departmentInfo</label>
+                        <div class="input-margin">
+                            <select class="form-control" id="field_departmentInfo" name="departmentInfo" ng-model="hrEmployeeInfo.departmentInfo" ng-options="HrDepartmentSetup as HrDepartmentSetup.departmentName for HrDepartmentSetup in hrdepartmentsetups track by HrDepartmentSetup.id" required>
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmployeeInfo.designationInfo" for="field_designationInfo">designationInfo</label>
+                        <div class="input-margin">
+                            <select class="form-control" id="field_designationInfo" name="designationInfo" ng-model="hrEmployeeInfo.designationInfo" ng-options="HrDesignationSetup as HrDesignationSetup.designationName for HrDesignationSetup in hrdesignationsetups track by HrDesignationSetup.id" required>
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                  <div class="col-md-6 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                          <label class="control-label" translate="stepApp.hrEmployeeInfo.workArea" for="field_workArea">workArea</label>
+                          <div class="input-margin">
+                              <select class="form-control" id="field_workArea" name="workArea" ng-model="hrEmployeeInfo.workArea" ng-options="MiscTypeSetup as MiscTypeSetup.typeName for MiscTypeSetup in workAreaList track by MiscTypeSetup.id" required>
+                                  <option value=""></option>
+                              </select>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-md-6 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                          <label class="control-label" translate="stepApp.hrEmployeeInfo.employeeId" for="field_employeeId">EmployeeId</label>
+                          <div class="input-margin">
+                              <!-- <input type="text" class="form-control" name="employeeId" id="field_employeeId"
+                                     ng-model="hrEmployeeInfo.hrEmployeeInfo"
+                                     required /> -->
+                              <span class="form-control">{{hrEmployeeInfo.employeeId}}</span>
+                          </div>
+                      </div>
+                  </div>
+
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+
+                        <label class="control-label"translate="stepApp.hrEmployeeInfo.fullName" for="field_fullName">FullName</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="fullName" id="field_fullName"
+                                   ng-model="hrEmployeeInfo.fullName"
+                                   required ng-maxlength="100" />
+                            <div ng-show="editForm.fullName.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.fullName.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.fullName.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="100">
+                                    This field cannot be longer than 100 characters.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+
+                        <label class="control-label"for="email" translate="global.form.email">E-mail</label>
+                        <div class="input-margin">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="{{'global.form.email.placeholder' | translate}}"
+                                   ng-model="registerAccount.email"
+                                   ng-remote-validate="/api/account/checkEmail/"
+                                   ng-remote-method="GET"
+                                   ng-remote-throttle="500"
+                                   ng-minlength=5 ng-maxlength=100 required>
+                            <span class="message" ng-show="editForm.email.$pending">validating...</span>
+                            <div ng-show="form.email.$invalid">
+                                <p class="help-block"
+                                   ng-show="form.email.$error.ngRemoteValidate">
+                                    This email already exists
+                                </p>
+                            </div>
+                            <div ng-show="form.email.$dirty && form.email.$invalid">
+                                <p class="help-block"
+                                   ng-show="form.email.$error.required" translate="global.messages.validate.email.required">
+                                    Your e-mail is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="form.email.$error.email" translate="global.messages.validate.email.invalid">
+                                    Your e-mail is invalid.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="form.email.$error.minlength" translate="global.messages.validate.email.minlength">
+                                    Your e-mail is required to be at least 5 characters.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="form.email.$error.maxlength" translate="global.messages.validate.email.maxlength">
+                                    Your e-mail cannot be longer than 100 characters.
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                              <label class="control-label" for="login" translate="global.form.username">Username</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" id="login" name="login" placeholder="{'global.form.username.placeholder' | translate}}"
+                                   ng-model="registerAccount.login"
+                                   ng-remote-validate="/api/account/checkLogin/"
+                                   ng-remote-method="GET"
+                                   ng-remote-throttle="500"
+                                   ng-minlength=3 ng-maxlength=50 ng-pattern="/^[a-z0-9]*$/" required>
+                            <span class="message" ng-show="editForm.login.$pending">validating...</span>
+                            <div ng-show="form.login.$invalid">
+                                <p class="help-block"
+                                   ng-show="form.login.$error.ngRemoteValidate">
+                                    This user already exists
+                                </p>
+                            </div>
+                            <div ng-show="form.login.$dirty && form.login.$invalid">
+                                <p class="help-block"
+                                   ng-show="form.login.$error.required" translate="register.messages.validate.login.required">
+                                    Your username is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="form.login.$error.minlength" translate="register.messages.validate.login.minlength">
+                                    Your username is required to be at least 1 character.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="form.login.$error.maxlength" translate="register.messages.validate.login.maxlength">
+                                    Your username cannot be longer than 50 characters.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="form.login.$error.pattern" translate="register.messages.validate.login.pattern">
+                                    Your username can only contain lower-case letters and digits.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                              <label class="control-label" for="password" translate="global.form.newpassword">New password</label>
+                        <div class="input-margin">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="{{'global.form.newpassword.placeholder' | translate}}"
+                                   ng-model="registerAccount.password" ng-minlength=5 ng-maxlength=50 required>
+                            <div ng-show="form.password.$dirty && form.password.$invalid">
+                                <p class="help-block"
+                                   ng-show="form.password.$error.required" translate="global.messages.validate.newpassword.required">
+                                    Your password is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="form.password.$error.minlength" translate="global.messages.validate.newpassword.minlength">
+                                    Your password is required to be at least 5 characters.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="form.password.$error.maxlength" translate="global.messages.validate.newpassword.maxlength">
+                                    Your password cannot be longer than 50 characters.
+                                </p>
+                            </div>
+                            <password-strength-bar class="right-size" password-to-check="registerAccount.password"></password-strength-bar>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmployeeInfo.fatherName" for="field_fatherName">FatherName</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="fatherName" id="field_fatherName"
+                                   ng-model="hrEmployeeInfo.fatherName"
+                                   required />
+                            <div ng-show="editForm.fatherName.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.fatherName.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmployeeInfo.motherName" for="field_motherName">MotherName</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="motherName" id="field_motherName"
+                                   ng-model="hrEmployeeInfo.motherName"
+                                   required />
+                            <div ng-show="editForm.motherName.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.motherName.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmployeeInfo.apointmentGoDate" for="field_apointmentGoDate">ApointmentGoDate</label>
+                        <div class="input-margin">
+                            <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.apointmentGoDate"
+                                   datepicker-options="calendar.dateOptions" close-text="Close"
+                                   ng-click="calendar.open($event, 'apointmentGoDate')" class="form-control" name="apointmentGoDate" id="field_apointmentGoDate"
+                                   ng-model="hrEmployeeInfo.apointmentGoDate"
+                                   required />
+                            <div ng-show="editForm.apointmentGoDate.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.apointmentGoDate.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmployeeInfo.presentId" for="field_presentId">PresentId</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="presentId" id="field_presentId"
+                                   ng-model="hrEmployeeInfo.presentId"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmployeeInfo.nationalId" for="field_nationalId">NationalId</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="nationalId" id="field_nationalId"
+                                   ng-model="hrEmployeeInfo.nationalId"
+                                   ng-remote-validate="/api/hrEmployeeInfos/checknid/"
+                                   ng-remote-method="GET"
+                                   ng-remote-throttle="500"
+                                   ng-minlength="13"
+                                   ng-maxlength="17" />
+                            <div ng-show="editForm.nationalId.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.nationalId.$error.ngRemoteValidate">
+                                    National ID already exists
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.nationalId.$error.minlength" translate="entity.validation.minlength" translate-value-min="13">
+                                    This field is required to be at least 13 characters.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.nationalId.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="17">
+                                    This field cannot be longer than 17 characters.
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label"  translate="stepApp.hrEmployeeInfo.birthDate" for="field_birthDate">BirthDate</label>
+                        <div class="input-margin">
+                            <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.birthDate"
+                                   datepicker-options="calendar.dateOptions" close-text="Close"
+                                   ng-click="calendar.open($event, 'birthDate')" class="form-control" name="birthDate" id="field_birthDate"
+                                   ng-model="hrEmployeeInfo.birthDate"
+                                   required />
+                            <div ng-show="editForm.birthDate.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.birthDate.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                            </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmployeeInfo.mobileNumber" for="field_mobileNumber">MobileNumber</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="mobileNumber" id="field_mobileNumber"
+                                   ng-model="hrEmployeeInfo.mobileNumber"
+                                   required numeric-only-mobile />
+                            <div ng-show="editForm.mobileNumber.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.mobileNumber.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.mobileNumber.$error.minlength" translate="entity.validation.minlength" translate-value-min="11">
+                                    This field is required to be at least 11 characters.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.mobileNumber.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="18">
+                                    This field cannot be longer than 18 characters.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+
+                        <div class="text-right">
+                            <span>{{responseMessage}}</span>
+                            <button type="button" class="btn btn-default"  ng-click="setDefaultValue()">
+                                <i class="fa fa-rebel"></i>&nbsp;Dummy Data
+                            </button>
+
+                            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                               <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.register">Register</span>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>

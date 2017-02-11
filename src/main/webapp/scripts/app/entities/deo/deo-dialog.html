@@ -1,0 +1,314 @@
+<div class="row">
+    <div class="col-md-3">
+        <ng-include src="'scripts/app/account/mpo/mpo-left-menu.html'"></ng-include>
+    </div>
+    <div class="col-md-9 lbl-dash">
+        <div class="col-md-12 common-dialogue">
+            <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+                <h4 class="modal-title" id="myDeoLabel" translate="stepApp.deo.home.createOrEditLabel">Create or
+                    edit a Deo</h4>
+                <div class="modal-body col-md-12 no_padding">
+                    <jh-alert-error></jh-alert-error>
+                    <div class="col-md-12 ">
+                        <div class="register-pan">
+                            <div class="alert alert-success" ng-show="success" translate="register.messages.successDeo">
+                                <strong>Registration saved!</strong> Please check your email for confirmation.
+                            </div>
+                            <div class="alert alert-danger" ng-show="error" translate="register.messages.error.fail">
+                                <strong>Registration failed!</strong> Please try again later.
+                            </div>
+                            <div class="alert alert-danger" ng-show="errorUserExists"
+                                 translate="register.messages.error.userexists">
+                                <strong>Login name already registered!</strong> Please choose another one.
+                            </div>
+                            <div class="alert alert-danger" ng-show="errorEmailExists"
+                                 translate="register.messages.error.emailexists">
+                                <strong>E-mail is already in use!</strong> Please choose another one.
+                            </div>
+                            <div class="alert alert-danger" ng-show="doNotMatch"
+                                 translate="global.messages.error.dontmatch">
+                                The password and its confirmation do not match!
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="col-md-12 ">
+                        <div class="panel-body">
+                            <form ng-show="!success" name="form" role="form" novalidate ng-submit="register()" show-validation>
+
+
+
+                                <button type="submit" ng-disabled="form.$invalid || deoExist" class="btn btn-primary"
+                                        translate="register.form.button">Register
+                                </button>
+                            </form>
+
+                        </div>
+                    </div>-->
+                    <div class="col-md-6" ng-if="deo.id == null">
+                        <div class="form-group" >
+                            <label for="login" translate="global.form.username">Username</label>
+                            <input type="text" class="form-control" id="login" name="login"
+                                   placeholder="{{'global.form.username.placeholder' | translate}}"
+                                   ng-model="registerAccount.login"
+                                   ng-remote-validate="/api/account/checkLogin/"
+                                   ng-remote-method="GET"
+                                   ng-remote-throttle="500"
+                                   ng-minlength=3 ng-maxlength=50 ng-pattern="/^[a-z0-9]*$/" required>
+                            <span class="message" ng-show="editForm.login.$pending">validating...</span>
+
+                            <div ng-show="editForm.login.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.login.$error.ngRemoteValidate">
+                                    This user already exists
+                                </p>
+                            </div>
+                            <div ng-show="editForm.login.$dirty && editForm.login.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.login.$error.required"
+                                   translate="register.messages.validate.login.required">
+                                    Your username is required.
+                                </p>
+
+                                <p class="help-block"
+                                   ng-show="editForm.login.$error.minlength"
+                                   translate="register.messages.validate.login.minlength">
+                                    Your username is required to be at least 1 character.
+                                </p>
+
+                                <p class="help-block"
+                                   ng-show="editForm.login.$error.maxlength"
+                                   translate="register.messages.validate.login.maxlength">
+                                    Your username cannot be longer than 50 characters.
+                                </p>
+
+                                <p class="help-block"
+                                   ng-show="editForm.login.$error.pattern"
+                                   translate="register.messages.validate.login.pattern">
+                                    Your username can only contain lower-case letters and digits.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6" ng-if="deo.id == null">
+                        <div class="form-group" >
+                            <label for="email" translate="global.form.email">E-mail</label>
+                            <input type="email" class="form-control" id="email" name="email"
+                                   placeholder="{{'global.form.email.placeholder' | translate}}"
+                                   ng-model="registerAccount.email"
+                                   ng-remote-validate="/api/account/checkEmail/"
+                                   ng-remote-method="GET"
+                                   ng-remote-throttle="500"
+                                   ng-minlength=5 ng-maxlength=100 required>
+                            <span class="message" ng-show="editForm.email.$pending">validating...</span>
+
+                            <div ng-show="editForm.email.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.email.$error.ngRemoteValidate">
+                                    This email already exists
+                                </p>
+                            </div>
+                            <div ng-show="editForm.email.$dirty && form.email.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.email.$error.required"
+                                   translate="global.messages.validate.email.required">
+                                    Your e-mail is required.
+                                </p>
+
+                                <p class="help-block"
+                                   ng-show="editForm.email.$error.email"
+                                   translate="global.messages.validate.email.invalid">
+                                    Your e-mail is invalid.
+                                </p>
+
+                                <p class="help-block"
+                                   ng-show="editForm.email.$error.minlength"
+                                   translate="global.messages.validate.email.minlength">
+                                    Your e-mail is required to be at least 5 characters.
+                                </p>
+
+                                <p class="help-block"
+                                   ng-show="editForm.email.$error.maxlength"
+                                   translate="global.messages.validate.email.maxlength">
+                                    Your e-mail cannot be longer than 100 characters.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 no_padding">
+                        <div class="col-md-6" ng-if="deo.id == null">
+
+                            <div class="form-group" >
+                                <label for="password" translate="global.form.newpassword">New password</label>
+                                <input type="password" class="form-control" id="password" name="password"
+                                       placeholder="{{'global.form.newpassword.placeholder' | translate}}"
+                                       ng-model="registerAccount.password" ng-minlength=5 ng-maxlength=50 required>
+
+                                <div ng-show="editForm.password.$dirty && form.password.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.password.$error.required"
+                                       translate="global.messages.validate.newpassword.required">
+                                        Your password is required.
+                                    </p>
+
+                                    <p class="help-block"
+                                       ng-show="editForm.password.$error.minlength"
+                                       translate="global.messages.validate.newpassword.minlength">
+                                        Your password is required to be at least 5 characters.
+                                    </p>
+
+                                    <p class="help-block"
+                                       ng-show="editForm.password.$error.maxlength"
+                                       translate="global.messages.validate.newpassword.maxlength">
+                                        Your password cannot be longer than 50 characters.
+                                    </p>
+                                </div>
+                                <password-strength-bar
+                                    password-to-check="registerAccount.password"></password-strength-bar>
+                            </div>
+                        </div>
+                        <div class="col-md-6" ng-if="deo.id == null">
+                            <div class="form-group">
+                                <label for="confirmPassword" translate="global.form.confirmpassword">New password
+                                    confirmation</label>
+                                <input type="password" ng-keyup="matchPass(registerAccount.password, confirmPassword)"
+                                       class="form-control" id="confirmPassword" name="confirmPassword"
+                                       placeholder="{{'global.form.confirmpassword.placeholder' | translate}}"
+                                       ng-model="confirmPassword" ng-maxlength=50 required>
+
+                                <div ng-show="editForm.confirmPassword.$dirty && editForm.confirmPassword.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.confirmPassword.$error.required"
+                                       translate="global.messages.validate.confirmpassword.required">
+                                        Your confirmation password is required.
+                                    </p>
+
+                                    <p class="help-block"
+                                       ng-show="editForm.confirmPassword.$error.minlength"
+                                       translate="global.messages.validate.confirmpassword.minlength">
+                                        Your confirmation password is required to be at least 5 characters.
+                                    </p>
+
+                                    <p class="help-block"
+                                       ng-show="editForm.confirmPassword.$error.maxlength"
+                                       translate="global.messages.validate.confirmpassword.maxlength">
+                                        Your confirmation password cannot be longer than 50 characters.
+                                    </p>
+                                </div>
+                                <p ng-show="notMatched" style="font-size: 0.8em; color:red;">Password doesn't matched
+                                    !</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+
+                        <div class="form-group">
+                            <label translate="stepApp.deo.contactNo" for="field_contactNo">ContactNo</label>
+                            <input type="text" class="form-control" name="contactNo" id="field_contactNo"
+                                   ng-model="deo.contactNo"
+                                   ng-maxlength="20"/>
+                            <div ng-show="editForm.contactNo.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.contactNo.$error.maxlength" translate="entity.validation.maxlength"
+                                   translate-value-max="20">
+                                    This field cannot be longer than 20 characters.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label translate="stepApp.deo.name" for="field_name">Name</label>
+                            <input type="text" class="form-control" name="name" id="field_name"
+                                   ng-model="deo.name"
+                                   ng-maxlength="255"/>
+                            <div ng-show="editForm.name.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.name.$error.maxlength" translate="entity.validation.maxlength"
+                                   translate-value-max="255">
+                                    This field cannot be longer than 255 characters.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label translate="stepApp.deo.designation" for="field_designation">Designation</label>
+                            <input type="text" class="form-control" name="designation" id="field_designation"
+                                   ng-model="deo.designation"
+                                   ng-maxlength="50"/>
+                            <div ng-show="editForm.designation.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.designation.$error.maxlength"
+                                   translate="entity.validation.maxlength"
+                                   translate-value-max="50">
+                                    This field cannot be longer than 50 characters.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label translate="stepApp.deo.orgName" for="field_orgName">OrgName</label>
+                            <input type="text" class="form-control" name="orgName" id="field_orgName"
+                                   ng-model="deo.orgName"
+                                   ng-maxlength="50"/>
+                            <div ng-show="editForm.orgName.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.orgName.$error.maxlength" translate="entity.validation.maxlength"
+                                   translate-value-max="50">
+                                    This field cannot be longer than 50 characters.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group" ng-if="deo.id == null">
+                            <label for="email" translate="global.form.district">District</label>
+                            <select class="form-control" id="field_district"
+                                    name="district" ng-model="deoHistLog.district"
+                                    ng-change="checkDistrict()"
+                                    ng-options="district as district.name for district in districts track by district.id"
+                                    required>
+                                <!-- <option value=""> {{district.name}}</option>-->
+                            </select>
+
+                        </div>
+                    </div>
+
+                    <!-- <div class="form-group">
+                         <label translate="stepApp.deo.email" for="field_email">Email</label>
+                         <input type="text" class="form-control" name="email" id="field_email"
+                                ng-model="deo.email"
+                             />
+                     </div>-->
+                    <!--<div class="form-group">
+                        <label translate="stepApp.deo.activated" for="field_activated">Activated</label>
+                        <input type="checkbox" class="form-control" name="activated" id="field_activated"
+                                ng-model="deo.activated"
+                                 />
+                    </div>-->
+
+                    <!-- <div class="form-group">
+                         <label translate="stepApp.deo.district" for="field_district2">district</label>
+                         <select class="form-control" id="field_district2" name="district" ng-model="deoHistLog.district" ng-options="district as district.name for district in districts track by district.id">
+                             <option value=""></option>
+                         </select>
+                     </div>-->
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.history.back()">
+                        <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                        translate="entity.action.cancel">Cancel</span>
+                    </button>
+                    <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-save"></span>&nbsp;<span
+                        translate="entity.action.save">Save</span>
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+

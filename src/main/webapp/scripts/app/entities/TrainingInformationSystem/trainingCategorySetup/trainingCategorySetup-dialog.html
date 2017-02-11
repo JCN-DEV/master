@@ -1,0 +1,82 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="trainingCategorySetup.id == null"class="modal-title" id="myTrainingCategorySetupLabel" translate="stepApp.trainingCategorySetup.home.createLabel">Create TrainingCategorySetup</h4>
+        <h4 ng-show="trainingCategorySetup.id != null"class="modal-title" id="myTrainingCategorySetupLabel" translate="stepApp.trainingCategorySetup.home.EditLabel">Edit TrainingCategorySetup</h4>
+        <div class="modal-body col-md-12 padding-tb">
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.trainingCategorySetup.categoryName"
+                           for="field_categoryName">CategoryName</label>
+                    <input type="text" class="form-control" name="categoryName" id="field_categoryName"
+                           ng-model="trainingCategorySetup.categoryName"
+                           ng-remote-validate = "/api/trainingCategorySetups/isCategoryNameUnique/"
+                           ng-remote-method="GET"
+                           required ng-maxlength="100" placeholder="{{'stepApp.trainingCategorySetup.categoryName' | translate}}"/>
+                    <div ng-show="editForm.categoryName.$invalid">
+                        <p style="color:red"
+                           ng-show="editForm.categoryName.$error.ngRemoteValidate">
+                            This Category Name is already exist
+                        </p>
+                        <p class="help-block"
+                           ng-show="editForm.categoryName.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                        <p class="help-block"
+                           ng-show="editForm.categoryName.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="100">
+                            This field cannot be longer than 100 characters.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.trainingCategorySetup.status">ActiveStatus</label>
+                <span class="form-control">
+                    <input type="radio" data-ng-model="trainingCategorySetup.status" name="status"
+                           data-ng-value="true" ng-checked ="true" >&nbsp;<span translate="stepApp.trainingCategorySetup.active"></span>
+                    &nbsp;|&nbsp;
+                    <input type="radio" data-ng-model="trainingCategorySetup.status" name="status"
+                           data-ng-value="false">&nbsp;<span translate="stepApp.trainingCategorySetup.inactive"></span>
+                </span>
+                    <div ng-show="editForm.status.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.status.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.trainingCategorySetup.description"
+                           for="field_description">Description</label>
+                    <textarea type="text" class="form-control" name="description" id="field_description"
+                              ng-model="trainingCategorySetup.description"
+                              ng-maxlength="100" rows="2" cols="30" placeholder="{{'stepApp.trainingCategorySetup.description' | translate}}"></textarea>
+                    <div ng-show="editForm.description.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.description.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="250">
+                            This field cannot be longer than 250 characters.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer col-md-12 no_padding">
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+                <span  class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="trainingCategorySetup.id == null" translate="entity.action.save">Save</span>
+                <span ng-show="trainingCategorySetup.id != null"  translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

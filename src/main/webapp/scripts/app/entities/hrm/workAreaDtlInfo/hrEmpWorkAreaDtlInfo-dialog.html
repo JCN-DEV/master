@@ -1,0 +1,177 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="hrEmpWorkAreaDtlInfo.id == null" class="modal-title" id="myHrEmpWorkAreaDtlInfoLabel"
+            translate="stepApp.hrEmpWorkAreaDtlInfo.home.createOrEditLabel">Create or edit a HrEmpWorkAreaDtlInfo</h4>
+        <h4 ng-show="hrEmpWorkAreaDtlInfo.id != null" class="modal-title" id="myHrEmpWorkAreaDtlInfoLabel2"
+            translate="stepApp.hrEmpWorkAreaDtlInfo.home.EditLabel">Create or edit a HrEmpWorkAreaDtlInfo</h4>
+        <div class="modal-body col-md-12 padding-tb">
+            <jh-alert-error></jh-alert-error>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.hrEmpWorkAreaDtlInfo.workArea" for="field_workArea">workArea</label>
+                        <select class="form-control" id="field_workArea" name="workArea"
+                                ng-model="hrEmpWorkAreaDtlInfo.workArea"
+                                ng-options="MiscTypeSetup as MiscTypeSetup.typeName for MiscTypeSetup in workAreaList track by MiscTypeSetup.id">
+                            <option value="">Select Work Area</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.hrEmpWorkAreaDtlInfo.division" for="field_division">division</label>
+                        <select class="form-control" id="field_division" name="division"
+                                ng-model="hrEmpWorkAreaDtlInfo.division"
+                                ng-change="loadDistrictByDivision(hrEmpWorkAreaDtlInfo.division)"
+                                ng-options="Division as Division.name for Division in divisions track by Division.id">
+                            <option value="">Select Division</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.hrEmpWorkAreaDtlInfo.district" for="field_district">district</label>
+                        <select class="form-control" id="field_district" name="district"
+                                ng-change="loadUpazilaByDistrict(hrEmpWorkAreaDtlInfo.district)"
+                                ng-model="hrEmpWorkAreaDtlInfo.district"
+                                ng-options="District as District.name for District in districtListFilter track by District.id">
+                            <option value="">Select District</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.hrEmpWorkAreaDtlInfo.upazila" for="field_upazila">upazila</label>
+                        <select class="form-control" id="field_upazila" name="upazila"
+                                ng-model="hrEmpWorkAreaDtlInfo.upazila"
+                                ng-options="Upazila as Upazila.name for Upazila in upazilaListFilter track by Upazila.id">
+                            <option value="">Select Upazila</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmpWorkAreaDtlInfo.name"
+                               for="field_name">Name</label>
+                        <input type="text" class="form-control" name="name" id="field_name"
+                               ng-model="hrEmpWorkAreaDtlInfo.name" required/>
+                        <div ng-show="editForm.name.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmpWorkAreaDtlInfo.establishmentDate"
+                               for="field_establishmentDate">EstablishmentDate</label>
+                        <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.establishmentDate"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               ng-click="calendar.open($event, 'establishmentDate')" class="form-control"
+                               name="establishmentDate" id="field_establishmentDate"
+                               ng-model="hrEmpWorkAreaDtlInfo.establishmentDate"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmpWorkAreaDtlInfo.contactNumber"
+                               for="field_contactNumber">ContactNumber</label>
+                        <input type="text" class="form-control" name="contactNumber" id="field_contactNumber"
+                               ng-model="hrEmpWorkAreaDtlInfo.contactNumber"
+                               ng-minlength="11" ng-maxlength="18" required numeric-only-mobile/>
+                        <div ng-show="editForm.contactNumber.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.contactNumber.$error.minlength" translate="entity.validation.minlength"
+                               translate-value-min="11">
+                                This field is required to be at least 11 characters.
+                            </p>
+                            <p class="help-block"
+                               ng-show="editForm.contactNumber.$error.maxlength" translate="entity.validation.maxlength"
+                               translate-value-max="18">
+                                This field cannot be longer than 18 characters.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmpWorkAreaDtlInfo.telephoneNumber"
+                               for="field_telephoneNumber">TelephoneNumber</label>
+                        <input type="text" class="form-control" name="telephoneNumber" id="field_telephoneNumber"
+                               ng-model="hrEmpWorkAreaDtlInfo.telephoneNumber" numeric-only-mobile/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmpWorkAreaDtlInfo.faxNumber"
+                               for="field_faxNumber">FaxNumber</label>
+                        <input type="text" class="form-control" name="faxNumber" id="field_faxNumber"
+                               ng-model="hrEmpWorkAreaDtlInfo.faxNumber" numeric-only-mobile/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmpWorkAreaDtlInfo.address"
+                               for="field_address">Address</label>
+                    <textarea class="form-control" name="address" id="field_address"
+                              ng-model="hrEmpWorkAreaDtlInfo.address"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmpWorkAreaDtlInfo.emailAddress"
+                               for="field_emailAddress">EmailAddress</label>
+                        <input type="text" class="form-control" name="emailAddress" id="field_emailAddress"
+                               ng-model="hrEmpWorkAreaDtlInfo.emailAddress"/>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmpWorkAreaDtlInfo.activeStatus"
+                               for="field_activeStatus">ActiveStatus</label>
+                        <input type="checkbox" class="form-control" name="activeStatus" id="field_activeStatus"
+                               ng-model="hrEmpWorkAreaDtlInfo.activeStatus"/>
+                        <div ng-show="editForm.activeStatus.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" class="btn " data-dismiss="modal"
+                    onclick="window.history.back()">
+                <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;<span
+                translate="entity.action.back">Back</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="hrEmpWorkAreaDtlInfo.id == null" translate="entity.action.save">Save</span>
+                <span ng-show="hrEmpWorkAreaDtlInfo.id != null" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,396 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="almLeaveRule.id == null" class="modal-title" id="myAlmLeaveRuleLabel"
+            translate="stepApp.almLeaveRule.home.createOrEditLabel">Create or edit a AlmLeaveRule</h4>
+        <h4 ng-show="almLeaveRule.id != null" class="modal-title" id="myAlmLeaveRuleLabel"
+            translate="stepApp.almLeaveRule.home.EditLabel">Create or edit a AlmLeaveRule</h4>
+        <div class="modal-body">
+            <jh-alert-error></jh-alert-error>
+
+            <!--<div class="form-group col-sm-6"><label translate="stepApp.almLeaveRule.almLeaveGroup" for="field_almLeaveGroup">almLeaveGroup</label><select class="form-control" id="field_almLeaveGroup" name="almLeaveGroup"
+                        ng-model="almLeaveRule.almLeaveGroup"
+                        ng-change="loadLeaveTypeByLeaveGroup()"
+                        ng-options="AlmLeaveGroup as AlmLeaveGroup.leaveGroupName for AlmLeaveGroup in almleavegroups track by AlmLeaveGroup.id" required><option value=""></option></select><span class="message" ng-show="editForm.attendanceCode.$pending">validating...</span><div ng-show="editForm.almLeaveGroup.$invalid"><p class="help-block"
+                       ng-show="editForm.almLeaveGroup.$error.ngRemoteValidate">
+                        Group is already exists
+                    </p></div></div>-->
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.almLeaveRule.almLeaveType"
+                           for="field_almLeaveType">almLeaveType</label>
+                    <select class="form-control" id="field_almLeaveType" name="almLeaveType"
+                            tooltip="{{'stepApp.almLeaveRule.almLeaveType' | translate}}"
+                            ng-model="almLeaveRule.almLeaveType"
+                            ng-options="AlmLeaveType as AlmLeaveType.leaveTypeName for AlmLeaveType in almleavetypes track by AlmLeaveType.id"
+                            ng-change="duplicateCheckByGroupAndType()" required>
+                        <option value="" translate="stepApp.almLeaveRule.almLeaveType">Select Leave Type</option>
+                    </select>
+                    <div ng-show="!isExitsData">
+                        <p style="color: red">Alm Leave Rule is already exists with this Type.</p>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.almLeaveRule.leaveRuleName"
+                           for="field_leaveRuleName">LeaveRuleName</label>
+                    <input type="text" class="form-control" name="leaveRuleName" id="field_leaveRuleName"
+                           tooltip="{{'stepApp.almLeaveRule.leaveRuleName' | translate}}"
+                           placeholder="{{'stepApp.almLeaveRule.leaveRuleName' | translate}}"
+                           ng-model="almLeaveRule.leaveRuleName" required/>
+                    <div ng-show="editForm.leaveRuleName.$invalid">
+                        <p class="help-block" ng-show="editForm.leaveRuleName.$error.required"
+                           translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>-->
+
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.almLeaveRule.noOfDaysEntitled" for="field_noOfDaysEntitled">NoOfDaysEntitled</label>
+                    <input type="number" class="form-control" name="noOfDaysEntitled" id="field_noOfDaysEntitled"
+                           tooltip="{{'stepApp.almLeaveRule.noOfDaysEntitled' | translate}}"
+                           placeholder="{{'stepApp.almLeaveRule.noOfDaysEntitled' | translate}}"
+                           ng-model="almLeaveRule.noOfDaysEntitled" required/>
+                    <div ng-show="editForm.noOfDaysEntitled.$invalid">
+                        <p class="help-block" ng-show="editForm.noOfDaysEntitled.$error.required"
+                           translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                        <p class="help-block" ng-show="editForm.noOfDaysEntitled.$error.number"
+                           translate="entity.validation.number">
+                            This field should be a number.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.almLeaveRule.maxConsecutiveLeaves" for="field_maxConsecutiveLeaves">MaxConsecutiveLeaves</label>
+                    <input type="number" class="form-control" name="maxConsecutiveLeaves"
+                           tooltip="{{'stepApp.almLeaveRule.maxConsecutiveLeaves' | translate}}"
+                           placeholder="{{'stepApp.almLeaveRule.maxConsecutiveLeaves' | translate}}"
+                           id="field_maxConsecutiveLeaves" ng-model="almLeaveRule.maxConsecutiveLeaves" required/>
+                    <div ng-show="editForm.maxConsecutiveLeaves.$invalid">
+                        <p class="help-block" ng-show="editForm.maxConsecutiveLeaves.$error.required"
+                           translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                        <p class="help-block" ng-show="editForm.maxConsecutiveLeaves.$error.number"
+                           translate="entity.validation.number">
+                            This field should be a number.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.almLeaveRule.minGapBetweenTwoLeaves"
+                           for="field_minGapBetweenTwoLeaves">MinGapBetweenTwoLeaves</label>
+                    <input type="number" class="form-control" name="minGapBetweenTwoLeaves"
+                           tooltip="{{'stepApp.almLeaveRule.minGapBetweenTwoLeaves' | translate}}"
+                           placeholder="{{'stepApp.almLeaveRule.minGapBetweenTwoLeaves' | translate}}"
+                           id="field_minGapBetweenTwoLeaves" ng-model="almLeaveRule.minGapBetweenTwoLeaves"
+                           />
+                    <div ng-show="editForm.minGapBetweenTwoLeaves.$invalid">
+                        <p class="help-block" ng-show="editForm.minGapBetweenTwoLeaves.$error.required"
+                           translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                        <p class="help-block" ng-show="editForm.minGapBetweenTwoLeaves.$error.number"
+                           translate="entity.validation.number">
+                            This field should be a number.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.almLeaveRule.noOfInstanceAllowed" for="field_noOfInstanceAllowed">NoOfInstanceAllowed</label>
+                    <input type="number" class="form-control" name="noOfInstanceAllowed"
+                           tooltip="{{'stepApp.almLeaveRule.noOfInstanceAllowed' | translate}}"
+                           placeholder="{{'stepApp.almLeaveRule.noOfInstanceAllowed' | translate}}"
+                           id="field_noOfInstanceAllowed" ng-model="almLeaveRule.noOfInstanceAllowed"/>
+                    <div ng-show="editForm.noOfInstanceAllowed.$invalid">
+                        <p class="help-block" ng-show="editForm.noOfInstanceAllowed.$error.required"
+                           translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                        <p class="help-block" ng-show="editForm.noOfInstanceAllowed.$error.number"
+                           translate="entity.validation.number">
+                            This field should be a number.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.almLeaveRule.isNegBalanceAllowed" for="field_isNegBalanceAllowed">IsNegBalanceAllowed</label>
+                    
+                    <span class="form-control">
+                            <input type="radio" data-ng-model="almLeaveRule.isNegBalanceAllowed" name="isNegBalanceAllowed"
+                                   data-ng-value="true">&nbsp;Yes&nbsp;|&nbsp;
+                            <input type="radio" data-ng-model="almLeaveRule.isNegBalanceAllowed" name="isNegBalanceAllowed"
+                                   data-ng-value="false">&nbsp;No
+                        </span>
+                </div>
+            </div>
+
+            <div class="col-md-6" ng-show="almLeaveRule.isNegBalanceAllowed">
+                <div class="form-group ">
+                    <label translate="stepApp.almLeaveRule.maxNegBalance"
+                           for="field_maxNegBalance">MaxNegBalance</label>
+                    <input type="number" class="form-control" name="maxNegBalance" id="field_maxNegBalance"
+                           tooltip="{{'stepApp.almLeaveRule.maxNegBalance' | translate}}"
+                           placeholder="{{'stepApp.almLeaveRule.maxNegBalance' | translate}}"
+                           ng-model="almLeaveRule.maxNegBalance"/>
+                    <div ng-show="editForm.maxNegBalance.$invalid">
+                        <p class="help-block" ng-show="editForm.maxNegBalance.$error.number"
+                           translate="entity.validation.number">
+                            This field should be a number.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.almLeaveRule.almGender" for="field_almGender">Applicable
+                        Gender</label>
+                    <select class="form-control" name="almGender" ng-model="almLeaveRule.almGender"
+                            tooltip="{{'stepApp.almLeaveRule.almGender' | translate}}"
+                            id="field_almGender" required>
+                        <option value="" translate="stepApp.almLeaveRule.almGender">Select Gender</option>
+                        <option value="Both" translate="stepApp.almLeaveRule.almGender.Both">Both</option>
+                        <option value="Male" translate="stepApp.almLeaveRule.almGender.Male">Male</option>
+                        <option value="Female" translate="stepApp.almLeaveRule.almGender.Female">Female</option>
+                    </select>
+                    <div ng-show="editForm.almGender.$invalid">
+                        <p class="help-block" ng-show="editForm.almGender.$error.required"
+                           translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.almLeaveRule.applicableServiceLength"
+                           for="field_applicableServiceLength">ApplicableServiceLength</label>
+                    <input type="number" class="form-control" name="applicableServiceLength"
+                           id="field_applicableServiceLength" ng-model="almLeaveRule.applicableServiceLength"
+                           tooltip="{{'stepApp.almLeaveRule.applicableServiceLength' | translate}}"
+                           placeholder="{{'stepApp.almLeaveRule.applicableServiceLength' | translate}}"
+                           required/>
+                    <div ng-show="editForm.applicableServiceLength.$invalid">
+                        <p class="help-block" ng-show="editForm.applicableServiceLength.$error.required"
+                           translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                        <p class="help-block" ng-show="editForm.applicableServiceLength.$error.number"
+                           translate="entity.validation.number">
+                            This field should be a number.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.almLeaveRule.isCertificateRequired" for="field_isCertificateRequired">IsCertificateRequired</label>
+                    
+                    <span class="form-control">
+                            <input type="radio" data-ng-model="almLeaveRule.isCertificateRequired" name="isCertificateRequired"
+                                   data-ng-value="true">&nbsp;Yes&nbsp;|&nbsp;
+                            <input type="radio" data-ng-model="almLeaveRule.isCertificateRequired" name="isCertificateRequired"
+                                   data-ng-value="false">&nbsp;No
+                        </span>
+                </div>
+            </div>
+            <div class="col-md-6" ng-show="almLeaveRule.isCertificateRequired">
+                <div class="form-group ">
+                    <label translate="stepApp.almLeaveRule.requiredNoOfDays" for="field_requiredNoOfDays">RequiredNoOfDays</label>
+                    <input type="number" class="form-control" name="requiredNoOfDays" id="field_requiredNoOfDays"
+                           tooltip="{{'stepApp.almLeaveRule.requiredNoOfDays' | translate}}"
+                           placeholder="{{'stepApp.almLeaveRule.requiredNoOfDays' | translate}}"
+                           ng-model="almLeaveRule.requiredNoOfDays"/>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.almLeaveRule.isEarnLeave" for="field_isEarnLeave">IsEarnLeave</label>
+                    
+                    <span class="form-control">
+                            <input type="radio" data-ng-model="almLeaveRule.isEarnLeave" name="isEarnLeave"
+                                   data-ng-value="true">&nbsp;Yes&nbsp;|&nbsp;
+                            <input type="radio" data-ng-model="almLeaveRule.isEarnLeave" name="isEarnLeave"
+                                   data-ng-value="false">&nbsp;No
+                    </span>
+                </div>
+            </div>
+            <!-- <div class="col-md-6" ng-show="almLeaveRule.isEarnLeave">
+                 <div class="form-group ">
+                     <label translate="stepApp.almLeaveRule.almEarningMethod" for="field_almEarningMethod">Earning
+                         Method</label>
+                     <select tooltip="{{'stepApp.almLeaveRule.almEarningMethod' | translate}}" class="form-control"
+                             id="field_almEarningMethod" name="almEarningMethod"
+                             ng-model="almLeaveRule.almEarningMethod"
+                             ng-options="AlmEarningMethod as AlmEarningMethod.earningMethodName for AlmEarningMethod in almEarningMethods track by AlmEarningMethod.id">
+                         <option value="" translate="stepApp.almLeaveRule.almEarningMethod"></option>
+                     </select>
+                 </div>
+             </div>
+             <div class="col-md-6">
+                 <div class="form-group ">
+                     <label translate="stepApp.almLeaveRule.almEarningFrequency" for="field_almEarningFrequency">EarningFrequency</label>
+                     <select tooltip="{{'stepApp.almLeaveRule.almEarningFrequency' | translate}}"
+                             class="form-control" id="field_almEarningFrequency" name="almEarningFrequency"
+                             ng-model="almLeaveRule.almEarningFrequency"
+                             ng-options="AlmEarningFrequency as AlmEarningFrequency.earningFrequencyName for AlmEarningFrequency in almEarningFrequencys track by AlmEarningFrequency.id">
+                         <option value="" translate="stepApp.almLeaveRule.almEarningFrequency">Select Frequency
+                         </option>
+                     </select>
+                 </div>-->
+
+        <div class="col-md-6" ng-show="almLeaveRule.isEarnLeave">
+            <div class="form-group ">
+                <label translate="stepApp.almLeaveRule.daysRequiredToEarn" for="field_daysRequiredToEarn">DaysRequiredToEarn</label>
+                <input type="number" class="form-control" name="daysRequiredToEarn"
+                       tooltip="{{'stepApp.almLeaveRule.daysRequiredToEarn' | translate}}"
+                       placeholder="{{'stepApp.almLeaveRule.daysRequiredToEarn' | translate}}"
+                       id="field_daysRequiredToEarn" ng-model="almLeaveRule.daysRequiredToEarn"/>
+                <div ng-show="editForm.daysRequiredToEarn.$invalid">
+                    <p class="help-block" ng-show="editForm.daysRequiredToEarn.$error.number"
+                       translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6" ng-show="almLeaveRule.isEarnLeave">
+            <div class="form-group ">
+                <label translate="stepApp.almLeaveRule.noOfLeavesEarned" for="field_noOfLeavesEarned">NoOfLeavesEarned</label>
+                <input type="number" class="form-control" name="noOfLeavesEarned" id="field_noOfLeavesEarned"
+                       tooltip="{{'stepApp.almLeaveRule.noOfLeavesEarned' | translate}}"
+                       placeholder="{{'stepApp.almLeaveRule.noOfLeavesEarned' | translate}}"
+                       ng-model="almLeaveRule.noOfLeavesEarned"/>
+                <div ng-show="editForm.noOfLeavesEarned.$invalid">
+                    <p class="help-block" ng-show="editForm.noOfLeavesEarned.$error.number"
+                       translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group ">
+                <label translate="stepApp.almLeaveRule.isCarryForward"
+                       for="field_isCarryForward">IsCarryForward</label>
+                <!--<input type="checkbox" class="form-control" name="isCarryForward" id="field_isCarryForward"
+                       tooltip="{{'stepApp.almLeaveRule.isCarryForward' | translate}}"
+                       ng-model="almLeaveRule.isCarryForward"/>-->
+                    <span class="form-control">
+                            <input type="radio" data-ng-model="almLeaveRule.isCarryForward" name="isCarryForward"
+                                   data-ng-value="true">&nbsp;Yes&nbsp;|&nbsp;
+                            <input type="radio" data-ng-model="almLeaveRule.isCarryForward" name="isCarryForward"
+                                   data-ng-value="false">&nbsp;No
+                    </span>
+            </div>
+        </div>
+
+        <div class="col-md-6" ng-show="almLeaveRule.isCarryForward">
+            <div class="form-group ">
+                <label translate="stepApp.almLeaveRule.maxCarryForward" for="field_maxCarryForward">MaxCarryForward</label>
+                <input type="number" class="form-control" name="maxCarryForward" id="field_maxCarryForward"
+                       tooltip="{{'stepApp.almLeaveRule.maxCarryForward' | translate}}"
+                       placeholder="{{'stepApp.almLeaveRule.maxCarryForward' | translate}}"
+                       ng-model="almLeaveRule.maxCarryForward"/>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group ">
+                <label translate="stepApp.almLeaveRule.maxBalanceForward" for="field_maxBalanceForward">MaxBalanceForward</label>
+                <input type="number" class="form-control" name="maxBalanceForward" id="field_maxBalanceForward"
+                       tooltip="{{'stepApp.almLeaveRule.maxBalanceForward' | translate}}"
+                       placeholder="{{'stepApp.almLeaveRule.maxBalanceForward' | translate}}"
+                       ng-model="almLeaveRule.maxBalanceForward"/>
+                <div ng-show="editForm.maxBalanceForward.$invalid">
+                    <p class="help-block" ng-show="editForm.maxBalanceForward.$error.number"
+                       translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group ">
+                <label translate="stepApp.almLeaveRule.isLeaveWithoutPay" for="field_isLeaveWithoutPay">IsLeaveWithoutPay</label>
+
+                    <span class="form-control">
+                            <input type="radio" data-ng-model="almLeaveRule.isLeaveWithoutPay" name="isLeaveWithoutPay"
+                                   data-ng-value="true">&nbsp;Yes&nbsp;|&nbsp;
+                            <input type="radio" data-ng-model="almLeaveRule.isLeaveWithoutPay" name="isLeaveWithoutPay"
+                                   data-ng-value="false">&nbsp;No
+                        </span>
+            </div>
+        </div>
+        <!--<div class="col-md-6">
+            <div class="form-group ">
+                <label translate="stepApp.almLeaveRule.isSuffixPrefix"
+                       for="field_isSuffixPrefix">isSuffixPrefix</label>
+        <span class="form-control">
+            <input tooltip="{{'stepApp.almLeaveRule.isSuffixPrefix' | translate}}" type="radio"
+                   data-ng-model="almLeaveRule.isSuffixPrefix" name="isSuffixPrefix"
+                   data-ng-value="true">&nbsp;Yes&nbsp;|&nbsp;
+
+                <input tooltip="{{'stepApp.almLeaveRule.isSuffixPrefix' | translate}}"
+                       type="radio" data-ng-model="almLeaveRule.isSuffixPrefix" name="isSuffixPrefix"
+                       data-ng-value="false">&nbsp;No
+
+                </span>
+            </div>
+        </div>-->
+        <div class="col-md-6">
+            <div class="form-group ">
+                <label translate="stepApp.almLeaveRule.activeStatus"
+                       for="field_activeStatus">ActiveStatus</label>
+                <span class="form-control">
+                    <input tooltip="{{'stepApp.almLeaveRule.activeStatus' | translate}}" type="radio"
+                           data-ng-model="almLeaveRule.activeStatus" name="activeStatus"
+                           data-ng-value="true">&nbsp;Active&nbsp;|&nbsp;
+
+                        <input tooltip="{{'stepApp.almLeaveRule.activeStatus' | translate}}" type="radio"
+                               data-ng-model="almLeaveRule.activeStatus" name="activeStatus"
+                               data-ng-value="false">&nbsp;Inactive
+
+                </span>
+                <div ng-show="editForm.activeStatus.$invalid">
+                    <p class="help-block" ng-show="editForm.activeStatus.$error.required"
+                       translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" onclick="window.history.back()" class="btn btn-info">
+            <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;
+            <span translate="entity.action.back"> Back</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted || !isExitsData"
+                class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;
+            <span ng-show="almLeaveRule.id == null" translate="entity.action.save">Save</span>
+            <span ng-show="almLeaveRule.id != null" translate="entity.action.update">Save</span>
+        </button>
+    </div>
+</form>
+</div>

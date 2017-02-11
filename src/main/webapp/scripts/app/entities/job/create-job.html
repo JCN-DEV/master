@@ -1,0 +1,213 @@
+<div class="row">
+    <h1>Create Your Job Here</h1>
+</div>
+
+<form name="editForm" class="form form-horizontal" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header bg-primary">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myJobLabel" translate="stepApp.job.home.createOrEditLabel">Create or edit a Job</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+<!--        <div class="form-group">
+            <label class="col-sm-3 control-label" for="id" translate="global.field.id">ID</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="id" name="id" ng-model="job.id" readonly />
+            </div>
+        </div>
+      -->  <!--<div class="form-group">-->
+            <label class="col-sm-3 control-label" translate="stepApp.job.title" for="field_title">Title</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="title" id="field_title"
+                       ng-model="job.title"
+                       required ng-minlength="3" />
+                <div ng-show="editForm.title.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.title.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.title.$error.minlength" translate="entity.validation.minlength" translate-value-min="3">
+                        This field is required to be at least 3 characters.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.job.type" for="field_type">Type</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="type" id="field_type"
+                       ng-model="job.type"
+                    />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.job.minimumSalary" for="field_minimumSalary">MinimumSalary</label>
+            <div class="col-sm-9">
+                <input type="number" class="form-control" name="minimumSalary" id="field_minimumSalary"
+                       ng-model="job.minimumSalary"
+                    />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.job.maximumSalary" for="field_maximumSalary">MaximumSalary</label>
+            <div class="col-sm-9">
+                <input type="number" class="form-control" name="maximumSalary" id="field_maximumSalary"
+                       ng-model="job.maximumSalary"
+                    />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.job.vacancy" for="field_vacancy">Vacancy</label>
+            <div class="col-sm-9">
+                <input type="number" class="form-control" name="vacancy" id="field_vacancy"
+                       ng-model="job.vacancy"
+                       required />
+                <div ng-show="editForm.vacancy.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.vacancy.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.vacancy.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.job.description" for="field_description">Description</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="description" id="field_description"
+                       ng-model="job.description"
+                       required />
+                <div ng-show="editForm.description.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.description.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.job.benefits" for="field_benefits">Benefits</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="benefits" id="field_benefits"
+                       ng-model="job.benefits"
+                    />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.job.educationRequirements" for="field_educationRequirements">EducationRequirements</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="educationRequirements" id="field_educationRequirements"
+                       ng-model="job.educationRequirements"
+                       required />
+                <div ng-show="editForm.educationRequirements.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.educationRequirements.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.job.experienceRequirements" for="field_experienceRequirements">ExperienceRequirements</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="experienceRequirements" id="field_experienceRequirements"
+                       ng-model="job.experienceRequirements"
+                    />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.job.otherRequirements" for="field_otherRequirements">OtherRequirements</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="otherRequirements" id="field_otherRequirements"
+                       ng-model="job.otherRequirements"
+                    />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.job.publishedAt" for="field_publishedAt">PublishedAt</label>
+            <div class="col-sm-9">
+                <input type="date" class="form-control" name="publishedAt" id="field_publishedAt"
+                       ng-model="job.publishedAt"
+                    />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.job.applicationDeadline" for="field_applicationDeadline">ApplicationDeadline</label>
+            <div class="col-sm-9">
+                <input type="date" class="form-control" name="applicationDeadline" id="field_applicationDeadline"
+                       ng-model="job.applicationDeadline"
+                    />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.job.location" for="field_location">Location</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="location" id="field_location"
+                       ng-model="job.location"
+                    />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.job.status" for="field_status">Status</label>
+            <div class="col-sm-9">
+                <select class="form-control" name="status" ng-model="job.status" id="field_status">
+                    <option value="awaiting" translate="stepApp.JobStatus.awaiting">awaiting</option>
+                    <option value="shortlisted" translate="stepApp.JobStatus.shortlisted">shortlisted</option>
+                    <option value="interviewed" translate="stepApp.JobStatus.interviewed">interviewed</option>
+                    <option value="rejected" translate="stepApp.JobStatus.rejected">rejected</option>
+                    <option value="selected" translate="stepApp.JobStatus.selected">selected</option>
+                    <option value="offered" translate="stepApp.JobStatus.offered">offered</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.job.cat" for="field_cat">cat</label>
+            <div class="col-sm-9">
+                <select class="form-control" id="field_cat" multiple name="cat" ng-model="job.cats" ng-options="cat as cat.cat for cat in cats track by cat.id"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.job.employer" for="field_employer">employer</label>
+            <div class="col-sm-9">
+                <select class="form-control" id="field_employer" name="employer" ng-model="job.employer" ng-options="employer as employer.name for employer in employers track by employer.id">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.job.country" for="field_country">country</label>
+            <div class="col-sm-9">
+                <select class="form-control" id="field_country" name="country" ng-model="job.country" ng-options="country as country.name for country in countrys track by country.id">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.job.user" for="field_user">user</label>
+            <div class="col-sm-9">
+                <select class="form-control" id="field_user" name="user" ng-model="job.user" ng-options="user as user.login for user in users track by user.id">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="form-group">
+            <div class="col-md-offset-4 col-md-8">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

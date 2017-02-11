@@ -1,0 +1,449 @@
+<style>
+    .highlightedText {
+        color: black;
+        background-color: yellow;
+    }
+</style>
+
+<div class="col-sm-12 common-list">
+    <h2 class="modal-title su_h4_size panel-title"><span
+        translate="stepApp.pgmsAppFamilyPension.familyAppApprove.generalHomeTitle"></span></h2>
+    <div class="col-md-12 padding-tb">
+        <div class="col-sm-6">
+            <strong><h3 translate="stepApp.pgmsAppFamilyPension.familyAppApprove.subTitle"></h3></strong>
+        </div>
+        <div style="margin:5px 0px;" class="col-sm-6 text-right">
+            <button type="button"ng-model="button" ng-click="loadAll()"  class="btn btn-primary btn-sm"><i class="fa fa-refresh"></i> <span translate="stepApp.pgmsAppFamilyPension.familyAppApprove.Refresh">Refresh</span> </button>
+        </div>
+    </div>
+    <div class="col-md-12 three_tab no_padding panel">
+        <tabset justified="true">
+            <tab heading="{{'stepApp.pgmsAppFamilyPension.familyAppApprove.dashboardTab1' | translate}} ({{newRequestList.length}})">
+
+                <div class="col-md-12 table-responsive no_padding">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <label>Search:</label><input id="searchText" ng-model="searchText" name="searchText" type="text" />
+                            <input ng-hide="true" id="clearButton" value="Clear" type="button" ng-click="clearSearchText('request')">
+                        </div>
+
+                    </div>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+
+                            <th ng-click="sort('entityName','request')">
+                                <span translate="stepApp.pgmsAppFamilyPension.appEmpId">Employee Id</span>
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='entityName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                            </th>
+                            <th ng-click="sort('requestFrom','request')">
+                                <span translate="stepApp.pgmsAppFamilyPension.empName">Employee Name</span>
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='requestFrom'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                            </th>
+                            <th> <span translate="stepApp.pgmsAppFamilyPension.nomineName">Nominee Name</span></th>
+                            <th><span translate="stepApp.pgmsAppFamilyPension.aprvStatus">Approval Status</span></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr dir-paginate="requestObj in newRequestList |orderBy:sortKey:reverse|filter:searchText|itemsPerPage:15" pagination-id="requestListPaginate">
+
+                            <td>
+                                <a ui-sref="HrEmployeeInfo.detail({id:requestObj.appEmpId.id})">{{requestObj.appEmpId.employeeId}}</a>
+                            </td>
+                            <td> {{requestObj.empName}} </td>
+                            <td> {{requestObj.nomineName}}</td>
+                            <td> {{requestObj.aprvStatus}}</td>
+
+                            <td class="hrm-button">
+                                <button type="button" ng-click="approvalViewDetail(requestObj)" class="btn btn-info btn-sm">
+                                    <span translate="stepApp.pgmsAppFamilyPension.familyAppApprove.requestView">View</span>
+                                </button>
+                                <button type="button" ng-click="approvalConfirmation(requestObj, 'accept')" class="btn btn-primary btn-sm">
+                                    <span translate="stepApp.pgmsAppFamilyPension.familyAppApprove.requestAccept">Accept</span>
+                                </button>
+                                <button type="button" ng-click="approvalConfirmation(requestObj, 'reject')" class="btn btn-danger btn-sm">
+                                    <span translate="stepApp.pgmsAppFamilyPension.familyAppApprove.requestReject">Reject</span>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true" pagination-id="requestListPaginate"></dir-pagination-controls>
+                </div>
+            </tab>
+
+
+
+            <tab heading="{{'stepApp.pgmsAppFamilyPension.familyAppApprove.dashboardTab3' | translate}}  ({{approvedList.length}})">
+                <div class="table-responsive">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <label>Search:</label><input id="searchTextApp" ng-model="searchTextApp" name="searchTextApp" type="text" />
+                            <input ng-hide="true" id="clearButtonApp" value="Clear" type="button" ng-click="clearSearchTextApp('request')">
+                        </div>
+
+                    </div>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th ng-click="sort('entityName','approved')">
+                                <span translate="stepApp.pgmsAppFamilyPension.appEmpId">Employee Id</span>
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='entityName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                            </th>
+                            <th ng-click="sort('requestFrom','approved')">
+                                <span translate="stepApp.pgmsAppFamilyPension.empName">Employee Name</span>
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='requestFrom'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                            </th>
+                            <th><span translate="stepApp.pgmsAppFamilyPension.nomineName">Nominee Name</span></th>
+                            <th> <span translate="stepApp.pgmsAppFamilyPension.aprvStatus">Approval Status</span> </th>
+                            <th>Comments</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr dir-paginate="requestObj in approvedList |orderBy:sortKey3:reverse3|itemsPerPage:20|filter:searchTextApp" pagination-id="approvedListPaginate">
+                            <!--<td><a ui-sref="almEmpLeaveApplication.detail({id:almEmpLeaveApplication.id})">{{requestObj.id}}</a></td>-->
+                            <td>
+                                <a ui-sref="HrEmployeeInfo.detail({id:pgmsAppFamilyPension.requestObj.id})">{{requestObj.appEmpId.employeeId}}</a>
+                            </td>
+                            <td> {{requestObj.empName}} </td>
+                            <td> {{requestObj.nomineName}}</td>
+                            <td> {{requestObj.aprvStatus}}</td>
+                            <td> {{requestObj.aprvComment}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true" pagination-id="approvedListPaginate"></dir-pagination-controls>
+                </div>
+            </tab>
+            <tab heading="{{'stepApp.pgmsAppFamilyPension.familyAppApprove.dashboardTab4' | translate}}  ({{rejectedList.length}})">
+                <div class="table-responsive">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <label>Search:</label><input id="searchTextRej" ng-model="searchTextRej" name="searchTextRej" type="text" />
+                            <input ng-hide="true" id="clearButtonRej" value="Clear" type="button" ng-click="clearSearchTextRej('approved')">
+                        </div>
+
+                    </div>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+
+                            <th ng-click="sort('entityName','rejected')">
+                                <span translate="stepApp.pgmsAppFamilyPension.appEmpId">Employee Id</span>
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='entityName'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                            </th>
+                            <th ng-click="sort('requestFrom','rejected')">
+                                <span translate="stepApp.pgmsAppFamilyPension.empName">Employee Name</span>
+                                <span class="glyphicon sort-icon" ng-show="sortKey=='requestFrom'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                            </th>
+                            <th> <span translate="stepApp.pgmsAppFamilyPension.nomineName">Nominee Name</span> </th>
+                            <th><span translate="stepApp.pgmsAppFamilyPension.aprvStatus">Approval Status</span></th>
+
+                            <th>Comments</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr dir-paginate="requestObj in rejectedList |orderBy:sortKey4:reverse4|itemsPerPage:20|filter:searchTextRej" pagination-id="rejectedListPaginate">
+                            <!--<td><a ui-sref="almEmpLeaveApplication.detail({id:almEmpLeaveApplication.id})">{{requestObj.id}}</a></td>-->
+                            <td>
+                                <a ui-sref="HrEmployeeInfo.detail({id:pgmsAppFamilyPension.requestObj.id})">{{requestObj.appEmpId.employeeId}}</a>
+                            </td>
+                            <td> {{requestObj.empName}} </td>
+                            <td> {{requestObj.nomineName}}</td>
+                            <td> {{requestObj.aprvStatus}}</td>
+                            <td> {{requestObj.aprvComment}}</td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                    <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true" pagination-id="rejectedListPaginate"></dir-pagination-controls>
+                </div>
+            </tab>
+        </tabset>
+    </div>
+</div>
+
+
+<div class="modal animated bounceInUp" id="approveRejectConfirmation">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="approvalForm" ng-submit="approvalActionDirect()">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                            ng-click="clear()">&times;</button>
+                    <h4 class="modal-title" translate="entity.delete.title"> Confirm Approval operation of {{approvalObj.leaveTypeName}}</h4>
+                </div>
+                <div class="modal-body">
+                    <div ng-if="approvalObj.actionType == 'accept'">
+
+                        <p>Are you sure you want to approve this ?</p>
+                    </div>
+                    <div ng-if="approvalObj.actionType == 'reject'">
+                        <label class="control-label" for="field_aprvComment">Comments</label>
+                        <textarea class="form-control" name="aprvComment" id="field_aprvComment"
+                                  ng-model="approvalObj.aprvComment"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                        <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.close">close</span>
+                    </button>
+                    <span ng-if="approvalObj.actionType == 'accept'">
+                        <button type="submit" ng-disabled="approvalForm.$invalid" class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="stepApp.hrmHome.buttonTextApprove"> Approve</span>
+                        </button>
+                    </span>
+                    <span ng-if="approvalObj.actionType == 'reject'">
+                        <button type="submit" ng-disabled="approvalForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="stepApp.hrmHome.buttonTextReject"> Reject</span>
+                        </button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="approveViewDetailForm">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="approvalForm" ng-submit="approvalViewAction()">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="clear()">&times;</button>
+                    <h4 class="modal-title">{{approvalObj.viewFormTitle}}</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th><span translate="stepApp.pgmsAppFamilyPension.familyAppApprove.fieldName">Field</span></th>
+                                <th><span translate="stepApp.pgmsAppFamilyPension.familyAppApprove.fieldData">Value</span></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.pgmsAppFamilyPension.empName">EmpName</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{approvalObj.empName}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.pgmsAppFamilyPension.appEmpId">appEmpId</span>
+                                </td>
+                                <td>
+                                    <a class="form-control-static" ui-sref="HrEmployeeInfo.detail({id:approvalObj.appEmpId.id})">{{approvalObj.appEmpId.employeeId}}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.pgmsAppFamilyPension.empDepartment">EmpDepartment</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{approvalObj.empDepartment}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.pgmsAppFamilyPension.empDesignation">EmpDesignation</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{approvalObj.empDesignation}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.pgmsAppFamilyPension.empNid">EmpNid</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{approvalObj.empNid}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.pgmsAppFamilyPension.nomineeStatus">NomineeStatus</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{approvalObj.nomineeStatus}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.pgmsAppFamilyPension.nomineName">NomineName</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{approvalObj.nomineName}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.pgmsAppFamilyPension.nomineDob">NomineDob</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{approvalObj.nomineDob | date:'mediumDate'}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.pgmsAppFamilyPension.nomineGender">NomineGender</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{approvalObj.nomineGender}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.pgmsAppFamilyPension.nomineRelation">NomineRelation</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{approvalObj.nomineRelation}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.pgmsAppFamilyPension.nomineOccupation">NomineOccupation</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{approvalObj.nomineOccupation}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.pgmsAppFamilyPension.nomineDesignation">NomineDesignation</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{approvalObj.nomineDesignation}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.pgmsAppFamilyPension.nominePreAddress">NominePreAddress</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{approvalObj.nominePreAddress}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.pgmsAppFamilyPension.nomineParAddress">NomineParAddress</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{approvalObj.nomineParAddress}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.pgmsAppFamilyPension.nomineNid">NomineNid</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{approvalObj.nomineNid}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.pgmsAppFamilyPension.nomineContNo">NomineContNo</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{approvalObj.nomineContNo}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.pgmsAppFamilyPension.nomineBankName">NomineBankName</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{approvalObj.nomineBankName}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.pgmsAppFamilyPension.nomineBranchName">NomineBranchName</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{approvalObj.nomineBranchName}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.pgmsAppFamilyPension.nomineAccNo">NomineAccNo</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{approvalObj.nomineAccNo}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.pgmsAppFamilyPension.applyDate">ApplyDate</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{approvalObj.applyDate | date:'mediumDate'}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <b class="form-control-static">  Family Attachment Details </b></span>
+                                </td>
+                            </tr>
+                            <tr ng-repeat-start="pgmsAppFamilyAttach in pgmsAppFamilyAttachList">
+                                <td>
+                                    <span translate="stepApp.pgmsAppFamilyAttach.attachName">attachName</span>
+                                </td>
+                                <td>
+                                    <a class="form-control-static" ui-sref="PgmsRetirmntAttachInfo.detail({id:pgmsAppFamilyAttach.attachName.id})">{{pgmsAppFamilyAttach.attachName.attachName}}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.pgmsAppFamilyAttach.attachment">Attachment</span>
+                                </td>
+                                <td>
+                                    <div><a ng-if="pgmsAppFamilyAttach.attachmentContentType" class="btn btn-link" ng-click="previewDoc(pgmsAppFamilyAttach)">View</a></div>
+                                </td>
+                            </tr>
+                            <tr ng-repeat-end>
+                                <td>
+                                    <span translate="stepApp.pgmsAppFamilyAttach.attachDocName">AttachDocName</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{pgmsAppFamilyAttach.attachDocName}}</span>
+                                </td>
+                            </tr>
+
+                            <tr>
+
+                                <td colspan="3">
+                                    <div ng-hide="approvalObj.isApproved">
+                                        <label class="control-label" translate="stepApp.pgmsAppFamilyPension.familyAppApprove.comments">Comments</label>
+                                        <textarea class="form-control" name="aprvComment" ng-model="approvalObj.aprvComment"></textarea>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                        <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.close">Close</span>
+                    </button>
+                    <span >
+                        <button type="submit" class="btn btn-primary ">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="stepApp.pgmsAppFamilyPension.familyAppApprove.buttonTextApprove">Approve</span>
+                        </button>
+                    </span>
+                    <span >
+                        <button type="submit" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="stepApp.pgmsAppFamilyPension.familyAppApprove.buttonTextReject"> Reject</span>
+                        </button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

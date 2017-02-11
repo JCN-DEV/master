@@ -1,0 +1,147 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()">
+            <h4 class="modal-title" id="myMpoVacancyRoleLabel"
+                translate="stepApp.mpoVacancyRole.home.createOrEditLabel">Create or edit a MpoVacancyRole</h4>
+        <div class="modal-body padding-tb col-md-12">
+            <div class="form-group">
+                <label translate="stepApp.mpoVacancyRole.vacancyRoleType"
+                       for="field_vacancyRoleType">VacancyRoleType</label>
+                <select class="form-control" name="vacancyRoleType" ng-model="mpoVacancyRole.vacancyRoleType"
+                        id="field_vacancyRoleType" required>
+                    <option value="" >{{mpoVacancyRole.vacancyRoleType}}</option>
+                    <option value="General" translate="stepApp.VacancyRoleType.General">General</option>
+                    <option value="Special" translate="stepApp.VacancyRoleType.Special">Special</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label translate="stepApp.mpoVacancyRole.cmsCurriculum" for="field_cmsCurriculum">cmsCurriculum</label>
+                <!--<input type="checkbox" ng-model="areAllCurriculumSelected"
+                       ng-change="updateCurriculumSelection(cmscurriculums, areAllCurriculumSelected)"/>
+                <div class="panel-body no_padding admin-info" ng-repeat="cmscurriculum in cmscurriculums">
+                    <input type="checkbox" ng-model="cmscurriculum.isSelected">{{cmscurriculum.name}}<br>
+                </div>-->
+                <!--<input type="checkbox" checklist-model="getRoles()" checklist-value="role" ng-change="check(role, checked)"> {{role}}-->
+                <select ng-change="setTrades(mpoVacancyRole.cmsCurriculum)" class="form-control"
+                        id="field_cmsCurriculum" name="cmsCurriculum" ng-model="mpoVacancyRole.cmsCurriculum"
+                        ng-options="cmsCurriculum as cmsCurriculum.name for cmsCurriculum in cmscurriculums track by cmsCurriculum.id">
+                    <option value=""></option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-12">
+                <label translate="stepApp.mpoVacancyRole.totalVacancy" for="field_totalVacancy">TotalVacancy</label>
+                <input type="number" class="form-control" name="totalVacancy" id="field_totalVacancy"
+                       ng-model="mpoVacancyRole.totalVacancy"
+                />
+            </div>
+
+
+            <div ng-if="mpoVacancyRole.vacancyRoleType === 'Special'">
+
+                <div class="form-group col-md-12">
+                    <label translate="stepApp.mpoVacancyRole.totalTrade" for="field_totalTrade">TotalTrade</label>
+                    <select class="form-control" id="field_totalTrade" name="cmsTrade"
+                            ng-model="mpoVacancyRole.totalTrade">
+                        <option value="">{{mpoVacancyRole.totalTrade}}</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                    <!--<input type="number" class="form-control" name="totalTrade" id="field_totalTrade"
+                           ng-model="mpoVacancyRole.totalTrade"
+                        />-->
+                </div>
+
+
+                <div class="form-group col-md-12">
+                    <label translate="stepApp.mpoVacancyRoleTrade.cmsTrade" for="field_cmsTrade">cmsTrade</label>
+                    <input type="checkbox" ng-model="areAllTradeSelected"
+                           ng-change="updateTradeSelection(cmstrades, areAllTradeSelected)"/>
+                    <div class="panel-body no_padding admin-info" ng-repeat="cmstrade in cmstrades">
+                        <input type="checkbox" ng-model="cmstrade.isSelected">{{cmstrade.name}}<br>
+                    </div>
+                    <!--<select class="form-control" id="field_cmsTrade" name="cmsTrade" ng-model="mpoVacancyRoleTrade.cmsTrade" ng-options="cmsTrade as cmsTrade.name for cmsTrade in cmstrades track by cmsTrade.id">
+                        <option value=""></option>
+                    </select>-->
+                </div>
+
+
+            </div>
+
+
+            <!--<div class="form-group">
+                <label translate="stepApp.mpoVacancyRoleDesgnations.mpoVacancyRole" for="field_mpoVacancyRole">mpoVacancyRole</label>
+                <select class="form-control" id="field_mpoVacancyRole" name="mpoVacancyRole" ng-model="mpoVacancyRoleDesgnations.mpoVacancyRole" ng-options="mpoVacancyRole as mpoVacancyRole.id for mpoVacancyRole in mpovacancyroles track by mpoVacancyRole.id">
+                    <option value=""></option>
+                </select>
+            </div>-->
+
+            <div class="panel-body no_padding admin-info"
+                 ng-repeat="mpoVacancyRoleDesgnation in mpoVacancyRoleDesgnations">
+                <!--<div class="form-group col-md-4">-->
+                    <!--<label translate="stepApp.mpoVacancyRoleDesgnations.instEmplDesignation"-->
+                           <!--for="field_instEmplDesignation">instEmplDesignation</label>-->
+                    <!--<select class="form-control" id="field_instEmplDesignation" name="instEmplDesignation"-->
+                            <!--ng-model="mpoVacancyRoleDesgnation.instEmplDesignation"-->
+                            <!--ng-options="instEmplDesignation as instEmplDesignation.name for instEmplDesignation in instempldesignations track by instEmplDesignation.id">-->
+                        <!--<option value=""></option>-->
+                    <!--</select>-->
+                <!--</div>-->
+
+                <div class="form-group col-md-4">
+                    <label translate="stepApp.mpoVacancyRoleDesgnations.instEmplDesignation"
+                           for="field_designationSetup">instEmplDesignation</label>
+                    <select class="form-control" id="field_designationSetup" name="designationSetup"
+                            ng-model="mpoVacancyRoleDesgnation.designationSetup"
+                            ng-options="designationSetup as designationSetup.designationInfo.designationName for designationSetup in designationSetups">
+                            <!--ng-options="designationSetup as designationSetup.name for designationSetup in designationSetups track by designationSetup.id">-->
+                        <option value=""></option>
+                    </select>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label translate="stepApp.mpoVacancyRoleDesgnations.cmsSubject"
+                           for="field_cmsSubject">cmsSubject</label>
+                    <select class="form-control" id="field_cmsSubject" name="cmsSubject"
+                            ng-model="mpoVacancyRoleDesgnation.cmsSubject"
+                            ng-options="cmsSubject as cmsSubject.name for cmsSubject in cmssubjects track by cmsSubject.id">
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label translate="stepApp.mpoVacancyRoleDesgnations.totalPost"
+                           for="field_totalPost">TotalPost</label>
+                    <input type="number" class="form-control" name="totalPost" id="field_totalPost"
+                           ng-model="mpoVacancyRoleDesgnation.totalPost"
+                    />
+                </div>
+            </div>
+            <div><a class="btn btn-link" ng-disabled="editForm.$invalid || isSaving"
+                    ng-click="AddMoreVacancyRoleDesgnations()">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;<span
+                translate="entity.action.addMore">Add More</span>
+            </a></div>
+
+            <!-- <div class="form-group">
+                 <label translate="stepApp.mpoVacancyRoleTrade.mpoVacancyRole" for="field_mpoVacancyRole">mpoVacancyRole</label>
+                 <select class="form-control" id="field_mpoVacancyRole" name="mpoVacancyRole" ng-model="mpoVacancyRoleTrade.mpoVacancyRole" ng-options="mpoVacancyRole as mpoVacancyRole.id for mpoVacancyRole in mpovacancyroles track by mpoVacancyRole.id">
+                     <option value=""></option>
+                 </select>
+             </div>-->
+
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

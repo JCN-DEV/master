@@ -1,0 +1,255 @@
+<div class="col-md-12 common-table">
+    <h2><span translate="stepApp.instGenInfo.detail.title">InstGenInfo</span></h2>
+    <div class="col-sm-12 text-right padding-tb no-print">
+        <button type="submit"
+                ui-sref="instituteInfo.generalInfo.edit({id:instGenInfo.id})"
+                class="btn btn-primary">
+            <span class="glyphicon glyphicon-pencil"></span>&nbsp;
+            <span translate="entity.action.edit"> Edit</span>
+        </button>
+    </div>
+    <div class="col-md-12 table-responsive  no_padding">
+        <table class="table table-striped">
+            <!--<thead>
+            <tr>
+            </tr>
+
+            </thead>-->
+            <tbody>
+            <tr>
+                <th>
+                    <span translate="stepApp.instGenInfo.code">Code</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.code}}</span>
+                </td>
+
+                <th>
+                    <span translate="stepApp.instGenInfo.type">Type</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.type}}</span>
+                </td>
+
+            </tr>
+            <tr>
+
+                <th>
+                    <span translate="stepApp.instGenInfo.name">Name</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.name}}</span>
+                </td>
+                <th>
+                    <span translate="stepApp.instGenInfo.category">category</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.instCategory.name}}</span>
+                </td>
+
+            </tr>
+            <tr>
+                <th><span translate="stepApp.instGenInfo.level">Level</span></th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.instLevel.name}}</span>
+                </td>
+                <th ng-show="instGenInfo.type == 'Government'">
+                    <span translate="stepApp.instGenInfo.instCategory">Type</span>
+                </th>
+                <td ng-show="instGenInfo.type == 'Government'">
+                    <span class="form-control-static">{{instGenInfo.instCategory.name}}</span>
+                </td>
+
+            </tr>
+            <tr>
+                <th>
+                    <span translate="stepApp.instGenInfo.centerCode">Type</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.centerCode}}</span>
+                </td>
+
+                <th>
+                    <span translate="stepApp.instGenInfo.eiin">Type</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.eiin}}</span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <span translate="stepApp.instGenInfo.publicationDate">PublicationDate</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.publicationDate | date:'mediumDate'}}</span>
+                </td>
+                <th>
+                    <span translate="stepApp.instGenInfo.firstAffiliationDate">Type</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.firstAffiliationDate}}</span>
+                </td>
+            </tr>
+            <tr>
+
+
+
+
+            </tr>
+            <tr ng-show="!hidempoEnlisted">
+                <div>
+                    <th>
+                        <span translate="stepApp.instGenInfo.mpoEnlisted">Type</span>
+                    </th>
+                    <td>
+                        <span class="form-control-static">{{instGenInfo.mpoEnlisted ? 'Yes' : 'No'}}</span>
+                    </td>
+                </div>
+                <th>
+                    <span translate="stepApp.instGenInfo.ownerType">Owner Type</span>
+                </th>
+                <td ng-show="instGenInfo.ownerType">
+                    <span class="form-control-static">Individual</span>
+                </td>
+                <td ng-show="!instGenInfo.ownerType">
+                    <span class="form-control-static">Associated</span>
+                </td>
+            </tr>
+            <tr ng-show="instGenInfo.mpoEnlisted">
+
+                <th>
+                    <span translate="stepApp.instGenInfo.mpoCode">mpoCode</span>
+                </th>
+                <td>{{instGenInfo.institute.mpoCode}}</td>
+                <th ng-if="instGenInfo.type=='NonGovernment'">
+                    <span translate="stepApp.instGenInfo.dateOfMpo">Date of Mpo</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.institute.dateOfMpo | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <span translate="stepApp.instGenInfo.village">Village</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.village}}</span>
+                </td>
+
+
+            </tr>
+            <tr>
+                <th>
+                    <span translate="stepApp.instGenInfo.postOffice">PostOffice</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.postOffice}}</span>
+                </td>
+                <th>
+                    <span translate="stepApp.instGenInfo.postCode">PostCode</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.postCode}}</span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <span translate="stepApp.instGenInfo.landPhone">LandPhone</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.landPhone}}</span>
+                </td>
+                <th>
+                    <span translate="stepApp.instGenInfo.mobileNo">MobileNo</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.mobileNo}}</span>
+                </td>
+
+            </tr>
+            <tr>
+                <th>
+                    <span translate="stepApp.instGenInfo.email">Email</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.email}}</span>
+                </td>
+                <th>
+                    <span translate="stepApp.instGenInfo.consArea">ConsArea</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.consArea}}</span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <span translate="stepApp.instGenInfo.division">Division</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.upazila.district.division.name}}</span>
+                </td>
+                <th>
+                    <span translate="stepApp.instGenInfo.district">District</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.upazila.district.name}}</span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <span translate="stepApp.instGenInfo.upazila">District</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.upazila.name}}</span>
+                </td>
+                <th>
+                    <span translate="stepApp.instGenInfo.faxNum">Fax</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.faxNum}}</span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <span translate="stepApp.instGenInfo.website">Web Site</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.website}}</span>
+                </td>
+                <th translate="stepApp.instGenInfo.locality">Locality</th>
+                <td>{{instGenInfo.locality == 1 ? "Citycorporation" : (instGenInfo.locality==2 ?
+                    "Municipilaty":"others") }}
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <span class="form-control-static" translate="stepApp.instGenInfo.altMobileNo">MobileNo</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.altMobileNo}}</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <!--<div class="col-md-6">
+        <div class="no-print panel-footer ">
+            <button type="submit"
+                    onclick="window.history.back()"
+                    class="btn btn-info">
+                <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span
+                translate="entity.action.back"> Back</span>
+            </button>
+        </div>
+    </div>-->
+    <div class="col-md-12 no_padding padding-bt">
+        <div class="no-print no_padding text-right">
+            <button type="submit" name="submit" onclick="window.print()" class="btn btn-primary">
+                <span class="glyphicon glyphicon-print"></span>&nbsp;<span
+                translate="entity.action.print">Print</span>
+            </button>
+        </div>
+    </div>
+</div>

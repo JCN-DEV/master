@@ -1,0 +1,57 @@
+<div class="col-md-12 common-list">
+    <h2 ng-show="timescaleAppliedLists.pending == 'pending'" translate="global.menu.account.apPendingList">Assistant
+        Professor Application Pending List</h2>
+    <h2 ng-show="timescaleAppliedLists.pending == 'approved'" translate="global.menu.account.apApprovedList">Assistant
+        Professor Application Approved List</h2>
+    <div class="row">
+        <div class="col-xs-4">
+            <b>{{ (timescaleAppliedLists|filter:q).length }} results found</b>
+            <label for="search">Search:</label>
+            <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+        </div>
+        <div class="col-xs-4">
+            <label for="search">items per page:</label>
+            <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+        </div>
+    </div>
+    <br>
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="stepApp.mpo.thead.institutename"> Institute Name</th>
+                <th translate="stepApp.mpo.thead.applicantname"> Applicant Name</th>
+                <th translate="stepApp.mpo.thead.id"> ID</th>
+                <th translate="stepApp.mpo.thead.district"> District</th>
+                <th translate="stepApp.mpo.thead.status"> Status</th>
+                <th translate="stepApp.mpo.thead.action"> Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-animate="'animate'"
+                dir-paginate="mpoAppliedList in timescaleAppliedLists | filter:q | itemsPerPage: pageSize | orderBy:'$index':true"
+                current-page="currentPage">
+                <!--<td>{{mpoAppliedList.instEmployee.code}}</td>
+                <td>{{mpoAppliedList.instEmployee.institute.name}}</td>
+                <td>{{mpoAppliedList.instEmployee.institute.upazila.name}}</td>
+                <td>{{mpoAppliedLists.pending}}</td>-->
+                <td>{{mpoAppliedList.CODE}}</td>
+                <td>{{mpoAppliedList.INST_NAME}}</td>
+                <td>{{mpoAppliedList.UPZILA_NAME}}</td>
+                <td></td>
+                <td>{{mpoAppliedLists.pending}}</td>
+                <td class="text-right">
+                    <button class="btn btn-default" ui-sref="apscaleDetails({id:mpoAppliedList.TIMESCALE_ID})">
+                        <span translate="stepApp.mpo.view">View</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <!--for pagination and real time search add bellow nav tab -->
+        <nav>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                     template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+</div>

@@ -1,0 +1,116 @@
+<div class="col-md-12 lbl-dash">
+    <div class="col-md-12 common-list no_padding">
+        <h2 class="heading_center" translate="stepApp.miscConfigSetup.home.title">MiscConfigSetups</h2>
+        <div class="col-md-12 padding-tb">
+            <div class="col-xs-4 no_padding">
+                <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+            </div>
+            <div class="col-xs-4">
+                <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+            </div>
+            <div class="col-xs-4 no_padding text-right ">
+                <button class="btn btn-primary" ui-sref="miscConfigSetup.new">
+                    <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.miscConfigSetup.home.createLabel">Create a new MiscConfigSetup</span>
+                </button>
+            </div>
+        </div>
+<!--<div>
+    <h2 translate="stepApp.miscConfigSetup.home.title">MiscConfigSetups</h2>
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" ui-sref="miscConfigSetup.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="stepApp.miscConfigSetup.home.createLabel">Create a new MiscConfigSetup</span>
+                </button>
+            </div>
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a MiscConfigSetup</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>-->
+
+    <div class="modal fade" id="deleteMiscConfigSetupConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(miscConfigSetup.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p translate="stepApp.miscConfigSetup.delete.question" translate-values="{id: '{{miscConfigSetup.id}}'}">Are you sure you want to delete this MiscConfigSetup?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="global.field.serial">Serial</th>
+                    <th translate="global.field.id">ID</th>
+                    <th translate="stepApp.miscConfigSetup.propertyName">PropertyName</th>
+                    <th translate="stepApp.miscConfigSetup.propertyTitle">PropertyTitle</th>
+                    <th translate="stepApp.miscConfigSetup.propertyValue">PropertyValue</th>
+                    <th translate="stepApp.miscConfigSetup.propertyDataType">PropertyDataType</th>
+                    <th translate="stepApp.miscConfigSetup.propertyValueMax">PropertyValueMax</th>
+                    <th translate="stepApp.miscConfigSetup.activeStatus">ActiveStatus</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--<tr ng-repeat="miscConfigSetup in miscConfigSetups track by miscConfigSetup.id">-->
+                <tr ng-animate="'animate'" dir-paginate="miscConfigSetup in miscConfigSetups | filter:q | itemsPerPage: pageSize track by miscConfigSetup.id" current-page="currentPage">
+                    <td>{{pageSize * (currentPage-1)+$index+1}}</td>
+                    <td><a ui-sref="miscConfigSetup.detail({id:miscConfigSetup.id})">{{miscConfigSetup.id}}</a></td>
+                    <td>{{miscConfigSetup.propertyName}}</td>
+                    <td>{{miscConfigSetup.propertyTitle}}</td>
+                    <td>{{miscConfigSetup.propertyValue}}</td>
+                    <td translate="{{'stepApp.miscConfigDataType.' + miscConfigSetup.propertyDataType}}">{{miscConfigSetup.propertyDataType}}</td>
+                    <td>{{miscConfigSetup.propertyValueMax}}</td>
+                    <td>{{miscConfigSetup.activeStatus}}</td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="miscConfigSetup.detail({id:miscConfigSetup.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="miscConfigSetup.edit({id:miscConfigSetup.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="delete(miscConfigSetup.id)"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav class="no-print">
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                     template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+</div>
+</div>

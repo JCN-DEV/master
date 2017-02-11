@@ -1,0 +1,103 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myPrlOnetimeAllowInfoLabel" translate="stepApp.prlOnetimeAllowInfo.home.createOrEditLabel">Create or edit a PrlOnetimeAllowInfo</h4>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.prlOnetimeAllowInfo.allowanceInfo" for="field_allowanceInfo">allowanceInfo</label>
+
+                    <select class="form-control" id="field_allowanceInfo" name="allowanceInfo"
+                            ng-model="prlOnetimeAllowInfo.allowanceInfo"
+                            ng-options="PrlAllowDeductInfo as PrlAllowDeductInfo.name for PrlAllowDeductInfo in prlAllowanceList track by PrlAllowDeductInfo.id"
+                        required>
+                        <option value=""></option>
+                    </select>
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.prlOnetimeAllowInfo.year" for="field_year">Year</label>
+                    <input type="number" class="form-control" name="year" id="field_year"
+                           ng-model="prlOnetimeAllowInfo.year" required/>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.prlOnetimeAllowInfo.basicAmountPercentage" for="field_basicAmountPercentage">BasicAmountPercentage</label>
+                    <input type="number" class="form-control" name="basicAmountPercentage" id="field_basicAmountPercentage"
+                           ng-model="prlOnetimeAllowInfo.basicAmountPercentage" required/>
+                </div>
+            </div>
+            <div class="col-md-6">
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.prlOnetimeAllowInfo.effectiveDate" for="field_effectiveDate">EffectiveDate</label>
+                    <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.effectiveDate"
+                           datepicker-options="calendar.dateOptions" close-text="Close"
+                           ng-click="calendar.open($event, 'effectiveDate')" class="form-control" name="effectiveDate" id="field_effectiveDate"
+                           ng-model="prlOnetimeAllowInfo.effectiveDate" required/>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.prlOnetimeAllowInfo.religion" for="field_religion">Religion</label>
+
+                    <select class="form-control" name="religion"
+                            ng-model="prlOnetimeAllowInfo.religion" id="field_religion"
+                        required>
+                        <option value="Islam" translate="stepApp.Religions.Islam">Islam</option>
+                        <option value="Hinduism" translate="stepApp.Religions.Hinduism">Hinduism</option>
+                        <option value="Buddhism" translate="stepApp.Religions.Buddhism">Buddhism</option>
+                        <option value="Christian" translate="stepApp.Religions.Christian">Christian</option>
+                        <option value="All" translate="stepApp.Religions.All">All</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.prlOnetimeAllowInfo.activeStatus" for="field_activeStatus">ActiveStatus</label>
+                    <input type="checkbox" class="form-control" name="activeStatus" id="field_activeStatus"
+                           ng-model="prlOnetimeAllowInfo.activeStatus"
+                        />
+                    <div ng-show="editForm.activeStatus.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+
+            </div>
+        </div>
+
+    </div>
+    <div class="panel-footer">
+        <button type="button" class="btn btn-default" class="btn " data-dismiss="modal" onclick="window.history.back()">
+            <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;<span translate="entity.action.back">Back</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</div>
+</form>

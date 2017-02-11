@@ -1,0 +1,88 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myPrlLocalitySetInfoLabel" translate="stepApp.prlLocalitySetInfo.home.createOrEditLabel">Create or edit a PrlLocalitySetInfo</h4>
+    </div>
+    <div class="panel-body">
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.prlLocalitySetInfo.name" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                           ng-model="prlLocalitySetInfo.name"
+                           ng-blur="checkLocalitySetUniqByName()"
+                           required ng-minlength="3" />
+                    <span class="message" ng-show="editForm.name.$pending">validating...</span>
+                    <div ng-show="localitySetAlreadyExist"  class="alert alert-danger">
+                        Locality set already exists !!!
+                    </div>
+                    <div ng-show="editForm.name.$invalid">
+                        <p class="help-block" ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                        <p class="help-block"
+                           ng-show="editForm.name.$error.minlength" translate="entity.validation.minlength" translate-value-min="3">
+                            This field is required to be at least 3 characters.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group" ng-hide="true">
+                    <label class="control-label" translate="stepApp.prlLocalitySetInfo.fixedSetType">fixedSetType</label>
+                    <div class="form-control">
+                        <input type="radio" data-ng-model="prlLocalitySetInfo.fixedSetType" name="fixedSetType" data-ng-value="true">&nbsp;Fixed&nbsp;|&nbsp;
+                        <input type="radio" data-ng-model="prlLocalitySetInfo.fixedSetType" name="fixedSetType" data-ng-value="false">&nbsp;Remain
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+
+            </div>
+            <div class="col-md-6">
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.prlLocalitySetInfo.localityInfo" for="field_localityInfo">localityInfo</label>
+                    <select class="form-control" id="field_localityInfo" multiple name="localityInfo"
+                            ng-model="prlLocalitySetInfo.localityInfos"
+                            ng-options="PrlLocalityInfo as PrlLocalityInfo.name for PrlLocalityInfo in prllocalityinfos track by PrlLocalityInfo.id"></select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.prlLocalitySetInfo.activeStatus" for="field_activeStatus">ActiveStatus</label>
+                    <input type="checkbox" class="form-control" name="activeStatus" id="field_activeStatus"
+                           ng-model="prlLocalitySetInfo.activeStatus"
+                        />
+                    <div ng-show="editForm.activeStatus.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <button type="button" class="btn btn-default" class="btn " data-dismiss="modal" onclick="window.history.back()">
+            <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;<span translate="entity.action.back">Back</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</div>
+</form>

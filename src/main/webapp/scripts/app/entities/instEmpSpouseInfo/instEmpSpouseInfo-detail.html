@@ -1,0 +1,144 @@
+
+<div>
+    <h2><span translate="stepApp.instEmpSpouseInfo.detail.title">InstEmpSpouseInfo</span> {{instEmpSpouseInfo.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmpSpouseInfo.name">Name</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmpSpouseInfo.name}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmpSpouseInfo.dob">Dob</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmpSpouseInfo.dob | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmpSpouseInfo.isNominee">IsNominee</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmpSpouseInfo.isNominee}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmpSpouseInfo.gender">Gender</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmpSpouseInfo.gender}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmpSpouseInfo.relation">Relation</span>
+                </td>
+                <td>
+                    <span class="form-control-static" translate="{{'stepApp.relationType.' + instEmpSpouseInfo.relation}}">{{instEmpSpouseInfo.relation}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmpSpouseInfo.nomineePercentage">NomineePercentage</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmpSpouseInfo.nomineePercentage}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmpSpouseInfo.occupation">Occupation</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmpSpouseInfo.occupation}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmpSpouseInfo.tin">Tin</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmpSpouseInfo.tin}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmpSpouseInfo.nid">Nid</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmpSpouseInfo.nid}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmpSpouseInfo.designation">Designation</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmpSpouseInfo.designation}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmpSpouseInfo.govJobId">GovJobId</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmpSpouseInfo.govJobId}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmpSpouseInfo.mobile">Mobile</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmpSpouseInfo.mobile}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmpSpouseInfo.officeContact">OfficeContact</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmpSpouseInfo.officeContact}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmpSpouseInfo.instEmployee">instEmployee</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="instEmployee.detail({id:instEmpSpouseInfo.instEmployee.id})">{{instEmpSpouseInfo.instEmployee.name}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmpSpouseInfo.instEmpAddress">instEmpAddress</span>
+                </td>
+                <td>
+                    <span ng-repeat="instEmpAddress in instEmpSpouseInfo.instEmpAddresss">
+                        <a class="form-control-static" ui-sref="instEmpAddress.detail({id: {{instEmpAddress.id}}})">{{instEmpAddress.address}}</a>{{$last ? '' : ', '}}
+                    <span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

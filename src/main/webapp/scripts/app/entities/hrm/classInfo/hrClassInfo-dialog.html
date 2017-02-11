@@ -1,0 +1,103 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="hrClassInfo.id == null" class="modal-title" id="myHrClassInfoLabel"
+            translate="stepApp.hrClassInfo.home.createOrEditLabel">Create or edit a HrClassInfo</h4>
+        <h4 ng-show="hrClassInfo.id != null" class="modal-title" id="myHrClassInfoLabel"
+            translate="stepApp.hrClassInfo.home.EditLabel">Create or edit a HrClassInfo</h4>
+        <div class="modal-body col-md-12 padding-tb">
+            <jh-alert-error></jh-alert-error>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrClassInfo.classCode" for="field_classCode">ClassCode</label>
+                        <input type="text" class="form-control" name="classCode" id="field_classCode"
+                               ng-model="hrClassInfo.classCode"
+                               ng-remote-validate="/api/hrClassInfos/checkcode/"
+                               ng-remote-method="GET"
+                               ng-remote-throttle="500"
+                               required/>
+                        <span class="message" ng-show="editForm.classCode.$pending">validating...</span>
+                        <div ng-show="editForm.classCode.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.classCode.$error.ngRemoteValidate">
+                                Class code already exists
+                            </p>
+                        </div>
+                        <div ng-show="editForm.classCode.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.classCode.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrClassInfo.className" for="field_className">ClassName</label>
+                        <input type="text" class="form-control" name="className" id="field_className"
+                               ng-model="hrClassInfo.className"
+                               ng-remote-validate="/api/hrClassInfos/checkname/"
+                               ng-remote-method="GET"
+                               ng-remote-throttle="500"
+                               required/>
+                        <span class="message" ng-show="editForm.className.$pending">validating...</span>
+                        <div ng-show="editForm.className.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.className.$error.ngRemoteValidate">
+                                Class name already exists
+                            </p>
+                        </div>
+                        <div ng-show="editForm.className.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.className.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrClassInfo.classDetail"
+                               for="field_classDetail">ClassDetail</label>
+                    <textarea class="form-control" name="classDetail" id="field_classDetail"
+                              ng-model="hrClassInfo.classDetail"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrClassInfo.activeStatus">ActiveStatus</label>
+                <span class="form-control">
+                    <input type="radio" data-ng-model="hrClassInfo.activeStatus" name="activeStatus"
+                           data-ng-value="true">&nbsp;Active&nbsp;|&nbsp;
+                    <input type="radio" data-ng-model="hrClassInfo.activeStatus" name="activeStatus"
+                           data-ng-value="false">&nbsp;Inactive
+                </span>
+                        <div ng-show="editForm.activeStatus.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" class="btn " data-dismiss="modal"
+                    onclick="window.history.back()">
+                <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;<span
+                translate="entity.action.back">Back</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="hrClassInfo.id == null" translate="entity.action.save">Save</span>
+                <span ng-show="hrClassInfo.id != null" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

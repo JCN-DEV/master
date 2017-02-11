@@ -1,0 +1,87 @@
+<div class="row">
+
+    <div class="col-md-3">
+        <ng-include src="'scripts/app/entities/jobPortal/jp-user-menu.html'"></ng-include>
+    </div>
+    <div class="col-md-9">
+
+        <div ng-show="showAlert">
+            <table class="table">
+                <tbody>
+                <tr class="jpResumeTable">
+                    <td>
+                        <h5>Please, Complete your profile before uploading resume.</h5>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-6 col-md-offset-3 dte-center-all">
+            <div ng-show="!showAlert ">
+
+                <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+                    <div class="panel panel-success ">
+                        <div class="panel-heading">
+                            <div class="panel-title ">
+                                <span  translate="global.menu.account.cvAttachment">Upload Resume</span>
+                            </div>
+                        </div>
+
+                        <span class="help help-block block"><b>*Only pdf is supported</b></span><br>
+                        <div class="form-group" ngf-drop ngf-change="setCv($file, jpEmployee)">
+                            <label style="color: red">{{fileName}}</label> <label for="field_cv">{{fileAdded}}</label>
+
+                            <div>
+                                <div class="help-block clearfix">
+                                    <span class="pull-left">{{jpEmployee.cvContentType}} {{byteSize(jpEmployee.cv)}}</span>
+                                    <button ng-click="jpEmployee.cv=null;jpEmployee.cvContentType=null;"
+                                            ng-if="jpEmployee.cv"
+                                            class="btn btn-default btn-xs pull-right">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </button>
+                                </div>
+
+                                <button type="file" ngf-select class="btn btn-default" accept=".pdf"
+                                        ngf-change="setCv($file, jpEmployee)" translate="entity.action.uploadResume">
+                                    Add blob
+                                </button>
+                                <button type="button" ng-if="jpEmployee.cv" class="btn btn-default" ng-click="showMyCv()" translate="entity.action.view">
+                                    View
+                                </button>
+
+                            </div>
+                            <input type="hidden" class="form-control" name="cv" id="field_cv"
+                                   ng-model="jpEmployee.cv"
+                                />
+                            <input type="hidden" class="form-control" name="cvContentType" id="field_cvContentType"
+                                   ng-model="jpEmployee.cvContentType"/>
+                        </div>
+
+
+                        <!--<input type="button" class="" ng-if="jpEmployee.cv" ng-click="showMyCv()" value="view">-->
+                        <!--<input type="button" class="" ng-if="jpEmployee.cv" ng-click="deleteCv()" value="delete">-->
+
+                    </div>
+
+
+                    <button type="submit" class="btn btn-primary">
+                        <!--<span class="glyphicon glyphicon-save"></span>&nbsp;--><span translate="entity.action.save">Save</span>
+                    </button>
+
+                </form>
+                <!--<div ng-show="jpEmployee.cv && preview">-->
+
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div ng-show="showCv">
+                <object data="{{content}}" embed-src="{{content}}" type="{{jpEmployee.cvContentType}}"
+                        style="width:100%; height:1000px"/>
+            </div>
+        </div>
+
+    </div>
+
+</div>

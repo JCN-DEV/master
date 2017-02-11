@@ -1,0 +1,161 @@
+<div class="col-sm-3 no_padding">
+    <!--<ul class="custom-menu" id="left-menu1">
+        &lt;!&ndash; <li class="">
+             <a  class=""  data-toggle="collapse" data-parent="#left-menu1" data-target="#firstLink"><i class="fa fa-tachometer"></i>
+                 <span translate="stepApp.leftmenu.sis"></span> </span><i class="pull-right fa fa-angle-down"></i></a>
+             <ul id="firstLink" class="collapse search-accordion sis_menu">
+                 &lt;!&ndash;<li >
+                     <a class=""  ui-sref="sisQuota" ui-sref-active="active">
+                         <i class="fa fa-cogs"></i><span translate="global.menu.entities.sisQuota">Quota Setup</span>
+                     </a>
+                 </li>&ndash;&gt;&ndash;&gt;
+        <li has-any-authority="ROLE_ADMIN,ROLE_GOVT_STUDENT" >
+            <a class=""  ui-sref="sisStudentInfo" ui-sref-active="active">
+                <i class="fa fa-pencil-square-o"></i><span translate="global.menu.entities.sisStudentInfo">Student Info</span>
+            </a>
+        </li>
+        <li has-any-authority="ROLE_ADMIN,ROLE_GOVT_STUDENT">
+            <a class=""  ui-sref="sisEducationHistory" ui-sref-active="active">
+                <i class="fa fa-pencil-square-o"></i><span translate="global.menu.entities.sisEducationHistory">Education History</span>
+            </a>
+        </li>
+        <li has-any-authority="ROLE_ADMIN,ROLE_GOVT_STUDENT" >
+            <a class=""  ui-sref="jobPlacementInfo" ui-sref-active="active">
+                <i class="fa fa-pencil-square-o"></i><span translate="global.menu.entities.jobPlacementInfo">Student Info</span>
+            </a>
+        </li>
+        <li has-any-authority="ROLE_ADMIN">
+            <a class=""  ui-sref="jobPostingInfo" ui-sref-active="active">
+                <i class="fa fa-pencil-square-o"></i>
+                <span translate="global.menu.entities.jobPostingInfo">Job Posting Info</span>
+
+            </a>
+        </li>
+        <li has-any-authority="ROLE_ADMIN,ROLE_GOVT_STUDENT">
+            <a class=""  ui-sref="jobSuggestions" ui-sref-active="active">
+                <i class="fa fa-pencil-square-o"></i>
+                <span translate="global.menu.entities.jobSuggestions">Job Suggestions Info</span>
+
+            </a>
+        </li>
+        <li  has-any-authority="ROLE_ADMIN" ui-sref-active="active" >
+            <a ui-sref="sisStudentReg" data-toggle="collapse" data-target=".navbar-collapse.in">
+                <span class="fa fa-pencil-square-o"></span>
+            &#xA0;<span translate="global.menu.entities.sisStudentReg">sisStudentReg</span></a></li>
+
+        &lt;!&ndash; </ul>&ndash;&gt;
+        </li>
+    </ul>-->
+    <ng-include src="'scripts/app/entities/sis/left-menu.html'"></ng-include>
+</div>
+<div class="common-list col-sm-9">
+    <div class="col-md-12 ">
+        <h2 translate="stepApp.jobPlacementInfo.home.title">JobPlacementInfos</h2></div>
+    <!--<jh-alert></jh-alert>-->
+    <div class="col-sm-12 padding-bt no_padding">
+        <div class="col-md-4 padding-bt no_padding">
+            <b>{{ (jobPlacementInfos|filter:q).length }} results found</b>
+            <div class="input-group">
+                <span class="input-group-addon dlbtn" id="basic-addon1"><i class="fa fa-search"></i></span>
+                <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+            </div>
+        </div>
+        <div class="col-md-4 padding-bt"> <b>Items per page:</b>
+            <div class="input-group">
+                <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+            </div>
+        </div>
+        <div class="col-md-4 text-right no_padding">
+            <button class="btn btn-primary dlbtn dlbtn-top" ui-sref="jobPlacementInfo.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.jobPlacementInfo.home.createLabel">Create a new JobPlacementInfo</span>
+            </button>
+        </div>
+    </div>
+    <!--<div class="col-md-12 no_padding padding-bt">
+        <div class="col-md-6 no_padding">
+            <form name="searchForm" class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery">
+                </div>
+                <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span>
+                </button>
+            </form>
+        </div>
+        <div class="col-md-6 no_padding text-right">
+            <button class="btn btn-primary" ui-sref="jobPlacementInfo.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.jobPlacementInfo.home.createLabel">Add New</span>
+            </button>
+        </div>
+    </div>-->
+    <div class="col-md-12 table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <!--<th translate="global.field.id">ID</th>-->
+                <th translate="global.field.serial">Serial</th>
+                <th translate="stepApp.jobPlacementInfo.jobId">JobId</th>
+                <th translate="stepApp.jobPlacementInfo.orgName">OrgName</th>
+                <th translate="stepApp.jobPlacementInfo.description">Description</th>
+                <th translate="stepApp.jobPlacementInfo.address">Address</th>
+                <!--<th translate="stepApp.jobPlacementInfo.designation">Designation</th>
+                <th translate="stepApp.jobPlacementInfo.department">Department</th>
+                <th translate="stepApp.jobPlacementInfo.responsibility">Responsibility</th>
+                <th translate="stepApp.jobPlacementInfo.workFrom">WorkFrom</th>
+                <th translate="stepApp.jobPlacementInfo.workTo">WorkTo</th>
+                <th translate="stepApp.jobPlacementInfo.currWork">CurrWork</th>
+                <th translate="stepApp.jobPlacementInfo.experience">Experience</th>
+                <th translate="stepApp.jobPlacementInfo.createDate">CreateDate</th>
+                <th translate="stepApp.jobPlacementInfo.createBy">CreateBy</th>
+                <th translate="stepApp.jobPlacementInfo.updateBy">UpdateBy</th>
+                <th translate="stepApp.jobPlacementInfo.updateDate">UpdateDate</th>-->
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--<tr  dir-paginate="jobPlacementInfo in jobPlacementInfos  | filter:q | itemsPerPage: pageSize">-->
+            <tr ng-animate="'animate'" dir-paginate="jobPlacementInfo in jobPlacementInfos | filter:q | itemsPerPage: pageSize track by jobPlacementInfo.id" current-page="currentPage">
+                <!--<td><a ui-sref="jobPlacementInfo.detail({id:jobPlacementInfo.id})">{{jobPlacementInfo.id}}</a></td>-->
+                <td>{{pageSize*(currentPage-1)+$index+1}}</td>
+                <td>{{jobPlacementInfo.jobId}}</td>
+                <td>{{jobPlacementInfo.orgName}}</td>
+                <td>{{jobPlacementInfo.description}}</td>
+                <td>{{jobPlacementInfo.address}}</td>
+                <!--<td>{{jobPlacementInfo.designation}}</td>
+                <td>{{jobPlacementInfo.department}}</td>
+                <td>{{jobPlacementInfo.responsibility}}</td>
+                 <td>{{jobPlacementInfo.workFrom | date:'mediumDate'}}</td>
+                 <td>{{jobPlacementInfo.workTo | date:'mediumDate'}}</td>
+                 <td>{{jobPlacementInfo.currWork}}</td>
+                 <td>{{jobPlacementInfo.experience}}</td>
+                 <td>{{jobPlacementInfo.createDate | date:'mediumDate'}}</td>
+                 <td>{{jobPlacementInfo.createBy}}</td>
+                 <td>{{jobPlacementInfo.updateBy}}</td>
+                 <td>{{jobPlacementInfo.updateDate | date:'mediumDate'}}</td>-->
+                <td class="text-right">
+                    <button type="submit"
+                            ui-sref="jobPlacementInfo.detail({id:jobPlacementInfo.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="jobPlacementInfo.edit({id:jobPlacementInfo.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="jobPlacementInfo.delete({id:jobPlacementInfo.id})"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+</div>
+
+</div>
+

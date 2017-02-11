@@ -1,0 +1,62 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myBEdApplicationStatusLogLabel" translate="stepApp.bEdApplicationStatusLog.home.createOrEditLabel">Create or edit a BEdApplicationStatusLog</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="bEdApplicationStatusLog.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.bEdApplicationStatusLog.status" for="field_status">Status</label>
+            <input type="number" class="form-control" name="status" id="field_status"
+                    ng-model="bEdApplicationStatusLog.status"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.bEdApplicationStatusLog.remarks" for="field_remarks">Remarks</label>
+            <input type="text" class="form-control" name="remarks" id="field_remarks"
+                    ng-model="bEdApplicationStatusLog.remarks"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.bEdApplicationStatusLog.fromDate" for="field_fromDate">FromDate</label>
+            <input type="date" class="form-control" name="fromDate" id="field_fromDate"
+                    ng-model="bEdApplicationStatusLog.fromDate"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.bEdApplicationStatusLog.toDate" for="field_toDate">ToDate</label>
+            <input type="date" class="form-control" name="toDate" id="field_toDate"
+                    ng-model="bEdApplicationStatusLog.toDate"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.bEdApplicationStatusLog.cause" for="field_cause">Cause</label>
+            <input type="text" class="form-control" name="cause" id="field_cause"
+                    ng-model="bEdApplicationStatusLog.cause"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.bEdApplicationStatusLog.bEdApplicationId" for="field_bEdApplicationId">bEdApplicationId</label>
+            <select class="form-control" id="field_bEdApplicationId" name="bEdApplicationId" ng-model="bEdApplicationStatusLog.bEdApplicationId" ng-options="bEdApplication as bEdApplication.id for bEdApplication in bedapplications track by bEdApplication.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

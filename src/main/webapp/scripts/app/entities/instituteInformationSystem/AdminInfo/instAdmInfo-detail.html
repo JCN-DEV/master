@@ -1,0 +1,162 @@
+<div class="col-sm-12 common-table">
+    <h2><span translate="stepApp.instAdmInfo.detail.title">InstAdmInfo</span></h2>
+    <div class="col-sm-12 text-right padding-tb no-print">
+        <!--<button class="btn btn-primary" ui-sref="instituteInfo.adminInfo.new" ng-hide="instAdmInfo.id">
+            <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.instAdmInfo.home.createLabel">Create a new InstAdmInfo</span>
+        </button>-->
+        <button type="submit" ng-show="instAdmInfo.id"
+                ui-sref="instituteInfo.adminInfo.edit({id:instAdmInfo.id})"
+                class="btn btn-primary">
+            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+        </button>
+    </div>
+    <!--<div class="panel panel-primary">-->
+    <!--<div  class="panel-heading">-->
+    <!--<h3><span class="header-margin" translate="stepApp.instAdmInfo.detail.title">InstAdmInfo</span> {{instAdmInfo.id}}-->
+    <!--<div class="pull-right">-->
+    <!--<button class="btn btn-primary" ui-sref="instituteInfo.adminInfo.new" ng-hide="instAdmInfo.id">-->
+    <!--<span class="glyphicon glyphicon-flash"></span> <span translate="stepApp.instAdmInfo.home.createLabel">Create a new InstAdmInfo</span>-->
+    <!--</button>-->
+    <!--&lt;!&ndash;<button type="submit" ng-hide="instAdmInfo.status != 1"&ndash;&gt;-->
+    <!--<button type="submit" ng-hide="!instAdmInfo.id"-->
+    <!--ui-sref="instituteInfo.adminInfo.edit({id:instAdmInfo.id})"-->
+    <!--class="btn btn-primary">-->
+    <!--<span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>-->
+    <!--</button>-->
+    <!--</div>-->
+    <!--</h3>-->
+    <!--</div>-->
+    <!--</div>-->
+
+    <div class="panel panel-primary" ng-hide="!instAdmInfo.id">
+        <div class="col-md-12 table-responsive panel-body no_padding adminst-info">
+            <table class="table table-striped">
+                <thead>
+                <!--<th translate="entity.detail.field">Field</th>-->
+                <!--<th translate="entity.detail.value">Value</th>-->
+                </thead>
+                <tbody>
+                <tr>
+                    <th>
+                        <span translate="stepApp.instAdmInfo.adminCounselorName">AdminCounselorName</span>
+                    </th>
+                    <td>
+                        <span class="form-control-static">{{instAdmInfo.adminCounselorName}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span translate="stepApp.instAdmInfo.counselorMobileNo">CounselorMobileNo</span>
+                    </th>
+                    <td>
+                        <span class="form-control-static">{{instAdmInfo.counselorMobileNo}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span translate="stepApp.instAdmInfo.insHeadName">InsHeadName</span>
+                    </th>
+                    <td>
+                        <span class="form-control-static">{{instAdmInfo.insHeadName}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span translate="stepApp.instAdmInfo.insHeadMobileNo">InsHeadMobileNo</span>
+                    </th>
+                    <td>
+                        <span class="form-control-static">{{instAdmInfo.insHeadMobileNo}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span translate="stepApp.instAdmInfo.deoName">DeoName</span>
+                    </th>
+                    <td>
+                        <span class="form-control-static">{{instAdmInfo.deoName}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <span translate="stepApp.instAdmInfo.deoMobileNo">DeoMobileNo</span>
+                    </th>
+                    <td>
+                        <span class="form-control-static">{{instAdmInfo.deoMobileNo}}</span>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+            <table class="table table-striped" ng-repeat="instGovernBody in instGovernBodys">
+                <thead>
+                <th class="infr-table-head custom-th" colspan="4">Governing Body Information</th>
+
+                <tr>
+                    <!--<th translate="entity.detail.field">Field</th>-->
+                    <!--<th translate="entity.detail.value">Value</th>-->
+
+                <tr class="govt-body">
+                    <th>
+                        <span translate="stepApp.instGovernBody.name">Name</span>
+                    </th>
+                    <th>
+                        <span translate="stepApp.instGovernBody.position">Position</span>
+                    </th>
+                    <th>
+                        <span translate="stepApp.instGovernBody.mobileNo">MobileNo</span>
+                    </th>
+                    <th>
+                        <span translate="stepApp.instGovernBody.institute">institute</span>
+                    </th>
+                </tr>
+
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr>
+                    <td>
+                        <span class="form-control-static">{{instGovernBody.name}}</span>
+                    </td>
+                    <td>
+                        <span class="form-control-static">{{instGovernBody.position}}</span>
+                    </td>
+                    <td>
+                        <span class="form-control-static">{{instGovernBody.mobileNo}}</span>
+                    </td>
+                    <td>
+                        <a class="form-control-static" ui-sref="institute.detail({id:instGovernBody.institute.id})">{{instGovernBody.institute.name}}</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--<div class="panel-footer">
+            <button type="submit"
+                    onclick="window.history.back()"
+                    class="btn btn-info">
+                <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+            </button>
+        </div>-->
+        <div class="no-print   text-right padding-bt">
+            <button type="submit" name="submit" onclick="window.print()" class="btn btn-primary">
+                <span class="glyphicon glyphicon-print"></span>&nbsp;<span
+                translate="entity.action.print">Print</span>
+            </button>
+        </div>
+    </div>
+    </div>
+
+<style>
+    .common-table .table > tbody > tr > td:nth-child(even):before {
+        content: "  ";
+        font-weight: bold;
+        font-family: roboto;
+    }
+    .custom-th{
+        padding: 7px 15px !important;
+        margin-bottom: 15px !important;
+        text-align: center;
+        display: block;
+    }
+</style>

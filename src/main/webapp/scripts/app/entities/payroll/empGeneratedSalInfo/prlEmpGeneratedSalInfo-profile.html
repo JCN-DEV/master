@@ -1,0 +1,193 @@
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myPrlEmpGeneratedSalInfoLabel"><span translate="stepApp.prlEmpGeneratedSalInfo.home.employeeSalaryVerification"></span> of {{hrEmployeeInfo.fullName}}  <!--[{{hrEmployeeInfo.employeeId}}]--></h4>
+    </div>
+    <div class="modal-body">
+
+        <div class="row">
+            <div class="col-md-4">
+               <!-- <label class="control-label" translate="stepApp.prlEmpGeneratedSalInfo.yearName" for="field_yearName">yearName</label>-->
+                <select class="form-control" id="field_yearName" name="yearName" ng-model="prlEmpGeneratedSalInfo.yearName" ng-options="year for year in yearList">
+                    <option value="">Select Year</option>
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <!--<label class="control-label" translate="stepApp.prlEmpGeneratedSalInfo.monthName" for="field_month">BudgetYear</label>-->
+                <select class="form-control" name="month"
+                        ng-model="prlEmpGeneratedSalInfo.month" id="field_month" required>
+                    <option value="">Select Month</option>
+                    <option value="JAN">January</option>
+                    <option value="FEB">February</option>
+                    <option value="MAR">March</option>
+                    <option value="APR">April</option>
+                    <option value="MAY">May</option>
+                    <option value="JUN">June</option>
+                    <option value="JUL">July</option>
+                    <option value="AUG">August</option>
+                    <option value="SEP">September</option>
+                    <option value="OCT">October</option>
+                    <option value="NOV">November</option>
+                    <option value="DEC">December</option>
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <button type="button" class="btn btn-default" ng-disabled="isLoading" ng-click="loadEmployeeGeneratedSalary()">
+                    <span class="glyphicon glyphicon-chevron"></span>&nbsp;<span translate="stepApp.prlEmpGeneratedSalInfo.loadGeneratedSalary">Load</span>
+                </button>
+            </div>
+        </div>
+        <hr>
+
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title" translate="stepApp.prlEmpGeneratedSalInfo.salaryGeneral">Salary General Information</h4>
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped">
+                    <tr>
+                        <td width="30%" align="left">
+                            <div class="form-control-static" translate="stepApp.prlEmpGeneratedSalInfo.basicAmount">Basic Amount</div>
+                        </td>
+                        <td class="text-right">
+                            <div class="form-control-static">{{generatedSalaryDto.employeeSalaryInfo.basicAmount}}</div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title" translate="stepApp.prlEmpGeneratedSalInfo.allowanceInfo">Allowance Information</h4>
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped">
+                    <tr>
+                        <th width="30%" align="left"><label class="control-label" translate="stepApp.prlEmpGeneratedSalInfo.allwDedName">allwDedName</label></th>
+                        <th width="20%"><label class="control-label" translate="stepApp.prlEmpGeneratedSalInfo.allwDedValue">allwDedValue</label></th>
+                        <th>&nbsp;</th>
+                    </tr>
+                    <tr ng-repeat="prlEmpGenSalDetailInfo in generatedSalaryDto.salaryDetailList | filter: { allowDeducType: 'Allowance' }:true">
+                        <td>
+                            <div class="form-control-static">{{prlEmpGenSalDetailInfo.allowDeducName}}</div>
+                        </td>
+                        <td>
+                            <div ng-if="!isCurrentMonthSelected" class="form-control-static">{{prlEmpGenSalDetailInfo.allowDeducValue}}</div>
+                            <input ng-if="isCurrentMonthSelected" type="number" class="form-control" name="allowDeducValue" ng-model="prlEmpGenSalDetailInfo.allowDeducValue"/>
+                        </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+         <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title"><span translate="stepApp.prlEmpGeneratedSalInfo.extraAllowance">Extra Allowance</span> [{{allowanceExtraList.length}}]</h4>
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped">
+                    <tr>
+                        <th width="30%" align="left"><label class="control-label" translate="stepApp.prlEmpGeneratedSalInfo.allwDedName">allwDedName</label></th>
+                        <th width="20%"><label class="control-label" translate="stepApp.prlEmpGeneratedSalInfo.allwDedValue">allwDedValue</label></th>
+                        <th>&nbsp;</th>
+                    </tr>
+                    <tr ng-repeat="prlEmpGenSalDetailInfo in allowanceExtraList">
+                        <td>
+                            <input ng-if="isCurrentMonthSelected" type="text" class="form-control" name="allowDeducName" ng-model="prlEmpGenSalDetailInfo.allowDeducName"/>
+                            <div ng-if="!isCurrentMonthSelected" class="form-control-static">{{prlEmpGenSalDetailInfo.allowDeducName}}</div>
+                        </td>
+                        <td>
+                            <input ng-if="isCurrentMonthSelected" type="number" class="form-control" name="allowDeducValue" ng-model="prlEmpGenSalDetailInfo.allowDeducValue"/>
+                            <div ng-if="!isCurrentMonthSelected" class="form-control-static">{{prlEmpGenSalDetailInfo.allowDeducValue}}</div>
+                        </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-control-static" translate="stepApp.prlEmpGeneratedSalInfo.grossAmount">Gross Amount</div>
+                        </td>
+                        <td colspan="3" class="text-right">
+                            <div class="form-control-static">{{generatedSalaryDto.employeeSalaryInfo.grossAmount}}</div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+         </div>
+
+         <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title" translate="stepApp.prlEmpGeneratedSalInfo.deductionInfo">Deduction Information</h4>
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped">
+                    <tr>
+                        <th width="30%" align="left"><label class="control-label" translate="stepApp.prlEmpGeneratedSalInfo.allwDedName">allwDedName</label></th>
+                        <th width="20%"><label class="control-label" translate="stepApp.prlEmpGeneratedSalInfo.allwDedValue">allwDedValue</label></th>
+                        <th>&nbsp;</th>
+                    </tr>
+                    <tr ng-repeat="prlEmpGenSalDetailInfo in generatedSalaryDto.salaryDetailList | filter: { allowDeducType: 'Deduction' }:true">
+                        <td>
+                            <div class="form-control-static">{{prlEmpGenSalDetailInfo.allowDeducName}}</div>
+                        </td>
+                        <td>
+                            <div ng-if="!isCurrentMonthSelected" class="form-control-static">{{prlEmpGenSalDetailInfo.allowDeducValue}}</div>
+                            <input ng-if="isCurrentMonthSelected" type="number" class="form-control" name="allowDeducValue" ng-model="prlEmpGenSalDetailInfo.allowDeducValue"/>
+                        </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </table>
+            </div>
+         </div>
+
+         <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title" >   <span translate="stepApp.prlEmpGeneratedSalInfo.extraDeduction">Extra Deduction </span>[{{deductionExtraList.length}}]</h4>
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped">
+                    <tr>
+                        <th width="30%" align="left"><label class="control-label" translate="stepApp.prlEmpGeneratedSalInfo.allwDedName">allwDedName</label></th>
+                        <th width="20%"><label class="control-label" translate="stepApp.prlEmpGeneratedSalInfo.allwDedValue">allwDedValue</label></th>
+                        <th>&nbsp;</th>
+                    </tr>
+                    <tr ng-repeat="prlEmpGenSalDetailInfo in deductionExtraList">
+                        <td>
+                            <input ng-if="isCurrentMonthSelected" type="text" class="form-control" name="allowDeducName" ng-model="prlEmpGenSalDetailInfo.allowDeducName"/>
+                            <div ng-if="!isCurrentMonthSelected" class="form-control-static">{{prlEmpGenSalDetailInfo.allowDeducName}}</div>
+                        </td>
+                        <td>
+                            <input ng-if="isCurrentMonthSelected" type="number" class="form-control" name="allowDeducValue" ng-model="prlEmpGenSalDetailInfo.allowDeducValue"/>
+                            <div ng-if="!isCurrentMonthSelected" class="form-control-static">{{prlEmpGenSalDetailInfo.allowDeducValue}}</div>
+                        </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-control-static" translate="stepApp.prlEmpGeneratedSalInfo.payableAmount">Payable Amount</div>
+                        </td>
+                        <td colspan="3" class="text-right">
+                            <div class="form-control-static">{{generatedSalaryDto.employeeSalaryInfo.payableAmount}}</div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+         </div>
+
+    </div>
+    <div class="modal-footer">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-default" class="btn " data-dismiss="modal" onclick="window.history.back()">
+                <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;<span translate="entity.action.back">Back</span>
+            </button>
+            <button type="button" ng-disabled="editForm.$invalid || isSaving || !isCurrentMonthSelected" ng-click="saveAllowanceDeductionList()" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+            </button>
+        </div>
+    </div>
+</form>

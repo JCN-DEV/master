@@ -1,0 +1,181 @@
+<div class="col-sm-12 common-list">
+    <h2 translate="stepApp.almWorkingUnit.home.title">AlmWorkingUnits</h2>
+    <div class="col-md-12 padding-tb">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+        <div class="col-xs-4 no_padding text-right ">
+            <button class="btn btn-primary" ui-sref="almWorkingUnit.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.almWorkingUnit.home.createLabel">Create a new AlmWorkingUnit</span>
+            </button>
+        </div>
+    </div>
+    <!--<jh-alert></jh-alert>-->
+    <!--<div class="col-sm-12  padding-tb">
+        <div class="col-md-4  no_padding">
+            <b><span translate="global.home.searchhere">Search Here :</span></b>
+            <div class="input-group">
+                <span class="input-group-addon dlbtn" id="basic-addon1"><i class="fa fa-search"></i></span>
+                <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+            </div>
+        </div>
+        <div class="col-md-4 no_padding"><b><span translate="global.home.itemperpage">Items per page:</span></b>
+            <div class="input-group">
+                <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+            </div>
+        </div>
+        <div class="col-md-4 text-right no_padding">
+            <button class="btn btn-primary dlbtn dlbtn-top" ui-sref="almWorkingUnit.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.almWorkingUnit.home.createLabel">Create a new AlmWorkingUnit</span>
+            </button>
+        </div>
+    </div>-->
+    <!--<div class="col-sm-12 no_padding paddingbt">
+            <div class="col-md-8 no_padding">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control su_sea_btn" ng-model="searchQuery" id="searchQuery" placeholder="">
+                        <button class="btn btn-info btn_su_left" ng-click="search()"><span class="glyphicon glyphicon-search"></span> </button>
+                    </div>
+
+                </form>
+            </div>
+        <div class="col-md-4 no_padding text-right">
+            <button class="btn btn-primary" ui-sref="almWorkingUnit.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.almWorkingUnit.home.createLabel">Create a new AlmWorkingUnit</span>
+            </button>
+        </div>
+    </div>-->
+
+    <div class="modal animated bounceInUp" id="deleteAlmWorkingUnitConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(almWorkingUnit.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p translate="stepApp.almWorkingUnit.delete.question" translate-values="{id: '{{almWorkingUnit.id}}'}">Are you sure you want to delete this AlmWorkingUnit?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 no_padding table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <!--<th translate="global.field.id">ID</th>-->
+                <th><span translate="global.form.serial">serial</span></th>
+                <th translate="stepApp.almWorkingUnit.almShiftSetup">almShiftSetup</th>
+                <th translate="stepApp.almWorkingUnit.sunday">Sunday</th>
+                <th translate="stepApp.almWorkingUnit.sunStartTime">SunStartTime</th>
+                <th translate="stepApp.almWorkingUnit.sunDelayTime">SunDelayTime</th>
+                <th translate="stepApp.almWorkingUnit.sunEndTime">SunEndTime</th>
+                <th translate="stepApp.almWorkingUnit.monday">Monday</th>
+                <th translate="stepApp.almWorkingUnit.monStartTime">MonStartTime</th>
+                <th translate="stepApp.almWorkingUnit.monDelayTime">MonDelayTime</th>
+                <th translate="stepApp.almWorkingUnit.monEndTime">MonEndTime</th>
+                <th translate="stepApp.almWorkingUnit.tuesday">Tuesday</th>
+                <th translate="stepApp.almWorkingUnit.tueStartTime">TueStartTime</th>
+                <th translate="stepApp.almWorkingUnit.tueDelayTime">TueDelayTime</th>
+                <th translate="stepApp.almWorkingUnit.tueEndTime">TueEndTime</th>
+                <th translate="stepApp.almWorkingUnit.wednesday">Wednesday</th>
+                <th translate="stepApp.almWorkingUnit.wedStartTime">WedStartTime</th>
+                <th translate="stepApp.almWorkingUnit.wedDelayTime">WedDelayTime</th>
+                <th translate="stepApp.almWorkingUnit.wedEndTime">WedEndTime</th>
+                <th translate="stepApp.almWorkingUnit.thursday">Thursday</th>
+                <th translate="stepApp.almWorkingUnit.thuStartTime">ThuStartTime</th>
+                <th translate="stepApp.almWorkingUnit.thuDelayTime">ThuDelayTime</th>
+                <th translate="stepApp.almWorkingUnit.thuEndTime">ThuEndTime</th>
+                <th translate="stepApp.almWorkingUnit.friday">Friday</th>
+                <th translate="stepApp.almWorkingUnit.friStartTime">FriStartTime</th>
+                <th translate="stepApp.almWorkingUnit.friDelayTime">FriDelayTime</th>
+                <th translate="stepApp.almWorkingUnit.friEndTime">FriEndTime</th>
+                <th translate="stepApp.almWorkingUnit.saturday">Saturday</th>
+                <th translate="stepApp.almWorkingUnit.satStartTime">SatStartTime</th>
+                <th translate="stepApp.almWorkingUnit.satDelayTime">SatDelayTime</th>
+                <th translate="stepApp.almWorkingUnit.satEndTime">SatEndTime</th>
+                <th translate="stepApp.almWorkingUnit.effectiveDate">EffectiveDate</th>
+                <th translate="stepApp.almWorkingUnit.activeStatus">ActiveStatus</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--<tr dir-paginate="almWorkingUnit in almWorkingUnits  | filter:q | itemsPerPage: pageSize">-->
+                <!--<td><a ui-sref="almWorkingUnit.detail({id:almWorkingUnit.id})">{{almWorkingUnit.id}}</a></td>-->
+            <tr dir-paginate="almWorkingUnit in almWorkingUnits | filter:q | itemsPerPage: pageSize track by almWorkingUnit.id"
+                current-page="currentPage">
+                <td>{{pageSize*(currentPage-1)+$index+1}}</td>
+                <td>
+                    <a ui-sref="AlmShiftSetup.detail({id:almWorkingUnit.almShiftSetup.id})">{{almWorkingUnit.almShiftSetup.shiftName}}</a>
+                </td>
+                <td>{{almWorkingUnit.sunday  ? 'Yes' : 'No'}}</td>
+                <td>{{almWorkingUnit.sunStartTime != "null:null" ? almWorkingUnit.sunStartTime : ''}}</td>
+                <td>{{almWorkingUnit.sunDelayTime != "null:null" ? almWorkingUnit.sunDelayTime : ''}}</td>
+                <td>{{almWorkingUnit.sunEndTime != "null:null" ? almWorkingUnit.sunEndTime : ''}}</td>
+                <td>{{almWorkingUnit.monday ? 'Yes' : 'No'}}</td>
+                <td>{{almWorkingUnit.monStartTime != "null:null" ? almWorkingUnit.monStartTime : ''}}</td>
+                <td>{{almWorkingUnit.monDelayTime != "null:null" ? almWorkingUnit.monDelayTime : ''}}</td>
+                <td>{{almWorkingUnit.monEndTime != "null:null" ? almWorkingUnit.monEndTime : ''}}</td>
+                <td>{{almWorkingUnit.tuesday ? 'Yes' : 'No'}}</td>
+                <td>{{almWorkingUnit.tueStartTime != "null:null" ? almWorkingUnit.tueStartTime : ''}}</td>
+                <td>{{almWorkingUnit.tueDelayTime != "null:null" ? almWorkingUnit.tueDelayTime : ''}}</td>
+                <td>{{almWorkingUnit.tueEndTime != "null:null" ? almWorkingUnit.tueEndTime : ''}}</td>
+                <td>{{almWorkingUnit.wednesday ? 'Yes' : 'No'}}</td>
+                <td>{{almWorkingUnit.wedStartTime != "null:null" ? almWorkingUnit.wedStartTime : ''}}</td>
+                <td>{{almWorkingUnit.wedDelayTime != "null:null" ? almWorkingUnit.wedDelayTime : ''}}</td>
+                <td>{{almWorkingUnit.wedEndTime != "null:null" ? almWorkingUnit.wedEndTime : ''}}</td>
+                <td>{{almWorkingUnit.thursday ? 'Yes' : 'No'}}</td>
+                <td>{{almWorkingUnit.thuStartTime != "null:null" ? almWorkingUnit.thuStartTime : ''}}</td>
+                <td>{{almWorkingUnit.thuDelayTime != "null:null" ? almWorkingUnit.thuDelayTime : ''}}</td>
+                <td>{{almWorkingUnit.thuEndTime != "null:null" ? almWorkingUnit.thuEndTime : ''}}</td>
+                <td>{{almWorkingUnit.friday ? 'Yes' : 'No'}}</td>
+                <td>{{almWorkingUnit.friStartTime != "null:null" ? almWorkingUnit.friStartTime : ''}}</td>
+                <td>{{almWorkingUnit.friDelayTime != "null:null" ? almWorkingUnit.friDelayTime : ''}}</td>
+                <td>{{almWorkingUnit.friEndTime != "null:null" ? almWorkingUnit.friEndTime : ''}}</td>
+                <td>{{almWorkingUnit.saturday ? 'Yes' : 'No'}}</td>
+                <td>{{almWorkingUnit.satStartTime != "null:null" ? almWorkingUnit.satStartTime : ''}}</td>
+                <td>{{almWorkingUnit.satDelayTime != "null:null" ? almWorkingUnit.satDelayTime : ''}}</td>
+                <td>{{almWorkingUnit.satEndTime != "null:null" ? almWorkingUnit.satEndTime : ''}}</td>
+                <td>{{almWorkingUnit.activeStatus ? 'Active' : 'Inactive'}}</td>
+
+                <td class="text-right">
+                    <button type="submit"
+                            ui-sref="almWorkingUnit.detail({id:almWorkingUnit.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="almWorkingUnit.edit({id:almWorkingUnit.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit"
+                            ng-click="delete(almWorkingUnit.id)"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+</div>

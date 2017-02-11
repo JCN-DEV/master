@@ -1,0 +1,132 @@
+<div>
+    <form class="form-horizontal hr_label" name="editForm" role="form" novalidate show-validation>
+        <h4 class="modal-title"
+            translate="stepApp.hrEmployeeInfo.home.transferTitle">Transfer Employee</h4>
+        <div class="panel-group">
+            <div class="panel-body bg-panel">
+
+                <div class="row">
+
+                    <div class="col-md-6 col-lg-6 col-xs-6 col-sm-6">
+                        <div class="form-group ">
+                            <label class="control-label" translate="stepApp.hrEmployeeInfo.selectEmployee" for="field_employeeInfo">employeeInfo</label>
+                            <div class="input-margin">
+                                <input type="text" class="form-control autocomplete" autocomplete="off"
+                                       ng-model="hrEmployeeInfo"
+                                       typeahead='HrEmployeeInfo as (HrEmployeeInfo.fullName + " " + HrEmployeeInfo.employeeId) for HrEmployeeInfo in employeeInfoList | filter:$viewValue'
+                                       id="field_employeeInfo" required>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row hrm-view">
+                    <div class="form-group col-sm-4">
+                        <label class="control-label" translate="stepApp.hrEmployeeInfo.birthDate">birthDate</label>
+                        <span class="form-control-static">&nbsp; : &nbsp;{{hrEmployeeInfo.birthDate | date:'mediumDate'}}</span>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label class="control-label" translate="stepApp.hrEmployeeInfo.dateOfJoining">dateOfJoining</label>
+                        <span class="form-control-static">&nbsp; : &nbsp;{{hrEmployeeInfo.dateOfJoining | date:'mediumDate'}}</span>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label class="control-label" translate="stepApp.hrEmployeeInfo.prlDate">prlDate</label>
+                        <span class="form-control-static">&nbsp; : &nbsp;{{hrEmployeeInfo.prlDate | date:'mediumDate'}}</span>
+                    </div>
+                </div>
+
+                <div class="row hrm-view" style="">
+
+                    <div class="form-group col-sm-4">
+                        <label class="control-label" translate="stepApp.hrEmployeeInfo.retirementDate">retirementDate</label>
+                        <span class="form-control-static">&nbsp; : &nbsp;{{hrEmployeeInfo.retirementDate | date:'mediumDate'}}</span>
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        <label class="control-label" translate="stepApp.hrEmployeeInfo.gradeInfo">gradeInfo</label>
+                        <span class="form-control-static">&nbsp;{{hrEmployeeInfo.designationInfo.gradeInfo.gradeCode}}</span>
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        <label class="control-label" translate="stepApp.hrEmployeeInfo.apointmentGoDate">apointmentGoDate</label>
+                        <span class="form-control-static">{{hrEmployeeInfo.apointmentGoDate | date:'mediumDate'}}</span>
+                    </div>
+
+                </div>
+
+                <div class="row hrm-view">
+                    <div class="form-group col-sm-4">
+                        <label class="control-label" translate="stepApp.hrEmployeeInfo.fullName">FullName</label>
+                        <span class="form-control-static">&nbsp; : &nbsp;{{hrEmployeeInfo.fullName}}</span>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label class="control-label" translate="stepApp.hrEmployeeInfo.mobileNumber">MobileNumber</label>
+                        <span class="form-control-static">&nbsp; : &nbsp;{{hrEmployeeInfo.mobileNumber}}</span>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label class="control-label" translate="stepApp.hrEmployeeInfo.fatherName">FatherName</label>
+                        <span class="form-control-static">&nbsp; : &nbsp;{{hrEmployeeInfo.fatherName}}</span>
+                    </div>
+                </div>
+
+                <div class="row hrm-view ">
+
+                    <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                        <label class="control-label" translate="stepApp.hrEmployeeInfo.workArea" for="field_workArea">org cat</label>
+                        <div class="input-margin">
+                            <select class="form-control" id="field_workArea" name="workArea" ng-model="hrEmployeeInfo.workArea"
+                                    ng-change="loadWorkAreaDetailByWork(hrEmployeeInfo.workArea)"
+                                    ng-options="MiscTypeSetup as MiscTypeSetup.typeName for MiscTypeSetup in workAreaList track by MiscTypeSetup.id" >
+                                <option value="">Select Org. Category</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                        <label class="control-label" translate="stepApp.hrEmployeeInfo.workAreaDtl" for="field_workAreaDtl">org name</label>
+                        <div class="input-margin">
+                            <select class="form-control" id="field_workAreaDtl" name="workAreaDtl" ng-model="hrEmployeeInfo.workAreaDtl"
+                                    ng-change="loadDesigDeptByOrganization(hrEmployeeInfo.workAreaDtl)"
+                                    ng-options="HrEmpWorkAreaDtlInfo as HrEmpWorkAreaDtlInfo.name for HrEmpWorkAreaDtlInfo in workAreaDtlListFiltr track by HrEmpWorkAreaDtlInfo.id" >
+                                <option value="">Select Organization</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-4 col-sm-4 col-xs-4">
+                        <label class="control-label" translate="stepApp.hrEmployeeInfo.designationInfo" for="field_designationInfo">designationInfo</label>
+                        <div class="input-margin">
+                            <select class="form-control" id="field_designationInfo" name="designationInfo"
+                                    ng-model="hrEmployeeInfo.designationInfo" ng-change="checkDesignationLimit(hrEmployeeInfo.designationInfo)"
+                                    ng-options="HrDesignationSetup as HrDesignationSetup.designationInfo.designationName for HrDesignationSetup in hrDesigSetupListFltr track by HrDesignationSetup.id" required>
+                                <option value="">Select Designation</option>
+                            </select>
+                            <span ng-hide="employeeDesigLimitAllowed">
+                            Designation limit exceded, already added {{noOfTotalEmployeeInDesig}} out of {{noOfEmployeeInDesig}}
+                        </span>
+                            <span ng-show="employeeDesigLimitAllowed && hrEmployeeInfo.designationInfo">
+                            Already added {{noOfTotalEmployeeInDesig}} out of {{noOfEmployeeInDesig}}
+                        </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row hrm-view">
+                    <div class="form-group col-sm-6">
+                        <div class="form-control-static" ng-hide="isSaving">
+                            <pre>{{responseMsg | json}}</pre>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6 text-right">
+                        <button ng-click="transferEmployee(hrEmployeeInfo)"
+                                type="button" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.transfer">transfer</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,92 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="mySmsServiceForwardLabel" translate="stepApp.smsServiceForward.home.createOrEditLabel">Create or edit a SmsServiceForward</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group" ng-hide="true">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="smsServiceForward.id" readonly />
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Complain Title</label>
+            <input type="text" class="form-control" name="complainName" id="field_smsServiceComplaint_complaintName"
+                   ng-model="smsServiceForward.smsServiceComplaint.complaintName" readonly />
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Complainer Name</label>
+            <input type="text" class="form-control" name="fullName" id="field_smsServiceComplaint_fullName"
+                   ng-model="smsServiceForward.smsServiceComplaint.fullName" readonly />
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Complainer Email Address</label>
+            <input type="text" class="form-control" name="emailAddress" id="field_smsServiceComplaint_emailAddress"
+                   ng-model="smsServiceForward.smsServiceComplaint.emailAddress" readonly />
+        </div>
+
+        <div class="form-group" ng-hide="true">
+            <label translate="stepApp.smsServiceForward.smsServiceComplaint" for="field_smsServiceComplaint">smsServiceComplaint</label>
+
+            <input type="hidden" class="form-control" name="smsServiceComplaint" id="field_smsServiceComplaint"
+                   ng-model="smsServiceForward.smsServiceComplaint"/>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.smsServiceForward.cc" for="field_cc">Cc</label>
+            <input type="email" class="form-control" name="cc" id="field_cc"
+                    ng-model="smsServiceForward.cc"/>
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.smsServiceForward.smsServiceDepartment" for="field_smsServiceDepartment">smsServiceDepartment</label>
+            <select class="form-control" id="field_smsServiceDepartment" name="smsServiceDepartment" ng-model="smsServiceForward.smsServiceDepartment" ng-options="smsServiceDepartment as smsServiceDepartment.name for smsServiceDepartment in smsservicedepartments track by smsServiceDepartment.id">
+                <option value=""></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.smsServiceForward.serviceStatus" for="field_serviceStatus">ServiceStatus</label>
+            <select class="form-control" name="serviceStatus" ng-model="smsServiceForward.serviceStatus" id="field_serviceStatus">
+                <option value="Completed" translate="stepApp.serviceStatus.Completed">Completed</option>
+                <option value="Critical" translate="stepApp.serviceStatus.Critical">Critical</option>
+                <option value="Response" translate="stepApp.serviceStatus.Response">Response</option>
+                <option value="Pending" translate="stepApp.serviceStatus.Pending">Pending</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.smsServiceForward.comments" for="field_comments">Comments</label>
+            <textarea class="form-control" name="comments" id="field_comments"
+                    ng-model="smsServiceForward.comments" required></textarea>
+        </div>
+
+        <!-- <div class="form-group">
+            <label translate="stepApp.smsServiceForward.smsServiceComplaint" for="field_smsServiceComplaint">smsServiceComplaint</label>
+            <select class="form-control" id="field_smsServiceComplaint" name="smsServiceComplaint" ng-model="smsServiceForward.smsServiceComplaint" ng-options="smsServiceComplaint as smsServiceComplaint.complaintName for smsServiceComplaint in smsservicecomplaints track by smsServiceComplaint.id">
+                <option value=""></option>
+            </select>
+        </div>
+         -->
+
+        <div class="form-group">
+            <span>{{responseMessage}}&nbsp;</span>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" class="btn pull-left" data-dismiss="modal" onclick="window.history.back()">
+            <span class=" glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back">Back</span>
+        </button>
+
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

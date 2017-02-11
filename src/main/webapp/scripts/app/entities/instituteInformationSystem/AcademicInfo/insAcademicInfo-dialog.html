@@ -1,0 +1,80 @@
+<div class="pnl-border">
+<form name="editForm" role="form" class="panel panel-primary"  novalidate ng-submit="save()"  show-validation>
+    <div  class="col-sm-12 col-head">
+        <div ng-show="insAcademicInfo.id==null" class="col-sm-12  col-head-heading">
+            <h3  id="myInstEmpSpouseInfoLabel" translate="stepApp.insAcademicInfo.home.createOrEditLabel">Create or edit a InsAcademicInfo</h3>
+        </div>
+        <div ng-hide="insAcademicInfo.id==null" class="col-sm-12  col-head-heading">
+            <h3  id="myInstEmpSpouseInfoLabel1" translate="stepApp.insAcademicInfo.home.EditLabel">Create or edit a InsAcademicInfo</h3>
+        </div>
+    </div>
+
+    <div class="panel-body">
+       <!-- <jh-alert-error></jh-alert-error>-->
+        <!--<div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="insAcademicInfo.id" readonly />
+        </div>-->
+        <div class="form-group col-md-6">
+            <label translate="stepApp.insAcademicInfo.counselorName" for="field_counselorName">CounselorName</label>
+            <input type="text" class="form-control" name="counselorName" id="field_counselorName"
+                    ng-model="insAcademicInfo.counselorName"
+                     />
+        </div>
+        <div class="form-group col-md-6" >
+            <label translate="stepApp.insAcademicInfo.curriculum" for="field_curriculum">Curriculum</label>
+            <select required class="form-control" name="curriculum" ng-model="insAcademicInfo.curriculum" id="field_curriculum">
+                <option value="SSC_VOC" translate="stepApp.Curriculum.SSC_VOC">SSC_VOC</option>
+                <option value="HSC_VOC" translate="stepApp.Curriculum.HSC_VOC">HSC_VOC</option>
+                <option value="HSC_BM" translate="stepApp.Curriculum.HSC_BM">HSC_BM</option>
+                <option value="MADDRASSA" translate="stepApp.Curriculum.MADDRASSA">MADDRASSA</option>
+                <option value="HONORS" translate="stepApp.Curriculum.HONORS">HONORS</option>
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+            <label translate="stepApp.insAcademicInfo.totalTechTradeNo" for="field_totalTechTradeNo">TotalTechTradeNo</label>
+            <input type="text" class="form-control" name="totalTechTradeNo" id="field_totalTechTradeNo"
+                    ng-model="insAcademicInfo.totalTechTradeNo" min="0"
+                    required />
+
+            <div ng-show="editForm.totalTechTradeNo.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.totalTechTradeNo.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label translate="stepApp.insAcademicInfo.tradeTechDetails" for="field_tradeTechDetails">TradeTechDetails</label>
+            <textarea rows="2" class="form-control" name="tradeTechDetails" id="field_tradeTechDetails"
+                    ng-model="insAcademicInfo.tradeTechDetails"
+                     />
+        </div>
+        <!--<div class="form-group">
+            <label translate="stepApp.insAcademicInfo.status" for="field_status">Status</label>
+            <input type="number" class="form-control" name="status" id="field_status"
+                    ng-model="insAcademicInfo.status"
+                     />
+        </div>-->
+
+       <!-- <div class="form-group">
+            <label translate="stepApp.insAcademicInfo.institute" for="field_institute">institute</label>
+            <select class="form-control" id="field_institute" name="institute" ng-model="insAcademicInfo.institute" ng-options="institute as institute.name for institute in institutes | orderBy:'id' track by institute.id">
+                <option value=""></option>
+            </select>
+        </div>-->
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" class="btn pull-left"  data-dismiss="modal" onclick="window.history.back()">
+            <span class=" glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back">Back</span>
+        </button>
+        <!--<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">-->
+            <!--<span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>-->
+        <!--</button>-->
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>
+    </div>

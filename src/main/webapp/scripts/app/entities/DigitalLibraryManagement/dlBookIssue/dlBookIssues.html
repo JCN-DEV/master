@@ -1,0 +1,157 @@
+<div class="col-md-12 common-list">
+    <h2 translate="stepApp.dlBookIssue.home.title">DlBookIssues</h2>
+    <div class="col-sm-12 padding-tb">
+        <div class="col-md-4 no_padding">
+            <b>{{ (FindDlBookIssueByInstId|filter:q).length }} results found</b>
+            <div class="input-group">
+                <span class="input-group-addon dlbtn" id="basic-addon1"><i class="fa fa-search"></i></span>
+                <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+            </div>
+        </div>
+        <div class="col-md-4"><b>Items per page:</b>
+            <div class="input-group">
+                <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+            </div>
+        </div>
+        <div class="col-md-4 text-right no_padding">
+            <button class="btn btn-primary dlbtn dlbtn-top" ui-sref="libraryInfo.dlBookIssue.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.dlBookIssue.home.createLabel">Create a new DlBookIssue</span>
+            </button>
+        </div>
+    </div>
+    <!--<div class="col-sm-12 padding-bt no_padding">
+        <div class="col-md-6 no_padding">
+            <form name="searchForm" class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" >
+                </div>
+                <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span>
+                </button>
+            </form>
+        </div>
+        <div class="col-md-6 text-right no_padding">
+            <button class="btn btn-primary" ui-sref="libraryInfo.dlBookIssue.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.dlBookIssue.home.createLabel">Create a new DlBookIssue</span>
+            </button>
+        </div>
+    </div>-->
+    <br>
+    <div class=" col-sm-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="global.field.id">ID</th>
+                <th translate="stepApp.dlBookIssue.isbnNo">IsbnNo</th><!--
+                    <th translate="stepApp.dlBookIssue.noOfCopies">NoOfCopies</th>
+                    <th translate="stepApp.dlBookIssue.returnDate">ReturnDate</th>
+                    <th translate="stepApp.dlBookIssue.createdDate">CreatedDate</th>
+                    <th translate="stepApp.dlBookIssue.updatedDate">UpdatedDate</th>
+                    <th translate="stepApp.dlBookIssue.createdBy">CreatedBy</th>
+                    <th translate="stepApp.dlBookIssue.updatedBy">UpdatedBy</th>
+                    <th translate="stepApp.dlBookIssue.status">Status</th>
+                    <th translate="stepApp.dlBookIssue.instEmployeeCode">instEmployee</th>-->
+                <!--<th translate="stepApp.dlBookIssue.dlContTypeSet">dlContTypeSet</th>-->
+                <!--<th translate="stepApp.dlBookIssue.dlContCatSet">dlContCatSet</th>-->
+                <th translate="stepApp.dlBookIssue.dlContSCatSet">dlContSCatSet</th>
+                <!--<th>-->
+                    <!--<span translate="stepApp.dlBookIssue.pStatus">PStatus</span>-->
+                <!--</th>-->
+                <!--
+                                <th translate="stepApp.dlBookIssue.DlBookReturn">DlBookReturn</th>
+                -->
+                <th translate="stepApp.dlBookIssue.sisStudentInfoId">sisStudentInfoId</th>
+                <th translate="stepApp.dlBookIssue.issueDate">issueDate</th>
+                <th translate="stepApp.dlBookIssue.returnDate">returnDate</th>
+                <th translate="stepApp.dlBookIssue.noOfCopies">noOfCopies</th>
+                <th>
+                    <span translate="stepApp.dlBookIssue.IssuedFrom">PStatus</span>
+                </th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr dir-paginate="dlBookIssue in FindDlBookIssueByInstId | filter:q | itemsPerPage: pageSize"
+                current-page="currentPage">
+                <td><a ui-sref="dlBookIssue.detail({id:dlBookIssue.id})">{{dlBookIssue.id}}</a></td>
+                <td>{{dlBookIssue.dlBookInfo.bookId}}</td><!--
+                    <td>{{dlBookIssue.noOfCopies}}</td>
+                        <td>{{dlBookIssue.returnDate | date:'mediumDate'}}</td>
+                        <td>{{dlBookIssue.createdDate | date:'mediumDate'}}</td>
+                        <td>{{dlBookIssue.updatedDate | date:'mediumDate'}}</td>
+                    <td>{{dlBookIssue.createdBy}}</td>
+                    <td>{{dlBookIssue.updatedBy}}</td>
+                    <td>{{dlBookIssue.status}}</td>
+                    <td>
+                        <a ui-sref="instEmployee.detail({id:dlBookIssue.instEmployee.id})">{{dlBookIssue.instEmployeeCode}}</a>
+                    </td>-->
+                <!--<td>-->
+                    <!--<a ui-sref="dlContTypeSet.detail({id:dlBookIssue.dlContTypeSet.id})">{{dlBookIssue.dlContTypeSet.name}}</a>-->
+                <!--</td>-->
+                <!--<td>-->
+                    <!--<a ui-sref="dlContCatSet.detail({id:dlBookIssue.dlContCatSet.id})">{{dlBookIssue.dlContCatSet.name}}</a>-->
+                <!--</td>-->
+                <td>
+                    <a ui-sref="dlContSCatSet.detail({id:dlBookIssue.dlContSCatSet.id})">{{dlBookIssue.dlBookInfo.dlContSCatSet.name}}</a>
+                </td>
+                <!-- <td>
+                     <a ui-sref="DlBookReturn.detail({id:dlBookIssue.dlBookReturn.id})">{{dlBookIssue.dlBookReturn.issueId}}</a>
+                 </td>-->
+                <!--<td><span ng-show="dlBookIssue.pStatus==true">Active</span>-->
+                    <!--<span ng-show="dlBookIssue.pStatus==false">Inactive</span>-->
+                    <!--&lt;!&ndash;{{dlContCatSet.pStatus}}&ndash;&gt;-->
+                <!--</td>-->
+                <td><a>{{dlBookIssue.sisStudentInfo.id}}</a></td>
+                <td><a>{{dlBookIssue.issueDate | date:'mediumDate'}}</a></td>
+                <td><a>{{dlBookIssue.returnDate | date:'mediumDate'}}</a></td>
+                <td><a>{{1}}</a></td>
+                <td>
+                    <!--<span class="form-control-static">{{dlContTypeSet.pStatus}}</span>-->
+                    <span style="background:#09C43C" ng-show="dlBookIssue.expecRecvDate == null">Issued from Library</span>
+                    <span style="background:#FF9898" ng-show="dlBookIssue.expecRecvDate != null">Requested from Requisition</span></td>
+                </td>
+
+
+
+
+
+                <td class="text-right">
+                    <button type="submit"
+                            ui-sref="libraryInfo.dlBookIssue.detail({id:dlBookIssue.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                    <!--<button type="submit"-->
+                            <!--ui-sref="libraryInfo.dlBookIssue.edit({id:dlBookIssue.id})"-->
+                            <!--class="btn btn-primary btn-sm">-->
+                        <!--<span class="glyphicon glyphicon-pencil"></span>&nbsp;<span-->
+                        <!--translate="entity.action.edit"> Edit</span>-->
+                    <!--</button>-->
+                    <!--<button type="submit"-->
+                            <!--ui-sref="libraryInfo.dlBookIssue.delete({id:dlBookIssue.id})"-->
+                            <!--class="btn btn-danger btn-sm">-->
+                        <!--<span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span-->
+                        <!--translate="entity.action.delete"> Delete</span>-->
+                    <!--</button>-->
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav>
+            <!-- <ul class="pagination">
+                 <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                 <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                 <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                 <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                 <li class="active"><a>{{page + 1}}</a></li>
+                 <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                 <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                 <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                 <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+             </ul>-->
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                     template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+
+        </nav>
+    </div>
+</div>

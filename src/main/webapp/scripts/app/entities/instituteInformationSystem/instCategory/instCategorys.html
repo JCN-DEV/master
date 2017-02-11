@@ -1,0 +1,102 @@
+<div class="col-sm-12 common-list">
+        <h2 translate="stepApp.instCategory.home.title">InstCategorys</h2>
+    <div class="col-md-12 padding-tb no-print">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+        <div class="col-xs-4 no_padding text-right ">
+            <button class="btn btn-primary text-right btn_center" ui-sref="setup.instCategory.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.instCategory.home.createLabel">Create a new InstCategory</span>
+            </button>
+        </div>
+    </div>
+       <!-- <div class="col-sm-12 padding-tb no-print">
+            <div class="col-md-8 col-xs-12 no_padding">
+                <div class="col-md-4 no_padding">
+                    <b>{{ (instCategorys|filter:q).length }} results found</b>
+                    <div class="input-group">
+                        <span class="input-group-addon dlbtn" id="basic-addon1"><i class="fa fa-search"></i></span>
+                        <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+                    </div>
+                </div>
+                <div class="col-md-4 no_padding"> <b>Items per page:</b>
+                    <div class="input-group">
+                        <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-xs-12 text-right no_padding">
+                <button class="btn btn-primary text-right btn_center" ui-sref="setup.instCategory.new">
+                    <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.instCategory.home.createLabel">Create a new InstCategory</span>
+                </button>
+            </div>
+        </div>-->
+
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <!--<th translate="global.field.id">ID</th>-->
+                    <th class="text-center" translate="global.form.serial">serial</th>
+                    <th translate="stepApp.instCategory.code">Code</th>
+                    <th translate="stepApp.instCategory.name">Name</th>
+                    <th translate="stepApp.instCategory.description">Description</th>
+                    <th translate="stepApp.instCategory.pStatus">PStatus</th>
+                    <!--<th translate="stepApp.instCategory.createdDate">CreatedDate</th>
+                    <th translate="stepApp.instCategory.updatedDate">UpdatedDate</th>
+                    <th translate="stepApp.instCategory.createdBy">CreatedBy</th>
+                    <th translate="stepApp.instCategory.updatedBy">UpdatedBy</th>
+                    <th translate="stepApp.instCategory.status">Status</th>-->
+                    <th class="text-center no-print" translate="entity.action.action"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr dir-paginate="instCategory in instCategorys  | filter:q | itemsPerPage: pageSize" current-page="currentPage">
+                    <!--<td><a ui-sref="setup.instCategory.detail({id:instCategory.id})">{{instCategory.id}}</a></td>-->
+                    <td class="text-center">{{pageSize*(currentPage-1)+$index+1}}</td>
+                    <td>{{instCategory.code}}</td>
+                    <td>{{instCategory.name}}</td>
+                    <td>{{instCategory.description}}</td>
+                    <td>{{instCategory.pStatus == true?  'Active' : 'Inactive'}}</td>
+                    <!--<td>{{instCategory.createdDate | date:'mediumDate'}}</td>
+                    <td>{{instCategory.updatedDate | date:'mediumDate'}}</td>
+                <td>{{instCategory.createdBy}}</td>
+                <td>{{instCategory.updatedBy}}</td>
+                <td>{{instCategory.status}}</td>-->
+                    <td class="text-right no-print">
+                        <button type="submit"
+                                ui-sref="setup.instCategory.detail({id:instCategory.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="setup.instCategory.edit({id:instCategory.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="setup.instCategory.delete({id:instCategory.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav class="no-print">
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+    <div class="col-md-12 no-print text-right">
+        <button type="submit" class="btn btn-sm btn-primary no-print" onclick="window.print()" >
+            <i class="fa fa-print"></i>&nbsp;
+            <span translate="entity.action.print" >Print</span>
+        </button>
+    </div>
+    <div style="color:#fff" ng-if="currentPageNumber" class="col-md-12 text-center">
+        {{currentPageNumber}}
+    </div>
+</div>

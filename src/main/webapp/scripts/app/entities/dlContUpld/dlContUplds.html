@@ -1,0 +1,110 @@
+<div>
+    <h2 translate="stepApp.dlContUpld.home.title">DlContUplds</h2>
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" ui-sref="dlContUpld.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="stepApp.dlContUpld.home.createLabel">Create a new DlContUpld</span>
+                </button>
+            </div>
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a DlContUpld</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="global.field.id">ID</th>
+                <th translate="stepApp.dlContUpld.code">Code</th>
+                <th translate="stepApp.dlContUpld.authName">AuthName</th>
+                <th translate="stepApp.dlContUpld.edition">Edition</th>
+                <th translate="stepApp.dlContUpld.isbnNo">IsbnNo</th>
+                <th translate="stepApp.dlContUpld.copyright">Copyright</th>
+                <th translate="stepApp.dlContUpld.publisher">Publisher</th>
+                <th translate="stepApp.dlContUpld.createdDate">CreatedDate</th>
+                <th translate="stepApp.dlContUpld.updatedDate">UpdatedDate</th>
+                <th translate="stepApp.dlContUpld.createdBy">CreatedBy</th>
+                <th translate="stepApp.dlContUpld.updatedBy">UpdatedBy</th>
+                <th translate="stepApp.dlContUpld.status">Status</th>
+                <th translate="stepApp.dlContUpld.dlContTypeSet">dlContTypeSet</th>
+                <th translate="stepApp.dlContUpld.dlContCatSet">dlContCatSet</th>
+                <th translate="stepApp.dlContUpld.dlContSCatSet">dlContSCatSet</th>
+                <th translate="stepApp.dlContUpld.instEmployee">instEmployee</th>
+                <th translate="stepApp.dlContUpld.dlFileType">dlFileType</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="dlContUpld in dlContUplds track by dlContUpld.id">
+                <td><a ui-sref="dlContUpld.detail({id:dlContUpld.id})">{{dlContUpld.id}}</a></td>
+                <td>{{dlContUpld.code}}</td>
+                <td>{{dlContUpld.authName}}</td>
+                <td>{{dlContUpld.edition}}</td>
+                <td>{{dlContUpld.isbnNo}}</td>
+                <td>{{dlContUpld.copyright}}</td>
+                <td>{{dlContUpld.publisher}}</td>
+                <td>{{dlContUpld.createdDate | date:'mediumDate'}}</td>
+                <td>{{dlContUpld.updatedDate | date:'mediumDate'}}</td>
+                <td>{{dlContUpld.createdBy}}</td>
+                <td>{{dlContUpld.updatedBy}}</td>
+                <td>{{dlContUpld.status}}</td>
+                <td>
+                    <a ui-sref="dlContTypeSet.detail({id:dlContUpld.dlContTypeSet.id})">{{dlContUpld.dlContTypeSet.name}}</a>
+                </td>
+                <td>
+                    <a ui-sref="dlContCatSet.detail({id:dlContUpld.dlContCatSet.id})">{{dlContUpld.dlContCatSet.name}}</a>
+                </td>
+                <td>
+                    <a ui-sref="dlContCatSet.detail({id:dlContUpld.dlContSCatSet.id})">{{dlContUpld.dlContSCatSet.name}}</a>
+                </td>
+                <td>
+                    <a ui-sref="instEmployee.detail({id:dlContUpld.instEmployee.id})">{{dlContUpld.instEmployee.name}}</a>
+                </td>
+                <td>
+                    <a ui-sref="dlFileType.detail({id:dlContUpld.dlFileType.id})">{{dlContUpld.dlFileType.name}}</a>
+                </td>
+                <td>
+                    <button type="submit"
+                            ui-sref="dlContUpld.detail({id:dlContUpld.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="dlContUpld.edit({id:dlContUpld.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="dlContUpld.delete({id:dlContUpld.id})"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pagination">
+                <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                <li class="active"><a>{{page + 1}}</a></li>
+                <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>

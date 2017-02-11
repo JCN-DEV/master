@@ -1,0 +1,149 @@
+<!---===asset destroys===--->
+<div class="col-md-12 common-list">
+    <h2 translate="stepApp.assetDestroy.home.title">AssetDestroys</h2>
+    <!--=======================delete massege======================-->
+    <div class="modal animated bounceInUp" id="deleteAssetDestroyConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(assetDestroy.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p translate="stepApp.assetDestroy.delete.question"
+                           translate-values="{id: '{{assetDestroy.id}}'}">Are you sure you want to delete this
+                            AssetDestroy?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                            translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                            translate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--=======================End delete massege======================-->
+    <div class="col-md-12 padding-tb">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+        <div class="col-xs-4 no_padding text-right ">
+            <button class="btn btn-primary " ui-sref="assetDestroy.new">
+                <span class="glyphicon glyphicon-plus"></span><span translate="stepApp.assetDestroy.home.createLabel">Add New</span>
+            </button>
+        </div>
+    </div>
+    <!--<div class="col-sm-12 padding-tb">
+        <div class="col-md-8 col-xs-12 no_padding">
+            <div class="col-md-6 no_padding">
+                <b><span translate="global.home.searchhere">Search Here :</span></b>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-search"
+                                                                         aria-hidden="true"></i></span>
+                    <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+                </div>
+            </div>
+            <div class="col-md-6 no_padding">
+                <b><span translate="global.home.itemperpage">Items per page:</span></b>
+                <div class="input-group">
+                    <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-xs-12  text-right no_padding dlbtn-top">
+            <button class="btn btn-primary " ui-sref="assetDestroy.new">
+                <span class="glyphicon glyphicon-plus"></span><span translate="stepApp.assetDestroy.home.createLabel">Add New</span>
+            </button>
+        </div>
+    </div>-->
+    <!--<div class="no_padding col-md-12 col-sm-12 col-xs-12 ">
+        <div class="form-group">
+
+            <div class="col-md-6" style="padding: 10px 0px">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control su_sea_btn" ng-model="searchQuery" id="searchQuery" placeholder="search">
+
+                        <button class="btn btn-primary btn_su_left" ng-click="search()"><i class="fa fa-search-plus"></i>
+
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+            <div class="col-md-6 text-right" style="padding: 10px 0px">
+                <button class="btn btn-primary"  ui-sref="assetDestroy.new">
+                    <i class="fa fa-plus"></i> <span translate="stepApp.assetDestroy.home.createLabel">Add New</span>
+                </button>
+            </div>
+        </div>
+    </div>-->
+    <div class="col-sm-12 table-responsive no_padding">
+        <table class="table table-head-bg">
+            <thead>
+            <tr>
+                <th class="text-center" translate="global.form.serial">serial</th>
+                <!--<th translate="global.field.id">ID</th>-->
+                <th translate="stepApp.assetDestroy.transferReference">TransferReference</th>
+                <th translate="stepApp.assetDestroy.destroyDate">DestroyDate</th>
+                <th translate="stepApp.assetDestroy.usedPeriod">UsedPeriod</th>
+                <th translate="stepApp.assetDestroy.causeOfDate">CauseOfDate</th>
+                <th translate="stepApp.assetDestroy.assetDistribution">assetDistribution</th>
+                <th translate="stepApp.assetDestroy.assetRecord">assetRecord</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody class="employee-list table-body-bg">
+            <tr dir-paginate="assetDestroy in assetDestroys | filter:q | itemsPerPage: pageSize track by assetDestroy.id"
+                current-page="currentPage">
+                <td class="text-center">{{pageSize*(currentPage-1)+$index+1}}</td>
+                <!--<td><a ui-sref="assetDestroy.detail({id:assetDestroy.id})">{{assetDestroy.id}}</a></td>-->
+                <td>{{assetDestroy.transferReference}}</td>
+                <td>{{assetDestroy.destroyDate | date:'mediumDate'}}</td>
+                <td>{{assetDestroy.usedPeriod}}</td>
+                <td>{{assetDestroy.causeOfDate | date:'mediumDate'}}</td>
+                <td>
+                    <a ui-sref="assetDistribution.detail({id:assetDestroy.assetDistribution.id})">{{assetDestroy.assetDistribution.transferRef}}</a>
+                </td>
+                <td>
+                    <a ui-sref="assetRecord.detail({id:assetDestroy.assetRecord.id})">{{assetDestroy.assetRecord.assetName}}</a>
+                </td>
+                <td class="text-right">
+                    <button type="submit" class="btn btn-sm btn-info su_serv_marz"
+                            ui-sref="assetDestroy.detail({id:assetDestroy.id})"><i class="fa fa-eye-slash"></i>
+
+                        <span translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit" class="btn btn-sm btn-primary su_serv_marz"
+                            ui-sref="assetDestroy.edit({id:assetDestroy.id})"><i class="fa fa-pencil"></i>
+                        <span translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit" ng-click="delete(assetDestroy.id)" class="btn btn-sm btn-danger">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                        translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <nav>
+        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                 template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+    </nav>
+    <div class="text-center">
+        <uib-pagination class="pagination-sm" total-items="totalItems" ng-model="page"
+                        ng-change="loadAll()"></uib-pagination>
+    </div>
+</div>

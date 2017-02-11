@@ -1,0 +1,80 @@
+<div>
+    <h2 translate="stepApp.prlSalaryAllowDeducInfo.home.title">PrlSalaryAllowDeducInfos</h2>
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" ui-sref="prlSalaryAllowDeducInfo.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="stepApp.prlSalaryAllowDeducInfo.home.createLabel">Create a new PrlSalaryAllowDeducInfo</span>
+                </button>
+            </div>
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a PrlSalaryAllowDeducInfo</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
+                    <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="allowDeducType"><span translate="stepApp.prlSalaryAllowDeducInfo.allowDeducType">AllowDeducType</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="allowDeducValue"><span translate="stepApp.prlSalaryAllowDeducInfo.allowDeducValue">AllowDeducValue</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="activeStatus"><span translate="stepApp.prlSalaryAllowDeducInfo.activeStatus">ActiveStatus</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="createDate"><span translate="stepApp.prlSalaryAllowDeducInfo.createDate">CreateDate</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="createBy"><span translate="stepApp.prlSalaryAllowDeducInfo.createBy">CreateBy</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="updateDate"><span translate="stepApp.prlSalaryAllowDeducInfo.updateDate">UpdateDate</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="updateBy"><span translate="stepApp.prlSalaryAllowDeducInfo.updateBy">UpdateBy</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="salaryStructureInfo.id"><span translate="stepApp.prlSalaryAllowDeducInfo.salaryStructureInfo">salaryStructureInfo</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="allowDeducInfo.name"><span translate="stepApp.prlSalaryAllowDeducInfo.allowDeducInfo">allowDeducInfo</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="prlSalaryAllowDeducInfo in prlSalaryAllowDeducInfos track by prlSalaryAllowDeducInfo.id">
+                    <td><a ui-sref="prlSalaryAllowDeducInfo.detail({id:prlSalaryAllowDeducInfo.id})">{{prlSalaryAllowDeducInfo.id}}</a></td>
+                    <td>{{prlSalaryAllowDeducInfo.allowDeducType}}</td>
+                    <td>{{prlSalaryAllowDeducInfo.allowDeducValue}}</td>
+                    <td>{{prlSalaryAllowDeducInfo.activeStatus}}</td>
+                        <td>{{prlSalaryAllowDeducInfo.createDate | date:'mediumDate'}}</td>
+                    <td>{{prlSalaryAllowDeducInfo.createBy}}</td>
+                        <td>{{prlSalaryAllowDeducInfo.updateDate | date:'mediumDate'}}</td>
+                    <td>{{prlSalaryAllowDeducInfo.updateBy}}</td>
+                    <td>
+                        <a ui-sref="PrlSalaryStructureInfo.detail({id:prlSalaryAllowDeducInfo.salaryStructureInfo.id})">{{prlSalaryAllowDeducInfo.salaryStructureInfo.id}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="PrlAllowDeductInfo.detail({id:prlSalaryAllowDeducInfo.allowDeducInfo.id})">{{prlSalaryAllowDeducInfo.allowDeducInfo.name}}</a>
+                    </td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="prlSalaryAllowDeducInfo.detail({id:prlSalaryAllowDeducInfo.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="prlSalaryAllowDeducInfo.edit({id:prlSalaryAllowDeducInfo.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="prlSalaryAllowDeducInfo.delete({id:prlSalaryAllowDeducInfo.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <uib-pagination class="pagination-sm" total-items="totalItems" ng-model="page" ng-change="loadAll()"></uib-pagination>
+    </div>
+</div>

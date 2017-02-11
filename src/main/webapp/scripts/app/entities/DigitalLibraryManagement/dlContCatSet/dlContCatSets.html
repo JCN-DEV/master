@@ -1,0 +1,86 @@
+<div class="col-sm-12 no_padding common-list">
+    <h2 translate="stepApp.dlContCatSet.home.title">DlContCatSets</h2>
+    <div class="col-sm-12 padding-tb ">
+        <div class="col-md-4 no_padding">
+                <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere' | translate}}">
+        </div>
+        <div class="col-md-4 ">
+                <input type="number" min="1" max="100" class="form-control" ng-model="pageSize" placeholder="{{'global.home.itemperpage' | translate}}">
+        </div>
+        <div class="col-md-4 text-right no_padding">
+            <button class="btn btn-primary" ui-sref="libraryInfo.dlContCatSet.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.dlContCatSet.home.createLabel">Create a new DlContCatSet</span>
+            </button>
+        </div>
+    </div>
+    <br>
+    <div class="col-sm-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="global.field.serial">Serial</th>
+                <th translate="stepApp.dlContCatSet.code">Code</th>
+                <th translate="stepApp.dlContCatSet.dlContTypeSet">dlContTypeSet</th>
+                <th translate="stepApp.dlContCatSet.name">Name</th>
+                <th translate="stepApp.dlContCatSet.description">Description</th>
+                <th translate="stepApp.dlContCatSet.pStatus">PStatus</th>
+                <!--
+                    <th translate="stepApp.dlContCatSet.createdDate">CreatedDate</th>
+                    <th translate="stepApp.dlContCatSet.updatedDate">UpdatedDate</th>
+                    <th translate="stepApp.dlContCatSet.createdBy">CreatedBy</th>
+                    <th translate="stepApp.dlContCatSet.updatedBy">UpdatedBy</th>-->
+                <!--
+                                <th translate="stepApp.dlContCatSet.status">Status</th>
+                -->
+                <th></th>
+                <th class="text-center">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr dir-paginate="dlContCatSet in dlContCatSets | filter:q | itemsPerPage: pageSize"
+                current-page="currentPage">
+                <td>{{pageSize * (currentPage-1)+$index+1}}</td>
+                <!-- <td><a ui-sref="dlContCatSet.detail({id:dlContCatSet.id})">{{dlContCatSet.id}}</a></td>-->
+                <td>{{dlContCatSet.code}}</td>
+                <td>
+                    <a ui-sref="dlContTypeSet.detail({id:dlContCatSet.dlContTypeSet.id})">{{dlContCatSet.dlContTypeSet.name}}</a>
+                </td>
+                <td>{{dlContCatSet.name}}</td>
+                <td>{{dlContCatSet.description}}</td>
+                <td><span ng-show="dlContCatSet.pStatus==true">Active</span>
+                    <span ng-show="dlContCatSet.pStatus==false">Inactive</span>
+                    <!--{{dlContCatSet.pStatus}}-->
+                </td><!--
+                        <td>{{dlContCatSet.createdDate | date:'mediumDate'}}</td>
+                        <td>{{dlContCatSet.updatedDate | date:'mediumDate'}}</td>
+                    <td>{{dlContCatSet.createdBy}}</td>
+                    <td>{{dlContCatSet.updatedBy}}</td>-->
+                <td>{{dlContCatSet.status}}</td>
+                <td class="text-right">
+                    <button type="submit"
+                            ui-sref="libraryInfo.dlContCatSet.detail({id:dlContCatSet.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="libraryInfo.dlContCatSet.edit({id:dlContCatSet.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                        translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="libraryInfo.dlContCatSet.delete({id:dlContCatSet.id})"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                        translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                     template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+</div>

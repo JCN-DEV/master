@@ -1,0 +1,83 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="almEarningFrequency.id == null" class="modal-title" id="myAlmEarningFrequencyLabel"
+            translate="stepApp.almEarningFrequency.home.createOrEditLabel">Create or edit a AlmEarningFrequency</h4>
+        <h4 ng-show="almEarningFrequency.id != null" class="modal-title" id="myAlmEarningFrequencyLabel"
+            translate="stepApp.almEarningFrequency.home.EditLabel">Create or edit a AlmEarningFrequency</h4>
+        <div class="modal-body">
+            <jh-alert-error></jh-alert-error>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.almEarningFrequency.earningFrequencyName"
+                               for="field_earningFrequencyName">EarningFrequencyName</label>
+
+                        <input type="text" class="form-control" name="earningFrequencyName"
+                               id="field_earningFrequencyName"
+                               ng-model="almEarningFrequency.earningFrequencyName"
+                               ng-remote-validate="/api/almEarningFrequencys/checkname/"
+                               ng-remote-method="GET"
+                               ng-remote-throttle="500"
+                               tooltip="{{'stepApp.almEarningFrequency.earningFrequencyName' | translate}}"
+                               placeholder="{{'stepApp.almEarningFrequency.earningFrequencyName' | translate}}"
+                               required/>
+                        <span class="message" ng-show="editForm.earningFrequencyName.$pending">validating...</span>
+                        <div ng-show="editForm.earningFrequencyName.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.earningFrequencyName.$error.ngRemoteValidate">
+                                Earning Frequency Name already exists
+                            </p>
+                        </div>
+                        <div ng-show="editForm.earningFrequencyName.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.earningFrequencyName.$error.required"
+                               translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.almEarningFrequency.activeStatus" for="field_activeStatus">ActiveStatus</label>
+            <span class="form-control">
+                    <input tooltip="{{'stepApp.almEarningFrequency.activeStatus' | translate}}" type="radio" data-ng-model="almEarningFrequency.activeStatus" name="activeStatus"
+                           data-ng-value="true">&nbsp;Active&nbsp;|&nbsp;
+                    <input tooltip="{{'stepApp.almEarningFrequency.activeStatus' | translate}}" type="radio" data-ng-model="almEarningFrequency.activeStatus" name="activeStatus"
+                           data-ng-value="false">&nbsp;Inactive
+                </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.almEarningFrequency.description"
+                               for="field_description">Description</label>
+                    <textarea type="text" class="form-control" name="description" id="field_description"
+                              ng-model="almEarningFrequency.description"
+                              tooltip="{{'stepApp.almEarningFrequency.description' | translate}}"
+                              placeholder="{{'stepApp.almEarningFrequency.description' | translate}}"
+                              cols="30" rows="3"
+                    ></textarea>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.history.back()">
+                <i class="fa fa-angle-double-left"></i>&nbsp;<span translate="entity.action.back">Back</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="almEarningFrequency.id == null" translate="entity.action.save">Save</span>
+                <span ng-show="almEarningFrequency.id != null" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

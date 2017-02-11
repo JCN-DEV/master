@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <property name="now" value="now()" dbms="mysql,h2"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+    <property name="now" value="sysdate" dbms="oracle"/>
+
+    <property name="autoIncrement" value="true" dbms="mysql,h2,postgresql,oracle"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle"/>
+
+    <!--
+        Added the entity MpoSalaryFlow.
+    -->
+    <changeSet id="20162604131900" author="jhipster">
+        <createTable tableName="mpo_salary_flow">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="report_name" type="varchar(255)"/>
+            <column name="urls" type="varchar(1024)"/>
+            <column name="forward_to" type="bigint"/>
+            <column name="forward_from" type="bigint"/>
+            <column name="forward_to_role" type="varchar(255)"/>
+            <column name="status" type="bit"/>
+            <column name="approve_status" type="varchar(255)"/>
+            <column name="user_lock" type="bit"/>
+            <column name="levels" type="bigint"/>
+            <column name="dte_status" type="varchar(255)"/>
+            <column name="dte_id" type="bigint"/>
+            <column name="dte_approve_date" type="date"/>
+            <column name="ministry_status" type="varchar(255)"/>
+            <column name="ministry_id" type="bigint"/>
+            <column name="ministry_approve_date" type="date"/>
+            <column name="ag_status" type="varchar(255)"/>
+            <column name="ag_id" type="bigint"/>
+            <column name="ag_approve_date" type="date"/>
+            <column name="dte_comments" type="varchar(255)"/>
+            <column name="ministry_comments" type="varchar(255)"/>
+            <column name="ag_comments" type="varchar(255)"/>
+            <column name="comments" type="varchar(255)"/>
+        </createTable>
+
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,115 @@
+
+<div>
+    <h2><span translate="stepApp.prlPayscaleInfo.detail.title">PrlPayscaleInfo</span> {{prlPayscaleInfo.name}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="stepApp.prlPayscaleInfo.gradeInfo">gradeInfo</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="hrGradeSetup.detail({id:prlPayscaleInfo.gradeInfo.id})">{{prlPayscaleInfo.gradeInfo.gradeCode}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.prlPayscaleInfo.gazetteInfo">gazetteInfo</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="hrGazetteSetup.detail({id:prlPayscaleInfo.gazetteInfo.id})">{{prlPayscaleInfo.gazetteInfo.gazetteCode}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.prlPayscaleInfo.name">Name</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{prlPayscaleInfo.name}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.prlPayscaleInfo.maxBasicElegYear">MaxBasicElegYear</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{prlPayscaleInfo.maxBasicElegYear}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <p class="bg-info">Basic Information</p>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th><label class="control-label" translate="stepApp.prlPayscaleBasicInfo.serialNumber">SerialNumber</label></th>
+                            <th><label class="control-label" translate="stepApp.prlPayscaleBasicInfo.basicAmount">BasicAmount</label></th>
+                        </tr>
+                        <tr ng-repeat="prlPayscaleBasicInfo in prlBasicPayscaleList">
+                            <td width="15%">{{prlPayscaleBasicInfo.serialNumber}}</td>
+                            <td width="20%">{{prlPayscaleBasicInfo.basicAmount}}</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <p class="bg-info">Allowance Information</p>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th><label translate="stepApp.prlPayscaleAllowanceInfo.allowanceInfo">allowanceInfo</label></th>
+                            <th><label class="control-label" translate="stepApp.prlPayscaleAllowanceInfo.fixedBasic">FixedBasic</label></th>
+                            <th><label class="control-label" translate="stepApp.prlPayscaleAllowanceInfo.basicMinimum">BasicMinimum</label></th>
+                            <th><label class="control-label" translate="stepApp.prlPayscaleAllowanceInfo.basicMaximum">BasicMaximum</label></th>
+                            <th></th>
+                        </tr>
+                        <tr ng-repeat="prlPayscaleAllowanceInfo in prlPayscaleAllowanceList">
+                            <td>{{prlPayscaleAllowanceInfo.allowanceInfo.name}}</td>
+                            <td>{{prlPayscaleAllowanceInfo.fixedBasic ? 'Fixed' : 'Percentage'}}</td>
+                            <td>{{prlPayscaleAllowanceInfo.basicMinimum}}</td>
+                            <td>{{prlPayscaleAllowanceInfo.basicMaximum}}</td>
+                            <td><span ng-show="prlPayscaleAllowanceInfo.id==null || prlPayscaleAllowanceInfo.id==0">Not Added</span></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.prlPayscaleInfo.activeStatus">ActiveStatus</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{prlPayscaleInfo.activeStatus ? 'Active' : 'Inactive'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.prlPayscaleInfo.createDate">CreateDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{prlPayscaleInfo.createDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.prlPayscaleInfo.updateDate">UpdateDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{prlPayscaleInfo.updateDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

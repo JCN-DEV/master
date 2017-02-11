@@ -1,0 +1,97 @@
+<div class="col-md-12 common-dialogue">
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 class="modal-title" id="myMiscConfigSetupLabel" translate="stepApp.miscConfigSetup.home.createOrEditLabel">Create or edit a MiscConfigSetup</h4>
+
+    <div class="modal-body">
+     <div class="row">
+         <div class="form-group col-md-6">
+             <label translate="stepApp.miscConfigSetup.propertyName" for="field_propertyName">PropertyName</label>
+             <input type="text" class="form-control" name="propertyName" id="field_propertyName"
+                    ng-model="miscConfigSetup.propertyName" ng-blur="checkPropertyByName()"
+                    required />
+             <span class="message" ng-show="editForm.propertyName.$pending">validating...</span>
+             <div ng-show="propertyNameAlreadyExist" class="alert alert-danger">
+                 property name already exists !!!
+             </div>
+             <div ng-show="editForm.propertyName.$invalid">
+                 <p class="help-block"
+                    ng-show="editForm.propertyName.$error.required" translate="entity.validation.required">
+                     This field is required.
+                 </p>
+             </div>
+         </div>
+         <div class="form-group col-md-6">
+             <label translate="stepApp.miscConfigSetup.propertyTitle" for="field_propertyTitle">PropertyTitle</label>
+             <input type="text" class="form-control" name="propertyTitle" id="field_propertyTitle"
+                    ng-model="miscConfigSetup.propertyTitle"
+                    required />
+             <div ng-show="editForm.propertyTitle.$invalid">
+                 <p class="help-block"
+                    ng-show="editForm.propertyTitle.$error.required" translate="entity.validation.required">
+                     This field is required.
+                 </p>
+             </div>
+         </div>
+
+         <div class="form-group col-md-6">
+             <label translate="stepApp.miscConfigSetup.propertyValue" for="field_propertyValue">PropertyValue</label>
+             <input type="text" class="form-control" name="propertyValue" id="field_propertyValue"
+                    ng-model="miscConfigSetup.propertyValue"
+                    required />
+             <div ng-show="editForm.propertyValue.$invalid">
+                 <p class="help-block"
+                    ng-show="editForm.propertyValue.$error.required" translate="entity.validation.required">
+                     This field is required.
+                 </p>
+             </div>
+         </div>
+
+         <div class="form-group col-md-6">
+             <label translate="stepApp.miscConfigSetup.propertyDataType" for="field_propertyDataType">PropertyDataType</label>
+             <select class="form-control" name="propertyDataType" ng-model="miscConfigSetup.propertyDataType" id="field_propertyDataType" required>
+                 <option value="String" translate="stepApp.miscConfigDataType.String">String</option>
+                 <option value="Number" translate="stepApp.miscConfigDataType.Number">Number</option>
+                 <option value="Date" translate="stepApp.miscConfigDataType.Date">Date</option>
+                 <option value="NumberRange" translate="stepApp.miscConfigDataType.NumberRange">NumberRange</option>
+                 <option value="DateRange" translate="stepApp.miscConfigDataType.DateRange">DateRange</option>
+             </select>
+             <div ng-show="editForm.propertyDataType.$invalid">
+                 <p class="help-block"
+                    ng-show="editForm.propertyDataType.$error.required" translate="entity.validation.required">
+                     This field is required.
+                 </p>
+             </div>
+         </div>
+
+         <div class="form-group col-md-6">
+             <label translate="stepApp.miscConfigSetup.propertyValueMax" for="field_propertyValueMax">PropertyValueMax</label>
+             <input type="text" class="form-control" name="propertyValueMax" id="field_propertyValueMax"
+                    ng-model="miscConfigSetup.propertyValueMax"
+                 />
+         </div>
+
+         <div class="form-group col-md-6">
+             <label translate="stepApp.miscConfigSetup.propertyDesc" for="field_propertyDesc">PropertyDesc</label>
+             <input type="text" class="form-control" name="propertyDesc" id="field_propertyDesc"
+                    ng-model="miscConfigSetup.propertyDesc"
+                 />
+         </div>
+
+         <div class="form-group col-md-6">
+             <label translate="stepApp.miscConfigSetup.activeStatus" for="field_activeStatus">ActiveStatus</label>
+             <input type="checkbox" class="form-control" name="activeStatus" id="field_activeStatus"
+                    ng-model="miscConfigSetup.activeStatus"
+                 />
+         </div>
+     </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>
+</div>

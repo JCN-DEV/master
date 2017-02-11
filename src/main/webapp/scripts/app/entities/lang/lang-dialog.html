@@ -1,0 +1,105 @@
+
+<form name="editForm" class="form form-horizontal" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header bg-primary">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myLangLabel" translate="stepApp.lang.home.createOrEditLabel">Create or edit a Lang</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" for="id" translate="global.field.id">ID</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="id" name="id" ng-model="lang.id" readonly />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.lang.name" for="field_name">Name</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="name" id="field_name"
+                    ng-model="lang.name"
+                    required ng-minlength="3" />
+            <div ng-show="editForm.name.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.name.$error.minlength" translate="entity.validation.minlength" translate-value-min="3">
+                    This field is required to be at least 3 characters.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.lang.reading" for="field_reading">Reading</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="reading" id="field_reading"
+                    ng-model="lang.reading"
+                     />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.lang.writing" for="field_writing">Writing</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="writing" id="field_writing"
+                    ng-model="lang.writing"
+                     />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.lang.speaking" for="field_speaking">Speaking</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="speaking" id="field_speaking"
+                    ng-model="lang.speaking"
+                     />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.lang.listening" for="field_listening">Listening</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="listening" id="field_listening"
+                    ng-model="lang.listening"
+                     />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.lang.status" for="field_status">Status</label>
+            <div class="col-sm-8">
+            <input type="checkbox" class="form-control" name="status" id="field_status"
+                    ng-model="lang.status"
+                     />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.lang.employee" for="field_employee">employee</label>
+            <div class="col-sm-8">
+                <select class="form-control" id="field_employee" name="employee" ng-model="lang.employee" ng-options="employee as employee.name for employee in employees track by employee.id">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.lang.manager" for="field_manager">manager</label>
+            <div class="col-sm-8">
+                <select class="form-control" id="field_manager" name="manager" ng-model="lang.manager" ng-options="user as user.login for user in users track by user.id">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="form-group">
+            <div class="col-md-offset-4 col-md-8">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

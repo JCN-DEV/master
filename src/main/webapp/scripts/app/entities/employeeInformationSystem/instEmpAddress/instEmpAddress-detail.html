@@ -1,0 +1,73 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+         <h3 class="header-margin">
+             <span translate="stepApp.instEmpAddress.detail.title">Address</span> {{instEmpAddress.id}}
+             <span>
+                 <div class="pull-right">
+                     <button class="btn btn-primary" ui-sref="employeeInfo.addressInfo.new" >
+                         <span class="glyphicon glyphicon-flash"></span> <span translate="stepApp.instEmpAddress.home.createLabel">New</span>
+                     </button>
+
+                     <button ng-if="instEmployee.mpoAppStatus < 3" class="btn btn-primary" type="submit" ui-sref="employeeInfo.addressInfo.edit({id:addressInfo.id})" >
+                         <span class="glyphicon glyphicon-pencil"></span> <span translate="entity.action.edit">Edit</span>
+                     </button>
+                     <button class="btn btn-primary" type="submit"
+                             ui-sref="employeeInfo.addressInfo.edit({id:addressInfo.id})" >
+
+                         <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                     </button>
+                 </div>
+             </span>
+         </h3>
+    </div>
+    <div class="table-responsive panel-body">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmpAddress.address">Address</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmpAddress.address}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmpAddress.status">Status</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmpAddress.status}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmpAddress.upazila">upazila</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="upazila.detail({id:instEmpAddress.upazila.id})">{{instEmpAddress.upazila.name}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmpAddress.instEmployee">instEmployee</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="instEmployee.detail({id:instEmpAddress.instEmployee.id})">{{instEmpAddress.instEmployee.name}}</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

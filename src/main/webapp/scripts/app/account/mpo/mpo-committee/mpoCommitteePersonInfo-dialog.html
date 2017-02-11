@@ -1,0 +1,278 @@
+<div class="row">
+    <div class="col-md-3">
+        <ng-include src="'scripts/app/account/mpo/mpo-left-menu.html'"></ng-include>
+    </div>
+    <div class="col-md-9 lbl-dash">
+        <div class="col-md-12 common-dialogue">
+            <form class="col-sm-12 no_padding custom-form" name="editForm" role="form" novalidate ng-submit="save()"
+                  show-validation>
+                    <h4 id="myMpoCommitteePersonInfoLabel"
+                        translate="stepApp.mpoCommitteePersonInfo.home.createOrEditLabel">Create or edit a
+                        MpoCommitteePersonInfo</h4>
+                <div class="modal-body col-sm-12">
+                    <jh-alert-error></jh-alert-error>
+                    <div class="col-sm-12 no_padding">
+                        <!-- <h3>MPO Committee Member {{$index + 1}}</h3>-->
+                        <div class="form-group  col-md-6" ng-if="mpoCommitteePersonInfo.id == null">
+                            <label for="login" translate="global.form.username">Username</label>
+                            <input type="text" class="form-control" id="login" name="login"
+                                   placeholder="{{'global.form.username' | translate}}"
+                                   ng-model="mpoCommitteePersonInfo.user.login"
+                                   ng-remote-validate="/api/account/checkLogin/"
+                                   ng-remote-method="GET"
+                                   ng-remote-throttle="500"
+                                   ng-minlength='3' ng-maxlength='50' ng-pattern="/^[a-z0-9]*$/" required>
+                            <span class="message validating" ng-show="editForm.login.$pending">validating...</span>
+
+                            <div ng-show="form.login.$dirty && form.login.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.login.$error.ngRemoteValidate">
+                                    This user already exists
+                                </p>
+
+                                <p class="help-block"
+                                   ng-show="editForm.login.$error.required"
+                                   translate="register.messages.validate.login.required">
+                                    Your username is required.
+                                </p>
+
+                                <p class="help-block"
+                                   ng-show="editForm.login.$error.minlength"
+                                   translate="register.messages.validate.login.minlength">
+                                    Your username is required to be at least 1 character.
+                                </p>
+
+                                <p class="help-block"
+                                   ng-show="editForm.login.$error.maxlength"
+                                   translate="register.messages.validate.login.maxlength">
+                                    Your username cannot be longer than 50 characters.
+                                </p>
+
+                                <p class="help-block"
+                                   ng-show="editForm.login.$error.pattern"
+                                   translate="register.messages.validate.login.pattern">
+                                    Your username can only contain lower-case letters and digits.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group  col-md-6" ng-if="mpoCommitteePersonInfo.id == null">
+                            <label for="email" translate="global.form.email">E-mail</label>
+                            <input type="email" class="form-control" id="email" name="email"
+                                   placeholder="{{'global.form.email' | translate}}"
+                                   ng-model="mpoCommitteePersonInfo.user.email"
+                                   ng-remote-validate="/api/account/checkEmail/"
+                                   ng-remote-method="GET"
+                                   ng-remote-throttle="500"
+                                   ng-minlength=5 ng-maxlength=100 required>
+                            <span class="message validating" ng-show="editForm.email.$pending">validating...</span>
+
+                            <div ng-show="editForm.email.$dirty && form.email.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.email.$error.ngRemoteValidate">
+                                    This email already exists
+                                </p>
+
+                                <p class="help-block"
+                                   ng-show="editForm.email.$error.required"
+                                   translate="global.messages.validate.email.required">
+                                    Your e-mail is required.
+                                </p>
+
+                                <p class="help-block"
+                                   ng-show="editForm.email.$error.email"
+                                   translate="global.messages.validate.email.invalid">
+                                    Your e-mail is invalid.
+                                </p>
+
+                                <p class="help-block"
+                                   ng-show="editForm.email.$error.minlength"
+                                   translate="global.messages.validate.email.minlength">
+                                    Your e-mail is required to be at least 5 characters.
+                                </p>
+
+                                <p class="help-block"
+                                   ng-show="editForm.email.$error.maxlength"
+                                   translate="global.messages.validate.email.maxlength">
+                                    Your e-mail cannot be longer than 100 characters.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label translate="stepApp.mpoCommitteePersonInfo.dob" for="field_dob">Dob</label>
+                            <!--<input type="date" class="form-control" name="endedDate" id="field_endedDate"
+                                   ng-model="instEmplTraining.endedDate"
+                                />-->
+                            <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.dob"
+                                   datepicker-options="calendar.dateOptions" close-text="Close"
+                                   ng-click="calendar.open($event, 'dob')" class="form-control"
+                                   name="dob" id="field_dob"
+                                   ng-model="mpoCommitteePersonInfo.dob"/>
+                        </div>
+
+
+                        <div class="form-group col-md-6">
+                            <label translate="stepApp.mpoCommitteeHistory.name" for="field_name">name</label>
+                            <input type="text" class="form-control" name="name" id="field_name"
+                                   ng-model="mpoCommitteePersonInfo.user.firstName"
+                                   required/>
+
+                            <div ng-show="editForm.name.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+
+                                <p class="help-block"
+                                   ng-show="editForm.name.$error.number" translate="entity.validation.number">
+                                    This field should be a number.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label translate="stepApp.mpoCommitteePersonInfo.contactNo"
+                                   for="field_contactNo">ContactNo</label>
+                            <input type="text" class="form-control" name="contactNo" id="field_contactNo"
+                                   ng-model="mpoCommitteePersonInfo.contactNo" required numeric-only
+                                   ng-maxlength="11"/>
+
+                            <div ng-show="editForm.contactNo.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.contactNo.$error.maxlength" translate="entity.validation.maxlength"
+                                   translate-value-max="11">
+                                    This field cannot be longer than 11 characters.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!--<div class="form-group col-md-6">
+                            <label translate="stepApp.mpoCommitteePersonInfo.gender" for="field_gender">Gender</label>
+                            <select type="text" class="form-control" name="gender" id="field_gender"
+                                    ng-model="mpoCommitteePersonInfo.gender">
+                                <option value="1" translate="stepApp.Gender.Male">Male</option>
+                                <option value="2" translate="stepApp.Gender.Female">Female</option>
+                                <option value="3" translate="stepApp.Gender.Others">Others</option>
+                            </select>
+                        </div>-->
+
+                        <div class="form-group col-md-6">
+                            <label translate="stepApp.mpoCommitteePersonInfo.designation" for="field_designation">Designation</label>
+                            <input type="text" class="form-control" name="designation" id="field_designation"
+                                   ng-model="mpoCommitteePersonInfo.designation" required
+                                   ng-maxlength="50"/>
+
+                            <div ng-show="editForm.designation.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.designation.$error.maxlength"
+                                   translate="entity.validation.maxlength"
+                                   translate-value-max="50">
+                                    This field cannot be longer than 50 characters.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label translate="stepApp.mpoCommitteePersonInfo.orgName"
+                                   for="field_orgName">OrgName</label>
+                            <input type="text" class="form-control" name="orgName" id="field_orgName"
+                                   ng-model="mpoCommitteePersonInfo.orgName" required
+                                   ng-maxlength="50"/>
+
+                            <div ng-show="editForm.orgName.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.orgName.$error.maxlength" translate="entity.validation.maxlength"
+                                   translate-value-max="50">
+                                    This field cannot be longer than 50 characters.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!--<div class="form-group col-md-6">
+                            <label translate="stepApp.mpoCommitteePersonInfo.orgContactNo" for="field_orgContactNo">ContactNo</label>
+                            <input type="text" class="form-control" name="orgContactNo" id="field_orgContactNo" numeric-only
+                                   ng-model="mpoCommitteePersonInfo.orgContactNo"
+                                   ng-maxlength="11"/>
+
+                            <div ng-show="editForm.orgContactNo.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.orgContactNo.$error.maxlength" translate="entity.validation.maxlength"
+                                   translate-value-max="11">
+                                    This field cannot be longer than 11 characters.
+                                </p>
+                            </div>
+                        </div>-->
+                        <!--<div class="form-group">
+                            <label translate="stepApp.mpoCommitteePersonInfo.dateCrated" for="field_dateCrated">DateCrated</label>
+                            <input type="date" class="form-control" name="dateCrated" id="field_dateCrated"
+                                    ng-model="mpoCommitteePersonInfo.dateCrated"
+                                     />
+                        </div>
+                        <div class="form-group">
+                            <label translate="stepApp.mpoCommitteePersonInfo.dateModified" for="field_dateModified">DateModified</label>
+                            <input type="date" class="form-control" name="dateModified" id="field_dateModified"
+                                    ng-model="mpoCommitteePersonInfo.dateModified"
+                                     />
+                        </div>
+                        <div class="form-group">
+                            <label translate="stepApp.mpoCommitteePersonInfo.status" for="field_status">Status</label>
+                            <input type="number" class="form-control" name="status" id="field_status"
+                                    ng-model="mpoCommitteePersonInfo.status"
+                                     />
+                        </div>-->
+                        <div class="form-group col-md-6">
+                            <label translate="stepApp.mpoCommitteePersonInfo.activated"
+                                   for="field_activated">Activated</label>
+                            <input type="checkbox" class="form-control" name="activated" id="field_activated"
+                                   ng-model="mpoCommitteePersonInfo.activated"
+                            />
+                        </div>
+                        <!--<div class="form-group col-md-6">
+                            <label translate="stepApp.mpoCommitteePersonInfo.address" for="field_address">Address</label>
+                            &lt;!&ndash;<input type="text" class="form-control" name="address" id="field_address"
+                                    ng-model="mpoCommitteePersonInfo.address"
+                                    ng-maxlength="255" />&ndash;&gt;
+                <textarea class="form-control" name="address" id="field_address"
+                          ng-model="mpoCommitteePersonInfo.address"
+                          ng-maxlength="255"></textarea>
+
+                            <div ng-show="editForm.address.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.address.$error.maxlength" translate="entity.validation.maxlength"
+                                   translate-value-max="255">
+                                    This field cannot be longer than 255 characters.
+                                </p>
+                            </div>
+                        </div>-->
+
+
+                        <!--<div class="form-group">
+                            <label translate="stepApp.mpoCommitteePersonInfo.createdBy" for="field_createdBy">createdBy</label>
+                            <select class="form-control" id="field_createdBy" name="createdBy" ng-model="mpoCommitteePersonInfo.createdBy" ng-options="user as user.login for user in users track by user.id">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label translate="stepApp.mpoCommitteePersonInfo.user" for="field_user">user</label>
+                            <select class="form-control" id="field_user" name="user" ng-model="mpoCommitteePersonInfo.user" ng-options="user as user.email for user in users track by user.id">
+                                <option value=""></option>
+                            </select>
+                        </div>-->
+                    </div>
+                </div>
+                <!--<div class="panel-footer">
+                    <input type="button" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary" value="Add More" ng-click="AddMore()"/>
+                    &lt;!&ndash;<span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                </button>&ndash;&gt;
+                </div>-->
+                <div class="modal-footer col-md-12">
+                    <button type="button" class="btn btn-default" onclick="window.history.back()">
+                        <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                        translate="entity.action.cancel">Cancel</span>
+                    </button>
+                    <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-save"></span>&nbsp;<span
+                        translate="entity.action.save">Save</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

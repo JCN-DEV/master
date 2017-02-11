@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <property name="now" value="now()" dbms="mysql,h2"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+    <property name="now" value="sysdate" dbms="oracle"/>
+
+    <property name="autoIncrement" value="true" dbms="mysql,h2,postgresql,oracle"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle"/>
+
+    <!--
+        Added the entity AlmEmpLeaveApplication.
+    -->
+    <changeSet id="20160226011350" author="jhipster">
+        <createTable tableName="alm_emp_leave_application">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="application_date" type="date">
+                <constraints nullable="false" />
+            </column>
+            <column name="application_leave_status" type="varchar(255)"/>
+            <column name="leave_from_date" type="date"/>
+            <column name="leave_to_date" type="date"/>
+            <column name="is_half_day_leave" type="bit"/>
+            <column name="is_with_finance" type="bit"/>
+            <column name="is_with_ddo" type="bit"/>
+            <column name="half_day_leave_info" type="varchar(255)"/>
+            <column name="leave_days" type="double"/>
+            <column name="reason_of_leave" type="varchar(255)"/>
+            <column name="contact_no" type="varchar(255)"/>
+            <column name="is_with_certificate" type="bit"/>
+            <column name="leave_certificate" type="blob"/>
+            <column name="leave_certificate_name" type="varchar(255)"/>
+            <column name="leave_cert_content_type" type="varchar(255)"/>
+            <column name="assign_resposibilty" type="varchar(255)"/>
+            <column name="responsible_emp_cont" type="varchar(255)"/>
+            <column name="responsible_emp_add" type="varchar(255)"/>
+            <column name="address_while_leave" type="varchar(255)"/>
+            <column name="emergency_contact_no" type="varchar(255)"/>
+            <column name="active_status" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column name="create_date" type="date"/>
+            <column name="create_by" type="bigint"/>
+            <column name="update_date" type="date"/>
+            <column name="update_by" type="bigint"/>
+            <column name="employee_info_id" type="bigint"/>
+            <column name="responsible_emp_id" type="bigint"/>
+            <column name="approver_name_id" type="bigint"/>
+            <column name="alm_leave_type_id" type="bigint"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="employee_info_id"
+                                 baseTableName="alm_emp_leave_application"
+                                 constraintName="fk_almappl_empl_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="hr_employee_info"/>
+
+        <addForeignKeyConstraint baseColumnNames="responsible_emp_id"
+                                 baseTableName="alm_emp_leave_application"
+                                 constraintName="fk_ressible_emp_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="hr_employee_info"/>
+
+        <addForeignKeyConstraint baseColumnNames="approver_name_id"
+                                 baseTableName="alm_emp_leave_application"
+                                 constraintName="fk_almappl_apronm_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="hr_employee_info"/>
+
+        <addForeignKeyConstraint baseColumnNames="alm_leave_type_id"
+                                 baseTableName="alm_emp_leave_application"
+                                 constraintName="fk_almappl_lvtype_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="alm_leave_type"/>
+
+    </changeSet>
+</databaseChangeLog>

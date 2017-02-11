@@ -1,0 +1,46 @@
+<form name="deleteForm" ng-submit="confirmApprove()">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" translate="stepApp.dlContUpld.confirmation">Confirm approve operation</h4>
+
+    </div>
+    <div class="modal-body">
+        <p translate="stepApp.dlBookIssue.question" translate-values="{id: '{{dlBookIssue.name}}'}">Are you sure approve</p>
+
+
+        <!--<div class="form-group col-sm-6" >-->
+            <!--<label translate="stepApp.dlBookIssue.noOfCopies" for="field_noOfCopies">NoOfCopies</label>-->
+            <!--<input type="number" class="form-control" name="noOfCopies" id="field_noOfCopies"-->
+                   <!--placeholder="no of copies"-->
+                   <!--ng-model="dlBookIssue.noOfCopies" min="0" ng-blur="checkAvailable(dlBookIssue.noOfCopies)"-->
+                   <!--required="required"/>-->
+             <!--<span ng-if="dlBookIssue.isbnNo">-->
+                      <!--<p style="color:green;"> Available copies:  <span style="color:red; border: 1px dotted;-->
+    <!--border-radius: 20%;">{{isbnBookInfo.totalCopies}}</span></p>-->
+                    <!--</span>-->
+            <!--<div ng-if="availableError != null" class="col-sm-12">-->
+                <!--<p class="b-error">{{availableError}}</p>-->
+            <!--</div>-->
+
+        <!--</div>-->
+        <div class="form-group col-sm-6" >
+            <label translate="stepApp.dlBookIssue.returnDate" for="field_returnDate">ReturnDate</label>
+            <input type="text" class="form-control" name="returnDate" id="field_returnDate"
+                   ng-model="dlBookIssue.returnDate"
+                   datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.returnDate"
+                   datepicker-options="calendar.dateOptions" close-text="Close"
+                   ng-click="calendar.open($event, 'returnDate')"
+                   placeholder="yyyy-mm-dd"
+                   required />
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button  type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-primary">
+            <span class="glyphicon glyphicon-ok"></span>&nbsp;<span translate="stepApp.dlBookIssue.issue">issue</span>
+        </button>
+    </div>
+</form>

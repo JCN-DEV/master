@@ -1,0 +1,286 @@
+<div class="col-sm-3">
+    <ng-include src="'scripts/app/entities/sis/left-menu.html'"></ng-include>
+    <!--<ul class="custom-menu" id="left-menu1">
+        &lt;!&ndash; <li class="">
+             <a  class=""  data-toggle="collapse" data-parent="#left-menu1" data-target="#firstLink"><i class="fa fa-tachometer"></i>
+                 <span translate="stepApp.leftmenu.sis"></span> </span><i class="pull-right fa fa-angle-down"></i></a>
+             <ul id="firstLink" class="collapse search-accordion sis_menu">
+                 &lt;!&ndash;<li >
+                     <a class=""  ui-sref="sisQuota" ui-sref-active="active">
+                         <i class="fa fa-cogs"></i><span translate="global.menu.entities.sisQuota">Quota Setup</span>
+                     </a>
+                 </li>&ndash;&gt;&ndash;&gt;
+        <li has-any-authority="ROLE_ADMIN,ROLE_GOVT_STUDENT" >
+            <a class=""  ui-sref="sisStudentInfo" ui-sref-active="active">
+                <i class="fa fa-info-circle"></i><span translate="global.menu.entities.sisStudentInfo">Student Info</span>
+            </a>
+        </li>
+        <li has-any-authority="ROLE_ADMIN,ROLE_GOVT_STUDENT">
+            <a class=""  ui-sref="sisEducationHistory" ui-sref-active="active">
+                <i class="fa fa-history"></i><span translate="global.menu.entities.sisEducationHistory">Education History</span>
+            </a>
+        </li>
+
+        <li has-any-authority="ROLE_ADMIN,ROLE_GOVT_STUDENT">
+            <a class=""  ui-sref="jobPlacementInfo" ui-sref-active="active">
+                <i class="fa fa-pencil-square-o"></i>
+                <span translate="global.menu.entities.jobPlacementInfo">Job Placement Info</span>
+
+            </a>
+        </li>
+        <li has-any-authority="ROLE_ADMIN">
+            <a class=""  ui-sref="jobPostingInfo" ui-sref-active="active">
+                <i class="fa fa-pencil-square-o"></i>
+                <span translate="global.menu.entities.jobPostingInfo">Job Posting Info</span>
+
+            </a>
+        </li>
+        <li has-any-authority="ROLE_ADMIN,ROLE_GOVT_STUDENT">
+            <a class=""  ui-sref="jobSuggestions" ui-sref-active="active">
+                <i class="fa fa-pencil-square-o"></i>
+                <span translate="global.menu.entities.jobSuggestions">Job Suggestions Info</span>
+
+            </a>
+        </li>
+        <li  has-any-authority="ROLE_ADMIN" ui-sref-active="active" ><a ui-sref="sisStudentReg" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+            &#xA0;<span translate="global.menu.entities.sisStudentReg">sisStudentReg</span></a></li>
+
+        &lt;!&ndash; </ul>&ndash;&gt;
+        </li>
+    </ul>-->
+</div>
+<div class="col-sm-9 common-dialogue">
+ <form class="col-sm-12 no_padding" name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div >
+        <h4 id="myJobPlacementInfoLabel" translate="stepApp.jobPlacementInfo.home.createOrEditLabel">Create or edit a JobPlacementInfo</h4>
+    </div>
+     <div  class="sis-dialog col-sm-12 no_padding">
+        <!--<jh-alert-error></jh-alert-error>-->
+        <!--<div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="jobPlacementInfo.id" readonly />
+        </div>-->
+        <!--<div class="form-group">
+            <label translate="stepApp.jobPlacementInfo.jobId" for="field_jobId">JobId</label>
+            <input type="text" class="form-control" name="jobId" id="field_jobId"
+                    ng-model="jobPlacementInfo.jobId"
+                     />
+        </div>-->
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label translate="stepApp.jobPlacementInfo.orgName" for="field_orgName">OrgName</label>
+                <input type="text" class="form-control" name="orgName" id="field_orgName"
+                        ng-model="jobPlacementInfo.orgName"
+                        required/>
+                <div ng-show="editForm.orgName.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.orgName.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label translate="stepApp.jobPlacementInfo.designation" for="field_designation">Designation</label>
+                <input type="text" class="form-control" name="designation" id="field_designation"
+                       ng-model="jobPlacementInfo.designation"
+                       required/>
+                <div ng-show="editForm.designation.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.designation.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label translate="stepApp.jobPlacementInfo.department" for="field_department">Department</label>
+                <input type="text" class="form-control" name="department" id="field_department"
+                       ng-model="jobPlacementInfo.department"
+                       required/>
+                <div ng-show="editForm.department.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.department.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 no_padding">
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label translate="stepApp.jobPlacementInfo.workFrom" for="field_workFrom">Work From</label>
+                <!--<input type="date" class="form-control" name="workFrom" id="field_workFrom"
+                        ng-model="jobPlacementInfo.workFrom"
+                         />-->
+                <div class="input-margin">
+                    <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.workFrom"
+                           datepicker-options="calendar.dateOptions" close-text="Close"
+                           ng-click="calendar.open($event, 'workFrom')" class="form-control" name="workFrom"
+                           id="field_workFrom"
+                           ng-model="jobPlacementInfo.workFrom"
+                           required/>
+
+                    <div ng-show="editForm.workFrom.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.workFrom.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <div class="checkbox">
+                    <label class="check-box"  >&nbsp;</label>
+                    <label class="check-box" >
+                        <input type="checkbox" ng-model="checked" name="currWork"  ng-model="jobPlacementInfo.currWork" >
+                        <span translate="stepApp.jobPlacementInfo.currWork">currWork</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4" >
+            <div ng-hide="checked"  class="form-group">
+                <label translate="stepApp.jobPlacementInfo.workTo" for="field_workTo">Work To</label>
+                <!--<input type="date" class="form-control" name="workTo" id="field_workTo"
+                        ng-model="jobPlacementInfo.workTo"
+                         />-->
+                <div class="input-margin">
+                    <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.workTo"
+                           datepicker-options="calendar.dateOptions" close-text="Close"
+                           ng-click="calendar.open($event, 'workTo')" class="form-control" name="workTo"
+                           id="field_workTo"
+                           ng-model="jobPlacementInfo.workTo"
+                           required/>
+                    <!--required-->
+
+                    <!--<div ng-show="editForm.workTo.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.workTo.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>-->
+                </div>
+            </div>
+            <div ng-show="checked"  class="form-group">
+                <label class="check-box"  >&nbsp;</label>
+                <p translate="stepApp.jobPlacementInfo.currWorking">Currently working</p>
+            </div>
+        </div>
+
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label translate="stepApp.jobPlacementInfo.durationExp" for="field_durationExp">Experience</label>
+                <input type="text" class="form-control" name="durationExp" id="field_durationExp"
+                       ng-model="jobPlacementInfo.durationExp"
+                      readonly />
+            </div>
+        </div>
+         <!--ng-model="jobPlacementInfo.description"-->
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label translate="stepApp.jobPlacementInfo.description" for="field_description">Description</label>
+                <textarea id="textDescription" cols="40" rows="5" my-maxlength="5" class="form-control" name="description" id="field_description"
+                         ng-model="jobPlacementInfo.description" ng-change="duration(jobPlacementInfo.workFrom,jobPlacementInfo.workTo)"
+                         required></textarea>
+                <div ng-show="editForm.description.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.description.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label translate="stepApp.jobPlacementInfo.address" for="field_address">Address</label>
+                <textarea id="textAddress" cols="40" rows="5" my-maxlength="5" class="form-control" name="address" id="field_address"
+                        ng-model="jobPlacementInfo.address"
+                        required></textarea>
+                <div ng-show="editForm.address.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.address.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label translate="stepApp.jobPlacementInfo.responsibility" for="field_responsibility">Responsibility</label>
+                <textarea id="textResponsibility" cols="20" rows="5" my-maxlength="5" class="form-control" name="responsibility" id="field_responsibility"
+                        ng-model="jobPlacementInfo.responsibility"
+                        required></textarea>
+                <div ng-show="editForm.responsibility.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.responsibility.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label translate="stepApp.jobPlacementInfo.experience" for="field_experience">Experience</label>
+                <textarea id="textExperience" cols="40" rows="5" my-maxlength="5" class="form-control" name="experience" id="field_experience"
+                          ng-model="jobPlacementInfo.experience"
+                          required></textarea>
+                <div ng-show="editForm.experience.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.experience.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!--<div class="form-group">
+            <label translate="stepApp.jobPlacementInfo.createDate" for="field_createDate">CreateDate</label>
+            <input type="date" class="form-control" name="createDate" id="field_createDate"
+                    ng-model="jobPlacementInfo.createDate"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.jobPlacementInfo.createBy" for="field_createBy">CreateBy</label>
+            <input type="number" class="form-control" name="createBy" id="field_createBy"
+                    ng-model="jobPlacementInfo.createBy"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.jobPlacementInfo.updateBy" for="field_updateBy">UpdateBy</label>
+            <input type="number" class="form-control" name="updateBy" id="field_updateBy"
+                    ng-model="jobPlacementInfo.updateBy"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.jobPlacementInfo.updateDate" for="field_updateDate">UpdateDate</label>
+            <input type="date" class="form-control" name="updateDate" id="field_updateDate"
+                    ng-model="jobPlacementInfo.updateDate"
+                     />
+        </div>-->
+
+    </div>
+    <div class="modal-footer col-sm-12">
+        <!--<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>-->
+        <button type="button" class="btn btn-default" class="btn " data-dismiss="modal" onclick="window.history.back()">
+            <i class="fa fa-angle-double-left"></i>&nbsp;<span translate="entity.action.back">Back</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>
+</div>

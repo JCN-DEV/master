@@ -1,0 +1,89 @@
+<div class="col-md-12 common-list">
+    <h2 translate="stepApp.instComiteFormation.home.title">InstComiteFormations</h2>
+    <div class="row">
+        <div class="col-md-12">
+            <label for="committee-email" translate="global.form.email">E-mail</label>
+        </div>
+        <div class="col-md-7">
+            <input type="email" class="form-control" id="committee-email" name="email"
+                   placeholder="{{'global.form.email.placeholder' | translate}}"
+                   ng-model="personEmail">
+        </div>
+        <div class="col-md-2">
+            <input ng-disabled="personEmail == null" type="button" class="btn btn-success" value="Search"
+                   ng-click="searchCommittee2()">
+        </div>
+    </div>
+    <div class="row" ng-if="instMemShip.id != null">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th translate="stepApp.instMemShip.fullName">FullName</th>
+                    <th translate="stepApp.instMemShip.email">Email</th>
+                    <th translate="stepApp.instMemShip.contact">Contact</th>
+                    <th translate="stepApp.instMemShip.designation">Designation</th>
+                    <th translate="stepApp.instMemShip.orgName">OrgName</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{instMemShip.fullName}}</td>
+                    <td>{{instMemShip.email}}</td>
+                    <td>{{instMemShip.contact}}</td>
+                    <td>{{instMemShip.designation}}</td>
+                    <td>{{instMemShip.orgName}}</td>
+                    <td class="text-right">
+                        <button type="submit"
+                                ui-sref="instituteInfo.instMemShip.detail({id:instMemShip.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span
+                            translate="entity.action.view"> View</span>
+                        </button>
+                        <input type="button" ng-click="addMember()" value="add" class="btn btn-success btn-sm">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row" ng-if="instComiteFormation.id != null">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th translate="stepApp.instMemShip.fullName">FullName</th>
+                    <th translate="stepApp.instMemShip.email">Email</th>
+                    <th translate="stepApp.instMemShip.contact">Contact</th>
+                    <th translate="stepApp.instMemShip.designation">Designation</th>
+                    <th translate="stepApp.instMemShip.orgName">OrgName</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="member in instComiteFormation.instMemShipsnstMemShip track by member.id">
+                    <td>{{member.fullName}}</td>
+                    <td>{{member.email}}</td>
+                    <td>{{member.contact}}</td>
+                    <td>{{member.designation}}</td>
+                    <td>{{member.orgName}}</td>
+                    <td class="text-right">
+                        <button type="submit"
+                                ui-sref="instituteInfo.instMemShip.detail({id:member.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span
+                            translate="entity.action.view"> View</span>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<!--</div>
+    </div>-->
+

@@ -1,0 +1,245 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="hrEmpAuditObjectionInfo.id == null" class="modal-title" id="myHrEmpAuditObjectionInfoLabel"
+            translate="stepApp.hrEmpAuditObjectionInfo.home.createOrEditLabel">Create or edit a
+            HrEmpAuditObjectionInfo</h4>
+        <h4 ng-show="hrEmpAuditObjectionInfo.id != null" class="modal-title" id="myHrEmpAuditObjectionInfoLabel2"
+            translate="stepApp.hrEmpAuditObjectionInfo.home.EditLabel">Create or edit a HrEmpAuditObjectionInfo</h4>
+        <div class="modal-body col-md-12 padding-tb">
+            <jh-alert-error></jh-alert-error>
+
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6">
+                    <div class="form-group ">
+                        <div class="input-margin">
+                            <label class="control-label" for="field_workArea"
+                                   translate="stepApp.hrEmpAuditObjectionInfo.workarea">Work Area</label>
+                            <select class="form-control" id="field_workArea" name="workArea" ng-model="workArea"
+                                    ng-change="loadModelByWorkArea(workArea)"
+                                    ng-options="MiscTypeSetup as MiscTypeSetup.typeName for MiscTypeSetup in workAreaList track by MiscTypeSetup.id">
+                                <option value="">Select Work Area</option>
+                            </select>
+                            <span class="help">No of Employee: {{hremployeeinfos.length}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6">
+                    <div class="form-group ">
+                        <label class="control-label" translate="stepApp.hrEmpAuditObjectionInfo.employeeInfo"
+                               for="field_employeeInfo">employeeInfo</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control autocomplete" autocomplete="off"
+                                   ng-model="hrEmpAuditObjectionInfo.employeeInfo"
+                                   typeahead='HrEmployeeInfo as (HrEmployeeInfo.fullName + " " + HrEmployeeInfo.employeeId) for HrEmployeeInfo in hremployeeinfos | filter:$viewValue'
+                                   id="field_employeeInfo" required>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="row">
+
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEmpAuditObjectionInfo.objectionType"
+                           for="field_objectionType">objectionType</label>
+                    <div class="input-margin">
+                        <select class="form-control" id="field_objectionType" name="objectionType"
+                                ng-model="hrEmpAuditObjectionInfo.objectionType"
+                                ng-options="MiscTypeSetup as MiscTypeSetup.typeName for MiscTypeSetup in misctypesetups track by MiscTypeSetup.id">
+                            <option value=""></option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="form-group col-sm-6">&nbsp;</div>
+            </div>
+
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEmpAuditObjectionInfo.organizationName"
+                           for="field_organizationName">OrganizationName</label>
+                    <div class="input-margin">
+                        <input type="text" class="form-control" name="organizationName" id="field_organizationName"
+                               ng-model="hrEmpAuditObjectionInfo.organizationName" required/>
+                        <div ng-show="editForm.organizationName.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.organizationName.$error.required"
+                               translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEmpAuditObjectionInfo.auditYear"
+                           for="field_auditYear">AuditYear</label>
+                    <div class="input-margin">
+                        <input type="number" class="form-control" name="auditYear" id="field_auditYear"
+                               ng-model="hrEmpAuditObjectionInfo.auditYear"/>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEmpAuditObjectionInfo.paragraphNumber"
+                           for="field_paragraphNumber">ParagraphNumber</label>
+                    <div class="input-margin">
+                        <input type="text" class="form-control" name="paragraphNumber" id="field_paragraphNumber"
+                               ng-model="hrEmpAuditObjectionInfo.paragraphNumber" required/>
+                        <div ng-show="editForm.paragraphNumber.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.paragraphNumber.$error.required"
+                               translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEmpAuditObjectionInfo.objectionHeadline"
+                           for="field_objectionHeadliine">ObjectionHeadliine</label>
+                    <div class="input-margin">
+                        <input type="text" class="form-control" name="objectionHeadliine" id="field_objectionHeadliine"
+                               ng-model="hrEmpAuditObjectionInfo.objectionHeadliine" required/>
+                        <div ng-show="editForm.objectionHeadliine.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.objectionHeadliine.$error.required"
+                               translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEmpAuditObjectionInfo.objectionAmount"
+                           for="field_objectionAmount">ObjectionAmount</label>
+                    <div class="input-margin">
+                        <input type="number" class="form-control" name="objectionAmount" id="field_objectionAmount"
+                               ng-model="hrEmpAuditObjectionInfo.objectionAmount"/>
+                    </div>
+
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEmpAuditObjectionInfo.officeReplyNumber"
+                           for="field_officeReplyNumber">OfficeReplyNumber</label>
+                    <div class="input-margin">
+                        <input type="text" class="form-control" name="officeReplyNumber" id="field_officeReplyNumber"
+                               ng-model="hrEmpAuditObjectionInfo.officeReplyNumber"/>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEmpAuditObjectionInfo.replyDate"
+                           for="field_replyDate">ReplyDate</label>
+                    <div class="input-margin">
+                        <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.replyDate"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               ng-click="calendar.open($event, 'replyDate')" class="form-control" name="replyDate"
+                               id="field_replyDate"
+                               ng-model="hrEmpAuditObjectionInfo.replyDate"/>
+                    </div>
+
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEmpAuditObjectionInfo.jointMeetingNumber"
+                           for="field_jointMeetingNumber">JointMeetingNumber</label>
+                    <div class="input-margin">
+                        <input type="text" class="form-control" name="jointMeetingNumber" id="field_jointMeetingNumber"
+                               ng-model="hrEmpAuditObjectionInfo.jointMeetingNumber"/>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEmpAuditObjectionInfo.jointMeetingDate"
+                           for="field_jointMeetingDate">JointMeetingDate</label>
+                    <div class="input-margin">
+                        <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.jointMeetingDate"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               ng-click="calendar.open($event, 'jointMeetingDate')" class="form-control"
+                               name="jointMeetingDate" id="field_jointMeetingDate"
+                               ng-model="hrEmpAuditObjectionInfo.jointMeetingDate"/>
+                    </div>
+
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEmpAuditObjectionInfo.isSettled">IsSettled</label>
+                    <div class="input-margin">
+                    <span>
+                        <input type="radio" data-ng-model="hrEmpAuditObjectionInfo.isSettled" name="isSettled"
+                               data-ng-value="true">&nbsp;Yes&nbsp;|&nbsp;
+                        <input type="radio" data-ng-model="hrEmpAuditObjectionInfo.isSettled" name="isSettled"
+                               data-ng-value="false">&nbsp;No
+                    </span>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEmpAuditObjectionInfo.remarks"
+                           for="field_remarks">Remarks</label>
+                    <div class="input-margin">
+                    <textarea class="form-control" name="remarks" id="field_remarks"
+                              ng-model="hrEmpAuditObjectionInfo.remarks"></textarea>
+                    </div>
+
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="control-label"
+                           translate="stepApp.hrEmpAuditObjectionInfo.activeStatus">ActiveStatus</label>
+                    <div class="input-margin">
+                    <span>
+                        <input type="radio" data-ng-model="hrEmpAuditObjectionInfo.activeStatus" name="activeStatus"
+                               data-ng-value="true">&nbsp;Active&nbsp;|&nbsp;
+                        <input type="radio" data-ng-model="hrEmpAuditObjectionInfo.activeStatus" name="activeStatus"
+                               data-ng-value="false">&nbsp;Inactive
+                    </span>
+                        <div ng-show="editForm.activeStatus.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" class="btn " data-dismiss="modal"
+                    onclick="window.history.back()">
+                <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;<span
+                translate="entity.action.back">Back</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="hrEmpAuditObjectionInfo.id == null" translate="entity.action.save">Save</span>
+                <span ng-show="hrEmpAuditObjectionInfo.id != null" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

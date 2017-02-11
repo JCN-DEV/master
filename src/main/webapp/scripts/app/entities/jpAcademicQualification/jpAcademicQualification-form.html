@@ -1,0 +1,322 @@
+<div class="education-add">
+    <h3>Add Education</h3>
+</div>
+
+<form name="jpEducationForm" role="form" novalidate ng-submit="saveEducation()" show-validation>
+    <div class="panel-body pnl-border">
+        <div class="panel-body no_padding admin-info" ng-repeat="jpAcademicQualification in jpAcademicQualifications">
+            <div class="col-sm-12 no_padding">
+                <h3>Education {{$index + 1}}</h3>
+
+                <div class="form-group col-xs-6">
+                    <label translate="stepApp.jpAcademicQualification.educationLevel"
+                           for="field_eduLevel">EducationLevel</label>
+                    <select class="form-control" required="required" id="field_eduLevel" name="eduLevel"
+                            ng-model="jpAcademicQualification.eduLevel"
+                            ng-options="eduLevel as eduLevel.name for eduLevel in eduLevels track by eduLevel.id">
+                        <option value="">Select Education Lavel</option>
+                    </select>
+
+                    <div ng-show="jpEducationForm.eduLevel.$invalid">
+                        <p class="help-block"
+                           ng-show="jpEducationForm.eduLevel.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-group col-xs-6" ng-if="jpAcademicQualification.eduLevel.levelFor != 'university'">
+                    <label translate="stepApp.jpAcademicQualification.board"
+                           for="field_eduBoard">Education Board</label>
+                    <select class="form-control" required="" id="field_eduBoard" name="eduBoard"
+                            ng-model="jpAcademicQualification.eduBoard"
+                            ng-options="eduBoard as eduBoard.name for eduBoard in eduBoards track by eduBoard.id">
+                        <option value="">Select Education Board</option>
+                    </select>
+
+                    <div ng-show="jpEducationForm.eduBoard.$invalid">
+                        <p class="help-block"
+                           ng-show="jpEducationForm.eduBoard.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-md-6" ng-if="jpAcademicQualification.eduLevel.levelFor == 'university'">
+                    <label translate="stepApp.instEmpEduQuali.board" for="field_board">University</label>
+                    <!--<input type="text" class="form-control" name="board" id="field_board"
+                            ng-model="instEmpEduQuali.board"
+                             />-->
+                    <select class="form-control" required="" id="field_board" name="eduBoard"
+                            ng-model="jpAcademicQualification.eduBoard"
+                            ng-options="eduBoard as eduBoard.name for eduBoard in eduUniversitys track by eduBoard.id">
+                        <option value="">Select University</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-md-6" ng-if="jpAcademicQualification.eduLevel.levelFor != 'university'">
+                    <label translate="stepApp.instEmpEduQuali.group" for="field_resultgroup">Exam group</label>
+
+                    <select class="form-control" required id="field_resultgroup" name="group"
+                            ng-model="jpAcademicQualification.group">
+                        <option value="science">Science</option>
+                        <option value="arts">Arts</option>
+                        <option value="commerce">Commerce</option>
+                    </select>
+                </div>
+                <!--<div class="form-group col-xs-6">
+                    <label translate="stepApp.jpAcademicQualification.degreeTitle"
+                           for="field_degreeTitle">DegreeTitle</label>
+                    <input type="text" class="form-control" name="degreeTitle" id="field_degreeTitle"
+                           ng-model="jpAcademicQualification.degreeTitle"
+                           required ng-maxlength="100"/>
+
+                    <div ng-show="jpEducationForm.degreeTitle.$invalid">
+                        <p class="help-block"
+                           ng-show="jpEducationForm.degreeTitle.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+
+                        <p class="help-block"
+                           ng-show="jpEducationForm.degreeTitle.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="100">
+                            This field cannot be longer than 100 characters.
+                        </p>
+                    </div>
+                </div>-->
+                <div class="form-group col-xs-6" ng-if="jpAcademicQualification.eduLevel.levelFor == 'university'">
+                    <label translate="stepApp.jpAcademicQualification.major" for="field_major">Major</label>
+                    <input type="text" class="form-control" name="major" id="field_major"
+                           ng-model="jpAcademicQualification.major"
+                           required ng-maxlength="50"/>
+
+                    <div ng-show="jpEducationForm.major.$invalid">
+                        <p class="help-block"
+                           ng-show="jpEducationForm.major.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+
+                        <p class="help-block"
+                           ng-show="jpEducationForm.major.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="50">
+                            This field cannot be longer than 50 characters.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instEmpEduQuali.session" for="field_session">Session</label>
+                    <input type="text" class="form-control" name="session" id="field_session"
+                           ng-model="jpAcademicQualification.session"
+                        />
+                </div>
+                <div class="form-group col-xs-6" ng-if="jpAcademicQualification.eduLevel.levelFor == 'university'">
+                    <label translate="stepApp.jpAcademicQualification.duration" for="field_duration">Duration</label>
+                    <input type="text" class="form-control" name="duration" id="field_duration"
+                           ng-model="jpAcademicQualification.duration" placeholder="In Year"
+                           required ng-maxlength="30"/>
+
+                    <div ng-show="jpEducationForm.duration.$invalid">
+                        <p class="help-block"
+                           ng-show="jpEducationForm.duration.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+
+                        <p class="help-block"
+                           ng-show="jpEducationForm.duration.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="30">
+                            This field cannot be longer than 30 characters.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-xs-6">
+                    <label translate="stepApp.jpAcademicQualification.passingyear"
+                           for="field_passingyear">Passingyear</label>
+                    <!-- <input type="number" class="form-control" name="passingyear" id="field_passingyear"
+                            ng-model="jpAcademicQualification.passingyear"
+                            required/>-->
+                    <select class="form-control" required id="field_passingyear" name="passingyear"
+                            ng-model="jpAcademicQualification.passingyear" ng-options="o as o for o in years">
+                        <option value=""></option>
+                    </select>
+
+                    <div ng-show="jpEducationForm.passingyear.$invalid">
+                        <p class="help-block"
+                           ng-show="jpEducationForm.passingyear.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+
+                        <p class="help-block"
+                           ng-show="jpEducationForm.passingyear.$error.number" translate="entity.validation.number">
+                            This field should be a number.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-xs-6">
+                    <label translate="stepApp.jpAcademicQualification.institute" for="field_institute">Institute</label>
+                    <input type="text" class="form-control" name="institute" id="field_institute"
+                           ng-model="jpAcademicQualification.institute"
+                           ng-maxlength="100"/>
+
+                    <!--<div ng-show="jpEducationForm.institute.$invalid">
+                        <p class="help-block"
+                           ng-show="jpEducationForm.institute.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+
+                        <p class="help-block"
+                           ng-show="jpEducationForm.institute.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="100">
+                            This field cannot be longer than 100 characters.
+                        </p>
+                    </div>-->
+                </div>
+                <!--<div class="form-group col-xs-6">
+                    <label translate="stepApp.jpAcademicQualification.board" for="field_board">Board</label>
+                    <input type="text" class="form-control" name="board" id="field_board"
+                           ng-model="jpAcademicQualification.board"
+                           required ng-maxlength="100"/>
+
+                    <div ng-show="jpEducationForm.board.$invalid">
+                        <p class="help-block"
+                           ng-show="jpEducationForm.board.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+
+                        <p class="help-block"
+                           ng-show="jpEducationForm.board.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="100">
+                            This field cannot be longer than 100 characters.
+                        </p>
+                    </div>
+                </div>-->
+                <div class="form-group col-md-6">
+                    <label class="control-label" translate="stepApp.instEmpEduQuali.resultType">Result Type</label>
+
+                    <div class="form-control">
+                        <input type="radio" name="resultType{{$index}}"
+                               ng-checked="(jpAcademicQualification.isGpaResult == true || jpAcademicQualification.isGpaResult == 'true' )"
+                               ng-model="jpAcademicQualification.isGpaResult" value="true" required>GPA/CGPA
+                        <input type="radio" name="resultType{{$index}}"
+                               ng-checked="!jpAcademicQualification.isGpaResult"
+                               ng-model="jpAcademicQualification.isGpaResult" value="false">Division/Class
+                    </div>
+                </div>
+                <!--<div class="form-group col-xs-6">
+                    <label translate="stepApp.jpAcademicQualification.resulttype"
+                           for="field_resulttype">Resulttype</label>
+                    <select class="form-control" name="resulttype" ng-model="jpAcademicQualification.resulttype" required
+                            id="field_resulttype">
+                        <option value="gpa" translate="stepApp.ResultType.gpa">gpa</option>
+                        <option value="cgpa" translate="stepApp.ResultType.cgpa">cgpa</option>
+                        <option value="division" translate="stepApp.ResultType.division">division</option>
+                        &lt;!&ndash;<option value="percentage" translate="stepApp.ResultType.percentage">percentage</option>&ndash;&gt;
+                    </select>
+                </div>-->
+
+                <div class="form-group col-md-6"
+                     ng-if="jpAcademicQualification.isGpaResult == true || jpAcademicQualification.isGpaResult === 'true'">
+                    <label translate="stepApp.instEmpEduQuali.result" for="field_result">Result</label>
+                    <input type="text" class="form-control" name="result" id="field_result" numeric-only
+                           ng-model="jpAcademicQualification.result" required
+                        />
+                </div>
+
+                <div class="form-group col-md-6"
+                     ng-if="jpAcademicQualification.isGpaResult == false || jpAcademicQualification.isGpaResult === 'false'">
+                    <label translate="stepApp.instEmpEduQuali.result" for="field_resultClass">Result Class</label>
+
+                    <select class="form-control" required id="field_resultClass" name="resultClass"
+                            ng-model="jpAcademicQualification.result">
+                        <option value="first">First Division/Class</option>
+                        <option value="second">Second Division/Class</option>
+                        <option value="third">Third Division/Class</option>
+                    </select>
+                </div>
+                <div ng-if="jpAcademicQualification.isGpaResult == true || jpAcademicQualification.isGpaResult == 'true'"
+                     class="form-group col-md-6">
+                    <label translate="stepApp.instEmpEduQuali.gpaScale" for="field_gpaScale">GPA Scale</label>
+                    <input type="text" class="form-control" name="gpaScale" id="field_gpaScale"
+                           ng-model="jpAcademicQualification.gpaScale" numeric-only ng-maxlength="4" ng-minlength="1"
+                           required/>
+
+                    <div ng-show="jpEducationForm.gpaScale.$invalid">
+
+                        <p class="help-block"
+                           ng-show="jpEducationForm.gpaScale.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+
+                        <p class="help-block"
+                           ng-show="jpEducationForm.gpaScale.$error.minlength" translate="entity.validation.minlength"
+                           translate-value-min="1">
+                            This field cannot be longer than 1 characters.
+                        </p>
+
+                        <p class="help-block"
+                           ng-show="jpEducationForm.gpaScale.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="5">
+                            This field cannot be longer than 5 characters.
+                        </p>
+                    </div>
+                </div>
+                <!--<div class="form-group col-xs-6">
+                    <label translate="stepApp.jpAcademicQualification.result" for="field_result">Result</label>
+                    <input type="text" class="form-control" name="result" id="field_result"
+                           ng-model="jpAcademicQualification.result"
+                           required ng-maxlength="50"/>
+
+                    <div ng-show="jpEducationForm.result.$invalid">
+                        <p class="help-block"
+                           ng-show="jpEducationForm.result.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+
+                        <p class="help-block"
+                           ng-show="jpEducationForm.result.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="50">
+                            This field cannot be longer than 50 characters.
+                        </p>
+                    </div>
+                </div>-->
+
+
+                <div class="form-group col-xs-6">
+                    <label translate="stepApp.jpAcademicQualification.achivement"
+                           for="field_achivement">Achivement</label>
+                    <input type="text" class="form-control" name="achivement" id="field_achivement"
+                           ng-model="jpAcademicQualification.achivement"
+                        />
+                </div>
+            </div>
+            <div class="col-sm-12 text-right no_padding"
+                 ng-show="jpAcademicQualifications.length > 1 && $index > 0" ng-click="jpAcademicQualifications.splice($index, 1)">
+                <button type="button" class="btn btn-danger">
+                    <span class="glyphicon glyphicon-plus"></span>&nbsp;<span
+                    translate="entity.action.remove">Remove</span>
+                </button>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <a class="btn btn-link" ng-disabled="editForm.$invalid || isSaving" ng-click="AddMoreEducation()">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;<span
+                translate="entity.action.addMore">Add More</span>
+            </a>
+        </div>
+
+        <div class="panel-footer">
+            <div class="col-xs-6">
+                <!--<button type="button" class="btn btn-default" ng-click="changeEducationMode(true)">-->
+                <button type="button" class="btn btn-default" ng-click="cancel()">
+                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                    translate="entity.action.cancel">Back</span>
+                </button>
+                <button type="submit" ng-disabled="jpEducationForm.$invalid || isSaving" class="btn btn-primary">
+                    <!--<span class="glyphicon glyphicon-save"></span>&nbsp;--><span
+                    translate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!--jpEducationForm.$submitted-->
+

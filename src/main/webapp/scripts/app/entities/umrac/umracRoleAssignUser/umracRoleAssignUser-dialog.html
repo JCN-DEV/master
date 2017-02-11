@@ -1,0 +1,113 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()">
+        <h4 ng-show="umracRoleAssignUser.id == null" id="myUmracRoleAssignUserLabel"
+            translate="stepApp.umracRoleAssignUser.home.createOrEditLabel">Create or edit a UmracRoleAssignUser</h4>
+        <h4 ng-show="umracRoleAssignUser.id != null" id="myUmracRoleAssignUserLabel"
+            translate="stepApp.umracRoleAssignUser.home.EditLabel">Create or edit a UmracRoleAssignUser</h4>
+        <div class="panel-body">
+            <!--<jh-alert-error></jh-alert-error>-->
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.umracRoleAssignUser.userId" for="field_userId">userId</label>
+                        <select class="form-control" id="field_userId" name="userId"
+                                ng-model="umracRoleAssignUser.userId"
+                                tooltip="{{'stepApp.umracRoleAssignUser.userId' | translate}}"
+                                ng-options="UmracIdentitySetup as UmracIdentitySetup.userName for UmracIdentitySetup in umracidentitysetups | filter:filterUserByStatus() track by UmracIdentitySetup.id">
+                            <option value="" translate="stepApp.umracRoleAssignUser.userId"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.umracRoleAssignUser.roleId" for="field_roleId">roleId</label>
+                        <select class="form-control" id="field_roleId" name="roleId"
+                                tooltip="{{'stepApp.umracRoleAssignUser.roleId' | translate}}"
+                                ng-model="umracRoleAssignUser.roleId"
+                                ng-options="UmracRoleSetup as UmracRoleSetup.roleName for UmracRoleSetup in umracrolesetups | filter:filterRoleByStatus() track by UmracRoleSetup.id">
+                            <option value="" translate="stepApp.umracRoleAssignUser.roleId"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.umracRoleAssignUser.description"
+                               for="field_description">Description</label>
+                        <textarea type="text" class="form-control" name="description" id="field_description"
+                                  ng-model="umracRoleAssignUser.description"
+                                  tooltip="{{'stepApp.umracRoleAssignUser.description' | translate}}"
+                                  placeholder="{{'stepApp.umracRoleAssignUser.description' | translate}}"
+                                  cols="30" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+
+                        <label translate="stepApp.umracRoleAssignUser.status">Status</label>
+                        <div class="col-sm-12" ng-init="checked=true">
+                            <input type="radio" name="status" value="true"
+                                   tooltip="{{'stepApp.umracRoleAssignUser.status' | translate}}"
+                                   ng-checked="umracRoleAssignUser.status == true"
+                                   ng-model="umracRoleAssignUser.status"><span
+                            translate="entity.action.activate">Active</span>&nbsp;&nbsp;
+                            <input type="radio" name="status" value="false"
+                                   tooltip="{{'stepApp.umracRoleAssignUser.status' | translate}}"
+                                   ng-checked="umracRoleAssignUser.status == false"
+                                   ng-model="umracRoleAssignUser.status"><span translate="entity.action.deactivate">Deactive</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="form-group">-->
+            <!--<label translate="stepApp.umracRoleAssignUser.status" for="field_status">Status</label>-->
+            <!--<input type="checkbox" class="form-control" name="status" id="field_status"-->
+            <!--ng-model="umracRoleAssignUser.status"-->
+            <!--/>-->
+            <!--</div>-->
+
+            <!--<div class="form-group">-->
+            <!--<label for="id" translate="global.field.id">ID</label>-->
+            <!--<input type="text" class="form-control" id="id" name="id"-->
+            <!--ng-model="umracRoleAssignUser.id" readonly />-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<label translate="stepApp.umracRoleAssignUser.createDate" for="field_createDate">CreateDate</label>-->
+            <!--<input type="date" class="form-control" name="createDate" id="field_createDate"-->
+            <!--ng-model="umracRoleAssignUser.createDate"-->
+            <!--/>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<label translate="stepApp.umracRoleAssignUser.createBy" for="field_createBy">CreateBy</label>-->
+            <!--<input type="number" class="form-control" name="createBy" id="field_createBy"-->
+            <!--ng-model="umracRoleAssignUser.createBy"-->
+            <!--/>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<label translate="stepApp.umracRoleAssignUser.updatedBy" for="field_updatedBy">UpdatedBy</label>-->
+            <!--<input type="number" class="form-control" name="updatedBy" id="field_updatedBy"-->
+            <!--ng-model="umracRoleAssignUser.updatedBy"-->
+            <!--/>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<label translate="stepApp.umracRoleAssignUser.updatedTime" for="field_updatedTime">UpdatedTime</label>-->
+            <!--<input type="date" class="form-control" name="updatedTime" id="field_updatedTime"-->
+            <!--ng-model="umracRoleAssignUser.updatedTime"-->
+            <!--/>-->
+            <!--</div>-->
+        </div>
+        <div class="modal-footer col-md-12 no_padding">
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="umracRoleAssignUser.id == null" translate="entity.action.save">Save</span>
+                <span ng-show="umracRoleAssignUser.id != null" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

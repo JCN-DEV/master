@@ -1,0 +1,162 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myVclDriverLabel" translate="stepApp.vclDriver.home.createOrEditLabel">Create or edit a VclDriver</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group" ng-hide="true">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   ng-model="vclDriver.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclDriver.driverName" for="field_driverName">DriverName</label>
+            <input type="text" class="form-control" name="driverName" id="field_driverName"
+                   ng-model="vclDriver.driverName"
+                   required />
+            <div ng-show="editForm.driverName.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.driverName.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclDriver.licenseNumber" for="field_licenseNumber">LicenseNumber</label>
+            <input type="text" class="form-control" name="licenseNumber" id="field_licenseNumber"
+                   ng-model="vclDriver.licenseNumber"
+                   required />
+            <div ng-show="editForm.licenseNumber.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.licenseNumber.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclDriver.presentAddress" for="field_presentAddress">PresentAddress</label>
+            <input type="text" class="form-control" name="presentAddress" id="field_presentAddress"
+                   ng-model="vclDriver.presentAddress"
+                   required ng-maxlength="250" />
+            <div ng-show="editForm.presentAddress.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.presentAddress.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                   ng-show="editForm.presentAddress.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="250">
+                    This field cannot be longer than 250 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclDriver.permanentAddress" for="field_permanentAddress">PermanentAddress</label>
+            <input type="text" class="form-control" name="permanentAddress" id="field_permanentAddress"
+                   ng-model="vclDriver.permanentAddress"
+                   required ng-maxlength="250" />
+            <div ng-show="editForm.permanentAddress.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.permanentAddress.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                   ng-show="editForm.permanentAddress.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="250">
+                    This field cannot be longer than 250 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclDriver.mobileNumber" for="field_mobileNumber">MobileNumber</label>
+            <input type="text" class="form-control" name="mobileNumber" id="field_mobileNumber"
+                   ng-model="vclDriver.mobileNumber" ng-keypress="filterNumericValue($event)" required />
+            <div ng-show="editForm.mobileNumber.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.mobileNumber.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclDriver.emergencyNumber" for="field_emergencyNumber">EmergencyNumber</label>
+            <input type="text" class="form-control" name="emergencyNumber" id="field_emergencyNumber"
+                   ng-model="vclDriver.emergencyNumber" ng-keypress="filterNumericValue($event)" required />
+            <div ng-show="editForm.emergencyNumber.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.emergencyNumber.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclDriver.joinDate" for="field_joinDate">JoinDate</label>
+            <input type="date" class="form-control" name="joinDate" id="field_joinDate"
+                   ng-model="vclDriver.joinDate"
+                   required />
+            <div ng-show="editForm.joinDate.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.joinDate.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclDriver.retirementDate" for="field_retirementDate">RetirementDate</label>
+            <input type="date" class="form-control" name="retirementDate" id="field_retirementDate"
+                   ng-model="vclDriver.retirementDate"
+                   required />
+            <div ng-show="editForm.retirementDate.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.retirementDate.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclDriver.photoName" for="field_photoName">PhotoName</label>
+            <input type="text" class="form-control" name="photoName" id="field_photoName"
+                   ng-model="vclDriver.photoName"
+                />
+        </div>
+        <div class="form-group" ngf-drop ngf-change="setDriverPhoto($file, vclDriver)">
+            <label class="control-label" translate="stepApp.vclDriver.driverPhoto" for="field_driverPhoto">DriverPhoto</label>
+            <div>
+                <div class="help-block clearfix">
+                    <span class="pull-left">{{vclDriver.driverPhotoContentType}} {{byteSize(vclDriver.driverPhoto)}}</span>
+                    <button ng-click="vclDriver.driverPhoto=null;vclDriver.driverPhotoContentType=null;"
+                            ng-if="vclDriver.driverPhoto"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="file" ngf-select class="btn btn-default btn-block"
+                        ngf-change="setDriverPhoto($file, vclDriver)" translate="entity.action.addblob">
+                    Add blob
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="driverPhoto" id="field_driverPhoto"
+                   ng-model="vclDriver.driverPhoto"
+                />
+            <input type="hidden" class="form-control" name="driverPhotoContentType" id="field_driverPhotoContentType"
+                   ng-model="vclDriver.driverPhotoContentType" />
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclDriver.activeStatus" for="field_activeStatus">activeStatus</label>
+            <input type="checkbox" class="form-control checkbox-inline" name="activeStatus" id="field_activeStatus"
+                   ng-model="vclDriver.activeStatus" />
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" class="btn " data-dismiss="modal" onclick="window.history.back()">
+            <i class="fa fa-angle-double-left"></i>&nbsp;<span translate="entity.action.back">Back</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

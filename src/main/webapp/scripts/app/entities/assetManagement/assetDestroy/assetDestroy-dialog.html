@@ -1,0 +1,362 @@
+<div class="col-md-12 common-dialogue">
+    <h4 ng-show="assetDestroy.id == null" class="panel-heading" id="myAssetDestroyLabel"
+        translate="stepApp.assetDestroy.home.createOrEditLabel">Create or edit a AssetDestroy</h4>
+    <h4 ng-show="assetDestroy.id != null" class="panel-heading" id="myAssetDestroyLabel"
+        translate="stepApp.assetDestroy.home.EditLabel">Create or edit a AssetDestroy</h4>
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <div class="col-md-12 padding-bt">
+            <!--<div class=" col-md-6 ">-->
+            <!--<div class="form-group">-->
+            <!--<label  class=" control-label" for="id" translate="global.field.id">ID</label>-->
+
+            <!--<div class="input-margin">-->
+            <!--<input type="text" class="form-control" id="id" name="id"-->
+            <!--ng-model="assetDestroy.id" readonly />-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+
+            <div class=" col-md-6 ">
+                <div class="form-group">
+                    <label translate="stepApp.assetDestroy.transferReference" for="" class=" control-label">Asset
+                        Reference No</label>
+
+                    <div class="input-margin">
+                        <input readonly disabled="disabled" type="text" class="form-control" id="" placeholder=""
+                               ng-model="assetDestroy.assetCode.transferReference">
+                    </div>
+                </div>
+            </div>
+
+            <!--/////Information retrieve-->
+
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label translate="stepApp.assetDestroy.assetCode" class="  control-label" for="field_assetCode">Asset
+                        Code</label>
+
+                    <div class="input-margin">
+                        <select name="assetCode" class="form-control" id="field_assetCode" ng-model="assetDestroy.assetCode"
+                                ng-options="assetRecord as assetRecord.recordCode for assetRecord in assetRecords track by assetRecord.id">
+                            <option value="Select Asset Code"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label class="  control-label" translate="stepApp.assetDestroy.assetName" for=fieldD_assetName>assetName</label>
+
+                    <div class="input-margin">
+                        <input readonly disabled="disabled" type="text" class="form-control" name="assetName"
+                               ng-model="assetDestroy.assetCode.assetName"
+                               required/>
+                        <div ng-show="editForm.assetName.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.assetName.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.assetDestroy.purchaseDate">purchase Date</label>
+
+                    <div class="input-margin">
+                        <input readonly disabled="disabled" type="text" class="form-control" name="purchaseDate"
+                               ng-model="assetDestroy.assetCode.purchaseDate"
+                               required/>
+                        <div ng-show="editForm.purchaseDate.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.purchaseDate.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.assetDestroy.vendorName">vendor name</label>
+
+                    <div class="input-margin">
+                        <input readonly disabled="disabled" type="text" class="form-control" name="vendorName"
+                               ng-model="assetDestroy.assetCode.vendorName"
+                               required/>
+                        <div ng-show="editForm.vendorName.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.vendorName.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Employeee Information-->
+
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label class="  control-label" translate="stepApp.assetDestroy.employeeDepartment"
+                           for=fieldD_assetName>used By Department</label>
+
+                    <div class="input-margin">
+                        <input ng-change="AssetValueChange(assetDestroy.assetDistribution.id)" type="text"
+                               class="form-control" name="remartks"
+                               ng-model="assetDestroy.assetDistribution.usedByDept"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label class="  control-label" translate="stepApp.assetDestroy.employeeName" for=fieldD_assetName>employee
+                        Name</label>
+
+                    <div class="input-margin">
+                        <input ng-change="AssetValueChange(assetDestroy.assetDistribution.id)" type="text"
+                               class="form-control" name="remartks" id="fieldD_assetName"
+                               ng-model="assetDestroy.assetDistribution.empName"
+                               required/>
+                        <div ng-show="editForm.remartks.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.remartks.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--end auto complition-->
+
+
+            <!--<div class="col-md-6 col-sm-12 col-xs-12">-->
+            <!--<div class="form-group">-->
+            <!--<label  class="  control-label"translate="stepApp.assetDestroy.destroyDate" for="field_destroyDate">DestroyDate</label>-->
+
+            <!--<div class="input-margin">-->
+            <!--<input type="date" class="form-control" name="destroyDate" id="field_destroyDate"-->
+            <!--ng-model="assetDestroy.destroyDate"-->
+            <!--/>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+
+
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.assetDestroy.destroyDate" for="field_destroyDate">destroyDate</label>
+                    <div class="input-margin">
+                        <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.destroyDate"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               ng-click="calendar.open($event, 'destroyDate')" class="form-control" name="destroyDate"
+                               id="field_destroyDate"
+                               ng-model="assetDestroy.destroyDate"
+                               required/>
+                        <div ng-show="editForm.destroyDate.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.destroyDate.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.assetDestroy.usedPeriod" for="field_usedPeriod">UsedPeriod</label>
+
+                    <div class="input-margin">
+                        <input type="number" class="form-control" name="usedPeriod" id="field_usedPeriod"
+                               ng-model="assetDestroy.usedPeriod"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.assetDestroy.causeOfDate" for="field_causeOfDate">causeOfDate</label>
+                    <div class="input-margin">
+                        <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.causeOfDate"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               ng-click="calendar.open($event, 'causeOfDate')" class="form-control" name="causeOfDate"
+                               id="field_causeOfDate"
+                               ng-model="assetDestroy.causeOfDate"
+                               required/>
+                        <div ng-show="editForm.causeOfDate.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.causeOfDate.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--<div class="col-md-6 col-sm-12 col-xs-12">-->
+            <!--<div class="form-group">-->
+            <!--<label  class="control-label" translate="stepApp.assetDestroy.usedPeriod" for="field_usedPeriod">UsedPeriod</label>-->
+
+            <!--<div class="input-margin">-->
+            <!--<input type="number" class="form-control" name="usedPeriod" id="field_usedPeriod"-->
+            <!--ng-model="assetDestroy.usedPeriod"-->
+            <!--/>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+
+
+            <!--<div class="col-md-6 col-sm-12 col-xs-12">-->
+            <!--<div class="form-group">-->
+            <!--<label  class="  control-label" translate="stepApp.assetDestroy.causeOfDate" for="field_causeOfDate">CauseOfDate</label>-->
+            <!--<div class="input-margin">-->
+            <!--<input type="date" class="form-control" name="causeOfDate" id="field_causeOfDate"-->
+            <!--ng-model="assetDestroy.causeOfDate"-->
+            <!--/>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="col-md-6 col-sm-12 col-xs-12">-->
+            <!--<div class="form-group">-->
+            <!--<label  class="  control-label" translate="stepApp.assetDestroy.assetDistribution" for="field_assetDistribution">assetDistribution</label>-->
+
+            <!--<div class="input-margin">-->
+            <!--<select class="form-control" id="field_assetDistribution" name="assetDistribution" ng-model="assetDestroy.assetDistribution" ng-options="assetDistribution as assetDistribution.transferRef for assetDistribution in assetDistribution | orderBy:'id' track by assetDistribution.id">-->
+            <!--<option value=""></option>-->
+            <!--</select>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+
+
+            <!--<div class="col-md-6 col-sm-12 col-xs-12">-->
+            <!--<div class="form-group">-->
+            <!--<label  class="  control-label" translate="stepApp.assetDestroy.assetRecord" for="field_assetRecord">assetRecord</label>-->
+
+            <!--<div class="input-margin">-->
+            <!--<select class="form-control" id="field_assetRecord" name="assetRecord" ng-model="assetDestroy.assetRecord" ng-options="assetRecord as assetRecord.assetName for assetRecord in assetrecords track by assetRecord.id">-->
+            <!--<option value=""></option>-->
+            <!--</select>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="modal-footer">-->
+            <!--<button type="button" class="btn btn-default" >-->
+            <!--&nbsp;-->
+            <!--</button>-->
+            <!--<button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">-->
+            <!--<span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>-->
+            <!--</button>-->
+            <!--</div>-->
+
+
+            <div class="col-md-12">
+                <div class="form-group">
+
+                    <div class="text-right">
+
+                        <button type="submit" class="btn btn-primary"
+                                ng-disabled="editForm.$invalid || editForm.$submitted">
+                            <i class="fa fa-hdd-o"></i>
+                            <span ng-show="assetDestroy.id == null" translate="entity.action.save">Save</span>
+                            <span ng-show="assetDestroy.id != null" translate="entity.action.update">Save</span>
+                        </button>
+                        <button type="button" class="btn btn-info" data-dismiss="modal" onclick="window.history.back()">
+                            <span class="glyphicon glyphicon-ban-circle"></span><span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<!--===End asset destroy dialog===-->
+<!--<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>-->
+
+<!--<div class="modal-header">-->
+<!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true"-->
+<!--ng-click="clear()">&times;</button>-->
+<!--<h4 class="modal-title" id="myAssetDestroyLabel" translate="stepApp.assetDestroy.home.createOrEditLabel">Create or edit a AssetDestroy</h4>-->
+<!--</div>-->
+<!--<div class="modal-body">-->
+<!--<jh-alert-error></jh-alert-error>-->
+<!--<div class="form-group">-->
+<!--<label for="id" translate="global.field.id">ID</label>-->
+<!--<input type="text" class="form-control" id="id" name="id"-->
+<!--ng-model="assetDestroy.id" readonly />-->
+<!--</div>-->
+<!--<>-->
+<!--<div class="form-group">-->
+<!--<label translate="stepApp.assetDestroy.transferReference" for="field_transferReference">TransferReference</label>-->
+<!--<input type="text" class="form-control" name="transferReference" id="field_transferReference"-->
+<!--ng-model="assetDestroy.transferReference"-->
+<!--required />-->
+<!--<div ng-show="editForm.transferReference.$invalid">-->
+<!--<p class="help-block"-->
+<!--ng-show="editForm.transferReference.$error.required" translate="entity.validation.required">-->
+<!--This field is required.-->
+<!--</p>-->
+<!--</div>-->
+<!--</div>-->
+<!--<>-->
+<!--<div class="form-group">-->
+<!--<label translate="stepApp.assetDestroy.destroyDate" for="field_destroyDate">DestroyDate</label>-->
+<!--<input type="date" class="form-control" name="destroyDate" id="field_destroyDate"-->
+<!--ng-model="assetDestroy.destroyDate"-->
+<!--/>-->
+<!--</div>-->
+<!--<>-->
+<!--<div class="form-group">-->
+<!--<label translate="stepApp.assetDestroy.usedPeriod" for="field_usedPeriod">UsedPeriod</label>-->
+<!--<input type="number" class="form-control" name="usedPeriod" id="field_usedPeriod"-->
+<!--ng-model="assetDestroy.usedPeriod"-->
+<!--/>-->
+<!--</div>-->
+<!--<>-->
+<!--<div class="form-group">-->
+<!--<label translate="stepApp.assetDestroy.causeOfDate" for="field_causeOfDate">CauseOfDate</label>-->
+<!--<input type="date" class="form-control" name="causeOfDate" id="field_causeOfDate"-->
+<!--ng-model="assetDestroy.causeOfDate"-->
+<!--/>-->
+<!--</div>-->
+<!--<>-->
+
+<!--<div class="form-group">-->
+<!--<label translate="stepApp.assetDestroy.assetDistribution" for="field_assetDistribution">assetDistribution</label>-->
+<!--<select class="form-control" id="field_assetDistribution" name="assetDistribution" ng-model="assetDestroy.assetDistribution" ng-options="assetDistribution as assetDistribution.transferRef for assetDistribution in assetDistribution | orderBy:'id' track by assetDistribution.id">-->
+<!--<option value=""></option>-->
+<!--</select>-->
+<!--</div>-->
+<!--<>-->
+<!--<div class="form-group">-->
+<!--<label translate="stepApp.assetDestroy.assetRecord" for="field_assetRecord">assetRecord</label>-->
+<!--<select class="form-control" id="field_assetRecord" name="assetRecord" ng-model="assetDestroy.assetRecord" ng-options="assetRecord as assetRecord.assetName for assetRecord in assetrecords track by assetRecord.id">-->
+<!--<option value=""></option>-->
+<!--</select>-->
+<!--</div>-->
+<!--</div>-->
+<!--<>-->
+<!--<div class="modal-footer">-->
+<!--<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">-->
+<!--<span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>-->
+<!--</button>-->
+<!--<button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">-->
+<!--<span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>-->
+<!--</button>-->
+<!--</div>-->
+<!--<>-->
+<!--</form>-->

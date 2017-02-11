@@ -1,0 +1,116 @@
+<div class="col-sm-12 no_padding lbl-content common-list">
+<h2 translate="stepApp.dlFileType.home.title">DlFileTypes</h2>
+    <div class="col-md-12 padding-bt ">
+        <div class="col-md-8 no_padding">
+            <div class="col-md-6 ">
+                    <input ng-model="q" id="search" type="text" class="form-control"   placeholder="{{'global.home.searchhere' | translate}}">
+
+            </div>
+            <div class="col-md-6 ">
+                    <input type="number" class="form-control" ng-model="pageSize" placeholder="{{'global.home.itemperpage' | translate}}">
+
+            </div>
+        </div>
+        <div class="col-md-4 text-right ">
+            <button class="btn btn-default" ui-sref="libraryInfo.dlFileType.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.dlFileType.home.createLabel">Create a new DlFileType</span>
+            </button>
+        </div>
+    </div>
+
+
+
+    <!--<div class="row">
+        <div class="col-xs-4">
+            <b>{{ (dlFileTypes|filter:q).length }} results found</b>
+
+            <label for="search">Search:</label>
+            <input ng-model="q" id="search" class="form-control" placeholder="Search for...">
+        </div>
+        <div class="col-xs-4">
+            <label for="search">items per page:</label>
+            <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+        </div>
+    </div>-->
+    <br>
+    <div class="col-md-12 table-responsive">
+        <!--<table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="global.field.id">ID</th>
+                    <th translate="stepApp.dlFileType.fileType">FileType</th>
+                    <th translate="stepApp.dlFileType.limitMb">LimitMb</th>
+                   &lt;!&ndash; <th translate="stepApp.dlFileType.createdDate">CreatedDate</th>
+                    <th translate="stepApp.dlFileType.updatedDate">UpdatedDate</th>
+                    <th translate="stepApp.dlFileType.createdBy">CreatedBy</th>
+                    <th translate="stepApp.dlFileType.updatedBy">UpdatedBy</th>
+                    <th translate="stepApp.dlFileType.status">Status</th>&ndash;&gt;
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="dlFileType in dlFileTypes track by dlFileType.id">
+                    <td><a ui-sref="dlFileType.detail({id:dlFileType.id})">{{dlFileType.id}}</a></td>
+                    <td>{{dlFileType.fileType}}</td>
+                    <td>{{dlFileType.limitMb}}</td>
+                    <td ng-show="dlFileType.fileImgName"> <img src="/assets/dlms/{{dlFileType.fileImgName}}" alt="book image"></td>
+                        &lt;!&ndash;<td>{{dlFileType.createdDate | date:'mediumDate'}}</td>
+                        <td>{{dlFileType.updatedDate | date:'mediumDate'}}</td>
+                    <td>{{dlFileType.createdBy}}</td>
+                    <td>{{dlFileType.updatedBy}}</td>
+                    <td>{{dlFileType.status}}</td>&ndash;&gt;
+
+
+                    <td class="text-right ">
+                        <button type="submit"
+                                ui-sref="libraryInfo.dlFileType.detail({id:dlFileType.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="libraryInfo.dlFileType.edit({id:dlFileType.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="libraryInfo.dlFileType.delete({id:dlFileType.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>-->
+
+        <div class="col-sm-12 no_padding">
+            <div class="col-md-4 animated zoomIn" data-wow-duration="1s" data-wow-delay="0s" dir-paginate="dlFileType in dlFileTypes | filter:q | itemsPerPage: pageSize" current-page="currentPage"  style="padding-left: 0px">
+                <div class="single-book-info">
+                    <div class="left-book-img">
+                        <a href="">
+                            <img width="200" data-ng-src="{{'data:' + dlFileType.fileImgContentType + ';base64,' + dlFileType.fileImg}}" />
+
+<!--
+                            <img src="/backup/dlImages/{{dlFileType.fileImgName}}" alt="book image">
+-->
+                        </a>
+                    </div>
+                    <div class="book-details-info">
+                        <p>Upload Information</p>
+                        <p>File Type Name&nbsp;&nbsp;&nbsp;  : {{dlFileType.fileType}}</p>
+                        <p>Maximum Limit&nbsp;&nbsp;: {{dlFileType.limitMb}} MB</p>
+                        <p><span ng-show="dlFileType.pStatus==true" style="color:green">Active</span>
+                            <span ng-show="dlFileType.pStatus==false"style="color:red" >Inactive</span></p>
+                        <div class="book-detail-button">
+                            <!--<a href="" ui-sref="libraryInfo.dlFileType.detail({id:dlFileType.id})"><i class="fa fa-eye" aria-hidden="true"></i></a>-->
+                            <a href="" ui-sref="libraryInfo.dlFileType.edit({id:dlFileType.id})"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="" ui-sref="libraryInfo.dlFileType.delete({id:dlFileType.id})"><i class="fa fa-times" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+</div>

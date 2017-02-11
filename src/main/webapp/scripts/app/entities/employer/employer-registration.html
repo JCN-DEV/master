@@ -1,0 +1,717 @@
+<style>
+    .form-group {
+        margin-bottom: 25px;
+    }
+</style>
+<div class="row">
+    <div class="col-md-4">
+
+    </div>
+    <div class="col-md-4">
+        <div class="alert alert-success" ng-show="success" translate="register.messages.success">
+            <strong>Company Registration successfully done.Please, wait for Admin approval!</strong>
+        </div>
+
+        <div class="alert alert-danger" ng-show="error" translate="register.messages.error.fail">
+            <strong>Company failed!</strong> Please try again later.
+        </div>
+
+        <div class="alert alert-danger" ng-show="errorUserExists" translate="register.messages.error.userexists">
+            <strong>Login name already registered!</strong> Please choose another one.
+        </div>
+
+        <div class="alert alert-danger" ng-show="errorEmailExists" translate="register.messages.error.emailexists">
+            <strong>E-mail is already in use!</strong> Please choose another one.
+        </div>
+
+        <div class="alert alert-danger" ng-show="doNotMatch" translate="global.messages.error.dontmatch">
+            The password and its confirmation do not match!
+        </div>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+<div class="row" ng-show="!success">
+
+    <form name="regForm" class="form employer-reg form-horizontal" role="form" novalidate ng-submit="save()"
+          show-validation>
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <span class="glyphicon glyphicon-th" translate="stepApp.employer.CompanyRegistration">
+                        &nbsp;&nbsp;Company Registration</span>
+
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="login" class="col-sm-6 control-label"
+                               translate="stepApp.employer.username">Username</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="login" name="login"
+                                   placeholder="{{'global.form.username.placeholder' | translate}}"
+                                   ng-model="employer.user.login"
+                                   ng-remote-validate="/api/account/checkLogin/"
+                                   ng-remote-method="GET"
+                                   ng-remote-throttle="500"
+                                   ng-minlength=3 ng-maxlength=50 ng-pattern="/^[a-z0-9]*$/" required>
+                            <span class="message validating" ng-show="regForm.login.$pending">validating...</span>
+
+                            <div ng-show="regForm.login.$invalid">
+                                <p class="help-block"
+                                   ng-show="regForm.login.$error.ngRemoteValidate">
+                                    This User already exists!
+                                </p>
+                                <p class="help-block"
+                                   ng-show="regForm.login.$error.minlength"
+                                   translate="global.messages.validate.newpassword.minlength">
+                                    Login is required to be at least 3 characters.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="col-lg-6" for="email" translate="global.form.email">E-mail</label>
+
+                        <div class="col-lg-6">
+                            <input type="email" class="form-control" id="email" name="email"
+                                   placeholder="{{'global.form.email.placeholder' | translate}}"
+                                   ng-model="employer.user.email"
+                                   ng-remote-validate="/api/account/checkEmail/"
+                                   ng-remote-method="GET"
+                                   ng-remote-throttle="500"
+                                   ng-minlength='5' ng-maxlength='100' required>
+                            <span class="message validating" ng-show="regForm.email.$pending">validating...</span>
+
+                            <div ng-show="regForm.email.$dirty && regForm.email.$invalid">
+                                <p class="help-block"
+                                   ng-show="regForm.email.$error.ngRemoteValidate">
+                                    This email already exists
+                                </p>
+
+                                <p class="help-block"
+                                   ng-show="regForm.email.$error.email"
+                                   translate="global.messages.validate.email.invalid">
+                                    Your e-mail is invalid.
+                                </p>
+
+                                <p class="help-block"
+                                   ng-show="regForm.email.$error.maxlength"
+                                   translate="global.messages.validate.email.maxlength">
+                                    Your e-mail cannot be longer than 100 characters.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="password" class="col-sm-6 control-label" translate="stepApp.employer.password">Password</label>
+                        <div class="col-sm-6">
+                            <input type="password" ng-minlength=5 ng-maxlength=50 class="form-control" name="password"
+                                   ng-model="employer.user.password" id="password"
+                                   placeholder="{{'global.form.newpassword.placeholder' | translate}}" required>
+                            <div class="col-md-12 p-erroe no_padding" ng-show="regForm.password.$dirty && regForm.password.$invalid">
+                                <p class=" col-md-12 no_padding"
+                                   ng-show="regForm.password.$error.minlength"
+                                   translate="global.messages.validate.newpassword.minlength">
+                                    Your password is required to be at least 5 characters.
+                                </p>
+
+                                <p class=" col-md-12 no_padding"
+                                   ng-show="regForm.password.$error.maxlength"
+                                   translate="global.messages.validate.newpassword.maxlength">
+                                    Your password cannot be longer than 50 characters.
+                                </p>
+                            </div>
+                            <div class="col-md-12 p-erroe no_padding">
+                                <password-strength-bar password-to-check="employer.user.password"></password-strength-bar>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="password" class="col-sm-6 control-label"
+                               translate="stepApp.employer.confirmPassword">Confirm Password<span>{{didNotMatch}}</span></label>
+
+                        <div class="col-sm-6">
+                            <input type="password"
+                                   ng-keyup="matchPass(employer.user.password,employer.user.confirmPassword)"
+                                   class="form-control" name="confirmPassword" ng-maxlength=50
+                                   ng-model="employer.user.confirmPassword" id="confirmPassword"
+                                   placeholder="{{'global.form.confirmpassword' | translate}}" required>
+
+                            <div
+                                ng-show="(regForm.confirmPassword.$dirty && regForm.confirmPassword.$invalid) || notMatched">
+                               <!-- <p class="help-block"
+                                   ng-show="regForm.confirmPassword.$error.required"
+                                   translate="global.messages.validate.confirmpassword.required">
+                                    Your confirmation password is required.
+                                </p>-->
+
+                                <p class="help-block"
+                                   ng-show="regForm.confirmPassword.$error.maxlength"
+                                   translate="global.messages.validate.confirmpassword.maxlength">
+                                    Your confirmation password cannot be longer than 50 characters.
+                                </p>
+
+                                <p class="help-block" ng-show="notMatched"
+                                   style="display:block !important;font-size: 10px; color:#a94442;">Password doesn't
+                                    matched !</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="panel panel-info">
+            <div class="panel-heading">
+
+                <h3 class="panel-title">
+                    <span class="glyphicon glyphicon-th" translate="stepApp.employer.IndustryInformation">
+                        &nbsp;&nbsp;Industry Information
+                    </span>
+                </h3>
+            </div>
+
+            <div class="panel-body">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label" translate="stepApp.employer.companyName" for="field_name">Name</label>
+
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="field_name" name="name"
+                                   ng-model="employer.name"
+                                   ng-remote-validate="/api/tempEmployer/checkCompanyName/"
+                                   ng-remote-method="GET"
+                                   ng-remote-throttle="1000"
+                                   ng-minlength=3 ng-maxlength=50
+                                   required>
+                            <span class="message validating" ng-show="regForm.name.$pending">validating...</span>
+
+                            <div ng-show="regForm.name.$invalid">
+                                <p class="help-block"
+                                   ng-show="regForm.name.$error.ngRemoteValidate">
+                                    This company already exists!
+                                </p>
+
+                                <p class="help-block"
+                                   ng-show="regForm.name.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+
+                                <p class="help-block"
+                                   ng-show="regForm.name.$error.minlength" translate="entity.validation.minlength"
+                                   translate-value-min="2">
+                                    This field is required to be at least 2 characters.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label" translate="stepApp.employer.alternativeCompanyName"
+                               for="field_alternativeCompanyName">AlternativeCompanyName</label>
+
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" name="alternativeCompanyName"
+                                   id="field_alternativeCompanyName"
+                                   ng-model="employer.alternativeCompanyName"
+                                />
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label" translate="stepApp.employer.contactPersonName"
+                               for="field_contactPersonName">ContactPersonName</label>
+
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" name="contactPersonName"
+                                   id="field_contactPersonName"
+                                   ng-model="employer.contactPersonName" ng-pattern="/^[a-zA-Z ]*$/"
+                                />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label" translate="stepApp.employer.personDesignation"
+                               for="field_personDesignation">PersonDesignation</label>
+
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" name="personDesignation"
+                                   id="field_personDesignation"
+                                   ng-model="employer.personDesignation"
+                                />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label" translate="stepApp.employer.contactNumber"
+                               for="field_contactNumber">ContactNumber</label>
+
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" name="contactNumber" id="field_contactNumber"
+                                   ng-model="employer.contactNumber"
+                                   placeholder="01XXXXXXXXX" numeric-only
+                                   ng-maxlength="11" ng-minlength="10"
+                                   required/>
+                            <!--<div ng-show="regForm.contactNumber.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.callingCode.$error.pattern" translate="entity.validation.number">
+                                    Only number allow
+                                </p>
+                                <p class="help-block"
+                                   ng-show="regForm.contactNumber.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="regForm.contactNumber.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="13">
+                                    This field cannot be longer than 13 characters.
+                                </p>
+                            </div>-->
+
+                            <div ng-show="regForm.contactNumber.$invalid">
+                                <p class="help-block"
+                                   ng-show="regForm.contactNumber.$error.required"
+                                   translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+
+                                <p class="help-block"
+                                   ng-show="regForm.contactNumber.$error.minlength"
+                                   translate="entity.validation.minMobilelength"
+                                   translate-value-min="11">
+
+                                </p>
+
+                                <p class="help-block"
+                                   ng-show="regForm.contactNumber.$error.maxlength"
+                                   translate="entity.validation.maxMobilelength"
+                                   translate-value-max="11">
+
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label" translate="stepApp.employer.industryType" for="field_industryType">IndustryType</label>
+                        <div class="col-sm-6">
+                            <select class="form-control" name="industryType" for="field_industryType" ng-model="employer.industryType" id="field_industryType" required>
+                                <option value="">Select Company Type</option>
+                                <option value="Software Industry">Software Industry</option>
+                                <option value="Bank">Bank</option>
+                                <option value="Insurance">Insurance</option>
+                                <option value="Hospital">Hospital</option>
+                                <option value="Software Firm">Software Firm</option>
+                            </select>
+                            <div ng-show="regForm.industryType.$invalid">
+                                <p class="help-block"
+                                   ng-show="regForm.industryType.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label" translate="stepApp.employer.organizationType"
+                               for="field_organizationType">Organization Type</label>
+
+                        <div class="col-sm-6">
+                            <select class="form-control" required="" id="field_organizationType" name="organizationType"
+                                    ng-model="employer.organizationType"
+                                    ng-options="organizationType as organizationType.name for organizationType in organizationTypes track by organizationType.id">
+                                <option value="">Select Organization Type</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label" translate="stepApp.employer.organizationCategory"
+                               for="field_organizationCategory">Organization Category</label>
+
+                        <div class="col-sm-6">
+                            <select class="form-control" required="" id="field_organizationCategory"
+                                    name="organizationCategory" ng-model="employer.organizationCategory"
+                                    ng-options="organizationCategory as organizationCategory.name for organizationCategory in organizationCategorys track by organizationCategory.id">
+                                <option value="">Select Category</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label" translate="stepApp.employer.country" for="field_country">country</label>
+
+                        <div class="col-sm-6">
+                            <select ng-change="findInstitutes(employer.country)" class="form-control" id="field_country"
+                                    name="country" ng-model="employer.country"
+                                    ng-options="country as country.name for country in countries track by country.id">
+                                <option value="">Select Country</option>
+                            </select>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div ng-hide="employer.country.name == 'Bangladesh' || employer.country.name == null "
+                     class="col-sm-12 sp-inst">
+                    <h3>Please Select Specific Institute</h3>
+                </div>
+
+                <div class="col-lg-6" ng-if="employer.country.name == 'Bangladesh' || employer.country.name == null ">
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label" translate="stepApp.instGenInfo.division"
+                               for="field_division">Division</label>
+
+                        <div class="col-sm-6">
+                            <select class="form-control" id="field_division" ng-change="updatedDistrict(division)"
+                                    name="division" ng-model="division"
+                                    ng-options="division as division.name for division in divisions track by division.id">
+                                <option value="">Select Division</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6" ng-if="employer.country.name == 'Bangladesh' || employer.country.name == null ">
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label" translate="stepApp.instGenInfo.district"
+                               for="field_district">District</label>
+
+                        <div class="col-sm-6">
+                            <select class="form-control" id="field_district" ng-change="updatedUpazila(district)"
+                                    name="district" ng-model="district"
+                                    ng-options="district as district.name for district in districts track by district.id">
+                                <option value="">Select District</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--district as district.name for district in districts track by district.id-->
+                </div>
+                <div class="col-md-6" ng-if="employer.country.name == 'Bangladesh' || employer.country.name == null ">
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label" translate="stepApp.instGenInfo.upazila"
+                               for="field_upazila">upazila</label>
+
+                        <div class="col-sm-6">
+                            <select class="form-control" id="field_upazila" name="upazila"
+                                    ng-change="updatedInstitute(employer.upazila.id)" ng-model="employer.upazila"
+                                    ng-options="upazila as upazila.name for upazila in upazilas  | unique:'name' track by upazila.id"
+                                    required>
+                                <option value="">Select Upazilla</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group ">
+                        <label class="col-sm-6 control-label" translate="stepApp.instGenInfo.institute" for="field_employeeInfo">Institute</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control autocomplete" autocomplete="off" ng-model="employer.institute" typeahead='institute as institute.name  for institute in institutes | filter:$viewValue' id="field_employeeInfo" required>
+                        </div>
+                    </div>
+                    <!--<div class="form-group">
+                        <label class="col-sm-6 control-label" translate="stepApp.instGenInfo.institute"
+                               for="field_institute">Institute</label>
+
+                        <div class="col-sm-6">
+                            &lt;!&ndash;<select class="form-control" id="field_institute" name="institute"
+                                    ng-model="employer.institute"
+                                    ng-options="institute as institute.name for institute in institutes track by institute.id"
+                                    required>
+                                <option value="">Select Institute</option>
+                            </select>&ndash;&gt;
+                            &lt;!&ndash;testing&ndash;&gt;
+                            <div class="dropdown dropdown-scroll">
+                                <button class="btn btn-default dropdown-toggle col-sm-6" type="button" id="dropdownMenu1"
+                                        data-toggle="dropdown">{{instVal}} <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                    <li role="presentation">
+                                        <div class="input-group input-group-sm search-control">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-search"></span></span>
+                                            <input type="text" class="form-control" placeholder="Query"
+                                                   ng-model="employer.institute"/>
+                                        </div>
+                                    </li>
+                                    <li role="presentation" ng-repeat='item in institutes | filter:employer.institute'>
+                                        <p ng-click="setInst(item)"> {{item.name}} </p>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            &lt;!&ndash;end testing&ndash;&gt;
+                        </div>
+                    </div>-->
+                </div>
+               <!-- <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6">
+                    <div class="form-group ">
+                        <label class="control-label" translate="stepApp.instGenInfo.institute" for="field_employeeInfo">employeeInfo</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control autocomplete" autocomplete="off" ng-model="employer.institute" typeahead='institute as institute.name  for institute in institutes | filter:$viewValue' id="field_employeeInfo" required>
+                        </div>
+                    </div>
+                </div>-->
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label" translate="stepApp.instGenInfo.division"
+                               for="">Division</label>
+
+                        <div class="col-sm-6">
+                            <label>{{employer.institute.upazila.district.division.name}}</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label" translate="stepApp.instGenInfo.district"
+                               for="">District</label>
+
+                        <div class="col-sm-6">
+                            <label>{{employer.institute.upazila.district.name}}</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label" translate="stepApp.instGenInfo.upazila"
+                               for="">Upazila</label>
+
+                        <div class="col-sm-6">
+                            <label>{{employer.institute.upazila.name}}</label>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div ng-hide="employer.country.name == 'Bangladesh' || employer.country.name == null "
+                     class="col-sm-12 sp-inst">
+                    <hr class="hr-show">
+
+                </div>
+
+
+                <div class="col-lg-6" ng-if="employer.country.name != 'Bangladesh'">
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label" translate="stepApp.employer.city"
+                               for="field_city">City</label>
+
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" name="city" id="field_city"
+                                   ng-model="employer.city"
+                                />
+
+                            <div ng-show="regForm.city.$invalid">
+                                <p class="help-block"
+                                   ng-show="regForm.city.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label" translate="stepApp.employer.zipCode" for="field_zipCode">ZipCode</label>
+
+                        <div class="col-sm-6">
+                            <input type="number" class="form-control" name="zipCode" id="field_zipCode"
+                                   ng-model="employer.zipCode"
+                                    ng-maxlength="5" ng-minlength="4" ng-pattern="onlyNumbers"
+                                   placeholder="{{'global.form.onlyNumber' | translate}}"
+                                   ng-keyup="validateZip(employer.zipCode)" required/>
+
+                            <div ng-show="regForm.zipCode.$invalid">
+                                <p class="help-block"
+                                   ng-show="regForm.zipCode.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+
+                                <p class="help-block"
+                                   ng-show="regForm.zipCode.$error.minlength" translate="entity.validation.zipMinlength"
+                                   translate-value-min="4">
+                                    This field is required to be at least 4 digits.
+                                </p>
+
+                                <p class="help-block"
+                                   ng-show="regForm.zipCode.$error.maxlength" translate="entity.validation.zipMaxlength"
+                                   translate-value-max="5">
+                                    This field is required to be at maximum of 5 digits.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label" translate="stepApp.employer.companyWebsite"
+                               for="field_companyWebsite">CompanyWebsite</label>
+
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" name="companyWebsite" id="field_companyWebsite"
+                                   ng-model="employer.companyWebsite" placeholder="http://"
+                                />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label comp-lbl" translate="stepApp.employer.address"
+                               for="field_address">Address</label>
+
+                        <div class="col-sm-9">
+                            <textarea type="text" class="form-control" name="address" id="field_address"
+                                      ng-model="employer.address"
+                                      required ng-minlength="10" cols="20" rows="3"></textarea>
+
+                            <div ng-show="regForm.address.$invalid">
+                                <p class="help-block"
+                                   ng-show="regForm.address.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+
+                                <p class="help-block"
+                                   ng-show="regForm.address.$error.minlength" translate="entity.validation.minlength"
+                                   translate-value-min="10">
+                                    This field is required to be at least 10 characters.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label comp-lbl" translate="stepApp.employer.businessDescription"
+                               for="field_businessDescription">BusinessDescription</label>
+
+                        <div class="col-sm-9">
+                            <textarea type="text" class="form-control" name="businessDescription"
+                                      id="field_businessDescription"
+                                      ng-model="employer.businessDescription"
+                                      required ng-minlength="10" cols="20" rows="3"
+                                      placeholder="{{'global.form.BusinessDescription' | translate}}"
+
+                                      placeholder="Business Description"></textarea>
+
+                            <div ng-show="regForm.businessDescription.$invalid">
+                                <p class="help-block"
+                                   ng-show="regForm.businessDescription.$error.required"
+                                   translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+
+                                <p class="help-block"
+                                   ng-show="regForm.businessDescription.$error.minlength"
+                                   translate="entity.validation.minlength" translate-value-min="10">
+                                    This field is required to be at least 10 characters.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label comp-lbl" translate="stepApp.employer.companyInformation"
+                               for="field_companyInformation">CompanyInformation</label>
+
+                        <div class="col-sm-9">
+                            <textarea class="form-control" name="companyInformation" id="field_companyInformation"
+                                      ng-model="employer.companyInformation"
+                                      required ng-minlength="10" cols="20" rows="3"
+                                      placeholder="{{'global.form.CompanyInformation' | translate}}">
+                            </textarea>
+
+                            <div ng-show="regForm.companyInformation.$invalid">
+                                <p class="help-block"
+                                   ng-show="regForm.companyInformation.$error.required"
+                                   translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+
+                                <p class="help-block"
+                                   ng-show="regForm.companyInformation.$error.minlength"
+                                   translate="entity.validation.minlength" translate-value-min="10">
+                                    This field is required to be at least 10 characters.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-info">
+            <div class="employer-profile-heading panel-heading">
+                <span class="glyphicon glyphicon-th" translate="stepApp.employer.companyLogo">Company Logo</span></div>
+            <div class="panel-body">
+                <div class="form-group" ngf-drop ngf-change="setCompanyLogo($file, employer)" ngf-pattern="'image/*'">
+                    <div class="col-sm-12 text-center">
+                        <div>
+                            <img
+                                data-ng-src="{{'data:' + employer.companyLogoContentType + ';base64,' + employer.companyLogo}}"
+                                style="max-height: 100px;" ng-if="employer.companyLogo"/>
+                            <div class="help-block clearfix">
+                                <span class="pull-left">{{employer.companyLogoContentType}} {{byteSize(employer.companyLogo)}}</span>
+                                <button ng-click="employer.companyLogo=null;employer.companyLogoContentType=null;"
+                                        ng-if="employer.companyLogo"
+                                        class="btn btn-default btn-xs pull-right">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                            </div>
+                            <center><br>
+                                <button type="file" ngf-select class="btn btn-default"
+                                        ngf-change="setCompanyLogo($file, employer)" accept="image/*"
+                                        translate="entity.action.addlogo">
+                                    Add image
+                                </button>
+                        </div>
+                        <input type="hidden" class="form-control" name="companyLogo" id="field_companyLogo"
+                               ng-model="employer.companyLogo"/>
+                        <input type="hidden" class="form-control" name="companyLogoContentType"
+                               id="field_companyLogoContentType"
+                               ng-model="employer.companyLogoContentType"/>
+                    </div>
+                </div>
+            </div>
+            <!--panel-body for logo-->
+        </div>
+        <div class="form-group">
+            <div class=" col-sm-12 dte-center-all">
+                <button type="submit"
+                        onclick="window.history.back()"
+                        class="btn btn-info">
+                    <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.cancel"> Back</span>
+                </button>
+                <button ng-disabled="regForm.$invalid || notMatched" type="submit" class="btn btn-primary"
+                        translate="entity.action.employerRegister">Register
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

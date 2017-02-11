@@ -1,0 +1,386 @@
+<!--<div class="col-sm-12 text-right">
+    <ul>
+        <li ui-sref-active="active" ng-switch-when="false"><a ui-sref="register"><span
+            class="glyphicon glyphicon-plus-sign"></span>
+            &#xA0;<span translate="global.menu.account.jobSeekerRegister">Job Seeker Register</span></a>
+        </li>
+        <li ng-switch-when="false"><a ui-sref="employer.employer-registration"><span
+            class="glyphicon glyphicon-plus-sign"></span>
+            &#xA0;<span translate="global.menu.account.employerRegister">Employer Register</span></a>
+        </li>
+    </ul>
+</div>-->
+
+<style>
+    label {
+        color: #756f6f !important;
+    }
+    .fa-dot-circle-o{
+        padding-right: 15px;
+        color:#444
+    }
+    .glyphicon-fire{
+        padding-right: 2px;
+        font-size: 20px;
+    }
+
+    .fa-angle-double-right{
+        padding-right: 15px;
+        color:#444;
+        transition: all .5s;
+    }
+    .job-categiry ul li a:hover .fa-angle-double-right{
+        padding-right: 20px;
+        color:#fff
+    }
+    .nav-tabs > li > a {
+        background: rgb(222, 222, 222) !important;
+    }
+    .hot-job h2 {
+        color: #dd2c00;
+        font-size: 18px;
+        text-transform: uppercase;
+        font-weight: 700;
+        padding-top: 12px;
+    }
+    .hot-job > img {
+        height: 50px;
+        float: left;
+    }
+</style>
+
+
+
+<div class="col-sm-12 panel">
+    <div class="col-md-12 padding-tb panel">
+        <div class="col-md-12 text-right job-seeker-register">
+            <ul>
+                <li>
+                    <input style="border-radius: 20px;width: 200px;height: 29px;background: #E5E5E5" ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="register">
+                        <span class="glyphicon glyphicon-plus-sign"></span>
+                        <span translate="global.menu.account.jobSeekerRegister">Job Seeker Register</span>
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="employer.employer-registration">
+                        <span class="glyphicon glyphicon-plus-sign"></span>
+                        <span translate="global.menu.account.employerRegister">Job Seeker Register</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+
+
+
+
+    <div class="well no-br row center-block hide" id="home-icon">
+        <div class="col-md-3" has-authority="ROLE_USER"> <a ui-sref="resume"><img class="whiteframe-glow-z2" src="assets/images/icon/main_icons/post-cv-icon.png"  id="post_cv_icon" alt="post csv"></a></div>
+        <div class="col-md-3" has-authority="ROLE_EMPLOYER"><a ui-sref="job.new"><img class="whiteframe-glow-z2" src="assets/images/icon/main_icons/post-a-job-icon-select.png" id="post_job_icon" alt="post job"></a></div>
+        <div class="col-md-3" has-authority="ROLE_USER"><a ui-sref="home"><img class="whiteframe-glow-z2" src="assets/images/icon/main_icons/career-help-icon.png" id="career_help_icon" alt=""></a></div>
+        <div class="col-md-3" has-any-authority="ROLE_USER,ROLE_EMPLOYER"><a ui-sref="home"><img class="whiteframe-glow-z2"  src="assets/images/icon/main_icons/browse-job-select.png" id="browse_job_icon" alt=""> </a></div>
+    </div>
+
+    <!--<tr dir-paginate="assetTypeSetup in assetTypeSetups | filter:q | itemsPerPage: pageSize track by assetTypeSetup.id"
+        current-page="currentPage">-->
+
+
+    <tabset justified="true" class="tab-pane">
+        <tab heading="{{'main.tabs.sector'|translate}}">
+            <div class="col-sm-12 job-categiry">
+                <ul style="margin-top: 40px">
+                    <li class=" col-md-4" role="presentation" dir-paginate="cat in cats | filter:q | itemsPerPage: pageSize"
+                        current-page="currentPage"  style="text-align: left"><!--ng-repeat="cat in cats"-->
+                        <!--<a ui-sref="searchJobByCat({cat:cat.cat})"><i class="fa fa-angle-double-right"></i>{{cat.cat}}</a>-->
+                        <a ui-sref="searchWithCategory({id: cat.ID, q:cat.CAT})"><i class="fa fa-angle-double-right"></i>{{cat.CAT}}-({{cat.TOTALJOB}})</a>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="col-sm-12 all-job-list no_padding">
+                <div class="col-sm-12 ">
+                    <div class="hot-job">
+                        <img src=" ./assets/images/logo1.png" alt="">
+                        <h2><!--<span class="glyphicon glyphicon-fire">--></span>Available Jobs</h2>
+                        <hr/>
+                    </div>
+                </div>
+                <ul class="jobs row list-inline media-list">
+                    <li class="col-md-3 "  dir-paginate="job in jobs | filter:q | itemsPerPage: pageSize" current-page="currentPage" ><!--ng-repeat="job in jobs track by job.id"-->
+                        <div class="media job-item-list">
+                            <div class="media-left">
+                               <!-- {{job}}-->
+
+                                <a ui-sref="job.detail({id:job.id})">
+                                    <img width="128" height="128"
+                                         data-ng-src="{{ 'data:image/*;base64,' + job.employer.companyLogo }}"
+                                         ng-if="job.employer.companyLogo"/>
+                                </a>
+                            </div>
+                            <div class="media-body jobs-list">
+                                <h3 style="border-bottom: 2px solid #bdbdbd; color: #756f6f" class="media-heading">{{job.cat.cat}}</h3>
+
+                                <!--<p><label translate="stepApp.job.employer">employer</label>: {{job.employer.name}}</p>-->
+
+                                <!--<p><label translate="stepApp.job.location">location</label>: {{job.location}}</p>-->
+
+                                <!--<p><label translate="stepApp.job.type">type</label>: {{job.type}}</p>-->
+
+                                <!--<p><label translate="stepApp.job.applicationDeadline">applicationDeadline</label>:{{-->
+                                <!--job.applicationDeadline |-->
+                                <!--date}}</p>-->
+                                <ul>
+                                    <p><label translate="stepApp.job.employer">employer</label>&nbsp;:&nbsp; {{job.employer.name}}</p>
+                                    <p><label translate="stepApp.job.location">location</label>&nbsp;:&nbsp; {{job.location}}</p>
+                                    <p><label translate="stepApp.job.type">type</label>&nbsp;: &nbsp;{{job.jobType.name}}</p>
+                                    <p ng-if="job.showAlert"><label translate="stepApp.job.leftdate">date left :</label>&nbsp;:&nbsp;<span class="custom-badge"> {{job.leftDays}}</span></p>
+                                    <p><label translate="stepApp.job.applicationDeadline">applicationDeadline</label>&nbsp;:&nbsp;{{
+                                        job.applicationDeadline |
+                                        date}}</p>
+
+                                </ul>
+                                <p class="btn-group-xs btn-group job-btn">
+                                    <a ui-sref="job.detail({id:job.id})" class="btn btn-xs btn-default" role="button"
+                                       translate="main.learnmoreLabel">View Details</a>
+                                    <a ui-sref="mainApply({id:job.id})" class="btn btn-xs btn-default" role="button"
+                                       translate="main.applyLabel">apply</a>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+
+
+                </ul>
+            </div>
+        </tab>
+
+        <!--<tab select="location()" heading="{{'main.tabs.location'|translate}}">
+            <div class="col-sm-12 job-categiry">
+                <ul style="margin-top: 40px">
+                    <li class="col-md-4" role="presentation" dir-paginate="job in jobs | filter:q | unique:'job.location' | itemsPerPage: pageSize" current-page="currentPage"  style="text-align: left">&lt;!&ndash;ng-repeat="job in jobs | unique:'job.location'  | filterDeadline"&ndash;&gt;
+                        <a ui-sref="searchJobByLocation({location:job.location})"> <i class="fa fa-angle-double-right"></i> {{job.location}}</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-12 all-job-list">
+                <div class="col-sm-12 ">
+                    <div class="hot-job">
+                        <h2><span class="glyphicon glyphicon-fire"></span>Available Jobs</h2>
+                        <hr/>
+                    </div>
+                </div>
+                <ul class="jobs row list-inline media-list">
+                    <li class="col-md-3"  dir-paginate="job in jobs | filter:q | itemsPerPage: pageSize" current-page="currentPage" >&lt;!&ndash;ng-repeat="job in jobs | filterDeadline"&ndash;&gt;
+                        <div class="media ">
+                            <div class="media-left">
+                            &lt;!&ndash; ---{{job.applicationDeadline}}&ndash;&gt;
+                             &lt;!&ndash;   <p>date left : {{dateCompare(job)}}</p>&ndash;&gt;
+                                <a ui-sref="job.detail({id:job.id})">
+                                    <img width="128" height="128"
+                                         data-ng-src="{{ 'data:image/*;base64,' + job.employer.companyLogo }}"
+                                         ng-if="job.employer.companyLogo"/>
+                                </a>
+                            </div>
+                            <div class="media-body jobs-list">
+                                <h3 style="border-bottom: 2px solid #bdbdbd; color: #756f6f"  class="media-heading">{{job.title}}</h3>
+
+                                <p><label translate="stepApp.job.employer">employer</label>: {{job.employer.name}}</p>
+
+                                <p><label translate="stepApp.job.location">location</label>: {{job.location}}</p>
+
+                                <p><label translate="stepApp.job.type">type</label>: {{job.type}}</p>
+                                <p><label translate="stepApp.job.leftdate">date left :</label>: {{dateCompare(job.deadline)}}</p>
+
+                                <p><label translate="stepApp.job.applicationDeadline">applicationDeadline</label>:{{
+                                    job.applicationDeadline |
+                                    date}}</p>
+
+                                <p class="btn-group-xs btn-group">
+                                    <a ui-sref="job.detail({id:job.id})" class="btn btn-xs btn-default" role="button"
+                                       translate="main.learnmoreLabel">learn more</a>
+                                    <a ui-sref="mainApply({id:job.id})" class="btn btn-xs btn-default" role="button"
+                                       translate="main.applyLabel">apply</a>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </tab>
+
+        <tab   heading="{{'main.tabs.company'|translate}}">
+            <div class="col-sm-12 job-categiry">
+                <ul style="margin-top: 40px">
+                    <li class="col-md-4" role="presentation" dir-paginate="job in jobs | filter:q | unique:'job.employer.name' | itemsPerPage: pageSize" current-page="currentPage"  style="text-align: left">&lt;!&ndash;ng-repeat="job in jobs | unique:'job.employer.name'"&ndash;&gt;
+                        <a ui-sref="searchJobByOrg({employer:job.employer.name})"><i class="fa fa-angle-double-right"></i>{{job.employer.name}}</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-12 all-job-list">
+                <div class="col-sm-12 ">
+                    <div class="hot-job">
+                        <h2><span class="glyphicon glyphicon-fire"></span> Attractive Jobs</h2>
+                        <hr/>
+                    </div>
+                </div>
+                <ul class="jobs row list-inline media-list">
+                    <li class="col-md-3" dir-paginate="job in jobs | filter:q | itemsPerPage: pageSize" current-page="currentPage" >&lt;!&ndash;ng-repeat="job in jobs | filterDeadline"&ndash;&gt;
+                        <div class="media ">
+                            <div class="media-left">
+                                <a ui-sref="job.detail({id:job.id})">
+                                    <img width="128" height="128"
+                                         data-ng-src="{{ 'data:image/*;base64,' + job.employer.companyLogo }}"
+                                         ng-if="job.employer.companyLogo"/>
+                                </a>
+                            </div>
+                            <div class="media-body jobs-list">
+                                <h3 style="border-bottom: 2px solid #bdbdbd; color: #756f6f"  class="media-heading">{{job.title}}</h3>
+
+                                <p><label translate="stepApp.job.employer">employer</label>: {{job.employer.name}}</p>
+
+                                <p><label translate="stepApp.job.location">location</label>: {{job.location}}</p>
+
+                                <p><label translate="stepApp.job.type">type</label>: {{job.type}}</p>
+                                <p><label translate="stepApp.job.leftdate">date left :</label>: {{dateCompare(job.deadline)}}</p>
+
+                                <p><label translate="stepApp.job.applicationDeadline">applicationDeadline</label>:{{
+                                    job.applicationDeadline |
+                                    date}}</p>
+
+                                <p class="btn-group-xs btn-group">
+                                    <a ui-sref="job.detail({id:job.id})" class="btn btn-xs btn-default" role="button"
+                                       translate="main.learnmoreLabel">learn more</a>
+                                    <a ui-sref="mainApply({id:job.id})" class="btn btn-xs btn-default" role="button"
+                                       translate="main.applyLabel">apply</a>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </tab>-->
+        <!--==================================================-->
+
+        <!--<tab select="entry()" heading="{{'main.tabs.entry'|translate}}">
+            <div class="col-sm-12 job-categiry">
+                <ul>
+                    <li class="col-md-3" role="presentation" ng-repeat="job in jobs | unique:'type'"><a
+                        ui-sref="search({q:job.type})">{{job.type}}</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-12 all-job-list">
+                <ul class="jobs row list-inline media-list">
+                    <li class="col-sm-6" ng-repeat="job in jobs track by job.id">
+                        <div class="media whiteframe-z1">
+                            <div class="media-left">
+                                <a ui-sref="job.detail({id:job.id})">
+                                    <img width="128" height="128"
+                                         data-ng-src="{{ 'data:image/*;base64,' + job.employer.companyLogo }}"
+                                         ng-if="job.employer.companyLogo"/>
+                                </a>
+                            </div>
+                            <div class="media-body jobs-list">
+                                <h3 class="media-heading">{{job.title}}</h3>
+
+                                <p><label translate="stepApp.job.employer">employer</label>: {{job.employer.name}}</p>
+
+                                <p><label translate="stepApp.job.location">location</label>: {{job.location}}</p>
+
+                                <p><label translate="stepApp.job.type">type</label>: {{job.type}}</p>
+
+                                <p><label translate="stepApp.job.applicationDeadline">applicationDeadline</label>:{{
+                                    job.applicationDeadline |
+                                    date}}</p>
+
+                                <p class="btn-group-xs btn-group">
+                                    <a ui-sref="job.detail({id:job.id})" class="btn btn-xs btn-info" role="button"
+                                       translate="main.learnmoreLabel">learn more</a>
+                                    <a ui-sref="mainApply({id:job.id})" class="btn btn-xs btn-primary" role="button"
+                                       translate="main.applyLabel">apply</a>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </tab>
+
+        <tab select="part_time()" heading="{{'main.tabs.part_time'|translate}}">
+            <ul class="row list-unstyled">
+                <li class="col-md-3" role="presentation" ng-repeat="job in jobs | unique:'type'"><a
+                    ui-sref="search({q:job.type})">{{job.type}}</a>
+                </li>
+            </ul>
+            <ul class="jobs row list-inline media-list">
+                <li class="col-sm-6" ng-repeat="job in jobs track by job.id">
+                    <div class="media whiteframe-z1">
+                        <div class="media-left">
+                            <a ui-sref="job.detail({id:job.id})">
+                                <img width="128" height="128"
+                                     data-ng-src="{{ 'data:image/*;base64,' + job.employer.companyLogo }}"
+                                     ng-if="job.employer.companyLogo"/>
+                            </a>
+                        </div>
+                        <div class="media-body jobs-list">
+                            <h3 class="media-heading">{{job.title}}</h3>
+
+                            <p><label translate="stepApp.job.employer">employer</label>: {{job.employer.name}}</p>
+
+                            <p><label translate="stepApp.job.location">location</label>: {{job.location}}</p>
+
+                            <p><label translate="stepApp.job.type">type</label>: {{job.type}}</p>
+
+                            <p><label translate="stepApp.job.applicationDeadline">applicationDeadline</label>:{{
+                                job.applicationDeadline |
+                                date}}</p>
+                            &lt;!&ndash;<ul>&ndash;&gt;
+                            &lt;!&ndash;<li><label translate="stepApp.job.employer">employer</label>: {{job.employer.name}}</li>&ndash;&gt;
+                            &lt;!&ndash;<li><label translate="stepApp.job.location">location</label>: {{job.location}}</li>&ndash;&gt;
+                            &lt;!&ndash;<li><label translate="stepApp.job.type">type</label>: {{job.type}}</li>&ndash;&gt;
+                            &lt;!&ndash;<li><label translate="stepApp.job.applicationDeadline">applicationDeadline</label>:{{&ndash;&gt;
+                            &lt;!&ndash;job.applicationDeadline |&ndash;&gt;
+                            &lt;!&ndash;date}}</li>&ndash;&gt;
+                            &lt;!&ndash;</ul>&ndash;&gt;
+                            <p class="btn-group-xs btn-group">
+                                <a ui-sref="job.detail({id:job.id})" class="btn btn-xs btn-info" role="button"
+                                   translate="main.learnmoreLabel">learn more</a>
+                                <a ui-sref="mainApply({id:job.id})" class="btn btn-xs btn-primary" role="button"
+                                   translate="main.applyLabel">apply</a>
+                            </p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+        </tab>-->
+    </tabset>
+    <!--<nav>
+        <ul class="pagination">
+            <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+            <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+            <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+            <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+            <li class="active"><a>{{page + 1}}</a></li>
+            <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+            <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+            <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+            <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+        </ul>
+    </nav>-->
+
+</div>
+<!--<div class="col-md-12">
+    <div class="psc" style="text-align: center; margin-top: 15px">
+        <a class=" wow animate zoomIn" data-wow-iteration="10000000"  data-wow-duration="2s" data-wow-delay=".1s" style="background: #8c8c8c none repeat scroll 0 0;
+    border-radius: 27px; box-shadow: 0 1px 20px 2px #F46D0E; color: #000; margin: 20px; padding: 13px 20px; text-decoration: none;  font-weight: 900; text-indent: 100px;
+ " target="_blank" href=" http://www.bpsc.gov.bd/platform/examdoc/42/nce/advertise.bpsc2012.pml">PSC Jobs Link</a>
+    </div>
+</div>-->
+</div>

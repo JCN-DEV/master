@@ -1,0 +1,84 @@
+<div class="col-sm-12 no_padding lbl-content common-list">
+    <h2 translate="stepApp.dlContUpld.home.pending">DlContUplds</h2>
+    <div class="col-md-12 padding-tb">
+        <div class="col-xs-4">
+
+                <input ng-model="q" id="search" type="text" class="form-control"  placeholder="{{'global.home.searchhere' | translate}}">
+
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control" ng-model="pageSize" placeholder="{{'global.home.itemperpage' | translate}}">
+        </div>
+    </div>
+    <br>
+    <div class="col-sm-12 table-responsive">
+    </div>
+    <div has-any-authority="ROLE_INSTITUTE" class="col-sm-4 book-info wow animated zoomIn" data-wow-duration="1s" data-wow-delay="0s"
+         dir-paginate="dlContUpld in dlContUpldsbyCurrentInstitiute | filter:q | itemsPerPage: pageSize" current-page="currentPage"
+         style="padding-left: 0px">
+        <div class="single-book-info">
+            <div class="left-book-img">
+                <a ui-sref="libraryInfo.dlContUpld.detail({id:dlContUpld.id})">
+                    <img width="200"
+                         data-ng-src="{{'data:' + dlContUpld.contentImageContentType + ';base64,' + dlContUpld.contentImage}}"/>
+                </a>
+            </div>
+            <div class="book-details-info">
+                <p style="color:red">Book Information</p>
+                <p>Tittle &nbsp;&nbsp;: {{dlContUpld.cName}}</p>
+                <p>Author&nbsp;&nbsp;: {{dlContUpld.authName | limitTo: 30}}</p>
+                <p>Edition &nbsp;: {{dlContUpld.edition}}</p>
+                <p>ISBN &nbsp;&nbsp;&nbsp;: {{dlContUpld.isbnNo}}</p>
+                <p>Uploaded By:</p>
+                <p>Name &nbsp;: {{dlContUpld.user.firstName}}</p>
+                <p>Email &nbsp;: {{dlContUpld.user.email}}</p>
+                <div class="book-detail-button">
+                    <a title="View" href="" ui-sref="libraryInfo.dlContUpld.detail({id:dlContUpld.id})"><i
+                        class="fa fa-eye"
+                        aria-hidden="true"></i></a>
+                    <a title="Approve" href="" ui-sref="libraryInfo.dlContUpldByUser.Approve({id:dlContUpld.id})"><i
+                        class="fa fa-check" aria-hidden="true"></i></a>
+                    <a title="Delete" href="" ui-sref="libraryInfo.dlContUpld.delete({id:dlContUpld.id})"><i
+                        class="fa fa-times" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div has-any-authority="ROLE_ADMIN" class="col-sm-4 book-info wow animated zoomIn" data-wow-duration="1s" data-wow-delay="0s"
+         dir-paginate="dlContUpld in dlContUpldsbyUser | filter:q | itemsPerPage: pageSize" current-page="currentPage"
+         style="padding-left: 0px">
+        <div class="single-book-info">
+            <div class="left-book-img">
+                <a ui-sref="libraryInfo.dlContUpld.detail({id:dlContUpld.id})">
+                    <img width="200"
+                         data-ng-src="{{'data:' + dlContUpld.contentImageContentType + ';base64,' + dlContUpld.contentImage}}"/>
+                </a>
+            </div>
+            <div class="book-details-info">
+                <p style="color:red">Book Information</p>
+                <p>Tittle &nbsp;&nbsp;: {{dlContUpld.cName}}</p>
+                <p>Author&nbsp;&nbsp;: {{dlContUpld.authName | limitTo: 30}}</p>
+                <p>Edition &nbsp;: {{dlContUpld.edition}}</p>
+                <p>ISBN &nbsp;&nbsp;&nbsp;: {{dlContUpld.isbnNo}}</p>
+                <p>Uploaded By:</p>
+                <p>Name &nbsp;: {{dlContUpld.user.firstName}}</p>
+                <p>Email &nbsp;: {{dlContUpld.user.email}}</p>
+                <div class="book-detail-button">
+                    <a title="View" href="" ui-sref="libraryInfo.dlContUpld.detail({id:dlContUpld.id})"><i
+                        class="fa fa-eye"
+                        aria-hidden="true"></i></a>
+                    <a title="Approve" href="" ui-sref="libraryInfo.dlContUpldByUser.Approve({id:dlContUpld.id})"><i
+                        class="fa fa-check" aria-hidden="true"></i></a>
+                    <a title="Delete" href="" ui-sref="libraryInfo.dlContUpld.delete({id:dlContUpld.id})"><i
+                        class="fa fa-times" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav>
+        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                 template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+    </nav>
+</div>

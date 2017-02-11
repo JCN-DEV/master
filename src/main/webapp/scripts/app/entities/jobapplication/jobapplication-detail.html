@@ -1,0 +1,87 @@
+
+<div>
+    <h2><span translate="stepApp.jobapplication.detail.title">Jobapplication</span> {{jobapplication.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="stepApp.jobapplication.note">Note</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{jobapplication.note}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.jobapplication.cv">Cv</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{jobapplication.cv}}</span>
+                    <div>{{jobapplication.cvContentType}}  {{byteSize(jobapplication.cv)}}</div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.jobapplication.expectedSalary">ExpectedSalary</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{jobapplication.expectedSalary}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.jobapplication.applicantStatus">ApplicantStatus</span>
+                </td>
+                <td>
+                    <span class="form-control-static" translate="{{'stepApp.JobApplicationStatus.' + jobapplication.applicantStatus}}">{{jobapplication.applicantStatus}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.jobapplication.cvType">CvType</span>
+                </td>
+                <td>
+                    <span class="form-control-static" translate="{{'stepApp.CvType.' + jobapplication.cvType}}">{{jobapplication.cvType}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.jobapplication.appliedDate">AppliedDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{jobapplication.appliedDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.jobapplication.user">user</span>
+                </td>
+                <td>
+                    {{jobapplication.user.login}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.jobapplication.job">job</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="job.detail({id:jobapplication.job.id})">{{jobapplication.job.title}}</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

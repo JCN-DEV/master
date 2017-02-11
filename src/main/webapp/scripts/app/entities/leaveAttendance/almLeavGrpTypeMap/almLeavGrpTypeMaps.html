@@ -1,0 +1,109 @@
+<div class="col-sm-12 common-list">
+<h2 translate="stepApp.almLeavGrpTypeMap.home.title">AlmLeavGrpTypeMaps</h2>
+    <!--<jh-alert></jh-alert>-->
+    <div class="col-sm-12 padding-tb">
+
+            <div class="col-md-8 no_padding">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" >
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </form>
+            </div>
+        <div class="col-md-4 no_padding text-right">
+            <button class="btn btn-primary" ui-sref="almLeavGrpTypeMap.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.almLeavGrpTypeMap.home.createLabel">Create a new AlmLeavGrpTypeMap</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="modal animated bounceInUp" id="deleteAlmLeavGrpTypeMapConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(almLeavGrpTypeMap.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p translate="stepApp.almLeavGrpTypeMap.delete.question" translate-values="{id: '{{almLeavGrpTypeMap.id}}'}">Are you sure you want to delete this AlmLeavGrpTypeMap?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="global.field.serial">Serial</th>
+                <th translate="global.field.id">ID</th>
+                <th translate="stepApp.almLeavGrpTypeMap.almLeaveGroup">almLeaveGroup</th>
+                <th translate="stepApp.almLeavGrpTypeMap.almLeaveType">almLeaveType</th>
+                <th translate="stepApp.almLeavGrpTypeMap.reason">Reason</th>
+                <th translate="stepApp.almLeavGrpTypeMap.activeStatus">ActiveStatus</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--<tr ng-repeat="almLeavGrpTypeMap in almLeavGrpTypeMaps track by almLeavGrpTypeMap.id">-->
+            <tr dir-paginate="almLeavGrpTypeMap in almLeavGrpTypeMaps | filter:q | itemsPerPage: pageSize track by almLeavGrpTypeMap.id"
+                current-page="currentPage">
+                <td>{{pageSize*(currentPage-1)+$index+1}}</td>
+                <td><a ui-sref="almLeavGrpTypeMap.detail({id:almLeavGrpTypeMap.id})">{{almLeavGrpTypeMap.id}}</a></td>
+                <td>
+                    <a ui-sref="AlmLeaveGroup.detail({id:almLeavGrpTypeMap.almLeaveGroup.id})">{{almLeavGrpTypeMap.almLeaveGroup.leaveGroupName}}</a>
+                </td>
+                <td>
+                    <a ui-sref="AlmLeaveType.detail({id:almLeavGrpTypeMap.almLeaveType.id})">{{almLeavGrpTypeMap.almLeaveType.leaveTypeName}}</a>
+                </td>
+                <td>{{almLeavGrpTypeMap.reason}}</td>
+                <td>{{almLeavGrpTypeMap.activeStatus ? 'Active' : 'Inactive'}}</td>
+
+                <td class="text-right">
+                    <button type="submit"
+                            ui-sref="almLeavGrpTypeMap.detail({id:almLeavGrpTypeMap.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="almLeavGrpTypeMap.edit({id:almLeavGrpTypeMap.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit"
+                            ng-click="delete(almLeavGrpTypeMap.id)"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pagination">
+                <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                <li class="active"><a>{{page + 1}}</a></li>
+                <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>

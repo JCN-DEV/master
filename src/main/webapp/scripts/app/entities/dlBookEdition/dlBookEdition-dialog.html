@@ -1,0 +1,80 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myDlBookEditionLabel" translate="stepApp.dlBookEdition.home.createOrEditLabel">Create or edit a DlBookEdition</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="dlBookEdition.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.dlBookEdition.edition" for="field_edition">Edition</label>
+            <input type="text" class="form-control" name="edition" id="field_edition"
+                    ng-model="dlBookEdition.edition"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.dlBookEdition.totalCopies" for="field_totalCopies">TotalCopies</label>
+            <input type="text" class="form-control" name="totalCopies" id="field_totalCopies"
+                    ng-model="dlBookEdition.totalCopies"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.dlBookEdition.compensation" for="field_compensation">Compensation</label>
+            <input type="text" class="form-control" name="compensation" id="field_compensation"
+                    ng-model="dlBookEdition.compensation"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.dlBookEdition.createDate" for="field_createDate">CreateDate</label>
+            <input type="date" class="form-control" name="createDate" id="field_createDate"
+                    ng-model="dlBookEdition.createDate"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.dlBookEdition.updateDate" for="field_updateDate">UpdateDate</label>
+            <input type="date" class="form-control" name="updateDate" id="field_updateDate"
+                    ng-model="dlBookEdition.updateDate"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.dlBookEdition.createBy" for="field_createBy">CreateBy</label>
+            <input type="number" class="form-control" name="createBy" id="field_createBy"
+                    ng-model="dlBookEdition.createBy"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.dlBookEdition.updateBy" for="field_updateBy">UpdateBy</label>
+            <input type="number" class="form-control" name="updateBy" id="field_updateBy"
+                    ng-model="dlBookEdition.updateBy"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.dlBookEdition.status" for="field_status">Status</label>
+            <input type="number" class="form-control" name="status" id="field_status"
+                    ng-model="dlBookEdition.status"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.dlBookEdition.dlBookInfo" for="field_dlBookInfo">dlBookInfo</label>
+            <select class="form-control" id="field_dlBookInfo" name="dlBookInfo" ng-model="dlBookEdition.dlBookInfo" ng-options="dlBookInfo as dlBookInfo.name for dlBookInfo in dlbookinfos track by dlBookInfo.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

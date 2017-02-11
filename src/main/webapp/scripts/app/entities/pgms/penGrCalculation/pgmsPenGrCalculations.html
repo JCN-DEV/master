@@ -1,0 +1,112 @@
+<div class="service-form-area">
+    <div class="panel panel-default">
+        <div class="panel-heading" translate="stepApp.pgmsPenGrCalculation.home.title">PgmsPenGrCalculations</div>
+        <!--<jh-alert></jh-alert>-->
+
+        <div class="panel-body bg-panel">
+            <div class="row">
+                <div class="col-md-8">
+                    <form name="searchForm" class="form-inline">
+                        <div class="form-group">
+                            <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="">
+                        </div>
+                        <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </form>
+                </div>
+                <div class="col-md-4 text-right">
+                    <button class="btn btn-primary" ui-sref="pgmsPenGrCalculation.new">
+                        <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.pgmsPenGrCalculation.home.createLabel">Create a new PgmsPenGrCalculation</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="deletePgmsPenGrCalculationConfirmation">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form name="deleteForm" ng-submit="confirmDelete(pgmsPenGrCalculation.id)">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                    ng-click="clear()">&times;</button>
+                            <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p translate="stepApp.pgmsPenGrCalculation.delete.question" translate-values="{id: '{{pgmsPenGrCalculation.id}}'}">Are you sure you want to delete this PgmsPenGrCalculation?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                            </button>
+                            <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                                <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th translate="global.field.id">ID</th>
+                        <th translate="stepApp.pgmsPenGrCalculation.withdrawnType">WithdrawnType</th>
+                        <th translate="stepApp.pgmsPenGrCalculation.categoryType">CategoryType</th>
+                        <th translate="stepApp.pgmsPenGrCalculation.gradeInfo">gradeInfo</th>
+                        <th translate="stepApp.pgmsPenGrCalculation.salaryInfo">salaryInfo</th>
+                        <th translate="stepApp.pgmsPenGrCalculation.workingYear">workingYear</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="pgmsPenGrCalculation in pgmsPenGrCalculations track by pgmsPenGrCalculation.id">
+                        <td><a ui-sref="pgmsPenGrCalculation.detail({id:pgmsPenGrCalculation.id})">{{pgmsPenGrCalculation.id}}</a></td>
+                        <td translate="{{'stepApp.WithdrawnType.' + pgmsPenGrCalculation.withdrawnType}}">{{pgmsPenGrCalculation.withdrawnType}}</td>
+                        <td>{{pgmsPenGrCalculation.categoryType}}</td>
+                        <td>
+                            <a ui-sref="HrGradeSetup.detail({id:pgmsPenGrCalculation.gradeInfo.id})">{{pgmsPenGrCalculation.gradeInfo.gradeDetail}}</a>
+                        </td>
+                        <td>
+                            <a ui-sref="HrPayScaleSetup.detail({id:pgmsPenGrCalculation.salaryInfo.id})">{{pgmsPenGrCalculation.salaryInfo.basicPayScale}}</a>
+                        </td>
+                        <td>
+                            <a ui-sref="PgmsPenGrRate.detail({id:pgmsPenGrCalculation.workingYear.id})">{{pgmsPenGrCalculation.workingYear.workingYear}}</a>
+                        </td>
+                        <td class="text-right">
+                            <button type="submit"
+                                    ui-sref="pgmsPenGrCalculation.detail({id:pgmsPenGrCalculation.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="pgmsPenGrCalculation.edit({id:pgmsPenGrCalculation.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                            </button>
+                            <button type="submit"
+                                    ng-click="delete(pgmsPenGrCalculation.id)"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <nav>
+                <ul class="pagination">
+                    <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                    <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                    <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                    <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                    <li class="active"><a>{{page + 1}}</a></li>
+                    <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                    <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                    <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                    <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+                </ul>
+            </nav>
+        </div>
+     </div>
+</div>

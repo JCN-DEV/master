@@ -1,0 +1,142 @@
+<div class="col-sm-12 common-list">
+    <h2 ng-if="showHeading" translate="stepApp.instEmployee.home.employeeList1">InstEmployees</h2>
+    <h2 ng-if="showHeadingmpo" translate="stepApp.instEmployee.home.employeeList2">InstEmployees</h2>
+    <div class="col-md-12 padding-bt">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+    </div>
+    <br>
+    <!--<jh-alert></jh-alert>-->
+    <div class="row">
+        <div class="col-md-8">
+            <!--<form name="searchForm" class="form-inline">-->
+            <!--<div class="form-group">-->
+            <!--<input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">-->
+            <!--</div>-->
+            <!--<button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a InstEmployee</span>-->
+            <!--</button>-->
+            <!--</form>-->
+        </div>
+    </div>
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="stepApp.instEmployee.home.serial">Serial</th>
+                <th translate="stepApp.instEmployee.home.id">ID</th>
+                <th translate="stepApp.instEmployee.name">Name</th>
+                <!--<th translate="stepApp.instEmployee.courseTech">Tech</th>-->
+                <th translate="stepApp.instEmployee.designation">Designation</th>
+                <!--<th translate="stepApp.instEmployee.email">Email</th>-->
+                <!--<th translate="stepApp.instEmployee.contactNo">ContactNo</th>-->
+                <!--<th translate="stepApp.instEmployee.fatherName">FatherName</th>-->
+                <!--<th translate="stepApp.instEmployee.motherName">MotherName</th>-->
+                <!--<th translate="stepApp.instEmployee.dob">Dob</th>-->
+                <!--<th translate="stepApp.instEmployee.category">Category</th>-->
+                <!--<th translate="stepApp.instEmployee.gender">Gender</th>-->
+                <!--<th translate="stepApp.instEmployee.maritalStatus">MaritalStatus</th>-->
+                <!--<th translate="stepApp.instEmployee.bloodGroup">BloodGroup</th>-->
+                <!--<th translate="stepApp.instEmployee.tin">Tin</th>-->
+                <!--<th translate="stepApp.instEmployee.image">Image</th>-->
+                <!--<th translate="stepApp.instEmployee.nationality">Nationality</th>-->
+                <!--<th translate="stepApp.instEmployee.nid">Nid</th>-->
+                <!--<th translate="stepApp.instEmployee.nidImage">NidImage</th>-->
+                <!--<th translate="stepApp.instEmployee.birthCertNo">BirthCertNo</th>-->
+                <!--<th translate="stepApp.instEmployee.birthCertImage">BirthCertImage</th>-->
+                <!--<th translate="stepApp.instEmployee.conPerName">ConPerName</th>-->
+                <!--<th translate="stepApp.instEmployee.conPerMobile">ConPerMobile</th>-->
+                <!--<th translate="stepApp.instEmployee.conPerAddress">ConPerAddress</th>-->
+                <!--<th translate="stepApp.instEmployee.institute">institute</th>-->
+                <!--<th translate="stepApp.instEmployee.designation">designation</th>-->
+                <!--<th translate="stepApp.instEmployee.religion">religion</th>-->
+                <!--<th translate="stepApp.instEmployee.quota">quota</th>-->
+                <!--<th translate="stepApp.instEmployee.courseTech">courseTech</th>-->
+                <!--<th translate="stepApp.instEmployee.gradeSetup">gradeSetup</th>-->
+                <th translate="entity.action.action" class="text-right no-print"></th>
+            </tr>
+            </thead>
+            <tbody>
+           <!-- <tr ng-repeat="instEmployee in instEmployees track by instEmployee.id">-->
+            <tr dir-paginate="instEmployee in instEmployees | filter:q | itemsPerPage: pageSize track by instEmployee.id" current-page="currentPage">
+
+            <td>{{$index+1}}</td>
+                <td>{{instEmployee.code}}</td>
+                <td>{{instEmployee.name}}</td>
+                <td>{{instEmployee.instEmplDesignation.name}}</td>
+                <!--<td>{{instEmployee.email}}</td>-->
+                <!--<td>{{instEmployee.contactNo}}</td>-->
+                <!--<td>{{instEmployee.fatherName}}</td>-->
+                <!--<td>{{instEmployee.motherName}}</td>-->
+                <!--<td>{{instEmployee.dob | date:'mediumDate'}}</td>-->
+                <!--<td translate="{{'stepApp.EmpType.' + instEmployee.category}}">{{instEmployee.category}}</td>-->
+                <!--<td>{{instEmployee.gender}}</td>-->
+                <!--<td translate="{{'stepApp.maritalStatus.' + instEmployee.maritalStatus}}">{{instEmployee.maritalStatus}}</td>-->
+                <!--<td translate="{{'stepApp.bloodGroup.' + instEmployee.bloodGroup}}">{{instEmployee.bloodGroup}}</td>-->
+                <!--<td>{{instEmployee.tin}}</td>-->
+                <!--<td>{{instEmployee.image}}</td>-->
+                <!--<td>{{instEmployee.nationality}}</td>-->
+                <!--<td>{{instEmployee.nid}}</td>-->
+                <!--<td>{{instEmployee.nidImage}}</td>-->
+                <!--<td>{{instEmployee.birthCertNo}}</td>-->
+                <!--<td>{{instEmployee.birthCertImage}}</td>-->
+                <!--<td>{{instEmployee.conPerName}}</td>-->
+                <!--<td>{{instEmployee.conPerMobile}}</td>-->
+                <!--<td>{{instEmployee.conPerAddress}}</td>-->
+                <!--<td>-->
+                <!--<a ui-sref="institute.detail({id:instEmployee.institute.id})">{{instEmployee.institute.name}}</a>-->
+                <!--</td>-->
+                <!--<td>-->
+                <!--<a ui-sref="designation.detail({id:instEmployee.designation.id})">{{instEmployee.designation.name}}</a>-->
+                <!--</td>-->
+                <!--<td>-->
+                <!--<a ui-sref="religion.detail({id:instEmployee.religion.id})">{{instEmployee.religion.name}}</a>-->
+                <!--</td>-->
+                <!--<td>-->
+                <!--<a ui-sref="quota.detail({id:instEmployee.quota.id})">{{instEmployee.quota.name}}</a>-->
+                <!--</td>-->
+                <!--<td>-->
+                <!--<a ui-sref="courseTech.detail({id:instEmployee.courseTech.id})">{{instEmployee.courseTech.id}}</a>-->
+                <!--</td>-->
+                <!--<td>-->
+                <!--<a ui-sref="gradeSetup.detail({id:instEmployee.gradeSetup.id})">{{instEmployee.gradeSetup.no}}</a>-->
+                <!--</td>-->
+                <td class="text-right no-print">
+                    <!--<button type="submit"
+                            ui-sref="instEmployee.detail({id:instEmployee.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="instEmployee.edit({id:instEmployee.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="instEmployee.delete({id:instEmployee.id})"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                    </button>-->
+                    <button type="submit" ng-show="instEmployee.mpoAppStatus < 2"
+                            ui-sref="employeeInfo.approve({code:instEmployee.code})"
+                            class="btn btn-success btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span
+                        translate="entity.action.view&eligible"> View And Eligible</span>
+                    </button>
+                    <button type="submit" ng-show="instEmployee.mpoAppStatus >=2"
+                            ui-sref="employeeInfo.approve({code:instEmployee.code})"
+                            class="btn btn-success btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+</div>

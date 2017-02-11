@@ -1,0 +1,91 @@
+<div class="col-md-12 common-list">
+    <h2 translate="stepApp.traineeInformation.home.title">TraineeInformations</h2>
+    <div class="col-md-12 padding-tb">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+        <div class="col-xs-4 no_padding text-right ">
+            <!--<button class="btn btn-primary" ui-sref="trainingInfo.traineeInformation.new">-->
+                <!--<span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.traineeInformation.home.createLabel">Create a new TraineeInformation</span>-->
+            <!--</button>-->
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="deleteTraineeInformationConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(traineeInformation.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p translate="stepApp.traineeInformation.delete.question" translate-values="{id: '{{traineeInformation.id}}'}">Are you sure you want to delete this TraineeInformation?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="text-center" translate="global.form.serial">serial</th>
+                    <th translate="stepApp.traineeInformation.traineeId">TraineeId</th>
+                    <th translate="stepApp.traineeInformation.traineeName">TraineeName</th>
+                    <th translate="stepApp.traineeInformation.trainingRequisitionCode">Requisition Code</th>
+                    <!--<th translate="stepApp.traineeInformation.session">Session</th>-->
+                    <th translate="stepApp.traineeInformation.organization">Organization</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--<tr ng-repeat="traineeInformation in traineeInformations track by traineeInformation.id">-->
+                <tr dir-paginate="traineeInformation in traineeInformations | filter:q | itemsPerPage: pageSize track by traineeInformation.id" current-page="currentPage">
+                    <td class="text-center">{{pageSize*(currentPage-1)+$index+1}}</td>
+                    <td>{{traineeInformation.traineeId}}</td>
+                    <td>{{traineeInformation.traineeName}}</td>
+                    <td>{{traineeInformation.trainingRequisitionForm.requisitionCode}}</td>
+                    <td>{{traineeInformation.session}}</td>
+                    <td>{{traineeInformation.organization}}</td>
+                    <td class="text-right no-print">
+                        <button type="submit"
+                                ui-sref="trainingInfo.traineeInformation.detail({id:traineeInformation.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <!--<button type="submit"-->
+                                <!--ui-sref="trainingInfo.traineeInformation.edit({id:traineeInformation.id})"-->
+                                <!--class="btn btn-primary btn-sm">-->
+                            <!--<span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>-->
+                        <!--</button>-->
+                        <!--<button type="submit"-->
+                                <!--ng-click="delete(traineeInformation.id)"-->
+                                <!--class="btn btn-danger btn-sm">-->
+                            <!--<span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>-->
+                        <!--</button>-->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav class="no-print">
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                     template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+</div>

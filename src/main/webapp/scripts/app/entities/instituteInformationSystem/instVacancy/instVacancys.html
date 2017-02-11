@@ -1,0 +1,113 @@
+<div class="col-md-12 common-list">
+<h2 translate="stepApp.instVacancy.home.title">InstVacancys</h2>
+    <!--<jh-alert></jh-alert>-->
+    <!--<div class="">
+        <div class="col-md-12 no_padding padding-bt no-print">
+            <div class="col-md-8 no_padding">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </form>
+            </div>
+            <div class="col-md-4 no_padding text-right">
+                <button has-any-authority="ROLE_INSTITUTE"  class="btn btn-primary " ui-sref="instVacancy.new">
+                    <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.instVacancy.home.createLabel">Create a new InstVacancy</span>
+                </button>
+
+                <button has-any-authority="ROLE_ADMIN"  class="btn btn-primary " ui-sref="instVacancy.add">
+                    <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.instVacancy.home.createLabel">Create a new InstVacancy</span>
+                </button>
+            </div>
+
+        </div>
+    </div>-->
+    <div class="col-md-12 padding-bt">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+        <div class="col-md-4 text-right  no_padding">
+            <!--<button has-any-authority="ROLE_INSTITUTE"  class="btn btn-primary " ui-sref="instVacancy.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.instVacancy.home.createLabel">Create a new InstVacancy</span>
+            </button>
+-->
+            <button has-any-authority="ROLE_ADMIN"  class="btn btn-primary " ui-sref="instVacancy.add">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.instVacancy.home.createLabel">Create a new InstVacancy</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+
+                    <th translate="stepApp.instVacancy.empType">EmpType</th>
+                    <th translate="stepApp.instVacancy.totalVacancy">TotalVacancy</th>
+                    <th translate="stepApp.instVacancy.filledUpVacancy">FilledUpVacancy</th>
+                    <!--<th translate="stepApp.instVacancy.institute">institute</th>-->
+                    <th translate="stepApp.instVacancy.cmsTrade">cmsTrade</th>
+                    <th translate="stepApp.instVacancy.cmsSubject">cmsSubject</th>
+                    <th translate="stepApp.instVacancy.instEmplDesignation">instEmplDesignation</th>
+                    <th class="no-print text-center" translate="entity.action.action"></th>
+                </tr>
+            </thead>
+            <tbody>
+               <!-- <tr ng-repeat="instVacancy in instVacancys track by instVacancy.id">-->
+                <tr dir-paginate="instVacancy in instVacancys | filter:q | itemsPerPage: pageSize track by instVacancy.id" current-page="currentPage">
+                    <td translate="{{'stepApp.EmpTypes.' + instVacancy.empType}}">{{instVacancy.empType}}</td>
+                    <td>{{instVacancy.totalVacancy}}</td>
+                    <td>{{instVacancy.filledUpVacancy == null ? '0' : instVacancy.filledUpVacancy}}</td>
+                   <!-- <td>
+                        <a ui-sref="institute.detail({id:instVacancy.institute.id})">{{instVacancy.institute.name}}</a>
+                    </td>-->
+                    <td>
+                        <a ui-sref="cmsTrade.detail({id:instVacancy.cmsTrade.id})">{{instVacancy.cmsTrade.name}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="cmsSubject.detail({id:instVacancy.cmsSubject.id})">{{instVacancy.cmsSubject.name}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="instEmplDesignation.detail({id:instVacancy.instEmplDesignation.id})">{{instVacancy.instEmplDesignation.name}}</a>
+                    </td>
+                    <td class="text-right no-print">
+                        <!--<button type="submit"
+                                ui-sref="instVacancy.detail({id:instVacancy.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>-->
+                        <!--<button type="submit"
+                                ui-sref="instVacancy.edit({id:instVacancy.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>-->
+                       <!-- <button type="submit"
+                                ui-sref="instVacancy.delete({id:instVacancy.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>-->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info no-print">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+    <div class="col-md-12 no-print text-right">
+        <button type="submit" class="btn btn-sm btn-primary no-print" onclick="window.print()" >
+            <i class="fa fa-print"></i>&nbsp;
+            <span translate="entity.action.print" >Print</span>
+        </button>
+    </div>
+</div>

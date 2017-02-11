@@ -1,0 +1,159 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 class="modal-title" id="myTraineeInformationLabel" translate="stepApp.traineeInformation.home.createOrEditLabel">Create or edit a TraineeInformation</h4>
+    <div class="modal-body col-md-12 padding-tb">
+        <div class="panel-body no_padding admin-info" ng-repeat="traineeInformation in traineeInfos">
+                <h6 translate="stepApp.trainingInitializationInfo.home.traineeInformation">Trainer Information</h6>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.traineeInformation.trainingHeadSetup" for="field_trainingHeadSetup">trainingHeadSetup</label>
+                        <select class="form-control" id="field_trainingHeadSetup" name="trainingHeadSetup" ng-model="traineeInformation.trainingHeadSetup" ng-options="trainingHeadSetup as trainingHeadSetup.headName for trainingHeadSetup in trainingheadsetups track by trainingHeadSetup.id">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.traineeInformation.employeeId" for="field_employeeId">Teacher/Employee Id</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" name="employeeId" id="field_employeeId"
+                                   ng-model="traineeInformation.employeeId"/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" ng-click="getHrEmployeeInfo(traineeInformation.employeeId,$index)">Search</button>
+                            </span>
+                       </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.traineeInformation.traineeName" for="field_traineeName">Trainee Name</label>
+                        <input type="text" class="form-control" name="traineeName" id="field_traineeName"
+                                ng-model="traineeInformation.traineeName"
+                                required ng-maxlength="50" />
+                        <div ng-show="editForm.traineeName.$invalid">
+                            <p class="help-block"
+                                ng-show="editForm.traineeName.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                            <p class="help-block"
+                                ng-show="editForm.traineeName.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="50">
+                                This field cannot be longer than 50 characters.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <label translate="stepApp.traineeInformation.session" for="field_session">Session</label>
+                    <input type="text" class="form-control" name="session" id="field_session"
+                            ng-model="traineeInformation.session"
+                             />
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.traineeInformation.gender" for="field_gender">Gender</label>
+                        <input type="text" class="form-control" name="gender" id="field_gender"
+                                ng-model="traineeInformation.gender"
+                                required />
+                        <div ng-show="editForm.gender.$invalid">
+                            <p class="help-block"
+                                ng-show="editForm.gender.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.traineeInformation.organization" for="field_organization">Organization</label>
+                        <input type="text" class="form-control" name="organization" id="field_organization"
+                                ng-model="traineeInformation.organization"
+                                 />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.traineeInformation.address" for="field_address">Address</label>
+                        <input type="text" class="form-control" name="address" id="field_address"
+                                ng-model="traineeInformation.address"
+                                required />
+                        <div ng-show="editForm.address.$invalid">
+                            <p class="help-block"
+                                ng-show="editForm.address.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.traineeInformation.division" for="field_division">Division</label>
+                        <select class="form-control" id="field_division" name="division" ng-model="traineeInformation.division" ng-options="division as division.name for division in divisions track by division.id">
+                            <option value=""></option>
+                        </select>
+                        <div ng-show="editForm.division.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.division.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="50">
+                                This field cannot be longer than 50 characters.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.traineeInformation.district" for="field_district">District</label>
+                        <select class="form-control" id="field_district" name="district" ng-model="traineeInformation.district" ng-options="district as district.name for district in districts track by district.id">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.traineeInformation.contactNumber" for="field_contactNumber">ContactNumber</label>
+                        <input type="number" class="form-control" name="contactNumber" id="field_contactNumber"
+                                ng-model="traineeInformation.contactNumber"/>
+                    </div>
+                </div>
+
+                <!--<div class="col-md-6">-->
+                    <!--<div class="form-group">-->
+                        <!--<label class="control-label" translate="stepApp.traineeInformation.status">ActiveStatus</label>-->
+                        <!--<div id="field_status">-->
+                            <!--<label class="radio-inline"><input type="radio" name="status" value="true"-->
+                                                               <!--ng-checked="(traineeInformation.status == true || traineeInformation.status== null)"-->
+                                                               <!--ng-model="traineeInformation.status"><span-->
+                                <!--translate="entity.action.activate">Active</span></label>-->
+                            <!--<label class="radio-inline"><input type="radio" name="status" value="false"-->
+                                                               <!--ng-checked="(traineeInformation.status == false && traineeInformation.status != null)"-->
+                                                               <!--ng-model="traineeInformation.status"><span-->
+                                <!--translate="entity.action.deactivate">Deactive</span></label>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
+
+        <div><a class="btn btn-link" ng-click="AddMoreTraineeInfo()">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.addMore">Add More</span>
+        </a></div>
+
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>
+</div>

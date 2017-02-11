@@ -1,0 +1,375 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="almEmpLeaveApplication.id == null" class="modal-title" id="myAlmEmpLeaveApplicationLabel"
+            translate="stepApp.almEmpLeaveApplication.home.createOrEditLabel">Create or edit a
+            AlmEmpLeaveApplication</h4>
+        <h4 ng-show="almEmpLeaveApplication.id != null" class="modal-title" id="myAlmEmpLeaveApplicationLabel"
+            translate="stepApp.almEmpLeaveApplication.home.EditLabel">Create or edit a AlmEmpLeaveApplication</h4>
+        <div class="modal-body col-md-12 padding-tb">
+            <!--<jh-alert-error></jh-alert-error>-->
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="form-group ">
+                        <label translate="stepApp.almEmpLeaveApplication.employeeName" for="field_almLeaveType">Employee
+                            Name</label>
+                        <span class="form-control">{{hrEmployeeInfo.fullName}}</span>
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group ">
+                        <label translate="stepApp.almEmpLeaveApplication.departmentName" for="field_almLeaveType">Department</label>
+                        <span class="form-control">{{departmentName}}</span>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="form-group ">
+                        <label translate="stepApp.almEmpLeaveApplication.designationName" for="field_almLeaveType">Designation</label>
+                        <span class="form-control">{{designationName}}</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group ">
+                        <label translate="stepApp.almEmpLeaveApplication.workAreaName"
+                               for="field_almLeaveType">workArea</label>
+                        <span class="form-control">{{workAreaName}}</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="border_line"></div>
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="form-group ">
+                        <label translate="stepApp.almEmpLeaveApplication.almLeaveType" for="field_almLeaveType">almLeaveType</label>
+                        <select class="form-control" id="field_almLeaveType" ng-change="onChangeLeaveType()"
+                                name="almLeaveType" ng-model="almEmpLeaveApplication.almLeaveType"
+                                ng-options="AlmLeaveType as AlmLeaveType.leaveTypeName for AlmLeaveType in almleavetypes track by AlmLeaveType.id"
+                                required>
+                            <option value="">Select Leave Type</option>
+                        </select>
+                        <div ng-show="!isGenderCheck">
+                            <p style="color: red">{{genderErrorMessage}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label translate="stepApp.almEmpLeaveApplication.leaveBalance" for="leaveBalance">Leave
+                            Balance</label>
+                        <input type="text" class="form-control" name="leaveBalance" id="leaveBalance"
+                               ng-model="almEmpLeaveApplication.leaveBalance" ng-readonly="true"
+                                />
+                        <input type="hidden" class="form-control" name="originalLeaveBalance" id="originalLeaveBalance"
+                               ng-model="originalLeaveBalance" ng-readonly="true"
+                                />
+                        <div ng-show="!isNegativeBalanceCheck">
+                            <p style="color: red">{{almNegErrorMessage}}</p>
+                        </div>
+                        <input type="hidden" class="form-control" name="applicationLeaveStatus"
+                               id="applicationLeaveStatus"
+                               ng-model="almEmpLeaveApplication.applicationLeaveStatus" ng-value="Approved"/>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label translate="stepApp.almEmpLeaveApplication.applicationDate" >Apply Date</label>
+
+                        <span class="form-control">{{date | date:'mediumDate'}}</span>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group ">
+                        <label translate="stepApp.almEmpLeaveApplication.leaveFromDate" for="field_leaveFromDate">LeaveFromDate</label>
+
+                        <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.leaveFromDate"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               ng-click="calendar.open($event, 'leaveFromDate')" class="form-control"
+                               name="leaveFromDate" id="field_leaveFromDate"
+                               ng-model="almEmpLeaveApplication.leaveFromDate" ng-change="toDateChecking()" required/>
+                        <div ng-show="!isNegativeBalanceCheck">
+                            <p style="color: red">{{almNegErrorMessage}}</p>
+                        </div>
+                        <div ng-show="!isMinimumGapCheck">
+                            <p style="color: red">{{almMinGapErrorMessage}}</p>
+                        </div>
+                        <div ng-show="!isExitsData">
+                            <p style="color: red">{{almDuplicateErrorMessage}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group  hrmcheckbox">
+                        <label translate="stepApp.almEmpLeaveApplication.isHalfDayLeave" for="field_isHalfDayLeave">IsHalfDayLeave</label>
+
+                        <span class="form-control">
+                            <input type="radio" data-ng-model="almEmpLeaveApplication.isHalfDayLeave" ng-change="isHalfDayLeaveCheck()" name="isHalfDayLeave"
+                                   data-ng-value="true">&nbsp;Yes&nbsp;|&nbsp;
+                            <input type="radio" data-ng-model="almEmpLeaveApplication.isHalfDayLeave" ng-change="isHalfDayLeaveCheck()" name="isHalfDayLeave"
+                                   data-ng-value="false">&nbsp;No
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group  " ng-hide="almEmpLeaveApplication.isHalfDayLeave">
+                        <label translate="stepApp.almEmpLeaveApplication.leaveToDate" for="field_leaveToDate">LeaveToDate</label>
+                        <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.leaveToDate"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               ng-click="calendar.open($event, 'leaveToDate')" ng-change="fromDateChecking()"
+                               class="form-control" name="leaveToDate" id="field_leaveToDate"
+                               ng-model="almEmpLeaveApplication.leaveToDate"/>
+                        <div ng-show="!isDateCheck">
+                            <p style="color: red">{{fromDateCheckMsg}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group " ng-show="almEmpLeaveApplication.isHalfDayLeave">
+                        <label translate="stepApp.almEmpLeaveApplication.halfDayLeaveInfo" for="field_halfDayLeaveInfo">HalfDayLeaveInfo</label>
+                        <select class="form-control" name="halfDayLeaveInfo"
+                                ng-model="almEmpLeaveApplication.halfDayLeaveInfo" id="field_halfDayLeaveInfo">
+                            <option value="">Select Half Day</option>
+                            <option value="First" translate="stepApp.halfDayInfo.First">First</option>
+                            <option value="Second" translate="stepApp.halfDayInfo.Second">Second</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group ">
+                        <label translate="stepApp.almEmpLeaveApplication.leaveDays"
+                               for="field_leaveDays">LeaveDays</label>
+                        <input type="text" class="form-control" name="leaveDays" id="field_leaveDays"
+                               ng-model="almEmpLeaveApplication.leaveDays"
+                                />
+                        <div ng-show="!isConsecutiveBalanceCheck">
+                            <p style="color: red">{{almConsectiveLeaveErrorMessage}}</p>
+                        </div>
+                        <div ng-show="!isNoOfInstanceCheck">
+                            <p style="color: red">{{almLeaveNoOfInsErrorMessage}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group ">
+                        <label translate="stepApp.almEmpLeaveApplication.assignResposibilty"
+                               for="field_assignResposibilty">AssignResponsibility</label>
+                        <input type="text" class="form-control" name="assignResposibilty" id="field_assignResposibilty"
+                               ng-model="almEmpLeaveApplication.assignResposibilty"
+                                />
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.almEmpLeaveApplication.responsibleEmp"
+                               for="field_responsibleEmp">responsibleEmp</label>
+                        <input type="text" class="form-control autocomplete" autocomplete="off"
+                               tooltip="{{'stepApp.almEmpLeaveApplication.responsibleEmp' | translate}}"
+                               placeholder="{{'stepApp.almEmpLeaveApplication.responsibleEmp' | translate}}"
+                               ng-model="almEmpLeaveApplication.responsibleEmp"
+                               typeahead='HrEmployeeInfo as (HrEmployeeInfo.fullName + " - " + HrEmployeeInfo.employeeId) for HrEmployeeInfo in hremployeeinfos | filter:$viewValue'
+                               id="field_responsibleEmp" required>
+
+                    </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            <label translate="stepApp.almEmpLeaveApplication.responsibleEmpCont"
+                                   for="field_responsibleEmpCont">responsibleEmpCont</label>
+                            <input type="text" class="form-control" name="responsibleEmpCont" id="field_responsibleEmpCont"
+                                   ng-model="almEmpLeaveApplication.responsibleEmpCont"
+                                    />
+                        </div>
+
+                    </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group ">
+                                <label translate="stepApp.almEmpLeaveApplication.responsibleEmpAdd"
+                                       for="field_responsibleEmpAdd">responsibleEmpAdd</label>
+                                <input type="text" class="form-control" name="responsibleEmpAdd" id="field_responsibleEmpAdd"
+                                       ng-model="almEmpLeaveApplication.responsibleEmpAdd"
+                                        />
+                            </div>
+                        </div>
+                        <div ng-show="showDdo">
+                            <div class="col-md-3">
+                                <div class="form-group hrmcheckbox">
+                                    <label translate="stepApp.almEmpLeaveApplication.isWithFinance"
+                                           for="field_isWithFinance">isWithFinance</label> &nbsp;
+                            <span class="form-control">
+                                <input type="radio" data-ng-model="almEmpLeaveApplication.isWithFinance" name="isWithFinance"
+                                       data-ng-value="true">&nbsp;Yes&nbsp;|&nbsp;
+                                <input type="radio" data-ng-model="almEmpLeaveApplication.isWithFinance" name="isWithFinance"
+                                       data-ng-value="false">&nbsp;No
+                            </span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group hrmcheckbox">
+                                    <label translate="stepApp.almEmpLeaveApplication.isWithDdo"
+                                           for="field_isWithDdo">isWithDdo</label> &nbsp;
+                            <span class="form-control">
+                                <input type="radio" data-ng-model="almEmpLeaveApplication.isWithDdo" name="isWithDdo"
+                                       data-ng-value="true">&nbsp;Yes&nbsp;|&nbsp;
+                                <input type="radio" data-ng-model="almEmpLeaveApplication.isWithDdo" name="isWithDdo"
+                                       data-ng-value="false">&nbsp;No
+                            </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group ">
+                                <label translate="stepApp.almEmpLeaveApplication.contactNo"
+                                       for="field_contactNo">ContactNo</label>
+                                <input type="text" class="form-control" name="contactNo" id="field_contactNo"
+                                       ng-model="almEmpLeaveApplication.contactNo"
+                                        />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group ">
+                                <label translate="stepApp.almEmpLeaveApplication.emergencyContactNo"
+                                       for="field_emergencyContactNo">Emergency Contact No</label>
+                                <input type="text" class="form-control" name="emergencyContactNo" id="field_emergencyContactNo"
+                                       ng-model="almEmpLeaveApplication.emergencyContactNo"
+                                        />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group ">
+                                <label translate="stepApp.almEmpLeaveApplication.addressWhileLeave"
+                                       for="field_addressWhileLeave">addressWhileLeave</label>
+                                <input type="text" class="form-control" name="addressWhileLeave" id="field_addressWhileLeave"
+                                       ng-model="almEmpLeaveApplication.addressWhileLeave"
+                                        />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group hrmcheckbox">
+                                <label translate="stepApp.almEmpLeaveApplication.isWithCertificate"
+                                       for="field_isWithCertificate">IsWithCertificate</label> &nbsp;
+                        <span class="form-control">
+                            <input type="radio" data-ng-model="almEmpLeaveApplication.isWithCertificate" name="isWithCertificate"
+                                   data-ng-value="true">&nbsp;Yes&nbsp;|&nbsp;
+                            <input type="radio" data-ng-model="almEmpLeaveApplication.isWithCertificate" name="isWithCertificate"
+                                   data-ng-value="false">&nbsp;No
+                        </span>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-4  col-sm-4 col-xs-4" ng-show="almEmpLeaveApplication.isWithCertificate" ngf-drop
+                             ngf-change="setLeaveCertificate($file, almEmpLeaveApplication)">
+                            <div>
+                                <!--<label class="control-label" translate="stepApp.almEmpLeaveApplication.leaveCertificate" for="field_leaveCertificate">LeaveCertificate</label>-->
+                                <div class="input-margin">
+                                    <div>
+                                        <div class="help-block clearfix">
+                                            <span class="pull-left">{{almEmpLeaveApplication.leaveCertificateContentType}} {{byteSize(almEmpLeaveApplication.leaveCertificate)}}</span>
+                                            <button
+                                                    ng-click="almEmpLeaveApplication.leaveCertificate=null;almEmpLeaveApplication.leaveCertificateContentType=null;"
+                                                    ng-if="almEmpLeaveApplication.leaveCertificate"
+                                                    class="btn btn-default btn-xs pull-right">
+                                                <span class="glyphicon glyphicon-remove"></span>
+                                            </button>
+                                        </div>
+                                        <button type="file" ngf-select class="btn btn-default btn-block"
+                                                ngf-change="setLeaveCertificate($file, almEmpLeaveApplication)"
+                                                translate="entity.action.addblob">
+                                            Add blob
+                                        </button>
+                                    </div>
+                                    <input type="hidden" class="form-control" name="leaveCertificate"
+                                           id="field_leaveCertificate"
+                                           ng-model="almEmpLeaveApplication.leaveCertificate"
+                                            />
+                                    <input type="hidden" class="form-control" name="leaveCertContentType"
+                                           id="field_leaveCertContentType"
+                                           ng-model="almEmpLeaveApplication.leaveCertContentType"/>
+                                    <a ng-if="almEmpLeaveApplication.leaveCertContentType" class="btn btn-link"
+                                       ng-click="previewCertDoc(almEmpLeaveApplication)">View</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="form-group ">
+                                <label translate="stepApp.almEmpLeaveApplication.reasonOfLeave" for="field_reasonOfLeave">ReasonOfLeave</label>
+                    <textarea type="text" class="form-control" name="reasonOfLeave" id="field_reasonOfLeave"
+                              ng-model="almEmpLeaveApplication.reasonOfLeave"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group ">
+                                <label translate="stepApp.almEmpLeaveApplication.activeStatus" for="field_activeStatus">ActiveStatus</label>
+            <span class="form-control">
+                    <input type="radio" data-ng-model="almEmpLeaveApplication.activeStatus" name="activeStatus"
+                           data-ng-value="true">&nbsp;Active&nbsp;|&nbsp;
+                    <input type="radio" data-ng-model="almEmpLeaveApplication.activeStatus" name="activeStatus"
+                           data-ng-value="false">&nbsp;Inactive
+                </span>
+                                <div ng-show="editForm.activeStatus.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="form-group col-sm-6">-->
+                        <!--<label translate="stepApp.almEmpLeaveApplication.approverName" for="field_approverName">approverName</label>-->
+                        <!--<select class="form-control" id="field_approverName" name="approverName" ng-model="almEmpLeaveApplication.approverName" ng-options="HrEmployeeInfo as HrEmployeeInfo.fullName for HrEmployeeInfo in hremployeeinfos track by HrEmployeeInfo.id">-->
+                        <!--<option value=""></option>-->
+                        <!--</select>-->
+                        <!--</div>-->
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button"
+                            onclick="window.history.back()"
+                            class="btn btn-info">
+                        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span
+                            translate="entity.action.back"> Back</span>
+                    </button>
+                    <button type="submit"
+                            ng-disabled="editForm.$invalid || editForm.$submitted || !isNegativeBalanceCheck || !isConsecutiveBalanceCheck || !isNoOfInstanceCheck || !isDateCheck || !isMinimumGapCheck || !isExitsData"
+                            class="btn btn-primary">
+                        <span class="glyphicon glyphicon-save"></span>&nbsp;
+                        <span ng-show="almEmpLeaveApplication.id == null" translate="entity.action.save">Save</span>
+                        <span ng-show="almEmpLeaveApplication.id != null" translate="entity.action.update">Save</span>
+                    </button>
+                </div>
+    </form>
+</div>

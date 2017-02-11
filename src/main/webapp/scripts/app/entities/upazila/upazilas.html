@@ -1,0 +1,125 @@
+<div class="col-sm-12 common-list">
+    <h2 class="page-header" translate="stepApp.upazila.home.title">Upazilas</h2>
+    <!--<jh-alert></jh-alert>-->
+    <div class="col-md-12 padding-tb">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+        <div class="col-xs-4 no_padding text-right ">
+            <button class="btn btn-primary  pull-right" ui-sref="division.upazila.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.upazila.home.createLabel">Create a new Upazila</span>
+            </button>
+        </div>
+    </div>
+    <!--<div class="col-md-12 padding-tb">
+        <div class="col-md-8 no_padding">
+            <div class="col-md-6 no_padding">
+                <b><span translate="global.home.searchhere">Search Here :</span></b>
+                <div class="input-group">
+                    <span class="input-group-addon dlbtn" id="basic-addon1"><i class="fa fa-search"></i></span>
+                    <input ng-model="q" id="search" type="text" class="form-control" placeholder="Search for...">
+                </div>
+            </div>
+            <div class="col-md-6 no_padding">
+                <b><span translate="global.home.itemperpage">Items per page:</span></b>
+                <div class="input-group">
+                    <input type="number" class="form-control" ng-model="pageSize" placeholder="Search for...">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 no_padding">
+            <button class="btn btn-primary dlbtn-top pull-right" ui-sref="division.upazila.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.upazila.home.createLabel">Create a new Upazila</span>
+            </button>
+        </div>
+        &lt;!&ndash;<form name="searchForm" class="form-inline" ng-submit="search()" novalidate show-validation>
+            <div class="form-group form-group-sm">
+                <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery"
+                       placeholder="search for..." required>
+            </div>
+            <button ng-disabled="searchForm.$invalid" class="btn btn-info btn-sm" type="submit"><span
+                class="glyphicon glyphicon-search"></span> <span translate="entity.action.search">Search a Upazila</span>
+            </button>
+        </form>&ndash;&gt;
+        &lt;!&ndash;<div class="col-md-4 dlbtn-top btn-group btn-group-sm">
+            <button ng-disabled="!areAllUpazilasSelected" class="btn btn-default" ng-click="sync()">
+                <i class="glyphicon glyphicon-refresh" aria-label="sync"></i>
+                <span translate="entity.action.sync">sync</span>
+            </button>
+            <button ng-disabled="!areAllUpazilasSelected" class="btn btn-default" ng-click="export()">
+                <i class="glyphicon glyphicon-export" aria-label="export"></i>
+                <span translate="entity.action.export">export</span>
+            </button>
+
+            <button ng-disabled="!areAllUpazilasSelected" class="btn btn-default" ng-click="import()">
+                <i class="glyphicon glyphicon-import" aria-label="import"></i>
+                <span translate="entity.action.import">import</span>
+            </button>
+
+            <button ng-disabled="!areAllUpazilasSelected" class="btn btn-default btn-danger"
+                    ng-click="deleteSelected()">
+                <i class="glyphicon glyphicon-trash" aria-label="delete"></i>
+                <span translate="entity.action.delete">delete</span>
+            </button>
+        </div>&ndash;&gt;
+    </div>-->
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-hover table-striped">
+            <caption class="notice text-center" translate="entity.action.found"
+                     translate-values="{found: '{{upazilas.length}}', total: '{{total}}'}">{{upazilas.length}}
+                upazilas retrieved from total of {{total}} upazilas
+            </caption>
+            <thead>
+            <tr>
+                <th class="text-center" translate="global.form.serial">serial</th>
+                <th><input type="checkbox" ng-model="areAllUpazilasSelected"
+                           ng-change="updateUpazilasSelection(upazilas, areAllUpazilasSelected)"></th>
+                <th ng-click="order('id', reverse=!reverse)" translate="global.field.id">ID</th>
+                <th ng-click="order('name', reverse=!reverse)" translate="stepApp.upazila.name">Name</th>
+                <th ng-click="order('bnName', reverse=!reverse)" translate="stepApp.upazila.bnName">BnName</th>
+                <th translate="stepApp.upazila.district">district</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr dir-paginate="upazila in upazilas  | filter:q | itemsPerPage: pageSize" current-page="currentPage">
+                <td class="text-center">{{pageSize*(currentPage-1)+$index+1}}</td>
+                <td><input type="checkbox" ng-model="upazila.isSelected"/></td>
+                <td><a ui-sref="division.upazila.detail({id:upazila.id})">{{upazila.id}}</a></td>
+                <td>{{upazila.name}}</td>
+                <td>{{upazila.bnName}}</td>
+                <td>
+                    <a ui-sref="division.district.detail({id:upazila.district.id})">{{upazila.district.name}}</a>
+                </td>
+                <td class="text-right">
+                    <button type="submit"
+                            ui-sref="division.upazila.detail({id:upazila.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span
+                        translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="division.upazila.edit({id:upazila.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                        translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="division.upazila.delete({id:upazila.id})"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                        translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                     template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+</div>

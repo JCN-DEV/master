@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="employee" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d8897eb1-13d3-44b5-b493-d3486ae3cbc4">
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     employee."id" AS employee_id,
+     employee."name" AS employee_name,
+     employee."name_english" AS employee_name_english,
+     employee."father" AS employee_father,
+     employee."mother" AS employee_mother,
+     employee."present_address" AS employee_present_address,
+     employee."permanent_address" AS employee_permanent_address,
+     employee."gender" AS employee_gender,
+     employee."dob" AS employee_dob,
+     employee."zip_code" AS employee_zip_code,
+     employee."registration_certificate_subject" AS employee_registration_certificate_subject,
+     employee."registration_exam_year" AS employee_registration_exam_year,
+     employee."registration_cetificate_no" AS employee_registration_cetificate_no,
+     employee."index_no" AS employee_index_no,
+     employee."bank_name" AS employee_bank_name,
+     employee."bank_branch" AS employee_bank_branch,
+     employee."bank_account_no" AS employee_bank_account_no,
+     employee."designation" AS employee_designation,
+     employee."subject" AS employee_subject,
+     employee."salary_scale" AS employee_salary_scale,
+     employee."salary_code" AS employee_salary_code,
+     employee."monthly_salary_govt_provided" AS employee_monthly_salary_govt_provided,
+     employee."monthly_salary_institute_provided" AS employee_monthly_salary_institute_provided,
+     employee."gb_resolution_receive_date" AS employee_gb_resolution_receive_date,
+     employee."gb_resolution_agenda_no" AS employee_gb_resolution_agenda_no,
+     employee."circular_paper_name" AS employee_circular_paper_name,
+     employee."circular_published_date" AS employee_circular_published_date,
+     employee."recruit_exam_receive_date" AS employee_recruit_exam_receive_date,
+     employee."dg_representative_name" AS employee_dg_representative_name,
+     employee."dg_representative_designation" AS employee_dg_representative_designation,
+     employee."dg_representative_address" AS employee_dg_representative_address,
+     employee."board_representative_name" AS employee_board_representative_name,
+     employee."board_representative_designation" AS employee_board_representative_designation,
+     employee."board_representative_address" AS employee_board_representative_address,
+     employee."recruit_approve_gbresolution_date" AS employee_recruit_approve_gbresolution_date,
+     employee."recruit_permit_agenda_no" AS employee_recruit_permit_agenda_no,
+     employee."recruitment_date" AS employee_recruitment_date,
+     employee."present_institute_join_date" AS employee_present_institute_join_date,
+     employee."present_post_join_date" AS employee_present_post_join_date,
+     employee."time_scale_gbresolution_date" AS employee_time_scale_gbresolution_date,
+     employee."total_job_duration" AS employee_total_job_duration,
+     employee."current_position_job_duration" AS employee_current_position_job_duration,
+     employee."manager_id" AS employee_manager_id,
+     employee."institute_id" AS employee_institute_id,
+     employee."user_id" AS employee_user_id
+FROM
+     "public"."employee" employee]]>
+	</queryString>
+	<field name="employee_id" class="java.lang.Long"/>
+	<field name="employee_name" class="java.lang.String"/>
+	<field name="employee_gender" class="java.lang.String"/>
+	<field name="employee_designation" class="java.lang.String"/>
+	<field name="employee_manager_id" class="java.lang.Long"/>
+	<field name="employee_user_id" class="java.lang.Long"/>
+	<field name="employee_institute_id" class="java.lang.Long"/>
+	<group name="employee_institute_id">
+		<groupExpression><![CDATA[$F{employee_institute_id}]]></groupExpression>
+		<groupHeader>
+			<band height="33">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="100" height="32" forecolor="#666666" backcolor="#E6E6E6" uuid="cc0e3199-ddaa-4aeb-9672-9e4aebc219aa"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[employee_institute_id]]></text>
+				</staticText>
+				<textField>
+					<reportElement mode="Opaque" x="100" y="0" width="455" height="32" forecolor="#006699" backcolor="#E6E6E6" uuid="f460d698-ca4d-4ef6-a3a9-cccf946fb3e2"/>
+					<textElement>
+						<font size="24" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{employee_institute_id}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="-20" y="32" width="595" height="1" forecolor="#666666" uuid="03b6cd96-cb4c-4bd4-aa84-0e4df4dccd16"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699" uuid="b327be71-3a61-46cd-9bbd-e08b1051d2ca"/>
+				<staticText>
+					<reportElement x="20" y="20" width="234" height="43" forecolor="#FFFFFF" uuid="f2c1ab93-310f-4b0d-8d80-b722f9b0d167"/>
+					<textElement>
+						<font size="34" isBold="true"/>
+					</textElement>
+					<text><![CDATA[TITLE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="395" y="43" width="180" height="20" forecolor="#FFFFFF" uuid="6e79e9fe-f42f-4e49-984c-d7f0438135fd"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Add a description here]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="6a453a86-852f-451e-a5c6-25c6d2badb47"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="92" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="b5a95f3a-cc81-4c70-81d1-d1f7772f1338"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[employee_id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="92" y="0" width="92" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="87b5c00f-b1ce-427e-83ff-4058a286e687"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[employee_name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="184" y="0" width="92" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="b189f9bd-b2fc-4b26-80ae-46b2da10ba91"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[employee_gender]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="276" y="0" width="92" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="1eb529c0-b83f-4b73-b4c6-64b706d963e2"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[employee_designation]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="368" y="0" width="92" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="92b9144d-f895-440c-b0e3-e15e6036f732"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[employee_manager_id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="460" y="0" width="92" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="f082ea4a-3406-4c67-8f62-be9517102faa"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[employee_user_id]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="0a6c1d1c-baee-4cc9-9ae1-4eda96d36e31"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="92" height="20" uuid="8acc5516-cdf2-46f2-8c4b-3cba716fcc2a"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{employee_id}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="92" y="0" width="92" height="20" uuid="4c976e35-bc47-4b1a-afe6-027c0308ce76"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{employee_name}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="184" y="0" width="92" height="20" uuid="b60cbe51-38c9-4ebb-b9ed-05d5922912c7"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{employee_gender}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="276" y="0" width="92" height="20" uuid="82037f46-b055-475e-8baf-3928a3e503b6"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{employee_designation}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="368" y="0" width="92" height="20" uuid="7b1206e4-8fb7-467f-8bed-3438e4001dba"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{employee_manager_id}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="460" y="0" width="92" height="20" uuid="da53fa10-0e73-4f81-9d1e-750ce362551f"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{employee_user_id}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="66e7ea36-6507-4a97-a22d-cd3eb74a8087"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="5ebd095e-b0ea-49f4-8a3a-2dd7aacd4940"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="3faea4e6-7896-4fc6-ad9e-892c7bb433de"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

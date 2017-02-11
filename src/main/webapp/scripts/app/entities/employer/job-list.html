@@ -1,0 +1,67 @@
+<div class="row" >
+    <div class="col-md-3">
+        <ng-include src="'scripts/app/entities/jobPortal/jp-employer-menu.html'"></ng-include>
+    </div>
+    <div class="col-sm-9 col-md-9 lbl-dash">
+         <div class="col-md-12 common-list" ng-show="!isNewProfile">
+            <h2 translate="stepApp.jobapplication.myJobs">My Jobs</h2>
+             <br>
+             <jh-alert></jh-alert>
+            <div class="col-md-12 table-responsive no_padding">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th translate="stepApp.job.title" width="auto">Job Title</th>
+                        <th translate="stepApp.jobapplication.application">Applications</th>
+                        <!--<th translate="stepApp.job.vacancy">Vacancy</th>-->
+                        <th translate="stepApp.job.shortlisted">Short-Listed</th>
+                        <th translate="stepApp.job.viewed">Viewed</th>
+                        <th translate="stepApp.job.notviewed">Not Viewed</th>
+                        <th align="center" translate="stepApp.jobapplication.actions" style="text-align:center;">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="job-mgmnt-list" ng-repeat="info in jobInfo">
+                            <td>
+                                <a ui-sref="job.detail({id:info.job.id})">
+                                    {{info.job.cat.cat}}<br>
+                                    <span translate="stepApp.job.publishedAt"></span> : {{info.job.publishedAt}}<br>
+                                    <span translate="stepApp.job.applicationDeadline"></span> : {{info.job.applicationDeadline}}
+                                </a>
+                            </td>
+                            <td align="center"><a class="btn btn-success" ui-sref="job.applied({id:info.job.id})">{{info.totalApplications}}</a></td>
+                            <!--<td align="center"><a class="btn btn-success" ui-sref="job.applied({id:info.job.id})">{{info.job.vacancy}}</a></td>-->
+                            <td align="center"><a class="btn btn-success" ui-sref="job.shortListed({id:info.job.id})">{{info.shortListed}}</a></td>
+                            <td align="center"><a class="btn btn-success" ui-sref="job.viewedList({id:info.job.id})">{{info.cvViewed}}</a></td>
+                            <td align="center"><a class="btn btn-success" ui-sref="job.unviewedList({id:info.job.id})">{{info.cvNotViewed}}</a></td>
+                            <td >
+                                <a ui-sref="job.detail({id:info.job.id})" class="btn btn-info  glyphicon glyphicon-eye-open" ></a>
+                                <a ui-sref="employer.edit-job({id:info.job.id})" class="btn btn-primary glyphicon glyphicon-pencil" ></a>
+                                <a ui-sref="job.delete({id:info.job.id})" class="btn btn-danger glyphicon glyphicon-remove-circle" ></a>
+                               <!--&lt;!&ndash;<p><button class="btn btn-info btn-sm" ui="sref="><span class="glyphicon glyphicon-eye-open"></span></button><button class="btn btn-primary btn-sm" ui="sref="><span class="glyphicon glyphicon-pencil"></span></button><button class="btn btn-danger btn-sm" ui="sref="><span class="glyphicon glyphicon-remove-circle"></span></button></p>&ndash;&gt;-->
+                                <!--<button type="submit"-->
+                                        <!--ui-sref="job.detail({id:job.id})"-->
+                                        <!--class="btn btn-info btn-sm">-->
+                                    <!--<span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>-->
+                                <!--</button>-->
+                                <!--<button type="submit"-->
+                                        <!--ui-sref="employer.edit({id:employer.id})"-->
+                                        <!--class="btn btn-primary btn-sm">-->
+                                    <!--<span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>-->
+                                <!--</button>-->
+                                <!--<button type="submit"-->
+                                        <!--ui-sref="employer.delete({id:employer.id})"-->
+                                        <!--class="btn btn-danger btn-sm">-->
+                                    <!--<span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>-->
+                                <!--</button>-->
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="ng-cloak" ng-show="isNewProfile">
+            <strong class="alert alert-danger col-sm-12">Your Company Profile is awaiting for admin approval</strong>
+        </div>
+    </div>
+</div><!--end row-->

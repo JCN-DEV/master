@@ -1,0 +1,334 @@
+<div class="row">
+    <div class="col-md-3">
+        <ng-include src="'scripts/app/account/mpo/mpo-left-menu.html'"></ng-include>
+    </div>
+
+
+    <div class="col-md-9 lbl-dash">
+        <div class="col-md-12 common-table no_padding">
+
+
+    <h2> {{moduleName}} Report</h2>
+
+    <form class="form-horizontal" name="rptForm" role="form" class="panel panel-primary" novalidate>
+        <div class="col-md-12">
+
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label  class="control-label" for="rptRptName">Select Report</label>
+
+                    <div class="input-margin">
+                        <select
+                            name="rptRptName" id="rptRptName"
+                            required
+                            ng-change="reportChange()"
+                            class="form-control" id="cmsReport" name="cmsReport"
+                            ng-model="jasperReport.id"
+                            ng-options="jasperReport as jasperReport.name for jasperReport in jasperReports track by jasperReport.id">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal fade" id="mpoSalaryFlowConfirmation">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title">Report Operation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Report Forwarded</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.ok">Ok</span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <span ng-initial="countValue =0"></span>
+            <div ng-repeat="jasperReportParameter in jasperReportParameters track by $index">
+                <div ng-if="jasperReportParameter.type == 'combo'">
+                    <!--start month-->
+                    <div ng-if="jasperReportParameter.servicename== 'month'">
+                        <div class="form-group col-sm-4 input-margin">
+                            <label class="col-sm-12 control-label" for="{{jasperReportParameter.name}}">{{jasperReportParameter.flevel}}</label>
+                            <div class="col-sm-12">
+                                <select ng-change="selectedValue(jasperReportParameter.actiontype)" class="form-control" id="{{jasperReportParameter.name}}"
+                                        name="{{jasperReportParameter.flevel}}"
+                                        ng-options="month.name as month.name for month in monthNames track by month.id"
+                                        ng-model="jasperReportParameter.actiontype" required="false">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end month-->
+                    <!--start year-->
+                    <div ng-if="jasperReportParameter.servicename== 'year'">
+                        <div class="form-group col-sm-4 input-margin">
+                            <label class="col-sm-12 control-label" for="{{jasperReportParameter.name}}">{{jasperReportParameter.flevel}}</label>
+                            <div class="col-sm-12">
+                                <select ng-change="selectedValue(jasperReportParameter.actiontype)" class="form-control" id="{{jasperReportParameter.name}}"
+                                        name="{{jasperReportParameter.flevel}}"
+                                        ng-options="theYear.name as theYear.name for theYear in theYears track by theYear.id"
+                                        ng-model="jasperReportParameter.actiontype" required="false">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end year-->
+
+
+
+                    <div ng-if="jasperReportParameter.servicename== 'institute'">
+                        <div class="form-group col-sm-4 input-margin">
+                            <label class="col-sm-12 control-label" for="{{jasperReportParameter.name}}">{{jasperReportParameter.flevel}}</label>
+                            <div class="col-sm-12">
+                                <select class="form-control" id="{{jasperReportParameter.name}}"
+                                        name="{{jasperReportParameter.flevel}}"
+                                        ng-options="institute.code as institute.name for institute in institutes track by institute.id"
+                                        ng-model="jasperReportParameter.actiontype" required="false">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="jasperReportParameter.servicename== 'division'">
+                        <div class="form-group col-sm-4 input-margin">
+                            <label class="col-sm-12 control-label" for="{{jasperReportParameter.name}}">{{jasperReportParameter.flevel}}</label>
+                            <div class="col-sm-12">
+                                <select ng-change="updatedDistrict(jasperReportParameter.actiontype)" class="form-control" id="{{jasperReportParameter.name}}"
+                                        name="{{jasperReportParameter.flevel}}"
+                                        ng-options="division.name as division.name for division in divisions track by division.id"
+                                        ng-model="jasperReportParameter.actiontype" required="false">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="jasperReportParameter.servicename== 'district'">
+                        <div class="form-group col-sm-4 input-margin">
+                            <label class="col-sm-12 control-label" for="{{jasperReportParameter.name}}">{{jasperReportParameter.flevel}}</label>
+                            <div class="col-sm-12">
+                                <select ng-change="updatedUpazila(jasperReportParameter.actiontype)" class="form-control" id="{{jasperReportParameter.name}}"
+                                        name="{{jasperReportParameter.flevel}}"
+                                        ng-options="district.name as district.name for district in districts track by district.id"
+                                        ng-model="jasperReportParameter.actiontype" required="false">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="jasperReportParameter.servicename== 'upazila'">
+                        <div class="form-group col-sm-4 input-margin">
+                            <label class="col-sm-12 control-label" for="{{jasperReportParameter.name}}">{{jasperReportParameter.flevel}}</label>
+                            <div class="col-sm-12">
+                                <select class="form-control" id="{{jasperReportParameter.name}}"
+                                        name="{{jasperReportParameter.flevel}}"
+                                        ng-options="upazila.name as upazila.name for upazila in upazilas track by upazila.id"
+                                        ng-model="jasperReportParameter.actiontype" required="false">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--<div class="form-group col-sm-4 input-margin" ng-if="jasperReportParameter.servicename==null">-->
+                        <!--<label class="col-sm-12 control-label" for="{{jasperReportParameter.name}}">{{jasperReportParameter.flevel}}</label>-->
+                        <!--<div class="col-sm-12">-->
+                            <!--<select class="form-control" id="{{jasperReportParameter.name}}"-->
+                                    <!--name="{{jasperReportParameter.flevel}}"-->
+                                    <!--ng-options="{{jasperReportParameter.servicename}} as {{jasperReportParameter.servicename}}.{{jasperReportParameter.combodisplayfield}} for {{jasperReportParameter.servicename}} in {{jasperReportParameter.servicename}}s"-->
+                                    <!--ng-model="jasperReportParameter.actiontype" required="false">-->
+                                <!--<option value=""></option>-->
+                            <!--</select>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                </div>
+                <div ng-if="jasperReportParameter.type == 'date'">
+                    <div class="form-group col-sm-4">
+                        <label class="col-sm-12 control-label"
+                               for="date{{$index}}">{{jasperReportParameter.flevel}}</label>
+                        <div class="col-sm-12">
+                            <input datepicker-popup="{{calendar.dateFormat}}"
+                                   is-open="calendar.opened.date"
+                                   datepicker-options="calendar.dateOptions" close-text="Close"
+                                   ng-click="calendar.open($event, 'date')" class="form-control"
+                                   name="date{{$index}}" id="date{{$index}}"
+                                   ng-model="jasperReportParameter.actiontype"
+                                   placeholder="yyyy-MM-dd"
+                                />
+                            <div>
+                                <p class="help-block"
+                                   ng-show="rptForm.date{{$index}}.$error.date">
+                                    Not a valid date!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--<div ng-if="jasperReportParameter.type == 'month'">-->
+
+                    <!--<div class="form-group col-sm-4 input-margin">-->
+                        <!--<label class="col-sm-12 control-label" for="month{{$index}}">{{jasperReportParameter.flevel}}</label>-->
+                        <!--<div class="col-sm-12">-->
+
+                            <!--<select ng-change="selectedValue(jasperReportParameter.actiontype)" class="form-control" id="month{{$index}}"-->
+                                    <!--name="{{jasperReportParameter.flevel}}"-->
+                                    <!--ng-model="jasperReportParameter.actiontype" ng-options="month as month.name for month in monthNames track by month.id" required="false">-->
+                                <!--&lt;!&ndash;<option value="January">January</option>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<option value="February">February</option>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<option value="March">March</option>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<option value="April">April</option>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<option value="May">May</option>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<option value="June">June</option>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<option value="July">July</option>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<option value="August">August</option>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<option value="September">September</option>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<option value="October">October</option>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<option value="November">November</option>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<option value="December">December</option>&ndash;&gt;-->
+                            <!--</select>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                <!--</div>&lt;!&ndash;month&ndash;&gt;-->
+
+                <div ng-if="jasperReportParameter.type == 'text'">
+
+                    <div class="form-group col-sm-4 input-margin">
+                        <label class="col-sm-12 control-label"
+                               for="txt{{$index}}">{{jasperReportParameter.flevel}}</label>
+                        <div class="col-sm-12">
+
+                            <input type="text"
+
+                                   class="form-control"
+                                   name="txt{{$index}}"
+                                   id="txt{{$index}}"
+                                   ng-model="jasperReportParameter.actiontype"
+                                   ng-init="jasperReportParameter.actiontype=''"
+                                />
+                        </div>
+                    </div>
+                </div>
+
+                <!--<div ng-if="jasperReportParameter.type == 'year'">-->
+
+                    <!--<div class="form-group col-sm-4 input-margin">-->
+                        <!--<label class="col-sm-12 control-label"-->
+                               <!--for="year{{$index}}">{{jasperReportParameter.flevel}}</label>-->
+                        <!--&lt;!&ndash;<div class="col-sm-12">&ndash;&gt;-->
+
+                        <!--&lt;!&ndash;<input type="number"&ndash;&gt;-->
+
+                        <!--&lt;!&ndash;class="form-control"&ndash;&gt;-->
+                        <!--&lt;!&ndash;name="txt{{$index}}"&ndash;&gt;-->
+                        <!--&lt;!&ndash;id="year{{$index}}"&ndash;&gt;-->
+                        <!--&lt;!&ndash;ng-model="jasperReportParameter.actiontype"&ndash;&gt;-->
+                        <!--&lt;!&ndash;ng-init="jasperReportParameter.actiontype=''"&ndash;&gt;-->
+                        <!--&lt;!&ndash;min="1990"&ndash;&gt;-->
+                        <!--&lt;!&ndash;max="2999"&ndash;&gt;-->
+                        <!--&lt;!&ndash;/>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                        <!--<div class="col-sm-12">-->
+
+                            <!--<select ng-change="selectedValue(jasperReportParameter.actiontype)" class="form-control" id="year{{$index}}"-->
+                                    <!--name="{{jasperReportParameter.flevel}}"-->
+                                    <!--ng-model="jasperReportParameter.actiontype" required="false" ng-options="theYear as theYear.name as theYear for theYear in theYears track by theYear.id">-->
+                                <!--&lt;!&ndash;<option value="2016">2016</option>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<option value="2015">2015</option>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<option value="2014">2014</option>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<option value="2013">2013</option>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<option value="2012">2012</option>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<option value="2011">2011</option>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<option value="2010">2010</option>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<option value="2009">2009</option>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<option value="2008">2008</option>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<option value="2007">2007</option>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<option value="2006">2006</option>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<option value="2005">2005</option>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<option value="2004">2004</option>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<option value="2003">2003</option>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<option value="2002">2002</option>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<option value="2001">2001</option>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<option value="2000">2000</option>&ndash;&gt;-->
+                            <!--</select>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
+
+            <br>
+            <br>
+            <div class="col-md-6 text-left">
+                <button type="button" class="btn btn-primary" ng-click="reportPreview()">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Generate Report</span>
+                </button>
+            </div>
+            <div class="col-md-6 text-left">
+                <button type="button" class="btn btn-primary" ng-click="reportForward()">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Forward to Ministry</span>
+                </button>
+            </div>
+
+            <br />
+            <br />
+            <br />
+
+            <div class="col-md-6 text-left">&nbsp;</div>
+            <div class="col-md-6 text-left">&nbsp;</div>
+
+            <div class="col-md-12 text-left"><h2> Migrated Data Reports </h2></div>
+
+            <div class="col-md-6 text-left">&nbsp;</div>
+            <div class="col-md-6 text-left">&nbsp;</div>
+
+            <div class="col-md-6 text-left">
+                <button type="button" class="btn btn-primary" ng-click="reportPreviewDte16(1)">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Pay Code Wise ManPower</span>
+                </button>
+                <button type="button" class="btn btn-primary" ng-click="reportPreviewDte16(2)">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span>MPO Sheet</span>
+                </button>
+                <button type="button" class="btn btn-primary" ng-click="reportPreviewDte16(3)">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Bank Wise Summery</span>
+                </button>
+                <button type="button" class="btn btn-primary" ng-click="reportPreviewDte16(4)">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Voucher Sheet</span>
+                </button>
+            </div>
+
+            <div class="col-md-12 text-left">&nbsp;</div>
+
+        </div>
+
+    </form>
+
+    <br>
+
+    <iframe id="myiFrame"
+            style="top:0px; left:0px; bottom:0px; right:0px;
+    width:100%; height:600px;border:none; margin:0; padding:0; overflow:hidden; z-index:999999;"
+            ng-src="{{url}}">
+    </iframe>
+
+
+
+
+
+</div></div>
+</div>

@@ -1,0 +1,190 @@
+<div class="service-form-area">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="modal-title" id="myHrEntertainmentBenefitLabel"><span
+                translate="stepApp.hrEntertainmentBenefit.home.profileViewEditTitle"></span> :
+                {{hrEmployeeInfo.fullName}}</h4>
+        </div>
+        <div class="panel-body bg-panel hr_label">
+            <div class="row hrm-view">
+                <span ng-show="addMode">
+                    <span ng-show="noEmployeeFound" class="alert">Employee is not created yet.</span>
+                </span>
+            </div>
+            <div class="panel-group">
+                <!-- For Loop Start From Here-->
+                <div class=" bg-panel" ng-repeat="hrEntertainmentBenefit in hrEntertainmentBenefitList">
+                    <form class="form-horizontal " name="editForm" role="form" ng-submit="save()" novalidate
+                          show-validation>
+                        <div class="row hrm-view panel-heading no_padding">
+                            <div class="col-sm-7 no_padding">
+                                <strong>{{hrEntertainmentBenefit.jobCategory.typeName}} :
+                                    {{hrEntertainmentBenefit.eligibilityDate | date:'mediumDate'}}</strong>
+                            </div>
+                            <div class="col-sm-5 no_padding text-right">
+                                <button
+                                    ng-hide="noEmployeeFound || hrEntertainmentBenefit.isLocked || hrEntertainmentBenefit.logStatus==6"
+                                    type="button" ng-click="changeProfileMode(hrEntertainmentBenefit)"
+                                    class="btn btn-primary btn-sm">{{hrEntertainmentBenefit.viewModeText}}
+                                </button>
+                                <span ng-show="hrEntertainmentBenefit.isLocked"
+                                      class="alert alert-warning approve-alert"><span
+                                    translate="stepApp.hrmHome.recordLocked">Pending</span></span>
+                                    <span ng-if="hrEntertainmentBenefit.logStatus == 3">
+                                        <span class="alert alert-warning" translate="stepApp.hrmHome.requestRejected">Rejected</span>
+                                    </span>
+                            </div>
+                        </div>
+                        <div class="row hrm-view">
+                            <div class="col-sm-12 text-right">
+                                    <span class="alert-warning" ng-if="hrEntertainmentBenefit.logStatus == 3">
+                                        <span class="control-label"
+                                              translate="stepApp.hrmHome.rejectionReason">Reason</span>:&nbsp; : &nbsp; {{hrEntertainmentBenefit.logComments}}
+                                    </span>
+                            </div>
+                        </div>
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEntertainmentBenefit.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEntertainmentBenefit.jobCategory"
+                                           for="field_jobCategory">jobCategory</label>
+                                    <select class="form-control" id="field_jobCategory" name="jobCategory"
+                                            ng-model="hrEntertainmentBenefit.jobCategory"
+                                            ng-options="MiscTypeSetup as MiscTypeSetup.typeName for MiscTypeSetup in misctypesetups track by MiscTypeSetup.id"
+                                            required>
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                                <div ng-show="hrEntertainmentBenefit.viewMode">
+                                    <label class="control-label" translate="stepApp.hrEntertainmentBenefit.jobCategory"
+                                           for="field_jobCategory">jobCategory</label>
+                                    <span class="form-control-static">&nbsp; : &nbsp;{{hrEntertainmentBenefit.jobCategory.typeName}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">&nbsp;</div>
+                        </div>
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEntertainmentBenefit.viewMode" class="input-margin">
+                                    <label class="control-label"
+                                           translate="stepApp.hrEntertainmentBenefit.eligibilityDate"
+                                           for="field_eligibilityDate">EligibilityDate</label>
+                                    <input datepicker-popup="{{calendar.dateFormat}}"
+                                           is-open="calendar.opened['eligibilityDate'+$index]"
+                                           datepicker-options="calendar.dateOptions" close-text="Close"
+                                           ng-click="calendar.open($event, 'eligibilityDate'+$index)"
+                                           class="form-control" name="eligibilityDate" id="field_eligibilityDate"
+                                           ng-model="hrEntertainmentBenefit.eligibilityDate" required/>
+                                    <div ng-show="editForm.eligibilityDate.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.eligibilityDate.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEntertainmentBenefit.viewMode">
+                                    <label class="control-label"
+                                           translate="stepApp.hrEntertainmentBenefit.eligibilityDate"
+                                           for="field_eligibilityDate">EligibilityDate</label>
+                                    <span class="form-control-static">&nbsp; : &nbsp;{{hrEntertainmentBenefit.eligibilityDate | date:'mediumDate'}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEntertainmentBenefit.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEntertainmentBenefit.amount"
+                                           for="field_amount">Amount</label>
+                                    <input type="number" class="form-control" name="amount" id="field_amount"
+                                           ng-model="hrEntertainmentBenefit.amount" required/>
+                                    <div ng-show="editForm.amount.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.amount.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                        <p class="help-block"
+                                           ng-show="editForm.amount.$error.number" translate="entity.validation.number">
+                                            This field should be a number.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEntertainmentBenefit.viewMode">
+                                    <label class="control-label" translate="stepApp.hrEntertainmentBenefit.amount"
+                                           for="field_amount">Amount</label>
+                                    <span
+                                        class="form-control-static">&nbsp; : &nbsp;{{hrEntertainmentBenefit.amount}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEntertainmentBenefit.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEntertainmentBenefit.totalDays"
+                                           for="field_totalDays">TotalDays</label>
+                                    <input type="number" class="form-control" name="totalDays" id="field_totalDays"
+                                           ng-model="hrEntertainmentBenefit.totalDays" required/>
+                                    <div ng-show="editForm.totalDays.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.totalDays.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                        <p class="help-block"
+                                           ng-show="editForm.totalDays.$error.number"
+                                           translate="entity.validation.number">
+                                            This field should be a number.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEntertainmentBenefit.viewMode">
+                                    <label class="control-label" translate="stepApp.hrEntertainmentBenefit.totalDays"
+                                           for="field_totalDays">TotalDays</label>
+                                    <span ng-show="hrEntertainmentBenefit.viewMode" class="form-control-static">&nbsp; : &nbsp;{{hrEntertainmentBenefit.totalDays}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label class="control-label" translate="stepApp.hrEntertainmentBenefit.notTakenReason"
+                                       for="field_notTakenReason">NotTakenReason</label>
+                                <div ng-show="!hrEntertainmentBenefit.viewMode" class="input-margin">
+                                        <textarea class="form-control" name="notTakenReason" id="field_notTakenReason"
+                                                  ng-model="hrEntertainmentBenefit.notTakenReason"></textarea>
+                                </div>
+                                <span ng-show="hrEntertainmentBenefit.viewMode" class="form-control-static">&nbsp; : &nbsp;{{hrEntertainmentBenefit.notTakenReason}}</span>
+                            </div>
+                        </div>
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">
+                                <div class="input-margin">&nbsp;</div>
+                            </div>
+
+                            <div class="form-group col-sm-6 text-right">
+                                <div class="input-margin">
+                                    <button ng-show="!hrEntertainmentBenefit.viewMode" type="button"
+                                            ng-click="changeProfileMode(hrEntertainmentBenefit)"
+                                            class="btn btn-default btn-sm"><span
+                                        class="glyphicon glyphicon-remove"></span>&nbsp;{{hrEntertainmentBenefit.viewModeText}}
+                                    </button>
+                                    <button ng-show="!hrEntertainmentBenefit.viewMode"
+                                            ng-click="updateProfile(hrEntertainmentBenefit, $index)"
+                                            type="button" ng-disabled="editForm.$invalid || isSaving"
+                                            class="btn btn-primary btn-sm">
+                                        <span class="glyphicon glyphicon-save"></span>&nbsp;<span
+                                        translate="entity.action.save">Save</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- End of Loop -->
+                <div class="col-sm-12 text-right no_padding">
+                    <button type="submit" class="btn btn-primary" ng-show="!addMode"
+                            ng-disabled="editForm.$invalid || isSaving" ng-click="addMore()"><i
+                        class="fa fa-plus-square"></i>
+                        <span translate="global.menu.account.addmore">Add More</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

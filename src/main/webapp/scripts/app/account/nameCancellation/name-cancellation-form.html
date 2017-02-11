@@ -1,0 +1,171 @@
+<div class="panel-body">
+    <!--<div ng-class="currentSection=='attachment' ? 'show' : 'hide'" class="attachment_info">-->
+    <div class="attachment_info">
+        <div class="col-sm-12 timescale-apply">
+            <form name="editForm" class="form form-horizontal col-sm-12" role="form" novalidate ng-submit="save()"
+                  show-validation>
+                <!--<h3 translate="{{'stepApp.timeScaleApplication.Information'}}">Information</h3>-->
+                <div class="col-sm-12">
+                    <label ng-if="teacherFoundMsg" translate="stepApp.nameCnclApplication.noEmpFound"
+                           for="field_teacherIndex">No teacher found</label>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <div class="col-sm-3">
+                            <label translate="stepApp.nameCnclApplication.teacherIndex" for="field_teacherIndex">Teacher
+                                Index No</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" name="teacherIndex" id="field_teacherIndex"
+                                   ng-model="teacherIndexNo"/>
+                        </div>
+                        <div class="col-sm-2">
+                            <input class="form-control btn btn-default" type="button" value="Search"
+                                   ng-click="searchTeacher(teacherIndexNo)">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-12">
+                    <div class="form-group col-sm-6">
+                        <label class="control-label" translate="stepApp.nameCnclApplication.empName" for="field_empName">Name</label>
+                        <input type="text" class="form-control" readonly name="empName" id="field_empName"
+                                   ng-model="employee.name" ng-value="false">
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label class="control-label" translate="stepApp.nameCnclApplication.designation" for="field_designation">designation</label>
+                        <input readonly type="text" class="form-control" name="designation"
+                               id="field_designation"
+                               ng-model="employee.instEmplDesignation.name"
+                        />
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label class="control-label" translate="stepApp.nameCnclApplication.resignDate" for="field_resignDate">resign
+                            Date</label>
+                        <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.resignDate"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               ng-click="calendar.open($event, 'resignDate')" class="form-control"
+                               name="resignDate" id="field_resignDate"
+                               ng-model="nameCnclApplication.resignDate"/>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label translate="stepApp.nameCnclApplication.cause" for="field_cause">resign
+                            Date</label>
+                        <select class="form-control" id="field_cause" name="cause" required=""
+                                ng-model="nameCnclApplication.cause">
+                            <option value="Resignation"> Resignation</option>
+                            <option value="Dead">Dead</option>
+                            <option value="Withdrawal">Withdrawal</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-12 no_padding">
+                    <h3 class="col-sm-12" translate="{{'stepApp.employee.AttachmentInformation'}}">Attachment Information</h3>
+
+                    <div class="attachmentDiv" ng-repeat="attachmentCount in applicantAttachmentCount track by $index">
+                        <div class="col-sm-12">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <select class="form-control" id="field_attachment" name="attachment"
+                                            ng-model="applicantAttachment[attachmentCount].attachment"
+                                            ng-change="setAttachment($index, applicantAttachment[attachmentCount],applicantAttachment[attachmentCount].noAttachment)">
+                                        <option value="" selected="selected"
+                                                translate="{{'stepApp.employee.AttachmentName'}}">Attachment Name
+                                        </option>
+                                        <option
+                                            ng-repeat="mpoAttachment in attachmentCategoryList "
+                                            value="{{mpoAttachment}}">
+                                            {{mpoAttachment.attachmentName}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6" ng-hide="applicantAttachment[attachmentCount].noAttachment">
+                                <div class="form-group" ngf-drop ngf-change="setFile($file, attachment)">
+                                    <div>
+                                        <div class="help-block clearfix">
+                                            <span class="pull-left">{{applicantAttachment[attachmentCount].fileContentType}} {{byteSize(applicantAttachment[attachmentCount].file)}}</span>
+                                            <button
+                                                ng-click="applicantAttachment[attachmentCount].file=null;applicantAttachment[attachmentCount].fileContentType=null;"
+                                                ng-if="applicantAttachment[attachmentCount].file"
+                                                class="btn btn-default btn-xs pull-right">
+                                                <span class="glyphicon glyphicon-remove"></span>
+                                            </button>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <input type="file" ngf-select class="btn btn-default btn-sm col-sm-6"
+                                                   ngf-change="setFile($file, applicantAttachment[attachmentCount])"
+                                                   translate="entity.action.addblob">
+                                            </input>
+                                            <div class="col-sm-6" ng-hide="attachmentCount=='0'">
+                                        <span class="col-sm-6 minus-btn"
+                                              ng-click="removeAttachment(attachmentCount)"><span
+                                            class="glyphicon glyphicon-minus"></span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" class="form-control" name="file" id="field_file"
+                                           ng-model="applicantAttachment[attachmentCount].file"
+                                    />
+                                    <input type="hidden" class="form-control" name="fileContentType"
+                                           id="field_fileContentType"
+                                           ng-model="applicantAttachment[attachmentCount].fileContentType"/>
+                                </div>
+                            </div>
+                            <div class="col-sm-6" ng-show="applicantAttachment[attachmentCount].noAttachment">
+                                <div class="col-sm-12">
+                                    <div class="col-sm-6">
+                                        <input class="form-control" type="text"
+                                               ng-change="remarksChange(applicantAttachment[attachmentCount].noAttachment,applicantAttachment[attachmentCount].remarks)"
+                                               ng-model="applicantAttachment[attachmentCount].remarks"
+                                               placeholder="Remarks"/>
+                                    </div>
+                                    <div class="col-sm-6" ng-hide="attachmentCount=='0'">
+                                <span class="col-sm-6 minus-btn" ng-click="removeAttachment(attachmentCount)"><span
+                                    class="glyphicon glyphicon-minus"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 attachment_file">
+                            <div class="control-lebel col-sm-12">
+                                <div class="col-sm-12">
+                                    <input
+                                        ng-click='selectNoAttachment(applicantAttachment[attachmentCount].noAttachment,applicantAttachment[attachmentCount].attachment,applicantAttachment[attachmentCount].file,applicantAttachment[attachmentCount].remarks)'
+                                        type="checkbox" id="noAttachment"
+                                        ng-model="applicantAttachment[attachmentCount].noAttachment">
+                                    <label class="control-label my_control_lebel"
+                                           for="noAttachment" translate="{{'stepApp.employee.dontHave'}}">I don't
+                                        have this attachment</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                <span ng-show="showAddMoreButton" class="btn btn-sm btn-primary pull-right"
+                      ng-click="addMoreAttachment()"><span
+                    class="glyphicon glyphicon-plus"></span>Add More Attachment</span>
+                </div>
+                <div class="col-sm-12" ng-show="duplicateError">
+                    <span style="color:red;margin-top:30px;font-size:14px;">You have selected duplicate attachment, please check the selection.</span>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group my_form_group">
+                        <br/>
+                        <div class="col-lg-12 pull-right text-right">
+                            <span class="btn btn-primary pull-left text-left" onclick="window.history.back()"
+                                  translate="{{'stepApp.employee.Previous'}}">Previous</span>
+                            <button ng-disabled="mpoFormHasError || employee.id == null" type="submit" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-ok-sign"></span>&nbsp;<span
+                                translate="global.menu.apply">Apply</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,105 @@
+<div>
+    <h2 translate="stepApp.jobapplication.home.title">Jobapplications</h2>
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" ui-sref="jobapplication.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="stepApp.jobapplication.home.createLabel">Create a new Jobapplication</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteJobapplicationConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(jobapplication.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p translate="stepApp.jobapplication.delete.question" translate-values="{id: '{{jobapplication.id}}'}">Are you sure you want to delete this Jobapplication?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="global.field.id">ID</th>
+                    <th translate="stepApp.jobapplication.note">Note</th>
+                    <th translate="stepApp.jobapplication.cv">Cv</th>
+                    <th translate="stepApp.jobapplication.expectedSalary">ExpectedSalary</th>
+                    <th translate="stepApp.jobapplication.applicantStatus">ApplicantStatus</th>
+                    <th translate="stepApp.jobapplication.cvType">CvType</th>
+                    <th translate="stepApp.jobapplication.appliedDate">AppliedDate</th>
+                    <th translate="stepApp.jobapplication.user">user</th>
+                    <th translate="stepApp.jobapplication.job">job</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="jobapplication in jobapplications track by jobapplication.id">
+                    <td><a ui-sref="jobapplication.detail({id:jobapplication.id})">{{jobapplication.id}}</a></td>
+                    <td>{{jobapplication.note}}</td>
+                    <td>{{jobapplication.cv}}</td>
+                    <td>{{jobapplication.expectedSalary}}</td>
+                    <td translate="{{'stepApp.JobApplicationStatus.' + jobapplication.applicantStatus}}">{{jobapplication.applicantStatus}}</td>
+                    <td translate="{{'stepApp.CvType.' + jobapplication.cvType}}">{{jobapplication.cvType}}</td>
+                        <td>{{jobapplication.appliedDate | date:'mediumDate'}}</td>
+                    <td>
+                        {{jobapplication.user.login}}
+                    </td>
+                    <td>
+                        <a ui-sref="job.detail({id:jobapplication.job.id})">{{jobapplication.job.title}}</a>
+                    </td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="jobapplication.detail({id:jobapplication.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="jobapplication.edit({id:jobapplication.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="delete(jobapplication.id)"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pagination">
+                <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                <li class="active"><a>{{page + 1}}</a></li>
+                <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>

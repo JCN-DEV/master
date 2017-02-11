@@ -1,0 +1,124 @@
+<div class="col-sm-12 common-list" >
+    <h2 translate="stepApp.almLeaveType.home.title">AlmLeaveTypes</h2>
+    <div class="col-md-12 padding-tb">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+        <div class="col-xs-4 no_padding text-right ">
+            <button class="btn btn-primary" ui-sref="almLeaveType.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.almLeaveType.home.createLabel">Create a new AlmLeaveType</span>
+            </button>
+        </div>
+    </div>
+    <!--<jh-alert></jh-alert>-->
+   <!-- <div class="col-sm-12 padding-tb ">
+        <div class="col-md-4 no_padding">
+            <b><span translate="global.home.searchhere">Search Here :</span></b>
+            <div class="input-group">
+                <span class="input-group-addon dlbtn" id="basic-addon1"><i class="fa fa-search"></i></span>
+                <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+            </div>
+        </div>
+        <div class="col-md-4 no_padding"><b><span translate="global.home.itemperpage">Items per page:</span></b>
+            <div class="input-group">
+                <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+            </div>
+        </div>
+        <div class="col-md-4 text-right no_padding">
+            <button class="btn btn-primary dlbtn dlbtn-top" ui-sref="almLeaveType.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.almLeaveType.home.createLabel">Create a new AlmLeaveType</span>
+            </button>
+        </div>
+    </div>-->
+    <!--<div class="col-sm-12 no_padding paddingbt">
+            <div class="col-md-8 no_padding">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control su_sea_btn" ng-model="searchQuery" id="searchQuery" placeholder="">
+                        <button class="btn btn-info btn_su_left" ng-click="search()"><span class="glyphicon glyphicon-search"></span></button>
+
+                    </div>
+
+                </form>
+            </div>
+            <div class="col-md-4 no_padding text-right">
+                <button class="btn btn-primary" ui-sref="almLeaveType.new">
+                    <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.almLeaveType.home.createLabel">Create a new AlmLeaveType</span>
+                </button>
+            </div>
+    </div>-->
+
+    <div class="modal animated bounceInUp" id="deleteAlmLeaveTypeConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(almLeaveType.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p translate="stepApp.almLeaveType.delete.question" translate-values="{id: '{{almLeaveType.id}}'}">Are you sure you want to delete this AlmLeaveType?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 no_padding table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th><span translate="global.form.serial">serial</span></th>
+                <th translate="global.field.id">ID</th>
+                <th translate="stepApp.almLeaveType.leaveTypeName">LeaveTypeName</th>
+                <th translate="stepApp.almLeaveType.description">Description</th>
+                <th translate="stepApp.almLeaveType.activeStatus">ActiveStatus</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--<tr dir-paginate="almLeaveType in almLeaveTypes  | filter:q | itemsPerPage: pageSize">-->
+            <tr dir-paginate="almLeaveType in almLeaveTypes | filter:q | itemsPerPage: pageSize track by almLeaveType.id"
+                current-page="currentPage">
+                <td>{{pageSize*(currentPage-1)+$index+1}}</td>
+                <td><a ui-sref="almLeaveType.detail({id:almLeaveType.id})">{{almLeaveType.id}}</a></td>
+                <td>{{almLeaveType.leaveTypeName}}</td>
+                <td>{{almLeaveType.description}}</td>
+                <td>{{almLeaveType.activeStatus ? 'Active' : 'Inactive'}}</td>
+                <td class="text-right">
+                    <button type="submit"
+                            ui-sref="almLeaveType.detail({id:almLeaveType.id})"
+                            class="btn btn-info btn-sm su_serv_marz">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="almLeaveType.edit({id:almLeaveType.id})"
+                            class="btn btn-primary btn-sm su_serv_marz">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit"
+                            ng-click="delete(almLeaveType.id)"
+                            class="btn btn-danger btn-sm su_serv_marz">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+</div>

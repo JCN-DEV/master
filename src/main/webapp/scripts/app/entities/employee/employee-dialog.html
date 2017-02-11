@@ -1,0 +1,778 @@
+
+<form name="editForm" class="form form-horizontal" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header bg-primary">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myEmployeeLabel" translate="stepApp.employee.home.createOrEditLabel">Create or edit a Employee</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" for="id" translate="global.field.id">ID</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="id" name="id" ng-model="employee.id" readonly />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.name" for="field_name">Name</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="name" id="field_name"
+                    ng-model="employee.name"
+                    required ng-maxlength="50" />
+            <div ng-show="editForm.name.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.name.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="50">
+                    This field cannot be longer than 50 characters.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.nameEnglish" for="field_nameEnglish">NameEnglish</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="nameEnglish" id="field_nameEnglish"
+                    ng-model="employee.nameEnglish"
+                    required ng-maxlength="50" />
+            <div ng-show="editForm.nameEnglish.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.nameEnglish.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.nameEnglish.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="50">
+                    This field cannot be longer than 50 characters.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.father" for="field_father">Father</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="father" id="field_father"
+                    ng-model="employee.father"
+                    required ng-maxlength="50" />
+            <div ng-show="editForm.father.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.father.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.father.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="50">
+                    This field cannot be longer than 50 characters.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.mother" for="field_mother">Mother</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="mother" id="field_mother"
+                    ng-model="employee.mother"
+                    required ng-maxlength="50" />
+            <div ng-show="editForm.mother.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.mother.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.mother.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="50">
+                    This field cannot be longer than 50 characters.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.presentAddress" for="field_presentAddress">PresentAddress</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="presentAddress" id="field_presentAddress"
+                    ng-model="employee.presentAddress"
+                    required />
+            <div ng-show="editForm.presentAddress.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.presentAddress.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.permanentAddress" for="field_permanentAddress">PermanentAddress</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="permanentAddress" id="field_permanentAddress"
+                    ng-model="employee.permanentAddress"
+                    required />
+            <div ng-show="editForm.permanentAddress.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.permanentAddress.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.gender" for="field_gender">Gender</label>
+            <div class="col-sm-8">
+            <select class="form-control" name="gender" ng-model="employee.gender" id="field_gender" required>
+                <option value="Male" translate="stepApp.Gender.Male">Male</option>
+                <option value="Female" translate="stepApp.Gender.Female">Female</option>
+                <option value="Other" translate="stepApp.Gender.Other">Other</option>
+            </select>
+            <div ng-show="editForm.gender.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.gender.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.dob" for="field_dob">Dob</label>
+            <div class="col-sm-8">
+            <input type="date" class="form-control" name="dob" id="field_dob"
+                    ng-model="employee.dob"
+                    required />
+            <div ng-show="editForm.dob.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.dob.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.zipCode" for="field_zipCode">ZipCode</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="zipCode" id="field_zipCode"
+                    ng-model="employee.zipCode"
+                    required ng-maxlength="50" />
+            <div ng-show="editForm.zipCode.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.zipCode.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.zipCode.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="50">
+                    This field cannot be longer than 50 characters.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group" ngf-drop ngf-change="setCv($file, externalCV)">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.cv" for="field_cv">Cv</label>
+            <div class="col-sm-8">
+                <div>
+                    <div class="help-block clearfix">
+                        <span class="pull-left">{{employee.cvContentType}} {{byteSize(employee.cv)}}</span>
+                        <button ng-click="employee.cv=null;employee.cvContentType=null;"
+                                ng-if="employee.cv"
+                                class="btn btn-default btn-xs pull-right">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </div>
+                    <button type="file" ngf-select class="btn btn-default btn-block"
+                            ngf-change="setCv($file, employee)" translate="entity.action.addblob">
+                        Add blob
+                    </button>
+                </div>
+                <input type="hidden" class="form-control" name="cv" id="field_cv"
+                       ng-model="employee.cv"
+                       required />
+                <input type="hidden" class="form-control" name="cvContentType" id="field_cvContentType"
+                       ng-model="employee.cvContentType" />
+                <div ng-show="editForm.cv.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.cv.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.registrationCertificateSubject" for="field_registrationCertificateSubject">RegistrationCertificateSubject</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="registrationCertificateSubject" id="field_registrationCertificateSubject"
+                    ng-model="employee.registrationCertificateSubject"
+                    required ng-maxlength="255" />
+            <div ng-show="editForm.registrationCertificateSubject.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.registrationCertificateSubject.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.registrationCertificateSubject.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="255">
+                    This field cannot be longer than 255 characters.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.registrationExamYear" for="field_registrationExamYear">RegistrationExamYear</label>
+            <div class="col-sm-8">
+            <input type="number" class="form-control" name="registrationExamYear" id="field_registrationExamYear"
+                    ng-model="employee.registrationExamYear"
+                    required />
+            <div ng-show="editForm.registrationExamYear.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.registrationExamYear.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.registrationExamYear.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.registrationCetificateNo" for="field_registrationCetificateNo">RegistrationCetificateNo</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="registrationCetificateNo" id="field_registrationCetificateNo"
+                    ng-model="employee.registrationCetificateNo"
+                    required ng-maxlength="60" />
+            <div ng-show="editForm.registrationCetificateNo.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.registrationCetificateNo.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.registrationCetificateNo.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="60">
+                    This field cannot be longer than 60 characters.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.indexNo" for="field_indexNo">IndexNo</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="indexNo" id="field_indexNo"
+                    ng-model="employee.indexNo"
+                    ng-maxlength="20" />
+            <div ng-show="editForm.indexNo.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.indexNo.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="20">
+                    This field cannot be longer than 20 characters.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.bankName" for="field_bankName">BankName</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="bankName" id="field_bankName"
+                    ng-model="employee.bankName"
+                    ng-maxlength="50" />
+            <div ng-show="editForm.bankName.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.bankName.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="50">
+                    This field cannot be longer than 50 characters.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.bankBranch" for="field_bankBranch">BankBranch</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="bankBranch" id="field_bankBranch"
+                    ng-model="employee.bankBranch"
+                    ng-maxlength="50" />
+            <div ng-show="editForm.bankBranch.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.bankBranch.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="50">
+                    This field cannot be longer than 50 characters.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.bankAccountNo" for="field_bankAccountNo">BankAccountNo</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="bankAccountNo" id="field_bankAccountNo"
+                    ng-model="employee.bankAccountNo"
+                    ng-maxlength="50" />
+            <div ng-show="editForm.bankAccountNo.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.bankAccountNo.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="50">
+                    This field cannot be longer than 50 characters.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.designation" for="field_designation">Designation</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="designation" id="field_designation"
+                    ng-model="employee.designation"
+                    required ng-maxlength="100" />
+            <div ng-show="editForm.designation.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.designation.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.designation.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="100">
+                    This field cannot be longer than 100 characters.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.subject" for="field_subject">Subject</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="subject" id="field_subject"
+                    ng-model="employee.subject"
+                    required ng-maxlength="100" />
+            <div ng-show="editForm.subject.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.subject.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.subject.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="100">
+                    This field cannot be longer than 100 characters.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.salaryScale" for="field_salaryScale">SalaryScale</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="salaryScale" id="field_salaryScale"
+                    ng-model="employee.salaryScale"
+                    required ng-maxlength="30" />
+            <div ng-show="editForm.salaryScale.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.salaryScale.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.salaryScale.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="30">
+                    This field cannot be longer than 30 characters.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.salaryCode" for="field_salaryCode">SalaryCode</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="salaryCode" id="field_salaryCode"
+                    ng-model="employee.salaryCode"
+                    required ng-maxlength="20" />
+            <div ng-show="editForm.salaryCode.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.salaryCode.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.salaryCode.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="20">
+                    This field cannot be longer than 20 characters.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.monthlySalaryGovtProvided" for="field_monthlySalaryGovtProvided">MonthlySalaryGovtProvided</label>
+            <div class="col-sm-8">
+            <input type="number" class="form-control" name="monthlySalaryGovtProvided" id="field_monthlySalaryGovtProvided"
+                    ng-model="employee.monthlySalaryGovtProvided"
+                    required />
+            <div ng-show="editForm.monthlySalaryGovtProvided.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.monthlySalaryGovtProvided.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.monthlySalaryGovtProvided.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.monthlySalaryInstituteProvided" for="field_monthlySalaryInstituteProvided">MonthlySalaryInstituteProvided</label>
+            <div class="col-sm-8">
+            <input type="number" class="form-control" name="monthlySalaryInstituteProvided" id="field_monthlySalaryInstituteProvided"
+                    ng-model="employee.monthlySalaryInstituteProvided"
+                    required />
+            <div ng-show="editForm.monthlySalaryInstituteProvided.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.monthlySalaryInstituteProvided.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.monthlySalaryInstituteProvided.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.gbResolutionReceiveDate" for="field_gbResolutionReceiveDate">GbResolutionReceiveDate</label>
+            <div class="col-sm-8">
+            <input type="date" class="form-control" name="gbResolutionReceiveDate" id="field_gbResolutionReceiveDate"
+                    ng-model="employee.gbResolutionReceiveDate"
+                    required />
+            <div ng-show="editForm.gbResolutionReceiveDate.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.gbResolutionReceiveDate.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.gbResolutionAgendaNo" for="field_gbResolutionAgendaNo">GbResolutionAgendaNo</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="gbResolutionAgendaNo" id="field_gbResolutionAgendaNo"
+                    ng-model="employee.gbResolutionAgendaNo"
+                    required ng-maxlength="30" />
+            <div ng-show="editForm.gbResolutionAgendaNo.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.gbResolutionAgendaNo.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.gbResolutionAgendaNo.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="30">
+                    This field cannot be longer than 30 characters.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.circularPaperName" for="field_circularPaperName">CircularPaperName</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="circularPaperName" id="field_circularPaperName"
+                    ng-model="employee.circularPaperName"
+                    required ng-maxlength="50" />
+            <div ng-show="editForm.circularPaperName.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.circularPaperName.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.circularPaperName.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="50">
+                    This field cannot be longer than 50 characters.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.circularPublishedDate" for="field_circularPublishedDate">CircularPublishedDate</label>
+            <div class="col-sm-8">
+            <input type="date" class="form-control" name="circularPublishedDate" id="field_circularPublishedDate"
+                    ng-model="employee.circularPublishedDate"
+                    required />
+            <div ng-show="editForm.circularPublishedDate.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.circularPublishedDate.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.recruitExamReceiveDate" for="field_recruitExamReceiveDate">RecruitExamReceiveDate</label>
+            <div class="col-sm-8">
+            <input type="date" class="form-control" name="recruitExamReceiveDate" id="field_recruitExamReceiveDate"
+                    ng-model="employee.recruitExamReceiveDate"
+                    required />
+            <div ng-show="editForm.recruitExamReceiveDate.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.recruitExamReceiveDate.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.dgRepresentativeName" for="field_dgRepresentativeName">DgRepresentativeName</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="dgRepresentativeName" id="field_dgRepresentativeName"
+                    ng-model="employee.dgRepresentativeName"
+                    required ng-maxlength="50" />
+            <div ng-show="editForm.dgRepresentativeName.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.dgRepresentativeName.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.dgRepresentativeName.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="50">
+                    This field cannot be longer than 50 characters.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.dgRepresentativeDesignation" for="field_dgRepresentativeDesignation">DgRepresentativeDesignation</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="dgRepresentativeDesignation" id="field_dgRepresentativeDesignation"
+                    ng-model="employee.dgRepresentativeDesignation"
+                    required ng-maxlength="50" />
+            <div ng-show="editForm.dgRepresentativeDesignation.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.dgRepresentativeDesignation.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.dgRepresentativeDesignation.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="50">
+                    This field cannot be longer than 50 characters.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.dgRepresentativeAddress" for="field_dgRepresentativeAddress">DgRepresentativeAddress</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="dgRepresentativeAddress" id="field_dgRepresentativeAddress"
+                    ng-model="employee.dgRepresentativeAddress"
+                    required ng-maxlength="60" />
+            <div ng-show="editForm.dgRepresentativeAddress.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.dgRepresentativeAddress.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.dgRepresentativeAddress.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="60">
+                    This field cannot be longer than 60 characters.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.boardRepresentativeName" for="field_boardRepresentativeName">BoardRepresentativeName</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="boardRepresentativeName" id="field_boardRepresentativeName"
+                    ng-model="employee.boardRepresentativeName"
+                    required ng-maxlength="50" />
+            <div ng-show="editForm.boardRepresentativeName.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.boardRepresentativeName.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.boardRepresentativeName.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="50">
+                    This field cannot be longer than 50 characters.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.boardRepresentativeDesignation" for="field_boardRepresentativeDesignation">BoardRepresentativeDesignation</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="boardRepresentativeDesignation" id="field_boardRepresentativeDesignation"
+                    ng-model="employee.boardRepresentativeDesignation"
+                    required ng-maxlength="50" />
+            <div ng-show="editForm.boardRepresentativeDesignation.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.boardRepresentativeDesignation.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.boardRepresentativeDesignation.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="50">
+                    This field cannot be longer than 50 characters.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.boardRepresentativeAddress" for="field_boardRepresentativeAddress">BoardRepresentativeAddress</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="boardRepresentativeAddress" id="field_boardRepresentativeAddress"
+                    ng-model="employee.boardRepresentativeAddress"
+                    required ng-maxlength="127" />
+            <div ng-show="editForm.boardRepresentativeAddress.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.boardRepresentativeAddress.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.boardRepresentativeAddress.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="127">
+                    This field cannot be longer than 127 characters.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.recruitApproveGBResolutionDate" for="field_recruitApproveGBResolutionDate">RecruitApproveGBResolutionDate</label>
+            <div class="col-sm-8">
+            <input type="date" class="form-control" name="recruitApproveGBResolutionDate" id="field_recruitApproveGBResolutionDate"
+                    ng-model="employee.recruitApproveGBResolutionDate"
+                    required />
+            <div ng-show="editForm.recruitApproveGBResolutionDate.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.recruitApproveGBResolutionDate.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.recruitPermitAgendaNo" for="field_recruitPermitAgendaNo">RecruitPermitAgendaNo</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="recruitPermitAgendaNo" id="field_recruitPermitAgendaNo"
+                    ng-model="employee.recruitPermitAgendaNo"
+                    ng-maxlength="50" />
+            <div ng-show="editForm.recruitPermitAgendaNo.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.recruitPermitAgendaNo.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="50">
+                    This field cannot be longer than 50 characters.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.recruitmentDate" for="field_recruitmentDate">RecruitmentDate</label>
+            <div class="col-sm-8">
+            <input type="date" class="form-control" name="recruitmentDate" id="field_recruitmentDate"
+                    ng-model="employee.recruitmentDate"
+                    required />
+            <div ng-show="editForm.recruitmentDate.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.recruitmentDate.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.presentInstituteJoinDate" for="field_presentInstituteJoinDate">PresentInstituteJoinDate</label>
+            <div class="col-sm-8">
+            <input type="date" class="form-control" name="presentInstituteJoinDate" id="field_presentInstituteJoinDate"
+                    ng-model="employee.presentInstituteJoinDate"
+                    required />
+            <div ng-show="editForm.presentInstituteJoinDate.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.presentInstituteJoinDate.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.presentPostJoinDate" for="field_presentPostJoinDate">PresentPostJoinDate</label>
+            <div class="col-sm-8">
+            <input type="date" class="form-control" name="presentPostJoinDate" id="field_presentPostJoinDate"
+                    ng-model="employee.presentPostJoinDate"
+                    required />
+            <div ng-show="editForm.presentPostJoinDate.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.presentPostJoinDate.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.timeScaleGBResolutionDate" for="field_timeScaleGBResolutionDate">TimeScaleGBResolutionDate</label>
+            <div class="col-sm-8">
+            <input type="date" class="form-control" name="timeScaleGBResolutionDate" id="field_timeScaleGBResolutionDate"
+                    ng-model="employee.timeScaleGBResolutionDate"
+                    required />
+            <div ng-show="editForm.timeScaleGBResolutionDate.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.timeScaleGBResolutionDate.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.totalJobDuration" for="field_totalJobDuration">TotalJobDuration</label>
+            <div class="col-sm-8">
+            <input type="number" class="form-control" name="totalJobDuration" id="field_totalJobDuration"
+                    ng-model="employee.totalJobDuration"
+                    required />
+            <div ng-show="editForm.totalJobDuration.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.totalJobDuration.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.totalJobDuration.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.currentPositionJobDuration" for="field_currentPositionJobDuration">CurrentPositionJobDuration</label>
+            <div class="col-sm-8">
+            <input type="number" class="form-control" name="currentPositionJobDuration" id="field_currentPositionJobDuration"
+                    ng-model="employee.currentPositionJobDuration"
+                    required />
+            <div ng-show="editForm.currentPositionJobDuration.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.currentPositionJobDuration.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.currentPositionJobDuration.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.category" for="field_gender">Category</label>
+            <div class="col-sm-8">
+                <select class="form-control" name="category" ng-model="employee.category" id="field_category" required>
+                    <option value="Teacher" translate="stepApp.Category.Teacher">Teacher</option>
+                    <option value="Staff" translate="stepApp.Category.Staff">Staff</option>
+
+                </select>
+                <div ng-show="editForm.category.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.category.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.manager" for="field_manager">manager</label>
+            <div class="col-sm-8">
+                <select class="form-control" id="field_manager" name="manager" ng-model="employee.manager" ng-options="user as user.login for user in users track by user.id">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.institute" for="field_institute">institute</label>
+            <div class="col-sm-8">
+                <select class="form-control" id="field_institute" name="institute" ng-model="employee.institute" ng-options="institute as institute.name for institute in institutes track by institute.id">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.payScale" for="field_payScale">payScale</label>
+            <div class="col-sm-8">
+                <select class="form-control" id="field_payScale" multiple name="payScale" ng-model="employee.payScales" ng-options="payScale as payScale.code for payScale in payscales track by payScale.id"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.employee.user" for="field_user">user</label>
+            <div class="col-sm-8">
+                <select class="form-control" id="field_user" name="user" ng-model="employee.user" ng-options="user as user.login for user in users track by user.id">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="form-group">
+            <div class="col-md-offset-4 col-md-8">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

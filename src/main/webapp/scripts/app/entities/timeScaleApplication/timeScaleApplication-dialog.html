@@ -1,0 +1,104 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myTimeScaleApplicationLabel" translate="stepApp.timeScaleApplication.home.createOrEditLabel">Create or edit a TimeScaleApplication</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="timeScaleApplication.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.timeScaleApplication.date" for="field_date">Date</label>
+            <input type="date" class="form-control" name="date" id="field_date"
+                    ng-model="timeScaleApplication.date"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.timeScaleApplication.indexNo" for="field_indexNo">IndexNo</label>
+            <input type="text" class="form-control" name="indexNo" id="field_indexNo"
+                    ng-model="timeScaleApplication.indexNo"
+                    ng-maxlength="20" />
+            <div ng-show="editForm.indexNo.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.indexNo.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="20">
+                    This field cannot be longer than 20 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.timeScaleApplication.status" for="field_status">Status</label>
+            <input type="number" class="form-control" name="status" id="field_status"
+                    ng-model="timeScaleApplication.status"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.timeScaleApplication.resulationDate" for="field_resulationDate">ResulationDate</label>
+            <input type="date" class="form-control" name="resulationDate" id="field_resulationDate"
+                    ng-model="timeScaleApplication.resulationDate"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.timeScaleApplication.agendaNumber" for="field_agendaNumber">AgendaNumber</label>
+            <input type="number" class="form-control" name="agendaNumber" id="field_agendaNumber"
+                    ng-model="timeScaleApplication.agendaNumber"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.timeScaleApplication.workingBreak" for="field_workingBreak">WorkingBreak</label>
+            <input type="checkbox" class="form-control" name="workingBreak" id="field_workingBreak"
+                    ng-model="timeScaleApplication.workingBreak"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.timeScaleApplication.workingBreakStart" for="field_workingBreakStart">WorkingBreakStart</label>
+            <input type="date" class="form-control" name="workingBreakStart" id="field_workingBreakStart"
+                    ng-model="timeScaleApplication.workingBreakStart"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.timeScaleApplication.workingBreakEnd" for="field_workingBreakEnd">WorkingBreakEnd</label>
+            <input type="date" class="form-control" name="workingBreakEnd" id="field_workingBreakEnd"
+                    ng-model="timeScaleApplication.workingBreakEnd"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.timeScaleApplication.disciplinaryAction" for="field_disciplinaryAction">DisciplinaryAction</label>
+            <input type="checkbox" class="form-control" name="disciplinaryAction" id="field_disciplinaryAction"
+                    ng-model="timeScaleApplication.disciplinaryAction"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.timeScaleApplication.disActionCaseNo" for="field_disActionCaseNo">DisActionCaseNo</label>
+            <input type="text" class="form-control" name="disActionCaseNo" id="field_disActionCaseNo"
+                    ng-model="timeScaleApplication.disActionCaseNo"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.timeScaleApplication.disActionFileName" for="field_disActionFileName">DisActionFileName</label>
+            <input type="text" class="form-control" name="disActionFileName" id="field_disActionFileName"
+                    ng-model="timeScaleApplication.disActionFileName"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.timeScaleApplication.instEmployee" for="field_instEmployee">instEmployee</label>
+            <select class="form-control" id="field_instEmployee" name="instEmployee" ng-model="timeScaleApplication.instEmployee" ng-options="instEmployee as instEmployee.name for instEmployee in instemployees track by instEmployee.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

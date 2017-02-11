@@ -1,0 +1,86 @@
+
+<div>
+    <h2><span translate="stepApp.vacancy.detail.title">Vacancy</span> {{vacancy.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="stepApp.vacancy.name">Name</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{vacancy.name}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.vacancy.promotionGBResolutionDate">PromotionGBResolutionDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{vacancy.promotionGBResolutionDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.vacancy.totalServiceTenure">TotalServiceTenure</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{vacancy.totalServiceTenure}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.vacancy.currentJobDuration">CurrentJobDuration</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{vacancy.currentJobDuration}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.vacancy.status">Status</span>
+                </td>
+                <td>
+                    <span class="form-control-static" translate="{{'stepApp.EmployeeType.' + vacancy.status}}">{{vacancy.status}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.vacancy.remarks">Remarks</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{vacancy.remarks}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.vacancy.employee">employee</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="employee.detail({id:vacancy.employee.id})">{{vacancy.employee.name}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.vacancy.manager">manager</span>
+                </td>
+                <td>
+                    {{vacancy.manager.login}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <property name="now" value="now()" dbms="mysql,h2"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+    <property name="now" value="sysdate" dbms="oracle"/>
+
+    <property name="autoIncrement" value="true" dbms="mysql,h2,postgresql,oracle"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle"/>
+
+    <!--
+        Added the entity AlmEmpLeaveCancellation.
+    -->
+    <changeSet id="20160226011350" author="jhipster">
+        <createTable tableName="alm_emp_leave_cancellation">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="request_date" type="date">
+                <constraints nullable="false" />
+            </column>
+            <column name="request_type" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="cancel_status" type="varchar(255)"/>
+            <column name="cause_of_cancellation" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="active_status" type="bit">
+                <constraints nullable="false" />
+            </column>
+            <column name="create_date" type="date"/>
+            <column name="create_by" type="bigint"/>
+            <column name="update_date" type="date"/>
+            <column name="update_by" type="bigint"/>
+            <column name="employee_info_id" type="bigint"/>
+            <column name="approved_by_id" type="bigint"/>
+            <column name="alm_emp_leave_appl_id" type="bigint"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="employee_info_id"
+                                 baseTableName="alm_emp_leave_cancellation"
+                                 constraintName="fk_almlvcancl_empl_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="hr_employee_info"/>
+
+        <addForeignKeyConstraint baseColumnNames="approved_by_id"
+                                 baseTableName="alm_emp_leave_cancellation"
+                                 constraintName="fk_almlvcncl_appruid_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="hr_employee_info"/>
+
+        <addForeignKeyConstraint baseColumnNames="alm_emp_leave_appl_id"
+                                 baseTableName="alm_emp_leave_cancellation"
+                                 constraintName="fk_almlvcncl_aplcnt_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="alm_emp_leave_application"/>
+
+    </changeSet>
+</databaseChangeLog>

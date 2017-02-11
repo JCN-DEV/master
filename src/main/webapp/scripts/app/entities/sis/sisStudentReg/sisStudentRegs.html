@@ -1,0 +1,159 @@
+<div class="col-md-12 common-list">
+<h2 translate="stepApp.sisStudentReg.home.title">SisStudentRegs</h2>
+    <!--<jh-alert></jh-alert>-->
+    <div class="col-md-12 padding-tb">
+        <div class="col-md-4 no_padding">
+            <b>{{ (jobPlacementInfos|filter:q).length }} results found</b>
+            <div class="input-group">
+                <span class="input-group-addon dlbtn" id="basic-addon1"><i class="fa fa-search"></i></span>
+                <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+            </div>
+        </div>
+        <div class="col-md-4"><b>Items per page:</b>
+            <div class="input-group">
+                <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+            </div>
+        </div>
+        <div class="col-md-4 text-right dlbtn-top no_padding">
+            <button class="btn btn-primary" ui-sref="sisStudentReg.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.sisStudentReg.home.createLabel">Create a new SisStudentReg</span>
+            </button>
+        </div>
+    </div>
+    <div class="modal fade" id="deleteSisStudentRegConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(sisStudentReg.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p translate="stepApp.sisStudentReg.delete.question"
+                           translate-values="{id: '{{sisStudentReg.id}}'}">Are you sure you want to delete this
+                            SisStudentReg?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                            translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                            translate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="global.field.serial">Serial</th>
+                <th translate="global.field.id">ID</th>
+                <th translate="stepApp.sisStudentReg.applicationId">ApplicationId</th>
+                <th translate="stepApp.sisStudentReg.instCategory">InstCategory</th>
+                <th translate="stepApp.sisStudentReg.instituteName">InstituteName</th>
+                <th translate="stepApp.sisStudentReg.curriculum">Curriculum</th>
+                <th translate="stepApp.sisStudentReg.TradeTechnology">TradeTechnology</th><!--
+                    <th translate="stepApp.sisStudentReg.subject1">Subject1</th>
+                    <th translate="stepApp.sisStudentReg.subject2">Subject2</th>
+                    <th translate="stepApp.sisStudentReg.subject3">Subject3</th>
+                    <th translate="stepApp.sisStudentReg.subject4">Subject4</th>
+                    <th translate="stepApp.sisStudentReg.subject5">Subject5</th>
+                    <th translate="stepApp.sisStudentReg.optional">Optional</th>
+                    <th translate="stepApp.sisStudentReg.shift">Shift</th>
+                    <th translate="stepApp.sisStudentReg.semester">Semester</th>
+                    <th translate="stepApp.sisStudentReg.studentName">StudentName</th>
+                    <th translate="stepApp.sisStudentReg.fatherName">FatherName</th>
+                    <th translate="stepApp.sisStudentReg.motherName">MotherName</th>
+                    <th translate="stepApp.sisStudentReg.dateOfBirth">DateOfBirth</th>
+                    <th translate="stepApp.sisStudentReg.gender">Gender</th>
+                    <th translate="stepApp.sisStudentReg.religion">Religion</th>
+                    <th translate="stepApp.sisStudentReg.bloodGroup">BloodGroup</th>
+                    <th translate="stepApp.sisStudentReg.quota">Quota</th>
+                    <th translate="stepApp.sisStudentReg.nationality">Nationality</th>
+                    <th translate="stepApp.sisStudentReg.mobileNo">MobileNo</th>
+                    <th translate="stepApp.sisStudentReg.contactNoHome">ContactNoHome</th>
+                    <th translate="stepApp.sisStudentReg.emailAddress">EmailAddress</th>
+                    <th translate="stepApp.sisStudentReg.presentAddress">PresentAddress</th>
+                    <th translate="stepApp.sisStudentReg.permanentAddress">PermanentAddress</th>
+                    <th translate="stepApp.sisStudentReg.activeStatus">ActiveStatus</th>
+                    <th translate="stepApp.sisStudentReg.createDate">CreateDate</th>
+                    <th translate="stepApp.sisStudentReg.createBy">CreateBy</th>
+                    <th translate="stepApp.sisStudentReg.updateDate">UpdateDate</th>
+                    <th translate="stepApp.sisStudentReg.updateBy">UpdateBy</th>-->
+                <th translate="stepApp.sisStudentReg.maritalStatus">MaritalStatus</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--<tr dir-paginate="sisStudentReg in sisStudentRegs  | filter:q | itemsPerPage: pageSize">-->
+            <tr ng-animate="'animate'" dir-paginate="sisStudentReg in sisStudentRegs | filter:q | itemsPerPage: pageSize track by sisStudentReg.id" current-page="currentPage">
+                <td>{{pageSize*(currentPage-1)+$index+1}}</td>
+                <td><a ui-sref="sisStudentReg.detail({id:sisStudentReg.id})">{{sisStudentReg.id}}</a></td>
+                <td>{{sisStudentReg.applicationId}}</td>
+                <td>{{sisStudentReg.instCategory}}</td>
+                <td>{{sisStudentReg.instituteName}}</td>
+                <td>{{sisStudentReg.curriculum}}</td>
+                <td>{{sisStudentReg.TradeTechnology}}</td><!--
+                    <td>{{sisStudentReg.subject1}}</td>
+                    <td>{{sisStudentReg.subject2}}</td>
+                    <td>{{sisStudentReg.subject3}}</td>
+                    <td>{{sisStudentReg.subject4}}</td>
+                    <td>{{sisStudentReg.subject5}}</td>
+                    <td>{{sisStudentReg.optional}}</td>
+                    <td>{{sisStudentReg.shift}}</td>
+                    <td>{{sisStudentReg.semester}}</td>
+                    <td>{{sisStudentReg.studentName}}</td>
+                    <td>{{sisStudentReg.fatherName}}</td>
+                    <td>{{sisStudentReg.motherName}}</td>
+                    <td>{{sisStudentReg.dateOfBirth}}</td>
+                    <td>{{sisStudentReg.gender}}</td>
+                    <td>{{sisStudentReg.religion}}</td>
+                    <td>{{sisStudentReg.bloodGroup}}</td>
+                    <td>{{sisStudentReg.quota}}</td>
+                    <td>{{sisStudentReg.nationality}}</td>
+                    <td>{{sisStudentReg.mobileNo}}</td>
+                    <td>{{sisStudentReg.contactNoHome}}</td>
+                    <td>{{sisStudentReg.emailAddress}}</td>
+                    <td>{{sisStudentReg.presentAddress}}</td>
+                    <td>{{sisStudentReg.permanentAddress}}</td>
+                    <td>{{sisStudentReg.activeStatus}}</td>
+                        <td>{{sisStudentReg.createDate | date:'mediumDate'}}</td>
+                    <td>{{sisStudentReg.createBy}}</td>
+                        <td>{{sisStudentReg.updateDate | date:'mediumDate'}}</td>
+                    <td>{{sisStudentReg.updateBy}}</td>-->
+                <td>{{sisStudentReg.maritalStatus}}</td>
+                <td class="text-right">
+                    <button type="submit"
+                            ui-sref="sisStudentReg.detail({id:sisStudentReg.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="sisStudentReg.edit({id:sisStudentReg.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                        translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit"
+                            ng-click="delete(sisStudentReg.id)"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                        translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                     template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+</div>

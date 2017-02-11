@@ -1,0 +1,89 @@
+<div class="col-md-12 common-list">
+    <h2 class="panel-heading" translate="stepApp.prlSalaryStructureInfo.home.title">PrlSalaryStructureInfos</h2>
+    <div class="col-md-12 padding-tb">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control"
+                   placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control"
+                   placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+        <div class="col-xs-4 no_padding text-right ">
+            <button class="btn btn-primary pull-right" ui-sref="prlSalaryStructureInfo.new">
+                <span class="glyphicon glyphicon-plus"></span> <span
+                translate="stepApp.prlSalaryStructureInfo.home.createLabel">Create a new PrlSalaryStructureInfo</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+            <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
+                <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span
+                    class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="effectiveDate"><span translate="stepApp.prlSalaryStructureInfo.effectiveDate">EffectiveDate</span>
+                    <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="basicAmount"><span
+                    translate="stepApp.prlSalaryStructureInfo.basicAmount">BasicAmount</span> <span
+                    class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="activeStatus"><span
+                    translate="stepApp.prlSalaryStructureInfo.activeStatus">ActiveStatus</span> <span
+                    class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="payscaleInfo.name"><span translate="stepApp.prlSalaryStructureInfo.payscaleInfo">payscaleInfo</span>
+                    <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="payscaleBasicInfo.basicAmount"><span
+                    translate="stepApp.prlSalaryStructureInfo.payscaleBasicInfo">payscaleBasicInfo</span> <span
+                    class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="employeeInfo.fullName"><span translate="stepApp.prlSalaryStructureInfo.employeeInfo">employeeInfo</span>
+                    <span class="glyphicon glyphicon-sort"></span></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-animate="'animate'"
+                dir-paginate="prlSalaryStructureInfo in prlSalaryStructureInfos | filter:q | itemsPerPage: pageSize track by prlSalaryStructureInfo.id"
+                current-page="currentPage">
+                <td><a ui-sref="prlSalaryStructureInfo.detail({id:prlSalaryStructureInfo.id})">{{prlSalaryStructureInfo.id}}</a>
+                </td>
+                <td>{{prlSalaryStructureInfo.effectiveDate | date:'mediumDate'}}</td>
+                <td>{{prlSalaryStructureInfo.basicAmount}}</td>
+                <td>{{prlSalaryStructureInfo.activeStatus}}</td>
+                <td>
+                    <a ui-sref="prlPayscaleInfo.detail({id:prlSalaryStructureInfo.payscaleInfo.id})">{{prlSalaryStructureInfo.payscaleInfo.name}}</a>
+                </td>
+                <td>
+                    <a ui-sref="prlPayscaleBasicInfo.detail({id:prlSalaryStructureInfo.payscaleBasicInfo.id})">{{prlSalaryStructureInfo.payscaleBasicInfo.basicAmount}}</a>
+                </td>
+                <td>
+                    <a ui-sref="hrEmployeeInfo.detail({id:prlSalaryStructureInfo.employeeInfo.id})">{{prlSalaryStructureInfo.employeeInfo.fullName}}</a>
+                </td>
+                <td class="text-right">
+                    <button type="submit"
+                            ui-sref="prlSalaryStructureInfo.detail({id:prlSalaryStructureInfo.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="prlSalaryStructureInfo.edit({id:prlSalaryStructureInfo.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                        translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit" ng-hide="true"
+                            ui-sref="prlSalaryStructureInfo.delete({id:prlSalaryStructureInfo.id})"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                        translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <nav class="no-print">
+        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                 template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+    </nav>
+</div>

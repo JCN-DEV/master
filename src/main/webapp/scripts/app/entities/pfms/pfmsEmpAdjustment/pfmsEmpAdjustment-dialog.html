@@ -1,0 +1,174 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 class="modal-title" id="myPfmsEmpAdjustmentLabel"
+            translate="stepApp.pfmsEmpAdjustment.home.createOrEditLabel">Create or edit a PfmsEmpAdjustment</h4>
+        <div class="panel-body">
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpAdjustment.employeeInfo" for="field_employeeInfo">employeeInfo</label>
+                <!--<select class="form-control" id="field_employeeInfo" name="employeeInfo" ng-model="pfmsEmpAdjustment.employeeInfo" ng-options="HrEmployeeInfo as HrEmployeeInfo.fullName for HrEmployeeInfo in hremployeeinfos track by HrEmployeeInfo.id">-->
+                <!--<option value=""></option>-->
+                <!--</select>-->
+
+                <div class="input-group">
+                    <input type="text" class="form-control" autocomplete="off" ng-model="pfmsEmpAdjustment.employeeInfo"
+                           typeahead='HrEmployeeInfo as (HrEmployeeInfo.fullName + " - " + HrEmployeeInfo.employeeId) for HrEmployeeInfo in hremployeeinfos | filter:$viewValue'
+                           id="field_employeeInfo" required
+                           placeholder="{{'stepApp.pfmsEmpAdjustment.employeeInfo' | translate}}">
+                    <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="loadEmployeeInfo()">
+                    <span class="glyphicon"></span>&nbsp;<span
+                        translate="stepApp.pfmsEmpAdjustment.search">Search</span>
+            </button>
+                </span>
+                </div>
+
+
+            </div>
+            <div class="form-group col-md-6">
+
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpAdjustment.departmentName" for="field_almLeaveType">Department</label>
+                <span class="form-control">{{departmentName}}</span>
+            </div>
+
+            <div class="form-group col-md-6 ">
+                <label translate="stepApp.pfmsEmpAdjustment.designationName" for="field_Designation">Designation</label>
+                <span class="form-control">{{designationName}}</span>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpAdjustment.nationality" for="field_nationality">nationality</label>
+                <span class="form-control">{{nationality}}</span>
+            </div>
+
+            <div class="form-group col-md-6 ">
+                <label translate="stepApp.pfmsEmpAdjustment.fatherName" for="field_fatherName">fatherName</label>
+                <span class="form-control">{{fatherName}}</span>
+            </div>
+
+            <div class="form-group col-md-6 ">
+                <label translate="stepApp.pfmsEmpAdjustment.dutySide" for="field_dutySide">dutySide</label>
+                <span class="form-control">{{dutySide}}</span>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpAdjustment.isCurrentBalance" for="field_isCurrentBalance">IsCurrentBalance</label>
+                <span class="form-control">
+            <input type="radio" data-ng-model="pfmsEmpAdjustment.isCurrentBalance" required
+                   ng-change="onChangeIsCurrentBalance()" name="isCurrentBalance" data-ng-value="true">&nbsp;Current Balance&nbsp;|&nbsp;
+            <input type="radio" data-ng-model="pfmsEmpAdjustment.isCurrentBalance"
+                   ng-change="onChangeIsCurrentBalance()" name="isCurrentBalance" data-ng-value="false">&nbsp;Initial balance
+            </span>
+                <div ng-show="editForm.isCurrentBalance.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.isCurrentBalance.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpAdjustment.ownContribute"
+                       for="field_ownContribute">OwnContribute</label>
+                <input type="number" class="form-control" name="ownContribute" id="field_ownContribute"
+                       ng-model="pfmsEmpAdjustment.ownContribute"
+                       required/>
+                <div ng-show="editForm.ownContribute.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.ownContribute.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.ownContribute.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpAdjustment.preOwnContribute" for="field_preOwnContribute">PreOwnContribute</label>
+                <input type="number" class="form-control" name="preOwnContribute" readonly="readonly"
+                       id="field_preOwnContribute"
+                       ng-model="pfmsEmpAdjustment.preOwnContribute"
+                       required/>
+                <div ng-show="editForm.preOwnContribute.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.preOwnContribute.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.preOwnContribute.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpAdjustment.ownContributeInt" for="field_ownContributeInt">OwnContributeInt</label>
+                <input type="number" class="form-control" name="ownContributeInt" id="field_ownContributeInt"
+                       ng-model="pfmsEmpAdjustment.ownContributeInt"
+                       required/>
+                <div ng-show="editForm.ownContributeInt.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.ownContributeInt.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.ownContributeInt.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpAdjustment.preOwnContributeInt" for="field_preOwnContributeInt">PreOwnContributeInt</label>
+                <input type="number" class="form-control" name="preOwnContributeInt" readonly="readonly"
+                       id="field_preOwnContributeInt"
+                       ng-model="pfmsEmpAdjustment.preOwnContributeInt"
+                       required/>
+                <div ng-show="editForm.preOwnContributeInt.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.preOwnContributeInt.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.preOwnContributeInt.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpAdjustment.reason" for="field_reason">Reason</label>
+                <input type="text" class="form-control" name="reason" id="field_reason"
+                       ng-model="pfmsEmpAdjustment.reason"
+                       required/>
+                <div ng-show="editForm.reason.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.reason.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpAdjustment.activeStatus" for="field_activeStatus">ActiveStatus</label>
+                <input type="radio" data-ng-model="pfmsEmpAdjustment.activeStatus" name="activeStatus"
+                       data-ng-value="true">&nbsp;Active&nbsp;|&nbsp;
+                <input type="radio" data-ng-model="pfmsEmpAdjustment.activeStatus" name="activeStatus"
+                       data-ng-value="false">&nbsp;Inactive
+                <div ng-show="editForm.activeStatus.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <button type="button"
+                    onclick="window.history.back()"
+                    class="btn btn-info"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span
+                translate="entity.action.back"> Back</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

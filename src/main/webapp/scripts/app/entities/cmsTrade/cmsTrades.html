@@ -1,0 +1,80 @@
+<div class="cmscurriculam">
+    <div class="panel-heading cmsheading">
+        <h3 class="panel-title"  translate="stepApp.cmsTrade.home.title">CmsTrades</h3>
+    </div>
+    <jh-alert></jh-alert>
+        <div class="row">
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </form>
+            </div>
+            <div class="col-md-4 text-right">
+                <button class="btn btn-primary" ui-sref="cmsTrade.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="stepApp.cmsTrade.home.createLabel">Create a new CmsTrade</span>
+                </button>
+            </div>
+
+        </div>
+    <div class="table-responsive cmsheadrow">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="global.field.id">ID</th>
+                    <th translate="stepApp.cmsTrade.code">Code</th>
+                    <th translate="stepApp.cmsTrade.name">Name</th>
+                    <th translate="stepApp.cmsTrade.description">Description</th>
+                    <th translate="stepApp.cmsTrade.status">Status</th>
+                    <th translate="stepApp.cmsTrade.cmsCurriculum">cmsCurriculum</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="cmsTrade in cmsTrades track by cmsTrade.id">
+                    <td><a ui-sref="cmsTrade.detail({id:cmsTrade.id})">{{cmsTrade.id}}</a></td>
+                    <td>{{cmsTrade.code}}</td>
+                    <td>{{cmsTrade.name}}</td>
+                    <td>{{cmsTrade.description}}</td>
+                    <td>{{cmsTrade.status}}</td>
+                    <td>
+                        <a ui-sref="cmsCurriculum.detail({id:cmsTrade.cmsCurriculum.id})">{{cmsTrade.cmsCurriculum.name}}</a>
+                    </td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="cmsTrade.detail({id:cmsTrade.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="cmsTrade.edit({id:cmsTrade.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="cmsTrade.delete({id:cmsTrade.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pagination">
+                <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                <li class="active"><a>{{page + 1}}</a></li>
+                <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>

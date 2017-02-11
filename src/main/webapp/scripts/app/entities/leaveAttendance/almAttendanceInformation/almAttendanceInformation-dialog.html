@@ -1,0 +1,177 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="almAttendanceInformation.id == null" class="modal-title" id="myAlmAttendanceInformationLabel"
+            translate="stepApp.almAttendanceInformation.home.createOrEditLabel">Create or edit a
+            AlmAttendanceInformation</h4>
+        <h4 ng-show="almAttendanceInformation.id != null" class="modal-title" id="myAlmAttendanceInformationLabel"
+            translate="stepApp.almAttendanceInformation.home.EditLabel">Create or edit a AlmAttendanceInformation</h4>
+        <div class="modal-body">
+            <jh-alert-error></jh-alert-error>
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.almAttendanceInformation.officeIn" for="field_officeIn">OfficeIn</label>
+                    <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.officeIn"
+                           datepicker-options="calendar.dateOptions" close-text="Close"
+                           ng-click="calendar.open($event, 'officeIn')" class="form-control" name="officeIn"
+                           id="field_officeIn"
+                           tooltip="{{'stepApp.almAttendanceInformation.officeIn' | translate}}"
+                           placeholder="yyyy-mm-dd"
+                           ng-model="almAttendanceInformation.officeIn" required/>
+                    <div ng-show="editForm.officeIn.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.officeIn.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.almAttendanceInformation.officeOut"
+                           for="field_officeOut">OfficeOut</label>
+                    <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.officeOut"
+                           datepicker-options="calendar.dateOptions" close-text="Close"
+                           ng-click="calendar.open($event, 'officeOut')" class="form-control" name="officeOut"
+                           id="field_officeOut"
+                           tooltip="{{'stepApp.almAttendanceInformation.officeOut' | translate}}"
+                           placeholder="yyyy-mm-dd"
+                           ng-model="almAttendanceInformation.officeOut" required/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.almAttendanceInformation.punchIn" for="field_punchIn">PunchIn</label>
+                    <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.punchIn"
+                           datepicker-options="calendar.dateOptions" close-text="Close"
+                           ng-click="calendar.open($event, 'punchIn')" class="form-control" name="punchIn"
+                           id="field_punchIn"
+                           tooltip="{{'stepApp.almAttendanceInformation.punchIn' | translate}}"
+                           placeholder="yyyy-mm-dd"
+                           ng-model="almAttendanceInformation.punchIn" required/>
+
+
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.almAttendanceInformation.punchInNote"
+                           for="field_punchInNote">PunchInNote</label>
+                    <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.punchInNote"
+                           datepicker-options="calendar.dateOptions" close-text="Close"
+                           ng-click="calendar.open($event, 'punchInNote')" class="form-control" name="punchInNote"
+                           id="field_punchInNote"
+                           tooltip="{{'stepApp.almAttendanceInformation.punchInNote' | translate}}"
+                           placeholder="yyyy-mm-dd"
+                           ng-model="almAttendanceInformation.punchInNote" required/>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.almAttendanceInformation.punchOut" for="field_punchOut">PunchOut</label>
+                    <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.punchOut"
+                           datepicker-options="calendar.dateOptions" close-text="Close"
+                           ng-click="calendar.open($event, 'punchOut')" class="form-control" name="punchOut"
+                           id="field_punchOut"
+                           tooltip="{{'stepApp.almAttendanceInformation.punchOut' | translate}}"
+                           placeholder="yyyy-mm-dd"
+                           ng-model="almAttendanceInformation.punchOut" required/>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.almAttendanceInformation.punchOutNote" for="field_punchOutNote">PunchOutNote</label>
+                    <input type="text" class="form-control" name="punchOutNote" id="field_punchOutNote"
+                           ng-model="almAttendanceInformation.punchOutNote"
+                           tooltip="{{'stepApp.almAttendanceInformation.punchOutNote' | translate}}"
+                           placeholder="{{'stepApp.almAttendanceInformation.punchOutNote' | translate}}"
+                    />
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.almAttendanceInformation.processDate"
+                           for="field_processDate">ProcessDate</label>
+                    <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.processDate"
+                           datepicker-options="calendar.dateOptions" close-text="Close"
+                           ng-click="calendar.open($event, 'processDate')" class="form-control" name="processDate"
+                           id="field_processDate"
+                           tooltip="{{'stepApp.almAttendanceInformation.processDate' | translate}}"
+                           placeholder="yyyy-mm-dd"
+                           ng-model="almAttendanceInformation.processDate" required/>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.almAttendanceInformation.isProcessed"
+                           for="field_isProcessed">IsProcessed</label>
+                    <input type="checkbox" class="form-control" name="isProcessed" id="field_isProcessed"
+                           ng-model="almAttendanceInformation.isProcessed"
+                           tooltip="{{'stepApp.almAttendanceInformation.isProcessed' | translate}}"
+                           placeholder="{{'stepApp.almAttendanceInformation.isProcessed' | translate}}"
+                    />
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.almAttendanceInformation.activeStatus" for="field_activeStatus">ActiveStatus</label>
+            <span class="form-control">
+                    <input tooltip="{{'stepApp.almAttendanceInformation.activeStatus' | translate}}" type="radio" data-ng-model="almAttendanceInformation.activeStatus" name="activeStatus"
+                           data-ng-value="true">&nbsp;Active&nbsp;|&nbsp;
+                    <input tooltip="{{'stepApp.almAttendanceInformation.activeStatus' | translate}}" type="radio" data-ng-model="almAttendanceInformation.activeStatus" name="activeStatus"
+                           data-ng-value="false">&nbsp;Inactive
+                </span>
+                    <div ng-show="editForm.activeStatus.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label translate="stepApp.almAttendanceInformation.employeeInfo"
+                       for="field_employeeInfo">employeeInfo</label>
+                <select class="form-control" id="field_employeeInfo" name="employeeInfo"
+                        tooltip="{{'stepApp.almAttendanceInformation.employeeInfo' | translate}}"
+                        ng-model="almAttendanceInformation.employeeInfo"
+                        ng-options="HrEmployeeInfo as HrEmployeeInfo.fullName for HrEmployeeInfo in hremployeeinfos track by HrEmployeeInfo.id">
+                    <option value="" translate="stepApp.almAttendanceInformation.employeeInfo"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label translate="stepApp.almAttendanceInformation.almAttendanceConfiguration"
+                       for="field_almAttendanceConfiguration">almAttendanceConfiguration</label>
+                <select class="form-control" id="field_almAttendanceConfiguration" name="almAttendanceConfiguration"
+                        tooltip="{{'stepApp.almAttendanceInformation.almAttendanceConfiguration' | translate}}"
+                        ng-model="almAttendanceInformation.almAttendanceConfiguration"
+                        ng-options="AlmAttendanceConfiguration as AlmAttendanceConfiguration.id for AlmAttendanceConfiguration in almattendanceconfigurations track by AlmAttendanceConfiguration.id">
+                    <option value="" translate="stepApp.almAttendanceInformation.almAttendanceConfiguration"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label translate="stepApp.almAttendanceInformation.almShiftSetup" for="field_almShiftSetup">almShiftSetup</label>
+                <select class="form-control" id="field_almShiftSetup" name="almShiftSetup"
+                        ng-model="almAttendanceInformation.almShiftSetup"
+                        tooltip="{{'stepApp.almAttendanceInformation.almShiftSetup' | translate}}"
+                        ng-options="AlmShiftSetup as AlmShiftSetup.shiftName for AlmShiftSetup in almshiftsetups track by AlmShiftSetup.id">
+                    <option value="" translate="stepApp.almAttendanceInformation.almShiftSetup"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label translate="stepApp.almAttendanceInformation.almAttendanceStatus" for="field_almAttendanceStatus">almAttendanceStatus</label>
+                <select class="form-control" id="field_almAttendanceStatus" name="almAttendanceStatus"
+                        ng-model="almAttendanceInformation.almAttendanceStatus"
+                        tooltip="{{'stepApp.almAttendanceInformation.almAttendanceStatus' | translate}}"
+                        ng-options="AlmAttendanceStatus as AlmAttendanceStatus.attendanceStatusName for AlmAttendanceStatus in almattendancestatuss track by AlmAttendanceStatus.id">
+                    <option value="" translate="stepApp.almAttendanceInformation.almAttendanceStatus" ></option>
+                </select>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.history.back()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="almAttendanceInformation.id == null" translate="entity.action.save">Save</span>
+                <span ng-show="almAttendanceInformation.id != null" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

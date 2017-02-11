@@ -1,0 +1,154 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" show-validation novalidate ng-submit="save()">
+        <h4 ng-show="iisCurriculumInfo.id==null" class="modal-title" id="myIisCurriculumInfoLabel"
+            translate="stepApp.iisCurriculumInfo.home.createOrEditLabel">Create or edit a IisCurriculumInfo</h4>
+        <h4 ng-hide="iisCurriculumInfo.id==null" class="modal-title" id="myIisCurriculumInfoLabel1"
+            translate="stepApp.iisCurriculumInfo.home.EditLabel">
+            Create or edit a IisCurriculumInfo</h4>
+        <div class="modal-body col-sm-12 padding-tb">
+            <!--<jh-alert-error></jh-alert-error>-->
+            <!--<div class="form-group col-md-6">
+                <label for="id" translate="global.field.id">ID</label>
+                <input type="text" class="form-control" id="id" name="id"
+                        ng-model="iisCurriculumInfo.id" readonly />
+            </div>-->
+            <div class="form-group col-md-6">
+                <label translate="stepApp.iisCurriculumInfo.cmsCurriculum"
+                       for="field_cmsCurriculum">cmsCurriculum</label>
+                <select class="form-control" id="field_cmsCurriculum" name="cmsCurriculum" required
+                        ng-model="iisCurriculumInfo.cmsCurriculum"
+                        ng-options="cmsCurriculum as cmsCurriculum.name for cmsCurriculum in cmscurriculums track by cmsCurriculum.id"
+                        data-toggle="tooltip"
+                        tooltip="{{'stepApp.iisCurriculumInfo.cmsCurriculum' | translate}}"
+                >
+                    <option value="" translate="stepApp.iisCurriculumInfo.cmsCurriculum"></option>
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.iisCurriculumInfo.firstDate" for="field_firstDate">FirstDate</label>
+                <input type="text" class="form-control" name="firstDate" id="field_firstDate"
+                       ng-model="iisCurriculumInfo.firstDate"
+                       datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.firstDate"
+                       datepicker-options="calendar.dateOptions" close-text="Close"
+                       ng-click="calendar.open($event, 'firstDate')"
+                       placeholder="yyyy-mm-dd" required
+                       data-toggle="tooltip"
+                       tooltip="{{'stepApp.iisCurriculumInfo.firstDate' | translate}}"
+                />
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.iisCurriculumInfo.lastDate" for="field_lastDate">LastDate</label>
+                <input type="text" class="form-control" name="lastDate" id="field_lastDate"
+                       ng-model="iisCurriculumInfo.lastDate"
+                       datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.lastDate"
+                       datepicker-options="calendar.dateOptions" close-text="Close"
+                       ng-click="calendar.open($event, 'lastDate')"
+                       placeholder="yyyy-mm-dd"
+                       ng-change="deadlineValidation()"
+                       required
+                       data-toggle="tooltip"
+                       tooltip="{{'stepApp.iisCurriculumInfo.lastDate' | translate}}"
+                />
+                <div ng-if="dateError" style="color: red">
+                        Invalid Date. Please select valid date..
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.iisCurriculumInfo.mpoEnlisted" for="field_mpoEnlisted">MpoEnlisted</label>
+                <!--<input type="checkbox" class="form-control" name="mpoEnlisted" id="field_mpoEnlisted"
+                        ng-model="iisCurriculumInfo.mpoEnlisted"
+                         />-->
+                <div id="field_mpoEnlisted">
+                    <label class="radio-inline">
+                        <input type="radio" name="mpoEnlisted" value="true"
+                               data-toggle="tooltip"
+                               tooltip="{{'stepApp.iisCurriculumInfo.mpoEnlisted' | translate}}"
+                               ng-checked="(iisCurriculumInfo.mpoEnlisted == true || iisCurriculumInfo.mpoEnlisted == null)"
+                               ng-model="iisCurriculumInfo.mpoEnlisted"><span
+                        translate="entity.action.yes">
+                        Active</span>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="mpoEnlisted" value="false"
+                               data-toggle="tooltip"
+                               tooltip="{{'stepApp.iisCurriculumInfo.mpoEnlisted' | translate}}"
+                               ng-checked="(iisCurriculumInfo.mpoEnlisted == false && iisCurriculumInfo.mpoEnlisted != null)"
+                               ng-model="iisCurriculumInfo.mpoEnlisted"><span
+                        translate="entity.action.no">
+                        Deactive</span>
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-12 no_padding">
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.iisCurriculumInfo.recNo" for="field_recNo">RecNo</label>
+                    <input type="text" class="form-control" name="recNo" id="field_recNo"
+                           ng-model="iisCurriculumInfo.recNo"
+                           data-toggle="tooltip"
+                           tooltip="{{'stepApp.iisCurriculumInfo.recNo' | translate}}"
+                           placeholder="{{'stepApp.iisCurriculumInfo.recNo' | translate}}"
+                    />
+                </div>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.iisCurriculumInfo.lastRecNo" for="field_lastRecNo">RecNo</label>
+                    <input type="text" class="form-control" name="lastRecNo" id="field_lastRecNo"
+                           ng-model="iisCurriculumInfo.lastRecNo"
+                           data-toggle="tooltip"
+                           tooltip="{{'stepApp.iisCurriculumInfo.lastRecNo' | translate}}"
+                           placeholder="{{'stepApp.iisCurriculumInfo.lastRecNo' | translate}}"
+                        />
+                </div>
+                <!--<div class="form-group col-md-6">
+                    <label translate="stepApp.iisCurriculumInfo.mpoDate" for="field_mpoDate">MpoDate</label>
+                    <input type="text" class="form-control" name="mpoDate" id="field_mpoDate"
+                           ng-model="iisCurriculumInfo.mpoDate"
+                           datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.mpoDate"
+                           datepicker-options="calendar.dateOptions" close-text="Close"
+                           ng-click="calendar.open($event, 'mpoDate')"
+                           placeholder="yyyy-mm-dd"
+                           data-toggle="tooltip"
+                           tooltip="{{'stepApp.iisCurriculumInfo.mpoDate' | translate}}"
+                           required="required"
+                    />
+                </div>-->
+            </div>
+            <!--<div class="col-sm-12 no_padding">
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.iisCurriculumInfo.lastRecNo" for="field_lastRecNo">RecNo</label>
+                    <input type="text" class="form-control" name="lastRecNo" id="field_lastRecNo"
+                           ng-model="iisCurriculumInfo.lastRecNo" required
+                           data-toggle="tooltip"
+                           tooltip="{{'stepApp.iisCurriculumInfo.lastRecNo' | translate}}"
+                           placeholder="{{'stepApp.iisCurriculumInfo.lastRecNo' | translate}}"
+                    />
+                </div>
+                &lt;!&ndash;<div class="form-group col-md-6">
+                    <label translate="stepApp.iisCurriculumInfo.lastMpoDate" for="field_lastMpoDate">MpoDate</label>
+                    <input type="text" class="form-control" name="lastMpoDate" id="field_lastMpoDate"
+                           ng-model="iisCurriculumInfo.lastMpoDate"
+                           datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.lastMpoDate"
+                           datepicker-options="calendar.dateOptions" close-text="Close"
+                           ng-click="calendar.open($event, 'lastMpoDate')"
+                           placeholder="yyyy-mm-dd"
+                           data-toggle="tooltip"
+                           tooltip="{{'stepApp.iisCurriculumInfo.lastMpoDate' | translate}}"
+                           required="required"
+                    />
+                </div>&ndash;&gt;
+            </div>-->
+        </div>
+        <div class="modal-footer col-sm-12 no_padding">
+            <button type="button" class="btn btn-default" ui-sref="instituteInfo.iisCurriculumInfo">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid ||dateError|| isSaving || editForm.$pending"
+                    class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="iisCurriculumInfo.id==null" translate="entity.action.save">Save</span>
+                <span ng-show="iisCurriculumInfo.id != null" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>
+

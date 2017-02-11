@@ -1,0 +1,415 @@
+<!--complain--->
+<div class="service-form-area">
+    <div class="panel panel-default">
+        <div class="panel-heading" >
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                    ng-click="clear()">&times;</button>
+            <h4 class="modal-title" id="mySmsServiceComplaintLabel" translate="stepApp.smsServiceComplaint.home.createOrEditLabel">Create or edit a SmsServiceComplaint</h4>
+        </div>
+        <div class="panel-body bg-panel">
+            <jh-alert-error></jh-alert-error>
+
+            <form  class="form-horizontal " name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+
+            <div class=" col-md-6 col-sm-12 col-xs-12 ">
+                <div class="form-group">
+                    <label  class=" control-label"  translate="stepApp.smsServiceComplaint.previousCode" for="field_previousCode">PreviousCode</label>
+
+                    <div class="input-margin">
+                        <input type="text" class="form-control" name="previousCode" id="field_previousCode"
+                               ng-model="smsServiceComplaint.previousCode">
+                    </div>
+                </div>
+            </div>
+
+
+
+
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label  class="  control-label" translate="stepApp.smsServiceComplaint.smsServiceType" for="field_smsServiceType">smsServiceType</label>
+
+                        <div class="input-margin">
+                            <select ng-change="loadServiceNameByTypes(smsServiceComplaint.smsServiceType)"
+                                    class="form-control" id="field_smsServiceType" name="smsServiceType" ng-model="smsServiceComplaint.smsServiceType"
+                                    ng-options="smsServiceType as smsServiceType.serviceTypeName for smsServiceType in smsservicetypes track by smsServiceType.id">
+                                <option value=""></option>
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+               <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label  class="  control-label" translate="stepApp.smsServiceComplaint.smsServiceName" for="field_smsServiceName">smsServiceName</label>
+
+                        <div class="input-margin">
+                            <select  id="field_smsServiceName" name="smsServiceName" ng-model="smsServiceComplaint.smsServiceName"
+                                     ng-options="sname as sname.serviceName for sname in filteredNameList | orderBy:'id' track by sname.id" required>
+                                <option value="">{{SelectedName}}</option>
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+
+           <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label  class="  control-label" translate="stepApp.smsServiceComplaint.smsServiceDepartment" for="field_smsServiceDepartment">smsServiceDepartment</label>
+
+                        <div class="input-margin">
+                            <select  id="field_smsServiceDepartment" name="smsServiceDepartment" ng-model="smsServiceComplaint.smsServiceDepartment"
+                                     ng-options="smsServiceDepartment as smsServiceDepartment.name for smsServiceDepartment in smsservicedepartments track by smsServiceDepartment.id">
+                                <option value=""></option>
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+              <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label  class="  control-label"  translate="stepApp.smsServiceComplaint.priority" for="field_priority">Priority</label>
+
+                        <div class="input-margin">
+                            <select name="priority" ng-model="smsServiceComplaint.priority" id="field_priority">
+                            <option value="High" translate="stepApp.priority.High">High</option>
+                            <option value="Medium" translate="stepApp.priority.Medium">Medium</option>
+                            <option value="Low" translate="stepApp.priority.Low">Low</option>
+                        </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class=" col-md-6 col-sm-12 col-xs-12 ">
+                    <div class="form-group">
+                        <label  class=" control-label"  translate="stepApp.smsServiceComplaint.complaintName" for="field_complaintName">ComplaintName</label>
+
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="complaintName" id="field_complaintName"
+                                   ng-model="smsServiceComplaint.complaintName">
+                            <div ng-show="editForm.complaintName.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.complaintName.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class=" col-md-6 col-sm-12 col-xs-12 ">
+                    <div class="form-group">
+                        <label  class=" control-label"   translate="stepApp.smsServiceComplaint.emailAddress" for="field_emailAddress">EmailAddress</label>
+
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="emailAddress" id="field_emailAddress"  ng-model="smsServiceComplaint.emailAddress" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class=" col-md-6 col-sm-12 col-xs-12 ">
+                    <div class="form-group">
+                        <label  class=" control-label"   translate="stepApp.smsServiceComplaint.fullName" for="field_fullName">FullName</label>
+
+                        <div class="input-margin">
+                            <input  type="text" class="form-control" name="fullName" id="field_fullName"
+                                   ng-model="smsServiceComplaint.fullName" />
+                        </div>
+                    </div>
+                </div>
+
+               <div class=" col-md-6 col-sm-12 col-xs-12 ">
+                    <div class="form-group">
+                        <label  class=" control-label"  translate="stepApp.smsServiceComplaint.contactNumber" for="field_contactNumber">ContactNumber</label>
+                        <div class="input-margin">
+                            <input  type="text" class="form-control" name="contactNumber" id="field_contactNumber"
+                                    ng-model="smsServiceComplaint.contactNumber" ng-keypress="filterNumericValue($event)" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.smsServiceComplaint.description" for="field_description">Description</label>
+
+                        <div class="input-margin">
+                            <textarea rows="2" cols="30" name="description" id="field_description"
+                                      ng-model="smsServiceComplaint.description"
+                                      required></textarea>
+                            <div ng-show="editForm.description.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.description.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group" ngf-drop ngf-change="setComplaintDoc($file, smsServiceComplaint)">
+                        <label class="control-label" translate="stepApp.smsServiceComplaint.complaintDoc" for="field_complaintDoc">ComplaintDoc</label>
+                        <div class="input-margin">
+                            <div class="help-block clearfix">
+                                <span class="pull-left">{{smsServiceComplaint.complaintDocContentType}} {{byteSize(smsServiceComplaint.complaintDoc)}}</span>
+
+                                <button ng-click="smsServiceComplaint.complaintDoc=null;smsServiceComplaint.complaintDocContentType=null;"
+                                        ng-if="smsServiceComplaint.complaintDoc"
+                                        class="btn btn-default btn-xs pull-right">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                            </div>
+
+                            <button type="file" ngf-select class="btn btn-default btn-block"
+                                    ngf-change="setComplaintDoc($file, smsServiceComplaint)" translate="entity.action.addblob">
+                                Add blob
+                            </button>
+                        </div>
+
+
+
+                        <input type="hidden" class="form-control" name="complaintDoc" id="field_complaintDoc"
+                               ng-model="smsServiceComplaint.complaintDoc"
+                            />
+                        <input type="hidden" class="form-control" name="complaintDocContentType" id="field_complaintDocContentType"
+                               ng-model="smsServiceComplaint.complaintDocContentType" />
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.smsServiceComplaint.captchatext">Please enter the value</label> <label class="control-label">{{mathCaptchText}}</label>
+                        <div class="input-margin">
+                        <input type="number" class="form-control" name="captchaValue" ng-model="captchaValue" placeholder="{{mathCaptchText}}">
+                        <span>{{captchaHints}}&nbsp;</span>
+                    </div>
+                </div>
+                </div>
+                <div class="form-group">
+                    <span>{{responseMessage}}&nbsp;</span>
+                </div>
+
+
+
+                <!--<div class=" col-md-6 col-sm-12 col-xs-12 ">
+                    <div class="form-group">
+                        <label for="" class=" control-label">Designation Name</label>
+
+                        <div class="input-margin">
+                            <input type="text" class="form-control" id="" placeholder="">
+                        </div>
+                    </div>
+                </div>--><!---->
+
+                <!-- <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label for="" class="control-label"> Designation Details</label>
+
+                    <div class="input-margin">
+                        <textarea name="" id="" rows="2" cols="30"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label for="" class="  control-label"> Select Class</label>
+
+                    <div class="input-margin">
+                        <select>
+                            <option>Select</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label for="" class="  control-label"> Select Grade</label>
+
+                    <div class="input-margin">
+                        <select>
+                            <option>Select</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                </div>
+            </div>-->
+                <div class="col-md-12">
+                    <div class="form-group">
+
+                        <div class="right-side">
+                            <button type="button" class="btn btn-default" class="btn " data-dismiss="modal" ng-click="clear()">
+                                <i class="fa fa-ban"></i>&nbsp;<span translate="entity.action.reset">Reset</span>
+                            </button>
+                            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                                <i class="fa fa-hdd-o"></i>&nbsp;<span translate="entity.action.save">Save</span>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+
+
+
+        </form>
+
+
+    </div>
+</div>
+</div>
+<!--End complain--->
+<!--<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="mySmsServiceComplaintLabel" translate="stepApp.smsServiceComplaint.home.createOrEditLabel">Create or edit a SmsServiceComplaint</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group" ng-hide="true">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="smsServiceComplaint.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.smsServiceComplaint.previousCode" for="field_previousCode">PreviousCode</label>
+            <input type="text" class="form-control" name="previousCode" id="field_previousCode"
+                    ng-model="smsServiceComplaint.previousCode" />
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.smsServiceComplaint.smsServiceType" for="field_smsServiceType">smsServiceType</label>
+            <select ng-change="loadServiceNameByTypes(smsServiceComplaint.smsServiceType)" class="form-control" id="field_smsServiceType" name="smsServiceType" ng-model="smsServiceComplaint.smsServiceType" ng-options="smsServiceType as smsServiceType.serviceTypeName for smsServiceType in smsservicetypes track by smsServiceType.id">
+                <option value=""></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.smsServiceComplaint.smsServiceName" for="field_smsServiceName">smsServiceName</label>
+            <select class="form-control"  id="field_smsServiceName" name="smsServiceName" ng-model="smsServiceComplaint.smsServiceName" ng-options="sname as sname.serviceName for sname in filteredNameList | orderBy:'id' track by sname.id" required>
+                <option value="">{{SelectedName}}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.smsServiceComplaint.smsServiceDepartment" for="field_smsServiceDepartment">smsServiceDepartment</label>
+            <select class="form-control" id="field_smsServiceDepartment" name="smsServiceDepartment" ng-model="smsServiceComplaint.smsServiceDepartment" ng-options="smsServiceDepartment as smsServiceDepartment.name for smsServiceDepartment in smsservicedepartments track by smsServiceDepartment.id">
+                <option value=""></option>
+            </select>
+        </div>
+<>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.smsServiceComplaint.priority" for="field_priority">Priority</label>
+            <select class="form-control" name="priority" ng-model="smsServiceComplaint.priority" id="field_priority">
+                <option value="High" translate="stepApp.priority.High">High</option>
+                <option value="Medium" translate="stepApp.priority.Medium">Medium</option>
+                <option value="Low" translate="stepApp.priority.Low">Low</option>
+            </select>
+        </div>
+<>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.smsServiceComplaint.complaintName" for="field_complaintName">ComplaintName</label>
+            <input type="text" class="form-control" name="complaintName" id="field_complaintName"
+                    ng-model="smsServiceComplaint.complaintName"
+                    required />
+            <div ng-show="editForm.complaintName.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.complaintName.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+ <>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.smsServiceComplaint.fullName" for="field_fullName">FullName</label>
+            <input type="text" class="form-control" name="fullName" id="field_fullName"
+                    ng-model="smsServiceComplaint.fullName"
+                     />
+        </div>
+  <>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.smsServiceComplaint.emailAddress" for="field_emailAddress">EmailAddress</label>
+            <input type="email" class="form-control" name="emailAddress" id="field_emailAddress"
+                    ng-model="smsServiceComplaint.emailAddress"
+                     />
+        </div>
+   <>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.smsServiceComplaint.contactNumber" for="field_contactNumber">ContactNumber</label>
+            <input type="text" class="form-control" name="contactNumber" id="field_contactNumber"
+                    ng-model="smsServiceComplaint.contactNumber" ng-keypress="filterNumericValue($event)"
+                     />
+        </div>
+  <>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.smsServiceComplaint.description" for="field_description">Description</label>
+            <textarea class="form-control" name="description" id="field_description"
+                    ng-model="smsServiceComplaint.description"
+                    required ></textarea>
+            <div ng-show="editForm.description.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.description.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+   <>
+        <div class="form-group" ngf-drop ngf-change="setComplaintDoc($file, smsServiceComplaint)">
+            <label class="control-label" translate="stepApp.smsServiceComplaint.complaintDoc" for="field_complaintDoc">ComplaintDoc</label>
+            <div>
+                <div class="help-block clearfix">
+                    <span class="pull-left">{{smsServiceComplaint.complaintDocContentType}} {{byteSize(smsServiceComplaint.complaintDoc)}}</span>
+                    <button ng-click="smsServiceComplaint.complaintDoc=null;smsServiceComplaint.complaintDocContentType=null;"
+                            ng-if="smsServiceComplaint.complaintDoc"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="file" ngf-select class="btn btn-default btn-block"
+                        ngf-change="setComplaintDoc($file, smsServiceComplaint)" translate="entity.action.addblob">
+                    Add blob
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="complaintDoc" id="field_complaintDoc"
+                    ng-model="smsServiceComplaint.complaintDoc"
+                     />
+            <input type="hidden" class="form-control" name="complaintDocContentType" id="field_complaintDocContentType"
+                    ng-model="smsServiceComplaint.complaintDocContentType" />
+        </div>
+<>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.smsServiceComplaint.captchatext">Please enter the value</label> <label class="control-label">{{mathCaptchText}}</label>
+            <input type="number" class="form-control" name="captchaValue" ng-model="captchaValue" placeholder="{{mathCaptchText}}">
+            <span>{{captchaHints}}&nbsp;</span>
+        </div>
+
+        <div class="form-group">
+            <span>{{responseMessage}}&nbsp;</span>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.reset">Reset</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

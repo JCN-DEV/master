@@ -1,0 +1,119 @@
+<div class="col-md-12 common-list">
+    <h2 translate="stepApp.dlBookReturn.home.title">DlBookReturns</h2>
+    <div class="col-sm-12 padding-tb">
+        <div class="col-md-4 no_padding">
+            <b>{{ (FindDlBookReturnByInstId|filter:q).length }} results found</b>
+            <div class="input-group">
+                <span class="input-group-addon dlbtn" id="basic-addon1"><i class="fa fa-search"></i></span>
+                <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+            </div>
+        </div>
+        <div class="col-md-4"><b>Items per page:</b>
+            <div class="input-group">
+                <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+            </div>
+        </div>
+        <div class="col-md-4 text-right no_padding">
+            <button class="btn btn-primary dlbtn dlbtn-top" ui-sref="libraryInfo.dlBookReturn.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.dlBookReturn.home.createLabel">Create a new DlBookReturn</span>
+            </button>
+        </div>
+    </div>
+    <!-- <div class="col-sm-12 padding-bt no_padding">
+
+         <div class="col-md-6 no_padding">
+             <form name="searchForm" class="form-inline">
+                 <div class="form-group">
+                     <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery">
+                 </div>
+                 <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span>
+                 </button>
+             </form>
+         </div>
+         <div class="col-md-6 text-right no_padding">
+             <button class="btn btn-primary" ui-sref="libraryInfo.dlBookReturn.new">
+                 <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.dlBookReturn.home.createLabel">Create a new DlBookReturn</span>
+             </button>
+         </div>
+     </div>-->
+    <br>
+
+    <div class="col-sm-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <!--<th translate="global.field.id">ID</th>-->
+                <th translate="stepApp.dlBookReturn.issueId">IssueId</th>
+                <!--<th translate="stepApp.dlBookReturn.createdDate">CreatedDate</th>
+                <th translate="stepApp.dlBookReturn.updatedDate">UpdatedDate</th>
+                <th translate="stepApp.dlBookReturn.createdBy">CreatedBy</th>
+                <th translate="stepApp.dlBookReturn.updatedBy">UpdatedBy</th>-->
+                <!--<th translate="stepApp.dlBookReturn.status">Status</th>-->
+
+                <th translate="stepApp.dlBookReturn.sisStudentInfoId">Status</th>
+                <th translate="stepApp.dlBookReturn.sisStudentInfoName">Status</th>
+                <th translate="stepApp.dlBookReturn.bookTitle">bookTitle</th>
+                <th translate="stepApp.dlBookReturn.authorName">authorName</th>
+                <th translate="stepApp.dlBookReturn.edition">edition</th>
+                <th translate="stepApp.dlBookReturn.actualReturnDate">actualReturnDate</th>
+                <th translate="stepApp.dlBookReturn.receivedStatus">receivedStatus</th>
+                <!--<th translate="stepApp.dlBookReturn.instEmployee">instEmployee</th>-->
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr dir-paginate="dlBookReturn in FindDlBookReturnByInstId | filter:q | itemsPerPage: pageSize"
+                current-page="currentPage">
+                <!--<td><a ui-sref="dlBookReturn.detail({id:dlBookReturn.id})">{{dlBookReturn.id}}</a></td>-->
+                <td>{{dlBookReturn.dlBookIssue.id}}</td>
+                <!--<td>{{dlBookReturn.createdDate | date:'mediumDate'}}</td>
+                <td>{{dlBookReturn.updatedDate | date:'mediumDate'}}</td>
+                <td>{{dlBookReturn.createdBy}}</td>
+                <td>{{dlBookReturn.updatedBy}}</td>-->
+                <!--<td>{{dlBookReturn.status}}</td>-->
+
+                <td><a>{{dlBookReturn.dlBookIssue.sisStudentInfo.id}}</a></td>
+                <td><a>{{dlBookReturn.dlBookIssue.sisStudentInfo.name}}</a></td>
+                <td><a>{{dlBookReturn.dlBookIssue.dlBookInfo.title}}</a></td>
+                <td><a>{{dlBookReturn.dlBookIssue.dlBookInfo.authorName}}</a></td>
+                <td><a>{{dlBookReturn.dlBookIssue.dlBookEdition.edition}}</a></td>
+                <td><a>{{dlBookReturn.actualReturnDate}}</a></td>
+                <td>
+                    <span style="background:#ff9999" ng-if="dlBookReturn.receivedStatus=='receivedWithFine'">Received With Fine</span>
+                    <span style="background:#ff4d4d" ng-if="dlBookReturn.receivedStatus=='receivedWithCompensationFine'">Received With Compensation & Fine</span>
+                    <span style="background:#00cc66" ng-if="dlBookReturn.receivedStatus=='received'">Received</span>
+                    <span style="background:#ff6666" ng-if="dlBookReturn.receivedStatus=='receivedWithCompensation'">Received with compansation</span>
+                    <span  style="background:#ff0000" ng-if="dlBookReturn.receivedStatus=='notReceived'">Not Received</span>
+                </td>
+                <!--<td>-->
+                    <!--<a ui-sref="instEmployee.detail({id:dlBookReturn.instEmployee.id})">{{dlBookReturn.instEmployee.name}}</a>-->
+                <!--</td>-->
+                <td class="text-right">
+                    <button type="submit"
+                            ui-sref="libraryInfo.dlBookReturn.detail({id:dlBookReturn.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                    <!--<button type="submit"-->
+                            <!--ui-sref="libraryInfo.dlBookReturn.edit({id:dlBookReturn.id})"-->
+                            <!--class="btn btn-primary btn-sm">-->
+                        <!--<span class="glyphicon glyphicon-pencil"></span>&nbsp;<span-->
+                        <!--translate="entity.action.edit"> Edit</span>-->
+                    <!--</button>-->
+                    <!--<button type="submit"-->
+                            <!--ui-sref="libraryInfo.dlBookReturn.delete({id:dlBookReturn.id})"-->
+                            <!--class="btn btn-danger btn-sm">-->
+                        <!--<span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span-->
+                        <!--translate="entity.action.delete"> Delete</span>-->
+                    <!--</button>-->
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                     template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+
+        </nav>
+    </div>
+</div>

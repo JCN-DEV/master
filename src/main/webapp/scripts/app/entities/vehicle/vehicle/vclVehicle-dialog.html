@@ -1,0 +1,151 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myVclVehicleLabel" translate="stepApp.vclVehicle.home.createOrEditLabel">Create or edit a VclVehicle</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group" ng-hide="true">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   ng-model="vclVehicle.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclVehicle.vehicleName" for="field_vehicleName">VehicleName</label>
+            <input type="text" class="form-control" name="vehicleName" id="field_vehicleName"
+                   ng-model="vclVehicle.vehicleName"
+                   required />
+            <div ng-show="editForm.vehicleName.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.vehicleName.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclVehicle.vehicleNumber" for="field_vehicleNumber">VehicleNumber</label>
+            <input type="text" class="form-control" name="vehicleNumber" id="field_vehicleNumber"
+                   ng-model="vclVehicle.vehicleNumber"
+                   required />
+            <div ng-show="editForm.vehicleNumber.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.vehicleNumber.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclVehicle.vehicleType" for="field_vehicleType">VehicleType</label>
+            <select class="form-control" name="vehicleType" ng-model="vclVehicle.vehicleType" id="field_vehicleType">
+                <option value="PrivateCar" translate="stepApp.vehicleTypes.PrivateCar">PrivateCar</option>
+                <option value="Truck" translate="stepApp.vehicleTypes.Truck">Truck</option>
+                <option value="Pickup" translate="stepApp.vehicleTypes.Pickup">Pickup</option>
+                <option value="Micro" translate="stepApp.vehicleTypes.Micro">Micro</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclVehicle.licenseNumber" for="field_licenseNumber">LicenseNumber</label>
+            <input type="text" class="form-control" name="licenseNumber" id="field_licenseNumber"
+                   ng-model="vclVehicle.licenseNumber"
+                   required />
+            <div ng-show="editForm.licenseNumber.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.licenseNumber.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclVehicle.chassisNumber" for="field_chassisNumber">ChassisNumber</label>
+            <input type="text" class="form-control" name="chassisNumber" id="field_chassisNumber"
+                   ng-model="vclVehicle.chassisNumber"
+                   required />
+            <div ng-show="editForm.chassisNumber.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.chassisNumber.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclVehicle.dateOfBuying" for="field_dateOfBuying">DateOfBuying</label>
+            <input type="date" class="form-control" name="dateOfBuying" id="field_dateOfBuying"
+                   ng-model="vclVehicle.dateOfBuying"
+                   required />
+            <div ng-show="editForm.dateOfBuying.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.dateOfBuying.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclVehicle.supplierName" for="field_supplierName">SupplierName</label>
+            <input type="text" class="form-control" name="supplierName" id="field_supplierName"
+                   ng-model="vclVehicle.supplierName"
+                />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclVehicle.noOfSeats" for="field_noOfSeats">NoOfSeats</label>
+            <input type="number" class="form-control" name="noOfSeats" id="field_noOfSeats"
+                   ng-model="vclVehicle.noOfSeats"
+                   required />
+            <div ng-show="editForm.noOfSeats.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.noOfSeats.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                   ng-show="editForm.noOfSeats.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclVehicle.passengerCapacity" for="field_passengerCapacity">PassengerCapacity</label>
+            <input type="number" class="form-control" name="passengerCapacity" id="field_passengerCapacity"
+                   ng-model="vclVehicle.passengerCapacity"
+                   required />
+            <div ng-show="editForm.passengerCapacity.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.passengerCapacity.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                   ng-show="editForm.passengerCapacity.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclVehicle.vehicleAvailability" for="field_vehicleAvailability">VehicleAvailability</label>
+            <select class="form-control" name="vehicleAvailability" ng-model="vclVehicle.vehicleAvailability" id="field_vehicleAvailability">
+                <option value="Available" translate="stepApp.vehicleStatus.Available">Available</option>
+                <option value="Repairing" translate="stepApp.vehicleStatus.Repairing">Repairing</option>
+                <option value="NotAvailable" translate="stepApp.vehicleStatus.NotAvailable">NotAvailable</option>
+                <option value="Close" translate="stepApp.vehicleStatus.Close">Close</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclVehicle.activeStatus" for="field_activeStatus">activeStatus</label>
+            <input type="checkbox" class="form-control checkbox-inline" name="activeStatus" id="field_activeStatus"
+                   ng-model="vclDriver.activeStatus" />
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" class="btn " data-dismiss="modal" onclick="window.history.back()">
+            <i class="fa fa-angle-double-left"></i>&nbsp;<span translate="entity.action.back">Back</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

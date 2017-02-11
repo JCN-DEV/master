@@ -1,0 +1,168 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 ng-if="pfmsUtmostGpfApp.id == null" class="modal-title" id="myPfmsUtmostGpfAppLabel" translate="stepApp.pfmsUtmostGpfApp.home.createOrEditLabel">Create or edit a PfmsUtmostGpfApp</h4>
+        <h4 ng-if="pfmsUtmostGpfApp.id != null" class="modal-title" id="myPfmsUtmostGpfAppLabel" translate="stepApp.pfmsUtmostGpfApp.home.EditLabel">Create or edit a PfmsUtmostGpfApp</h4>
+    </div>
+    <div class="panel-body">
+        <!--<div class="form-group col-sm-6">-->
+            <!--<label translate="stepApp.pfmsUtmostGpfApp.employeeInfo" for="field_employeeInfo">employeeInfo</label>-->
+            <!--<select class="form-control" id="field_employeeInfo" name="employeeInfo" ng-model="pfmsUtmostGpfApp.employeeInfo" ng-options="HrEmployeeInfo as HrEmployeeInfo.fullName for HrEmployeeInfo in hremployeeinfos track by HrEmployeeInfo.id">-->
+                <!--<option value=""></option>-->
+            <!--</select>-->
+        <!--</div>-->
+        <div class="form-group col-md-6">
+            <label translate="stepApp.pfmsUtmostGpfApp.departmentName" for="field_almLeaveType">Department</label>
+            <span class="form-control">{{departmentName}}</span>
+        </div>
+
+        <div class="form-group col-md-6 ">
+            <label translate="stepApp.pfmsUtmostGpfApp.designationName" for="field_Designation">Designation</label>
+            <span class="form-control">{{designationName}}</span>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label translate="stepApp.pfmsUtmostGpfApp.nationality" for="field_nationality">nationality</label>
+            <span class="form-control">{{nationality}}</span>
+        </div>
+
+        <div class="form-group col-md-6 ">
+            <label translate="stepApp.pfmsUtmostGpfApp.fatherName" for="field_fatherName">fatherName</label>
+            <span class="form-control">{{fatherName}}</span>
+        </div>
+
+        <div class="form-group col-md-6 ">
+            <label translate="stepApp.pfmsUtmostGpfApp.dutySide" for="field_dutySide">dutySide</label>
+            <span class="form-control">{{dutySide}}</span>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.pfmsUtmostGpfApp.prlDate" for="field_prlDate">PrlDate</label>
+            <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.prlDate"
+                   datepicker-options="calendar.dateOptions" close-text="Close"
+                   ng-click="calendar.open($event, 'prlDate')" class="form-control" name="prlDate" id="field_prlDate"
+                   ng-model="pfmsUtmostGpfApp.prlDate" />
+            <div ng-show="editForm.prlDate.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.prlDate.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.pfmsUtmostGpfApp.gpfNo" for="field_gpfNo">GpfNo</label>
+            <input type="text" class="form-control" name="gpfNo" id="field_gpfNo"
+                    ng-model="pfmsUtmostGpfApp.gpfNo"
+                     />
+        </div>
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.pfmsUtmostGpfApp.lastDeduction" for="field_lastDeduction">LastDeduction</label>
+            <input type="number" class="form-control" name="lastDeduction" id="field_lastDeduction"
+                    ng-model="pfmsUtmostGpfApp.lastDeduction"
+                     />
+        </div>
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.pfmsUtmostGpfApp.deductionDate" for="field_deductionDate">DeductionDate</label>
+
+            <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.deductionDate"
+                   datepicker-options="calendar.dateOptions" close-text="Close"
+                   ng-click="calendar.open($event, 'deductionDate')" class="form-control" name="deductionDate" id="field_deductionDate"
+                   ng-model="pfmsUtmostGpfApp.deductionDate" />
+            <div ng-show="editForm.deductionDate.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.deductionDate.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.pfmsUtmostGpfApp.billNo" for="field_billNo">BillNo</label>
+            <input type="text" class="form-control" name="billNo" id="field_billNo"
+                    ng-model="pfmsUtmostGpfApp.billNo"
+                    required />
+            <div ng-show="editForm.billNo.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.billNo.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.pfmsUtmostGpfApp.billDate" for="field_billDate">BillDate</label>
+            <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.billDate"
+                   datepicker-options="calendar.dateOptions" close-text="Close"
+                   ng-click="calendar.open($event, 'billDate')" class="form-control" name="billDate" id="field_billDate"
+                   ng-model="pfmsUtmostGpfApp.billDate" />
+            <div ng-show="editForm.billDate.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.billDate.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.pfmsUtmostGpfApp.tokenNo" for="field_tokenNo">TokenNo</label>
+            <input type="text" class="form-control" name="tokenNo" id="field_tokenNo"
+                    ng-model="pfmsUtmostGpfApp.tokenNo"
+                    required />
+            <div ng-show="editForm.tokenNo.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.tokenNo.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.pfmsUtmostGpfApp.tokenDate" for="field_tokenDate">TokenDate</label>
+            <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.tokenDate"
+                   datepicker-options="calendar.dateOptions" close-text="Close"
+                   ng-click="calendar.open($event, 'tokenDate')" class="form-control" name="tokenDate" id="field_tokenDate"
+                   ng-model="pfmsUtmostGpfApp.tokenDate" />
+            <div ng-show="editForm.tokenDate.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.tokenDate.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.pfmsUtmostGpfApp.withdrawFrom" for="field_withdrawFrom">WithdrawFrom</label>
+            <input type="text" class="form-control" name="withdrawFrom" id="field_withdrawFrom"
+                    ng-model="pfmsUtmostGpfApp.withdrawFrom"
+                    required />
+            <div ng-show="editForm.withdrawFrom.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.withdrawFrom.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <!--<div class="form-group col-sm-6">-->
+            <!--<label translate="stepApp.pfmsUtmostGpfApp.applyDate" for="field_applyDate">ApplyDate</label>-->
+            <!--<input type="date" class="form-control" name="applyDate" id="field_applyDate"-->
+                    <!--ng-model="pfmsUtmostGpfApp.applyDate"-->
+                    <!--required />-->
+            <!--<div ng-show="editForm.applyDate.$invalid">-->
+                <!--<p class="help-block"-->
+                    <!--ng-show="editForm.applyDate.$error.required" translate="entity.validation.required">-->
+                    <!--This field is required.-->
+                <!--</p>-->
+            <!--</div>-->
+        <!--</div>-->
+
+
+    </div>
+    <div class="panel-footer">
+            <button type="button"
+                    onclick="window.history.back()"
+                    class="btn btn-info">
+                <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+                <span ng-hide="pfmsUtmostGpfApp.id" translate="entity.action.save"></span>
+                <span ng-show="pfmsUtmostGpfApp.id" translate="entity.action.update"></span>
+            </button>
+        </div>
+</div>
+</form>

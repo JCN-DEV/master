@@ -1,0 +1,120 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myInstEmplHistLabel" translate="stepApp.instEmplHist.home.createOrEditLabel">Create or edit a InstEmplHist</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="instEmplHist.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmplHist.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                    ng-model="instEmplHist.name"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmplHist.designation" for="field_designation">Designation</label>
+            <input type="text" class="form-control" name="designation" id="field_designation"
+                    ng-model="instEmplHist.designation"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmplHist.jobArea" for="field_jobArea">JobArea</label>
+            <input type="text" class="form-control" name="jobArea" id="field_jobArea"
+                    ng-model="instEmplHist.jobArea"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmplHist.start" for="field_start">Start</label>
+            <input type="date" class="form-control" name="start" id="field_start"
+                    ng-model="instEmplHist.start"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmplHist.end" for="field_end">End</label>
+            <input type="date" class="form-control" name="end" id="field_end"
+                    ng-model="instEmplHist.end"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmplHist.onTrack" for="field_onTrack">OnTrack</label>
+            <input type="checkbox" class="form-control" name="onTrack" id="field_onTrack"
+                    ng-model="instEmplHist.onTrack"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmplHist.telephone" for="field_telephone">Telephone</label>
+            <input type="text" class="form-control" name="telephone" id="field_telephone"
+                    ng-model="instEmplHist.telephone"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmplHist.ext" for="field_ext">Ext</label>
+            <input type="text" class="form-control" name="ext" id="field_ext"
+                    ng-model="instEmplHist.ext"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmplHist.email" for="field_email">Email</label>
+            <input type="text" class="form-control" name="email" id="field_email"
+                    ng-model="instEmplHist.email"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmplHist.mobile" for="field_mobile">Mobile</label>
+            <input type="text" class="form-control" name="mobile" id="field_mobile"
+                    ng-model="instEmplHist.mobile"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmplHist.website" for="field_website">Website</label>
+            <input type="text" class="form-control" name="website" id="field_website"
+                    ng-model="instEmplHist.website"
+                     />
+        </div>
+        <div class="form-group" ngf-drop ngf-change="setCertificateCopy($file, instEmplHist)">
+            <label translate="stepApp.instEmplHist.certificateCopy" for="field_certificateCopy">CertificateCopy</label>
+            <div>
+                <div class="help-block clearfix">
+                    <span class="pull-left">{{instEmplHist.certificateCopyContentType}} {{byteSize(instEmplHist.certificateCopy)}}</span>
+                    <button ng-click="instEmplHist.certificateCopy=null;instEmplHist.certificateCopyContentType=null;"
+                            ng-if="instEmplHist.certificateCopy"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="file" ngf-select class="btn btn-default btn-block"
+                        ngf-change="setCertificateCopy($file, instEmplHist)" translate="entity.action.addblob">
+                    Add blob
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="certificateCopy" id="field_certificateCopy"
+                    ng-model="instEmplHist.certificateCopy"
+                     />
+            <input type="hidden" class="form-control" name="certificateCopyContentType" id="field_certificateCopyContentType"
+                    ng-model="instEmplHist.certificateCopyContentType" />
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.instEmplHist.instEmployee" for="field_instEmployee">instEmployee</label>
+            <select class="form-control" id="field_instEmployee" name="instEmployee" ng-model="instEmplHist.instEmployee" ng-options="instEmployee as instEmployee.name for instEmployee in instemployees track by instEmployee.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

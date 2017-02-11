@@ -1,0 +1,40 @@
+<div class="col-md-12 common-list">
+    <h2 ng-show="timescaleAppliedLists.pending == 'pending'" translate="global.menu.account.nameCnclPendingList">
+        Principal Application Pending List</h2>
+    <h2 ng-show="timescaleAppliedLists.pending == 'approved'" translate="global.menu.account.nameCnclApprovedList">
+        Principal Application Approved List</h2>
+    <br>
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="stepApp.mpo.thead.institutename"> Institute Name</th>
+                <th translate="stepApp.mpo.thead.applicantname"> Applicant Name</th>
+                <th translate="stepApp.mpo.thead.id"> ID</th>
+                <th translate="stepApp.mpo.thead.district"> District</th>
+                <th translate="stepApp.mpo.thead.status"> Status</th>
+                <th translate="stepApp.mpo.thead.action"> Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="mpoAppliedList in timescaleAppliedLists">
+                <!--<td>{{mpoAppliedList.instEmployee.code}}</td>
+                <td>{{mpoAppliedList.instEmployee.institute.name}}</td>
+                <td>{{mpoAppliedList.instEmployee.institute.upazila.name}}</td>
+                <td>{{mpoAppliedLists.pending}}</td>-->
+                <td>{{mpoAppliedList.CODE}}</td>
+                <td>{{mpoAppliedList.INST_NAME}}</td>
+                <td>{{mpoAppliedList.UPZILA_NAME}}</td>
+                <td></td>
+                <td>{{mpoAppliedLists.pending}}</td>
+                <td class="text-right no-print">
+                    <button class="btn btn-default"
+                            ui-sref="nameCnclApplicationDetails({id:mpoAppliedList.NAMECNCL_ID}) ">
+                        <span translate="stepApp.mpo.view">View</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

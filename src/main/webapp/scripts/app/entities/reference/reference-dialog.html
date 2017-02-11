@@ -1,0 +1,129 @@
+
+<form name="editForm" class="form form-horizontal" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header bg-primary">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myReferenceLabel" translate="stepApp.reference.home.createOrEditLabel">Create or edit a Reference</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group" has-authority="ROLE_ADMIN">
+            <label class="col-sm-4 control-label" for="id" translate="global.field.id">ID</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="id" name="id" ng-model="reference.id" readonly />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.reference.name" for="field_name">Name</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="name" id="field_name"
+                    ng-model="reference.name"
+                    required ng-minlength="3" />
+            <div ng-show="editForm.name.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.name.$error.minlength" translate="entity.validation.minlength" translate-value-min="3">
+                    This field is required to be at least 3 characters.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.reference.email" for="field_email">Email</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="email" id="field_email"
+                    ng-model="reference.email"
+                    required />
+            <div ng-show="editForm.email.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.email.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.reference.organisation" for="field_organisation">Organisation</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="organisation" id="field_organisation"
+                    ng-model="reference.organisation"
+                    required ng-minlength="2" />
+            <div ng-show="editForm.organisation.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.organisation.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.organisation.$error.minlength" translate="entity.validation.minlength" translate-value-min="2">
+                    This field is required to be at least 2 characters.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.reference.designation" for="field_designation">Designation</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="designation" id="field_designation"
+                    ng-model="reference.designation"
+                     />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.reference.relation" for="field_relation">Relation</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="relation" id="field_relation"
+                    ng-model="reference.relation"
+                     />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.reference.phone" for="field_phone">Phone</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="phone" id="field_phone"
+                    ng-model="reference.phone"
+                     />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.reference.remarks" for="field_remarks">Remarks</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="remarks" id="field_remarks"
+                    ng-model="reference.remarks"
+                     />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.reference.employee" for="field_employee">employee</label>
+            <div class="col-sm-8">
+                <select class="form-control" id="field_employee" name="employee" ng-model="reference.employee" ng-options="employee as employee.name for employee in employees track by employee.id">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group" has-authority="ROLE_ADMIN">
+            <label class="col-sm-4 control-label" translate="stepApp.reference.manager" for="field_manager">manager</label>
+            <div class="col-sm-8">
+                <select class="form-control" id="field_manager" name="manager" ng-model="reference.manager" ng-options="user as user.login for user in users track by user.id">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="form-group">
+            <div class="col-md-offset-4 col-md-8">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

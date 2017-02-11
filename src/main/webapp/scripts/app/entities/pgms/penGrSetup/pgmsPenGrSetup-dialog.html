@@ -1,0 +1,123 @@
+<div class="service-form-area">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="modal-title" id="myPgmsPenGrSetupLabel" translate="stepApp.pgmsPenGrSetup.home.createOrEditLabel">Create or edit a PgmsPenGrSetup</h4>
+        </div>
+        <div class="panel-body bg-panel">
+            <jh-alert-error></jh-alert-error>
+
+
+            <form class="form-horizontal" name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsPenGrSetup.setupType">SetupType</label>
+                        <div class="input-margin">
+                            <label class="radio-inline">
+                                <input type="radio" data-ng-model="pgmsPenGrSetup.setupType" name="setupType" ng-change="pgsType(1)" value="pension">&nbsp;Pension&nbsp;&nbsp;
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" data-ng-model="pgmsPenGrSetup.setupType" name="setupType" ng-change="pgsType(2)" value="gratuity">&nbsp;Gratuity
+                            </label>
+
+                            <div ng-show="editForm.setupType.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.setupType.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsPenGrSetup.effectiveDate" for="field_effectiveDate">EffectiveDate</label>
+                        <div class="input-margin">
+                            <input type="date" class="form-control" name="effectiveDate" id="field_effectiveDate"
+                                   ng-model="pgmsPenGrSetup.effectiveDate"
+                                   required />
+                            <div ng-show="editForm.effectiveDate.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.effectiveDate.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 class="control-label"> {{ setupType }} </h4>
+                    </div>
+                </div>
+                <hr>
+                <!--<div ng-repeat="pgmsPenGrRate in pgmsPenGrRatelist | orderBy:'workingYear'">-->
+                <div ng-repeat="pgmsPenGrRate in pgmsPenGrRatelist">
+                    <div class="row">
+                        <div class="col-md-6  col-sm-6 col-xs-6">
+                            <label class="control-label" translate="stepApp.pgmsPenGrRate.workingYear" for="field_workingYear">WorkingYear</label>
+                            <div class="input-margin">
+                                <input type="number" class="form-control" name="workingYear" id="field_workingYear"
+                                       ng-model="pgmsPenGrRate.workingYear"
+                                       required />
+                                <div ng-show="editForm.workingYear.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.workingYear.$error.required" translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+                                    <p class="help-block"
+                                       ng-show="editForm.workingYear.$error.number" translate="entity.validation.number">
+                                        This field should be a number.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6  col-sm-6 col-xs-6">
+                            <label class="control-label" translate="stepApp.pgmsPenGrRate.rateOfPenGr" for="field_rateOfPenGr">RateOfPenGr</label>
+                            <div class="input-margin">
+                                <input type="number" class="form-control" name="rateOfPenGr" id="field_rateOfPenGr"
+                                       ng-model="pgmsPenGrRate.rateOfPenGr"
+                                       required />
+                                <div ng-show="editForm.rateOfPenGr.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.rateOfPenGr.$error.required" translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+                                    <p class="help-block"
+                                       ng-show="editForm.rateOfPenGr.$error.number" translate="entity.validation.number">
+                                        This field should be a number.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 no_padding text-right">
+                    <button type="button" ng-show = "btnShow" class="btn btn-primary" ng-click="addMore()"><i class="fa fa-plus-square"></i>
+                        <span  translate="global.menu.account.addmore">Add More</span>
+                    </button>
+                </div>
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsPenGrSetup.activeStatus">ActiveStatus</label>
+                        <div class="input-margin">
+                            <label class="radio-inline">
+                                <input type="radio" data-ng-model="pgmsPenGrSetup.activeStatus" name="activeStatus" data-ng-value="true">&nbsp;Active&nbsp;&nbsp;
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" data-ng-model="pgmsPenGrSetup.activeStatus" name="activeStatus" data-ng-value="false">&nbsp;Inactive
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" class="btn " data-dismiss="modal" onclick="window.history.back()">
+                        <i class="fa fa-angle-double-left"></i>&nbsp;<span translate="entity.action.back">Back</span>
+                    </button>
+                    <button type="submit" ng-show = "btnShow" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

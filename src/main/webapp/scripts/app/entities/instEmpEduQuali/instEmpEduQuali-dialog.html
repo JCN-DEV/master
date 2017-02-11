@@ -1,0 +1,114 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myInstEmpEduQualiLabel" translate="stepApp.instEmpEduQuali.home.createOrEditLabel">Create or edit a InstEmpEduQuali</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="instEmpEduQuali.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmpEduQuali.certificateName" for="field_certificateName">CertificateName</label>
+            <input type="text" class="form-control" name="certificateName" id="field_certificateName"
+                    ng-model="instEmpEduQuali.certificateName"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmpEduQuali.board" for="field_board">Board</label>
+            <input type="text" class="form-control" name="board" id="field_board"
+                    ng-model="instEmpEduQuali.board"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmpEduQuali.session" for="field_session">Session</label>
+            <input type="text" class="form-control" name="session" id="field_session"
+                    ng-model="instEmpEduQuali.session"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmpEduQuali.semester" for="field_semester">Semester</label>
+            <input type="text" class="form-control" name="semester" id="field_semester"
+                    ng-model="instEmpEduQuali.semester"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmpEduQuali.rollNo" for="field_rollNo">RollNo</label>
+            <input type="text" class="form-control" name="rollNo" id="field_rollNo"
+                    ng-model="instEmpEduQuali.rollNo"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmpEduQuali.passingYear" for="field_passingYear">PassingYear</label>
+            <input type="number" class="form-control" name="passingYear" id="field_passingYear"
+                    ng-model="instEmpEduQuali.passingYear"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmpEduQuali.cgpa" for="field_cgpa">Cgpa</label>
+            <input type="text" class="form-control" name="cgpa" id="field_cgpa"
+                    ng-model="instEmpEduQuali.cgpa"
+                     />
+        </div>
+        <div class="form-group" ngf-drop ngf-change="setCertificateCopy($file, instEmpEduQuali)">
+            <label translate="stepApp.instEmpEduQuali.certificateCopy" for="field_certificateCopy">CertificateCopy</label>
+            <div>
+                <div class="help-block clearfix">
+                    <span class="pull-left">{{instEmpEduQuali.certificateCopyContentType}} {{byteSize(instEmpEduQuali.certificateCopy)}}</span>
+                    <button ng-click="instEmpEduQuali.certificateCopy=null;instEmpEduQuali.certificateCopyContentType=null;"
+                            ng-if="instEmpEduQuali.certificateCopy"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="file" ngf-select class="btn btn-default btn-block"
+                        ngf-change="setCertificateCopy($file, instEmpEduQuali)" translate="entity.action.addblob">
+                    Add blob
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="certificateCopy" id="field_certificateCopy"
+                    ng-model="instEmpEduQuali.certificateCopy"
+                     />
+            <input type="hidden" class="form-control" name="certificateCopyContentType" id="field_certificateCopyContentType"
+                    ng-model="instEmpEduQuali.certificateCopyContentType" />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmpEduQuali.status" for="field_status">Status</label>
+            <input type="number" class="form-control" name="status" id="field_status"
+                    ng-model="instEmpEduQuali.status"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmpEduQuali.groupSubject" for="field_groupSubject">GroupSubject</label>
+            <input type="text" class="form-control" name="groupSubject" id="field_groupSubject"
+                    ng-model="instEmpEduQuali.groupSubject"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmpEduQuali.resultPublishDate" for="field_resultPublishDate">ResultPublishDate</label>
+            <input type="date" class="form-control" name="resultPublishDate" id="field_resultPublishDate"
+                    ng-model="instEmpEduQuali.resultPublishDate"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.instEmpEduQuali.instEmployee" for="field_instEmployee">instEmployee</label>
+            <select class="form-control" id="field_instEmployee" name="instEmployee" ng-model="instEmpEduQuali.instEmployee" ng-options="instEmployee as instEmployee.name for instEmployee in instemployees track by instEmployee.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

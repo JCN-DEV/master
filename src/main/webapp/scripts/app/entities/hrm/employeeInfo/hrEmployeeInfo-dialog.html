@@ -1,0 +1,646 @@
+<!---==HRM EMPLOYEE INFO===--->
+
+<div class="service-form-area">
+    <div class="panel panel-default">
+        <div class="panel-heading" >
+             <h4 class="modal-title" id="myHrEmployeeInfoLabel" translate="stepApp.hrEmployeeInfo.home.createOrEditLabel">Create or edit a HrEmployeeInfo</h4>
+        </div>
+        <div class="panel-body bg-panel">
+              <form  class="form-horizontal " name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+                  <div class="col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                          <label class="control-label" translate="stepApp.hrEmployeeInfo.organizationType" for="field_organizationType">organizationType</label>
+                          <div class="input-margin">
+                              <select class="form-control" id="field_organizationType" name="organizationType" ng-model="hrEmployeeInfo.organizationType" required>
+                                  <option value="">Select Organization Type</option>
+                                  <option value="Organization">Organization</option>
+                                  <option value="Institute">Institute</option>
+                              </select>
+                          </div>
+                      </div>
+                  </div>
+
+                      <div class="col-md-6 col-sm-12 col-xs-12" ng-show="(hrEmployeeInfo.organizationType=='Organization')">
+                          <div class="form-group">
+                              <label class="control-label" translate="stepApp.hrEmployeeInfo.workArea" for="field_workArea">org cat</label>
+                              <div class="input-margin">
+                                  <select class="form-control" id="field_workArea" name="workArea" ng-model="hrEmployeeInfo.workArea"
+                                          ng-change="loadWorkAreaDetailByWork(hrEmployeeInfo.workArea)"
+                                          ng-options="MiscTypeSetup as MiscTypeSetup.typeName for MiscTypeSetup in workAreaList track by MiscTypeSetup.id" >
+                                      <option value="">Select Work Area</option>
+                                  </select>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-md-6 col-sm-12 col-xs-12" ng-show="(hrEmployeeInfo.organizationType=='Organization')">
+                          <div class="form-group">
+                              <label class="control-label" translate="stepApp.hrEmployeeInfo.workAreaDtl" for="field_workAreaDtl">org name</label>
+                              <div class="input-margin">
+                                  <select class="form-control" id="field_workAreaDtl" name="workAreaDtl" ng-model="hrEmployeeInfo.workAreaDtl"
+                                          ng-change="loadDesigDeptByOrganization(hrEmployeeInfo.workAreaDtl)"
+                                          ng-options="HrEmpWorkAreaDtlInfo as HrEmpWorkAreaDtlInfo.name for HrEmpWorkAreaDtlInfo in workAreaDtlListFiltr track by HrEmpWorkAreaDtlInfo.id" >
+                                      <option value=""></option>
+                                  </select>
+                              </div>
+                          </div>
+                      </div>
+
+
+
+                      <div class="col-md-6 col-sm-12 col-xs-12" ng-show="(hrEmployeeInfo.organizationType=='Institute')">
+                          <div class="form-group">
+                              <label class="control-label" translate="stepApp.hrEmployeeInfo.instCategory" for="field_instCategory">instCategory</label>
+                              <div class="input-margin">
+                                  <select class="form-control" id="field_instCategory" name="instCategory" ng-model="hrEmployeeInfo.instCategory"
+                                          ng-change="loadInstituteByCategory(hrEmployeeInfo.instCategory)"
+                                          ng-options="InstCategory as InstCategory.name for InstCategory in instCategoryList track by InstCategory.id" >
+                                      <option value="">Select Institute Category</option>
+                                  </select>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-md-6 col-sm-12 col-xs-12" ng-show="(hrEmployeeInfo.organizationType=='Institute')">
+                          <div class="form-group">
+                              <label class="control-label" translate="stepApp.hrEmployeeInfo.institute" for="field_institute">institute</label>
+                              <div class="input-margin">
+                                  <select class="form-control" id="field_institute" name="institute" ng-model="hrEmployeeInfo.institute"
+                                          ng-change="loadDesigDeptByInstitute(hrEmployeeInfo.institute)"
+                                          ng-options="Institute as Institute.name for Institute in instituteList track by Institute.id" >
+                                      <option value="">Select Institute</option>
+                                  </select>
+                              </div>
+                          </div>
+                      </div>
+
+                  <div class="col-md-12 no_padding">
+                      <div class="border_line" style="height: 2px; background: #fff; width: 100%;"></div>
+                  </div>
+
+                <div class=" col-md-6 col-sm-12 col-xs-12 ">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmployeeInfo.departmentInfo" for="field_departmentInfo">departmentInfo</label>
+                        <div class="input-margin">
+                            <select class="form-control" id="field_departmentInfo" name="departmentInfo" ng-model="hrEmployeeInfo.departmentInfo"
+                                    ng-options="HrDepartmentSetup as HrDepartmentSetup.departmentInfo.departmentName for HrDepartmentSetup in hrdepartmentsetupsFltr track by HrDepartmentSetup.id" required>
+                                <option value="">Select Section</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmployeeInfo.designationInfo" for="field_designationInfo">designationInfo</label>
+                        <div class="input-margin">
+                            <select class="form-control" id="field_designationInfo" name="designationInfo"
+                                    ng-model="hrEmployeeInfo.designationInfo" ng-change="checkDesignationLimit(hrEmployeeInfo.designationInfo)"
+                                    ng-options="HrDesignationSetup as HrDesignationSetup.designationInfo.designationName for HrDesignationSetup in hrDesigSetupListFltr track by HrDesignationSetup.id" required>
+                                <option value="">Select Designation</option>
+                            </select>
+                            <span ng-hide="employeeDesigLimitAllowed">
+                                Designation limit exceded, already added {{noOfTotalEmployeeInDesig}} out of {{noOfEmployeeInDesig}}
+                            </span>
+                            <span ng-show="employeeDesigLimitAllowed && hrEmployeeInfo.designationInfo">
+                                Already added {{noOfTotalEmployeeInDesig}} out of {{noOfEmployeeInDesig}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+              <div class="col-md-6 col-sm-12 col-xs-12">
+                  <div class="form-group">
+                      <label class="control-label" translate="stepApp.hrEmployeeInfo.employeeType" for="field_employeeType">EmployeeType</label>
+                      <div class="input-margin">
+                          <select class="form-control" name="employeeType" ng-model="hrEmployeeInfo.employeeType" id="field_employeeType">
+                              <option value="HRM" translate="stepApp.designationType.HRM">HRM</option>
+                              <option value="Teacher" translate="stepApp.designationType.Teacher">Teacher</option>
+                              <option value="Staff" translate="stepApp.designationType.Staff">Staff</option>
+                          </select>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="col-md-6 col-sm-12 col-xs-12">
+                  <div class="form-group">
+                      <label class="control-label" translate="stepApp.hrEmployeeInfo.encadrement" for="field_encadrement">encadrement</label>
+                      <div class="input-margin">
+                          <select class="form-control" id="field_encadrement" name="encadrement" ng-model="hrEmployeeInfo.encadrement"
+                                  ng-options="MiscTypeSetup as MiscTypeSetup.typeName for MiscTypeSetup in encadrementList track by MiscTypeSetup.id" required>
+                              <option value="">Select Encadrement</option>
+                          </select>
+                      </div>
+                  </div>
+              </div>
+              <div ng-show="(hrEmployeeInfo.encadrement.typeName=='Cadre')" class=" col-md-6 col-sm-12 col-xs-12">
+                  <div class="form-group" >
+                      <label class="control-label" translate="stepApp.hrEmployeeInfo.presentId" for="field_presentId">PresentId</label>
+                      <div class="input-margin">
+                          <input type="text" class="form-control" name="presentId" id="field_presentId"
+                                 ng-model="hrEmployeeInfo.presentId" ng-required='(hrEmployeeInfo.encadrement.typeName=="Cadre")'/>
+                      </div>
+                  </div>
+              </div>
+
+              <!--<div class="col-md-6 col-sm-12 col-xs-12">
+                  <div class="form-group">
+                      <label class="control-label" translate="stepApp.hrEmployeeInfo.gradeInfo" for="field_gradeInfo">gradeInfo</label>
+                      <div class="input-margin">
+                          <select class="form-control" id="field_gradeInfo" name="gradeInfo" ng-model="hrEmployeeInfo.gradeInfo" ng-options="HrGradeSetup as HrGradeSetup.gradeCode for HrGradeSetup in gradeInfoList track by HrGradeSetup.id">
+                              <option value="">Select Grade</option>
+                          </select>
+                      </div>
+                  </div>
+              </div>-->
+
+
+
+              <div class="col-md-6 col-sm-12 col-xs-12">
+                  <div class="form-group">
+                      <label class="control-label" translate="stepApp.hrEmployeeInfo.employementType" for="field_employementType">employementType</label>
+                      <div class="input-margin">
+                          <select class="form-control" id="field_employementType" name="employementType" ng-model="hrEmployeeInfo.employementType" ng-options="HrEmplTypeInfo as HrEmplTypeInfo.typeName for HrEmplTypeInfo in employementTypeList track by HrEmplTypeInfo.id">
+                              <option value="">Select Employment Type</option>
+                          </select>
+                      </div>
+                  </div>
+              </div>
+
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label"translate="stepApp.hrEmployeeInfo.fullName" for="field_fullName">FullName</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="fullName" id="field_fullName"
+                                   ng-model="hrEmployeeInfo.fullName"
+                                   required ng-maxlength="100" />
+                            <div ng-show="editForm.fullName.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.fullName.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.fullName.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="100">
+                                    This field cannot be longer than 100 characters.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                  <div class="col-md-6 col-sm-12 col-xs-12">
+                      <div class="form-group" >
+                          <label class="control-label" translate="stepApp.hrEmployeeInfo.nationalId" for="field_nationalId">NationalId</label>
+                          <div class="input-margin">
+                              <input type="text" class="form-control" name="nationalId" id="field_nationalId"
+                                     ng-model="hrEmployeeInfo.nationalId"
+                                     ng-remote-validate="/api/hrEmployeeInfos/checknid/"
+                                     ng-remote-method="GET"
+                                     ng-remote-throttle="500"
+                                     ng-minlength="17"
+                                     ng-maxlength="17"
+                                     required/>
+                              <div ng-show="editForm.nationalId.$invalid">
+                                  <p class="help-block"
+                                     ng-show="editForm.nationalId.$error.ngRemoteValidate">
+                                      National ID already exists
+                                  </p>
+                                  <p class="help-block"
+                                     ng-show="editForm.nationalId.$error.minlength" translate="entity.validation.minlength" translate-value-min="17">
+                                      National ID will be in 17 character length.
+                                  </p>
+                                  <p class="help-block"
+                                     ng-show="editForm.nationalId.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="17">
+                                      National ID will be in 17 character length.
+                                  </p>
+                              </div>
+
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-md-6 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                          <label class="control-label" translate="stepApp.hrEmployeeInfo.mobileNumber" for="field_mobileNumber">MobileNumber</label>
+                          <div class="input-margin">
+                              <input type="text" class="form-control" name="mobileNumber" id="field_mobileNumber"
+                                     ng-model="hrEmployeeInfo.mobileNumber"
+                                     ng-minlength="11" ng-maxlength="18" required numeric-only-mobile />
+                              <div ng-show="editForm.mobileNumber.$invalid">
+                                  <p class="help-block"
+                                     ng-show="editForm.mobileNumber.$error.required" translate="entity.validation.required">
+                                      This field is required.
+                                  </p>
+                                  <p class="help-block"
+                                     ng-show="editForm.mobileNumber.$error.minlength" translate="entity.validation.minlength" translate-value-min="11">
+                                      This field is required to be at least 11 characters.
+                                  </p>
+                                  <p class="help-block"
+                                     ng-show="editForm.mobileNumber.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="18">
+                                      This field cannot be longer than 18 characters.
+                                  </p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-md-6 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                          <label class="control-label"  translate="stepApp.hrEmployeeInfo.birthDate" for="field_birthDate">BirthDate</label>
+                          <div class="input-margin">
+                              <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.birthDate"
+                                     datepicker-options="calendar.dateOptions" close-text="Close"
+                                     ng-click="calendar.open($event, 'birthDate')" class="form-control" name="birthDate" id="field_birthDate"
+                                     ng-model="hrEmployeeInfo.birthDate" ng-change="updatePrlDate()"
+                                     required />
+                              <div ng-show="editForm.birthDate.$invalid">
+                                  <p class="help-block"
+                                     ng-show="editForm.birthDate.$error.required" translate="entity.validation.required">
+                                      This field is required.
+                                  </p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-md-6 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                          <div class="input-margin">
+                              <label class="control-label" translate="stepApp.hrEmployeeInfo.quota" for="field_quota">Quota</label>
+                              <select class="form-control" name="quota" ng-model="hrEmployeeInfo.quota" id="field_quota"
+                                      ng-change="updatePrlDate()" required>
+                                  <option value="">Select Quota</option>
+                                  <option value="FreedomFighter" translate="stepApp.jobQuota.FreedomFighter">
+                                      FreedomFighter
+                                  </option>
+                                  <option value="ChileOfFreedomFighter"
+                                          translate="stepApp.jobQuota.ChileOfFreedomFighter">ChileOfFreedomFighter
+                                  </option>
+                                  <option value="GrandChildOfFreedomFighter"
+                                          translate="stepApp.jobQuota.GrandChildOfFreedomFighter">
+                                      GrandChildOfFreedomFighter
+                                  </option>
+                                  <option value="Tribal" translate="stepApp.jobQuota.Tribal">Tribal</option>
+                                  <option value="Others" translate="stepApp.jobQuota.Others">General</option>
+                              </select>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-md-6 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                          <label class="control-label" translate="stepApp.hrEmployeeInfo.apointmentGoDate" for="field_apointmentGoDate">ApointmentGoDate</label>
+                          <div class="input-margin">
+                              <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.apointmentGoDate"
+                                     datepicker-options="calendar.dateOptions" close-text="Close"  min-date="hrEmployeeInfo.birthDate"
+                                     ng-click="calendar.open($event, 'apointmentGoDate')" class="form-control" name="apointmentGoDate" id="field_apointmentGoDate"
+                                     ng-model="hrEmployeeInfo.apointmentGoDate"
+                                     required />
+                              <div ng-show="editForm.apointmentGoDate.$invalid">
+                                  <p class="help-block"
+                                     ng-show="editForm.apointmentGoDate.$error.required" translate="entity.validation.required">
+                                      This field is required.
+                                  </p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-md-6 col-sm-12 col-xs-12">
+                      <div class="form-group">
+                          <label class="control-label" translate="stepApp.hrEmployeeInfo.dateOfJoining" for="field_dateOfJoining">dateOfJoining</label>
+                          <div class="input-margin">
+                              <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.dateOfJoining"
+                                     datepicker-options="calendar.dateOptions" close-text="Close" min-date="hrEmployeeInfo.apointmentGoDate"
+                                     ng-click="calendar.open($event, 'dateOfJoining')" class="form-control" name="dateOfJoining" id="field_dateOfJoining"
+                                     ng-model="hrEmployeeInfo.dateOfJoining"
+                                     required />
+                              <div ng-show="editForm.dateOfJoining.$invalid">
+                                  <p class="help-block"
+                                     ng-show="editForm.dateOfJoining.$error.required" translate="entity.validation.required">
+                                      This field is required.
+                                  </p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-md-6 col-sm-12 col-xs-12">
+                      <div class="form-group" style="padding: 0px 10px">
+                          <label class="control-label" translate="stepApp.hrEmployeeInfo.prlDate">prlDate</label>
+                          <span class="form-control">{{hrEmployeeInfo.prlDate | date:'mediumDate'}}</span>
+                      </div>
+                  </div>
+
+                  <div class="col-md-6 col-sm-12 col-xs-12">
+                      <div class="form-group" style="padding: 0px 10px">
+                          <label class="control-label" translate="stepApp.hrEmployeeInfo.retirementDate">retirementDate</label>
+                          <span class="form-control">{{hrEmployeeInfo.retirementDate | date:'mediumDate'}}</span>
+                      </div>
+                  </div>
+
+                  <div class="col-md-12 no_padding">
+                      <div class="border_line" style="height: 2px; background: #fff; width: 100%;"></div>
+
+                  </div>
+
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label"for="email" translate="global.form.email">E-mail</label>
+                        <div class="input-margin">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="{{'global.form.email.placeholder' | translate}}"
+                                   ng-model="registerAccount.email"
+                                   ng-remote-validate="/api/account/checkEmail/"
+                                   ng-remote-method="GET"
+                                   ng-remote-throttle="500"
+                                   ng-minlength=5 ng-maxlength=100 required>
+                            <span class="message" ng-show="editForm.email.$pending">validating...</span>
+                            <div ng-show="form.email.$invalid">
+                                <p class="help-block"
+                                   ng-show="form.email.$error.ngRemoteValidate">
+                                    This email already exists
+                                </p>
+                            </div>
+                            <div ng-show="form.email.$dirty && form.email.$invalid">
+                                <p class="help-block"
+                                   ng-show="form.email.$error.required" translate="global.messages.validate.email.required">
+                                    Your e-mail is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="form.email.$error.email" translate="global.messages.validate.email.invalid">
+                                    Your e-mail is invalid.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="form.email.$error.minlength" translate="global.messages.validate.email.minlength">
+                                    Your e-mail is required to be at least 5 characters.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="form.email.$error.maxlength" translate="global.messages.validate.email.maxlength">
+                                    Your e-mail cannot be longer than 100 characters.
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                              <label class="control-label" for="login" translate="global.form.username">Username</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" id="login" name="login" placeholder="{{'global.form.username.placeholder' | translate}}"
+                                   ng-model="registerAccount.login"
+                                   ng-remote-validate="/api/account/checkLogin/"
+                                   ng-remote-method="GET"
+                                   ng-remote-throttle="500"
+                                   ng-minlength=3 ng-maxlength=50 ng-pattern="/^[a-z0-9]*$/" required>
+                            <span class="message" ng-show="editForm.login.$pending">validating...</span>
+                            <div ng-show="form.login.$invalid">
+                                <p class="help-block"
+                                   ng-show="form.login.$error.ngRemoteValidate">
+                                    This user already exists
+                                </p>
+                            </div>
+                            <div ng-show="form.login.$dirty && form.login.$invalid">
+                                <p class="help-block"
+                                   ng-show="form.login.$error.required" translate="register.messages.validate.login.required">
+                                    Your username is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="form.login.$error.minlength" translate="register.messages.validate.login.minlength">
+                                    Your username is required to be at least 1 character.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="form.login.$error.maxlength" translate="register.messages.validate.login.maxlength">
+                                    Your username cannot be longer than 50 characters.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="form.login.$error.pattern" translate="register.messages.validate.login.pattern">
+                                    Your username can only contain lower-case letters and digits.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                              <label class="control-label" for="password" translate="global.form.newpassword">New password</label>
+                        <div class="input-margin">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="{{'global.form.newpassword.placeholder' | translate}}"
+                                   ng-model="registerAccount.password" ng-minlength=5 ng-maxlength=50 required>
+                            <div ng-show="form.password.$dirty && form.password.$invalid">
+                                <p class="help-block"
+                                   ng-show="form.password.$error.required" translate="global.messages.validate.newpassword.required">
+                                    Your password is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="form.password.$error.minlength" translate="global.messages.validate.newpassword.minlength">
+                                    Your password is required to be at least 5 characters.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="form.password.$error.maxlength" translate="global.messages.validate.newpassword.maxlength">
+                                    Your password cannot be longer than 50 characters.
+                                </p>
+                            </div>
+                            <password-strength-bar class="right-size" password-to-check="registerAccount.password"></password-strength-bar>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+
+                        <div class="text-right">
+                            <span>{{responseMessage}}</span>
+                            <button ng-hide="true" type="button" class="btn btn-default"  ng-click="setDefaultValue()">
+                                <span class="glyphicon glyphicon-save"></span>&nbsp;Dummy Data
+                            </button>
+                            <button type="button" class="btn btn-default"  data-dismiss="modal" onclick="window.history.back()">
+                                <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;<span translate="entity.action.back">Back</span>
+                            </button>
+
+                            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-user"></span>&nbsp;<span translate="entity.action.register">register</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="employeeRegistrationConfirmModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="approvalForm">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="clear()">&times;</button>
+                    <h4 class="modal-title">Employee Registration Confirmation Form</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th translate="entity.detail.field">Field</th>
+                                <th translate="entity.detail.value">Value</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.hrEmployeeInfo.fullName">FullName</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{hrEmployeeInfo.fullName}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.hrEmployeeInfo.employeeId">employeeId</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{hrEmployeeInfo.employeeId}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.hrEmployeeInfo.departmentInfo">departmentInfo</span>
+                                </td>
+                                <td>
+                                    <a class="form-control-static">{{hrEmployeeInfo.departmentInfo.departmentInfo.departmentName}}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.hrEmployeeInfo.designationInfo">designationInfo</span>
+                                </td>
+                                <td>
+                                    <a class="form-control-static">{{hrEmployeeInfo.designationInfo.designationInfo.designationName}}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.hrEmployeeInfo.user">user</span>
+                                </td>
+                                <td>
+                                    <a class="form-control-static">{{hrEmployeeInfo.user.login}}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.hrEmployeeInfo.organizationType">organizationType</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static" >{{hrEmployeeInfo.organizationType}}</span>
+                                </td>
+                            </tr>
+                            <tr ng-show="(hrEmployeeInfo.organizationType=='Organization')">
+                                <td>
+                                    <span translate="stepApp.hrEmployeeInfo.workArea">workArea</span>
+                                </td>
+                                <td>
+                                    <a class="form-control-static" ui-sref="miscTypeSetup.detail({id:hrEmployeeInfo.workArea.id})">{{hrEmployeeInfo.workArea.typeName}}</a>
+                                </td>
+                            </tr>
+                            <tr ng-show="(hrEmployeeInfo.organizationType=='Organization')">
+                                <td>
+                                    <span translate="stepApp.hrEmployeeInfo.workAreaDtl">workAreaDtl</span>
+                                </td>
+                                <td>
+                                    <a class="form-control-static" ui-sref="hrEmpWorkAreaDtlInfo.detail({id:hrEmployeeInfo.workAreaDtl.id})">{{hrEmployeeInfo.workAreaDtl.name}}</a>
+                                </td>
+                            </tr>
+
+                            <tr  ng-show="(hrEmployeeInfo.organizationType=='Institute')">
+                                <td>
+                                    <span translate="stepApp.hrEmployeeInfo.instCategory">instCategory</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{hrEmployeeInfo.instCategory.name}}</span>
+                                </td>
+                            </tr>
+                            <tr  ng-show="(hrEmployeeInfo.organizationType=='Institute')">
+                                <td>
+                                    <span translate="stepApp.hrEmployeeInfo.institute">institute</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{hrEmployeeInfo.institute.name}}</span>
+                                </td>
+                            </tr>
+                            <!--<tr>
+                                <td>
+                                    <span translate="stepApp.hrEmployeeInfo.gradeInfo">gradeInfo</span>
+                                </td>
+                                <td>
+                                    <a class="form-control-static">{{hrEmployeeInfo.gradeInfo.gradeCode}}</a>
+                                </td>
+                            </tr>-->
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.hrEmployeeInfo.employementType">employementType</span>
+                                </td>
+                                <td>
+                                    <a class="form-control-static">{{hrEmployeeInfo.employementType.typeName}}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.hrEmployeeInfo.birthDate">BirthDate</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{hrEmployeeInfo.birthDate | date:'mediumDate'}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.hrEmployeeInfo.apointmentGoDate">ApointmentGoDate</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{hrEmployeeInfo.apointmentGoDate | date:'mediumDate'}}</span>
+                                </td>
+                            </tr>
+                            <tr ng-show="(hrEmployeeInfo.employeeType.typeName=='Cadre')">
+                                <td>
+                                    <span translate="stepApp.hrEmployeeInfo.presentId">PresentId</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{hrEmployeeInfo.presentId}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.hrEmployeeInfo.nationalId">NationalId</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{hrEmployeeInfo.nationalId}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.hrEmployeeInfo.emailAddress">EmailAddress</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{hrEmployeeInfo.emailAddress}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.hrEmployeeInfo.mobileNumber">MobileNumber</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{hrEmployeeInfo.mobileNumber}}</span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                        <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.close">Close</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

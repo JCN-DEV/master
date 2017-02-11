@@ -1,0 +1,72 @@
+
+<div>
+    <h2><span translate="stepApp.vclEmployeeAssign.detail.title">VclEmployeeAssign</span> {{vclEmployeeAssign.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="stepApp.vclEmployeeAssign.createDate">CreateDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{vclEmployeeAssign.createDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.vclEmployeeAssign.createBy">CreateBy</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{vclEmployeeAssign.createBy}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.vclEmployeeAssign.updateDate">UpdateDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{vclEmployeeAssign.updateDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.vclEmployeeAssign.updateBy">UpdateBy</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{vclEmployeeAssign.updateBy}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.vclEmployeeAssign.vehicle">vehicle</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="VclVehicle.detail({id:vclEmployeeAssign.vehicle.id})">{{vclEmployeeAssign.vehicle.vehicleName}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.vclEmployeeAssign.employee">employee</span>
+                </td>
+                <td>
+                    <span ng-repeat="employee in vclEmployeeAssign.employees">
+                        <a class="form-control-static" ui-sref="employee.detail({id: {{employee.id}}})">User: {{employee.name}}, Name: {{employee.user.firstName}} {{employee.user.lastName}}, Email: {{employee.user.email}}</a>{{$last ? '' : ', '}} <br/>
+                    </span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

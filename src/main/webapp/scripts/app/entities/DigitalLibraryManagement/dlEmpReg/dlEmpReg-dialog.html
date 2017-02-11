@@ -1,0 +1,58 @@
+<div class=" ">
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+<div class="col-md-12 col-sm-12 col-xs-12 no_padding" >
+    <div class="panel-heading cmsheading">
+
+        <h4 class="panel-title" id="myDlEmpRegLabel" translate="stepApp.dlEmpReg.home.createLabel">Create or edit a DlEmpReg</h4>
+    </div>
+    <div class="panel-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.dlEmpReg.instEmployee" for="field_instEmployee">instEmployee</label>
+            <select class="form-control" id="field_instEmployee" name="instEmployee" ng-model="dlEmpReg.instEmployee" ng-options="instEmployee as instEmployee.name for instEmployee in instemployees track by instEmployee.id">
+                <option value="">Employee ID</option>
+            </select>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.dlEmpReg.userName" for="field_userName">UserName</label>
+            <input type="text" class="form-control" name="userName" id="field_userName"
+                    ng-model="dlEmpReg.userName"
+                    ng-maxlength="20" />
+            <div ng-show="editForm.userName.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.userName.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="20">
+                    This field cannot be longer than 20 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.dlEmpReg.userPw" for="field_userPw">UserPw</label>
+            <input type="text" class="form-control" name="userPw" id="field_userPw"
+                    ng-model="dlEmpReg.userPw"
+                    ng-maxlength="20" />
+            <div ng-show="editForm.userPw.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.userPw.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="20">
+                    This field cannot be longer than 20 characters.
+                </p>
+            </div>
+        </div>
+
+
+
+    </div>
+    <div class="col-md-12">
+        <div class="panel-footer">
+            <button type="button" class="btn btn-info" onclick="window.history.back()">
+                <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back">Back</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+            </button>
+        </div>
+    </div>
+</div>
+</form>
+</div>

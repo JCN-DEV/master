@@ -1,0 +1,136 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 ng-show="almHoliday.id ==null" class="modal-title" id="myAlmHolidayLabel" translate="stepApp.almHoliday.home.createLabel">Create or edit a AlmHoliday</h4>
+        <h4 ng-show="almHoliday.id !=null" class="modal-title" id="myAlmHolidayLabel" translate="stepApp.almHoliday.home.EditLabel">Create or edit a AlmHoliday</h4>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.almHoliday.typeName" for="field_typeName">HolidayName</label>
+
+                <input type="text" class="form-control" name="typeName" id="field_typeName"
+                       ng-model="almHoliday.typeName"
+                       ng-remote-validate="/api/almHolidays/checkname/"
+                       ng-remote-method="GET"
+                       ng-remote-throttle="500" placeholder="{{'stepApp.almHoliday.typeName' | translate}}"
+                       required />
+                <span class="message" ng-show="editForm.typeName.$pending">validating...</span>
+                <div ng-show="editForm.typeName.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.typeName.$error.ngRemoteValidate">
+                        Holiday already exists
+                    </p>
+                </div>
+                <div ng-show="editForm.typeName.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.typeName.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.almHoliday.religion" for="field_religion">Religion</label>
+
+                <select class="form-control" name="religion"
+                        ng-model="almHoliday.religion" id="field_religion">
+                    <option value="">{{'stepApp.almHoliday.religion' | translate}}</option>
+                    <option value="All" translate="stepApp.Religions.All">All</option>
+                    <option value="Islam" translate="stepApp.Religions.Islam">Islam</option>
+                    <option value="Hinduism" translate="stepApp.Religions.Hinduism">Hinduism</option>
+                    <option value="Buddhism" translate="stepApp.Religions.Buddhism">Buddhism</option>
+                    <option value="Christian" translate="stepApp.Religions.Christian">Christian</option>
+                    <option value="Others" translate="stepApp.Religions.Others">Others</option>
+                </select>
+
+            </div>
+        </div>
+    </div>
+        <div class="row">
+        <!--<div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.almHoliday.occasion" for="field_occasion">Occasion</label>
+                <input type="text" class="form-control" name="occasion" id="field_occasion"
+                       ng-model="almHoliday.occasion"
+                       required placeholder="{{'stepApp.almHoliday.occasion' | translate}}"/>
+                <div ng-show="editForm.occasion.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.occasion.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>-->
+
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.almHoliday.fromDate" for="field_fromDate">FromDate</label>
+                <div class="input-margin">
+                    <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.fromDate"
+                           datepicker-options="calendar.dateOptions" close-text="Close"
+                           ng-click="calendar.open($event, 'fromDate')"  class="form-control" name="fromDate" id="field_fromDate"
+                           ng-model="almHoliday.fromDate" required placeholder="{{'stepApp.almHoliday.fromDate' | translate}}" />
+                    <div ng-show="editForm.fromDate.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.fromDate.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.almHoliday.toDate" for="field_toDate">ToDate</label>
+                <div class="input-margin">
+
+                    <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.toDate"
+                           datepicker-options="calendar.dateOptions" close-text="Close"
+                           ng-click="calendar.open($event, 'toDate')" class="form-control" name="toDate" id="field_toDate"
+                           ng-model="almHoliday.toDate" required placeholder="{{'stepApp.almHoliday.toDate' | translate }}" />
+
+                    <div ng-show="editForm.toDate.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.toDate.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="row">
+
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.almHoliday.activeStatus" for="field_activeStatus">ActiveStatus</label>
+            <span class="form-control">
+                    <input type="radio" data-ng-model="almHoliday.activeStatus" name="activeStatus" data-ng-value="true">&nbsp;<span translate="global.home.active">Active</span>&nbsp;|&nbsp;
+                    <input type="radio" data-ng-model="almHoliday.activeStatus" name="activeStatus" data-ng-value="false">&nbsp;<span translate="global.home.inactive">Inactive</span>
+                </span>
+            </div>
+        </div>
+        </div>
+    <div class="panel-footer">
+        <div class="text-right">
+            <span>{{responseMessage}}</span>
+
+            <button type="button" class="btn btn-default"  data-dismiss="modal" onclick="window.history.back()">
+                <i class="fa fa-angle-double-left"></i>&nbsp;<span translate="entity.action.back">Back</span>
+            </button>
+
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <i class="fa fa-hdd-o"></i>&nbsp;<span translate="entity.action.save">Save</span>
+            </button>
+
+        </div>
+    </div>
+</div>
+</form>

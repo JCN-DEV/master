@@ -1,0 +1,130 @@
+<div class="col-md-12 common-dialogue">
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div>
+        <h4 id="mySisEducationHistoryLabel" translate="stepApp.sisEducationHistory.home.createOrEditLabel">Create or edit a SisEducationHistory</h4>
+    </div>
+    <div  class="sis-dialog col-sm-12 no_padding">
+        <!--<jh-alert-error></jh-alert-error>-->
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisEducationHistory.achievedCertificate" for="field_achievedCertificate"> Education Type</label>
+                <select class="form-control" name="achievedCertificate" ng-model="sisEducationHistory.achievedCertificate" id="field_achievedCertificate" required>
+                    <option translate="stepApp.sisEducationHistory.eduType"  value=""></option>
+                    <option value="AchievedCertificate" >AchievedCertificate</option>
+                    <option value="ContinuingEducation" >ContinuingEducation</option>
+                    <option value="HigherEducation" >HigherEducation</option>
+                </select>
+                <div ng-show="editForm.achievedCertificate.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.achievedCertificate.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisEducationHistory.eduLevel" for="field_eduLevel">eduLevel</label>
+                <select class="form-control" id="field_eduLevel" name="eduLevel" ng-model="sisEducationHistory.eduLevel" ng-options="EduLevel as EduLevel.name for EduLevel in edulevels track by EduLevel.id">
+                    <option translate="stepApp.sisEducationHistory.edulevel" value="">Select Education Level</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisEducationHistory.eduBoard" for="field_eduBoard">eduBoard</label>
+                <select class="form-control" id="field_eduBoard" name="eduBoard" ng-model="sisEducationHistory.eduBoard" ng-options="EduBoard as EduBoard.name for EduBoard in eduboards track by EduBoard.id">
+                    <option translate="stepApp.sisEducationHistory.eduBoards" value=""></option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisEducationHistory.yearOrSemester" for="field_yearOrSemester">YearOrSemester</label>
+                <input type="text" class="form-control" name="yearOrSemester" id="field_yearOrSemester"
+                       ng-model="sisEducationHistory.yearOrSemester"
+                       required />
+                <div ng-show="editForm.yearOrSemester.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.yearOrSemester.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisEducationHistory.rollNo" for="field_rollNo">RollNo</label>
+                <input type="text" class="form-control" name="rollNo" id="field_rollNo"
+                       ng-model="sisEducationHistory.rollNo"
+                       required />
+                <div ng-show="editForm.rollNo.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.rollNo.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisEducationHistory.majorOrDept" for="field_majorOrDept">MajorOrDept</label>
+                <input type="text" class="form-control" name="majorOrDept" id="field_majorOrDept"
+                       ng-model="sisEducationHistory.majorOrDept"
+                       required />
+                <div ng-show="editForm.majorOrDept.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.majorOrDept.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisEducationHistory.divisionOrGpa" for="field_divisionOrGpa">DivisionOrGpa</label>
+                <input type="text" class="form-control" name="divisionOrGpa" id="field_divisionOrGpa"
+                       ng-model="sisEducationHistory.divisionOrGpa"
+                       required />
+                <div ng-show="editForm.divisionOrGpa.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.divisionOrGpa.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisEducationHistory.passingYear" for="field_passingYear">PassingYear</label>
+                <input type="text" class="form-control" name="passingYear" id="field_passingYear"
+                       ng-model="sisEducationHistory.passingYear"
+                       required />
+                <div ng-show="editForm.passingYear.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.passingYear.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!--<div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisEducationHistory.activeStatus" for="field_activeStatus">ActiveStatus</label>
+                <input type="radio" data-ng-model="almShiftSetup.activeStatus" name="activeStatus" data-ng-value="true">&nbsp;Active&nbsp;|&nbsp;
+                <input type="radio" data-ng-model="almShiftSetup.activeStatus" name="activeStatus" data-ng-value="false">&nbsp;Inactive
+            </div>
+        </div>-->
+    </div>
+    <div class=" col-sm-12 modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.history.back()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>
+</div>

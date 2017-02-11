@@ -1,0 +1,88 @@
+<div>
+    <h2 translate="stepApp.instLevel.home.title">InstLevels</h2>
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" ui-sref="instLevel.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="stepApp.instLevel.home.createLabel">Create a new InstLevel</span>
+                </button>
+            </div>
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a InstLevel</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th class="text-center" translate="global.form.serial">serial</th>
+                <th translate="global.field.id">ID</th>
+                <th translate="stepApp.instLevel.code">Code</th>
+                <th translate="stepApp.instLevel.name">Name</th>
+                <th translate="stepApp.instLevel.description">Description</th>
+                <th translate="stepApp.instLevel.pStatus">PStatus</th>
+                <th translate="stepApp.instLevel.createdDate">CreatedDate</th>
+                <th translate="stepApp.instLevel.updatedDate">UpdatedDate</th>
+                <th translate="stepApp.instLevel.createdBy">CreatedBy</th>
+                <th translate="stepApp.instLevel.updatedBy">UpdatedBy</th>
+                <th translate="stepApp.instLevel.status">Status</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="instLevel in instLevels track by instLevel.id" current-page="currentPage">
+                <td class="text-center">{{pageSize*(currentPage-1)+$index+1}}</td>
+                <td><a ui-sref="instLevel.detail({id:instLevel.id})">{{instLevel.id}}</a></td>
+                <td>{{instLevel.code}}</td>
+                <td>{{instLevel.name}}</td>
+                <td>{{instLevel.description}}</td>
+                <td>{{instLevel.pStatus}}</td>
+                <td>{{instLevel.createdDate | date:'mediumDate'}}</td>
+                <td>{{instLevel.updatedDate | date:'mediumDate'}}</td>
+                <td>{{instLevel.createdBy}}</td>
+                <td>{{instLevel.updatedBy}}</td>
+                <td>{{instLevel.status}}</td>
+                <td>
+                    <button type="submit"
+                            ui-sref="instLevel.detail({id:instLevel.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="instLevel.edit({id:instLevel.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="instLevel.delete({id:instLevel.id})"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pagination">
+                <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                <li class="active"><a>{{page + 1}}</a></li>
+                <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>

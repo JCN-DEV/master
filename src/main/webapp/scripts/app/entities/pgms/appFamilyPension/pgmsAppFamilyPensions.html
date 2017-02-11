@@ -1,0 +1,129 @@
+<div class="col-md-12 common-list">
+    <h2 class="panel-heading" translate="stepApp.pgmsAppFamilyPension.home.title">PgmsAppFamilyPensions</h2>
+    <div class="col-md-12 padding-tb">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+        <div class="col-xs-4 no_padding text-right ">
+            <button class="btn btn-primary" ui-sref="pgmsAppFamilyPension.new">
+                <span class="glyphicon glyphicon-plus"></span> <span
+                translate="stepApp.pgmsAppFamilyPension.home.createLabel">Create a new PgmsAppFamilyPension</span>
+            </button>
+        </div>
+    </div>
+    <!--<div class="col-sm-12 padding-tb no-print">
+        <div class="col-md-8 col-xs-12 no_padding">
+            <div class="col-md-6 no_padding">
+                <b><span translate="global.home.searchhere">Search Here :</span></b>
+                <div class="input-group">
+                                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-search"
+                                                                                         aria-hidden="true"></i></span>
+                    <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <b><span translate="global.home.itemperpage">Items per page:</span></b>
+                <div class="input-group col-sm-4">
+                    <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-xs-12  text-right no_padding dlbtn-top">
+            <button class="btn btn-primary" ui-sref="pgmsAppFamilyPension.new">
+                <span class="glyphicon glyphicon-plus"></span> <span
+                translate="stepApp.pgmsAppFamilyPension.home.createLabel">Create a new PgmsAppFamilyPension</span>
+            </button>
+        </div>
+    </div>-->
+
+    <div class="modal fade" id="deletePgmsAppFamilyPensionConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(pgmsAppFamilyPension.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p translate="stepApp.pgmsAppFamilyPension.delete.question"
+                           translate-values="{id: '{{pgmsAppFamilyPension.id}}'}">Are you sure you want to delete this
+                            PgmsAppFamilyPension?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                            translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                            translate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <!--<th translate="global.field.id">ID</th>-->
+                <th class="text-center" translate="global.form.serial">serial</th>
+                <th translate="stepApp.pgmsAppFamilyPension.appEmpId">appEmpId</th>
+                <th translate="stepApp.pgmsAppFamilyPension.empName">EmpName</th>
+                <th translate="stepApp.pgmsAppFamilyPension.empDepartment">EmpDepartment</th>
+                <th translate="stepApp.pgmsAppFamilyPension.empDesignation">EmpDesignation</th>
+                <th translate="stepApp.pgmsAppFamilyPension.empNid">EmpNid</th>
+                <th translate="stepApp.pgmsAppFamilyPension.nomineName">NomineName</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-animate="'animate'"
+                dir-paginate="pgmsAppFamilyPension in pgmsAppFamilyPensions | filter:q | itemsPerPage: pageSize track by pgmsAppFamilyPension.id"
+                current-page="currentPage">
+                <!--<td><a
+                    ui-sref="pgmsAppFamilyPension.detail({id:pgmsAppFamilyPension.id})">{{pgmsAppFamilyPension.id}}</a>
+                </td>-->
+                <td class="text-center">{{pageSize*(currentPage-1)+$index+1}}</td>
+                <td>
+                    <a ui-sref="HrEmployeeInfo.detail({id:pgmsAppFamilyPension.appEmpId.id})">{{pgmsAppFamilyPension.appEmpId.employeeId}}</a>
+                </td>
+                <td>{{pgmsAppFamilyPension.empName}}</td>
+                <td>{{pgmsAppFamilyPension.empDepartment}}</td>
+                <td>{{pgmsAppFamilyPension.empDesignation}}</td>
+                <td>{{pgmsAppFamilyPension.empNid}}</td>
+                <td>{{pgmsAppFamilyPension.nomineName}}</td>
+                <td class="text-right">
+                    <button type="submit"
+                            ui-sref="pgmsAppFamilyPension.detail({id:pgmsAppFamilyPension.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="pgmsAppFamilyPension.edit({id:pgmsAppFamilyPension.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                        translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit"
+                            ng-click="delete(pgmsAppFamilyPension.id)"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                        translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav class="no-print">
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                     template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+</div>

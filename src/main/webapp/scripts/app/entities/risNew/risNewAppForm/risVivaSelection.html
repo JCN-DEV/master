@@ -1,0 +1,119 @@
+<div class="col-md-12 common-list">
+    <h2 translate="stepApp.risNewAppForm.vivaSelection">RisNewAppForms</h2>
+    <div class="col-sm-12 padding-tb no-print">
+        <div class="col-lg-6">
+            <label class="control-label" translate="stepApp.risNewAppForm.Registration No">Registration No</label>
+            <div class="input-group">
+                <input type="number" class="form-control" name="experience" id="field_regNo"
+                       ng-model="risNewAppForm.regNo">
+            <span class="input-group-btn">
+                <button ng-click="getAppForSelect(risNewAppForm.regNo)" class="btn btn-success" type="button"><span
+                    translate="entity.action.view"> Search Applicant </span></button>
+            </span>
+            </div>
+            <div ng-show="showError">
+                <p class="ris-messErr">{{showError}}</p>
+            </div>
+            <div ng-if="risNewAppForm == null">
+                <p class="ris-messErr">{{notFound}}</p>
+            </div>
+            <!-- /input-group -->
+        </div>
+
+        <div class="col-sm-12">
+            <br>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label class="control-label" translate="stepApp.risNewAppForm.CircularNo ">Circular No </label>
+            <input type="text" class="form-control" name="experience" id="field_email" readonly
+                   ng-model="getAppForSelects.CIRCULAR_NO"
+            />
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label class="control-label">Applicant Name</label>
+            <input type="text" class="form-control" name="experience" id="field_dob" readonly
+                   ng-model="getAppForSelects.APPLICANTS_NAME_EN " ng-bind="getAppForSelects.APPLICANTS_NAME_EN"
+            />
+        </div>
+        <div class="form-group col-sm-6">
+            <label class="control-label" translate="stepApp.risNewAppForm.DateOfBirth ">Date Of Birth</label>
+            <input type="text" class="form-control" name="experience" id="field_dob" readonly
+                   ng-model="getAppForSelects.BIRTH_DATE " ng-bind="getAppForSelects.BIRTH_DATE  | date:'medium'"
+            />
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label class="control-label" translate="stepApp.risNewAppForm.PostName ">Post Name</label>
+            <input type="text" class="form-control" name="experience" id="field_postName" readonly
+                   ng-model="getAppForSelects.DESIGNATION"
+            />
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label class="control-label" translate="stepApp.risNewAppForm.Nationality ">Nationality</label>
+            <input type="text" class="form-control" name="experience" id="field_nationality" readonly
+                   ng-model="getAppForSelects.NATIONALITY"
+            />
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label class="control-label" translate="stepApp.risNewAppForm.NationalID ">National ID</label>
+            <input type="text" class="form-control" name="experience" id="field_nationalId" readonly
+                   ng-model="getAppForSelects.NATIONAL_ID"
+            />
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label class="control-label" translate="stepApp.risNewAppForm.ContactNumber ">Contact Number</label>
+            <input type="text" class="form-control" name="experience" id="field_contact" readonly
+                   ng-model="getAppForSelects.CONTACT_PHONE"
+            />
+        </div>
+        <div class="form-group col-sm-6">
+            <label class="control-label" translate="stepApp.risNewAppForm.Email ">Email</label>
+            <input type="text" class="form-control" name="experience" id="field_email" readonly
+                   ng-model="getAppForSelects.EMAIL"
+            />
+        </div>
+        <div class="col-sm-12 no_padding">
+            <br>
+            <br>
+            <br>
+        </div>
+        <div class="col-sm-12 text-right">
+            <button type="submit" ng-click="selectionForViva(risNewAppForm.regNo)"
+                    class="btn btn-info btn-sm">
+                <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.selectForViva"> Select For Viva </span>
+            </button>
+        </div>
+    </div>
+
+    <div class="modal fade" id="selectionForViva">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmselectionForViva()">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title">Confirm Selection for viva</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to select for viva</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                            translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-success">
+                            <span class="glyphicon glyphicon-save"></span>&nbsp;<span
+                            translate="entity.action.yes">Assign</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

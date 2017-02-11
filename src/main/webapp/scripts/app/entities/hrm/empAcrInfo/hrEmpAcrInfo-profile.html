@@ -1,0 +1,173 @@
+<div class="service-form-area">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="modal-title" id="myhrEmpAcrInfoLabel"><span
+                translate="stepApp.hrEmpAcrInfo.home.profileViewEditTitle"></span> : {{hrEmployeeInfo.fullName}}</h4>
+        </div>
+        <div class="panel-body bg-panel hr_label">
+            <div class="row hrm-view">
+                <span ng-show="addMode">
+                    <span ng-show="noEmployeeFound" class="alert">Employee is not created yet.</span>
+                </span>
+            </div>
+            <div class="panel-group">
+                <!-- For Loop Start From Here-->
+                <div class="bg-panel" ng-repeat="hrEmpAcrInfo in hrEmpAcrInfoList">
+                    <form class="form-horizontal " name="editForm" role="form" ng-submit="save()" novalidate
+                          show-validation>
+                        <div class="row hrm-view panel-heading no_padding">
+                            <div class="col-sm-7 no_padding">
+                                <strong>{{hrEmpAcrInfo.acrYear}} : {{hrEmpAcrInfo.totalMarks}}</strong>
+                            </div>
+                            <div class="col-sm-5 no_padding text-right">
+                                <button ng-hide="noEmployeeFound || hrEmpAcrInfo.isLocked || hrEmpAcrInfo.logStatus==6"
+                                        type="button" ng-click="changeProfileMode(hrEmpAcrInfo)"
+                                        class="btn btn-primary btn-sm">{{hrEmpAcrInfo.viewModeText}}
+                                </button>
+                                <span ng-show="hrEmpAcrInfo.isLocked" class="alert alert-warning"><span
+                                    translate="stepApp.hrmHome.recordLocked">Pending</span></span>
+                                    <span ng-if="hrEmpAcrInfo.logStatus == 3">
+                                        <span class="alert alert-warning" translate="stepApp.hrmHome.requestRejected">Rejected</span>
+                                    </span>
+                            </div>
+                        </div>
+                        <div class="row hrm-view">
+                            <div class="col-sm-12 text-right">
+                                    <span class="alert-warning" ng-if="hrEmpAcrInfo.logStatus == 3">
+                                        <span class="control-label"
+                                              translate="stepApp.hrmHome.rejectionReason">Reason</span>:&nbsp; : &nbsp; {{hrEmpAcrInfo.logComments}}
+                                    </span>
+                            </div>
+                        </div>
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpAcrInfo.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEmpAcrInfo.acrYear"
+                                           for="field_acrYear">AcrYear</label>
+                                    <input type="number" class="form-control" name="acrYear" id="field_acrYear"
+                                           ng-model="hrEmpAcrInfo.acrYear" required/>
+                                    <div ng-show="editForm.acrYear.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.acrYear.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                        <p class="help-block"
+                                           ng-show="editForm.acrYear.$error.number"
+                                           translate="entity.validation.number">
+                                            This field should be a number.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEmpAcrInfo.viewMode">
+                                    <label class="control-label" translate="stepApp.hrEmpAcrInfo.acrYear"
+                                           for="field_acrYear">AcrYear</label>
+                                    <span class="form-control-static">&nbsp; : &nbsp;{{hrEmpAcrInfo.acrYear}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpAcrInfo.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEmpAcrInfo.totalMarks"
+                                           for="field_totalMarks">TotalMarks</label>
+                                    <input type="number" class="form-control" name="totalMarks" id="field_totalMarks"
+                                           ng-model="hrEmpAcrInfo.totalMarks" required/>
+                                    <div ng-show="editForm.totalMarks.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.totalMarks.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                        <p class="help-block"
+                                           ng-show="editForm.totalMarks.$error.number"
+                                           translate="entity.validation.number">
+                                            This field should be a number.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEmpAcrInfo.viewMode">
+                                    <label class="control-label" translate="stepApp.hrEmpAcrInfo.totalMarks"
+                                           for="field_totalMarks">TotalMarks</label>
+                                    <span class="form-control-static">&nbsp; : &nbsp;{{hrEmpAcrInfo.totalMarks}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpAcrInfo.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEmpAcrInfo.overallEvaluation"
+                                           for="field_overallEvaluation">OverallEvaluation</label>
+                                    <input type="text" class="form-control" name="overallEvaluation"
+                                           id="field_overallEvaluation"
+                                           ng-model="hrEmpAcrInfo.overallEvaluation" required/>
+                                    <div ng-show="editForm.overallEvaluation.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.overallEvaluation.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEmpAcrInfo.viewMode">
+                                    <label class="control-label" translate="stepApp.hrEmpAcrInfo.overallEvaluation"
+                                           for="field_overallEvaluation">OverallEvaluation</label>
+                                    <span
+                                        class="form-control-static">&nbsp; : &nbsp;{{hrEmpAcrInfo.overallEvaluation}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label class="control-label" translate="stepApp.hrEmpAcrInfo.acrDate"
+                                       for="field_acrDate">AcrDate</label>
+                                <div ng-show="!hrEmpAcrInfo.viewMode" class="input-margin">
+                                    <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.acrDate"
+                                           datepicker-options="calendar.dateOptions" close-text="Close"
+                                           ng-click="calendar.open($event, 'acrDate')" class="form-control"
+                                           name="acrDate" id="field_acrDate"
+                                           ng-model="hrEmpAcrInfo.acrDate"/>
+                                </div>
+                                <span ng-show="hrEmpAcrInfo.viewMode" class="form-control-static">&nbsp; : &nbsp;{{hrEmpAcrInfo.acrDate | date:'mediumDate'}}</span>
+                            </div>
+                        </div>
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6" ngf-drop ngf-change="setGoOrderDoc($file, hrEmpAcrInfo)">
+                                <label class="control-label" translate="stepApp.hrEmpAcrInfo.promotionStatus"
+                                       for="field_promotionStatus">PromotionStatus</label>
+                                <div ng-show="!hrEmpAcrInfo.viewMode" class="input-margin">
+                                    <input type="text" class="form-control" name="promotionStatus"
+                                           id="field_promotionStatus"
+                                           ng-model="hrEmpAcrInfo.promotionStatus"/>
+                                </div>
+                                <span ng-show="hrEmpAcrInfo.viewMode" class="form-control-static">&nbsp; : &nbsp;{{hrEmpAcrInfo.promotionStatus}}</span>
+                            </div>
+                            <div class="form-group col-sm-6"></div>
+                        </div>
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">&nbsp;</div>
+                            <div class="form-group col-sm-6 text-right">
+                                <button ng-show="!hrEmpAcrInfo.viewMode" type="button"
+                                        ng-click="changeProfileMode(hrEmpAcrInfo)" class="btn btn-default btn-sm"><span
+                                    class="glyphicon glyphicon-remove"></span>&nbsp;{{hrEmpAcrInfo.viewModeText}}
+                                </button>
+
+                                <button ng-show="!hrEmpAcrInfo.viewMode" ng-click="updateProfile(hrEmpAcrInfo, $index)"
+                                        type="button" ng-disabled="editForm.$invalid || isSaving"
+                                        class="btn btn-primary btn-sm">
+                                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span
+                                    translate="entity.action.save">Save</span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- End of Loop -->
+                <div class="col-sm-12 no_padding text-right">
+                    <button type="submit" class="btn btn-primary" ng-show="!addMode"
+                            ng-disabled="editForm.$invalid || isSaving" ng-click="addMore()"><i
+                        class="fa fa-plus-square"></i>
+                        <span translate="global.menu.account.addmore">Add More</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

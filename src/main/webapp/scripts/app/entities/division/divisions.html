@@ -1,0 +1,104 @@
+<div class="col-sm-12 common-list">
+    <h2 translate="stepApp.division.home.title">Divisions</h2>
+    <!--<jh-alert></jh-alert>-->
+    <div class="col-md-12 padding-tb">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+        <div class="col-xs-4 no_padding text-right ">
+            <button class="btn btn-primary" ui-sref="division.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.division.home.createLabel">Create a new Division</span>
+            </button>
+        </div>
+    </div>
+    <!--<div class="col-sm-12 padding-tb">
+        <div class="col-md-4 no_padding">
+            <b><span translate="global.home.searchhere">Search Here :</span></b>
+            <div class="input-group">
+                <span class="input-group-addon dlbtn" id="basic-addon1"><i class="fa fa-search"></i></span>
+                <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+            </div>
+        </div>
+        <div class="col-md-4 no_padding"><b><span translate="global.home.itemperpage">Items per page:</span></b>
+            <div class="input-group">
+                <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+            </div>
+        </div>
+        <div class="col-md-4 text-right no_padding">
+            <button class="btn btn-primary dlbtn dlbtn-top" ui-sref="division.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.division.home.createLabel">Create a new Division</span>
+            </button>
+        </div>
+    </div>-->
+    <!--<div class="col-md-12  padding-bt">
+        <div class="col-md-6 no_padding">
+            <form name="searchForm" class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery">
+                </div>
+                <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span>
+                </button>
+            </form>
+        </div>
+
+        <div class="col-md-6 no_padding text-right">
+            <button class="btn btn-primary" ui-sref="division.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.division.home.createLabel">Create a new Division</span>
+            </button>
+        </div>
+
+    </div>-->
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th class="text-center" translate="global.form.serial">serial</th>
+                <th translate="global.field.id">ID</th>
+                <th translate="stepApp.division.name">Name</th>
+                <th translate="stepApp.division.bnName">BnName</th>
+                <th translate="stepApp.division.country">country</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--<tr dir-paginate="division in divisions  | filter:q | itemsPerPage: pageSize">-->
+            <tr ng-animate="'animate'" dir-paginate="division in divisions | filter:q | itemsPerPage: pageSize track by division.id" current-page="currentPage">
+                <td>{{pageSize*(currentPage-1)+$index+1}}</td>
+                <td><a ui-sref="division.detail({id:division.id})">{{division.id}}</a></td>
+                <td>{{division.name}}</td>
+                <td>{{division.bnName}}</td>
+                <td>
+                    <a ui-sref="country.detail({id:division.country.id})">{{division.country.id}}</a>
+                </td>
+                <td class="text-right">
+                    <button type="submit"
+                            ui-sref="division.detail({id:division.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span
+                        translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="division.edit({id:division.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                        translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="division.delete({id:division.id})"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                        translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                     template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+</div>

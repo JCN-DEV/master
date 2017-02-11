@@ -1,0 +1,80 @@
+<div class="row">
+    <div class="col-md-3">
+        <ng-include src="'scripts/app/account/mpo/mpo-left-menu.html'"></ng-include>
+    </div>
+    <div class="col-md-9 lbl-dash">
+        <div class="col-md-12 common-dialogue">
+            <form name="editForm" role="form" novalidate ng-submit="save()">
+                <h4 ng-if="personalPay.id == null" class="modal-title" id="myPersonalPayLabel" translate="stepApp.personalPay.home.createLabel">Create a personalPay</h4>
+                <h4 ng-if="personalPay.id != null" class="modal-title" id="myPersonalPayLabel" translate="stepApp.personalPay.home.editLabel">Edit a personalPay</h4>
+                <div class="modal-body"  ng-if="personalPay.id == null">
+                    <div class="panel-body no_padding admin-info" ng-repeat="personalPay in personalPays">
+                        <div class="col-sm-12 no_padding">
+                            <h3 ><span translate="stepApp.personalPay.day"></span> &nbsp;{{$index + 1}}</h3>
+                            <!--<button type="button" class="close" ng-click="removeItem(personalPay)">&times;</button>-->
+                            <button ng-if="personalPays.length >1" class="close" ng-click="removeItem(personalPay)">&times;</button>
+                            <div class="form-group">
+                                <label translate="stepApp.personalPay.payScale" for="field_payScale">payScale</label>
+                                <select class="form-control" id="field_payScale" required name="payScale" ng-model="personalPay.payScale" ng-options="payScale as payScale.code for payScale in payscales | orderBy:'code' track by payScale.id">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label translate="stepApp.personalPay.amount" for="field_amount">Amount</label>
+                                <input type="number" class="form-control" name="amount" id="field_amount" required
+                                       ng-model="personalPay.amount"
+                                    />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <a class="btn btn-primary" ng-disabled="isSaving" ng-click="AddMore()">
+                            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.addMore">Add More</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="form-group col-md-12" ng-if="personalPay.id != null">
+                    <label translate="stepApp.personalPay.payScale" for="field_payScale2">payScale</label>
+                    <select class="form-control" id="field_payScale2" required name="payScale" ng-model="personalPay.payScale" ng-options="payScale as payScale.code for payScale in payscales | orderBy:'code' track by payScale.id">
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div class="form-group col-md-12"  ng-if="personalPay.id != null">
+                    <label translate="stepApp.personalPay.amount" for="field_amount2">Amount</label>
+                    <input type="number" class="form-control" name="amount" id="field_amount2" required
+                           ng-model="personalPay.amount"
+                        />
+                </div>
+                <div class="form-group col-md-12">
+                    <label translate="stepApp.personalPay.effectiveDate" for="field_effectiveDate">EffectiveDate</label>
+                    <!--<input type="date" class="form-control" name="effectiveDate" id="field_effectiveDate"
+                        ng-model="personalPay.effectiveDate" required
+                         />-->
+                    <input type="text" class="form-control" name="effectiveDate" id="field_effectiveDate"
+                           ng-model="personalPay.effectiveDate"
+                           required
+                           datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.effectiveDate"
+                           placeholder="{{'entity.placeholder.dateformat' | translate}}"
+                           datepicker-options="calendar.dateOptions" close-text="Close"
+                           ng-click="calendar.open($event, 'effectiveDate')"/>
+                </div>
+                <div class="form-group col-md-6 ">
+                    <label translate="stepApp.personalPay.status" for="field_status">Status</label>
+                    <input type="checkbox" class="" name="status" id="field_status" required
+                           ng-model="personalPay.status"
+                        />
+                </div>
+                <div class="modal-footer">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-default" onclick="window.history.back()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

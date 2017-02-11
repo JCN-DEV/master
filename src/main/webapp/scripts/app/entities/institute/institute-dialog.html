@@ -1,0 +1,519 @@
+<form name="editForm" class="form form-horizontal" role="form"
+	novalidate ng-submit="save()" show-validation>
+
+	<div class="modal-header bg-primary">
+		<button type="button" class="close" data-dismiss="modal"
+			aria-hidden="true" ng-click="clear()">&times;</button>
+		<h4 class="modal-title" id="myInstituteLabel"
+			translate="stepApp.institute.home.createOrEditLabel">Create or
+			edit a Institute</h4>
+	</div>
+	<div class="modal-body">
+		<jh-alert-error></jh-alert-error>
+		<div class="form-group" has-authority="ROLE_ADMIN">
+			<label class="col-sm-3 control-label" for="id"
+				translate="global.field.id">ID</label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" id="id" name="id"
+					ng-model="institute.id" readonly />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-4 control-label" for="status"
+				translate="global.field.status">status</label>
+			<div class="col-sm-8">
+				<select class="form-control" name="status"
+					ng-model="institute.status" id="field_status" required readonly>
+					<option value="draft" translate="stepApp.Status.draft">draft</option>
+					<option value="published" translate="stepApp.Status.published">published</option>
+					<option value="featured" translate="stepApp.Status.featured">published</option>
+					<option value="deleted" translate="stepApp.Status.deleted">published</option>
+				</select>
+
+				<div ng-show="editForm.status.$invalid">
+					<p class="help-block" ng-show="editForm.status.$error.required"
+						translate="entity.validation.required">This field is required.</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.name" for="field_name">Name</label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" name="name" id="field_name"
+					ng-model="institute.name" required />
+				<div ng-show="editForm.name.$invalid">
+					<p class="help-block" ng-show="editForm.name.$error.required"
+						translate="entity.validation.required">This field is required.
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.dateOfEstablishment"
+				for="field_dateOfEstablishment">DateOfEstablishment</label>
+			<div class="col-sm-9">
+				<input type="date" class="form-control" name="dateOfEstablishment"
+					id="field_dateOfEstablishment"
+					ng-model="institute.dateOfEstablishment" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.mpoCode" for="field_mpoCode">MpoCode</label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" name="mpoCode"
+					id="field_mpoCode" ng-model="institute.mpoCode" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.postOffice" for="field_postOffice">PostOffice</label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" name="postOffice"
+					id="field_postOffice" ng-model="institute.postOffice" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.location" for="field_location">Location</label>
+			<div class="col-sm-9">
+				<select class="form-control" name="location"
+					ng-model="institute.location" id="field_location">
+					<option value="CityCorporation"
+						translate="stepApp.Location.CityCorporation">CityCorporation</option>
+					<option value="Municipality"
+						translate="stepApp.Location.Municipality">Municipality</option>
+					<option value="Other" translate="stepApp.Location.Other">Other</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.isJoint" for="field_isJoint">IsJoint</label>
+			<div class="col-sm-9">
+				<input type="checkbox" class="form-control" name="isJoint"
+					id="field_isJoint" ng-model="institute.isJoint" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.multiEducational"
+				for="field_multiEducational">MultiEducational</label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" name="multiEducational"
+					id="field_multiEducational" ng-model="institute.multiEducational" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.firstApprovedEducationalYear"
+				for="field_firstApprovedEducationalYear">FirstApprovedEducationalYear</label>
+			<div class="col-sm-9">
+				<input type="date" class="form-control"
+					name="firstApprovedEducationalYear"
+					id="field_firstApprovedEducationalYear"
+					ng-model="institute.firstApprovedEducationalYear" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.lastApprovedEducationalYear"
+				for="field_lastApprovedEducationalYear">LastApprovedEducationalYear</label>
+			<div class="col-sm-9">
+				<input type="date" class="form-control"
+					name="lastApprovedEducationalYear"
+					id="field_lastApprovedEducationalYear"
+					ng-model="institute.lastApprovedEducationalYear" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.firstMpoIncludeDate"
+				for="field_firstMpoIncludeDate">FirstMpoIncludeDate</label>
+			<div class="col-sm-9">
+				<input type="date" class="form-control" name="firstMpoIncludeDate"
+					id="field_firstMpoIncludeDate"
+					ng-model="institute.firstMpoIncludeDate" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.lastMpoExpireDate"
+				for="field_lastMpoExpireDate">LastMpoExpireDate</label>
+			<div class="col-sm-9">
+				<input type="date" class="form-control" name="lastMpoExpireDate"
+					id="field_lastMpoExpireDate" ng-model="institute.lastMpoExpireDate" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.nameOfTradeSubject"
+				for="field_nameOfTradeSubject">NameOfTradeSubject</label>
+			<div class="col-sm-9">
+				<input type="date" class="form-control" name="nameOfTradeSubject"
+					id="field_nameOfTradeSubject"
+					ng-model="institute.nameOfTradeSubject" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.lastApprovedSignatureDate"
+				for="field_lastApprovedSignatureDate">LastApprovedSignatureDate</label>
+			<div class="col-sm-9">
+				<input type="date" class="form-control"
+					name="lastApprovedSignatureDate"
+					id="field_lastApprovedSignatureDate"
+					ng-model="institute.lastApprovedSignatureDate" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.lastCommitteeApprovedDate"
+				for="field_lastCommitteeApprovedDate">LastCommitteeApprovedDate</label>
+			<div class="col-sm-9">
+				<input type="date" class="form-control"
+					name="lastCommitteeApprovedDate"
+					id="field_lastCommitteeApprovedDate"
+					ng-model="institute.lastCommitteeApprovedDate" />
+			</div>
+		</div>
+		<div class="form-group" ngf-drop
+			ngf-change="setLastCommitteeApprovedFile($file, institute)">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.lastCommitteeApprovedFile"
+				for="field_lastCommitteeApprovedFile">LastCommitteeApprovedFile</label>
+			<div class="col-sm-9">
+				<div>
+					<div class="help-block clearfix">
+						<span class="pull-left">{{institute.lastCommitteeApprovedFileContentType}}
+							{{byteSize(institute.lastCommitteeApprovedFile)}}</span>
+						<button
+							ng-click="institute.lastCommitteeApprovedFile=null;institute.lastCommitteeApprovedFileContentType=null;"
+							ng-if="institute.lastCommitteeApprovedFile"
+							class="btn btn-default btn-xs pull-right">
+							<span class="glyphicon glyphicon-remove"></span>
+						</button>
+					</div>
+					<button type="file" ngf-select class="btn btn-default btn-block"
+						ngf-change="setLastCommitteeApprovedFile($file, institute)"
+						translate="entity.action.addblob">Add blob</button>
+				</div>
+				<input type="hidden" class="form-control"
+					name="lastCommitteeApprovedFile"
+					id="field_lastCommitteeApprovedFile"
+					ng-model="institute.lastCommitteeApprovedFile" />
+				<input type="hidden" class="form-control"
+					name="lastCommitteeApprovedFileContentType"
+					id="field_lastCommitteeApprovedFileContentType"
+					ng-model="institute.lastCommitteeApprovedFileContentType" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.lastCommitteeExpDate"
+				for="field_lastCommitteeExpDate">LastCommitteeExpDate</label>
+			<div class="col-sm-9">
+				<input type="date" class="form-control" name="lastCommitteeExpDate"
+					id="field_lastCommitteeExpDate"
+					ng-model="institute.lastCommitteeExpDate" />
+			</div>
+		</div>
+		<div class="form-group" ngf-drop
+			ngf-change="setLastCommittee1stMeetingFile($file, institute)">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.lastCommittee1stMeetingFile"
+				for="field_lastCommittee1stMeetingFile">LastCommittee1stMeetingFile</label>
+			<div class="col-sm-9">
+				<div>
+					<div class="help-block clearfix">
+						<span class="pull-left">{{institute.lastCommittee1stMeetingFileContentType}}
+							{{byteSize(institute.lastCommittee1stMeetingFile)}}</span>
+						<button
+							ng-click="institute.lastCommittee1stMeetingFile=null;institute.lastCommittee1stMeetingFileContentType=null;"
+							ng-if="institute.lastCommittee1stMeetingFile"
+							class="btn btn-default btn-xs pull-right">
+							<span class="glyphicon glyphicon-remove"></span>
+						</button>
+					</div>
+					<button type="file" ngf-select class="btn btn-default btn-block"
+						ngf-change="setLastCommittee1stMeetingFile($file, institute)"
+						translate="entity.action.addblob">Add blob</button>
+				</div>
+				<input type="hidden" class="form-control"
+					name="lastCommittee1stMeetingFile"
+					id="field_lastCommittee1stMeetingFile"
+					ng-model="institute.lastCommittee1stMeetingFile" />
+				<input type="hidden" class="form-control"
+					name="lastCommittee1stMeetingFileContentType"
+					id="field_lastCommittee1stMeetingFileContentType"
+					ng-model="institute.lastCommittee1stMeetingFileContentType" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.lastCommitteeExpireDate"
+				for="field_lastCommitteeExpireDate">LastCommitteeExpireDate</label>
+			<div class="col-sm-9">
+				<input type="date" class="form-control"
+					name="lastCommitteeExpireDate" id="field_lastCommitteeExpireDate"
+					ng-model="institute.lastCommitteeExpireDate" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.lastMpoMemorialDate"
+				for="field_lastMpoMemorialDate">LastMpoMemorialDate</label>
+			<div class="col-sm-9">
+				<input type="date" class="form-control" name="lastMpoMemorialDate"
+					id="field_lastMpoMemorialDate"
+					ng-model="institute.lastMpoMemorialDate" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.totalStudent" for="field_totalStudent">TotalStudent</label>
+			<div class="col-sm-9">
+				<input type="number" class="form-control" name="totalStudent"
+					id="field_totalStudent" ng-model="institute.totalStudent" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.lengthOfLibrary"
+				for="field_lengthOfLibrary">LengthOfLibrary</label>
+			<div class="col-sm-9">
+				<input type="number" class="form-control" name="lengthOfLibrary"
+					id="field_lengthOfLibrary" ng-model="institute.lengthOfLibrary" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.widthOfLibrary"
+				for="field_widthOfLibrary">WidthOfLibrary</label>
+			<div class="col-sm-9">
+				<input type="number" class="form-control" name="widthOfLibrary"
+					id="field_widthOfLibrary" ng-model="institute.widthOfLibrary" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.numberOfBook" for="field_numberOfBook">NumberOfBook</label>
+			<div class="col-sm-9">
+				<input type="number" class="form-control" name="numberOfBook"
+					id="field_numberOfBook" ng-model="institute.numberOfBook" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.lastMpoIncludeExpireDate"
+				for="field_lastMpoIncludeExpireDate">LastMpoIncludeExpireDate</label>
+			<div class="col-sm-9">
+				<input type="date" class="form-control"
+					name="lastMpoIncludeExpireDate" id="field_lastMpoIncludeExpireDate"
+					ng-model="institute.lastMpoIncludeExpireDate" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.numberOfLab" for="field_numberOfLab">NumberOfLab</label>
+			<div class="col-sm-9">
+				<input type="number" class="form-control" name="numberOfLab"
+					id="field_numberOfLab" ng-model="institute.numberOfLab" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.labArea" for="field_labArea">LabArea</label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" name="labArea"
+					id="field_labArea" ng-model="institute.labArea" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.code" for="field_code">Code</label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" name="code" id="field_code"
+					ng-model="institute.code" required />
+				<div ng-show="editForm.code.$invalid">
+					<p class="help-block" ng-show="editForm.code.$error.required"
+						translate="entity.validation.required">This field is required.
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.landPhone" for="field_landPhone">LandPhone</label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" name="landPhone"
+					id="field_landPhone" ng-model="institute.landPhone" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.mobile" for="field_mobile">Mobile</label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" name="mobile"
+					id="field_mobile" ng-model="institute.mobile" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.email" for="field_email">Email</label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" name="email"
+					id="field_email" ng-model="institute.email" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.constituencyArea"
+				for="field_constituencyArea">ConstituencyArea</label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" name="constituencyArea"
+					id="field_constituencyArea" ng-model="institute.constituencyArea" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.adminCounselorName"
+				for="field_adminCounselorName">AdminCounselorName</label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" name="adminCounselorName"
+					id="field_adminCounselorName"
+					ng-model="institute.adminCounselorName" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.counselorMobileNo"
+				for="field_counselorMobileNo">CounselorMobileNo</label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" name="counselorMobileNo"
+					id="field_counselorMobileNo" ng-model="institute.counselorMobileNo" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.insHeadName" for="field_insHeadName">InsHeadName</label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" name="insHeadName"
+					id="field_insHeadName" ng-model="institute.insHeadName" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.insHeadMobileNo"
+				for="field_insHeadMobileNo">InsHeadMobileNo</label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" name="insHeadMobileNo"
+					id="field_insHeadMobileNo" ng-model="institute.insHeadMobileNo" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.deoName" for="field_deoName">DeoName</label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" name="deoName"
+					id="field_deoName" ng-model="institute.deoName" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.deoMobileNo" for="field_deoMobileNo">DeoMobileNo</label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" name="deoMobileNo"
+					id="field_deoMobileNo" ng-model="institute.deoMobileNo" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.type" for="field_type">Type</label>
+			<div class="col-sm-9">
+				<select class="form-control" name="type" ng-model="institute.type"
+					id="field_type" required>
+					<option value="Government"
+						translate="stepApp.InstituteType.Government">Government</option>
+					<option value="NonGovernment"
+						translate="stepApp.InstituteType.NonGovernment">NonGovernment</option>
+				</select>
+				<div ng-show="editForm.type.$invalid">
+					<p class="help-block" ng-show="editForm.type.$error.required"
+						translate="entity.validation.required">This field is required.
+					</p>
+				</div>
+			</div>
+		</div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label"
+                   translate="stepApp.institute.category" for="field_type">Category</label>
+            <div class="col-sm-9">
+                <select class="form-control" name="category" ng-model="institute.category"
+                        id="field_category" required>
+                    <option value="School"
+                            translate="stepApp.InstituteCategpry.School">School</option>
+                    <option value="College"
+                            translate="stepApp.InstituteCategpry.College">College</option>
+                </select>
+                <div ng-show="editForm.category.$invalid">
+                    <p class="help-block" ng-show="editForm.category.$error.required"
+                       translate="entity.validation.required">This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+		<div class="form-group" has-authority="ROLE_ADMIN">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.user" for="field_user">user</label>
+			<div class="col-sm-9">
+				<select class="form-control" id="field_user" name="user"
+					ng-model="institute.user"
+					ng-options="user as user.login for user in users track by user.id">
+					<option value=""></option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.upazila" for="field_upazila">upazila</label>
+			<div class="col-sm-9">
+				<select class="form-control" id="field_upazila" name="upazila"
+					ng-model="institute.upazila"
+					ng-options="upazila as upazila.name for upazila in upazilas track by upazila.id">
+					<option value=""></option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label"
+				translate="stepApp.institute.course" for="field_course">course</label>
+			<div class="col-sm-9">
+				<select class="form-control" id="field_course" multiple
+					name="course" ng-model="institute.courses"
+					ng-options="course as course.course for course in courses track by course.id"></select>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<div class="form-group">
+			<div class="col-md-offset-4 col-md-8">
+				<button type="button" class="btn btn-default" data-dismiss="modal"
+					ng-click="clear()">
+					<span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+						translate="entity.action.cancel">Cancel</span>
+				</button>
+				<button type="submit" ng-disabled="editForm.$invalid || isSaving"
+					class="btn btn-primary">
+					<span class="glyphicon glyphicon-save"></span>&nbsp;<span
+						translate="entity.action.save">Save</span>
+				</button>
+			</div>
+		</div>
+	</div>
+</form>

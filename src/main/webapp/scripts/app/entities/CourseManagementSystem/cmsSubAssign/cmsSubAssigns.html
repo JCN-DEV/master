@@ -1,0 +1,106 @@
+<!--<div class="cmscurriculam">
+    <div class="panel-heading cmsheading">
+        <h3 class="panel-title" translate="stepApp.cmsSubAssign.home.title">CmsSubAssigns</h3>
+    </div>
+    <div class="row cmsCnew su_btn_center">
+        <div class="col-md-8 col-sm-12 col-xs-12">
+            <form name="searchForm" class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control su_searchbox" ng-model="searchQuery" id="searchQuery" placeholder="{{'global.home.searchLabel' | translate}}">
+
+                    <button class="btn btn-primary su_searchbtn" ng-click="search()"><i class="fa fa-search-plus"></i>
+                    </button>
+                </div>
+
+            </form>
+        </div>
+        <div class="col-md-4 col-sm-12 col-xs-12 su_btn_center text-right">
+            <button class="btn btn-primary" ui-sref="courseInfo.subAssign.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.cmsSubAssign.home.createLabel">Create a new CmsSubAssign</span>
+            </button>
+        </div>
+
+    </div>-->
+
+
+
+    <div class="col-sm-12 common-list">
+        <h2 class="panel-title" translate="stepApp.cmsSubAssign.home.title">CmsSubAssigns</h2>
+        <div class="col-md-12 col-sm-12 col-xs-12 padding-tb">
+            <div class="col-md-4 no_padding">
+                <b><span translate="global.home.searchhere">Search Here :</span></b>
+                <input ng-model="q" id="search" type="text" class="form-control"  placeholder="Search for...">
+            </div>
+            <div class="col-md-2">
+                <b><span translate="global.home.itemperpage">Items per page:</span></b>
+                <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+            </div>
+            <div class="col-md-6 btn-top text-right no_padding">
+                <button class="btn btn-primary" ui-sref="courseInfo.subAssign.new">
+                    <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.cmsSubAssign.home.createLabel">Create a new CmsSubAssign</span>
+                </button>
+            </div>
+        </div>
+
+    <div class="col-md-12 no_padding table-responsive ">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                   <!-- <th translate="global.field.id">ID</th>-->
+                    <th translate="stepApp.cmsSubAssign.subject">Subject</th>
+                 <!--  <th translate="stepApp.cmsSubAssign.description">Description</th>
+                   <th translate="stepApp.cmsSubAssign.examFee">ExamFee</th>-->
+                   <th translate="stepApp.cmsSubAssign.status">Status</th>
+                   <th translate="stepApp.cmsSubAssign.cmsCurriculum">cmsCurriculum</th>
+                    <!--  <th translate="stepApp.cmsSubAssign.cmsTrade">cmsTrade</th>
+                     <th translate="stepApp.cmsSubAssign.cmsSemester">cmsSemester</th>
+                     <th translate="stepApp.cmsSubAssign.cmsSyllabus">cmsSyllabus</th>-->
+                    <th translate="entity.action.action" class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class=" book-info wow animated zoomIn" data-wow-duration="1s" data-wow-delay="0s" dir-paginate="cmsSubAssign in cmsSubAssigns  | filter:q | itemsPerPage: pageSize track by cmsSubAssign.id " >
+                    <!--<td><a ui-sref="cmsSubAssign.detail({id:cmsSubAssign.id})">{{cmsSubAssign.id}}</a></td>-->
+                    <td>{{cmsSubAssign.cmsSubject.name}}</td>
+                    <!--<td>{{cmsSubAssign.description}}</td>
+                    <td>{{cmsSubAssign.examFee}}</td>-->
+                   <td>
+                       <span style="color: #005f00"  ng-show="cmsSubAssign.status == true" class="form-control-static"><span translate="entity.action.activate">Active</span></span>
+                       <span style="color: red" ng-show="cmsSubAssign.status == false" class="form-control-static"><span translate="entity.action.deactivate">Deactive</span></span>
+                   <td>
+                       <a ui-sref="cmsCurriculum.detail({id:cmsSubAssign.cmsCurriculum.id})">{{cmsSubAssign.cmsCurriculum.name}}</a>
+                   </td>
+                  <!-- <td>
+                       <a ui-sref="cmsTrade.detail({id:cmsSubAssign.cmsTrade.id})">{{cmsSubAssign.cmsTrade.name}}</a>
+                   </td>
+                   <td>
+                       <a ui-sref="cmsSemester.detail({id:cmsSubAssign.cmsSemester.id})">{{cmsSubAssign.cmsSemester.name}}</a>
+                   </td>
+                   <td>
+                       <a ui-sref="cmsSyllabus.detail({id:cmsSubAssign.cmsSyllabus.id})">{{cmsSubAssign.cmsSyllabus.name}}</a>
+                   </td>-->
+                    <td class="text-right">
+                        <button type="submit"
+                                ui-sref="courseInfo.subAssign.detail({id:cmsSubAssign.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="courseInfo.subAssign.edit({id:cmsSubAssign.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <!--<button type="submit"
+                                ui-sref="cmsSubAssign.delete({id:cmsSubAssign.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>-->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+</div>

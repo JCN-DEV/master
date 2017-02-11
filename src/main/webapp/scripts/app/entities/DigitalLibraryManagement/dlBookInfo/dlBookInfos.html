@@ -1,0 +1,194 @@
+<div class="common-list col-sm-12">
+    <div class="col-md-12"><h2 translate="stepApp.dlBookInfo.home.title">DlBookInfos</h2></div>
+    <!--<div class="col-sm-12 padding-bt no_padding">
+        <div class="col-md-6 no_padding">
+            <form name="searchForm" class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery">
+                </div>
+                <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span>
+                </button>
+            </form>
+        </div>
+        <div class="col-md-6 no_padding text-right">
+            <button class="btn btn-primary" ui-sref="libraryInfo.libraryBookInfos.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.dlBookInfo.home.createLabel">Create a new DlBookInfo</span>
+            </button>
+        </div>
+    </div>-->
+    <div class="col-sm-12 padding-bt no_padding">
+        <div class="col-md-4 padding-bt no_padding">
+            <b>{{ (findDlBookinfosByInstIds|filter:q).length }} results found</b>
+            <div class="input-group">
+                <span class="input-group-addon dlbtn" id="basic-addon1"><i class="fa fa-search"></i></span>
+                <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+            </div>
+        </div>
+        <div class="col-md-4 padding-bt"> <b>Items per page:</b>
+            <div class="input-group">
+                <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+            </div>
+        </div>
+        <div class="col-md-4 text-right no_padding">
+            <button class="btn btn-primary dlbtn dlbtn-top" ui-sref="libraryInfo.libraryBookInfos.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.dlBookInfo.home.createLabel">Create a new DlBookInfo</span>
+            </button>
+        </div>
+    </div>
+    <br>
+
+    <div class="col-sm-12 table-responsive">
+        <!--<table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="global.field.id">ID</th>
+                    <th translate="stepApp.dlBookInfo.title">Title</th>
+                    <th translate="stepApp.dlBookInfo.edition">Edition</th>
+                    <th translate="stepApp.dlBookInfo.isbnNo">IsbnNo</th>
+                    <th translate="stepApp.dlBookInfo.authorName">AuthorName</th>
+                    <th translate="stepApp.dlBookInfo.copyright">Copyright</th>
+                    &lt;!&ndash;<th translate="stepApp.dlBookInfo.publisherName">PublisherName</th>
+                    <th translate="stepApp.dlBookInfo.libraryName">LibraryName</th>
+                    <th translate="stepApp.dlBookInfo.callNo">CallNo</th>
+                    <th translate="stepApp.dlBookInfo.totalCopies">TotalCopies</th>
+                    <th translate="stepApp.dlBookInfo.purchaseDate">PurchaseDate</th>
+                    <th translate="stepApp.dlBookInfo.createdDate">CreatedDate</th>
+                    <th translate="stepApp.dlBookInfo.updatedDate">UpdatedDate</th>
+                    <th translate="stepApp.dlBookInfo.createdBy">CreatedBy</th>
+                    <th translate="stepApp.dlBookInfo.updatedBy">UpdatedBy</th>
+                    <th translate="stepApp.dlBookInfo.status">Status</th>
+                    <th translate="stepApp.dlBookInfo.dlContTypeSet">dlContTypeSet</th>
+                    <th translate="stepApp.dlBookInfo.dlContCatSet">dlContCatSet</th>
+                    <th translate="stepApp.dlBookInfo.dlContSCatSet">dlContSCatSet</th>&ndash;&gt;
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="dlBookInfo in dlBookInfos track by dlBookInfo.id">
+                    <td><a ui-sref="dlBookInfo.detail({id:dlBookInfo.id})">{{dlBookInfo.id}}</a></td>
+                    <td>{{dlBookInfo.title}}</td>
+                    <td>{{dlBookInfo.edition}}</td>
+                    <td>{{dlBookInfo.isbnNo}}</td>
+                    <td>{{dlBookInfo.authorName}}</td>
+                    <td>{{dlBookInfo.copyright}}</td>
+                    &lt;!&ndash;<td>{{dlBookInfo.publisherName}}</td>
+                    <td>{{dlBookInfo.libraryName}}</td>
+                    <td>{{dlBookInfo.callNo}}</td>
+                    <td>{{dlBookInfo.totalCopies}}</td>
+                        <td>{{dlBookInfo.purchaseDate | date:'mediumDate'}}</td>
+                        <td>{{dlBookInfo.createdDate | date:'mediumDate'}}</td>
+                        <td>{{dlBookInfo.updatedDate | date:'mediumDate'}}</td>
+                    <td>{{dlBookInfo.createdBy}}</td>
+                    <td>{{dlBookInfo.updatedBy}}</td>
+                    <td>{{dlBookInfo.status}}</td>
+                    <td>
+                        <a ui-sref="dlContTypeSet.detail({id:dlBookInfo.dlContTypeSet.id})">{{dlBookInfo.dlContTypeSet.name}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="dlContCatSet.detail({id:dlBookInfo.dlContCatSet.id})">{{dlBookInfo.dlContCatSet.name}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="dlContSCatSet.detail({id:dlBookInfo.dlContSCatSet.id})">{{dlBookInfo.dlContSCatSet.name}}</a>
+                    </td>&ndash;&gt;
+                    <td>
+                        <button type="submit"
+                                ui-sref="libraryInfo.libraryBookInfos.detail({id:dlBookInfo.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="libraryInfo.libraryBookInfos.edit({id:dlBookInfo.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="libraryInfo.libraryBookInfos.delete({id:dlBookInfo.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>-->
+
+        <div class="col-sm-12 no_padding">
+            <!--<div class="col-sm-4 book-info" dir-paginate="dlBookInfo in dlBookInfos | filter:q | itemsPerPage: pageSize" current-page="currentPage">
+                <div class="col-sm-4 book-img">
+                    <a href="" ui-sref="libraryInfo.libraryBookInfos.detail({id:dlBookInfo.id})">
+                        <img src="/assets/images/book.jpg" alt="book image">
+                    </a>
+                </div>
+                <div class="col-sm-8 book-details">
+                    <p class="book-details-button text-right">
+                        <button ui-sref="libraryInfo.libraryBookInfos.detail({id:dlBookInfo.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                        </button>
+                        <button ui-sref="libraryInfo.libraryBookInfos.edit({id:dlBookInfo.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
+                        <button ui-sref="libraryInfo.libraryBookInfos.delete({id:dlBookInfo.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>
+                        </button>
+                    </p>
+
+                    <p><u>Book Information</u></p>
+                    <p>Title &nbsp;&nbsp;&nbsp;  : {{dlBookInfo.title}}</p>
+                    <p>Author&nbsp;&nbsp;: {{dlBookInfo.authorName}}</p>
+                    <p>Edition &nbsp;: {{dlBookInfo.edition}}</p>
+                </div>
+
+            </div>-->
+            <div class="col-sm-4 book-info" dir-paginate="dlBookInfo in findDlBookinfosByInstIds  | filter:q | itemsPerPage: pageSize">
+                <div class="single-book-info">
+                    <div class="left-book-img">
+                        <a href="">
+                            <img width="200" data-ng-src="{{'data:' + dlBookInfo.bookImgContentType + ';base64,' + dlBookInfo.bookImg}}" />
+
+                            <!--
+                                                        <img src="/backup/dlImages/{{dlFileType.fileImgName}}" alt="book image">
+                            -->
+                        </a>
+                    </div>
+                    <div class="book-details-info">
+                        <p>Book Information</p>
+                        <p>Book ID &nbsp;: <b>{{dlBookInfo.bookId}}</b></p>
+                        <p>Title &nbsp;&nbsp;&nbsp;  : {{dlBookInfo.title}}</p>
+                        <p>Author&nbsp;&nbsp;: {{dlBookInfo.authorName}}</p>
+                        <p>Self No &nbsp;: {{dlBookInfo.callNo}}</p>
+                        <p>Status &nbsp;: <span style="color: #2b5900" ng-show="dlBookInfo.pStatus==true">Active</span>
+                            <span style="color: #ff0000" ng-show="dlBookInfo.pStatus==false">Inactive</span>
+                        </p>
+                        <div class="book-detail-button">
+                            <a href="" ui-sref="libraryInfo.libraryBookInfos.detail({id:dlBookInfo.id})"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                            <a href="" ui-sref="libraryInfo.libraryBookInfos.edit({id:dlBookInfo.id})"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <!--<a href="" ui-sref="libraryInfo.libraryBookInfos.delete({id:dlBookInfo.id})"><i class="fa fa-times" aria-hidden="true"></i></a>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+        <nav>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+
+            <!--  <ul class="pagination">
+                  <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                  <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                  <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                  <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                  <li class="active"><a>{{page + 1}}</a></li>
+                  <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                  <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                  <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                  <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+              </ul>-->
+        </nav>
+    </div>
+</div>

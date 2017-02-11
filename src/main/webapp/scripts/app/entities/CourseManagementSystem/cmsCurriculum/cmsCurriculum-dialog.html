@@ -1,0 +1,162 @@
+<div class="col-md-12 common-dialogue">
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="cmsCurriculum.id==null" class="panel-title" id="" translate="stepApp.cmsCurriculum.home.createOrEditLabel">Create or edit a CmsCurriculum</h4>
+        <h4 ng-hide="cmsCurriculum.id==null" class="panel-title" id="myCmsCurriculumLabel" translate="stepApp.cmsCurriculum.home.update">Create or edit a CmsCurriculum</h4>
+
+    <div class="panel-body ">
+        <!--<jh-alert-error></jh-alert-error>-->
+        <!--<div ng-show="message != '' " class="alert alert-danger">{{message}}</div>-->
+        <!--<div class="form-group">-->
+            <!--<label for="id" translate="global.field.id">ID</label>-->
+            <!--<input type="text" class="form-control" id="id" name="id"-->
+                    <!--ng-model="cmsCurriculum.id" readonly />-->
+        <!--</div>-->
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" translate="stepApp.cmsCurriculum.code" for="field_code">Code</label>
+                <input type="text" class="form-control" name="code" id="field_code"
+                       ng-model="cmsCurriculum.code"  required
+                ng-remote-validate="/api/cmsCurriculums/code/"
+                ng-remote-method="GET"
+                />
+                <span class="message" ng-show="editForm.code.$pending">validating...</span>
+                <div ng-show="editForm.code.$invalid">
+                    <p style="color:red"
+                       ng-show="editForm.code.$error.ngRemoteValidate">
+                        This Code is already exist
+                    </p>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" translate="stepApp.cmsCurriculum.name" for="field_name">Name</label>
+                <input type="text" class="form-control" name="name" id="field_name"
+                       ng-model="cmsCurriculum.name"
+                       ng-remote-validate="/api/cmsCurriculums/code/"
+                       ng-remote-method="GET"
+                    />
+                <span class="message" ng-show="editForm.name.$pending">validating...</span>
+                <div ng-show="editForm.name.$invalid">
+                    <p style="color:red"
+                       ng-show="editForm.name.$error.ngRemoteValidate">
+                        This Name is already exist
+                    </p>
+                </div>
+                <!--<div ng-show="editForm.name.$invalid">
+                    <p class="help-block"
+                        ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+                <div ng-show="uniqueError">
+                    <p class="alert alert-danger"
+                       ng-show="uniqueError">
+                        The Syllabus, Subject Code and Subject name combination should be unique.
+                    </p>
+                </div>-->
+
+            </div>
+        </div>
+
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" translate="stepApp.cmsCurriculum.duration" for="field_duration">Duration</label>
+                <input type="number" class="form-control" name="duration" id="field_duration" min="0"
+                       ng-model="cmsCurriculum.duration"
+                       required />
+                <div ng-show="editForm.duration.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.duration.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.duration.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group ">
+                <h6 class="control-label" translate="stepApp.cmsCurriculum.acronym" for="field_acronym">Acronym</h6>
+                <input class="form-control" name="acronym" id="field_acronym" ng-model="cmsCurriculum.acronym"/>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group ">
+                <h6 class="control-label" translate="stepApp.cmsCurriculum.dType" >Status</h6>
+
+                <div class="input-margin">
+                    <input type="radio"  name="dType" value="Semester" checked="Semester" ng-model="cmsCurriculum.duration_type"><span translate="stepApp.cmsCurriculum.dSemester">Semester</span>&nbsp;&nbsp;
+                    <input type="radio"  name="dType" value="Year"   ng-model="cmsCurriculum.duration_type"><span translate="stepApp.cmsCurriculum.dYear">Year</span>&nbsp;&nbsp;
+                    <input type="radio" name="dType"  value="Month"  ng-model="cmsCurriculum.duration_type"><span translate="stepApp.cmsCurriculum.dMonth">Month</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group  ">
+                <div>
+                    <h6 class="control-label" translate="stepApp.cmsCurriculum.description" for="field_description">Description</h6>
+                </div>
+                <textarea class="form-control" name="description" id="field_description"
+                          ng-model="cmsCurriculum.description"
+                    />
+            </div>
+        </div>
+        <!--<div class="form-group col-md-1">
+            <label class="control-label" translate="stepApp.cmsCurriculum.entryQualification" for="field_entryQualification">Status</label>
+            <input type="text" class="form-control" name="entryQualification" id="field_entryQualification"
+                    ng-model="cmsCurriculum.entryQualification"
+                     />
+        </div>-->
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <h6 class="control-label col-sm-12" translate="stepApp.cmsCurriculum.status" >Status</h6>
+                    <div class="col-sm-12">
+                        <input type="radio"  name="status" value="true" ng-checked="(cmsCurriculum.status == true || cmsCurriculum.status == null)" ng-model="cmsCurriculum.status"><span translate="entity.action.activate">Active</span>&nbsp;&nbsp;
+                        <input type="radio" name="status"  value="false" ng-checked="cmsCurriculum.status == false && cmsCurriculum.status != null" ng-model="cmsCurriculum.status"><span translate="entity.action.deactivate">Deactive</span>
+                    </div>
+                </div>
+            </div>
+
+        <!--<div class="col-md-6 col-sm-12 col-xs-12">-->
+            <!--<div class="form-group">-->
+                <!--<label class="control-label" translate="stepApp.cmsCurriculum.status" >Status</label>-->
+<!--&lt;!&ndash;&ndash;&gt;-->
+                <!--<div class="input-margin">-->
+                   <!--&lt;!&ndash;-->
+                    <!--<label  class="radio-inline"><input type="radio" name="status" value="true" checked="true" ng-checked="cmsCurriculum.status == true" ng-model="cmsCurriculum.status"><span translate="entity.action.activate">Activate</span></label>-->
+                    <!--<label class="radio-inline"><input type="radio" name="status"  value="false" ng-checked="cmsCurriculum.status == false" ng-model="cmsCurriculum.status"><span translate="entity.action.deactivate">Deactivate</span></label>-->
+<!--&ndash;&gt;-->
+
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+    <div class="col-sm-12 text-right">
+        <button type="submit"
+                onclick="window.history.back()"
+                class="btn btn-info">
+            <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+        </button>
+        <button type="button" class="btn btn-default"  ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.clear">Clear</span>
+        </button>
+
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving || uniqueError" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+        <!--<button type="submit" ng-hide="cmsCurriculum.id==null" ng-disabled="editForm.$invalid || isSaving || editForm.$pending" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="stepApp.cmsCurriculum.home.updateButton">Save</span>
+        </button>-->
+
+    </div>
+    </div>
+</form>
+</div>

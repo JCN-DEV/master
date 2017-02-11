@@ -1,0 +1,135 @@
+<div>
+    <div>
+        <div>
+                <div class="panel-group hr_label">
+                    <div class="panel ">
+                        <!-- For Loop Start From Here-->
+                        <div class="panel-body bg-panel" ng-repeat="hrEmpChildrenInfo in hrEmpChildrenInfoList">
+
+                            <form  class="form-horizontal " name="editFormChildren" role="form" ng-submit="save()" novalidate show-validation>
+                            <div class="row panel-heading no_padding">
+                                <div class="col-sm-7 no_padding">
+                                    <strong>{{hrEmpChildrenInfo.childrenName}} => {{hrEmpChildrenInfo.dateOfBirth | date:'mediumDate'}}</strong>
+                                </div>
+                                <div class="col-sm-5 no_padding text-right">
+                                    <button ng-hide="noEmployeeFound || hrEmpChildrenInfo.isLocked || hrEmpChildrenInfo.logStatus==6" type="button" ng-click="changeProfileMode(hrEmpChildrenInfo)"
+                                            class="btn btn-primary btn-sm">{{hrEmpChildrenInfo.viewModeText}}
+                                    </button>
+                                    <span ng-show="hrEmpChildrenInfo.isLocked" class="alert alert-warning approve-alert"><span translate="stepApp.hrmHome.recordLocked">Pending</span></span>
+                                    <span ng-if="hrEmpChildrenInfo.logStatus == 3">
+                                        <span class="alert alert-warning" translate="stepApp.hrmHome.requestRejected">Rejected</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row hrm-view">
+                                <div class="col-sm-12 text-right">
+                                    <span class="alert-warning" ng-if="hrEmpChildrenInfo.logStatus == 3">
+                                        <span class="control-label" translate="stepApp.hrmHome.rejectionReason">Reason</span>:&nbsp; : &nbsp;{{hrEmpChildrenInfo.logComments}}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row hrm-view">
+                                <div class="form-group col-sm-6">
+                                    <div ng-show="!hrEmpChildrenInfo.viewMode" class="input-margin">
+                                        <label class="control-label" translate="stepApp.hrEmpChildrenInfo.childrenName" for="field_childrenName">ChildrenName</label>
+                                        <input type="text" class="form-control" name="childrenName" id="field_childrenName"
+                                               ng-model="hrEmpChildrenInfo.childrenName" required />
+                                        <div ng-show="editFormChildren.childrenName.$invalid">
+                                            <p class="help-block"
+                                               ng-show="editFormChildren.childrenName.$error.required" translate="entity.validation.required">
+                                                This field is required.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div ng-show="hrEmpChildrenInfo.viewMode">
+                                        <label class="control-label" translate="stepApp.hrEmpChildrenInfo.childrenName" for="field_childrenName">ChildrenName</label>
+                                        <span class="form-control-static">&nbsp; : &nbsp;{{hrEmpChildrenInfo.childrenName}}</span>
+                                    </div>
+
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label class="control-label" translate="stepApp.hrEmpChildrenInfo.childrenNameBn" for="field_childrenNameBn">ChildrenNameBn</label>
+                                    <div ng-show="!hrEmpChildrenInfo.viewMode" class="input-margin">
+                                        <input type="text" class="form-control" name="childrenNameBn" id="field_childrenNameBn"
+                                               ng-model="hrEmpChildrenInfo.childrenNameBn"/>
+                                    </div>
+                                    <span ng-show="hrEmpChildrenInfo.viewMode" class="form-control-static">&nbsp; : &nbsp;{{hrEmpChildrenInfo.childrenNameBn}}</span>
+                                </div>
+                            </div>
+
+                            <div class="row hrm-view">
+                                <div class="form-group col-sm-6">
+                                    <div ng-show="!hrEmpChildrenInfo.viewMode" class="input-margin">
+                                        <label class="control-label" translate="stepApp.hrEmpChildrenInfo.dateOfBirth" for="field_dateOfBirth">DateOfBirth</label>
+                                        <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened['dateOfBirth'+$index]"
+                                               datepicker-options="calendar.dateOptions" close-text="Close"
+                                               ng-click="calendar.open($event, 'dateOfBirth'+$index)" class="form-control" name="dateOfBirth" id="field_dateOfBirth"
+                                               ng-model="hrEmpChildrenInfo.dateOfBirth" required />
+                                        <div ng-show="editFormChildren.dateOfBirth.$invalid">
+                                            <p class="help-block"
+                                               ng-show="editFormChildren.dateOfBirth.$error.required" translate="entity.validation.required">
+                                                This field is required.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div ng-show="hrEmpChildrenInfo.viewMode">
+                                        <label class="control-label" translate="stepApp.hrEmpChildrenInfo.dateOfBirth">DateOfBirth</label>
+                                        <span class="form-control-static">&nbsp; : &nbsp;{{hrEmpChildrenInfo.dateOfBirth | date:'mediumDate'}}</span>
+                                    </div>
+
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <div ng-show="!hrEmpChildrenInfo.viewMode" class="input-margin">
+                                        <label class="control-label" translate="stepApp.hrEmpChildrenInfo.gender" for="field_gender">Gender</label>
+                                        <select class="form-control" name="gender" ng-model="hrEmpChildrenInfo.gender" id="field_gender" required>
+                                            <option value="Male" translate="global.gender.Male">Male</option>
+                                            <option value="Female" translate="global.gender.Female">Female</option>
+                                            <option value="Other" translate="global.gender.Other">Other</option>
+                                        </select>
+                                        <div ng-show="editFormChildren.gender.$invalid">
+                                            <p class="help-block"
+                                               ng-show="editFormChildren.gender.$error.required" translate="entity.validation.required">
+                                                This field is required.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div ng-show="hrEmpChildrenInfo.viewMode">
+                                        <label class="control-label" translate="stepApp.hrEmpChildrenInfo.gender">Gender</label>
+                                        <span class="form-control-static">&nbsp; : &nbsp;{{hrEmpChildrenInfo.gender}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row hrm-view">
+                                <div class="form-group col-sm-6">
+                                    <div class="input-margin">
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-6 text-right">
+                                    <div class="input-margin">
+                                        <button ng-show="!hrEmpChildrenInfo.viewMode" type="button"
+                                                ng-click="changeProfileMode(hrEmpChildrenInfo)" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-remove"></span>&nbsp;{{hrEmpChildrenInfo.viewModeText}}
+                                        </button>
+                                        <button ng-show="!hrEmpChildrenInfo.viewMode" ng-click="updateProfile(hrEmpChildrenInfo, $index)"
+                                                type="button" ng-disabled="editFormChildren.$invalid || isSaving" class="btn btn-primary btn-sm">
+                                            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            </form>
+                        </div>
+
+                        <!-- End of Loop -->
+
+                        <div class="col-sm-12 no_padding text-right">
+                            <button type="submit" class="btn btn-primary" ng-show="!addMode" ng-click="addMore()"><i class="fa fa-plus-square"></i>
+                                <span  translate="global.menu.account.addmore">Add More</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,79 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="almEarningMethod.id == null" class="modal-title" id="myAlmEarningMethodLabel"
+            translate="stepApp.almEarningMethod.home.createOrEditLabel">Create or edit a AlmEarningMethod</h4>
+        <h4 ng-show="almEarningMethod.id != null" class="modal-title" id="myAlmEarningMethodLabel"
+            translate="stepApp.almEarningMethod.home.EditLabel">Create or edit a AlmEarningMethod</h4>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.almEarningMethod.earningMethodName" for="field_earningMethodName">EarningMethodName</label>
+
+                        <input type="text" class="form-control" name="earningMethodName" id="field_earningMethodName"
+                               ng-model="almEarningMethod.earningMethodName"
+                               ng-remote-validate="/api/almEarningMethods/checkname/"
+                               ng-remote-method="GET"
+                               ng-remote-throttle="500"
+                               tooltip="{{'stepApp.almEarningMethod.earningMethodName' | translate}}"
+                               placeholder="{{'stepApp.almEarningMethod.earningMethodName' | translate}}"
+                               required/>
+                        <span class="message" ng-show="editForm.earningMethodName.$pending">validating...</span>
+                        <div ng-show="editForm.earningMethodName.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.earningMethodName.$error.ngRemoteValidate">
+                                Earning Method already exists
+                            </p>
+                        </div>
+                        <div ng-show="editForm.earningMethodName.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.earningMethodName.$error.required"
+                               translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.almEarningMethod.activeStatus"
+                               for="field_activeStatus">ActiveStatus</label>
+            <span class="form-control">
+                    <input tooltip="{{'stepApp.almEarningMethod.activeStatus' | translate}}" type="radio" data-ng-model="almEarningMethod.activeStatus" name="activeStatus"
+                           data-ng-value="true">&nbsp;Active&nbsp;|&nbsp;
+                    <input tooltip="{{'stepApp.almEarningMethod.activeStatus' | translate}}" type="radio" data-ng-model="almEarningMethod.activeStatus" name="activeStatus"
+                           data-ng-value="false">&nbsp;Inactive
+                </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.almEarningMethod.description"
+                               for="field_description">Description</label>
+                    <textarea type="text" class="form-control" name="description" id="field_description"
+                              ng-model="almEarningMethod.description"
+                              tooltip="{{'stepApp.almEarningMethod.description' | translate}}"
+                              placeholder="{{'stepApp.almEarningMethod.description' | translate}}"
+                              cols="30" rows="3"
+                    ></textarea>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.history.back()">
+                <i class="fa fa-angle-double-left"></i>&nbsp;<span translate="entity.action.back">Back</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="almEarningMethod.id == null" translate="entity.action.save">Save</span>
+                <span ng-show="almEarningMethod.id != null" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

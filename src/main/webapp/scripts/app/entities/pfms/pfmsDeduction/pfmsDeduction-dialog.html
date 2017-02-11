@@ -1,0 +1,168 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-if="pfmsDeduction == null" class="modal-title" id="myPfmsDeductionLabel"
+            translate="stepApp.pfmsDeduction.home.createOrEditLabel">Create or edit a PfmsDeduction</h4>
+        <h4 ng-if="pfmsDeduction != null" class="modal-title" id="myPfmsDeductionLabel"
+            translate="stepApp.pfmsDeduction.home.EditLabel">Create or edit a PfmsDeduction</h4>
+        <div class="panel-body">
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsDeduction.employeeInfo" for="field_employeeInfo">employeeInfo</label>
+                <!--<select class="form-control" id="field_employeeInfo" name="employeeInfo" ng-model="pfmsDeduction.employeeInfo" ng-options="HrEmployeeInfo as HrEmployeeInfo.fullName for HrEmployeeInfo in hremployeeinfos track by HrEmployeeInfo.id">-->
+                <!--<option value=""></option>-->
+                <!--</select>-->
+                <div class="input-group">
+                    <input type="text" class="form-control" autocomplete="off" ng-model="pfmsDeduction.employeeInfo"
+                           typeahead='HrEmployeeInfo as (HrEmployeeInfo.fullName + " - " + HrEmployeeInfo.employeeId) for HrEmployeeInfo in hremployeeinfos | filter:$viewValue'
+                           id="field_employeeInfo" required
+                           placeholder="{{'stepApp.pfmsDeduction.employeeInfo' | translate}}">
+                    <span class="input-group-btn">
+                    <button type="button" class="btn btn-default"
+                            ng-click="loadEmployeeInfo(pfmsDeduction.employeeInfo)">
+                                <span class="glyphicon"></span>&nbsp;<span translate="stepApp.pfmsDeduction.search">Search</span>
+                        </button>
+                </span>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsDeduction.departmentName" for="field_almLeaveType">Department</label>
+                <span class="form-control">{{pfmsDeduction.employeeInfo.designationInfo.designationInfo.designationName}}</span>
+            </div>
+
+            <div class="form-group col-md-6 ">
+                <label translate="stepApp.pfmsDeduction.designationName">Designation</label>
+                <span class="form-control">{{designationName}}</span>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsDeduction.nationality" for="field_nationality">nationality</label>
+                <span class="form-control">{{nationality}}</span>
+            </div>
+
+            <div class="form-group col-md-6 ">
+                <label translate="stepApp.pfmsDeduction.fatherName" for="field_fatherName">fatherName</label>
+                <span class="form-control">{{fatherName}}</span>
+            </div>
+
+            <div class="form-group col-md-6 ">
+                <label translate="stepApp.pfmsDeduction.dutySide" for="field_dutySide">dutySide</label>
+                <span class="form-control">{{dutySide}}</span>
+            </div>
+
+
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsDeduction.pfmsLoanApp" for="field_pfmsLoanApp">pfmsLoanApplication</label>
+                <select class="form-control" id="field_pfmsLoanApp" ng-change="onChangeLoanApplication()"
+                        name="pfmsLoanApp" ng-model="pfmsDeduction.pfmsLoanApp"
+                        ng-options="PfmsLoanApplication as PfmsLoanApplication.id for PfmsLoanApplication in pfmsloanapplications track by PfmsLoanApplication.id">
+                    <option value=""></option>
+                </select>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.pfmsDeduction.installmentNo" for="field_installmentNo">InstallmentNo</label>
+                <input type="number" class="form-control" name="installmentNo" id="field_installmentNo"
+                       ng-model="pfmsDeduction.installmentNo"
+                       required/>
+                <div ng-show="editForm.installmentNo.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.installmentNo.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.installmentNo.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.pfmsDeduction.accountNo" for="field_accountNo">AccountNo</label>
+                <input type="text" class="form-control" name="accountNo" id="field_accountNo"
+                       ng-model="pfmsDeduction.accountNo"
+                       readonly/>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.pfmsDeduction.deductionAmount"
+                       for="field_deductionAmount">DeductionAmount</label>
+                <input type="number" class="form-control" name="deductionAmount" id="field_deductionAmount"
+                       ng-model="pfmsDeduction.deductionAmount"
+                       required/>
+                <input type="hidden" class="form-control" name="deductionAmountPrev" id="field_deductionAmountPrev"
+                       ng-model="pfmsDeduction.deductionAmountPrev"/>
+                <div ng-show="editForm.deductionAmount.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.deductionAmount.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.deductionAmount.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.pfmsDeduction.deductionDate" for="field_deductionDate">DeductionDate</label>
+
+                <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.deductionDate"
+                       datepicker-options="calendar.dateOptions" close-text="Close"
+                       ng-click="calendar.open($event, 'deductionDate')" class="form-control" name="deductionDate"
+                       id="field_deductionDate"
+                       ng-model="pfmsDeduction.deductionDate"/>
+                <div ng-show="editForm.deductionDate.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.deductionDate.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsDeduction.deductionYear" for="field_deductionYear">deductionYear</label>
+                <input type="number" class="form-control" name="deductionYear" id="field_deductionYear"
+                       ng-model="pfmsDeduction.deductionYear"
+                       required/>
+                <div ng-show="editForm.deductionYear.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.deductionYear.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.deductionYear.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsDeduction.deductionMonth"
+                       for="field_deductionMonth">deductionMonth</label>
+                <select class="form-control" name="deductionMonth"
+
+                        ng-model="pfmsDeduction.deductionMonth"
+                        ng-options="MonthOpt as MonthOpt for MonthOpt in monthList.monthOptions track by MonthOpt"
+                        id="field_deductionMonth" required>
+                </select>
+
+                <div ng-show="editForm.deductionMonth.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.deductionMonth.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+
+                </div>
+                <div ng-show="!isExitsData">
+                    <p style="color: red">Provident fund is already adjusted for this month.</p>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.history.back()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+                <span ng-hide="pfmsDeduction.id" translate="entity.action.save"></span>
+                <span ng-show="pfmsDeduction.id" translate="entity.action.update"></span>
+            </button>
+        </div>
+    </form>
+</div>
+

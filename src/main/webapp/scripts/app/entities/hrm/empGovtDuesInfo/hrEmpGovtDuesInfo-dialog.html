@@ -1,0 +1,142 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="hrEmpGovtDuesInfo.id == null" class="modal-title" id="myHrEmpGovtDuesInfoLabel"
+            translate="stepApp.hrEmpGovtDuesInfo.home.createOrEditLabel">Create or edit a HrEmpGovtDuesInfo</h4>
+        <h4 ng-show="hrEmpGovtDuesInfo.id != null" class="modal-title" id="myHrEmpGovtDuesInfoLabel"
+            translate="stepApp.hrEmpGovtDuesInfo.home.EditLabel">Create or edit a HrEmpGovtDuesInfo</h4>
+        <div class="modal-body col-md-12 padding-tb">
+            <jh-alert-error></jh-alert-error>
+
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
+                    <div class="form-group ">
+                        <label translate="stepApp.hrEmpGovtDuesInfo.employeeInfo"
+                               for="field_employeeInfo">employeeInfo</label>
+                        <div class="input-margin">
+                            <select class="form-control" id="field_employeeInfo" name="employeeInfo"
+                                    ng-model="hrEmpGovtDuesInfo.employeeInfo"
+                                    ng-options="HrEmployeeInfo as HrEmployeeInfo.fullName for HrEmployeeInfo in hremployeeinfos track by HrEmployeeInfo.id"
+                                    required>
+                                <option value=""></option>
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
+                    <div class="form-group ">
+                        <label class="control-label" translate="stepApp.hrEmpGovtDuesInfo.dueAmount"
+                               for="field_dueAmount">DueAmount</label>
+                        <div class="input-margin">
+                            <input type="number" class="form-control" name="dueAmount" id="field_dueAmount"
+                                   ng-model="hrEmpGovtDuesInfo.dueAmount" required/>
+                            <div ng-show="editForm.dueAmount.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.dueAmount.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.dueAmount.$error.number" translate="entity.validation.number">
+                                    This field should be a number.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
+                    <div class="form-group ">
+                        <label class="control-label" translate="stepApp.hrEmpGovtDuesInfo.description"
+                               for="field_description">Description</label>
+                        <div class="input-margin">
+                        <textarea class="form-control" name="description" id="field_description"
+                                  ng-model="hrEmpGovtDuesInfo.description" required></textarea>
+                            <div ng-show="editForm.description.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.description.$error.required"
+                                   translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
+                    <div class="form-group ">
+                        <label class="control-label" translate="stepApp.hrEmpGovtDuesInfo.claimerAuthority"
+                               for="field_claimerAuthority">ClaimerAuthority</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="claimerAuthority" id="field_claimerAuthority"
+                                   ng-model="hrEmpGovtDuesInfo.claimerAuthority" required/>
+                            <div ng-show="editForm.claimerAuthority.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.claimerAuthority.$error.required"
+                                   translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
+                    <div class="form-group ">
+                        <label class="control-label" translate="stepApp.hrEmpGovtDuesInfo.comments"
+                               for="field_comments">Comments</label>
+                        <div class="input-margin">
+                        <textarea class="form-control" name="comments" id="field_comments"
+                                  ng-model="hrEmpGovtDuesInfo.comments"></textarea>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
+                    <div class="form-group ">
+                        <label class="control-label"
+                               translate="stepApp.hrEmpGovtDuesInfo.activeStatus">ActiveStatus</label>
+                        <div class="input-margin">
+                            <div>
+                                <input type="radio" data-ng-model="hrEmpGovtDuesInfo.activeStatus" name="activeStatus"
+                                       data-ng-value="true">&nbsp;<span
+                                translate="stepApp.hrEmpGovtDuesInfo.active"></span>&nbsp;|&nbsp;
+                                <input type="radio" data-ng-model="hrEmpGovtDuesInfo.activeStatus" name="activeStatus"
+                                       data-ng-value="false">&nbsp;<span
+                                translate="stepApp.hrEmpGovtDuesInfo.inactive"></span>
+                            </div>
+                            <div ng-show="editForm.activeStatus.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.activeStatus.$error.required"
+                                   translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" class="btn " data-dismiss="modal"
+                        onclick="window.history.back()">
+                    <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;<span translate="entity.action.back">Back</span>
+                </button>
+                <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;
+                    <span ng-show="hrEmpGovtDuesInfo.id == null" translate="entity.action.save">Save</span>
+                    <span ng-show="hrEmpGovtDuesInfo.id != null" translate="entity.action.update">Save</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

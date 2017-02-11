@@ -1,0 +1,141 @@
+<div class="col-md-12 common-table">
+    <h2><span translate="stepApp.employeeLoanRequisitionForm.detail.title">Employee Loan Information</span> {{employeeLoanRequisitionForm.id}}</h2>
+    <div class="table-responsive">
+        <div class="col-sm-12 text-right padding-tb">
+
+            <button  ng-hide="hideGenInfoApprove"
+                     ui-sref="employeeLoanInfo.approve({loanReqId:employeeLoanRequisitionForm.id})"
+                     class="btn btn-primary">
+                <span class="glyphicon glyphicon-check"></span>&nbsp;
+                <span translate="entity.action.approve"> Approve</span>
+            </button>
+            <button  ng-hide="hideGenInfoApprove"
+                     ui-sref="employeeLoanInfo.decline({loanReqId:employeeLoanRequisitionForm.id})"
+                     class="btn btn-primary">
+                <span class="glyphicon glyphicon-check"></span>&nbsp;
+                <span translate="entity.action.deny"> Decline</span>
+            </button>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="stepApp.employeeLoanRequisitionForm.employeeLoanTypeSetup">employeeLoanTypeSetup</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="employeeLoanTypeSetup.detail({id:employeeLoanRequisitionForm.employeeLoanTypeSetup.id})">{{employeeLoanRequisitionForm.employeeLoanTypeSetup.loanTypeName}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.employeeLoanRequisitionForm.employeeLoanRulesSetup">employeeLoanRulesSetup</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="employeeLoanRulesSetup.detail({id:employeeLoanRequisitionForm.employeeLoanRulesSetup.id})">{{employeeLoanRequisitionForm.employeeLoanRulesSetup.loanName}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.employeeLoanRequisitionForm.loanRequisitionCode">LoanRequisitionCode</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{employeeLoanRequisitionForm.loanRequisitionCode}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.employeeLoanRequisitionForm.employeeID">Employee Id</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{employeeLoanRequisitionForm.employeeInfo.employeeId}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.employeeLoanRequisitionForm.amount">Amount</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{employeeLoanRequisitionForm.amount}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.employeeLoanRequisitionForm.installment">Installment</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{employeeLoanRequisitionForm.installment}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>Apply Type</td>
+                <td>{{employeeLoanRequisitionForm.applyType}}</td>
+            </tr>
+            <!--<tr>-->
+                <!--<td>-->
+                    <!--<span translate="stepApp.employeeLoanRequisitionForm.approveStatus">ApproveStatus</span>-->
+                <!--</td>-->
+                <!--<td>-->
+                    <!--<span class="form-control-static">{{employeeLoanRequisitionForm.approveStatus}}</span>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <tr>
+                <td>
+                    <span translate="stepApp.employeeLoanRequisitionForm.createDate">CreateDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{employeeLoanRequisitionForm.createDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th ng-click="order('name', reverse=!reverse)" translate="stepApp.employeeLoanRequisitionForm.attachment.name">Name</th>
+                <th ng-click="order('remarks', reverse=!reverse)" translate="stepApp.employeeLoanRequisitionForm.attachment.remarks">Remarks</th>
+                <th translate="stepApp.employeeLoanRequisitionForm.attachment.action">Action</th>
+            </tr>
+            </thead>
+            <tbody id="accordion"  ng-repeat="attachment in attachments  | filter:filter | orderBy:predicate:reverse track by attachment.id">
+            <tr data-parent="#accordion" ng-click="displayAttachment(attachment)" data-toggle="collapse" data-target="#{{attachment.id}}" aria-expanded="false" aria-controls="{{attachment.id}}">
+                <td><a href="javascript:void(0)" ng-click="previewImage(attachment.file, attachment.fileContentType,'Image of '+attachment.name)">{{attachment.name}}</a></td>
+                <td>{{attachment.remarks}}</td>
+                <td><a href="javascript:void(0)" ng-click="previewImage(attachment.file, attachment.fileContentType,'Image of '+attachment.name)"></span>&nbsp;<span translate="entity.action.view"> View</span></a></td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Serial</th>
+                    <th translate="stepApp.employeeLoanRequisitionForm.logComments">Status</th>
+                    <th translate="stepApp.employeeLoanRequisitionForm.forwardDate">Approved Date</th>
+                    <th translate="stepApp.employeeLoanRequisitionForm.comments">Comments</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr dir-paginate="employeeLoanApprovedAndForward in employeeLoanApprovedAndForwards | filter:q | itemsPerPage: pageSize" current-page="currentPage">
+                    <td>{{$index+1}}</td>
+                    <td>{{employeeLoanApprovedAndForward.logComments}}</td>
+                    <td>{{employeeLoanApprovedAndForward.createDate}}</td>
+                    <td>{{employeeLoanApprovedAndForward.comments}}</td>
+                    <td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

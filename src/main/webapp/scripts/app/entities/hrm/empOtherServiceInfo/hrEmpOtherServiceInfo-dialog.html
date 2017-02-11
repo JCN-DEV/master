@@ -1,0 +1,171 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="hrEmpOtherServiceInfo.id ==null" class="modal-title"
+            translate="stepApp.hrEmpOtherServiceInfo.home.createOrEditLabel">Create or edit a HrEmpOtherServiceInfo</h4>
+        <h4 ng-show="hrEmpOtherServiceInfo.id !=null" class="modal-title"
+            translate="stepApp.hrEmpOtherServiceInfo.home.EditLabel">Create or edit a HrEmpOtherServiceInfo</h4>
+        <div class="modal-body col-md-12 padding-tb">
+            <jh-alert-error></jh-alert-error>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label class="control-label" for="field_workArea"><span
+                        translate="stepApp.hrEmpOtherServiceInfo.workarea"></span>Work Area</label>
+                    <select class="form-control" id="field_workArea" name="workArea" ng-model="workArea"
+                            ng-change="loadModelByWorkArea(workArea)"
+                            ng-options="MiscTypeSetup as MiscTypeSetup.typeName for MiscTypeSetup in workAreaList track by MiscTypeSetup.id">
+                        <option value="">Select Work Area</option>
+                    </select>
+                    <span class="help">No of Employee: {{hremployeeinfos.length}}</span>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEmpOtherServiceInfo.employeeInfo"
+                           for="field_employeeInfo">employeeInfo</label>
+                    <div class="input-margin">
+                        <input type="text" class="form-control autocomplete" autocomplete="off"
+                               ng-model="hrEmpOtherServiceInfo.employeeInfo"
+                               typeahead='HrEmployeeInfo as (HrEmployeeInfo.fullName + " " + HrEmployeeInfo.employeeId) for HrEmployeeInfo in hremployeeinfos | filter:$viewValue'
+                               id="field_employeeInfo" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEmpOtherServiceInfo.companyName"
+                           for="field_companyName">CompanyName</label>
+                    <div class="input-margin">
+                        <input type="text" class="form-control" name="companyName" id="field_companyName"
+                               ng-model="hrEmpOtherServiceInfo.companyName" required/>
+                        <div ng-show="editForm.companyName.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.companyName.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEmpOtherServiceInfo.address" for="field_address">Address</label>
+                    <div class="input-margin">
+                    <textarea class="form-control" name="address" id="field_address"
+                              ng-model="hrEmpOtherServiceInfo.address"></textarea>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEmpOtherServiceInfo.serviceType"
+                           for="field_serviceType">ServiceType</label>
+                    <div class="input-margin">
+                        <input type="text" class="form-control" name="serviceType" id="field_serviceType"
+                               ng-model="hrEmpOtherServiceInfo.serviceType" required/>
+                        <div ng-show="editForm.serviceType.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.serviceType.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEmpOtherServiceInfo.position"
+                           for="field_position">Position</label>
+                    <div class="input-margin">
+                        <input type="text" class="form-control" name="position" id="field_position"
+                               ng-model="hrEmpOtherServiceInfo.position" required/>
+                        <div ng-show="editForm.position.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.position.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEmpOtherServiceInfo.fromDate"
+                           for="field_fromDate">FromDate</label>
+                    <div class="input-margin">
+                        <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.fromDate"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               max-date="hrEmpOtherServiceInfo.toDate"
+                               ng-click="calendar.open($event, 'fromDate')" class="form-control" name="fromDate"
+                               id="field_fromDate"
+                               ng-model="hrEmpOtherServiceInfo.fromDate" required/>
+                        <div ng-show="editForm.fromDate.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.fromDate.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEmpOtherServiceInfo.toDate" for="field_toDate">ToDate</label>
+                    <div class="input-margin">
+                        <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.toDate"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               min-date="hrEmpOtherServiceInfo.fromDate"
+                               ng-click="calendar.open($event, 'toDate')" class="form-control" name="toDate"
+                               id="field_toDate"
+                               ng-model="hrEmpOtherServiceInfo.toDate"/>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label class="control-label"
+                           translate="stepApp.hrEmpOtherServiceInfo.activeStatus">ActiveStatus</label>
+                    <div class="input-margin">
+                    <span>
+                        <input type="radio" data-ng-model="hrEmpOtherServiceInfo.activeStatus" name="activeStatus"
+                               data-ng-value="true">&nbsp;Active&nbsp;|&nbsp;
+                        <input type="radio" data-ng-model="hrEmpOtherServiceInfo.activeStatus" name="activeStatus"
+                               data-ng-value="false">&nbsp;Inactive
+                    </span>
+                        <div ng-show="editForm.activeStatus.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group col-sm-6">
+
+                    <div class="input-margin">
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" class="btn " data-dismiss="modal"
+                    onclick="window.history.back()">
+                <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;<span
+                translate="entity.action.back">Back</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="hrEmpOtherServiceInfo.id ==null" translate="entity.action.save">Save</span>
+                <span ng-show="hrEmpOtherServiceInfo.id !=null" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

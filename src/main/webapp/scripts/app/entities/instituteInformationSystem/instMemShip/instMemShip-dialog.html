@@ -1,0 +1,190 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="instMemShip.id == null" class="modal-title" id="myInstMemShipLabel"
+            translate="stepApp.instMemShip.home.createOrEditLabel">Create or edit a InstMemShip</h4>
+        <h4 ng-show="instMemShip.id != null" class="modal-title" id="myInstMemShipLabel"
+            translate="stepApp.instMemShip.home.EditLabel">Create or edit a InstMemShip</h4>
+        <div class="modal-body col-sm-12 padding-tb">
+            <!--<jh-alert-error></jh-alert-error>-->
+            <!--<div class="form-group col-sm-6">
+                <label for="id" translate="global.field.id">ID</label>
+                <input type="text" class="form-control" id="id" name="id"
+                        ng-model="instMemShip.id" readonly />
+            </div>-->
+            <div class="form-group col-sm-6" ng-if="instMemShip.id == null">
+                <label translate="stepApp.instMemShip.username" for="field_username">Username</label>
+                <input type="text" class="form-control" name="login" id="field_username"
+                       ng-model="instMemShip.user.login"
+                       ng-remote-validate="/api/account/checkLogin/"
+                       ng-remote-method="GET" ng-pattern="/^[a-z0-9]*$/"
+                       data-toggle="tooltip"
+                       tooltip="{{'stepApp.instMemShip.username' | translate}}"
+                       placeholder="{{'stepApp.instMemShip.username' | translate}}"
+                       required/>
+                <span class="message" ng-show="editForm.login.$pending">validating...</span>
+                <div ng-show="editForm.login.$invalid">
+                    <p style="color:red"
+                       ng-show="editForm.login.$error.ngRemoteValidate">
+                        This username is already exist.
+                    </p>
+                    <p
+                        ng-show="editForm.login.$error.pattern">
+                        Username can only contain lower-case letters and digits.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-sm-6" ng-if="instMemShip.id == null">
+                <label translate="stepApp.instMemShip.email" for="field_email">Email</label>
+                <input type="email" class="form-control" name="email" id="field_email"
+                       ng-model="instMemShip.email"
+                       ng-remote-validate="/api/account/checkEmail/"
+                       ng-remote-method="GET"
+                       data-toggle="tooltip"
+                       tooltip="{{'stepApp.instMemShip.email' | translate}}"
+                       placeholder="{{'stepApp.instMemShip.email' | translate}}"
+                       required/>
+                <span class="message" ng-show="editForm.email.$pending">validating...</span>
+                <div ng-show="editForm.email.$invalid">
+                    <p style="color:red"
+                       ng-show="editForm.email.$error.ngRemoteValidate">
+                        This email address is already exist.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.instMemShip.fullName" for="field_fullName">FullName</label>
+                <input type="text" class="form-control" name="fullName" id="field_fullName"
+                       ng-model="instMemShip.fullName"
+                       data-toggle="tooltip"
+                       tooltip="{{'stepApp.instMemShip.fullName' | translate}}"
+                       placeholder="{{'stepApp.instMemShip.fullName' | translate}}"
+                />
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.instMemShip.dob" for="field_dob">Dob</label>
+                <!--<input type="date" class="form-control" name="dob" id="field_dob"
+                        ng-model="instMemShip.dob"
+                         />-->
+                <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.dob"
+                       datepicker-options="calendar.dateOptions" close-text="Close"
+                       ng-click="calendar.open($event, 'dob')" class="form-control"
+                       name="dob" id="field_dob"
+                       data-toggle="tooltip"
+                       tooltip="{{'stepApp.instMemShip.dob' | translate}}"
+                       placeholder="yyyy-mm-dd"
+                       ng-model="instMemShip.dob"/>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.instMemShip.gender" for="field_gender">Gender</label>
+                <div id="field_gender">
+                    <label class="radio-inline">
+                        <input type="radio" name="gender" value="male"
+                               ng-checked="(instMemShip.gender == male || instMemShip.gender == null)"
+                               tooltip="{{'stepApp.instMemShip.gender' | translate}}"
+                               ng-model="instMemShip.gender"><span
+                        translate="stepApp.instMemShip.male">
+                        Active</span>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="gender" value="female"
+                               ng-checked="(instMemShip.gender == female && instMemShip.gender != null)"
+                               tooltip="{{'stepApp.instMemShip.gender' | translate}}"
+                               ng-model="instMemShip.gender"><span
+                        translate="stepApp.instMemShip.female">
+                        Deactive</span>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="gender" value="others"
+                               ng-checked="(instMemShip.gender == others && instMemShip.gender != null)"
+                               tooltip="{{'stepApp.instMemShip.gender' | translate}}"
+                               ng-model="instMemShip.gender"><span
+                        translate="stepApp.instMemShip.others">
+                        Deactive</span>
+                    </label>
+                </div>
+
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.instMemShip.contact" for="field_contact">Contact</label>
+                <input type="text" class="form-control" name="contact" id="field_contact"
+                       ng-model="instMemShip.contact"
+                       data-toggle="tooltip"
+                       tooltip="{{'stepApp.instMemShip.contact' | translate}}"
+                       placeholder="{{'stepApp.instMemShip.contact' | translate}}"
+                />
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.instMemShip.address" for="field_address">Address</label>
+                <textarea type="text" class="form-control" name="address" id="field_address"
+                          ng-model="instMemShip.address"
+                          rows="3"
+                          cols="30"
+                          data-toggle="tooltip"
+                          tooltip="{{'stepApp.instMemShip.address' | translate}}"
+                          placeholder="{{'stepApp.instMemShip.address' | translate}}"
+                ></textarea>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.instMemShip.orgAdd" for="field_orgAdd">OrgAdd</label>
+                <textarea type="text" class="form-control" name="orgAdd" id="field_orgAdd"
+                          ng-model="instMemShip.orgAdd"
+                          rows="3" cols="30"
+                          data-toggle="tooltip"
+                          tooltip="{{'stepApp.instMemShip.orgAdd' | translate}}"
+                          placeholder="{{'stepApp.instMemShip.orgAdd' | translate}}"
+                ></textarea>
+            </div>
+
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.instMemShip.designation" for="field_designation">Designation</label>
+                <input type="text" class="form-control" name="designation" id="field_designation"
+                       ng-model="instMemShip.designation"
+                       data-toggle="tooltip"
+                       tooltip="{{'stepApp.instMemShip.designation' | translate}}"
+                       placeholder="{{'stepApp.instMemShip.designation' | translate}}"
+                />
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.instMemShip.orgName" for="field_orgName">OrgName</label>
+                <input type="text" class="form-control" name="orgName" id="field_orgName"
+                       ng-model="instMemShip.orgName"
+                       data-toggle="tooltip"
+                       tooltip="{{'stepApp.instMemShip.orgName' | translate}}"
+                       placeholder="{{'stepApp.instMemShip.orgName' | translate}}"
+                />
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.instMemShip.orgContact" for="field_orgContact">OrgContact</label>
+                <input type="text" class="form-control" name="orgContact" id="field_orgContact"
+                       ng-model="instMemShip.orgContact"
+                       data-toggle="tooltip"
+                       tooltip="{{'stepApp.instMemShip.orgContact' | translate}}"
+                       placeholder="{{'stepApp.instMemShip.orgContact' | translate}}"
+
+                />
+            </div>
+
+        </div>
+        <div class="modal-footer col-sm-12">
+            <div class="col-sm-6 text-left">
+                <button type="button pull-left no_padding" class="btn btn-default" onclick="window.history.back()">
+                    <span class="glyphicon glyphicon-back"></span>&nbsp;<span translate="entity.action.back">Back</span>
+                </button>
+            </div>
+            <div class="col-sm-6 pull-right no_padding">
+                <button type="button" class="btn btn-default" ui-sref="instituteInfo.instMemShip">
+                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;
+                    <span ng-show="instMemShip.id == null" translate="entity.action.save">Save</span>
+                    <span ng-show="instMemShip.id != null" translate="entity.action.update">Save</span>
+                </button>
+            </div>
+        </div>
+    </form>
+    <!--</div>
+        </div>-->
+</div>

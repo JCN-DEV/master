@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <property name="now" value="now()" dbms="mysql,h2"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+    <property name="now" value="sysdate" dbms="oracle"/>
+
+    <property name="autoIncrement" value="true" dbms="mysql,h2,postgresql,oracle"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle"/>
+
+    <!--
+        Added the entity VclEmployeeAssign.
+    -->
+    <changeSet id="20151230123500" author="jhipster">
+        <createTable tableName="vcl_employee_assign">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="create_date" type="date"/>
+            <column name="create_by" type="bigint"/>
+            <column name="update_date" type="date"/>
+            <column name="update_by" type="bigint"/>
+            <column name="vehicle_id" type="bigint"/>
+        </createTable>
+        
+        <addForeignKeyConstraint baseColumnNames="vehicle_id"
+                                 baseTableName="vcl_employee_assign"
+                                 constraintName="fk_vclemployeeassign_vehicle_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="vcl_vehicle"/>
+
+        <createTable tableName="vcl_employee_assign_employee">
+            <column name="employees_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="vcl_employee_assigns_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="vcl_employee_assigns_id, employees_id" tableName="vcl_employee_assign_employee"/>
+
+        <addForeignKeyConstraint baseColumnNames="vcl_employee_assigns_id"
+                                 baseTableName="vcl_employee_assign_employee"
+                                 constraintName="fk_vclemployeeassign_employee_employee_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="vcl_employee_assign"/>
+
+        <addForeignKeyConstraint baseColumnNames="employees_id"
+                                 baseTableName="vcl_employee_assign_employee"
+                                 constraintName="fk_employee_employee_vclemployeeassign_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="employee"/>
+        
+    </changeSet>
+</databaseChangeLog>

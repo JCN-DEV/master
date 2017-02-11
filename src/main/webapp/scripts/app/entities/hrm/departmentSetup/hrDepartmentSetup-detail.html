@@ -1,0 +1,117 @@
+<div class="col-md-12 common-table">
+<h2><span translate="stepApp.hrDepartmentSetup.detail.title">HrDepartmentSetup</span> - {{hrDepartmentSetup.departmentInfo.departmentName}}</h2>
+    <div class="table-responsive padding-tb">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="stepApp.hrDepartmentSetup.departmentInfo">departmentInfo</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{hrDepartmentSetup.departmentInfo.departmentName}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.hrDepartmentSetup.organizationType">organizationType</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{hrDepartmentSetup.organizationType}}</span>
+                </td>
+            </tr>
+            <tr ng-show="(hrDepartmentSetup.organizationType=='Organization')">
+                <td>
+                    <span translate="stepApp.hrDepartmentSetup.organizationCategory">organizationCategory</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="miscTypeSetup.detail({id:hrDepartmentSetup.organizationCategory.id})">{{hrDepartmentSetup.organizationCategory.typeTitle}}</a>
+                </td>
+            </tr>
+            <tr ng-show="(hrDepartmentSetup.organizationType=='Organization')">
+                <td>
+                    <span translate="stepApp.hrDepartmentSetup.organizationInfo">organizationInfo</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{hrDepartmentSetup.organizationInfo.name}}</span>
+                </td>
+            </tr>
+            <tr ng-show="(hrDepartmentSetup.organizationType=='Institute')">
+                <td>
+                    <span translate="stepApp.hrDepartmentSetup.instCategory">instCategory</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{hrDepartmentSetup.instCategory.name}}</span>
+                </td>
+            </tr>
+            <tr ng-show="(hrDepartmentSetup.organizationType=='Institute')">
+                <td>
+                    <span translate="stepApp.hrDepartmentSetup.institute">institute</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{hrDepartmentSetup.institute.name}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.hrDepartmentSetup.wingInfo">wingInfo</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{hrDepartmentSetup.wingInfo.wingName}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.hrDepartmentSetup.activeStatus">ActiveStatus</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{hrDepartmentSetup.activeStatus ? 'Active' : 'Inactive'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.hrDepartmentSetup.createDate">CreateDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{hrDepartmentSetup.createDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.hrDepartmentSetup.createBy">CreateBy</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{hrDepartmentSetup.createBy}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.hrDepartmentSetup.updateDate">UpdateDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{hrDepartmentSetup.updateDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.hrDepartmentSetup.updateBy">UpdateBy</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{hrDepartmentSetup.updateBy}}</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info no-print">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

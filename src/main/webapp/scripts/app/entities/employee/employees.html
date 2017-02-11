@@ -1,0 +1,119 @@
+<div class="row">
+    <div class="col-md-3">
+        <ng-include src="'scripts/components/navbar/left-menu.html'"></ng-include>
+    </div>
+    <div class="col-md-9">
+        <h2 class="page-header" translate="stepApp.employee.home.title">Employees</h2>
+        <!--<jh-alert></jh-alert>-->
+        <div class="row">
+            <div class="col-md-3">
+                <button class="btn btn-primary btn-sm" ui-sref="employee.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="stepApp.employee.home.createLabel">Create a new Employee</span>
+                </button>
+            </div>
+            <div class="col-md-9">
+                <div class="pull-right">
+                    <form name="searchForm" class="form-inline" ng-submit="search()" novalidate show-validation>
+                        <div class="form-group">
+                            <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery"
+                                   placeholder="search for..." required>
+                        </div>
+                        <button ng-disabled="searchForm.$invalid" class="btn btn-info btn-sm" type="submit"><span
+                            class="glyphicon glyphicon-search"></span> <span translate="entity.action.search">Search a Employee</span>
+                        </button>
+                    </form>
+                    <div class="btn-group btn-group-sm">
+                        <button ng-disabled="!areAllEmployeesSelected" class="btn btn-default" ng-click="sync()">
+                            <i class="glyphicon glyphicon-refresh" aria-label="sync"></i>
+                            <span translate="entity.action.sync">sync</span>
+                        </button>
+                        <button ng-disabled="!areAllEmployeesSelected" class="btn btn-default" ng-click="export()">
+                            <i class="glyphicon glyphicon-export" aria-label="export"></i>
+                            <span translate="entity.action.export">export</span>
+                        </button>
+
+                        <button ng-disabled="!areAllEmployeesSelected" class="btn btn-default" ng-click="import()">
+                            <i class="glyphicon glyphicon-import" aria-label="import"></i>
+                            <span translate="entity.action.import">import</span>
+                        </button>
+
+                        <button ng-disabled="!areAllEmployeesSelected" class="btn btn-default btn-danger"
+                                ng-click="deleteSelected()">
+                            <i class="glyphicon glyphicon-trash" aria-label="delete"></i>
+                            <span translate="entity.action.delete">delete</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover table-striped">
+                <caption class="caption notice text-center">
+                    <div translate="entity.action.found"
+                         translate-values="{found: '{{employees.length}}', total: '{{total}}'}">{{employees.length}}
+                        employees
+                        retrieved from total of {{total}} employees
+                    </div>
+                </caption>
+
+                <thead>
+                <tr>
+                    <th><input type="checkbox" ng-model="areAllEmployeesSelected"
+                               ng-change="updateEmployeesSelection(employees, areAllEmployeesSelected)"></th>
+                    <th ng-click="order('id', reverse=!reverse)" translate="global.field.id">ID</th>
+                    <th ng-click="order('name', reverse=!reverse)" translate="stepApp.employee.name">Name</th>
+                    <th ng-click="order('designation', reverse=!reverse)" translate="stepApp.employee.designation">
+                        Designation
+                    </th>
+                    <th ng-click="order('salaryCode', reverse=!reverse)" translate="stepApp.employee.salaryCode">
+                        SalaryCode
+                    </th>
+                    <th translate="stepApp.employee.manager">manager</th>
+                    <th translate="stepApp.employee.institute">institute</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="employee in employees  | filter:filter | orderBy:predicate:reverse track by employee.id">
+                    <td><input type="checkbox" ng-model="employee.isSelected"/></td>
+                    <td><a ui-sref="employee.detail({id:employee.id})">{{employee.id}}</a></td>
+                    <td>{{employee.name}}</td>
+                    <td>{{employee.designation}}</td>
+                    <td>{{employee.salaryCode}}</td>
+                    <td>
+                        {{employee.manager.login}}
+                    </td>
+                    <td>
+                        <a ui-sref="institute.detail({id:employee.institute.id})">{{employee.institute.name}}</a>
+                    </td>
+                    <td class="btn-group">
+                        <button type="submit"
+                                ui-sref="employee.detail({id:employee.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span
+                            translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="employee.edit({id:employee.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                            translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="employee.delete({id:employee.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                            translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <nav>
+                <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+            </nav>
+        </div>
+    </div>
+</div>
+

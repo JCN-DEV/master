@@ -1,0 +1,75 @@
+<div>
+    <h2 translate="stepApp.smsServiceReply.home.title">SmsServiceReplys</h2>
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+
+            </div>
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <select ng-change="searchByComplaint(smsServiceReply.smsServiceComplaint)" class="form-control" id="field_smsServiceComplaint" name="smsServiceComplaint" ng-model="smsServiceReply.smsServiceComplaint" ng-options="smsServiceComplaint as smsServiceComplaint.complaintName for smsServiceComplaint in smsservicecomplaints track by smsServiceComplaint.id">
+                        <option value=""></option>
+                    </select>
+                    <!-- <select ng-change="searchByDepartment(smsServiceReply.smsServiceComplaint)" class="form-control" id="field_smsServiceDepartment" name="smsServiceDepartment" ng-model="smsServiceComplaint.smsServiceDepartment" ng-options="smsServiceDepartment as smsServiceDepartment.name for smsServiceDepartment in smsservicedepartments track by smsServiceDepartment.id">
+                        <option value="">Select Department</option>
+                    </select> -->
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search</span>
+                    </button>
+
+                    <!--  -->
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
+                    <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="cc"><span translate="stepApp.smsServiceReply.cc">Cc</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="comments"><span translate="stepApp.smsServiceReply.comments">Comments</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="replyDate"><span translate="stepApp.smsServiceReply.replyDate">ReplyDate</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="smsServiceComplaint.complaintName"><span translate="stepApp.smsServiceReply.smsServiceComplaint">smsServiceComplaint</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="replier.login"><span translate="stepApp.smsServiceReply.replier">replier</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="smsServiceReply in smsServiceReplys track by smsServiceReply.id">
+                    <td><a ui-sref="smsServiceReply.detail({id:smsServiceReply.id})">{{smsServiceReply.id}}</a></td>
+                    <td>{{smsServiceReply.cc}}</td>
+                    <td>{{smsServiceReply.comments}}</td>
+                        <td>{{smsServiceReply.replyDate | date:'mediumDate'}}</td>
+                    <td>
+                        <a ui-sref="smsServiceComplaint.detail({id:smsServiceReply.smsServiceComplaint.id})">{{smsServiceReply.smsServiceComplaint.complaintName}}</a>
+                    </td>
+                    <td>
+                        {{smsServiceReply.replier.login}}
+                    </td>
+                    <td align="right">
+                        <button type="submit" ui-sref="smsServiceReply.detail({id:smsServiceReply.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit" ng-hide="false" ui-sref="smsServiceReply.edit({id:smsServiceReply.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit" ng-hide="true" ui-sref="smsServiceReply.delete({id:smsServiceReply.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <uib-pagination class="pagination-sm" total-items="totalItems" ng-model="page" ng-change="loadAll()"></uib-pagination>
+    </div>
+</div>

@@ -1,0 +1,110 @@
+<div class="col-sm-12 common-dialogue">
+<form name="editForm" role="form" novalidate ng-submit="save()">
+        <h4 ng-show="dlFineSetUp.id == null" class="modal-title" id="myDlFineSetUpLabel" translate="stepApp.dlFineSetUp.home.createOrEditLabel">Create or edit a DlFineSetUp</h4>
+        <h4 ng-show="dlFineSetUp.id != null" class="modal-title" id="myDlFineSetUpLabel" translate="stepApp.dlFineSetUp.home.EditLabel">Create or edit a DlFineSetUp</h4>
+
+    <div class="modal-body">
+      <!--  <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="dlFineSetUp.id" readonly />
+        </div>-->
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.dlFineSetUp.dlContTypeSet" for="field_division">Content Types</label>
+            <select class="form-control" id="field_division"
+                    ng-change="updatedDlContCatSet(dlFineSetUp.dlContTypeSet)" name="dlContTypeSet"
+                    ng-model="dlFineSetUp.dlContTypeSet"
+                    ng-options="dlContTypeSet as dlContTypeSet.name for dlContTypeSet in dlContTypeSets |filter:dlContTypeSets.Pstatus='true'"
+                >
+                <option disabled selected value="">{{'global.home.select' |translate}}</option>
+                <option ng-if="dlFineSetUp.id" value=""> {{dlFineSetUp.dlContSCatSet.dlContCatSet.dlContTypeSet.name}}</option>
+            </select>
+        </div>
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.dlFineSetUp.dlContCatSet" for="field_district">District</label>
+            <select class="form-control" id="field_district" ng-disabled="!(dlFineSetUp.dlContTypeSet)"
+                    ng-change="updatedDlContSCatSet(dlFineSetUp.dlContCatSet)" name="dlContCatSet"
+                    ng-model="dlFineSetUp.dlContCatSet"
+                    ng-options="dlContCatSet as dlContCatSet.name for dlContCatSet in dlContCatSets "
+                >
+                <option disabled selected value="">{{'global.home.select' |translate}}</option>
+                <option ng-if="dlFineSetUp.id" value=""> {{dlFineSetUp.dlContSCatSet.dlContCatSet.name}}</option>
+            </select>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.dlFineSetUp.dlContSCatSet" for="field_dlContSCatSet">dlContSCatSet</label>
+            <select class="form-control" id="field_dlContSCatSet" name="dlContSCatSet" ng-model="dlFineSetUp.dlContSCatSet"
+                    ng-change="subcatValidationbyScatId(dlFineSetUp.dlContSCatSet)"
+                    ng-disabled="!(dlFineSetUp.dlContCatSet)"
+                    ng-options="dlContSCatSet as dlContSCatSet.name for dlContSCatSet in dlContSCatSets">
+                <option disabled selected value="">{{'global.home.select' |translate}}</option>
+                <option ng-if="dlFineSetUp.id" value="">{{dlFineSetUp.dlContSCatSet.name}}</option>
+            </select>
+            <div ng-if="errormsg != null" class="col-sm-12">
+                <p class="b-error">{{errormsg}}</p>
+            </div>
+        </div>
+
+
+        <div class="form-group col-sm-6">
+            <label class="control-label" translate="stepApp.dlFineSetUp.timeLimit" for="field_timeLimit">TimeLimit</label>
+            <input type="text" class="form-control" name="timeLimit" id="field_timeLimit"
+                    ng-model="dlFineSetUp.timeLimit" placeholder="{{'stepApp.dlFineSetUp.timeLimit' | translate}}"
+                     />
+        </div>
+        <div class="form-group col-sm-6">
+            <label class="control-label" translate="stepApp.dlFineSetUp.fine" for="field_fine">Fine</label>
+            <input type="number" class="form-control" name="fine" id="field_fine"
+                    ng-model="dlFineSetUp.fine"  placeholder="{{'stepApp.dlFineSetUp.fine' | translate}}"
+                required
+                />
+        </div>
+        <div class="form-group col-sm-6">
+            <label class="control-label" translate="stepApp.dlFineSetUp.status" for="field_status">Status</label>
+
+            <div id="field_status">
+                <label  class="radio-inline btn btn-default"><input type="radio" name="pStatus" value="true" ng-checked="(dlFineSetUp.status == true || dlFineSetUp.status == null)" ng-model="dlFineSetUp.status"><span translate="entity.action.activate">Active</span></label>
+                <label class="radio-inline btn btn-default"><input type="radio" name="pStatus"  value="false" ng-checked="(dlFineSetUp.status == false && dlFineSetUp.status!= null)"  ng-model="dlFineSetUp.status"><span translate="entity.action.deactivate">Deactive</span></label>
+            </div>
+
+        </div>
+
+       <!-- <div class="form-group">
+            <label class="control-label" translate="stepApp.dlFineSetUp.createDate" for="field_createDate">CreateDate</label>
+            <input type="date" class="form-control" name="createDate" id="field_createDate"
+                    ng-model="dlFineSetUp.createDate"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.dlFineSetUp.createBy" for="field_createBy">CreateBy</label>
+            <input type="number" class="form-control" name="createBy" id="field_createBy"
+                    ng-model="dlFineSetUp.createBy"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.dlFineSetUp.updateDate" for="field_updateDate">UpdateDate</label>
+            <input type="date" class="form-control" name="updateDate" id="field_updateDate"
+                    ng-model="dlFineSetUp.updateDate"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.dlFineSetUp.updateBy" for="field_updateBy">UpdateBy</label>
+            <input type="number" class="form-control" name="updateBy" id="field_updateBy"
+                    ng-model="dlFineSetUp.updateBy"
+                     />
+        </div>-->
+
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ui-sref="libraryInfo.dlFineSetUp">
+            <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back">back</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving || buttondisabled" class="btn btn-primary">
+            <span ng-hide="dlFineSetUp.id" translate="entity.action.save"></span>
+            <span ng-show = "dlFineSetUp.id" translate="entity.action.update"></span>
+        </button>
+    </div>
+</form>
+    </div>

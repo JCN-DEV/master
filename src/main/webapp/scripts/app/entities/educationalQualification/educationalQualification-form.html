@@ -1,0 +1,167 @@
+<div class="row">
+    <div class="col-md-3">
+        <ng-include src="'scripts/components/navbar/left-menu.html'"></ng-include>
+    </div>
+    <div class="col-md-9">
+
+
+        <form name="editForm" class="form form-horizontal" role="form" novalidate ng-submit="save()" show-validation>
+
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title" id="myEducationalQualificationLabel"
+                    translate="stepApp.educationalQualification.home.createOrEditLabel">Create or edit a
+                    EducationalQualification</h4>
+            </div>
+            <div class="modal-body">
+                <jh-alert-error></jh-alert-error>
+
+                <div class="form-group">
+                    <label class="col-sm-4 control-label" translate="stepApp.educationalQualification.level"
+                           for="field_level">Level</label>
+
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="level" id="field_level"
+                               ng-model="educationalQualification.level"
+                               required ng-minlength="3"/>
+
+                        <div ng-show="editForm.level.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.level.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+
+                            <p class="help-block"
+                               ng-show="editForm.level.$error.minlength" translate="entity.validation.minlength"
+                               translate-value-min="3">
+                                This field is required to be at least 3 characters.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label" translate="stepApp.educationalQualification.degree"
+                           for="field_degree">Degree</label>
+
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="degree" id="field_degree"
+                               ng-model="educationalQualification.degree"
+                               required ng-minlength="2"/>
+
+                        <div ng-show="editForm.degree.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.degree.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+
+                            <p class="help-block"
+                               ng-show="editForm.degree.$error.minlength" translate="entity.validation.minlength"
+                               translate-value-min="2">
+                                This field is required to be at least 2 characters.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label" translate="stepApp.educationalQualification.major"
+                           for="field_major">Major</label>
+
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="major" id="field_major"
+                               ng-model="educationalQualification.major"
+                               required ng-minlength="2"/>
+
+                        <div ng-show="editForm.major.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.major.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+
+                            <p class="help-block"
+                               ng-show="editForm.major.$error.minlength" translate="entity.validation.minlength"
+                               translate-value-min="2">
+                                This field is required to be at least 2 characters.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label" translate="stepApp.educationalQualification.result"
+                           for="field_result">Result</label>
+
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="result" id="field_result"
+                               ng-model="educationalQualification.result"
+                               required ng-minlength="3"/>
+
+                        <div ng-show="editForm.result.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.result.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+
+                            <p class="help-block"
+                               ng-show="editForm.result.$error.minlength" translate="entity.validation.minlength"
+                               translate-value-min="3">
+                                This field is required to be at least 3 characters.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label" translate="stepApp.educationalQualification.passingYear"
+                           for="field_passingYear">PassingYear</label>
+
+                    <div class="col-sm-8">
+                        <input type="date" class="form-control" name="passingYear" id="field_passingYear"
+                               ng-model="educationalQualification.passingYear"
+                               required/>
+
+                        <div ng-show="editForm.passingYear.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.passingYear.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label" translate="stepApp.educationalQualification.duration"
+                           for="field_duration">Duration</label>
+
+                    <div class="col-sm-8">
+                        <input type="number" class="form-control" name="duration" id="field_duration"
+                               ng-model="educationalQualification.duration"
+                               required/>
+
+                        <div ng-show="editForm.duration.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.duration.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+
+                            <p class="help-block"
+                               ng-show="editForm.duration.$error.number" translate="entity.validation.number">
+                                This field should be a number.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <div class="form-group">
+                    <div class="col-md-offset-4 col-md-8">
+                        <button type="button" class="btn btn-default" ui-sref="resume">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                            translate="entity.action.cancel">Back</span>
+                        </button>
+                        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

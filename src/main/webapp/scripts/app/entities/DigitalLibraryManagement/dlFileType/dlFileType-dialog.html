@@ -1,0 +1,150 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 class="modal-title" ng-show="dlFileType.id == null" id="myDlFileTypeLabel" translate="stepApp.dlFileType.home.createLabel">Add DlFileType</h4>
+        <h4 class="modal-title" ng-show="dlFileType.id != null" id="myDlFileTypeLabel" translate="stepApp.dlFileType.home.EditLabel">Create or edit a DlFileType</h4>
+        <div class="modal-body col-md-12 padding-tb">
+            <!--<div class="form-group col-sm-6">
+                <label for="id" translate="global.field.id">ID</label>
+                <input type="text" class="form-control" id="id" name="id"
+                        ng-model="dlFileType.id" readonly />
+            </div>-->
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dlFileType.fileType" for="field_fileType">FileType</label>
+                <input type="text" class="form-control" name="fileType" id="field_fileType"
+                       ng-model="dlFileType.fileType" placeholder="example:.pdf"
+                       ng-remote-validate="/api/dlFileTypes/dlFileTypeUnique/"
+                       ng-remote-method="GET"
+                       required
+
+                />
+                <span class="message" ng-show="editForm.fileType.$pending">validating...</span>
+                <div ng-show="editForm.fileType.$invalid">
+                    <p style="color:red"
+                       ng-show="editForm.fileType.$error.ngRemoteValidate">
+                        This File Type is already exist
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dlFileType.limitMb" for="field_limitMb">LimitMb</label>
+                <input type="number" class="form-control" name="limitMb" id="field_limitMb"
+                       ng-model="dlFileType.limitMb" min="0" placeholder="In MB"
+                       required
+                />
+            </div>
+
+            <!--<div class="form-group col-sm-6">
+                <label translate="stepApp.dlFileType.createdDate" for="field_createdDate">CreatedDate</label>
+                <input type="date" class="form-control" name="createdDate" id="field_createdDate"
+                        ng-model="dlFileType.createdDate"
+                         />
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dlFileType.updatedDate" for="field_updatedDate">UpdatedDate</label>
+                <input type="date" class="form-control" name="updatedDate" id="field_updatedDate"
+                        ng-model="dlFileType.updatedDate"
+                         />
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dlFileType.createdBy" for="field_createdBy">CreatedBy</label>
+                <input type="number" class="form-control" name="createdBy" id="field_createdBy"
+                        ng-model="dlFileType.createdBy"
+                         />
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dlFileType.updatedBy" for="field_updatedBy">UpdatedBy</label>
+                <input type="number" class="form-control" name="updatedBy" id="field_updatedBy"
+                        ng-model="dlFileType.updatedBy"
+                         />
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dlFileType.status" for="field_status">Status</label>
+                <input type="number" class="form-control" name="status" id="field_status"
+                        ng-model="dlFileType.status"
+                         />
+            </div>-->
+
+
+            <div class="form-group col-md-6 no_padding" ngf-drop ngf-change="setFileImg($file, dlFileType)">
+                <div class="col-sm-12">
+                    <label class="control-label" translate="stepApp.dlFileType.fileImg" for="field_content">Content
+                        Upload</label>
+                    <div>
+                        <div class="help-block clearfix">
+                            <span
+                                class="pull-left">{{dlFileType.filrImgContentType}} {{byteSize(dlFileType.fileImg)}}</span>
+
+                            <button ng-click="dlFileType.fileImg=null; dlFileType.fileImgContentType=null;"
+                                    ng-if="dlFileType.fileImg"
+                                    class="btn btn-default btn-xs pull-right">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" readonly class="form-control" name="fileImgName"
+                                   ng-model="dlFileType.fileImgName"
+                                   required
+                                />
+
+
+                        <span class="input-group-btn">
+                            <button type="file"
+                                    ngf-select class="btn btn-default btn-block"
+                                    ngf-change="setFileImg($file, dlFileType)"
+                                    accept=".jpeg,.png,.jpg"
+                                    ng-show="!fileUploadFinished"
+                                    translate="entity.action.addblob">
+                            </button>
+                        </span>
+                        </div>
+                        <div class="col-md-2" ng-show="dlFileType.fileImgName!=null && dlFileType.fileImg.id!=null">
+                            <a class="download-afl btn btn-primary" href="/assets/dl/{{dlFileType.fileImgName}}"
+                               class="btn btn-primary" download>Download
+                            </a>
+                        </div>
+                        <input type="hidden" class="form-control" name="content" id="field_content_image"
+                               ng-model="dlFileType.fileImg"
+                        />
+                        <input type="hidden" class="form-control" name="contentContentType"
+                               id="field_contentImageContentType"
+                               ng-model="dlFileType.contentImageContentType"
+                        />
+                    </div>
+                </div>
+                <!--<div class="col-md-5" ng-show="dlContUpld.contentName==null">
+                    <label class="control-label">&nbsp;</label>
+                    <div class="form-group">
+                        <p class="col-sm-12">
+                            <a ng-disabled="true" class="download-afl btn btn-primary" href="javascript:void(0)"  class="btn btn-primary" download>Download
+                            </a>
+                        </p>
+                    </div>
+                </div>-->
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dlFileType.status" for="field_pStatus">Status</label>
+                <div id="field_pStatus">
+                    <label class="radio-inline btn btn-default"><input type="radio" name="pStatus" value="true"
+                                                       ng-checked="(dlFileType.pStatus == true || dlFileType.pStatus == null)"
+                                                       ng-model="dlFileType.pStatus"><span
+                        translate="entity.action.activate">Active</span></label>
+                    <label class="radio-inline btn btn-default"><input type="radio" name="pStatus" value="false"
+                                                       ng-checked="(dlFileType.pStatus == false && dlFileType.pStatus != null)"
+                                                       ng-model="dlFileType.pStatus"><span
+                        translate="entity.action.deactivate">Deactive</span></label>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer col-md-12 no_padding">
+            <button type="button" class="btn btn-default" ui-sref="libraryInfo.dlFileType">
+                <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span
+                translate="entity.action.back">Back</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span ng-hide="dlFileType.id" translate="entity.action.save"></span>
+                <span ng-show = "dlFileType.id" translate="entity.action.update"></span>
+            </button>
+        </div>
+    </form>
+</div>

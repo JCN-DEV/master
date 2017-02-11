@@ -1,0 +1,122 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="modal-title" id="myPrlHouseRentAllowInfoLabel" translate="stepApp.prlHouseRentAllowInfo.home.createOrEditLabel">Create or edit a PrlHouseRentAllowInfo</h4>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.prlHouseRentAllowInfo.localitySetInfo" for="field_localitySetInfo">localitySetInfo</label>
+                    <select class="form-control" id="field_localitySetInfo" name="localitySetInfo"
+                            ng-change="loadLocalictySetBasicMinMaxValue()"
+                            ng-model="prlHouseRentAllowInfo.localitySetInfo"
+                            ng-options="PrlLocalitySetInfo as PrlLocalitySetInfo.name for PrlLocalitySetInfo in prllocalitysetinfos track by PrlLocalitySetInfo.id">
+                        <option value=""></option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.prlHouseRentAllowInfo.gazetteInfo" for="field_gazetteInfo">gazetteInfo</label>
+                    <select class="form-control" id="field_gazetteInfo" name="gazetteInfo"
+                            ng-change="loadLocalictySetBasicMinMaxValue()"
+                            ng-model="prlHouseRentAllowInfo.gazetteInfo"
+                            ng-options="HrGazetteSetup as HrGazetteSetup.gazetteName for HrGazetteSetup in hrgazettesetups track by HrGazetteSetup.id">
+                        <option value=""></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.prlHouseRentAllowInfo.name" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                           ng-model="prlHouseRentAllowInfo.name"
+                           required ng-minlength="3" />
+                    <div ng-show="editForm.name.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                        <p class="help-block"
+                           ng-show="editForm.name.$error.minlength" translate="entity.validation.minlength" translate-value-min="3">
+                            This field is required to be at least 3 characters.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <span class="form-control-static">Locality Set's Maximum Basic: {{basicMaxValue < 0 ? '':basicMaxValue}}</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.prlHouseRentAllowInfo.basicSalaryMin" for="field_basicSalaryMin">BasicSalaryMin</label>
+                    <input type="number" class="form-control" name="basicSalaryMin" id="field_basicSalaryMin"
+                           ng-min = "(basicMaxValue+1)"
+                           ng-model="prlHouseRentAllowInfo.basicSalaryMin"/>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.prlHouseRentAllowInfo.basicSalaryMax" for="field_basicSalaryMax">BasicSalaryMax</label>
+                    <input type="number" class="form-control" name="basicSalaryMax" id="field_basicSalaryMax"
+                           ng-min = "(prlHouseRentAllowInfo.basicSalaryMin+1)"
+                           ng-model="prlHouseRentAllowInfo.basicSalaryMax"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.prlHouseRentAllowInfo.minimumHouseRent" for="field_minimumHouseRent">MinimumHouseRent</label>
+                    <input type="number" class="form-control" name="minimumHouseRent" id="field_minimumHouseRent"
+                           ng-model="prlHouseRentAllowInfo.minimumHouseRent"/>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.prlHouseRentAllowInfo.rentPercentage" for="field_rentPercentage">RentPercentage</label>
+                    <input type="number" class="form-control" name="rentPercentage" id="field_rentPercentage"
+                           ng-model="prlHouseRentAllowInfo.rentPercentage"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.prlHouseRentAllowInfo.activeStatus" for="field_activeStatus">ActiveStatus</label>
+                    <input type="checkbox" class="form-control" name="activeStatus" id="field_activeStatus"
+                           ng-model="prlHouseRentAllowInfo.activeStatus"/>
+                    <div ng-show="editForm.activeStatus.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+
+            </div>
+        </div>
+
+    </div>
+    <div class="panel-footer">
+        <button type="button" class="btn btn-default" class="btn " data-dismiss="modal" onclick="window.history.back()">
+            <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;<span translate="entity.action.back">Back</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</div>
+</form>

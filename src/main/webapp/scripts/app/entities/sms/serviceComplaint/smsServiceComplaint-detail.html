@@ -1,0 +1,135 @@
+
+<div>
+    <h2><span translate="stepApp.smsServiceComplaint.detail.title">SmsServiceComplaint</span> {{smsServiceComplaint.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="stepApp.smsServiceComplaint.complaintCode">Complain Code</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{smsServiceComplaint.complaintCode}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.smsServiceComplaint.previousCode">PreviousCode</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{smsServiceComplaint.previousCode}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.smsServiceComplaint.priority">Priority</span>
+                </td>
+                <td>
+                    <span class="form-control-static" translate="{{'stepApp.priority.' + smsServiceComplaint.priority}}">{{smsServiceComplaint.priority}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.smsServiceComplaint.complaintName">ComplaintName</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{smsServiceComplaint.complaintName}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.smsServiceComplaint.fullName">FullName</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{smsServiceComplaint.fullName}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.smsServiceComplaint.emailAddress">EmailAddress</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{smsServiceComplaint.emailAddress}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.smsServiceComplaint.contactNumber">ContactNumber</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{smsServiceComplaint.contactNumber}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.smsServiceComplaint.description">Description</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{smsServiceComplaint.description}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.smsServiceComplaint.complaintDoc">Complaint Doc</span>
+                </td>
+                <td>
+                    <span class="form-control-static"></span>
+                    <div >
+                        <button type="submit" ui-sref="smsServiceComplaint.preview({id:smsServiceComplaint.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span>Preview</span>
+                        </button><br />
+                        Type: {{smsServiceComplaint.complaintDocContentType}} <br />
+                        Name: {{byteSize(smsServiceComplaint.complaintDocFileName)}}
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.smsServiceComplaint.activeStatus">ActiveStatus</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{smsServiceComplaint.activeStatus}}</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <span translate="stepApp.smsServiceComplaint.smsServiceType">smsServiceType</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="smsServiceType.detail({id:smsServiceComplaint.smsServiceType.id})">{{smsServiceComplaint.smsServiceType.serviceTypeName}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.smsServiceComplaint.smsServiceName">smsServiceName</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="smsServiceName.detail({id:smsServiceComplaint.smsServiceName.id})">{{smsServiceComplaint.smsServiceName.serviceName}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.smsServiceComplaint.smsServiceDepartment">smsServiceDepartment</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="smsServiceDepartment.detail({id:smsServiceComplaint.smsServiceDepartment.id})">{{smsServiceComplaint.smsServiceDepartment.name}}</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            ui-sref="smsServiceComplaint"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

@@ -1,0 +1,107 @@
+<div class="col-md-3">
+    <ng-include src="'scripts/app/entities/jobPortal/jp-admin-menu.html'"></ng-include>
+</div>
+<div class="col-md-9 lbl-dash">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <div class="col-md-12 common-dialogue">
+            <h4 class="modal-title" ng-if="jpSkill.id == null" id="myJpSkillLabel"
+                translate="stepApp.jpSkill.home.createLabel">Create a JpSkill</h4>
+            <h4 class="modal-title" ng-if="jpSkill.id != null" id="" translate="stepApp.jpSkill.home.EditLabel">Edit a
+                JpSkill</h4>
+            <div class="modal-body">
+                <jh-alert-error></jh-alert-error>
+                <div class="form-group">
+                    <!--<label for="id" translate="global.field.id">ID</label>-->
+                    <input type="hidden" class="form-control" id="id" name="id"
+                           ng-model="jpSkill.id" readonly/>
+                </div>
+                <!--<div class="form-group">
+                    <label translate="stepApp.jpSkill.name" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                            ng-model="jpSkill.name"
+                            required ng-maxlength="50" />
+                    <div ng-show="editForm.name.$invalid">
+                        <p class="help-block"
+                            ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                        <p class="help-block"
+                            ng-show="editForm.name.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="50">
+                            This field cannot be longer than 50 characters.
+                        </p>
+                    </div>
+                </div>-->
+
+                <div class="form-group">
+                    <label translate="stepApp.jpSkill.name" for="field_name">Name</label>
+                    <input type="text" class="form-control" id="field_name" name="name"
+                           ng-model="jpSkill.name"
+                           ng-remote-validate="/api/jpSkill/checkByName/"
+                           ng-remote-method="GET"
+                           ng-remote-throttle="500"
+                           ng-maxlength='50'
+                           placeholder="{{'stepApp.jpSkill.name' | translate}}"
+                           tooltip="{{'stepApp.jpSkill.name' | translate}}"
+                           required>
+                    <span class="message validating" ng-show="editForm.name.$pending">validating...</span>
+                    <div ng-show="editForm.name.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.name.$error.ngRemoteValidate">
+                            Skill already exists!
+                        </p>
+                    </div>
+                    <div ng-show="editForm.name.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                        <p class="help-block"
+                           ng-show="editForm.name.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="50">
+                            This field cannot be longer than 50 characters.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label translate="stepApp.jpSkill.description" for="field_description">Description</label>
+            <textarea class="form-control" name="description" id="field_description"
+                      placeholder="{{'stepApp.jpSkill.description' | translate}}"
+                      tooltip="{{'stepApp.jpSkill.description' | translate}}"
+                      ng-model="jpSkill.description"
+                      ng-maxlength="200"></textarea>
+                    <div ng-show="editForm.description.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.description.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="200">
+                            This field is required to be at least 100 characters.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label translate="stepApp.jpSkill.status" for="field_status">Status</label>
+                    <input type="checkbox" class="form-control" name="status" id="field_status"
+                           ng-model="jpSkill.status"
+                           tooltip="{{'stepApp.jpSkill.status' | translate}}"
+                    />
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-default" onclick="window.history.back()">
+                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                </button>-->
+                <button type="submit" onclick="window.history.back()" class="btn btn-info">
+                    <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"
+                                                                                    class="ng-scope">Back</span>
+                </button>
+                <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-save"></span>
+                    <!--&nbsp;<span translate="entity.action.save">Save</span>-->
+
+                    <span ng-show="jpSkill.id == null" translate="entity.action.save">Save</span><span
+                    ng-show="jpSkill.id != null" translate="entity.action.update">Update</span>
+                </button>
+            </div>
+            </div>
+    </form>
+</div>

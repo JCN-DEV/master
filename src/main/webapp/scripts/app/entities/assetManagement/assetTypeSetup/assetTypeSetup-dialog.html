@@ -1,0 +1,194 @@
+<div class="col-md-12 common-dialogue">
+    <h4 id="myAssetTypeSetupLabel" translate="stepApp.assetTypeSetup.home.createOrEditLabel">Asset Type Setup</h4>
+    <form class="" name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <div class="col-md-12 padding-tb">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.assetTypeSetup.typeCode">type code</label>
+                    <!--<input type="text" class="form-control" name="typeCode" id="field_typeCode"
+                           ng-model="assetTypeSetup.typeCode"
+                           ng-remote-validate="/api/assetTypeset/assetTypesetTypeCodeUnique/"
+                           ng-remote-method="GET"
+                    />
+                    <span class="message" ng-show="editForm.typeCode.$pending">validating...</span>
+                    <div ng-show="editForm.typeCode.$invalid">
+                        <p style="color:red"
+                           ng-show="editForm.typeCode.$error.ngRemoteValidate">
+                            This code is already exist
+                        </p>
+                    </div>-->
+
+                    <input type="text" class="form-control" name="typeCode" id="field_typeCode"
+                           ng-model="assetTypeSetup.typeCode"
+                           ng-remote-validate="/api/assetTypeset/assetTypesetTypeCodeUnique/"
+                           ng-remote-method="GET"
+                           tooltip="{{'stepApp.assetTypeSetup.typeCode' | translate}}"
+                           placeholder="{{'stepApp.assetTypeSetup.typeCode' | translate}}"
+                           required/>
+                    <span class="message" ng-show="editForm.typeCode.$pending">validating...</span>
+                    <div ng-show="editForm.typeCode.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.typeCode.$error.required && editForm.typeCode.$dirty"
+                           translate="entity.validation.required">
+                            Type Code is required.
+                        </p>
+                    </div>
+                    <div ng-show="editForm.typeCode.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.typeCode.$error.ngRemoteValidate">
+                            Same Type Code Already Exists
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.assetTypeSetup.typeName">type name</label>
+                    <input type="text" class="form-control" name="typeName" id="field_typeName"
+                           ng-model="assetTypeSetup.typeName"
+                           ng-remote-validate="/api/assetTypeset/assetTypesetTypeNameUnique/"
+                           ng-remote-method="GET" required
+                    />
+                    <span class="message" ng-show="editForm.typeName.$pending">validating...</span>
+                    <div ng-show="editForm.typeName.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.typeName.$error.required && editForm.typeName.$dirty"
+                           translate="entity.validation.required">
+                            Type Name is required.
+                        </p>
+                    </div>
+                    <div ng-show="editForm.typeName.$invalid">
+                        <p style="color:red"
+                           ng-show="editForm.typeName.$error.ngRemoteValidate">
+                            This code is already exist
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.assetTypeSetup.description" for="field_description">Asset
+                        Description</label>
+
+                    <div class="">
+                    <textarea class="form-control" rows="2" cols="30" name="description" id="field_description"
+                              ng-model="assetTypeSetup.description"> </textarea>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label class=" control-label" translate="stepApp.assetTypeSetup.status">Status</label>
+
+                    <div class="input-margin">
+                        <label class="radio-inline"><input type="radio" name="optradio"
+                                                           ng-checked="assetTypeSetup.status == true" name="status"
+                                                           value="true" ng-model="assetTypeSetup.status">Active</label>
+                        <label class="radio-inline"><input type="radio" name="optradio"
+                                                           ng-checked="assetTypeSetup.status == false" name="status"
+                                                           value="false"
+                                                           ng-model="assetTypeSetup.status">Inactive</label>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div class="">
+                        <button type="submit" class="btn btn-primary"
+                                ng-disabled="editForm.$invalid || editForm.$submitted">
+                            <!--<i class="fa fa-hdd-o"></i> <span translate="entity.action.save">Save</span>-->
+                            <span ng-show="assetTypeSetup.id == null" translate="entity.action.save">Save</span>
+                            <span ng-show="assetTypeSetup.id != null" translate="entity.action.update">Save</span>
+                        </button>
+                        <button type="button" class="btn btn-info" onclick="window.history.back()">
+                            <i class="fa fa-angle-double-left"></i><span translate="entity.action.back">Back</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+
+
+<!--<div  class="panel panel-primary">
+
+    <div class="panel-heading">
+
+        <div>
+            <h4 id="myAssetTypeSetupLabel" translate="stepApp.assetTypeSetup.home.createOrEditLabel"> Asset Type Setup</h4>
+        </div>
+
+</div>
+
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+
+        <div class="modal-body">
+            <jh-alert-error></jh-alert-error>
+
+
+
+            <div class="form-group">
+
+                <label translate="stepApp.assetTypeSetup.typeCode" for="field_typeCode">Type Code</label>
+                <input type="text" class="form-control" name="typeName" id="field_typeCode" ng-model="assetTypeSetup.typeCode"  required ng-maxlength="100" />
+
+                <label translate="stepApp.assetTypeSetup.typeName" for="field_typeName">TypeName</label>
+                <input type="text" class="form-control" name="typeName" id="field_typeName"  ng-model="assetTypeSetup.typeName"   required ng-maxlength="100" />
+                <div ng-show="editForm.typeName.$invalid">
+                    <p class="help-block" ng-show="editForm.typeName.$error.required" translate="entity.validation.required"> This field is required.</p>
+                    <p class="help-block" ng-show="editForm.typeName.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="100"> This field cannot be longer than 100 characters. </p>
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <label translate="stepApp.assetTypeSetup.description" for="field_description">Description</label>
+                <input type="text" class="form-control" name="description" id="field_description"
+                       ng-model="assetTypeSetup.description"
+                       required />
+                <div ng-show="editForm.description.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.description.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label translate="stepApp.assetTypeSetup.status" for="field_status">Status</label>
+                <input type="checkbox" class="form-control" name="status" id="field_status"
+                       ng-model="assetTypeSetup.status"
+                />
+            </div>
+
+        </div>
+        <div class="modal-footer">
+
+
+            <button type="submit"
+                    onclick="window.history.back()"
+                    class="btn btn-info">
+                <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="submit"   ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary" >
+                <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+            </button>
+        </div>
+    </form>
+
+
+
+</div>
+</div>-->
+
+
+
+
+

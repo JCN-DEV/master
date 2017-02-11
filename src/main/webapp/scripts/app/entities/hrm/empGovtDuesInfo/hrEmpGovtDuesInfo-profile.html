@@ -1,0 +1,130 @@
+<div class="service-form-area">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="modal-title" id="myHrEmpGovtDuesInfoLabel"><span
+                translate="stepApp.hrEmpGovtDuesInfo.home.profileViewEditTitle"></span> : {{hrEmployeeInfo.fullName}}
+            </h4>
+        </div>
+        <div class="panel-body bg-panel hr_label">
+            <div class="row hrm-view">
+                <span ng-show="addMode">
+                    <span ng-show="noEmployeeFound" class="alert">Employee is not created yet.</span>
+                </span>
+            </div>
+            <form class="form-horizontal " name="editForm" role="form" ng-submit="save()" novalidate show-validation>
+                <div class="panel-group">
+                    <div class="bg-panel">
+                        <div class="row hrm-view panel-heading no_padding">
+
+                            <div class="col-sm-12 no_padding text-right">
+                                <button ng-hide="noEmployeeFound" type="button"
+                                        ng-click="changeProfileMode(hrEmpGovtDuesInfo)"
+                                        class="btn btn-primary btn-sm">{{hrEmpGovtDuesInfo.viewModeText}}
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpGovtDuesInfo.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEmpGovtDuesInfo.dueAmount"
+                                           for="field_dueAmount">DueAmount</label>
+                                    <input type="number" class="form-control" name="dueAmount" id="field_dueAmount"
+                                           ng-model="hrEmpGovtDuesInfo.dueAmount" required/>
+                                    <div ng-show="editForm.dueAmount.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.dueAmount.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                        <p class="help-block"
+                                           ng-show="editForm.dueAmount.$error.number"
+                                           translate="entity.validation.number">
+                                            This field should be a number.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEmpGovtDuesInfo.viewMode">
+                                    <label class="control-label" translate="stepApp.hrEmpGovtDuesInfo.dueAmount"
+                                           for="field_dueAmount">DueAmount</label>
+                                    <span
+                                        class="form-control-static">&nbsp; : &nbsp;{{hrEmpGovtDuesInfo.dueAmount}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpGovtDuesInfo.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEmpGovtDuesInfo.claimerAuthority"
+                                           for="field_claimerAuthority">ClaimerAuthority</label>
+                                    <input type="text" class="form-control" name="claimerAuthority"
+                                           id="field_claimerAuthority"
+                                           ng-model="hrEmpGovtDuesInfo.claimerAuthority" required/>
+                                    <div ng-show="editForm.claimerAuthority.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.claimerAuthority.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEmpGovtDuesInfo.viewMode">
+                                    <label class="control-label" translate="stepApp.hrEmpGovtDuesInfo.claimerAuthority"
+                                           for="field_claimerAuthority">ClaimerAuthority</label>
+                                    <span class="form-control-static">&nbsp; : &nbsp;{{hrEmpGovtDuesInfo.claimerAuthority}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpGovtDuesInfo.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEmpGovtDuesInfo.description"
+                                           for="field_description">Description</label>
+                                    <textarea class="form-control" name="description" id="field_description"
+                                              ng-model="hrEmpGovtDuesInfo.description" required></textarea>
+                                    <div ng-show="editForm.description.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.description.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEmpGovtDuesInfo.viewMode">
+                                    <label class="control-label" translate="stepApp.hrEmpGovtDuesInfo.description"
+                                           for="field_description">Description</label>
+                                    <span
+                                        class="form-control-static">&nbsp; : &nbsp;{{hrEmpGovtDuesInfo.description}}</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-6">
+                                <label class="control-label" translate="stepApp.hrEmpGovtDuesInfo.comments"
+                                       for="field_comments">Comments</label>
+                                <div ng-show="!hrEmpGovtDuesInfo.viewMode" class="input-margin">
+                                    <textarea class="form-control" name="comments" id="field_comments"
+                                              ng-model="hrEmpGovtDuesInfo.comments"></textarea>
+                                </div>
+                                <span ng-show="hrEmpGovtDuesInfo.viewMode" class="form-control-static">&nbsp; : &nbsp;{{hrEmpGovtDuesInfo.comments}}</span>
+                            </div>
+                        </div>
+
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">&nbsp;</div>
+                            <div class="form-group col-sm-6 text-right">
+                                <button ng-show="!hrEmpGovtDuesInfo.viewMode" type="button"
+                                        ng-click="changeProfileMode(hrEmpGovtDuesInfo)" class="btn btn-default btn-sm">
+                                    <span class="glyphicon glyphicon-remove"></span>&nbsp;{{hrEmpGovtDuesInfo.viewModeText}}
+                                </button>
+                                <button ng-show="!hrEmpGovtDuesInfo.viewMode"
+                                        ng-click="updateProfile(hrEmpGovtDuesInfo)"
+                                        type="button" ng-disabled="editForm.$invalid || isSaving"
+                                        class="btn btn-primary btn-sm">
+                                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span
+                                    translate="entity.action.save">Save</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,95 @@
+<div class="row">
+    <div class="col-md-3">
+        <ng-include src="'scripts/app/account/mpo/mpo-left-menu.html'"></ng-include>
+    </div>
+    <div class="col-md-9 lbl-dash">
+        <div class="col-md-12 common-dialogue">
+        <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+            <h4 ng-if="allowanceSetup.id == null" class="modal-title" id="myAllowanceSetupLabel" translate="stepApp.allowanceSetup.home.createLabel">Create a allowanceSetup</h4>
+            <h4 ng-if="allowanceSetup.id != null" class="modal-title" id="myAllowanceSetupLabel" translate="stepApp.allowanceSetup.home.editLabel">Edit a allowanceSetup</h4>
+
+            <div class="modal-body">
+                <jh-alert-error></jh-alert-error>
+                <!--<div class="form-group">-->
+                <!--<label for="id" translate="global.field.id">ID</label>-->
+                <!--<input type="text" class="form-control" id="id" name="id"-->
+                <!--ng-model="allowanceSetup.id" readonly/>-->
+                <!--</div>-->
+                <div class="form-group">
+                    <label translate="stepApp.allowanceSetup.name" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                           ng-model="allowanceSetup.name"
+                           required/>
+                    <div ng-show="editForm.name.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label translate="stepApp.allowanceSetup.status" for="field_status">Status</label>
+                    <!--<input type="checkbox" class="form-control" name="status" id="field_status"-->
+                    <!--ng-model="allowanceSetup.status"-->
+                    <!--/>-->
+                    <div>
+                        <label  class="radio-inline"><input type="radio"  name="status" value="true" checked="true" ng-checked="allowanceSetup.status == true" ng-model="allowanceSetup.status"><span translate="entity.action.activate">Active</span></label>
+                        <label class="radio-inline"><input type="radio" name="status"  value="false"  ng-checked="allowanceSetup.status == false" ng-model="allowanceSetup.status"><span translate="entity.action.deactivate">Deactive</span></label>
+                    </div>
+                </div>
+                <!--<div class="form-group">-->
+                <!--<label translate="stepApp.allowanceSetup.createBy" for="field_createBy">CreateBy</label>-->
+                <!--<input type="number" class="form-control" name="createBy" id="field_createBy"-->
+                <!--ng-model="allowanceSetup.createBy"-->
+                <!--/>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                <!--<label translate="stepApp.allowanceSetup.createDate" for="field_createDate">CreateDate</label>-->
+                <!--<input type="date" class="form-control" name="createDate" id="field_createDate"-->
+                <!--ng-model="allowanceSetup.createDate"-->
+                <!--/>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                <!--<label translate="stepApp.allowanceSetup.updateBy" for="field_updateBy">UpdateBy</label>-->
+                <!--<input type="number" class="form-control" name="updateBy" id="field_updateBy"-->
+                <!--ng-model="allowanceSetup.updateBy"-->
+                <!--/>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                <!--<label translate="stepApp.allowanceSetup.updateDate" for="field_updateDate">UpdateDate</label>-->
+                <!--<input type="date" class="form-control" name="updateDate" id="field_updateDate"-->
+                <!--ng-model="allowanceSetup.updateDate"-->
+                <!--/>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                <!--<label translate="stepApp.allowanceSetup.remarks" for="field_remarks">Remarks</label>-->
+                <!--<input type="text" class="form-control" name="remarks" id="field_remarks"-->
+                <!--ng-model="allowanceSetup.remarks"-->
+                <!--/>-->
+                <!--</div>-->
+                <div class="form-group">
+                    <label translate="stepApp.allowanceSetup.effectiveDate"
+                           for="field_effectiveDate">EffectiveDate</label>
+                    <!--<input type="date" class="form-control" name="effectiveDate" id="field_effectiveDate"-->
+                    <!--ng-model="allowanceSetup.effectiveDate"-->
+                    <!--/>-->
+                    <input type="text" class="form-control" name="effectiveDate" id="field_effectiveDate"
+                           ng-model="allowanceSetup.effectiveDate"
+                           datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.effectiveDate"
+                           datepicker-options="calendar.dateOptions" close-text="Close"
+                           ng-click="calendar.open($event, 'effectiveDate')"
+                        />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,94 @@
+<div class="col-md-12 common-list">
+    <h2 translate="stepApp.hrEmpChildrenInfo.home.title">HrEmpChildrenInfos</h2>
+    <div class="col-md-12 padding-tb">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+        <div class="col-xs-4 no_padding text-right ">
+            <button class="btn btn-primary su_sea_pri" ui-sref="hrEmpChildrenInfo.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.hrEmpChildrenInfo.home.createLabel">Create a new HrEmpChildrenInfo</span>
+            </button>
+        </div>
+    </div>
+    <!--&lt;!&ndash;<jh-alert></jh-alert>&ndash;&gt;
+    <div class="col-sm-12 padding-tb no-print">
+        <div class="col-md-8 col-xs-12 no_padding">
+            <div class="col-md-6 no_padding">
+                <b>&lt;!&ndash;{{ (hrEmpChildrenInfos | filter:q).length }}&ndash;&gt; <span translate="global.home.searchhere">Search Here :</span></b>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-search"
+                                                                         aria-hidden="true"></i></span>
+                    <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <b><span translate="global.home.itemperpage">Items per page:</span></b>
+                <div class="input-group">
+                    <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-xs-12 text-right no_padding dlbtn-top">
+            <button class="btn btn-primary su_sea_pri" ui-sref="hrEmpChildrenInfo.new">
+                <span class="glyphicon glyphicon-plus"></span> <span
+                translate="stepApp.hrEmpChildrenInfo.home.createLabel">Create a new HrEmpChildrenInfo</span>
+            </button>
+        </div>
+    </div>-->
+
+    <div class="col-sm-12  table-responsive no_padding">
+        <table class="table table-striped ">
+            <thead>
+            <tr>
+                <th><span translate="global.form.serial">Serial</span></th>
+                <th><span translate="global.field.id">ID</span></th>
+                <th><span translate="stepApp.hrEmpChildrenInfo.employeeInfo">employeeInfo</span></th>
+                <th><span translate="stepApp.hrEmpChildrenInfo.childrenName">ChildrenName</span></th>
+                <th><span translate="stepApp.hrEmpChildrenInfo.dateOfBirth">DateOfBirth</span></th>
+                <th><span translate="stepApp.hrEmpChildrenInfo.gender">Gender</span></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-animate="'animate'"
+                dir-paginate="hrEmpChildrenInfo in hrEmpChildrenInfos | filter:q | itemsPerPage: pageSize track by hrEmpChildrenInfo.id"
+                current-page="currentPage">
+                <td>{{pageSize * (currentPage-1)+$index+1}}</td>
+                <td><a ui-sref="hrEmpChildrenInfo.detail({id:hrEmpChildrenInfo.id})">{{hrEmpChildrenInfo.id}}</a></td>
+                <td>
+                    <a ui-sref="hrEmployeeInfo.detail({id:hrEmpChildrenInfo.employeeInfo.id})">{{hrEmpChildrenInfo.employeeInfo.fullName}}</a>
+                </td>
+                <td>{{hrEmpChildrenInfo.childrenName}}</td>
+                <td>{{hrEmpChildrenInfo.dateOfBirth | date:'mediumDate'}}</td>
+                <td>{{hrEmpChildrenInfo.gender}}</td>
+                <td class="text-right no-print">
+                    <button type="submit"
+                            ui-sref="hrEmpChildrenInfo.detail({id:hrEmpChildrenInfo.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit" ng-hide="true"
+                            ui-sref="hrEmpChildrenInfo.edit({id:hrEmpChildrenInfo.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                        translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit" ng-hide="true"
+                            ui-sref="hrEmpChildrenInfo.delete({id:hrEmpChildrenInfo.id})"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                        translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <nav class="no-print">
+        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                 template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+    </nav>
+</div>

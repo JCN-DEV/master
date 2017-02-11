@@ -1,0 +1,79 @@
+<div class="col-sm-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()">
+        <h4 ng-show="dlContTypeSet.id == null" id="myDlContTypeSetLabel" translate="stepApp.dlContTypeSet.home.createOrEditLabel">Create or edit a DlContTypeSet</h4>
+        <h4 ng-show="dlContTypeSet.id != null" id="myDlContTypeSetLabel" translate="stepApp.dlContTypeSet.home.EditLabel">Create or edit a DlContTypeSet</h4>
+        <div class="modal-body col-sm-12 padding-tb">
+            <!--<div class="form-group col-sm-6">
+                <label for="id" translate="global.field.id">ID</label>
+                <input type="text" class="form-control" id="id" name="id"
+                        ng-model="dlContTypeSet.id" readonly />
+            </div>-->
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dlContTypeSet.code" for="field_code">Code</label>
+                <input type="text" class="form-control" name="code" id="field_code"
+                       ng-model="dlContTypeSet.code"
+                       ng-remote-validate="/api/dlContTypeSets/dlContTypeSetCodeUnique/"
+                       ng-remote-method="GET"
+                       required
+                       placeholder="{{'stepApp.dlContTypeSet.code' | translate}}"
+                />
+                <span class="message" ng-show="editForm.code.$pending">validating...</span>
+                <div ng-show="editForm.code.$invalid">
+                    <p style="color:red"
+                       ng-show="editForm.code.$error.ngRemoteValidate">
+                        This File Type is already exist
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dlContTypeSet.name" for="field_name">Name</label>
+                <input type="text" class="form-control" name="name" id="field_name"
+                       ng-model="dlContTypeSet.name"
+                       ng-remote-validate="/api/dlContTypeSets/dlContTypeSetNameUnique/"
+                       ng-remote-method="GET"
+                       required
+                       placeholder="{{'stepApp.dlContTypeSet.name' | translate}}"
+                />
+                <span class="message" ng-show="editForm.name.$pending">validating...</span>
+                <div ng-show="editForm.name.$invalid">
+                    <p style="color:red"
+                       ng-show="editForm.name.$error.ngRemoteValidate">
+                        This Publication's is already exist
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dlContTypeSet.description" for="field_description">Description</label>
+            <textarea type="text" class="form-control" name="description" id="field_description"
+                      ng-model="dlContTypeSet.description"
+                      placeholder="{{'stepApp.dlContTypeSet.description' | translate}}"
+            ></textarea>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dlContTypeSet.pStatus" for="field_pStatus">PStatus</label>
+                <div id="field_pStatus">
+                    <label class="radio-inline btn btn-default"><input type="radio" name="pStatus" value="true"
+                                                       ng-checked="(dlContTypeSet.pStatus == true || dlContTypeSet.pStatus == null)"
+                                                       ng-model="dlContTypeSet.pStatus"><span
+                        translate="entity.action.activate">Active</span></label>
+                    <label class="radio-inline btn btn-default"><input type="radio" name="pStatus" value="false"
+                                                       ng-checked="(dlContTypeSet.pStatus == false && dlContTypeSet.pStatus != null)"
+                                                       ng-model="dlContTypeSet.pStatus"><span
+                        translate="entity.action.deactivate">Deactive</span></label>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="modal-footer col-sm-12 no_padding">
+            <button type="button" class="btn btn-default" ui-sref="libraryInfo.dlContTypeSet">
+                <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span
+                translate="entity.action.back">Back</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span ng-hide="dlContTypeSet.id" translate="entity.action.save"></span>
+                <span ng-show = "dlContTypeSet.id" translate="entity.action.update"></span>
+            </button>
+        </div>
+    </form>
+</div>

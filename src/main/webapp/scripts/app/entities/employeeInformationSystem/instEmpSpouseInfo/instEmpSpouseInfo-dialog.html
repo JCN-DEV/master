@@ -1,0 +1,237 @@
+<div class="col-md-12 common-dialogue">
+    <h4 ng-show="instEmpSpouseInfo.id == null" id="myInstEmpSpouseInfoLabel"
+        translate="stepApp.instEmployee.home.spouseInfo">Inst Emp Spouse Info</h4>
+    <h4 ng-show="instEmpSpouseInfo.id != null" id="myInstEmpSpouseInfoLabel"
+        translate="stepApp.instEmployee.home.EditSpouseInfo">Inst Emp Spouse Info</h4>
+    <form name="editForm" class="panel-primary" role="form" novalidate ng-submit="save()" show-validation>
+        <div class="col-md-12 no_padding">
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instEmpSpouseInfo.name" for="field_name">Name</label>
+                <input type="text" class="form-control" name="name" id="field_name"
+                       ng-model="instEmpSpouseInfo.name"
+                       placeholder="{{'stepApp.instEmpSpouseInfo.name' | translate}}"
+                       tooltip="{{'stepApp.instEmpSpouseInfo.name' | translate}}"
+                       required/>
+                <div ng-show="editForm.name.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instEmpSpouseInfo.dob" for="field_dob">Dob</label>
+                <input type="text" class="form-control" name="dob" id="field_dob"
+                       ng-model="instEmpSpouseInfo.dob"
+                       datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.dob"
+                       placeholder="{{'entity.placeholder.dateformat' | translate}}"
+                       datepicker-options="calendar.dateOptions" close-text="Close"
+                       ng-click="calendar.open($event, 'dob')"
+                       tooltip="{{'stepApp.instEmpSpouseInfo.dob' | translate}}"
+                       required/>
+                <div ng-show="editForm.dob.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.dob.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+            <!-- <div class="form-group col-md-6">
+                 <label class="col-md-2 no_padding" translate="stepApp.instEmpSpouseInfo.isNominee" for="field_isNominee">IsNominee</label>
+                 <input class="col-md-1" type="checkbox" class="form-control" name="isNominee" id="field_isNominee"
+                         ng-model="instEmpSpouseInfo.isNominee"
+                          />
+                 <div ng-show="editForm.isNominee.$invalid">
+                     <p class="help-block"
+                         ng-show="editForm.isNominee.$error.required" translate="entity.validation.required">
+                         This field is required.
+                     </p>
+                 </div>
+             </div>-->
+
+            <div class="form-group col-md-6">
+                <label class="control-label" translate="stepApp.instEmpSpouseInfo.isNominee" for="field_isNominee">gender</label>
+                <div id="field_isNominee">
+                    <!--<label ng-repeat="instGenInfolocality in instGenInfolocalitys" class="radio-inline btn btn-default"><input type="radio" name="locality" ng-model="instGenInfo.locality" ng-value="{{instGenInfolocality.id}}">{{instGenInfolocality.code}}</label>-->
+                    <label class="radio-inline btn btn-default">
+                        <input type="radio" id="field_isNominee_yes"
+                               name="nominee"
+                               ng-model="instEmpSpouseInfo.isNominee"
+                               tooltip="{{'stepApp.instEmpSpouseInfo.isNominee' | translate}}"
+                               ng-value="true"><span
+                        translate="stepApp.instEmpSpouseInfo.yes" for="field_isNominee_yes">
+                        Yes</span>
+                    </label>
+                    <label class="radio-inline btn btn-default">
+                        <input type="radio" id="field_isNominee_no"
+                               name="nominee"
+                               ng-model="instEmpSpouseInfo.isNominee"
+                               tooltip="{{'stepApp.instEmpSpouseInfo.isNominee' | translate}}"
+                               ng-value="false"><span
+                        translate="stepApp.instEmpSpouseInfo.no" for="field_isNominee_no">
+                        No</span>
+                    </label>
+                </div>
+
+            </div>
+            <!--<div class="form-group col-md-6">
+                <label translate="stepApp.instEmpSpouseInfo.gender" for="field_gender">Gender</label>
+                <input type="text" class="form-control" name="gender" id="field_gender"
+                        ng-model="instEmpSpouseInfo.gender"
+                        required />
+                <div ng-show="editForm.gender.$invalid">
+                    <p class="help-block"
+                        ng-show="editForm.gender.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>-->
+            <div class="form-group col-md-6">
+                <label class="control-label" translate="stepApp.instEmpSpouseInfo.gender"
+                       for="field_gender">gender</label>
+                <div id="field_gender">
+                    <!--<label ng-repeat="instGenInfolocality in instGenInfolocalitys" class="radio-inline btn btn-default"><input type="radio" name="locality" ng-model="instGenInfo.locality" ng-value="{{instGenInfolocality.id}}">{{instGenInfolocality.code}}</label>-->
+                    <label class="radio-inline btn btn-default">
+                        <input type="radio" id="field_gender_male"
+                               name="gender" ng-model="instEmpSpouseInfo.gender"
+                               tooltip="{{'stepApp.instEmpSpouseInfo.gender' | translate}}"
+                               value="male"
+                               ng-click="valgender()">
+                        <span translate="stepApp.instEmpSpouseInfo.male" for="field_isNominee_yes">
+                            Male</span>
+                    </label>
+                    <label class="radio-inline btn btn-default">
+                        <input type="radio" id="field_gender_female"
+                               name="gender" ng-model="instEmpSpouseInfo.gender"
+                               tooltip="{{'stepApp.instEmpSpouseInfo.gender' | translate}}"
+                               value="female" ng-click="valgender()"><span
+                        translate="stepApp.instEmpSpouseInfo.female" for="field_isNominee_yes">
+                        Male</span>
+                    </label>
+                    <label class="radio-inline btn btn-default">
+                        <input type="radio" id="field_gender_others"
+                               name="gender" ng-model="instEmpSpouseInfo.gender"
+                               tooltip="{{'stepApp.instEmpSpouseInfo.gender' | translate}}"
+                               value="others" ng-click="valgender()"><span
+                        translate="stepApp.instEmpSpouseInfo.others" for="field_isNominee_yes">
+                        Male</span>
+                    </label>
+                </div>
+
+            </div>
+            <!--<div class="col-md-6">
+                <div class="form-group" >
+                    <label class="control-label" translate="stepApp.instEmpSpouseInfo.gender" for="field_gender">gender</label>
+                        <div id="field_gender">
+                            &lt;!&ndash;<label ng-repeat="instGenInfolocality in instGenInfolocalitys" class="radio-inline btn btn-default"><input type="radio" name="locality" ng-model="instGenInfo.locality" ng-value="{{instGenInfolocality.id}}">{{instGenInfolocality.code}}</label>&ndash;&gt;
+                            <label class="radio-inline btn btn-default" ><input type="radio" id="field_citycorporation" name="gender_val" ng-model="instEmpSpouseInfo.gender" ng-value="male"  ><span translate="stepApp.Gender.male" for="field_citycorporation" ng-click="valgender()"> Male</span></label>
+                            <label class="radio-inline btn btn-default" ><input type="radio" id="field_municipilaty" name="gender_val" ng-model="instEmpSpouseInfo.gender" ng-value="female" ><span translate="stepApp.Gender.female" for="field_municipilaty" ng-click="valgender()"> Female</span></label>
+                            <label class="radio-inline btn btn-default" ><input type="radio" id="field_others" name="gender_val" ng-model="instEmpSpouseInfo.gender" ng-value="others"  ><span translate="stepApp.Gender.others" for="field_others" ng-click="valgender()"> others</span></label>
+                        </div>
+                    </div>
+
+            </div>-->
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instEmpSpouseInfo.relation" for="field_relation">Relation</label>
+                <select class="form-control" name="relation" ng-model="instEmpSpouseInfo.relation" id="field_relation"
+                        tooltip="{{'stepApp.instEmpSpouseInfo.relation' | translate}}"
+                        required>
+                    <option value="" translate="stepApp.instEmpSpouseInfo.relation"></option>
+                    <option value="Husband" translate="stepApp.relationType.Husband">Husband</option>
+                    <option value="Wife" translate="stepApp.relationType.Wife">Wife</option>
+                </select>
+                <div ng-show="editForm.relation.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.relation.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6" ng-if="instEmpSpouseInfo.isNominee">
+                <label translate="stepApp.instEmpSpouseInfo.nomineePercentage" for="field_nomineePercentage">NomineePercentage</label>
+                <input type="number" class="form-control" name="nomineePercentage" id="field_nomineePercentage"
+                       ng-model="instEmpSpouseInfo.nomineePercentage"
+                       tooltip="{{'stepApp.instEmpSpouseInfo.nomineePercentage' | translate}}"
+                       placeholder="{{'stepApp.instEmpSpouseInfo.nomineePercentage' | translate}}"
+                />
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instEmpSpouseInfo.occupation" for="field_occupation">Occupation</label>
+                <input type="text" class="form-control" name="occupation" id="field_occupation"
+                       ng-model="instEmpSpouseInfo.occupation"
+                       tooltip="{{'stepApp.instEmpSpouseInfo.occupation' | translate}}"
+                       placeholder="{{'stepApp.instEmpSpouseInfo.occupation' | translate}}"
+                />
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instEmpSpouseInfo.tin" for="field_tin">Tin</label>
+                <input type="text" class="form-control" name="tin" id="field_tin"
+                       ng-model="instEmpSpouseInfo.tin"
+                       tooltip="{{'stepApp.instEmpSpouseInfo.tin' | translate}}"
+                       placeholder="{{'stepApp.instEmpSpouseInfo.tin' | translate}}"
+                />
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instEmpSpouseInfo.nid" for="field_nid">Nid</label>
+                <input type="text" class="form-control" name="nid" id="field_nid" numeric-only minlength="17"
+                       maxlength="17"
+                       ng-model="instEmpSpouseInfo.nid"
+                       tooltip="{{'stepApp.instEmpSpouseInfo.nid' | translate}}"
+                       placeholder="{{'stepApp.instEmpSpouseInfo.nid' | translate}}"
+                       required/>
+                <div ng-show="editForm.nid.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.nid.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instEmpSpouseInfo.designation" for="field_designation">Designation</label>
+                <input type="text" class="form-control" name="designation" id="field_designation"
+                       ng-model="instEmpSpouseInfo.designation"
+                       tooltip="{{'stepApp.instEmpSpouseInfo.designation' | translate}}"
+                       placeholder="{{'stepApp.instEmpSpouseInfo.designation' | translate}}"
+                />
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instEmpSpouseInfo.govJobId" for="field_govJobId">GovJobId</label>
+                <input type="text" class="form-control" name="govJobId" id="field_govJobId"
+                       ng-model="instEmpSpouseInfo.govJobId"
+                       tooltip="{{'stepApp.instEmpSpouseInfo.govJobId' | translate}}"
+                       placeholder="{{'stepApp.instEmpSpouseInfo.govJobId' | translate}}"
+                />
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instEmpSpouseInfo.mobile" for="field_mobile">Mobile</label>
+                <input type="number" class="form-control" name="mobile" id="field_mobile"
+                       ng-model="instEmpSpouseInfo.mobile"
+                       tooltip="{{'stepApp.instEmpSpouseInfo.mobile' | translate}}"
+                       placeholder="{{'stepApp.instEmpSpouseInfo.mobile' | translate}}"
+                />
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instEmpSpouseInfo.officeContact"
+                       for="field_officeContact">OfficeContact</label>
+                <input type="text" class="form-control" name="officeContact" id="field_officeContact"
+                       ng-model="instEmpSpouseInfo.officeContact"
+                       tooltip="{{'stepApp.instEmpSpouseInfo.officeContact' | translate}}"
+                       placeholder="{{'stepApp.instEmpSpouseInfo.officeContact' | translate}}"
+                />
+            </div>
+            <div class="col-md-12 text-right">
+                <button type="submit"
+                        onclick="window.history.back()"
+                        class="btn btn-info">
+                    <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span
+                    translate="entity.action.back"> Back</span>
+                </button>
+                <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;
+                    <span ng-show="instEmpSpouseInfo.id == null" translate="entity.action.save">Save</span>
+                    <span ng-show="instEmpSpouseInfo.id != null" translate="entity.action.update">Save</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

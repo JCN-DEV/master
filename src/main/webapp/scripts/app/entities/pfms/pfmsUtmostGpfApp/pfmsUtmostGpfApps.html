@@ -1,0 +1,116 @@
+<div class="col-md-12 common-list">
+    <h2 class="panel-heading" translate="stepApp.pfmsUtmostGpfApp.home.title">PfmsUtmostGpfApps</h2>
+    <div class="col-md-12 padding-tb">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control"
+                   placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control"
+                   placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+        <div class="col-xs-4 no_padding text-right ">
+            <button class="btn btn-primary " ui-sref="pfmsUtmostGpfApp.new">
+                <span class="glyphicon glyphicon-plus"></span></span> <span
+                translate="stepApp.pfmsUtmostGpfApp.home.createLabel">Create a new PfmsUtmostGpfApp</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deletePfmsUtmostGpfAppConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(pfmsUtmostGpfApp.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p translate="stepApp.pfmsUtmostGpfApp.delete.question"
+                           translate-values="{id: '{{pfmsUtmostGpfApp.id}}'}">Are you sure you want to delete this
+                            PfmsUtmostGpfApp?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                            translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                            translate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="global.field.serial">Serial</th>
+                <th translate="stepApp.pfmsUtmostGpfApp.employeeInfo">employeeInfo</th>
+                <th translate="stepApp.pfmsUtmostGpfApp.prlDate">PrlDate</th>
+                <th translate="stepApp.pfmsUtmostGpfApp.gpfNo">GpfNo</th>
+                <th translate="stepApp.pfmsUtmostGpfApp.lastDeduction">LastDeduction</th>
+                <th translate="stepApp.pfmsUtmostGpfApp.deductionDate">DeductionDate</th>
+                <th translate="stepApp.pfmsUtmostGpfApp.billNo">BillNo</th>
+                <!--<th translate="stepApp.pfmsUtmostGpfApp.billDate">BillDate</th>
+                <th translate="stepApp.pfmsUtmostGpfApp.tokenNo">TokenNo</th>
+                <th translate="stepApp.pfmsUtmostGpfApp.tokenDate">TokenDate</th>
+                <th translate="stepApp.pfmsUtmostGpfApp.withdrawFrom">WithdrawFrom</th>
+                <th translate="stepApp.pfmsUtmostGpfApp.applyDate">ApplyDate</th>-->
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--<tr dir-paginate="pfmsUtmostGpfApp in pfmsUtmostGpfApps | filter:q | itemsPerPage: pageSize track by pfmsUtmostGpfApp.id" current-page="currentPage">-->
+            <!--<td><a ui-sref="pfmsUtmostGpfApp.detail({id:pfmsUtmostGpfApp.id})">{{pfmsUtmostGpfApp.id}}</a></td>-->
+            <tr ng-animate="'animate'"
+                dir-paginate="pfmsUtmostGpfApp in newRequestList | filter:q | itemsPerPage: pageSize track by pfmsUtmostGpfApp.id"
+                current-page="currentPage">
+                <td>{{pageSize * (currentPage-1)+$index+1}}</td>
+                <td>
+                    <a ui-sref="hrEmployeeInfo.detail({id:pfmsUtmostGpfApp.employeeInfo.id})">{{pfmsUtmostGpfApp.employeeInfo.fullName}}</a>
+                </td>
+                <td>{{pfmsUtmostGpfApp.prlDate | date:'mediumDate'}}</td>
+                <td>{{pfmsUtmostGpfApp.gpfNo}}</td>
+                <td>{{pfmsUtmostGpfApp.lastDeduction}}</td>
+                <td>{{pfmsUtmostGpfApp.deductionDate | date:'mediumDate'}}</td>
+                <td>{{pfmsUtmostGpfApp.billNo}}</td>
+                <!--<td>{{pfmsUtmostGpfApp.billDate | date:'mediumDate'}}</td>
+                <td>{{pfmsUtmostGpfApp.tokenNo}}</td>
+                <td>{{pfmsUtmostGpfApp.tokenDate | date:'mediumDate'}}</td>
+                <td>{{pfmsUtmostGpfApp.withdrawFrom}}</td>
+                <td>{{pfmsUtmostGpfApp.applyDate | date:'mediumDate'}}</td>-->
+
+                <td class="text-right">
+                    <button type="submit"
+                            ui-sref="pfmsUtmostGpfApp.detail({id:pfmsUtmostGpfApp.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="pfmsUtmostGpfApp.edit({id:pfmsUtmostGpfApp.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                        translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit"
+                            ng-click="delete(pfmsUtmostGpfApp.id)"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                        translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                     template-url="/scripts/components/form/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+</div>

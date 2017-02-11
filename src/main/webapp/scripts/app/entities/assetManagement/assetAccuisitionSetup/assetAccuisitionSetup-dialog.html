@@ -1,0 +1,190 @@
+<div class="col-md-12 common-dialogue">
+    <form class="col-sm-12 no_padding" name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="assetAccuisitionSetup.id == null" id="myAssetAccuisitionSetupLabel"
+            translate="stepApp.assetAccuisitionSetup.home.createOrEditLabel">Create or edit a AssetAccuisitionSetup</h4>
+        <h4 ng-show="assetAccuisitionSetup.id != null" id="myAssetAccuisitionSetupLabel"
+            translate="stepApp.assetAccuisitionSetup.home.EditLabel">Create or edit a AssetAccuisitionSetup</h4>
+
+        <div class="modal-body col-sm-12 padding-tb">
+            <!--<div class="form-group">-->
+            <!--<label for="id" translate="global.field.id">ID</label>-->
+            <!--<input type="text" class="form-control" id="id" name="id"-->
+            <!--ng-model="assetAccuisitionSetup.id" readonly />-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<label translate="stepApp.assetAccuisitionSetup.trackID" for="field_trackID">TrackID</label>-->
+            <!--<input type="text" class="form-control" name="trackID" id="field_trackID"-->
+            <!--ng-model="assetAccuisitionSetup.trackID"-->
+            <!--/>-->
+            <!--</div>-->
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label translate="stepApp.assetAccuisitionSetup.name" for="field_name">Name</label>
+                    <!--<input type="text" class="form-control" name="name" id="field_name"
+                           ng-model="assetAccuisitionSetup.name"
+                           ng-maxlength="50"/>
+                    <div ng-show="editForm.name.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.name.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="50">
+                            This field cannot be longer than 50 characters.
+                        </p>
+                    </div>-->
+
+                    <input type="text" class="form-control" name="name" id="field_name"
+                           ng-model="assetAccuisitionSetup.name"
+                           ng-remote-validate="/api/assetAccuisitionSetups/assetAccuisitionSetupCodeUnique/"
+                           ng-remote-method="GET"
+                           required ng-maxlength="100"
+                        />
+                    <span class="message" ng-show="editForm.name.$pending">validating...</span>
+
+                    <div ng-show="editForm.name.$invalid">
+                        <p style="color:red"
+                           ng-show="editForm.name.$error.ngRemoteValidate">
+                            This Name is already exist
+                        </p>
+                        <!--</div>
+                        <div ng-show="editForm.categoryCode.$invalid">-->
+                        <p class="help-block"
+                           ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+
+                        <p class="help-block"
+                           ng-show="editForm.name.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="100">
+                            This field cannot be longer than 100 characters.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label translate="stepApp.assetAccuisitionSetup.code" for="field_code">Code</label>
+                    <!--<input type="text" class="form-control" name="code" id="field_code"
+                           ng-model="assetAccuisitionSetup.code"
+                           ng-maxlength="50"/>
+
+                    <div ng-show="editForm.code.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.code.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="50">
+                            This field cannot be longer than 50 characters.
+                        </p>
+                    </div>-->
+                    <input type="text" class="form-control" name="code" id="field_code"
+                           ng-model="assetAccuisitionSetup.code"
+                           ng-remote-validate="/api/assetAccuisitionSetups/assetAccuisitionSetupNameUnique/"
+                           ng-remote-method="GET"
+                           required ng-maxlength="100"
+                        />
+                    <span class="message" ng-show="editForm.code.$pending">validating...</span>
+
+                    <div ng-show="editForm.code.$invalid">
+                        <p style="color:red"
+                           ng-show="editForm.code.$error.ngRemoteValidate">
+                            This Code is already exist
+                        </p>
+                        <!--</div>
+                        <div ng-show="editForm.categoryCode.$invalid">-->
+                        <p class="help-block"
+                           ng-show="editForm.code.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+
+                        <p class="help-block"
+                           ng-show="editForm.code.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="100">
+                            This field cannot be longer than 100 characters.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 no_padding">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label translate="stepApp.assetAccuisitionSetup.Description"
+                               for="field_Description">Description</label>
+                <textarea type="text" class="form-control" name="Description" id="field_Description"
+                          ng-model="assetAccuisitionSetup.Description"
+                          ng-maxlength="250" cols="30" rows="2"></textarea>
+
+                        <div ng-show="editForm.Description.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.Description.$error.maxlength" translate="entity.validation.maxlength"
+                               translate-value-max="250">
+                                This field cannot be longer than 250 characters.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="form-group">-->
+                <!--<label translate="stepApp.assetAccuisitionSetup.createDate" for="field_createDate">CreateDate</label>-->
+                <!--<input type="date" class="form-control" name="createDate" id="field_createDate"-->
+                <!--ng-model="assetAccuisitionSetup.createDate"-->
+                <!--/>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                <!--<label translate="stepApp.assetAccuisitionSetup.createBy" for="field_createBy">CreateBy</label>-->
+                <!--<input type="number" class="form-control" name="createBy" id="field_createBy"-->
+                <!--ng-model="assetAccuisitionSetup.createBy"-->
+                <!--/>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                <!--<label translate="stepApp.assetAccuisitionSetup.updateDate" for="field_updateDate">UpdateDate</label>-->
+                <!--<input type="date" class="form-control" name="updateDate" id="field_updateDate"-->
+                <!--ng-model="assetAccuisitionSetup.updateDate"-->
+                <!--/>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                <!--<label translate="stepApp.assetAccuisitionSetup.updateBy" for="field_updateBy">UpdateBy</label>-->
+                <!--<input type="number" class="form-control" name="updateBy" id="field_updateBy"-->
+                <!--ng-model="assetAccuisitionSetup.updateBy"-->
+                <!--/>-->
+                <!--</div>-->
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label translate="stepApp.assetAccuisitionSetup.remarks" for="field_remarks">Remarks</label>
+                        <input type="text" class="form-control" name="remarks" id="field_remarks"
+                               ng-model="assetAccuisitionSetup.remarks"
+                            />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label translate="stepApp.assetAccuisitionSetup.status" for="field_status">Status</label>
+
+                    <div class="input-margin">
+                        <label class="radio-inline"><input type="radio"
+                                                           ng-checked="assetAccuisitionSetup.status == true"
+                                                           name="optradio" name="status" value="true"
+                                                           ng-model="assetAccuisitionSetup.status">Active</label>
+                        <label class="radio-inline"><input type="radio"
+                                                           ng-checked="assetAccuisitionSetup.status == false"
+                                                           name="optradio" name="status" value="false"
+                                                           ng-model="assetAccuisitionSetup.status">Inactive</label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+<div class="col-md-12">
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+            translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;
+            <span ng-show="assetAccuisitionSetup.id == null" translate="entity.action.save">Save</span>
+            <span ng-show="assetAccuisitionSetup.id != null" translate="entity.action.update">Save</span>
+        </button>
+    </div>
+</div>
+</form>
+</div>

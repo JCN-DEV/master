@@ -1,0 +1,270 @@
+<div class="col-sm-12 common-dialogue">
+    <h4 class="modal-title" id="myInstEmpEduQualiLabel"
+        translate="stepApp.instEmployee.home.instEmployeeEducationalInfo">Educational Information</h4>
+    <form name="editForm" role="form form-horizontal" novalidate ng-submit="save()" show-validation>
+        <!--<jh-alert-error></jh-alert-error>-->
+        <div class="panel-body  no_padding admin-info" ng-repeat="instEmpEduQua in instEmpEduQualis">
+            <div class="col-sm-12 padding-tb ">
+                <h3>Exam {{$index + 1}}</h3>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instEmpEduQuali.certificateName" for="field_certificateName">CertificateName</label>
+                    <!-- <input type="text" class="form-control" name="certificateName" id="field_certificateName"
+                            ng-model="instEmpEduQuali.certificateName"
+                     />-->
+                    <select class="form-control" required id="field_certificateName" name="eduLevel"
+                            ng-model="instEmpEduQua.eduLevel"
+                            tooltip="{{'stepApp.instEmpEduQuali.certificateName' | translate}}"
+                            ng-options="eduLevel as eduLevel.name for eduLevel in eduLevels track by eduLevel.id">
+                        <option value="" translate="stepApp.instEmpEduQuali.certificateName">Select Examination</option>
+                    </select>
+                </div>
+
+                <!--<div class="form-group col-md-6" >
+                    <label translate="stepApp.instEmpEduQuali.board" for="field_fromUniversity">Board</label>
+                    &lt;!&ndash;<input type="text" class="form-control" name="board" id="field_board"
+                            ng-model="instEmpEduQuali.board"
+                             />&ndash;&gt;
+                    <select class="form-control" required="" id="field_fromUniversity" name="fromUniversity" ng-model="instEmpEduQuali.fromUniversity">
+
+                        <option value="false">Board</option>
+                        <option value="true">University</option>
+                    </select>
+                </div>-->
+
+                <!--<div class="form-group col-md-6">
+                    <label class="control-label" translate="stepApp.instEmpEduQuali.uniBoard" >Board</label>
+                    <div class="form-control">
+                    <input type="radio" name="status" ng-checked="instEmpEduQuali.fromUniversity || instEmpEduQuali.fromUniversity == 'true'" ng-model="instEmpEduQuali.fromUniversity" value="true" >University
+                    <input type="radio" name="status"  ng-checked="(instEmpEduQuali == null || instEmpEduQuali.fromUniversity == null) || instEmpEduQuali.fromUniversity == 'false' || instEmpEduQuali.fromUniversity == false" ng-model="instEmpEduQuali.fromUniversity" value="false">Board
+                    </div>
+                </div>-->
+                <div class="form-group col-md-6" ng-if="instEmpEduQua.eduLevel.levelFor != 'university'">
+                    <label translate="stepApp.instEmpEduQuali.board" for="field_board">Board</label>
+                    <!--<input type="text" class="form-control" name="board" id="field_board"
+                            ng-model="instEmpEduQuali.board"
+                             />-->
+                    <select class="form-control" required="" id="field_board" name="eduBoard"
+                            ng-model="instEmpEduQua.eduBoard"
+                            tooltip="{{'stepApp.instEmpEduQuali.board' | translate}}"
+                            ng-options="eduBoard as eduBoard.name for eduBoard in eduBoards track by eduBoard.id">
+                        <option value="" translate="stepApp.instEmpEduQuali.board">Select Board</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-md-6" ng-if="instEmpEduQua.eduLevel.levelFor == 'university'">
+                    <label translate="stepApp.instEmpEduQuali.board" for="field_university">University</label>
+                    <!--<input type="text" class="form-control" name="board" id="field_board"
+                            ng-model="instEmpEduQuali.board"
+                             />-->
+                    <select class="form-control" required="" id="field_university" name="eduBoard"
+                            ng-model="instEmpEduQua.eduBoard"
+                            tooltip="{{'stepApp.instEmpEduQuali.board' | translate}}"
+                            ng-options="eduBoard as eduBoard.name for eduBoard in eduUniversitys track by eduBoard.id">
+                        <option value="" translate="stepApp.instEmpEduQuali.board" >Select University</option>
+                    </select>
+                </div>
+                <!-- <div class="form-group col-md-6" ng-if="instEmpEduQuali.eduLevel.levelFor == 'university'">
+                 <label translate="stepApp.instEmpEduQuali.universityName" for="field_university">University</label>
+                 &lt;!&ndash;<input type="text" class="form-control" name="board" id="field_board"
+                         ng-model="instEmpEduQuali.board"
+                          />&ndash;&gt;
+                 <input type="text" class="form-control" required id="field_university" name="university" ng-model="instEmpEduQuali.universityName">
+
+                 </div>-->
+
+                <div class="form-group col-md-6"
+                     ng-if="instEmpEduQua.eduLevel.levelFor != 'university' && (instEmpEduQua.eduLevel.name === 'SSC/Equivalent' || instEmpEduQua.eduLevel.name === 'HSC/Equivelent')">
+                    <label translate="stepApp.instEmpEduQuali.group" for="field_resultClass">Exam group</label>
+
+                    <select class="form-control" required id="field_group" name="group"
+                            tooltip="{{'stepApp.instEmpEduQuali.group' | translate}}"
+                            ng-model="instEmpEduQua.group">
+                        <option value="" translate="stepApp.instEmpEduQuali.group"></option>
+                        <option value="science">Science</option>
+                        <option value="arts">Arts</option>
+                        <option value="commerce">Commerce</option>
+                    </select>
+                </div>
+
+
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instEmpEduQuali.groupSubject"
+                           for="field_groupSubject">groupSubject</label>
+                    <input type="text" class="form-control" name="groupSubject" id="field_groupSubject"
+                           ng-model="instEmpEduQua.groupSubject"
+                           tooltip="{{'stepApp.instEmpEduQuali.groupSubject' | translate}}"
+                           placeholder="{{'stepApp.instEmpEduQuali.groupSubject' | translate}}"
+                    />
+                </div>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instEmpEduQuali.session" for="field_session">Session</label>
+                    <input type="text" class="form-control" name="session" id="field_session"
+                           ng-model="instEmpEduQua.session"
+                           tooltip="{{'stepApp.instEmpEduQuali.session' | translate}}"
+                           placeholder="{{'stepApp.instEmpEduQuali.session' | translate}}"
+                    />
+                </div>
+                <div class="form-group col-md-6" ng-if="instEmpEduQua.eduLevel.levelFor === 'university'">
+                    <label translate="stepApp.instEmpEduQuali.duration" for="field_duration"> duration</label>
+                    <input type="text" class="form-control" name="duration" id="field_duration"
+                           ng-model="instEmpEduQua.duration"
+                           tooltip="{{'stepApp.instEmpEduQuali.duration' | translate}}"
+                           placeholder="{{'stepApp.instEmpEduQuali.duration' | translate}}"
+                    />
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instEmpEduQuali.semesterOrYear" for="field_semester">Semester</label>
+                    <input type="text" class="form-control" name="semester" id="field_semester"
+                           ng-model="instEmpEduQua.semester"
+                           tooltip="{{'stepApp.instEmpEduQuali.semesterOrYear' | translate}}"
+                           placeholder="{{'stepApp.instEmpEduQuali.semesterOrYear' | translate}}"
+                    />
+                </div>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instEmpEduQuali.rollNo" for="field_rollNo">RollNo</label>
+                    <input type="text" class="form-control" name="rollNo" id="field_rollNo"
+                           ng-model="instEmpEduQua.rollNo"
+                           tooltip="{{'stepApp.instEmpEduQuali.rollNo' | translate}}"
+                           placeholder="{{'stepApp.instEmpEduQuali.rollNo' | translate}}"
+                           required/>
+                </div>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instEmpEduQuali.passingYear" for="field_passingYear">PassingYear</label>
+                    <!-- <input type="number" class="form-control" name="passingYear" id="field_passingYear"
+                             ng-model="instEmpEduQuali.passingYear"
+                              />-->
+                    <select class="form-control" required id="field_passingYear" name="passingYear"
+                            ng-model="instEmpEduQua.passingYear" ng-options="o as o for o in years"
+                            tooltip="{{'stepApp.instEmpEduQuali.passingYear' | translate }}"
+                    >
+                        <option value="" translate="stepApp.instEmpEduQuali.passingYear"></option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="control-label" translate="stepApp.instEmpEduQuali.resultType">Result Type</label>
+                    <div class="form-control">
+                        <input type="radio" name="resultType"
+                               ng-checked="instEmpEduQua.isGpaResult == true || instEmpEduQua.isGpaResult == 'true'"
+                               ng-model="instEmpEduQua.isGpaResult" value="true"
+                               tooltip="{{'stepApp.instEmpEduQuali.resultType' | translate}}"
+                               required>GPA/CGPA
+
+                        <input type="radio" name="resultType"
+                               ng-checked="(instEmpEduQua == null || instEmpEduQua.isGpaResult == null) || instEmpEduQua.isGpaResult == 'false' || instEmpEduQua.isGpaResult == false"
+                               ng-model="instEmpEduQua.isGpaResult"
+                               tooltip="{{'stepApp.instEmpEduQuali.resultType' | translate}}"
+                               value="false">Division/Class
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6"
+                     ng-if="instEmpEduQua.isGpaResult == true|| instEmpEduQua.isGpaResult == 'true'">
+                    <label translate="stepApp.instEmpEduQuali.result" for="field_cgpa">Result</label>
+                    <input type="text" class="form-control" name="cgpa" id="field_cgpa"
+                           ng-model="instEmpEduQua.cgpa" required
+                           tooltip="{{'stepApp.instEmpEduQuali.result' | translate}}"
+                           placeholder="{{'stepApp.instEmpEduQuali.result' | translate}}"
+                    />
+                </div>
+                <div class="form-group col-md-6"
+                     ng-if="instEmpEduQua.isGpaResult == false|| instEmpEduQua.isGpaResult == 'false'">
+                    <label translate="stepApp.instEmpEduQuali.result" for="field_resultClass">Result Class</label>
+
+                    <select class="form-control" required id="field_resultClass" name="resultClass"
+                            ng-model="instEmpEduQua.cgpa"
+                            tooltip="{{'stepApp.instEmpEduQuali.result' | translate}}"
+                    >
+                        <option value=""  translate="stepApp.instEmpEduQuali.result"></option>
+                        <option value="first">First Division/Class</option>
+                        <option value="second">Second Division/Class</option>
+                        <option value="third">Third Division/Class</option>
+                    </select>
+                </div>
+
+                <div ng-if="instEmpEduQua.isGpaResult == true|| instEmpEduQua.isGpaResult == 'true'"
+                     class="form-group col-md-6">
+                    <label translate="stepApp.instEmpEduQuali.gpaScale" for="field_gpaScale">GPA Scale</label>
+                    <input type="text" class="form-control" name="gpaScale" id="field_gpaScale"
+                           ng-model="instEmpEduQua.gpaScale" numeric-only ng-maxlength="4" ng-minlength="1"
+                           tooltip="{{'stepApp.instEmpEduQuali.gpaScale' | translate}}"
+                           placeholder="{{'stepApp.instEmpEduQuali.gpaScale' | translate}}"
+                           required/>
+                    <div ng-show="editForm.gpaScale.$invalid">
+
+                        <p class="help-block"
+                           ng-show="editForm.gpaScale.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+
+                        <p class="help-block"
+                           ng-show="editForm.gpaScale.$error.minlength" translate="entity.validation.minlength"
+                           translate-value-min="1">
+                            This field cannot be longer than 1 characters.
+                        </p>
+                        <p class="help-block"
+                           ng-show="editForm.gpaScale.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="5">
+                            This field cannot be longer than 5 characters.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-md-6" ngf-drop ngf-change="setCertificateCopy($file, instEmpEduQua)">
+                    <label translate="stepApp.instEmpEduQuali.certificateCopy" for="field_certificateCopy">CertificateCopy</label>
+                    <div>
+                        <div class="help-block clearfix">
+                            <span class="pull-left">{{instEmpEduQua.certificateCopyContentType}} {{byteSize(instEmpEduQua.certificateCopy)}}</span>
+                            <button
+                                ng-click="instEmpEduQua.certificateCopy=null;instEmpEduQua.certificateCopyContentType=null;"
+                                ng-if="instEmpEduQua.certificateCopy"
+                                class="btn btn-default btn-xs pull-right">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </div>
+                        <!--  <button type="file" ngf-select class="btn btn-default btn-block"
+                                  ngf-change="setCertificateCopy($file, instEmpEduQuali)" translate="entity.action.addblob">
+                              Add blob
+                          </button>-->
+                        <div class="form-group col-md-9 no_padding">
+                            <input type="text" readonly class="form-control" name="certificateCopyName"
+                                   id="field_certificateCopyName"
+                                   ng-model="instEmpEduQua.certificateCopyName"
+                            />
+                        </div>
+                        <div class="form-group col-md-3">
+                            <button type="file" ngf-select class="btn btn-default btn-block"
+                                    ngf-change="setCertificateCopy($file, instEmpEduQua)"
+                                    translate="entity.action.addblob">
+                                Add blob
+                            </button>
+                        </div>
+                    </div>
+                    <input type="hidden" class="form-control" name="certificateCopy" id="field_certificateCopy"
+                           ng-model="instEmpEduQua.certificateCopy"
+                    />
+                    <input type="hidden" class="form-control" name="certificateCopyContentType"
+                           id="field_certificateCopyContentType"
+                           ng-model="instEmpEduQua.certificateCopyContentType"/>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <a class="btn btn-success" ng-disabled="editForm.$invalid || isSaving" ng-click="AddMore()">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;<span
+                translate="entity.action.addMore">Add More</span>
+            </a>
+        </div>
+
+        <div class="col-sm-12 no_padding text-right">
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-hide="instEmpEduQualis.length > 0" translate="entity.action.save">Save</span>
+                <span ng-show="instEmpEduQualis.length > 0" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

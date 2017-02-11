@@ -1,0 +1,292 @@
+<div class="col-md-12 common-dialogue">
+    <h4 ng-show="assetSupplier.id == null" id="myAssetSupplierLabel"
+        translate="stepApp.assetSupplier.home.createOrEditLabel">Create or edit a AssetSupplier</h4>
+    <h4 ng-show="assetSupplier.id != null" id="myAssetSupplierLabel" translate="stepApp.assetSupplier.home.EditLabel">
+        Create or edit a AssetSupplier</h4>
+    <form  name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <div class="col-md-12 padding-tb">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.assetSupplier.name" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                           ng-model="assetSupplier.name" required/>
+                    <div ng-show="editForm.name.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!--<div class=" col-md-6 ">
+                <div class="form-group">
+                    <label  class="control-label"  translate="stepApp.assetSupplier.supplierId" for="field_supplierId">SupplierId</label>
+
+                    <div class="input-margin">
+                        <input type="text" class="form-control" name="supplierId" id="field_supplierId"
+                               ng-model="assetSupplier.supplierId"
+                               required ng-maxlength="50" />
+                        <div ng-show="editForm.supplierId.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.supplierId.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                            <p class="help-block"
+                               ng-show="editForm.supplierId.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="50">
+                                This field cannot be longer than 50 characters.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>-->
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.assetSupplier.contactNo"
+                           for="field_contactNo">ContactNo</label>
+                    <input type="text" require ng-pattern="/^\d{0,11}(\.\d{1,11})?$/" class="form-control"
+                           name="contactNo" id="field_contactNo"
+                           ng-model="assetSupplier.contactNo"
+                           required/>
+                    <div ng-show="editForm.contactNo.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.contactNo.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.assetSupplier.products"
+                           for="field_products">Products</label>
+                    <textarea type="text" class="form-control" name="products" id="field_products"
+                           ng-model="assetSupplier.products"
+                           required/>
+                    <div ng-show="editForm.products.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.products.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.assetSupplier.address"
+                           for="field_address">Address</label>
+                    <textarea type="text" class="form-control" name="address" id="field_address"
+                              ng-model="assetSupplier.address"
+                              required/>
+                    <div ng-show="editForm.address.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.address.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.assetSupplier.telephoneNo" for="field_telephoneNo">TelephoneNo</label>
+                    <input type="text" class="form-control" require ng-pattern="/^\d{0,11}(\.\d{1,11})?$/"
+                           name="telephoneNo" id="field_telephoneNo"
+                           ng-model="assetSupplier.telephoneNo"
+                    />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.assetSupplier.email" for="field_email">Email</label>
+                    <input type="email" class="form-control" name="email" id="field_email"
+                           ng-model="assetSupplier.email"
+                           required/>
+                        <span ng-show="editForm.email.$dirty && editForm.email.$invalid">
+                            <span class="control-label" style="color:red" ng-show="editForm.email.$error.email">Invalid email address.</span>
+                        </span>
+
+
+                    <!--<div ng-show="editForm.email.$invalid">-->
+                    <!--<p class="help-block"-->
+                    <!--ng-show="editForm.email.$error.required" translate="entity.validation.required">-->
+                    <!--This field is required.-->
+                    <!--</p>-->
+                    <!--</div>-->
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.assetSupplier.webSite"
+                           for="field_webSite">WebSite</label>
+                    <input type="text" class="form-control" name="webSite" id="field_webSite"
+                           ng-model="assetSupplier.webSite"
+                    />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.assetSupplier.faxNo" for="field_faxNo">FaxNo</label>
+                    <input type="text" class="form-control" name="faxNo" id="field_faxNo"
+                           ng-model="assetSupplier.faxNo"
+                    />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class=" control-label">Status</label>
+                    <div class="input-margin">
+                        <label class="radio-inline">
+                            <input type="radio" ng-checked="assetSupplier.status == true"
+                                   name="optradio" name="status" value="true"
+                                   ng-model="assetSupplier.status">Active
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" ng-checked="assetSupplier.status == false"
+                                   name="optradio" name="status" value="false"
+                                   ng-model="assetSupplier.status">Inactive
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <button type="button" class="btn btn-info" onclick="window.history.back()"><i
+                    class="fa fa-angle-double-left"></i><span translate="entity.action.back">Back</span></button>
+                <button type="submit" class="btn btn-primary" ng-disabled="editForm.$invalid || editForm.$submitted"><i
+                    class="fa fa-hdd-o"></i>
+                    <span ng-show="assetSupplier.id == null" translate="entity.action.save">Save</span>
+                    <span ng-show="assetSupplier.id != null" translate="entity.action.update">Save</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!---===End asset supplier dialog===--->
+<!---===End asset supplier dialog===--->
+<!---===End asset supplier dialog===--->
+<!---===End asset supplier dialog===--->
+<!--
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myAssetSupplierLabel" translate="stepApp.assetSupplier.home.createOrEditLabel">Create or edit a AssetSupplier</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="assetSupplier.id" readonly />
+        </div>
+        <>
+        <div class="form-group">
+            <label translate="stepApp.assetSupplier.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                    ng-model="assetSupplier.name"
+                     />
+        </div>
+        <>
+        <div class="form-group">
+            <label translate="stepApp.assetSupplier.supplierId" for="field_supplierId">SupplierId</label>
+            <input type="text" class="form-control" name="supplierId" id="field_supplierId"
+                    ng-model="assetSupplier.supplierId"
+                    required ng-maxlength="50" />
+            <div ng-show="editForm.supplierId.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.supplierId.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.supplierId.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="50">
+                    This field cannot be longer than 50 characters.
+                </p>
+            </div>
+        </div>
+        <>
+        <div class="form-group">
+            <label translate="stepApp.assetSupplier.address" for="field_address">Address</label>
+            <input type="text" class="form-control" name="address" id="field_address"
+                    ng-model="assetSupplier.address"
+                    required />
+            <div ng-show="editForm.address.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.address.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <>
+        <div class="form-group">
+            <label translate="stepApp.assetSupplier.products" for="field_products">Products</label>
+            <input type="text" class="form-control" name="products" id="field_products"
+                    ng-model="assetSupplier.products"
+                    required />
+            <div ng-show="editForm.products.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.products.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <>
+        <div class="form-group">
+            <label translate="stepApp.assetSupplier.contactNo" for="field_contactNo">ContactNo</label>
+            <input type="text" class="form-control" name="contactNo" id="field_contactNo"
+                    ng-model="assetSupplier.contactNo"
+                    required />
+            <div ng-show="editForm.contactNo.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.contactNo.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <>
+        <div class="form-group">
+            <label translate="stepApp.assetSupplier.telephoneNo" for="field_telephoneNo">TelephoneNo</label>
+            <input type="text" class="form-control" name="telephoneNo" id="field_telephoneNo"
+                    ng-model="assetSupplier.telephoneNo"
+                     />
+        </div>
+        <>
+        <div class="form-group">
+            <label translate="stepApp.assetSupplier.email" for="field_email">Email</label>
+            <input type="text" class="form-control" name="email" id="field_email"
+                    ng-model="assetSupplier.email"
+                    required />
+            <div ng-show="editForm.email.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.email.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <>
+        <div class="form-group">
+            <label translate="stepApp.assetSupplier.webSite" for="field_webSite">WebSite</label>
+            <input type="text" class="form-control" name="webSite" id="field_webSite"
+                    ng-model="assetSupplier.webSite"
+                     />
+        </div>
+        <>
+        <div class="form-group">
+            <label translate="stepApp.assetSupplier.faxNo" for="field_faxNo">FaxNo</label>
+            <input type="text" class="form-control" name="faxNo" id="field_faxNo"
+                    ng-model="assetSupplier.faxNo"
+                     />
+        </div>
+
+    </div>
+    <>
+    <div class="modal-footer">
+        <button type="button" class="btn"  onclick="window.history.back()" ><i class="fa fa-angle-double-left"></i><span  translate="entity.action.back" >Back</span>   </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>
+-->

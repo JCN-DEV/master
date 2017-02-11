@@ -1,0 +1,115 @@
+<div class="col-sm-12 common-list">
+<h2 translate="stepApp.instEmployee.home.employeeList">InstEmployees</h2>
+    <br>
+    <!--<jh-alert></jh-alert>-->
+        <div class="row">
+            <div class="col-md-8">
+                <!--<form name="searchForm" class="form-inline">-->
+                    <!--<div class="form-group">-->
+                        <!--<input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">-->
+                    <!--</div>-->
+                    <!--<button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a InstEmployee</span>-->
+                    <!--</button>-->
+                <!--</form>-->
+            </div>
+        </div>
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="stepApp.instEmployee.name">Name</th>
+                    <!--<th translate="stepApp.instEmployee.courseTech">Tech</th>-->
+                    <th translate="stepApp.instEmployee.designation">Designation</th>
+                    <th translate="stepApp.instEmployee.email">Email</th>
+                    <th translate="stepApp.instEmployee.contactNo">ContactNo</th>
+                    <!--<th translate="stepApp.instEmployee.fatherName">FatherName</th>-->
+                    <!--<th translate="stepApp.instEmployee.motherName">MotherName</th>-->
+                    <!--<th translate="stepApp.instEmployee.dob">Dob</th>-->
+                    <!--<th translate="stepApp.instEmployee.category">Category</th>-->
+                    <!--<th translate="stepApp.instEmployee.gender">Gender</th>-->
+                    <!--<th translate="stepApp.instEmployee.maritalStatus">MaritalStatus</th>-->
+                    <!--<th translate="stepApp.instEmployee.bloodGroup">BloodGroup</th>-->
+                    <!--<th translate="stepApp.instEmployee.tin">Tin</th>-->
+                    <!--<th translate="stepApp.instEmployee.image">Image</th>-->
+                    <!--<th translate="stepApp.instEmployee.nationality">Nationality</th>-->
+                    <!--<th translate="stepApp.instEmployee.nid">Nid</th>-->
+                    <!--<th translate="stepApp.instEmployee.nidImage">NidImage</th>-->
+                    <!--<th translate="stepApp.instEmployee.birthCertNo">BirthCertNo</th>-->
+                    <!--<th translate="stepApp.instEmployee.birthCertImage">BirthCertImage</th>-->
+                    <!--<th translate="stepApp.instEmployee.conPerName">ConPerName</th>-->
+                    <!--<th translate="stepApp.instEmployee.conPerMobile">ConPerMobile</th>-->
+                    <!--<th translate="stepApp.instEmployee.conPerAddress">ConPerAddress</th>-->
+                    <!--<th translate="stepApp.instEmployee.institute">institute</th>-->
+                    <!--<th translate="stepApp.instEmployee.designation">designation</th>-->
+                    <!--<th translate="stepApp.instEmployee.religion">religion</th>-->
+                    <!--<th translate="stepApp.instEmployee.quota">quota</th>-->
+                    <!--<th translate="stepApp.instEmployee.courseTech">courseTech</th>-->
+                    <!--<th translate="stepApp.instEmployee.gradeSetup">gradeSetup</th>-->
+                    <th translate="entity.action.action" class="text-center no-print"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="instEmployee in instEmployees track by instEmployee.id">
+                    <td>{{instEmployee.name}}</td>
+                    <td>{{instEmployee.instEmplDesignation.name}}</td>
+                    <td>{{instEmployee.email}}</td>
+                    <td>{{instEmployee.contactNo}}</td>
+                    <!--<td>{{instEmployee.fatherName}}</td>-->
+                    <!--<td>{{instEmployee.motherName}}</td>-->
+                        <!--<td>{{instEmployee.dob | date:'mediumDate'}}</td>-->
+                    <!--<td translate="{{'stepApp.EmpType.' + instEmployee.category}}">{{instEmployee.category}}</td>-->
+                    <!--<td>{{instEmployee.gender}}</td>-->
+                    <!--<td translate="{{'stepApp.maritalStatus.' + instEmployee.maritalStatus}}">{{instEmployee.maritalStatus}}</td>-->
+                    <!--<td translate="{{'stepApp.bloodGroup.' + instEmployee.bloodGroup}}">{{instEmployee.bloodGroup}}</td>-->
+                    <!--<td>{{instEmployee.tin}}</td>-->
+                    <!--<td>{{instEmployee.image}}</td>-->
+                    <!--<td>{{instEmployee.nationality}}</td>-->
+                    <!--<td>{{instEmployee.nid}}</td>-->
+                    <!--<td>{{instEmployee.nidImage}}</td>-->
+                    <!--<td>{{instEmployee.birthCertNo}}</td>-->
+                    <!--<td>{{instEmployee.birthCertImage}}</td>-->
+                    <!--<td>{{instEmployee.conPerName}}</td>-->
+                    <!--<td>{{instEmployee.conPerMobile}}</td>-->
+                    <!--<td>{{instEmployee.conPerAddress}}</td>-->
+                    <!--<td>-->
+                        <!--<a ui-sref="institute.detail({id:instEmployee.institute.id})">{{instEmployee.institute.name}}</a>-->
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--<a ui-sref="designation.detail({id:instEmployee.designation.id})">{{instEmployee.designation.name}}</a>-->
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--<a ui-sref="religion.detail({id:instEmployee.religion.id})">{{instEmployee.religion.name}}</a>-->
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--<a ui-sref="quota.detail({id:instEmployee.quota.id})">{{instEmployee.quota.name}}</a>-->
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--<a ui-sref="courseTech.detail({id:instEmployee.courseTech.id})">{{instEmployee.courseTech.id}}</a>-->
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--<a ui-sref="gradeSetup.detail({id:instEmployee.gradeSetup.id})">{{instEmployee.gradeSetup.no}}</a>-->
+                    <!--</td>-->
+                </tr>
+            </tbody>
+        </table>
+        <nav class="no-print">
+            <ul class="pagination">
+                <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                <li class="active"><a>{{page + 1}}</a></li>
+                <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="no-print   text-right">
+        <button type="submit" name="submit" onclick="window.print()" class="btn btn-primary">
+            <span class="glyphicon glyphicon-print"></span>&nbsp;<span
+            translate="entity.action.print">Print</span>
+        </button>
+    </div>
+</div>

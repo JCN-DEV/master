@@ -1,0 +1,77 @@
+<div class="col-sm-12 no_padding lbl-content common-list">
+    <h2 translate="stepApp.dlSourceSetUp.home.title">DlSourceSetUps</h2>
+    <div class="col-sm-12 padding-tb">
+        <div class="row">
+            <div class="col-md-8 no_padding">
+                <div class="col-md-6 ">
+                        <input ng-model="q" id="search" type="text" class="form-control"  placeholder="{{'global.home.searchhere' | translate}}">
+                </div>
+                <div class="col-md-6 ">
+                        <input type="number" class="form-control" ng-model="pageSize" placeholder="{{'global.home.itemperpage' | translate}}">
+                </div>
+            </div>
+            <div class="col-md-4 text-right">
+                <button class="btn btn-primary " ui-sref="libraryInfo.dlSourceSetUp.new">
+                    <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.dlSourceSetUp.home.createLabel">Create a new DlSourceSetUp</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="global.field.serial">Serial</th>
+                    <th translate="global.field.id">ID</th>
+                    <th translate="stepApp.dlSourceSetUp.name">Name</th>
+                    <!--<th translate="stepApp.dlSourceSetUp.fine">Fine</th>-->
+                    <th translate="stepApp.dlSourceSetUp.status">Status</th>
+                    <th translate="stepApp.dlSourceSetUp.dtofsrcsetup">CreateDate</th>
+                    <th translate="stepApp.dlSourceSetUp.description">description</th>
+                    <!--<th translate="stepApp.dlSourceSetUp.createBy">CreateBy</th>-->
+                    <!--<th translate="stepApp.dlSourceSetUp.updateDate">UpdateDate</th>-->
+                    <!--<th translate="stepApp.dlSourceSetUp.updateBy">UpdateBy</th>-->
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr dir-paginate="dlSourceSetUp in dlSourceSetUps | filter:q | itemsPerPage: pageSize" current-page="currentPage">
+                <td>{{pageSize * (currentPage-1)+$index+1}}</td>
+                    <td><a ui-sref="dlSourceSetUp.detail({id:dlSourceSetUp.id})">{{dlSourceSetUp.id}}</a></td>
+                    <td>{{dlSourceSetUp.name}}</td>
+                    <!--<td>{{dlSourceSetUp.fine}}</td>-->
+                    <td>   <span ng-show="dlSourceSetUp.status==true">Active</span>
+                        <span ng-show="dlSourceSetUp.status==false">Inactive</span></td>
+                        <td>{{dlSourceSetUp.createDate | date:'mediumDate'}}</td>
+                        <td>{{dlSourceSetUp.description}}</td>
+                    <!--<td>{{dlSourceSetUp.createBy}}</td>-->
+                        <!--<td>{{dlSourceSetUp.updateDate | date:'mediumDate'}}</td>-->
+                    <!--<td>{{dlSourceSetUp.updateBy}}</td>-->
+                    <td class="text-right">
+                        <button type="submit"
+                                ui-sref="libraryInfo.dlSourceSetUp.detail({id:dlSourceSetUp.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="libraryInfo.dlSourceSetUp.edit({id:dlSourceSetUp.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="libraryInfo.dlSourceSetUp.delete({id:dlSourceSetUp.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+
+        </nav>
+    </div>
+</div>

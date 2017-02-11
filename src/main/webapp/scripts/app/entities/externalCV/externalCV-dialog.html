@@ -1,0 +1,66 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myExternalCVLabel" translate="stepApp.externalCV.home.createOrEditLabel">Create or edit a ExternalCV</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="externalCV.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.externalCV.title" for="field_title">Title</label>
+            <input type="text" class="form-control" name="title" id="field_title"
+                    ng-model="externalCV.title"
+                    required />
+            <div ng-show="editForm.title.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.title.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group" ngf-drop ngf-change="setCv($file, externalCV)">
+            <label translate="stepApp.externalCV.cv" for="field_cv">Cv</label>
+            <div>
+                <div class="help-block clearfix">
+                    <span class="pull-left">{{externalCV.cvContentType}} {{byteSize(externalCV.cv)}}</span>
+                    <button ng-click="externalCV.cv=null;externalCV.cvContentType=null;"
+                            ng-if="externalCV.cv"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="file" ngf-select class="btn btn-default btn-block"
+                        ngf-change="setCv($file, externalCV)" translate="entity.action.addblob">
+                    Add blob
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="cv" id="field_cv"
+                    ng-model="externalCV.cv"
+                    required />
+            <input type="hidden" class="form-control" name="cvContentType" id="field_cvContentType"
+                    ng-model="externalCV.cvContentType" />
+            <div ng-show="editForm.cv.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.cv.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

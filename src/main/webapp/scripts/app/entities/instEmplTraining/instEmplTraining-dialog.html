@@ -1,0 +1,87 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 class="modal-title" id="myInstEmplTrainingLabel"
+            translate="stepApp.instEmplTraining.home.createOrEditLabel">Create or edit a InstEmplTraining</h4>
+        <div class="col-md-12 padding-tb">
+            <jh-alert-error></jh-alert-error>
+            <div class="form-group">
+                <label for="id" translate="global.field.id">ID</label>
+                <input type="text" class="form-control" id="id" name="id"
+                       ng-model="instEmplTraining.id" readonly/>
+            </div>
+            <div class="form-group">
+                <label translate="stepApp.instEmplTraining.name" for="field_name">Name</label>
+                <input type="text" class="form-control" name="name" id="field_name"
+                       ng-model="instEmplTraining.name"
+                       required/>
+                <div ng-show="editForm.name.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label translate="stepApp.instEmplTraining.subjectsCoverd"
+                       for="field_subjectsCoverd">SubjectsCoverd</label>
+                <input type="text" class="form-control" name="subjectsCoverd" id="field_subjectsCoverd"
+                       ng-model="instEmplTraining.subjectsCoverd"
+                       required/>
+                <div ng-show="editForm.subjectsCoverd.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.subjectsCoverd.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label translate="stepApp.instEmplTraining.location" for="field_location">Location</label>
+                <input type="text" class="form-control" name="location" id="field_location"
+                       ng-model="instEmplTraining.location"
+                       required/>
+                <div ng-show="editForm.location.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.location.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label translate="stepApp.instEmplTraining.startedDate" for="field_startedDate">StartedDate</label>
+                <input type="date" class="form-control" name="startedDate" id="field_startedDate"
+                       ng-model="instEmplTraining.startedDate"
+                />
+            </div>
+            <div class="form-group">
+                <label translate="stepApp.instEmplTraining.endedDate" for="field_endedDate">EndedDate</label>
+                <input type="date" class="form-control" name="endedDate" id="field_endedDate"
+                       ng-model="instEmplTraining.endedDate"
+                />
+            </div>
+            <div class="form-group">
+                <label translate="stepApp.instEmplTraining.result" for="field_result">Result</label>
+                <input type="number" class="form-control" name="result" id="field_result"
+                       ng-model="instEmplTraining.result"
+                />
+            </div>
+
+            <div class="form-group">
+                <label translate="stepApp.instEmplTraining.instEmployee" for="field_instEmployee">instEmployee</label>
+                <select class="form-control" id="field_instEmployee" name="instEmployee"
+                        ng-model="instEmplTraining.instEmployee"
+                        ng-options="instEmployee as instEmployee.name for instEmployee in instemployees track by instEmployee.id">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-12 padding-tb">
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

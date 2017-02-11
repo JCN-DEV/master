@@ -1,0 +1,145 @@
+<div class="row">
+    <div class="col-md-3">
+        <ng-include src="'scripts/app/account/mpo/mpo-left-menu.html'"></ng-include>
+    </div>
+
+
+    <div class="col-md-9 lbl-dash">
+        <div class="col-md-12 common-dialogue">
+            <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+                <h4 ng-if="dearnessAssign.id == null" class="modal-title" id="myDearnessAssignLabel" translate="stepApp.dearnessAssign.home.createLabel">Create a DearnessAssign</h4>
+                <h4 ng-if="dearnessAssign.id != null" class="modal-title" id="myDearnessAssignLabel" translate="stepApp.dearnessAssign.home.editLabel">Edit a DearnessAssign</h4>
+
+
+
+                <div class="modal-body">
+            <!--<div class="form-group col-sm-6">-->
+            <!--<label for="id" translate="global.field.id">ID</label>-->
+            <!--<input type="text" class="form-control" id="id" name="id"-->
+            <!--ng-model="dearnessAssign.id" readonly />-->
+            <!--</div>-->
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dearnessAssign.gazzette" for="field_gazzette">gazzette</label>
+                <select class="form-control" id="field_gazzette" name="gazzette" ng-model="dearnessAssign.gazzette" ng-options="PayScale as PayScale.payScaleClass for PayScale in payscales track by PayScale.id">
+                    <option value=""></option>
+                </select>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dearnessAssign.amount" for="field_amount">Amount</label>
+                <input type="number" class="form-control" name="amount" id="field_amount"
+                       ng-model="dearnessAssign.amount" ng-pattern="/^[0-9]*$/"
+                       required />
+                <div ng-show="editForm.amount.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.amount.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.amount.$error.pattern" translate="entity.validation.number">
+                        Only number is allow for amount.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.amount.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dearnessAssign.effectiveDate" for="field_effectiveDate">EffectiveDate</label>
+                <!--<input type="date" class="form-control" name="effectiveDate" id="field_effectiveDate"-->
+                <!--ng-model="dearnessAssign.effectiveDate"-->
+                <!--/>-->
+                <input type="text" class="form-control" name="effectiveDate" id="field_effectiveDate"
+                       ng-model="dearnessAssign.effectiveDate"
+                       required
+                       datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.effectiveDate"
+                       datepicker-options="calendar.dateOptions" close-text="Close"
+                       ng-click="calendar.open($event, 'effectiveDate')"
+                    />
+
+
+                <div ng-show="editForm.effectiveDate.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.effectiveDate.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dearnessAssign.stopDate" for="field_stopDate">StopDate</label>
+                <!--<input type="date" class="form-control" name="stopDate" id="field_stopDate"-->
+                <!--ng-model="dearnessAssign.stopDate"-->
+                <!--/>-->
+                <input type="text" class="form-control" name="stopDate" id="field_stopDate"
+                       ng-model="dearnessAssign.stopDate"
+                       required
+                       datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.stopDate"
+                       datepicker-options="calendar.dateOptions" close-text="Close"
+                       ng-click="calendar.open($event, 'stopDate')"
+                    />
+
+
+                <div ng-show="editForm.stopDate.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.stopDate.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dearnessAssign.status" for="field_status">Status</label>
+                <!--<input type="checkbox" class="form-control" name="status" id="field_status"-->
+                <!--ng-model="dearnessAssign.status"-->
+                <!--/>-->
+                <div>
+                    <label  class="radio-inline"><input type="radio"  name="status" value="true" checked="true" ng-checked="dearnessAssign.status == true" ng-model="dearnessAssign.status"><span translate="entity.action.activate">Active</span></label>
+                    <label class="radio-inline"><input type="radio" name="status"  value="false"  ng-checked="dearnessAssign.status == false" ng-model="dearnessAssign.status"><span translate="entity.action.deactivate">Deactive</span></label>
+                </div>
+            </div>
+            <!--<div class="form-group col-sm-6">-->
+            <!--<label translate="stepApp.dearnessAssign.createBy" for="field_createBy">CreateBy</label>-->
+            <!--<input type="number" class="form-control" name="createBy" id="field_createBy"-->
+            <!--ng-model="dearnessAssign.createBy"-->
+            <!--/>-->
+            <!--</div>-->
+            <!--<div class="form-group col-sm-6">-->
+            <!--<label translate="stepApp.dearnessAssign.createDate" for="field_createDate">CreateDate</label>-->
+            <!--<input type="date" class="form-control" name="createDate" id="field_createDate"-->
+            <!--ng-model="dearnessAssign.createDate"-->
+            <!--/>-->
+            <!--</div>-->
+            <!--<div class="form-group col-sm-6">-->
+            <!--<label translate="stepApp.dearnessAssign.updateBy" for="field_updateBy">UpdateBy</label>-->
+            <!--<input type="number" class="form-control" name="updateBy" id="field_updateBy"-->
+            <!--ng-model="dearnessAssign.updateBy"-->
+            <!--/>-->
+            <!--</div>-->
+            <!--<div class="form-group col-sm-6">-->
+            <!--<label translate="stepApp.dearnessAssign.updateDate" for="field_updateDate">UpdateDate</label>-->
+            <!--<input type="date" class="form-control" name="updateDate" id="field_updateDate"-->
+            <!--ng-model="dearnessAssign.updateDate"-->
+            <!--/>-->
+            <!--</div>-->
+            <!--<div class="form-group col-sm-6">-->
+            <!--<label translate="stepApp.dearnessAssign.remarks" for="field_remarks">Remarks</label>-->
+            <!--<input type="text" class="form-control" name="remarks" id="field_remarks"-->
+            <!--ng-model="dearnessAssign.remarks"-->
+            <!--/>-->
+            <!--</div>-->
+
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+            </button>
+        </div>
+    </form>
+
+</div>
+    </div>
+</div>

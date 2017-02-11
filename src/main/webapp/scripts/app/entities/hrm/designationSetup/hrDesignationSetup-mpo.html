@@ -1,0 +1,125 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="hrDesignationSetup.id == null" class="modal-title" id="myHrDesignationSetupLabel"
+            translate="stepApp.hrDesignationSetup.home.createOrEditLabelMpo">Create or edit a HrDesignationSetup</h4>
+        <h4 ng-show="hrDesignationSetup.id != null" class="modal-title" id="myHrDesignationSetupLabel2"
+            translate="stepApp.hrDesignationSetup.home.EditLabelMpo">Create or edit a HrDesignationSetup</h4>
+        <div class="modal-body col-md-12 padding-tb">
+            <jh-alert-error></jh-alert-error>
+
+            <div class="row">
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label translate="stepApp.hrDesignationSetup.desigType" for="field_desigType">Type</label>
+                        <select class="form-control" name="desigType"
+                                ng-change="filterDesignationByType()"
+                                ng-model="hrDesignationSetup.desigType" id="field_desigType">
+                            <option value="Teacher" translate="stepApp.designationType.Teacher">Teacher</option>
+                            <option value="Staff" translate="stepApp.designationType.Staff">Staff</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrDesignationSetup.instCategory" for="field_instCategory">instCategory</label>
+                        <div class="input-margin">
+                            <select class="form-control" id="field_instCategory" name="instCategory"
+                                    ng-model="hrDesignationSetup.instCategory"
+                                    ng-change="checkDesignationUniqByTypeLevelCat()"
+                                    ng-options="InstCategory as InstCategory.name for InstCategory in instCategoryList track by InstCategory.id">
+                                <option value="">Select Institute Category</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrDesignationSetup.instLevel" for="field_instLevel">instLevel</label>
+                        <div class="input-margin">
+                            <select class="form-control" id="field_instLevel" name="instLevel"
+                                    ng-model="hrDesignationSetup.instLevel"
+                                    ng-change="checkDesignationUniqByTypeLevelCat()"
+                                    ng-options="instLevel as instLevel.name for instLevel in instLevels  | filter:instLevel.pStatus='true'"
+                                    required >
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrDesignationSetup.designationInfo"
+                               for="field_designationInfo">designationInfo</label>
+                        <div class="input-margin">
+                            <select class="form-control" id="field_designationInfo" name="designationInfo"
+                                    ng-model="hrDesignationSetup.designationInfo"
+                                    ng-change="checkDesignationUniqByTypeLevelCat()"
+                                    ng-options="HrDesignationHeadSetup as HrDesignationHeadSetup.designationName for HrDesignationHeadSetup in designationHeadListFiltr track by HrDesignationHeadSetup.id"
+                                    required>
+                                <option value="">Select Designation</option>
+                            </select>
+                            <span class="message" ng-show="editForm.designationInfo.$pending">validating...</span>
+                            <div ng-show="designationAlreadyExist" class="alert alert-danger">
+                                Designation already exists !!!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label class="control-label" translate="stepApp.hrDesignationSetup.gradeInfo" for="field_gradeInfo">gradeInfo</label>
+                    <div class="input-margin">
+                        <select class="form-control" id="field_gradeInfo" name="gradeInfo"
+                                ng-model="hrDesignationSetup.gradeInfo"
+                                ng-options="HrGradeSetup as HrGradeSetup.gradeCode for HrGradeSetup in gradeInfoList track by HrGradeSetup.id">
+                            <option value="">Select Grade</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <label translate="stepApp.hrDesignationSetup.elocattedPosition" for="field_elocattedPosition">elocattedPosition</label>
+                    <input type="number" class="form-control" name="elocattedPosition" id="field_elocattedPosition"
+                           ng-model="hrDesignationSetup.elocattedPosition"/>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="control-label"
+                           translate="stepApp.hrDesignationSetup.activeStatus">ActiveStatus</label>
+                 <span class="form-control">
+                    <input type="radio" data-ng-model="hrDesignationSetup.activeStatus" name="activeStatus"
+                           data-ng-value="true">&nbsp;Active&nbsp;|&nbsp;
+                    <input type="radio" data-ng-model="hrDesignationSetup.activeStatus" name="activeStatus"
+                           data-ng-value="false">&nbsp;Inactive
+                </span>
+                    <div ng-show="editForm.activeStatus.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" class="btn " data-dismiss="modal"
+                    onclick="window.history.back()">
+                <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;<span
+                translate="entity.action.back">Back</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="hrDesignationSetup.id == null" translate="entity.action.save">Save</span>
+                <span ng-show="hrDesignationSetup.id != null" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

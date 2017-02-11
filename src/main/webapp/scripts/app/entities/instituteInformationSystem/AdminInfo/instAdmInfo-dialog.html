@@ -1,0 +1,262 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" class="panel panel-primary" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="instAdmInfo.id==null" id="myInstEmpSpouseInfoLabel" translate="stepApp.instAdmInfo.home.createOrEditLabel">Add InstAdmInfo</h4>
+
+        <h4 ng-hide="instAdmInfo.id==null"  id="myInstEmpSpouseInfoLabel"
+            translate="stepApp.instAdmInfo.home.EditLabel">
+            Create or edit a IisCourseInfo</h4>
+        <div class="panel-body col-md-12 no_padding">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instAdmInfo.adminCounselorName" for="field_adminCounselorName">AdminCounselorName</label>
+                    <input type="text" class="form-control" name="adminCounselorName" id="field_adminCounselorName"
+                           ng-model="instAdmInfo.adminCounselorName"
+                           data-toggle="tooltip"
+                           tooltip="{{'stepApp.instAdmInfo.adminCounselorName' | translate}}"
+                           placeholder="{{'stepApp.instAdmInfo.adminCounselorName' | translate}}"
+                           required/>
+                    <div ng-show="editForm.adminCounselorName.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.adminCounselorName.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instAdmInfo.counselorMobileNo" for="field_counselorMobileNo">CounselorMobileNo</label>
+                    <input type="text" class="form-control" name="counselorMobileNo" id="field_counselorMobileNo"
+                           ng-model="instAdmInfo.counselorMobileNo" ng-pattern="/^\d+$/" placeholder="01XXXXXXXXX"
+                           ng-maxlength="11" ng-minlength="10"
+                           data-toggle="tooltip"
+                           tooltip="{{'stepApp.instAdmInfo.counselorMobileNo' | translate}}"
+                           placeholder="{{'stepApp.instAdmInfo.counselorMobileNo' | translate}}"
+                           required/>
+                    <div ng-show="editForm.counselorMobileNo.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.counselorMobileNo.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                        <p class="help-block"
+                           ng-show="editForm.counselorMobileNo.$error.minlength" translate="entity.validation.minlength"
+                           translate-value-min="11">
+                            This field cannot be longer than 11 characters.
+                        </p>
+                        <p class="help-block"
+                           ng-show="editForm.counselorMobileNo.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="11">
+                            This field cannot be longer than 11 characters.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instAdmInfo.insHeadName" for="field_insHeadName">InsHeadName</label>
+                    <input type="text" class="form-control" name="insHeadName" id="field_insHeadName"
+                           ng-model="instAdmInfo.insHeadName"
+                           data-toggle="tooltip"
+                           tooltip="{{'stepApp.instAdmInfo.insHeadName' | translate}}"
+                           placeholder="{{'stepApp.instAdmInfo.insHeadName' | translate}}"
+                           required/>
+                    <div ng-show="editForm.insHeadName.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.insHeadName.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instAdmInfo.insHeadMobileNo"
+                           for="field_insHeadMobileNo">InsHeadMobileNo</label>
+                    <input type="text" class="form-control" name="insHeadMobileNo" id="field_insHeadMobileNo"
+                           ng-model="instAdmInfo.insHeadMobileNo" ng-pattern="/^\d+$/" placeholder="01XXXXXXXXX"
+                           ng-maxlength="11" ng-minlength="10"
+                           data-toggle="tooltip"
+                           tooltip="{{'stepApp.instAdmInfo.insHeadMobileNo' | translate}}"
+                           required/>
+                    <!--<div ng-show="editForm.insHeadMobileNo.$invalid">
+                        <p class="help-block"
+                            ng-show="editForm.insHeadMobileNo.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>-->
+                    <div ng-show="editForm.insHeadMobileNo.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.insHeadMobileNo.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                        <p class="help-block"
+                           ng-show="editForm.insHeadMobileNo.$error.minlength" translate="entity.validation.minlength"
+                           translate-value-min="11">
+                            This field cannot be longer than 11 characters.
+                        </p>
+                        <p class="help-block"
+                           ng-show="editForm.insHeadMobileNo.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="11">
+                            This field cannot be longer than 11 characters.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instAdmInfo.deoName" for="field_deoName">DeoName</label>
+                    <input type="text" class="form-control" name="deoName" id="field_deoName"
+                           ng-model="instAdmInfo.deoName"
+                           data-toggle="tooltip"
+                           tooltip="{{'stepApp.instAdmInfo.deoName' | translate}}"
+                           placeholder="{{'stepApp.instAdmInfo.deoName' | translate}}"
+                           required/>
+                    <div ng-show="editForm.deoName.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.deoName.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instAdmInfo.deoMobileNo" for="field_deoMobileNo">DeoMobileNo</label>
+                    <input type="text" class="form-control" name="deoMobileNo" id="field_deoMobileNo"
+                           ng-model="instAdmInfo.deoMobileNo" ng-pattern="/^\d+$/" placeholder="01XXXXXXXXX"
+                           ng-maxlength="11" ng-minlength="10"
+                           data-toggle="tooltip"
+                           tooltip="{{'stepApp.instAdmInfo.deoMobileNo' | translate}}"
+                    />
+
+                    <div ng-show="editForm.deoMobileNo.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.deoMobileNo.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                        <p class="help-block"
+                           ng-show="editForm.deoMobileNo.$error.minlength" translate="entity.validation.minlength"
+                           translate-value-min="11">
+                            This field cannot be longer than 11 characters.
+                        </p>
+                        <p class="help-block"
+                           ng-show="editForm.deoMobileNo.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="11">
+                            This field cannot be longer than 11 characters.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            </div>
+
+           <div class="row">
+               <div class="panel panel-primary">
+                   <div class="panel-body no_padding" ng-repeat="instGovernBody in instGovernBodys track by $index">
+                       <!--<h3 translate="stepApp.instGovernBody.home.createOrEditLabel">Governing Body</h3>-->
+                       <div class="col-md-12 admin-info no_padding">
+                           <div class="col-md-11 admin-info no_padding">
+                               <h3 translate="stepApp.instGovernBody.home.createOrEditLabel">Governing Body
+                                   Information</h3>
+
+                           </div>
+                           <div class="col-sm-1 text-right no_padding">
+                               <input type="button" ng-hide="instGovernBody.id !=null"
+                                      class="btn btn-link pull-right cross-btn-color"
+                                      ng-click="removeGovernBody(instGovernBody)" value="X"/>
+                           </div>
+                       </div>
+                       <div class="form-group col-md-6">
+                           <label translate="stepApp.instGovernBody.name" for="field_name">Name</label>
+                           <input type="text" class="form-control" name="name" id="field_name"
+                                  ng-model="instGovernBody.name"
+                                  data-toggle="tooltip"
+                                  tooltip="{{'stepApp.instGovernBody.name' | translate}}"
+                                  placeholder="{{'stepApp.instGovernBody.name' | translate}}"
+                                  required/>
+                           <div ng-show="editForm.name.$invalid">
+                               <p class="help-block"
+                                  ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                                   This field is required.
+                               </p>
+                           </div>
+                       </div>
+                       <div class="form-group col-md-6">
+                           <label translate="stepApp.instGovernBody.position" for="field_position">Position</label>
+                           <input type="text" class="form-control" name="position" id="field_position"
+                                  ng-model="instGovernBody.position"
+                                  data-toggle="tooltip"
+                                  tooltip="{{'stepApp.instGovernBody.position' | translate}}"
+                                  placeholder="{{'stepApp.instGovernBody.position' | translate}}"
+                                  required/>
+                           <div ng-show="editForm.position.$invalid">
+                               <p class="help-block"
+                                  ng-show="editForm.position.$error.required" translate="entity.validation.required">
+                                   This field is required.
+                               </p>
+                           </div>
+                       </div>
+                       <div class="form-group col-md-6">
+                           <label translate="stepApp.instGovernBody.mobileNo" for="field_mobileNo">MobileNo</label>
+                           <input type="text" class="form-control" name="mobileNo{{$index}}" id="field_mobileNo"
+                                  ng-model="instGovernBody.mobileNo" ng-pattern="/^\d+$/" placeholder="01XXXXXXXXX"
+                                  ng-maxlength="11" ng-minlength="10"
+                                  data-toggle="tooltip"
+                                  tooltip="{{'stepApp.instGovernBody.mobileNo' | translate}}"
+                                  required/>
+                           <div ng-show="editForm.mobileNo{{$index}}.$invalid">
+                               <small style="color:red"
+                                  ng-show="editForm.mobileNo{{$index}}.$error.required" translate="entity.validation.required">
+                                   This field is required.
+                               </small>
+                               <small style="color:red"
+                                  ng-show="editForm.mobileNo{{$index}}.$error.minlength" translate="entity.validation.minlength"
+                                  translate-value-min="11">
+                                   This field cannot be longer than 11 characters.
+                               </small>
+                               <small style="color:red"
+                                  ng-show="editForm.mobileNo{{$index}}.$error.maxlength" translate="entity.validation.maxlength"
+                                  translate-value-max="11">
+                                   This field cannot be longer than 11 characters.
+                               </small>
+                           </div>
+
+                       </div>
+
+                   </div>
+                   <div class="panel-footer">
+                       <input type="button" class="btn btn-link" ng-disabled="editForm.$invalid || isSaving"
+                              value="Add More" ng-click="AddMore()"/>
+                       <!--<span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.addMore">Add More</span>
+                   </input>-->
+                   </div>
+               </div>
+           </div>
+            <!--<div class="form-group">-->
+            <!--<label translate="stepApp.instAdmInfo.status" for="field_status">Status</label>-->
+            <!--<input type="number" class="form-control" name="status" id="field_status"-->
+            <!--ng-model="instAdmInfo.status"-->
+            <!--/>-->
+            <!--</div>-->
+
+            <!--<div class="form-group">-->
+            <!--<label translate="stepApp.instAdmInfo.institute" for="field_institute">institute</label>-->
+            <!--<select class="form-control" id="field_institute" name="institute" ng-model="instAdmInfo.institute" ng-options="institute as institute.name for institute in institutes | orderBy:'id' track by institute.id">-->
+            <!--<option value=""></option>-->
+            <!--</select>-->
+            <!--</div>-->
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" class="btn pull-left" data-dismiss="modal"
+                    onclick="window.history.back()">
+                <span class=" glyphicon glyphicon-arrow-left"></span>&nbsp;<span
+                translate="entity.action.back">Back</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="instAdmInfo.id == null" translate="entity.action.save">Save</span>
+                <span ng-show="instAdmInfo.id != null" translate="entity.action.update">Update</span>
+            </button>
+        </div>
+    </form>
+</div>

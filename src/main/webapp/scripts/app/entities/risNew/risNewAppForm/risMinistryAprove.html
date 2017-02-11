@@ -1,0 +1,288 @@
+
+<h2 translate="stepApp.risNewAppForm.Ministry">Ris Ministry View and Job Post</h2>
+<div class="col-sm-12 ris-ministry no_padding">
+    <tabset justified="true">
+    <tab heading="Requested Job List">
+        <div ng-if="jobCirculars.length != 0 " class="col-sm-12 table-responsive no_padding">
+            <table class="table table-striped padding-bt ">
+                <thead>
+                <tr>
+                    <th >Serial</th>
+                    <th >Circular Number</th>
+                    <th >Request Date</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="getjobRequest in getjobRequests">
+                    <td>{{$index + 1}}</td>
+                    <td>{{getjobRequest.CIRCULARNO}}</td>
+                    <td>{{getjobRequest.DATES | date}}</td>
+                    <td class="text-right no-print">
+
+                        <button type="submit"
+                                ng-click="viewJobsBycircular(getjobRequest.CIRCULARNO)"
+                                class="btn btn-success btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;
+                            <span> View</span>
+                        </button>
+                        <!--<button type="submit"
+                                ng-click="jobReject(getjobRequest.ID,getjobRequest.POSITION,getjobRequest.DEPARTMENT)"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;
+                            <span> Reject</span>
+                        </button>-->
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <div ng-if="jobCirculars.length == 0 " class="col-sm-12">
+            <h3>No job found</h3>
+        </div>
+    </tab>
+    <tab heading="Rejected Job List">
+        <div ng-if="rejectLists.length != 0" class="col-sm-12 table-responsive no_padding">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th >Serial</th>
+                    <th >Rejected Circulars </th>
+                    <th >Rejection Date </th>
+                    <th >Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="getjobRequest in rejectLists">
+                    <td>{{$index + 1}}</td>
+                    <td>{{getjobRequest.CIRCULARNO}}</td>
+                    <td>{{getjobRequest.DATES | date}}</td>
+                    <td class="text-right no-print">
+                        <button type="submit"
+                                ng-click="viewRejectJobsBycircular(getjobRequest.CIRCULARNO)"
+                                class="btn btn-success btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;
+                            <span> View</span>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <div ng-if="rejectLists.length == 0" class="col-sm-12">
+            <h3>No Rejects Job Found</h3>
+        </div>
+    </tab>
+    <tab heading="Approved Job List">
+        <div class="col-sm-12 table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th translate="stepApp.risNewAppForm.serial">serial</th>
+                    <th >Approved Circulars </th>
+                    <th >Approval Date</th>
+                    <th translate="entity.action.action"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="getByDesignation in approvedLists">
+                    <td>{{$index + 1}}</td>
+                    <td>{{getByDesignation.CIRCULARNO}}</td>
+                    <td>{{getByDesignation.DATES | date}}</td>
+                    <td class="text-right no-print">
+                        <button type="submit"
+                                ng-click="viewApprovedJobsBycircular(getByDesignation.CIRCULARNO)"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </tab>
+</tabset>
+</div>
+
+<div class="modal fade" id="jobReject">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="approveForm" ng-submit="confirmReject()">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                            ng-click="clear()">&times;</button>
+                    <h4 class="modal-title" >Confirm Reject operation</h4>
+                </div>
+                <div class="modal-body">
+                    <p >Are you sure you want to Reject this Application?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                        <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                    </button>
+                    <button type="submit" ng-disabled="approveForm.$invalid" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span >Reject</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="rejectJobApprove">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="approveForm">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                            ng-click="clear()">&times;</button>
+                    <h4 class="modal-title" >Confirm Approve operation</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th >Job Serial</th>
+                            <th >Circular Number</th>
+                            <th >Allocated</th>
+                            <th >Available</th>
+                            <th >Current Employee</th>
+                            <th >Department</th>
+                            <th >Position</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="jobBycircular in JobByCircular">
+                            <td>{{$index + 1}}</td>
+                            <td>{{jobBycircular.CIRCULARNO}}</td>
+                            <td>{{jobBycircular.ALLOCATED}}</td>
+                            <td>{{jobBycircular.AVAILABLE_POSTINGS}} </td>
+                            <td>{{jobBycircular.CURRENT_EMPLOYEE}} </td>
+                            <td>{{jobBycircular.DEPARTMENT}} </td>
+                            <td>{{jobBycircular.POSITION}} </td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                        <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                    </button>
+
+
+                    <button type="submit" ng-click="approveJobsBycircular()" ng-disabled="approveForm.$invalid" class="btn btn-success">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span >Approve</span>
+                    </button>
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="viewApprovedJobsBycircular">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="approveForm">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                            ng-click="clear()">&times;</button>
+                    <h4 class="modal-title" >Confirm Approve operation</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th >Job Serial</th>
+                            <th >Circular Number</th>
+                            <th >Allocated</th>
+                            <th >Available</th>
+                            <th >Current Employee</th>
+                            <th >Department</th>
+                            <th >Position</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="jobBycircular in JobByCircular">
+                            <td>{{$index + 1}}</td>
+                            <td>{{jobBycircular.CIRCULARNO}}</td>
+                            <td>{{jobBycircular.ALLOCATED}}</td>
+                            <td>{{jobBycircular.AVAILABLE_POSTINGS}} </td>
+                            <td>{{jobBycircular.CURRENT_EMPLOYEE}} </td>
+                            <td>{{jobBycircular.DEPARTMENT}} </td>
+                            <td>{{jobBycircular.POSITION}} </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                        <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.ok">Ok</span>
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="viewJobsBycircular">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="approveForm">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                            ng-click="clear()">&times;</button>
+                    <h4 class="modal-title" >Confirm Approve operation</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th >Job Serial</th>
+                            <th >Circular Number</th>
+                            <th >Allocated</th>
+                            <th >Available</th>
+                            <th >Current Employee</th>
+                            <th >Department</th>
+                            <th >Position</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="jobBycircular in JobByCircular">
+                            <td>{{$index + 1}}</td>
+                            <td>{{jobBycircular.CIRCULARNO}}</td>
+                            <td>{{jobBycircular.ALLOCATED}}</td>
+                            <td>{{jobBycircular.AVAILABLE_POSTINGS}} </td>
+                            <td>{{jobBycircular.CURRENT_EMPLOYEE}} </td>
+                            <td>{{jobBycircular.DEPARTMENT}} </td>
+                            <td>{{jobBycircular.POSITION}} </td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                        <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                    </button>
+                    <button type="submit" ng-click="rejectJobsBycircular()" ng-disabled="approveForm.$invalid" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span >Reject</span>
+                    </button>
+
+                    <button type="submit" ng-click="approveJobsBycircular()" ng-disabled="approveForm.$invalid" class="btn btn-success">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span >Approve</span>
+                    </button>
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

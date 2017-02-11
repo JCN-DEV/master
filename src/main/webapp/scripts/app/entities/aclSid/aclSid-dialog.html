@@ -1,0 +1,59 @@
+
+<form name="editForm" class="form form-horizontal" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header bg-primary">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myAclSidLabel" translate="stepApp.aclSid.home.createOrEditLabel">Create or edit a AclSid</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" for="id" translate="global.field.id">ID</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="id" name="id" ng-model="aclSid.id" readonly />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.aclSid.principal" for="field_principal">Principal</label>
+            <div class="col-sm-8">
+            <input type="checkbox" class="form-control" name="principal" id="field_principal"
+                    ng-model="aclSid.principal"
+                     />
+            <div ng-show="editForm.principal.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.principal.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.aclSid.sid" for="field_sid">Sid</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="sid" id="field_sid"
+                    ng-model="aclSid.sid"
+                    required />
+            <div ng-show="editForm.sid.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.sid.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <div class="form-group">
+            <div class="col-md-offset-4 col-md-8">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

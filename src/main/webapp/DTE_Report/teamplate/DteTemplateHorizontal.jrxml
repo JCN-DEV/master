@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="HorizontalTemplate" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="822" leftMargin="10" rightMargin="10" topMargin="5" bottomMargin="10" uuid="c7a2d5ba-760c-4250-94ea-05e8e16a8840">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="label" mode="Opaque" backcolor="#CCCCCC" fill="Solid" hAlign="Center" vAlign="Middle" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+	<style name="value" hAlign="Center" vAlign="Middle" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/dev/Desktop/Digital Library Query/"]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[select id, name from country]]>
+	</queryString>
+	<field name="ID" class="java.math.BigDecimal"/>
+	<field name="NAME" class="java.lang.String"/>
+	<variable name="subTotal" class="java.lang.Integer">
+		<variableExpression><![CDATA[$V{subTotal}+1]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="grandTotal" class="java.lang.Integer">
+		<variableExpression><![CDATA[$V{grandTotal}+1]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="serial" class="java.lang.Integer">
+		<variableExpression><![CDATA[$V{serial} +1]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="43" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="40" uuid="0299aa1e-d75b-4e81-bba5-d07cb3c4e868"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "dte_header-hori.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="23" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="60" splitType="Stretch">
+			<line>
+				<reportElement x="9" y="21" width="787" height="3" uuid="f6324b45-51f1-412c-9716-1a0c11bc79b6"/>
+			</line>
+			<textField>
+				<reportElement x="696" y="24" width="68" height="20" uuid="f6ce9fbe-aefa-4314-8690-81dc99664a6a"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of  "]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="276" y="35" width="70" height="10" uuid="c5ea6ebb-f77d-4c6b-b3e9-b8615af53b92"/>
+				<imageExpression><![CDATA["/home/dev/Desktop/leads_logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="348" y="29" width="177" height="20" uuid="5efb1a41-9224-4a41-886c-f2a7a98a35a4"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Powered by Leads Corporation Ltd]]></text>
+			</staticText>
+			<textField pattern="EEEEE, dd MMMMM yyyy h:mm a" isBlankWhenNull="true">
+				<reportElement x="84" y="29" width="159" height="20" uuid="ea8a9ffb-80ba-4c3e-bde2-eee1d1d87250"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="763" y="24" width="33" height="20" uuid="472c76d0-045a-4cdf-a25e-b8d45a3c1d7e"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="16" y="29" width="68" height="20" uuid="bf9087ed-cab9-4c4b-9c3e-55cd945a2956"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Printed Date:]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

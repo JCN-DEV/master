@@ -1,0 +1,98 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myAuditLogHistoryLabel" translate="stepApp.auditLogHistory.home.createOrEditLabel">Create or edit a AuditLogHistory</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="auditLogHistory.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.auditLogHistory.colName" for="field_colName">ColName</label>
+            <input type="text" class="form-control" name="colName" id="field_colName"
+                    ng-model="auditLogHistory.colName"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.auditLogHistory.valueBefore" for="field_valueBefore">ValueBefore</label>
+            <input type="text" class="form-control" name="valueBefore" id="field_valueBefore"
+                    ng-model="auditLogHistory.valueBefore"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.auditLogHistory.valueAfter" for="field_valueAfter">ValueAfter</label>
+            <input type="text" class="form-control" name="valueAfter" id="field_valueAfter"
+                    ng-model="auditLogHistory.valueAfter"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.auditLogHistory.status" for="field_status">Status</label>
+            <input type="checkbox" class="form-control" name="status" id="field_status"
+                    ng-model="auditLogHistory.status"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.auditLogHistory.createBy" for="field_createBy">CreateBy</label>
+            <input type="number" class="form-control" name="createBy" id="field_createBy"
+                    ng-model="auditLogHistory.createBy"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.auditLogHistory.createDate" for="field_createDate">CreateDate</label>
+            <input type="date" class="form-control" name="createDate" id="field_createDate"
+                    ng-model="auditLogHistory.createDate"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.auditLogHistory.updateBy" for="field_updateBy">UpdateBy</label>
+            <input type="number" class="form-control" name="updateBy" id="field_updateBy"
+                    ng-model="auditLogHistory.updateBy"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.auditLogHistory.updateDate" for="field_updateDate">UpdateDate</label>
+            <input type="date" class="form-control" name="updateDate" id="field_updateDate"
+                    ng-model="auditLogHistory.updateDate"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.auditLogHistory.remarks" for="field_remarks">Remarks</label>
+            <input type="text" class="form-control" name="remarks" id="field_remarks"
+                    ng-model="auditLogHistory.remarks"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.auditLogHistory.userId" for="field_userId">UserId</label>
+            <input type="text" class="form-control" name="userId" id="field_userId"
+                    ng-model="auditLogHistory.userId"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.auditLogHistory.entityName" for="field_entityName">EntityName</label>
+            <input type="text" class="form-control" name="entityName" id="field_entityName"
+                    ng-model="auditLogHistory.entityName"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.auditLogHistory.eventId" for="field_eventId">eventId</label>
+            <select class="form-control" id="field_eventId" name="eventId" ng-model="auditLogHistory.eventId" ng-options="AuditLog as AuditLog.id for AuditLog in auditlogs track by AuditLog.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

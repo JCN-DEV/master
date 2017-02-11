@@ -1,0 +1,86 @@
+<div class="col-md-12 common-table">
+         <h2 class="panel-title">{{cmsSyllabus.name}}</h2>
+    <div class="table-responsive ">
+        <table class="table table-striped">
+            <!--<thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>-->
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="stepApp.cmsSyllabus.version">Version</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{cmsSyllabus.version}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.cmsSyllabus.name">Name</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{cmsSyllabus.name}}</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <span translate="stepApp.cmsSyllabus.startDate">Start Date</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{cmsSyllabus.startDate}}</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <span translate="stepApp.cmsSyllabus.endDate">End Date</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{cmsSyllabus.endDate}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.cmsSyllabus.description">Description</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{cmsSyllabus.description}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.cmsSyllabus.status">Status</span>
+                </td>
+                <td>
+                    <span style="color: #005f00"  ng-show="cmsSyllabus.status == true" class="form-control-static"><span translate="entity.action.activate">Active</span></span>
+                    <span style="color: red"  ng-show="cmsSyllabus.status == false" class="form-control-static"><span translate="entity.action.activate">Deactive</span></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.cmsSyllabus.Curriculum">cmsCurriculum</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="cmsCurriculum.detail({id:cmsSyllabus.cmsCurriculum.id})">{{cmsSyllabus.cmsCurriculum.name}}</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div ng-show="cmsSyllabus.syllabus">
+        <object data="{{content}}" embed-src="{{content}}" type="application/pdf" style="width:100%; height:350px"/>
+    </div>
+
+    <div class="panel-footer">
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-default">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+    </div>
+</div>

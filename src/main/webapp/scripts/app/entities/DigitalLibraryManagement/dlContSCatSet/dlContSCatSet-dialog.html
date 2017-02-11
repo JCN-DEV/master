@@ -1,0 +1,153 @@
+<div class="col-sm-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()">
+        <h4 ng-show="dlContSCatSet.id == null" class="modal-title" id="myDlContSCatSetLabel" translate="stepApp.dlContSCatSet.home.createOrEditLabel">Create or edit a DlContSCatSet</h4>
+        <h4 ng-show="dlContSCatSet.id != null" class="modal-title" id="myDlContSCatSetLabel" translate="stepApp.dlContSCatSet.home.EditLabel">Create or edit a DlContSCatSet</h4>
+        <div class="modal-body col-sm-12 padding-tb">
+            <!--<div class="form-group col-sm-6">
+                <label for="id" translate="global.field.id">ID</label>
+                <input type="text" class="form-control" id="id" name="id"
+                        ng-model="dlContSCatSet.id" readonly />
+            </div>-->
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dlContSCatSet.dlContTypeSet" for="field_dlContTypeSet">dlContTypeSet</label>
+                <select class="form-control" id="field_dlContTypeSet"
+                        name="dlContTypeSet"
+                        ng-model="dlContSCatSet.dlContTypeSet"
+                        ng-change="updatedDlContCatSet(dlContSCatSet.dlContTypeSet)"
+                        ng-options="dlContTypeSet as dlContTypeSet.name for dlContTypeSet in dlconttypesets | filter:dlContTypeSet.pStatus='true'"
+                        required
+                    >
+<!--
+                    <option disabled selected value="">{{'global.home.select' |translate}}</option>
+-->
+                    <option  value="">{{dlContSCatSet.dlContTypeSet.name}}</option>
+                </select>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dlContSCatSet.dlContCatSet" for="field_dlContCatSet">dlContCatSet</label>
+                <select class="form-control" id="field_dlContCatSet"
+                        name="dlContCatSet"
+                        ng-model="dlContSCatSet.dlContCatSet"
+                        ng-options="dlContCatSet as dlContCatSet.name for dlContCatSet in dlcontcatsets  | filter:dlContCatSet.pStatus='true'"
+                        ng-disabled="!(dlContSCatSet.dlContTypeSet)"
+
+                        required
+                    >
+<!--
+                    <option disabled selected value="">{{'global.home.select' |translate}}</option>
+-->
+                    <option value="">{{dlContSCatSet.dlContCatSet.name}}</option>
+                </select>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dlContSCatSet.code" for="field_code">Code</label>
+                <input type="text" class="form-control" name="code"
+                       ng-model="dlContSCatSet.code" dlContCatSet
+                       ng-remote-validate="/api/dlContSCatSets/dlContSCatSetCodeUnique/"
+                       ng-remote-method="GET"
+                       required
+                />
+                <span class="message" ng-show="editForm.code.$pending">validating...</span>
+                <div ng-show="editForm.code.$invalid">
+                    <p style="color:red"
+                       ng-show="editForm.code.$error.ngRemoteValidate">
+                        This File Type is already exist
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dlContSCatSet.name" for="field_name">Name</label>
+                <input type="text" class="form-control" name="name"
+                       ng-model="dlContSCatSet.name"
+                       ng-remote-validate="/api/dlContSCatSets/dlContSCatSetNameUnique/"
+                       ng-remote-method="GET"
+                       required
+                       placeholder="{{'stepApp.dlContSCatSet.name' | translate}}"
+                />
+                <span class="message" ng-show="editForm.name.$pending">validating...</span>
+                <div ng-show="editForm.name.$invalid">
+                    <p style="color:red"
+                       ng-show="editForm.name.$error.ngRemoteValidate">
+                        This Sub-Category is already exist
+                    </p>
+                </div>
+            </div>
+
+            <!--  <div class="form-group col-sm-6">
+                  <label translate="stepApp.dlContSCatSet.code" for="field_code">Code</label>
+                  <input type="text" class="form-control" name="code" id="field_code"
+                          ng-model="dlContSCatSet.code"
+                           />
+              </div>
+              <div class="form-group col-sm-6">
+                  <label translate="stepApp.dlContSCatSet.name" for="field_name">Name</label>
+                  <input type="text" class="form-control" name="name" id="field_name"
+                          ng-model="dlContSCatSet.name"
+                           />
+              </div>-->
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dlContSCatSet.description" for="field_description">Description</label>
+            <textarea type="text" class="form-control" name="description" id="field_description"
+                      ng-model="dlContSCatSet.description"
+                      placeholder="{{'stepApp.dlContSCatSet.description' | translate}}"
+            ></textarea>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dlContSCatSet.pStatus" for="field_pStatus">PStatus</label>
+                <div id="field_pStatus">
+                    <label class="radio-inline btn btn-default"><input type="radio" name="pStatus" value="true"
+                                                                       data-ng-value="true" ng-checked="true"                                                       ng-model="dlContSCatSet.pStatus"><span
+                        translate="entity.action.activate">Active</span></label>
+                    <label class="radio-inline btn btn-default"><input type="radio" name="pStatus" value="false"
+                                                                       data-ng-value="false"
+                                                       ng-model="dlContSCatSet.pStatus"><span
+                        translate="entity.action.deactivate">Deactive</span></label>
+                </div>
+            </div>
+
+
+            <!-- <div class="form-group col-sm-6">
+                 <label translate="stepApp.dlContSCatSet.createdDate" for="field_createdDate">CreatedDate</label>
+                 <input type="date" class="form-control" name="createdDate" id="field_createdDate"
+                         ng-model="dlContSCatSet.createdDate"
+                          />
+             </div>
+             <div class="form-group col-sm-6">
+                 <label translate="stepApp.dlContSCatSet.updatedDate" for="field_updatedDate">UpdatedDate</label>
+                 <input type="date" class="form-control" name="updatedDate" id="field_updatedDate"
+                         ng-model="dlContSCatSet.updatedDate"
+                          />
+             </div>
+             <div class="form-group col-sm-6">
+                 <label translate="stepApp.dlContSCatSet.createdBy" for="field_createdBy">CreatedBy</label>
+                 <input type="number" class="form-control" name="createdBy" id="field_createdBy"
+                         ng-model="dlContSCatSet.createdBy"
+                          />
+             </div>
+             <div class="form-group col-sm-6">
+                 <label translate="stepApp.dlContSCatSet.updatedBy" for="field_updatedBy">UpdatedBy</label>
+                 <input type="number" class="form-control" name="updatedBy" id="field_updatedBy"
+                         ng-model="dlContSCatSet.updatedBy"
+                          />
+             </div>
+             <div class="form-group col-sm-6">
+                 <label translate="stepApp.dlContSCatSet.status" for="field_status">Status</label>
+                 <input type="number" class="form-control" name="status" id="field_status"
+                         ng-model="dlContSCatSet.status"
+                          />
+             </div>-->
+
+
+        </div>
+        <div class="modal-footer col-sm-12">
+            <button type="button" class="btn btn-default" ui-sref="libraryInfo.dlContSCatSet">
+                <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span
+                translate="entity.action.back">Back</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span ng-hide="dlContSCatSet.id" translate="entity.action.save"></span>
+                <span ng-show = "dlContSCatSet.id" translate="entity.action.update"></span>
+            </button>
+        </div>
+    </form>
+</div>

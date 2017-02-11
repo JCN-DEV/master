@@ -1,0 +1,61 @@
+<!--<div class="row">
+<div class="col-md-3">
+    <ng-include src="'scripts/app/account/mpo/mpo-left-menu.html'"></ng-include>
+</div>
+
+<div class="col-md-9" >-->
+    <div class="cmscurriculam">
+        <div class="panel-heading cmsheading">
+            <h3 class="panel-title" ng-show="payScalePendingLists.pending == 'pending'">
+                MPO PayScale Pending List
+            </h3>
+            <h3 class="panel-title" ng-show="payScalePendingLists.pending == 'approved'">
+                MPO PayScale Approved List
+            </h3>
+        </div>
+        </div>
+
+    <div class="table-responsive cmsheadrow">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Code
+                    </th>
+                    <th>
+                        Institute Name
+                    </th>
+                    <th>
+                        Upazilla
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                 <tr ng-repeat="mpoApplication in payScalePendingLists | orderBy:'$index':true">
+                        <td>{{mpoApplication.CODE}}</td>
+                        <td>{{mpoApplication.INST_NAME}}</td>
+                        <td>{{mpoApplication.UPZILA_NAME}}</td>
+                        <td>{{mpoApplication.pending}}</td>
+                        <td class="text-right no-print">
+                            <button class="btn btn-default" ui-sref="mpo.details({id:mpoApplication.id})">
+                                     View
+                            </button>
+                            <button ng-show="!mpoApplication.instEmployee.payScale" class="btn btn-success" ui-sref="mpo.payScaleAssign({id:mpoApplication.id})">
+                                PayScale Assign
+                            </button>
+                            <button ng-show="mpoApplication.instEmployee.payScale" class="btn btn-success" ui-sref="mpo.payScaleAssign({id:mpoApplication.id})">
+                                PayScale Re Assign
+                            </button>
+                        </td>
+                 </tr>
+            </tbody>
+        </table>
+    </div>
+<!--</div>
+</div>-->

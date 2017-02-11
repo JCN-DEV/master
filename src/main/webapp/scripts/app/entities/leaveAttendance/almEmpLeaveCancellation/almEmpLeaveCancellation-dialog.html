@@ -1,0 +1,190 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="almEmpLeaveCancellation.id == null" class="modal-title" id="myAlmEmpLeaveCancellationLabel"
+            translate="stepApp.almEmpLeaveCancellation.home.createOrEditLabel">Create or edit a
+            AlmEmpLeaveCancellation</h4>
+        <h4 ng-show="almEmpLeaveCancellation.id != null" class="modal-title" id="myAlmEmpLeaveCancellationLabel"
+            translate="stepApp.almEmpLeaveCancellation.home.EditLabel">Create or edit a AlmEmpLeaveCancellation</h4>
+        <div class="modal-body col-md-12 padding-tb">
+            <jh-alert-error></jh-alert-error>
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.almEmpLeaveCancellation.employeeName" for="field_fullName">Employee
+                            Name</label>
+                        <span class="form-control">{{hrEmployeeInfo.fullName}}</span>
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.almEmpLeaveCancellation.departmentName" for="field_departmentName">Department</label>
+                        <span class="form-control">{{departmentName}}</span>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="form-group ">
+                        <label translate="stepApp.almEmpLeaveCancellation.designationName" for="field_designationName">Designation</label>
+                        <span class="form-control">{{designationName}}</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.almEmpLeaveCancellation.workAreaName" for="field_workAreaName">workArea</label>
+                        <span class="form-control">{{workAreaName}}</span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.almEmpLeaveCancellation.almEmpLeaveApplication"
+                               for="field_almEmpLeaveApplication">almEmpLeaveApplication</label>
+                        <select class="form-control" id="field_almEmpLeaveApplication"
+                                ng-change="onChaneEmployeeLeaveApplication()" name="almEmpLeaveApplication"
+                                ng-model="almEmpLeaveCancellation.almEmpLeaveApplication"
+                                ng-options="AlmEmpLeaveApplication as AlmEmpLeaveApplication.applicationDate for AlmEmpLeaveApplication in almempleaveapplications track by AlmEmpLeaveApplication.id">
+                            <option value="">Select Leave Application</option>
+                        </select>
+                        <div ng-show="!isExitsData">
+                            <p style="color: red">{{exitsDataMessage}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.almEmpLeaveCancellation.almLeaveType" for="field_almLeaveType">almLeaveType</label>
+                        <span class="form-control">{{almLeaveType.leaveTypeName}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.almEmpLeaveCancellation.leaveFromDate" for="field_leaveFromDate">LeaveFromDate</label>
+                        <span class="form-control">{{leaveFromDate | date:'mediumDate'}}</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group " ng-if="isHalfDayLeave">
+                        <label translate="stepApp.almEmpLeaveCancellation.isHalfDayLeave" for="field_isHalfDayLeave">IsHalfDayLeave</label>
+                        <input type="checkbox" ng-hide="true" class="form-control" name="isHalfDayLeave"
+                               id="field_isHalfDayLeave"
+                               ng-model="almEmpLeaveCancellation.isHalfDayLeave"
+                        />
+                        <span class="form-control">{{isHalfDayLeave}}</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group  " ng-if="!isHalfDayLeave">
+                        <label translate="stepApp.almEmpLeaveCancellation.leaveToDate" for="field_leaveToDate">LeaveToDate</label>
+
+                        <span class="form-control">{{leaveToDate | date:'mediumDate'}}</span>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="row">
+
+
+                <div class="col-md-6">
+                    <div class="form-group " ng-if="isHalfDayLeave">
+                        <label translate="stepApp.almEmpLeaveCancellation.halfDayLeaveInfo"
+                               for="field_halfDayLeaveInfo">HalfDayLeaveInfo</label>
+                        <span class="form-control">{{halfDayLeaveInfo}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.almEmpLeaveCancellation.leaveDays"
+                               for="field_leaveDays">LeaveDays</label>
+                        <span class="form-control">{{leaveDays}}</span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group ">
+                        <label translate="stepApp.almEmpLeaveCancellation.contactNo"
+                               for="field_contactNo">ContactNo</label>
+                        <span class="form-control">{{contactNo}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.almEmpLeaveCancellation.requestType"
+                           for="field_requestType">RequestType</label>
+                    <input type="text" class="form-control" name="requestType" id="field_requestType"
+                           ng-model="almEmpLeaveCancellation.requestType"
+                           required/>
+                    <div ng-show="editForm.requestType.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.requestType.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.almEmpLeaveCancellation.causeOfCancellation"
+                           for="field_causeOfCancellation">CauseOfCancellation</label>
+                    <input type="text" class="form-control" name="causeOfCancellation" id="field_causeOfCancellation"
+                           ng-model="almEmpLeaveCancellation.causeOfCancellation"
+                           required/>
+                    <div ng-show="editForm.causeOfCancellation.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.causeOfCancellation.$error.required"
+                           translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.almEmpLeaveCancellation.activeStatus" for="field_activeStatus">ActiveStatus</label>
+            <span class="form-control">
+                    <input type="radio" data-ng-model="almEmpLeaveCancellation.activeStatus" name="activeStatus"
+                           data-ng-value="true">&nbsp;Active&nbsp;|&nbsp;
+                    <input type="radio" data-ng-model="almEmpLeaveCancellation.activeStatus" name="activeStatus"
+                           data-ng-value="false">&nbsp;Inactive
+                </span>
+                    <div ng-show="editForm.activeStatus.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.history.back()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted || !isExitsData"
+                    class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="almEmpLeaveCancellation.id == null" translate="entity.action.save">Save</span>
+                <span ng-show="almEmpLeaveCancellation.id != null" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

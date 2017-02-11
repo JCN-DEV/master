@@ -1,0 +1,46 @@
+<form name="approveForm" ng-submit="confirmApprove()">
+    <div class="modal-header bg-primary">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title">MPO Code change form</h4>
+    </div>
+    <div class="modal-body">
+
+        <!--<div class="form-group col-md-12" has-any-authority="ROLE_ADMIN">
+            <label for="mpoCode">MPO Code</label>
+            <input class="form-control" name="mpoCode" id="mpoCode" type="text"  placeholder="Provide MPO Code"
+                  ng-model="institute.mpoCode" required>
+            <div ng-show="approveForm.mpoCode.$invalid">
+                <p class="help-block"
+                   ng-show="approveForm.mpoCode.$error.required">
+                    MPO Code is required.
+                </p>
+
+            </div>
+        </div>-->
+
+        <div class="form-group col-md-12"  has-any-authority="ROLE_ADMIN">
+            <label translate="stepApp.instGenInfo.dateOfMpo" for="field_dateOfMpo" class="req-start">Date of MPO</label>
+            <input type="text"  class="form-control"  name="dateOfMpo" id="field_dateOfMpo"
+                   ng-model="iisCourseInfo.dateMpo"  placeholder="Date of MPO"
+                   datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.dateOfMpo"
+                   datepicker-options="calendar.dateOptions" close-text="Close" ng-click="calendar.open($event, 'dateOfMpo')"
+                   ng-blur="deadlineValidation1()"  required/>
+            <p translate="stepApp.instGenInfo.errMsg1" ng-show="dateError1" style="font-size: 0.9em; color:#ff2432;">Need a valid date !</p>
+
+        </div>
+
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="approveForm.$invalid" class="btn btn-success">
+            <span class="glyphicon glyphicon-ok"></span>&nbsp;
+            <span translate="entity.action.save">Save</span>
+
+        </button>
+    </div>
+</form>
+

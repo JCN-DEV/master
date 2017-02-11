@@ -1,0 +1,229 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="hrEmpActingDutyInfo.id == null" class="modal-title" id="myHrEmpActingDutyInfoLabel"
+            translate="stepApp.hrEmpActingDutyInfo.home.createOrEditLabel">Create or edit a HrEmpActingDutyInfo</h4>
+        <h4 ng-show="hrEmpActingDutyInfo.id != null" class="modal-title" id="myHrEmpActingDutyInfoLabel2"
+            translate="stepApp.hrEmpActingDutyInfo.home.EditLabel">Create or edit a HrEmpActingDutyInfo</h4>
+        <div class="modal-body col-md-12 padding-tb">
+            <jh-alert-error></jh-alert-error>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEmpActingDutyInfo.employeeInfo"
+                           for="field_employeeInfo">employeeInfo</label>
+                    <div class="input-margin">
+                        <select class="form-control" id="field_employeeInfo" name="employeeInfo"
+                                ng-model="hrEmpActingDutyInfo.employeeInfo"
+                                ng-options="HrEmployeeInfo as HrEmployeeInfo.fullName for HrEmployeeInfo in hremployeeinfos track by HrEmployeeInfo.id">
+                            <option value=""></option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEmpActingDutyInfo.toInstitution"
+                           for="field_toInstitution">ToInstitution</label>
+                    <div class="input-margin">
+                        <input type="text" class="form-control" name="toInstitution" id="field_toInstitution"
+                               ng-model="hrEmpActingDutyInfo.toInstitution" required/>
+                        <div ng-show="editForm.toInstitution.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.toInstitution.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEmpActingDutyInfo.designation"
+                           for="field_designation">Designation</label>
+                    <div class="input-margin">
+                        <input type="text" class="form-control" name="designation" id="field_designation"
+                               ng-model="hrEmpActingDutyInfo.designation" required/>
+                        <div ng-show="editForm.designation.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.designation.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEmpActingDutyInfo.toDepartment"
+                           for="field_toDepartment">ToDepartment</label>
+                    <div class="input-margin">
+                        <input type="text" class="form-control" name="toDepartment" id="field_toDepartment"
+                               ng-model="hrEmpActingDutyInfo.toDepartment"/>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEmpActingDutyInfo.fromDate" for="field_fromDate">FromDate</label>
+                    <div class="input-margin">
+                        <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.fromDate"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               ng-click="calendar.open($event, 'fromDate')" class="form-control" name="fromDate"
+                               id="field_fromDate"
+                               ng-model="hrEmpActingDutyInfo.fromDate"
+                               required/>
+                        <div ng-show="editForm.fromDate.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.fromDate.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEmpActingDutyInfo.toDate" for="field_toDate">ToDate</label>
+                    <div class="input-margin">
+                        <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.toDate"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               ng-click="calendar.open($event, 'toDate')" class="form-control" name="toDate"
+                               id="field_toDate"
+                               ng-model="hrEmpActingDutyInfo.toDate"
+                        />
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEmpActingDutyInfo.officeOrderNumber"
+                           for="field_officeOrderNumber">OfficeOrderNumber</label>
+                    <div class="input-margin">
+                        <input type="text" class="form-control" name="officeOrderNumber" id="field_officeOrderNumber"
+                               ng-model="hrEmpActingDutyInfo.officeOrderNumber"/>
+                    </div>
+
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEmpActingDutyInfo.officeOrderDate"
+                           for="field_officeOrderDate">OfficeOrderDate</label>
+                    <div class="input-margin">
+                        <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.officeOrderDate"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               ng-click="calendar.open($event, 'officeOrderDate')" class="form-control"
+                               name="officeOrderDate" id="field_officeOrderDate"
+                               ng-model="hrEmpActingDutyInfo.officeOrderDate"/>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEmpActingDutyInfo.workOnActingDuty"
+                           for="field_workOnActingDuty">WorkOnActingDuty</label>
+                    <div class="input-margin">
+                    <textarea class="form-control" name="workOnActingDuty" id="field_workOnActingDuty"
+                              ng-model="hrEmpActingDutyInfo.workOnActingDuty"></textarea>
+                    </div>
+
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEmpActingDutyInfo.comments" for="field_comments">Comments</label>
+                    <div class="input-margin">
+                    <textarea class="form-control" name="comments" id="field_comments"
+                              ng-model="hrEmpActingDutyInfo.comments"></textarea>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEmpActingDutyInfo.goDate" for="field_goDate">GoDate</label>
+                    <div class="input-margin">
+                        <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.goDate"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               ng-click="calendar.open($event, 'goDate')" class="form-control" name="goDate"
+                               id="field_goDate"
+                               ng-model="hrEmpActingDutyInfo.goDate"/>
+                    </div>
+
+                </div>
+                <div class="col-sm-6" ngf-drop ngf-change="setGoDoc($file, hrEmpActingDutyInfo)">
+                    <label class="control-label" translate="stepApp.hrEmpActingDutyInfo.goDoc"
+                           for="field_goDoc">GoDoc</label>
+                    <div class="input-margin">
+                        <div class="help-block clearfix">
+                            <span class="pull-left">{{hrEmpActingDutyInfo.goDocContentType}} {{byteSize(hrEmpActingDutyInfo.goDoc)}}</span>
+                            <button ng-click="hrEmpActingDutyInfo.goDoc=null;hrEmpActingDutyInfo.goDocContentType=null;"
+                                    ng-if="hrEmpActingDutyInfo.goDoc"
+                                    class="btn btn-default btn-xs pull-right">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </div>
+                        <button type="file" ngf-select class="btn btn-default btn-block"
+                                ngf-change="setGoDoc($file, hrEmpActingDutyInfo)" translate="entity.action.addblob">
+                            Add blob
+                        </button>
+
+                        <input type="hidden" class="form-control" name="goDoc" id="field_goDoc"
+                               ng-model="hrEmpActingDutyInfo.goDoc"/>
+                        <input type="hidden" class="form-control" name="goDocContentType" id="field_goDocContentType"
+                               ng-model="hrEmpActingDutyInfo.goDocContentType"/>
+                        <a ng-if="hrEmpActingDutyInfo.goDocContentType" class="btn btn-link"
+                           ng-click="previewImage(hrEmpActingDutyInfo)">View</a>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label class="control-label"
+                           translate="stepApp.hrEmpActingDutyInfo.activeStatus">ActiveStatus</label>
+                    <div class="input-margin">
+                    <span>
+                        <input type="radio" data-ng-model="hrEmpActingDutyInfo.activeStatus" name="activeStatus"
+                               data-ng-value="true">&nbsp;<span translate="stepApp.hrEmpActingDutyInfo.active"></span>&nbsp;|&nbsp;
+                        <input type="radio" data-ng-model="hrEmpActingDutyInfo.activeStatus" name="activeStatus"
+                               data-ng-value="false">&nbsp;<span
+                        translate="stepApp.hrEmpActingDutyInfo.inactive"></span>
+                    </span>
+                        <div ng-show="editForm.activeStatus.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEmpActingDutyInfo.goNumber"
+                           for="field_goNumber">goNumber</label>
+                    <div class="input-margin">
+                        <input type="text" class="form-control" name="goNumber" id="field_goNumber"
+                               ng-model="hrEmpActingDutyInfo.goNumber" required/>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" class="btn " data-dismiss="modal"
+                    onclick="window.history.back()">
+                <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;<span
+                translate="entity.action.back">Back</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="hrEmpActingDutyInfo.id == null" translate="entity.action.save">Save</span>
+                <span ng-show="hrEmpActingDutyInfo.id != null" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,91 @@
+
+<div>
+    <h2><span translate="stepApp.prlAllowDeductInfo.detail.title">PrlAllowDeductInfo</span> {{prlAllowDeductInfo.name}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="stepApp.prlAllowDeductInfo.name">Name</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{prlAllowDeductInfo.name}}</span>
+                </td>
+            </tr>
+            <tr ng-hide="(prlAllowDeductInfo.allowDeducType=='OnetimeAllowance')">
+                <td>
+                    <span translate="stepApp.prlAllowDeductInfo.gradeInfo">gradeInfo</span>
+                </td>
+                <td>
+                    <span ng-repeat="gradeInfo in prlAllowDeductInfo.gradeInfos">
+                        <a class="form-control-static" ui-sref="hrGradeSetup.detail({id: {{gradeInfo.id}}})">{{gradeInfo.gradeCode}}</a>{{$last ? '' : ', '}}
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.prlAllowDeductInfo.allowDeducType">AllowDeducType</span>
+                </td>
+                <td>
+                    <span class="form-control-static" translate="{{'stepApp.AllowanceDeductionType.' + prlAllowDeductInfo.allowDeducType}}">{{prlAllowDeductInfo.allowDeducType}}</span>
+                </td>
+            </tr>
+            <tr ng-hide="(prlAllowDeductInfo.allowDeducType=='OnetimeAllowance')">
+                <td>
+                    <span translate="stepApp.prlAllowDeductInfo.gradeInfo">gradeInfo</span>
+                </td>
+                <td>
+                    <span ng-repeat="gradeInfo in prlAllowDeductInfo.gradeInfos">
+                        <a class="form-control-static" ui-sref="hrGradeSetup.detail({id: {{gradeInfo.id}}})">{{gradeInfo.gradeCode}}</a>{{$last ? '' : ', '}}
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.prlAllowDeductInfo.description">Description</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{prlAllowDeductInfo.description}}</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <span translate="stepApp.prlAllowDeductInfo.activeStatus">ActiveStatus</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{prlAllowDeductInfo.activeStatus ? 'Active' : 'Inactive'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.prlAllowDeductInfo.createDate">CreateDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{prlAllowDeductInfo.createDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.prlAllowDeductInfo.updateDate">UpdateDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{prlAllowDeductInfo.updateDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

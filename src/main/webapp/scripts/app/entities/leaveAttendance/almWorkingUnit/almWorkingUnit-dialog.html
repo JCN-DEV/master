@@ -1,0 +1,850 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="almWorkingUnit.id == null" class="modal-title" id="myAlmWorkingUnitLabel"
+            translate="stepApp.almWorkingUnit.home.createOrEditLabel">Create or edit a AlmWorkingUnit</h4>
+        <h4 ng-show="almWorkingUnit.id != null" class="modal-title" id="myAlmWorkingUnitLabel"
+            translate="stepApp.almWorkingUnit.home.EditLabel">Create or edit a AlmWorkingUnit</h4>
+        <div class="modal-body">
+            <div class="row">
+                <div class="form-group col-sm-3">
+                    <label translate="stepApp.almWorkingUnit.almShiftSetup"
+                           for="field_almShiftSetup">almShiftSetup</label>
+                    <select tooltip="{{'stepApp.almWorkingUnit.almShiftSetup' | translate}}"
+                            class="form-control" id="field_almShiftSetup" name="almShiftSetup"
+                            ng-model="almWorkingUnit.almShiftSetup"
+                            ng-options="AlmShiftSetup as AlmShiftSetup.shiftName for AlmShiftSetup in almshiftsetups track by AlmShiftSetup.id"
+                            required>
+                        <option value="" translate="stepApp.almWorkingUnit.almShiftSetup">Select Shift</option>
+                    </select>
+                </div>
+                <!--<div class="form-group col-sm-9">
+                    <label translate="stepApp.almWorkingUnit.dayName" for="field_dayName">DayName</label>
+                <span class="form-control">
+                    <input tooltip="{{'stepApp.almWorkingUnit.dayName' | translate}}" type="radio" data-ng-model="almWorkingUnit.dayName" ng-change="duplicateCheckByDayName()"
+                           name="dayName" value="Sunday" required>&nbsp;  <span
+                    translate="global.home.sunday">Sunday</span>&nbsp;|&nbsp;
+                    <input tooltip="{{'stepApp.almWorkingUnit.dayName' | translate}}" type="radio" data-ng-model="almWorkingUnit.dayName" ng-change="duplicateCheckByDayName()"
+                           name="dayName" value="Monday">&nbsp;  <span translate="global.home.monday">Monday</span> &nbsp;|&nbsp;
+                    <input tooltip="{{'stepApp.almWorkingUnit.dayName' | translate}}" type="radio" data-ng-model="almWorkingUnit.dayName" ng-change="duplicateCheckByDayName()"
+                           name="dayName" value="Tuesday">&nbsp;  <span translate="global.home.tuesday">Tuesday</span>&nbsp;|&nbsp;
+                    <input tooltip="{{'stepApp.almWorkingUnit.dayName' | translate}}" type="radio" data-ng-model="almWorkingUnit.dayName" ng-change="duplicateCheckByDayName()"
+                           name="dayName" value="Wednesday">&nbsp;  <span
+                    translate="global.home.wednesday">Wednesday</span>&nbsp;|&nbsp;
+                    <input tooltip="{{'stepApp.almWorkingUnit.dayName' | translate}}" type="radio" data-ng-model="almWorkingUnit.dayName" ng-change="duplicateCheckByDayName()"
+                           name="dayName" value="Thursday">&nbsp;  <span
+                    translate="global.home.thursday">Thursday</span>&nbsp;|&nbsp;
+                    <input tooltip="{{'stepApp.almWorkingUnit.dayName' | translate}}" type="radio" data-ng-model="almWorkingUnit.dayName" ng-change="duplicateCheckByDayName()"
+                           name="dayName" value="Friday">&nbsp;  <span translate="global.home.friday">Friday</span>&nbsp;|&nbsp;
+                    <input tooltip="{{'stepApp.almWorkingUnit.dayName' | translate}}" type="radio" data-ng-model="almWorkingUnit.dayName" ng-change="duplicateCheckByDayName()"
+                           name="dayName" value="Saturday">&nbsp; <span translate="global.home.saturday">Saturday</span>&nbsp;
+                </span>
+                    <div ng-show="!isExitsData">
+                        <p style="color: red">Day is already exists with this Shift</p>
+                    </div>
+                    <div ng-show="editForm.dayName.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.dayName.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>-->
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-1">
+                    <label translate="stepApp.almWorkingUnit.sunday" for="field_sunday">Sunday</label>
+                    <input type="checkbox" class="form-control" name="sunday" id="field_sunday"
+                           ng-model="almWorkingUnit.sunday" ng-change = "onCheckedSunday()"
+                            />
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.sunStartTimeHour" for="field_sunStartTimeHour">SunStartTime</label>
+
+                    <select class="form-control" name="sunStartTimeHour" id="field_sunStartTimeHour"
+                            tooltip="{{'stepApp.almWorkingUnit.sunStartTimeHour' | translate}}"
+                            ng-options="hourOption for hourOption in hourData.hourOptions"
+                            ng-model="almWorkingUnit.sunStartTimeHour">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.sunStartTimeHour"></option>
+                    </select>
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.sunStartTimeMin" for="field_sunStartTimeMin">sunStartTimeMin</label>
+
+                    <select class="form-control" name="sunStartTimeMin" id="field_sunStartTimeMin"
+                            tooltip="{{'stepApp.almWorkingUnit.sunStartTimeMin' | translate}}"
+                            ng-options="minOption for minOption in minData.minOptions"
+                            ng-model="almWorkingUnit.sunStartTimeMin">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.sunStartTimeMin"></option>
+                    </select>
+
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.sunDelayTimeHour" for="field_sunDelayTimeHour">SunDelayTime</label>
+
+                    <select class="form-control" name="sunDelayTimeHour" id="field_sunDelayTimeHour"
+                            tooltip="{{'stepApp.almWorkingUnit.sunDelayTimeHour' | translate}}"
+                            ng-options="hourOption for hourOption in hourData.hourOptions"
+                            ng-model="almWorkingUnit.sunDelayTimeHour">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.sunDelayTimeHour"></option>
+                    </select>
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.sunDelayTimeMin" for="field_sunDelayTimeMin">sunDelayTimeMin</label>
+
+                    <select class="form-control" name="sunDelayTimeMin" id="field_sunDelayTimeMin"
+                            tooltip="{{'stepApp.almWorkingUnit.sunDelayTimeMin' | translate}}"
+                            ng-options="minOption for minOption in minData.minOptions"
+                            ng-model="almWorkingUnit.sunDelayTimeMin">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.sunDelayTimeMin"></option>
+                    </select>
+
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.sunEndTimeHour" for="field_sunEndTimeHour">sunEndTimeHour</label>
+
+                    <select class="form-control" name="sunEndTimeHour" id="field_sunEndTimeHour"
+                            tooltip="{{'stepApp.almWorkingUnit.sunEndTimeHour' | translate}}"
+                            ng-options="hourOption for hourOption in hourData.hourOptions"
+                            ng-model="almWorkingUnit.sunEndTimeHour">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.sunEndTimeHour"></option>
+                    </select>
+
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.sunEndTimeMin" for="field_sunEndTimeMin">sunEndTimeMin</label>
+
+                    <select class="form-control" name="sunEndTimeMin" id="field_sunEndTimeMin"
+                            tooltip="{{'stepApp.almWorkingUnit.sunEndTimeMin' | translate}}"
+                            ng-options="minOption for minOption in minData.minOptions"
+                            ng-model="almWorkingUnit.sunEndTimeMin">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.sunEndTimeMin"></option>
+                    </select>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-1">
+                    <label translate="stepApp.almWorkingUnit.monday" for="field_monday">Monday</label>
+                    <input type="checkbox" class="form-control" name="monday" id="field_monday"
+                           ng-model="almWorkingUnit.monday" ng-change = "onCheckedMonday()"
+                            />
+
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.monStartTimeHour" for="field_monStartTimeHour">MonStartTimeHour</label>
+
+                    <select class="form-control" name="monStartTimeHour" id="field_monStartTimeHour"
+                            tooltip="{{'stepApp.almWorkingUnit.monStartTimeHour' | translate}}"
+                            ng-options="hourOption for hourOption in hourData.hourOptions"
+                            ng-model="almWorkingUnit.monStartTimeHour">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.monStartTimeHour"></option>
+                    </select>
+
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.monStartTimeMin" for="field_monStartTimeMin">monStartTimeMin</label>
+
+                    <select class="form-control" name="monStartTimeMin" id="field_monStartTimeMin"
+                            tooltip="{{'stepApp.almWorkingUnit.monStartTimeMin' | translate}}"
+                            ng-options="minOption for minOption in minData.minOptions"
+                            ng-model="almWorkingUnit.monStartTimeMin">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.monStartTimeMin"></option>
+                    </select>
+
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.monDelayTimeHour" for="field_monDelayTimeHour">MonDelayTimeHour</label>
+
+                    <select class="form-control" name="monDelayTimeHour" id="field_monDelayTimeHour"
+                            tooltip="{{'stepApp.almWorkingUnit.monDelayTimeHour' | translate}}"
+                            ng-options="hourOption for hourOption in hourData.hourOptions"
+                            ng-model="almWorkingUnit.monDelayTimeHour">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.monDelayTimeHour"></option>
+                    </select>
+
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.monDelayTimeMin" for="field_monDelayTimeMin">monDelayTimeMin</label>
+
+                    <select class="form-control" name="monDelayTimeMin" id="field_monDelayTimeMin"
+                            tooltip="{{'stepApp.almWorkingUnit.monDelayTimeMin' | translate}}"
+                            ng-options="minOption for minOption in minData.minOptions"
+                            ng-model="almWorkingUnit.monDelayTimeMin">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.monDelayTimeMin"></option>
+                    </select>
+
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.monEndTimeHour" for="field_monEndTimeHour">monEndTimeHour</label>
+
+                    <select class="form-control" name="monEndTimeHour" id="field_monEndTimeHour"
+                            tooltip="{{'stepApp.almWorkingUnit.monEndTimeHour' | translate}}"
+                            ng-options="hourOption for hourOption in hourData.hourOptions"
+                            ng-model="almWorkingUnit.monEndTimeHour">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.monEndTimeHour"></option>
+                    </select>
+
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.monEndTimeMin" for="field_monEndTimeMin">monEndTimeMin</label>
+
+                    <select class="form-control" name="monEndTimeMin" id="field_monEndTimeMin"
+                            tooltip="{{'stepApp.almWorkingUnit.monEndTimeMin' | translate}}"
+                            ng-options="minOption for minOption in minData.minOptions"
+                            ng-model="almWorkingUnit.monEndTimeMin">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.monEndTimeMin"></option>
+                    </select>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-1">
+                    <label translate="stepApp.almWorkingUnit.tuesday" for="field_tuesday">Tuesday</label>
+                    <input type="checkbox" class="form-control" name="tuesday" id="field_tuesday"
+                           ng-model="almWorkingUnit.tuesday" ng-change = "onCheckedTuesday()"
+                            />
+
+
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.tueStartTimeHour" for="field_tueStartTimeHour">tueStartTimeHour</label>
+
+                    <select class="form-control" name="tueStartTimeHour" id="field_tueStartTimeHour"
+                            tooltip="{{'stepApp.almWorkingUnit.tueStartTimeHour' | translate}}"
+                            ng-options="hourOption for hourOption in hourData.hourOptions"
+                            ng-model="almWorkingUnit.tueStartTimeHour">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.tueStartTimeHour"></option>
+                    </select>
+
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.tueStartTimeMin" for="field_tueStartTimeMin">tueStartTimeMin</label>
+
+                    <select class="form-control" name="tueStartTimeMin" id="field_tueStartTimeMin"
+                            tooltip="{{'stepApp.almWorkingUnit.tueStartTimeMin' | translate}}"
+                            ng-options="minOption for minOption in minData.minOptions"
+                            ng-model="almWorkingUnit.tueStartTimeMin">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.tueStartTimeMin"></option>
+                    </select>
+
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.tueDelayTimeHour" for="field_tueDelayTimeHour">tueDelayTimeHour</label>
+
+                    <select class="form-control" name="tueDelayTimeHour" id="field_tueDelayTimeHour"
+                            tooltip="{{'stepApp.almWorkingUnit.tueDelayTimeHour' | translate}}"
+                            ng-options="hourOption for hourOption in hourData.hourOptions"
+                            ng-model="almWorkingUnit.tueDelayTimeHour">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.tueDelayTimeHour"></option>
+                    </select>
+
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.tueDelayTimeMin" for="field_tueDelayTimeMin">tueDelayTimeMin</label>
+
+                    <select class="form-control" name="tueDelayTimeMin" id="field_tueDelayTimeMin"
+                            tooltip="{{'stepApp.almWorkingUnit.tueDelayTimeMin' | translate}}"
+                            ng-options="minOption for minOption in minData.minOptions"
+                            ng-model="almWorkingUnit.tueDelayTimeMin">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.tueDelayTimeMin"></option>
+                    </select>
+
+                </div>
+
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.tueEndTimeHour" for="field_tueEndTimeHour">tueEndTimeHour</label>
+
+                    <select class="form-control" name="tueEndTimeHour" id="field_tueEndTimeHour"
+                            tooltip="{{'stepApp.almWorkingUnit.tueEndTimeHour' | translate}}"
+                            ng-options="hourOption for hourOption in hourData.hourOptions"
+                            ng-model="almWorkingUnit.tueEndTimeHour">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.tueEndTimeHour"></option>
+                    </select>
+
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.tueEndTimeMin" for="field_tueEndTimeMin">tueEndTimeMin</label>
+
+                    <select class="form-control" name="tueEndTimeMin" id="field_tueEndTimeMin"
+                            tooltip="{{'stepApp.almWorkingUnit.tueEndTimeMin' | translate}}"
+                            ng-options="minOption for minOption in minData.minOptions"
+                            ng-model="almWorkingUnit.tueEndTimeMin">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.tueEndTimeMin"></option>
+                    </select>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-1">
+                    <label translate="stepApp.almWorkingUnit.wednesday" for="field_wednesday">Wednesday</label>
+                    <input type="checkbox" class="form-control" name="wednesday" id="field_wednesday"
+                           ng-model="almWorkingUnit.wednesday" ng-change = "onCheckedWednesday()"
+                            />
+
+
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.wedStartTimeHour" for="field_wedStartTimeHour">WedStartTimeHour</label>
+
+                    <select class="form-control" name="wedStartTimeHour" id="field_wedStartTimeHour"
+                            tooltip="{{'stepApp.almWorkingUnit.wedStartTimeHour' | translate}}"
+                            ng-options="hourOption for hourOption in hourData.hourOptions"
+                            ng-model="almWorkingUnit.wedStartTimeHour">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.wedStartTimeHour"></option>
+                    </select>
+
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.wedStartTimeMin" for="field_wedStartTimeMin">wedStartTimeMin</label>
+
+                    <select class="form-control" name="wedStartTimeMin" id="field_wedStartTimeMin"
+                            tooltip="{{'stepApp.almWorkingUnit.wedStartTimeMin' | translate}}"
+                            ng-options="minOption for minOption in minData.minOptions"
+                            ng-model="almWorkingUnit.wedStartTimeMin">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.wedStartTimeMin"></option>
+                    </select>
+
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.wedDelayTimeHour" for="field_wedDelayTimeHour">WedDelayTimeHour</label>
+
+                    <select class="form-control" name="wedDelayTimeHour" id="field_wedDelayTimeHour"
+                            tooltip="{{'stepApp.almWorkingUnit.wedDelayTimeHour' | translate}}"
+                            ng-options="hourOption for hourOption in hourData.hourOptions"
+                            ng-model="almWorkingUnit.wedDelayTimeHour">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.wedDelayTimeHour"></option>
+                    </select>
+
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.wedDelayTimeMin" for="field_wedDelayTimeMin">wedDelayTimeMin</label>
+
+                    <select class="form-control" name="wedDelayTimeMin" id="field_wedDelayTimeMin"
+                            tooltip="{{'stepApp.almWorkingUnit.wedDelayTimeMin' | translate}}"
+                            ng-options="minOption for minOption in minData.minOptions"
+                            ng-model="almWorkingUnit.wedDelayTimeMin">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.wedDelayTimeMin"></option>
+                    </select>
+
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.wedEndTimeHour" for="field_wedEndTimeHour">WedEndTimeHour</label>
+
+                    <select class="form-control" name="wedEndTimeHour" id="field_wedEndTimeHour"
+                            tooltip="{{'stepApp.almWorkingUnit.wedEndTimeHour' | translate}}"
+                            ng-options="hourOption for hourOption in hourData.hourOptions"
+                            ng-model="almWorkingUnit.wedEndTimeHour">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.wedEndTimeHour"></option>
+                    </select>
+
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.wedEndTimeMin" for="field_wedEndTimeMin">wedEndTimeMin</label>
+
+                    <select class="form-control" name="wedEndTimeMin" id="field_wedEndTimeMin"
+                            tooltip="{{'stepApp.almWorkingUnit.wedEndTimeMin' | translate}}"
+                            ng-options="minOption for minOption in minData.minOptions"
+                            ng-model="almWorkingUnit.wedEndTimeMin">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.wedEndTimeMin"></option>
+                    </select>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-1">
+                    <label translate="stepApp.almWorkingUnit.thursday" for="field_thursday">Thursday</label>
+                    <input type="checkbox" class="form-control" name="thursday" id="field_thursday"
+                           ng-model="almWorkingUnit.thursday" ng-change = "onCheckedThurseday()"
+                            />
+
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.thuStartTimeHour" for="field_thuStartTimeHour">ThuStartTimeHour</label>
+
+                    <select class="form-control" name="thuStartTimeHour" id="field_thuStartTimeHour"
+                            tooltip="{{'stepApp.almWorkingUnit.thuStartTimeHour' | translate}}"
+                            ng-options="hourOption for hourOption in hourData.hourOptions"
+                            ng-model="almWorkingUnit.thuStartTimeHour">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.thuStartTimeHour"></option>
+                    </select>
+
+                </div>
+
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.thuStartTimeMin" for="field_thuStartTimeMin">thuStartTimeMin</label>
+
+                    <select class="form-control" name="thuStartTimeMin" id="field_thuStartTimeMin"
+                            tooltip="{{'stepApp.almWorkingUnit.thuStartTimeMin' | translate}}"
+                            ng-options="hourOption for hourOption in hourData.hourOptions"
+                            ng-model="almWorkingUnit.thuStartTimeMin">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.thuStartTimeMin"></option>
+                    </select>
+
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.thuDelayTimeHour" for="field_thuDelayTimeHour">ThuDelayTimeHour</label>
+
+                    <select class="form-control" name="thuDelayTimeHour" id="field_thuDelayTimeHour"
+                            tooltip="{{'stepApp.almWorkingUnit.thuDelayTimeHour' | translate}}"
+                            ng-options="hourOption for hourOption in hourData.hourOptions"
+                            ng-model="almWorkingUnit.thuDelayTimeHour">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.thuDelayTimeHour"></option>
+                    </select>
+
+                </div>
+
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.thuDelayTimeMin" for="field_thuDelayTimeMin">thuDelayTimeMin</label>
+
+                    <select class="form-control" name="thuDelayTimeMin" id="field_thuDelayTimeMin"
+                            tooltip="{{'stepApp.almWorkingUnit.thuDelayTimeMin' | translate}}"
+                            ng-options="hourOption for hourOption in hourData.hourOptions"
+                            ng-model="almWorkingUnit.thuDelayTimeMin">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.thuDelayTimeMin"></option>
+                    </select>
+
+                </div>
+
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.thuEndTimeHour" for="field_thuEndTimeHour">ThuEndTimeHour</label>
+
+                    <select class="form-control" name="thuEndTimeHour" id="field_thuEndTimeHour"
+                            tooltip="{{'stepApp.almWorkingUnit.thuEndTimeHour' | translate}}"
+                            ng-options="hourOption for hourOption in hourData.hourOptions"
+                            ng-model="almWorkingUnit.thuEndTimeHour">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.thuEndTimeHour"></option>
+                    </select>
+
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.thuEndTimeMin" for="field_thuEndTimeMin">thuEndTimeMin</label>
+
+                    <select class="form-control" name="thuEndTimeMin" id="field_thuEndTimeMin"
+                            tooltip="{{'stepApp.almWorkingUnit.thuEndTimeMin' | translate}}"
+                            ng-options="minOption for minOption in minData.minOptions"
+                            ng-model="almWorkingUnit.thuEndTimeMin">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.thuEndTimeMin"></option>
+                    </select>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-1">
+                    <label translate="stepApp.almWorkingUnit.friday" for="field_friday">Friday</label>
+                    <input type="checkbox" class="form-control" name="friday" id="field_friday"
+                           ng-model="almWorkingUnit.friday" ng-change = "onCheckedFriday()"
+                            />
+
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.friStartTimeHour" for="field_friStartTimeHour">FriStartTimeHour</label>
+
+                    <select class="form-control" name="friStartTimeHour" id="field_friStartTimeHour"
+                            tooltip="{{'stepApp.almWorkingUnit.friStartTimeHour' | translate}}"
+                            ng-options="hourOption for hourOption in hourData.hourOptions"
+                            ng-model="almWorkingUnit.friStartTimeHour">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.friStartTimeHour"></option>
+                    </select>
+
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.friStartTimeMin" for="field_friStartTimeMin">friStartTimeMin</label>
+
+                    <select class="form-control" name="friStartTimeMin" id="field_friStartTimeMin"
+                            tooltip="{{'stepApp.almWorkingUnit.friStartTimeMin' | translate}}"
+                            ng-options="minOption for minOption in minData.minOptions"
+                            ng-model="almWorkingUnit.friStartTimeMin">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.friStartTimeMin"></option>
+                    </select>
+
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.friDelayTimeHour" for="field_friDelayTimeHour">FriDelayTimeHour</label>
+
+                    <select class="form-control" name="friDelayTimeHour" id="field_friDelayTimeHour"
+                            tooltip="{{'stepApp.almWorkingUnit.friDelayTimeHour' | translate}}"
+                            ng-options="hourOption for hourOption in hourData.hourOptions"
+                            ng-model="almWorkingUnit.friDelayTimeHour">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.friDelayTimeHour"></option>
+                    </select>
+
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.friDelayTimeMin" for="field_friDelayTimeMin">friDelayTimeMin</label>
+
+                    <select class="form-control" name="friDelayTimeMin" id="field_friDelayTimeMin"
+                            tooltip="{{'stepApp.almWorkingUnit.friDelayTimeMin' | translate}}"
+                            ng-options="minOption for minOption in minData.minOptions"
+                            ng-model="almWorkingUnit.friDelayTimeMin">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.friDelayTimeMin"></option>
+                    </select>
+
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.friEndTimeHour" for="field_friEndTimeHour">FriEndTimeHour</label>
+
+                    <select class="form-control" name="friEndTimeHour" id="field_friEndTimeHour"
+                            tooltip="{{'stepApp.almWorkingUnit.friEndTimeHour' | translate}}"
+                            ng-options="hourOption for hourOption in hourData.hourOptions"
+                            ng-model="almWorkingUnit.friEndTimeHour">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.friEndTimeHour"></option>
+                    </select>
+
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.friEndTimeMin" for="field_friEndTimeMin">friEndTimeMin</label>
+
+                    <select class="form-control" name="friEndTimeMin" id="field_friEndTimeMin"
+                            tooltip="{{'stepApp.almWorkingUnit.friEndTimeMin' | translate}}"
+                            ng-options="minOption for minOption in minData.minOptions"
+                            ng-model="almWorkingUnit.friEndTimeMin">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.friEndTimeMin"></option>
+                    </select>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-1">
+                    <label translate="stepApp.almWorkingUnit.saturday" for="field_saturday">Saturday</label>
+                    <input type="checkbox" class="form-control" name="saturday" id="field_saturday"
+                           ng-model="almWorkingUnit.saturday" ng-change = "onCheckedSaturday()"
+                            />
+
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.satStartTimeHour" for="field_satStartTimeHour">SatStartTimeHour</label>
+
+                    <select class="form-control" name="satStartTimeHour" id="field_satStartTimeHour"
+                            tooltip="{{'stepApp.almWorkingUnit.satStartTimeHour' | translate}}"
+                            ng-options="hourOption for hourOption in hourData.hourOptions"
+                            ng-model="almWorkingUnit.satStartTimeHour">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.satStartTimeHour"></option>
+                    </select>
+
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.satStartTimeMin" for="field_satStartTimeMin">SatStartTimeMin</label>
+
+                    <select class="form-control" name="satStartTimeMin" id="field_satStartTimeMin"
+                            tooltip="{{'stepApp.almWorkingUnit.satStartTimeMin' | translate}}"
+                            ng-options="minOption for minOption in minData.minOptions"
+                            ng-model="almWorkingUnit.satStartTimeMin">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.satStartTimeMin"></option>
+                    </select>
+
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.satDelayTimeHour" for="field_satDelayTimeHour">SatDelayTimeHour</label>
+
+                    <select class="form-control" name="satDelayTimeHour" id="field_satDelayTimeHour"
+                            tooltip="{{'stepApp.almWorkingUnit.satDelayTimeHour' | translate}}"
+                            ng-options="hourOption for hourOption in hourData.hourOptions"
+                            ng-model="almWorkingUnit.satDelayTimeHour">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.satDelayTimeHour"></option>
+                    </select>
+
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.satDelayTimeMin" for="field_satDelayTimeMin">SatDelayTimeMin</label>
+
+                    <select class="form-control" name="satDelayTimeMin" id="field_satDelayTimeMin"
+                            tooltip="{{'stepApp.almWorkingUnit.satDelayTimeMin' | translate}}"
+                            ng-options="minOption for minOption in minData.minOptions"
+                            ng-model="almWorkingUnit.satDelayTimeMin">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.satDelayTimeMin"></option>
+                    </select>
+
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.satEndTimeHour" for="field_satEndTimeHour">SatEndTimeHour</label>
+
+                    <select class="form-control" name="satEndTimeHour" id="field_satEndTimeHour"
+                            tooltip="{{'stepApp.almWorkingUnit.satEndTimeHour' | translate}}"
+                            ng-options="hourOption for hourOption in hourData.hourOptions"
+                            ng-model="almWorkingUnit.satEndTimeHour">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.satEndTimeHour"></option>
+                    </select>
+
+                </div>
+                <div class="form-group col-sm-2">
+                    <label translate="stepApp.almWorkingUnit.satEndTimeMin" for="field_satEndTimeMin">satEndTimeMin</label>
+
+                    <select class="form-control" name="satEndTimeMin" id="field_satEndTimeMin"
+                            tooltip="{{'stepApp.almWorkingUnit.satEndTimeMin' | translate}}"
+                            ng-options="minOption for minOption in minData.minOptions"
+                            ng-model="almWorkingUnit.satEndTimeMin">
+                        <!--<option selected="selected" value="00"></option>-->
+                        <option value="" translate="stepApp.almWorkingUnit.satEndTimeMin"></option>
+                    </select>
+
+                </div>
+            </div>
+            <!--<div class="row">
+                <div class="form-group col-sm-4">
+                    <label translate="stepApp.almWorkingUnit.isWeekend" for="field_isWeekend">IsWeekend</label>
+                <span class="form-control">
+                    <input type="radio" data-ng-model="almWorkingUnit.isWeekend" ng-change="onCheckedWorkingUnit()"
+                           tooltip="{{'stepApp.almWorkingUnit.isWeekend' | translate}}"
+                           name="isWeekend" data-ng-value="true" required>&nbsp;Yes&nbsp;|&nbsp;
+                    <input type="radio" data-ng-model="almWorkingUnit.isWeekend" name="isWeekend" data-ng-value="false"
+                           tooltip="{{'stepApp.almWorkingUnit.isWeekend' | translate}}"
+                            >&nbsp;No
+                </span>
+                </div>
+                <div ng-hide="almWorkingUnit.isWeekend">
+                    <div class="form-group col-sm-4">
+                        <label translate="stepApp.almWorkingUnit.isHalfDay" for="field_isHalfDay">IsHalfDay</label>
+                <span class="form-control">
+                    <input tooltip="{{'stepApp.almWorkingUnit.isHalfDay' | translate}}" type="radio" data-ng-model="almWorkingUnit.isHalfDay" name="isHalfDay"
+                           ng-change="onCheckedIsHalfDayYes()" data-ng-value="true">&nbsp;Yes&nbsp;|&nbsp;
+                    <input tooltip="{{'stepApp.almWorkingUnit.isHalfDay' | translate}}" type="radio" data-ng-model="almWorkingUnit.isHalfDay" ng-change="onCheckedIsHalfDayNo()"
+                           name="isHalfDay" data-ng-value="false">&nbsp;No
+                </span>
+                    </div>
+                    <div class="form-group col-sm-4" ng-show="almWorkingUnit.isHalfDay">
+                        <label translate="stepApp.almWorkingUnit.halfDay">HalfDay</label>
+                 <span class="form-control">
+                    <input tooltip="{{'stepApp.almWorkingUnit.halfDay' | translate}}" type="radio" data-ng-model="almWorkingUnit.halfDay" name="halfDay" value="First">&nbsp;First Half&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input tooltip="{{'stepApp.almWorkingUnit.halfDay' | translate}}"type="radio" data-ng-model="almWorkingUnit.halfDay" name="halfDay" value="Second">&nbsp;Second Half
+                </span>
+
+                    </div>
+                </div>
+            </div>-->
+            <!--<div ng-hide="almWorkingUnit.isWeekend">
+                <div class="row">
+                    <div class="col-md-3 no_padding almhour">
+                        <div class="form-group col-sm-12">
+                            <label translate="stepApp.almWorkingUnit.officeStartHour" for="field_officeStartHour">OfficeStartHour</label>
+                            <select tooltip="{{'stepApp.almWorkingUnit.halfDay' | translate}}" class="form-control" name="officeStartHour" id="field_officeStartHour"
+                                    ng-options="hourOption for hourOption in hourData.hourOptions"
+                                    tooltip="{{'stepApp.almWorkingUnit.officeStartHour' | translate}}"
+                                    ng-model="almWorkingUnit.officeStartHour">
+                                <option value="" translate="stepApp.almWorkingUnit.officeStartHour" ></option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <label translate="stepApp.almWorkingUnit.officeStartMin"
+                                   for="field_officeStartMin">Min</label>
+                            <select class="form-control" name="officeStartMin" id="field_officeStartMin"
+                                    tooltip="{{'stepApp.almWorkingUnit.officeStartMin' | translate}}"
+                                    ng-options="minOption for minOption in minData.minOptions"
+                                    ng-model="almWorkingUnit.officeStartMin">
+                                &lt;!&ndash;<option selected="selected" value="00"></option>&ndash;&gt;
+                                <option value="" translate="stepApp.almWorkingUnit.officeStartMin"></option>
+                            </select>
+
+                            &lt;!&ndash;<div ng-show="editForm.officeStartMin.$invalid">&ndash;&gt;
+                            &lt;!&ndash;<p class="help-block"&ndash;&gt;
+                            &lt;!&ndash;ng-show="editForm.officeStartMin.$error.required" translate="entity.validation.required">&ndash;&gt;
+                            &lt;!&ndash;This field is required.&ndash;&gt;
+                            &lt;!&ndash;</p>&ndash;&gt;
+                            &lt;!&ndash;</div>&ndash;&gt;
+                        </div>
+                    </div>
+                    <div class="col-md-3 no_padding almhour">
+                        <div class="form-group col-sm-12">
+                            <label translate="stepApp.almWorkingUnit.delayTimeHour" for="field_delayTimeHour">DelayTimeHour</label>
+                            <select class="form-control" name="delayTimeHour" id="field_delayTimeHour"
+                                    tooltip="{{'stepApp.almWorkingUnit.delayTimeHour' | translate}}"
+                                    ng-options="hourOption for hourOption in hourData.hourOptions"
+                                    ng-model="almWorkingUnit.delayTimeHour">
+                                &lt;!&ndash;<option selected="selected" value="00"></option>&ndash;&gt;
+                                <option value="" translate="stepApp.almWorkingUnit.delayTimeHour"></option>
+                            </select>
+
+                            &lt;!&ndash;<div ng-show="editForm.delayTimeHour.$invalid">&ndash;&gt;
+                            &lt;!&ndash;<p class="help-block"&ndash;&gt;
+                            &lt;!&ndash;ng-show="editForm.delayTimeHour.$error.required" translate="entity.validation.required">&ndash;&gt;
+                            &lt;!&ndash;This field is required.&ndash;&gt;
+                            &lt;!&ndash;</p>&ndash;&gt;
+                            &lt;!&ndash;</div>&ndash;&gt;
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <label translate="stepApp.almWorkingUnit.delayTimeMin"
+                                   for="field_delayTimeMin">DelayTimeMin</label>
+                            <select class="form-control" name="delayTimeMin" id="field_delayTimeMin"
+                                    tooltip="{{'stepApp.almWorkingUnit.delayTimeMin' | translate}}"
+                                    ng-options="minOption for minOption in minData.minOptions"
+                                    ng-model="almWorkingUnit.delayTimeMin">
+                                &lt;!&ndash;<option selected="selected" value="00"></option>&ndash;&gt;
+                                <option value="" translate="stepApp.almWorkingUnit.delayTimeMin"></option>
+                            </select>
+
+                            &lt;!&ndash;<div ng-show="editForm.delayTimeMin.$invalid">&ndash;&gt;
+                            &lt;!&ndash;<p class="help-block"&ndash;&gt;
+                            &lt;!&ndash;ng-show="editForm.delayTimeMin.$error.required" translate="entity.validation.required">&ndash;&gt;
+                            &lt;!&ndash;This field is required.&ndash;&gt;
+                            &lt;!&ndash;</p>&ndash;&gt;
+                            &lt;!&ndash;</div>&ndash;&gt;
+                        </div>
+                    </div>
+                    <div class="col-md-3 no_padding almhour">
+                        <div class="form-group col-sm-12">
+                            <label translate="stepApp.almWorkingUnit.absentTimeHour" for="field_absentTimeHour">AbsentTimeHour</label>
+                            <select class="form-control" name="absentTimeHour" id="field_absentTimeHour"
+                                    tooltip="{{'stepApp.almWorkingUnit.absentTimeHour' | translate}}"
+                                    ng-options="hourOption for hourOption in hourData.hourOptions"
+                                    ng-model="almWorkingUnit.absentTimeHour">
+                                &lt;!&ndash;<option selected="selected" value="00"></option>&ndash;&gt;
+                                <option value="" translate="stepApp.almWorkingUnit.absentTimeHour"></option>
+                            </select>
+
+                            &lt;!&ndash;<div ng-show="editForm.absentTimeHour.$invalid">&ndash;&gt;
+                            &lt;!&ndash;<p class="help-block"&ndash;&gt;
+                            &lt;!&ndash;ng-show="editForm.absentTimeHour.$error.required" translate="entity.validation.required">&ndash;&gt;
+                            &lt;!&ndash;This field is required.&ndash;&gt;
+                            &lt;!&ndash;</p>&ndash;&gt;
+                            &lt;!&ndash;</div>&ndash;&gt;
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <label translate="stepApp.almWorkingUnit.absentTimeMin" for="field_absentTimeMin">AbsentTimeMin</label>
+                            <select class="form-control" name="absentTimeMin" id="field_absentTimeMin"
+                                    tooltip="{{'stepApp.almWorkingUnit.absentTimeMin' | translate}}"
+                                    ng-options="minOption for minOption in minData.minOptions"
+                                    ng-model="almWorkingUnit.absentTimeMin">
+                                &lt;!&ndash;<option selected="selected" value="00"></option>&ndash;&gt;
+                                <option value="" translate="stepApp.almWorkingUnit.absentTimeMin"></option>
+                            </select>
+
+                            &lt;!&ndash;<div ng-show="editForm.absentTimeMin.$invalid">&ndash;&gt;
+                            &lt;!&ndash;<p class="help-block"&ndash;&gt;
+                            &lt;!&ndash;ng-show="editForm.absentTimeMin.$error.required" translate="entity.validation.required">&ndash;&gt;
+                            &lt;!&ndash;This field is required.&ndash;&gt;
+                            &lt;!&ndash;</p>&ndash;&gt;
+                            &lt;!&ndash;</div>&ndash;&gt;
+                        </div>
+                    </div>
+                    <div class="col-md-3 no_padding almhour">
+                        <div class="form-group col-sm-12">
+                            <label translate="stepApp.almWorkingUnit.officeEndHour" for="field_officeEndHour">OfficeEndHour</label>
+                            <select class="form-control" name="officeEndHour" id="field_officeEndHour"
+                                    tooltip="{{'stepApp.almWorkingUnit.officeEndHour' | translate}}"
+                                    ng-options="hourOption for hourOption in hourData.hourOptions"
+                                    ng-model="almWorkingUnit.officeEndHour">
+                                &lt;!&ndash;<option selected="selected" value="00"></option>&ndash;&gt;
+                                <option value="" translate="stepApp.almWorkingUnit.officeEndHour"></option>
+                            </select>
+
+                            &lt;!&ndash;<div ng-show="editForm.officeEndHour.$invalid">&ndash;&gt;
+                            &lt;!&ndash;<p class="help-block"&ndash;&gt;
+                            &lt;!&ndash;ng-show="editForm.officeEndHour.$error.required" translate="entity.validation.required">&ndash;&gt;
+                            &lt;!&ndash;This field is required.&ndash;&gt;
+                            &lt;!&ndash;</p>&ndash;&gt;
+                            &lt;!&ndash;</div>&ndash;&gt;
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <label translate="stepApp.almWorkingUnit.officeEndMin"
+                                   for="field_officeEndMin">OfficeEndMin</label>
+                            <select class="form-control" name="officeEndMin" id="field_officeEndMin"
+                                    ng-options="minOption for minOption in minData.minOptions"
+                                    tooltip="{{'stepApp.almWorkingUnit.officeEndMin' | translate}}"
+                                    ng-model="almWorkingUnit.officeEndMin">
+                                &lt;!&ndash;<option selected="selected" value="00"></option>&ndash;&gt;
+                                <option value="" translate="stepApp.almWorkingUnit.officeEndMin"></option>
+                            </select>
+                            &lt;!&ndash;<div ng-show="editForm.officeEndMin.$invalid">&ndash;&gt;
+                            &lt;!&ndash;<p class="help-block"&ndash;&gt;
+                            &lt;!&ndash;ng-show="editForm.officeEndMin.$error.required" translate="entity.validation.required">&ndash;&gt;
+                            &lt;!&ndash;This field is required.&ndash;&gt;
+                            &lt;!&ndash;</p>&ndash;&gt;
+                            &lt;!&ndash;</div>&ndash;&gt;
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.almWorkingUnit.effectiveDate"
+                           for="field_effectiveDate">EffectiveDate</label>
+                    <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.effectiveDate"
+                           datepicker-options="calendar.dateOptions" close-text="Close"
+                           ng-click="calendar.open($event, 'effectiveDate')" class="form-control" name="effectiveDate"
+                           id="field_effectiveDate"
+                           tooltip="{{'stepApp.almWorkingUnit.effectiveDate' | translate}}"
+                           placeholder="yyyy-mm-dd"
+                           ng-model="almWorkingUnit.effectiveDate" required/>
+                    <div ng-show="editForm.effectiveDate.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.effectiveDate.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.almWorkingUnit.activeStatus" for="field_activeStatus">ActiveStatus</label>
+                <span class="form-control">
+                    <input tooltip="{{'stepApp.almWorkingUnit.activeStatus' | translate}}" type="radio" data-ng-model="almWorkingUnit.activeStatus" name="activeStatus"
+                           data-ng-value="true">&nbsp;Active&nbsp;|&nbsp;
+                    <input tooltip="{{'stepApp.almWorkingUnit.activeStatus' | translate}}" type="radio" data-ng-model="almWorkingUnit.activeStatus" name="activeStatus"
+                           data-ng-value="false">&nbsp;Inactive
+                </span>
+                    <div ng-show="editForm.activeStatus.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit"
+                        onclick="window.history.back()"
+                        class="btn btn-info">
+                    <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span
+                        translate="entity.action.back"> Back</span>
+                </button>
+                <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted || !isExitsData"
+                        class="btn btn-primary">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;
+                    <span ng-show="almWorkingUnit.id == null" translate="entity.action.save">Save</span>
+                    <span ng-show="almWorkingUnit.id != null" translate="entity.action.update">Save</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+

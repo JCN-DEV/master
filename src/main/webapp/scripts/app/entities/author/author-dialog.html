@@ -1,0 +1,101 @@
+
+<form name="editForm" class="form form-horizontal" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header bg-primary">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myAuthorLabel" translate="stepApp.author.home.createOrEditLabel">Create or edit a Author</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" for="id" translate="global.field.id">ID</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="id" name="id" ng-model="author.id" readonly />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.author.name" for="field_name">Name</label>
+            <div class="col-sm-9">
+            <input type="text" class="form-control" name="name" id="field_name"
+                    ng-model="author.name"
+                    required ng-maxlength="127" />
+            <div ng-show="editForm.name.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.name.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="127">
+                    This field cannot be longer than 127 characters.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.author.status" for="field_status">Status</label>
+            <div class="col-sm-9">
+            <select class="form-control" name="status" ng-model="author.status" id="field_status">
+                <option value="draft" translate="stepApp.Status.draft">draft</option>
+                <option value="published" translate="stepApp.Status.published">published</option>
+                <option value="deleted" translate="stepApp.Status.deleted">deleted</option>
+                <option value="featured" translate="stepApp.Status.featured">featured</option>
+            </select>
+            </div>
+        </div>
+        <div class="form-group" ngf-drop ngf-change="setPhoto($file, author)" ngf-pattern="'image/*'">
+            <label class="col-sm-3 control-label" translate="stepApp.author.photo" for="field_photo">Photo</label>
+            <div class="col-sm-9">
+            <div>
+                <img data-ng-src="{{'data:' + author.photoContentType + ';base64,' + author.photo}}" style="max-height: 100px;" ng-if="author.photo"/>
+                <div class="help-block clearfix">
+                    <span class="pull-left">{{author.photoContentType}} {{byteSize(author.photo)}}</span>
+                    <button ng-click="author.photo=null;author.photoContentType=null;"
+                            ng-if="author.photo"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="file" ngf-select class="btn btn-default btn-block"
+                        ngf-change="setPhoto($file, author)" accept="image/*" translate="entity.action.addimage">
+                    Add image
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="photo" id="field_photo"
+                    ng-model="author.photo"
+                     />
+            <input type="hidden" class="form-control" name="photoContentType" id="field_photoContentType"
+                    ng-model="author.photoContentType" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.author.dateOfBirth" for="field_dateOfBirth">DateOfBirth</label>
+            <div class="col-sm-9">
+            <input type="date" class="form-control" name="dateOfBirth" id="field_dateOfBirth"
+                    ng-model="author.dateOfBirth"
+                     />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label" translate="stepApp.author.user" for="field_user">user</label>
+            <div class="col-sm-9">
+                <select class="form-control" id="field_user" name="user" ng-model="author.user" ng-options="user as user.login for user in users track by user.id">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="form-group">
+            <div class="col-md-offset-4 col-md-8">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

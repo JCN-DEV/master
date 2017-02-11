@@ -1,0 +1,220 @@
+<div class="service-form-area">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="modal-title" id="myHrEmpServiceHistoryLabel"><span
+                translate="stepApp.hrEmpServiceHistory.home.profileViewEditTitle"></span> : {{hrEmployeeInfo.fullName}}
+            </h4>
+        </div>
+        <div class="panel-body bg-panel hr_label">
+            <div class="row hrm-view">
+                <span ng-show="addMode">
+                    <span ng-show="noEmployeeFound" class="alert">Employee is not created yet.</span>
+                </span>
+            </div>
+            <div class="panel-group">
+                <!-- For Loop Start From Here-->
+                <div class=" bg-panel" ng-repeat="hrEmpServiceHistory in hrEmpServiceHistoryList">
+                    <form class="form-horizontal " name="editForm" role="form" ng-submit="save()" novalidate
+                          show-validation>
+                        <div class="row hrm-view panel-heading no_padding">
+                            <div class="col-sm-7 no_padding">
+                                <strong>{{hrEmpServiceHistory.serviceDate | date:'mediumDate'}} :
+                                    {{hrEmpServiceHistory.gazettedDate | date:'mediumDate'}}</strong>
+                            </div>
+                            <div class="col-sm-5 no_padding text-right">
+                                <button
+                                    ng-hide="noEmployeeFound || hrEmpServiceHistory.isLocked || hrEmpServiceHistory.logStatus==6"
+                                    type="button" ng-click="changeProfileMode(hrEmpServiceHistory)"
+                                    class="btn btn-primary btn-sm">{{hrEmpServiceHistory.viewModeText}}
+                                </button>
+                                <span ng-show="hrEmpServiceHistory.isLocked"
+                                      class="alert alert-warning approve-alert"><span
+                                    translate="stepApp.hrmHome.recordLocked">Pending</span></span>
+                                    <span ng-if="hrEmpServiceHistory.logStatus == 3">
+                                        <span class="alert alert-warning" translate="stepApp.hrmHome.requestRejected">Rejected</span>
+                                    </span>
+                            </div>
+                        </div>
+                        <div class="row hrm-view">
+                            <div class="col-sm-12 text-right">
+                                    <span class="alert-warning" ng-if="hrEmpServiceHistory.logStatus == 3">
+                                        <span class="control-label"
+                                              translate="stepApp.hrmHome.rejectionReason">Reason</span>:&nbsp; : &nbsp; {{hrEmpServiceHistory.logComments}}
+                                    </span>
+                            </div>
+                        </div>
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpServiceHistory.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEmpServiceHistory.serviceDate"
+                                           for="field_serviceDate">ServiceDate</label>
+                                    <input datepicker-popup="{{calendar.dateFormat}}"
+                                           is-open="calendar.opened['serviceDate'+$index]"
+                                           datepicker-options="calendar.dateOptions" close-text="Close"
+                                           ng-click="calendar.open($event, 'serviceDate'+$index)" class="form-control"
+                                           name="serviceDate" id="field_serviceDate"
+                                           ng-model="hrEmpServiceHistory.serviceDate" required/>
+                                    <div ng-show="editForm.serviceDate.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.serviceDate.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEmpServiceHistory.viewMode">
+                                    <label class="control-label" translate="stepApp.hrEmpServiceHistory.serviceDate"
+                                           for="field_serviceDate">ServiceDate</label>
+                                    <span class="form-control-static">&nbsp; : &nbsp;{{hrEmpServiceHistory.serviceDate | date:'mediumDate'}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpServiceHistory.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEmpServiceHistory.gazettedDate"
+                                           for="field_gazettedDate">GazettedDate</label>
+                                    <input datepicker-popup="{{calendar.dateFormat}}"
+                                           is-open="calendar.opened['gazettedDate'+$index]"
+                                           datepicker-options="calendar.dateOptions" close-text="Close"
+                                           ng-click="calendar.open($event, 'gazettedDate'+$index)" class="form-control"
+                                           name="gazettedDate" id="field_gazettedDate"
+                                           ng-model="hrEmpServiceHistory.gazettedDate" required/>
+                                    <div ng-show="editForm.gazettedDate.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.gazettedDate.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEmpServiceHistory.viewMode">
+                                    <label class="control-label" translate="stepApp.hrEmpServiceHistory.gazettedDate"
+                                           for="field_gazettedDate">GazettedDate</label>
+                                    <span class="form-control-static">&nbsp; : &nbsp;{{hrEmpServiceHistory.gazettedDate | date:'mediumDate'}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpServiceHistory.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEmpServiceHistory.encadrementDate"
+                                           for="field_encadrementDate">EncadrementDate</label>
+                                    <input datepicker-popup="{{calendar.dateFormat}}"
+                                           is-open="calendar.opened['encadrementDate'+$index]"
+                                           datepicker-options="calendar.dateOptions" close-text="Close"
+                                           ng-click="calendar.open($event, 'encadrementDate'+$index)"
+                                           class="form-control" name="encadrementDate" id="field_encadrementDate"
+                                           ng-model="hrEmpServiceHistory.encadrementDate" required/>
+                                    <div ng-show="editForm.encadrementDate.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.encadrementDate.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEmpServiceHistory.viewMode">
+                                    <label class="control-label" translate="stepApp.hrEmpServiceHistory.encadrementDate"
+                                           for="field_encadrementDate">EncadrementDate</label>
+                                    <span class="form-control-static">&nbsp; : &nbsp;{{hrEmpServiceHistory.encadrementDate | date:'mediumDate'}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label class="control-label" translate="stepApp.hrEmpServiceHistory.nationalSeniority"
+                                       for="field_nationalSeniority">NationalSeniority</label>
+                                <div ng-show="!hrEmpServiceHistory.viewMode" class="input-margin">
+                                    <input type="text" class="form-control" name="nationalSeniority"
+                                           id="field_nationalSeniority"
+                                           ng-model="hrEmpServiceHistory.nationalSeniority"/>
+                                </div>
+                                <span ng-show="hrEmpServiceHistory.viewMode" class="form-control-static">&nbsp; : &nbsp;{{hrEmpServiceHistory.nationalSeniority}}</span>
+                            </div>
+                        </div>
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">
+                                <label class="control-label" translate="stepApp.hrEmpServiceHistory.cadreNumber"
+                                       for="field_cadreNumber">CadreNumber</label>
+                                <div ng-show="!hrEmpServiceHistory.viewMode" class="input-margin">
+                                    <input type="text" class="form-control" name="cadreNumber" id="field_cadreNumber"
+                                           ng-model="hrEmpServiceHistory.cadreNumber"/>
+                                </div>
+                                <span ng-show="hrEmpServiceHistory.viewMode" class="form-control-static">&nbsp; : &nbsp;{{hrEmpServiceHistory.cadreNumber}}</span>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label class="control-label" translate="stepApp.hrEmpServiceHistory.goDate"
+                                       for="field_goDate">GoDate</label>
+                                <div ng-show="!hrEmpServiceHistory.viewMode" class="input-margin">
+                                    <input datepicker-popup="{{calendar.dateFormat}}"
+                                           is-open="calendar.opened['goDate'+$index]"
+                                           datepicker-options="calendar.dateOptions" close-text="Close"
+                                           ng-click="calendar.open($event, 'goDate'+$index)" class="form-control"
+                                           name="goDate" id="field_goDate"
+                                           ng-model="hrEmpServiceHistory.goDate"/>
+                                </div>
+                                <span ng-show="hrEmpServiceHistory.viewMode" class="form-control-static">&nbsp; : &nbsp;{{hrEmpServiceHistory.goDate | date:'mediumDate'}}</span>
+                            </div>
+                        </div>
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6" ngf-drop ngf-change="setGoDoc($file, hrEmpServiceHistory)">
+                                <label class="control-label" translate="stepApp.hrEmpServiceHistory.goDoc"
+                                       for="field_goDoc">GoDoc</label>
+                                <div ng-show="!hrEmpServiceHistory.viewMode" class="input-margin">
+                                    <div>
+                                        <div class="help-block clearfix">
+                                            <span class="pull-left">{{hrEmpServiceHistory.goDocContentType}} {{byteSize(hrEmpServiceHistory.goDoc)}}</span>
+                                            <button
+                                                ng-click="hrEmpServiceHistory.goDoc=null;hrEmpServiceHistory.goDocContentType=null;"
+                                                ng-if="hrEmpServiceHistory.goDoc"
+                                                class="btn btn-default btn-xs pull-right">
+                                                <span class="glyphicon glyphicon-remove"></span>
+                                            </button>
+                                        </div>
+                                        <button type="file" ngf-select class="btn btn-default btn-block"
+                                                ngf-change="setGoDoc($file, hrEmpServiceHistory)"
+                                                translate="entity.action.addblob">
+                                            Add blob
+                                        </button>
+                                    </div>
+                                    <input type="hidden" class="form-control" name="goDoc" id="field_goDoc"
+                                           ng-model="hrEmpServiceHistory.goDoc"/>
+                                    <input type="hidden" class="form-control" name="goDocContentType"
+                                           id="field_goDocContentType"
+                                           ng-model="hrEmpServiceHistory.goDocContentType"/>
+                                </div>
+                                <a ng-if="hrEmpServiceHistory.goDocContentType" class="btn btn-link"
+                                   ng-click="previewImage(hrEmpServiceHistory)">View</a>
+                            </div>
+                        </div>
+                        <div class="row hrm-view">
+                            <div class="col-md-12">
+                                <div class="form-group col-md-12 text-right" style="padding-right: 40px">
+                                    <div class="input-margin">
+                                        <button ng-show="!hrEmpServiceHistory.viewMode" type="button"
+                                                ng-click="changeProfileMode(hrEmpServiceHistory)"
+                                                class="btn btn-default btn-sm"><span
+                                            class="glyphicon glyphicon-remove"></span>&nbsp;{{hrEmpServiceHistory.viewModeText}}
+                                        </button>
+                                        <button ng-show="!hrEmpServiceHistory.viewMode"
+                                                ng-click="updateProfile(hrEmpServiceHistory, $index)"
+                                                type="button" ng-disabled="editForm.$invalid || isSaving"
+                                                class="btn btn-primary btn-sm">
+                                            <span class="glyphicon glyphicon-save"></span>&nbsp;<span
+                                            translate="entity.action.save">Save</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- End of Loop -->
+                <div class="col-sm-12 text-right no_padding">
+                    <button type="submit" class="btn btn-primary" ng-show="!addMode"
+                            ng-disabled="editForm.$invalid || isSaving" ng-click="addMore()"><i
+                        class="fa fa-plus-square"></i>
+                        <span translate="global.menu.account.addmore">Add More</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

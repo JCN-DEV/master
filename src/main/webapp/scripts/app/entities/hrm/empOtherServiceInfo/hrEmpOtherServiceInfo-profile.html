@@ -1,0 +1,198 @@
+<div class="service-form-area">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="modal-title" id="myHrEmpOtherServiceInfoLabel"><span
+                translate="stepApp.hrEmpOtherServiceInfo.home.profileViewEditTitle"></span> :
+                {{hrEmployeeInfo.fullName}}</h4>
+        </div>
+        <div class="panel-body bg-panel hr_label">
+            <div class="row hrm-view">
+                <span ng-show="addMode">
+                    <span ng-show="noEmployeeFound" class="alert">Employee is not created yet.</span>
+                </span>
+            </div>
+            <div class="panel-group">
+                <!-- For Loop Start From Here-->
+                <div class="bg-panel" ng-repeat="hrEmpOtherServiceInfo in hrEmpOtherServiceInfoList">
+                    <form class="form-horizontal " name="editForm" role="form" ng-submit="save()" novalidate
+                          show-validation>
+                        <div class="row hrm-view panel-heading no_padding">
+                            <div class="col-sm-7 no_padding">
+                                <strong>{{hrEmpOtherServiceInfo.companyName}} :
+                                    {{hrEmpOtherServiceInfo.position}}</strong>
+                            </div>
+                            <div class="col-sm-5 no_padding text-right">
+                                <button
+                                    ng-hide="noEmployeeFound || hrEmpOtherServiceInfo.isLocked || hrEmpOtherServiceInfo.logStatus==6"
+                                    type="button" ng-click="changeProfileMode(hrEmpOtherServiceInfo)"
+                                    class="btn btn-primary btn-sm">{{hrEmpOtherServiceInfo.viewModeText}}
+                                </button>
+                                <span ng-show="hrEmpOtherServiceInfo.isLocked"
+                                      class="alert alert-warning approve-alert"><span
+                                    translate="stepApp.hrmHome.recordLocked">Pending</span></span>
+                                    <span ng-if="hrEmpOtherServiceInfo.logStatus == 3">
+                                        <span class="alert alert-warning" translate="stepApp.hrmHome.requestRejected">Rejected</span>
+                                    </span>
+                            </div>
+                        </div>
+                        <div class="row hrm-view">
+                            <div class="col-sm-12 text-right">
+                                    <span class="alert-warning" ng-if="hrEmpOtherServiceInfo.logStatus == 3">
+                                        <span class="control-label"
+                                              translate="stepApp.hrmHome.rejectionReason">Reason</span>:&nbsp; : &nbsp; {{hrEmpOtherServiceInfo.logComments}}
+                                    </span>
+                            </div>
+                        </div>
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpOtherServiceInfo.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEmpOtherServiceInfo.companyName"
+                                           for="field_companyName">CompanyName</label>
+                                    <input type="text" class="form-control" name="companyName" id="field_companyName"
+                                           ng-model="hrEmpOtherServiceInfo.companyName" required/>
+                                    <div ng-show="editForm.companyName.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.companyName.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEmpOtherServiceInfo.viewMode">
+                                    <label class="control-label" translate="stepApp.hrEmpOtherServiceInfo.companyName"
+                                           for="field_companyName">CompanyName</label>
+                                    <span class="form-control-static">&nbsp; : &nbsp;{{hrEmpOtherServiceInfo.companyName}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label class="control-label" translate="stepApp.hrEmpOtherServiceInfo.address"
+                                       for="field_address">Address</label>
+                                <div ng-show="!hrEmpOtherServiceInfo.viewMode" class="input-margin">
+                                        <textarea class="form-control" name="address" id="field_address"
+                                                  ng-model="hrEmpOtherServiceInfo.address"></textarea>
+                                </div>
+                                <span ng-show="hrEmpOtherServiceInfo.viewMode" class="form-control-static">&nbsp; : &nbsp;{{hrEmpOtherServiceInfo.address}}</span>
+                            </div>
+                        </div>
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpOtherServiceInfo.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEmpOtherServiceInfo.serviceType"
+                                           for="field_serviceType">ServiceType</label>
+                                    <input type="text" class="form-control" name="serviceType" id="field_serviceType"
+                                           ng-model="hrEmpOtherServiceInfo.serviceType" required/>
+                                    <div ng-show="editForm.serviceType.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.serviceType.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEmpOtherServiceInfo.viewMode">
+                                    <label class="control-label" translate="stepApp.hrEmpOtherServiceInfo.serviceType"
+                                           for="field_serviceType">ServiceType</label>
+                                    <span class="form-control-static">&nbsp; : &nbsp;{{hrEmpOtherServiceInfo.serviceType}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpOtherServiceInfo.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEmpOtherServiceInfo.position"
+                                           for="field_position">Position</label>
+                                    <input type="text" class="form-control" name="position" id="field_position"
+                                           ng-model="hrEmpOtherServiceInfo.position" required/>
+                                    <div ng-show="editForm.position.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.position.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEmpOtherServiceInfo.viewMode">
+                                    <label class="control-label" translate="stepApp.hrEmpOtherServiceInfo.position"
+                                           for="field_position">Position</label>
+                                    <span
+                                        class="form-control-static">&nbsp; : &nbsp;{{hrEmpOtherServiceInfo.position}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpOtherServiceInfo.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEmpOtherServiceInfo.fromDate"
+                                           for="field_fromDate">FromDate</label>
+                                    <input datepicker-popup="{{calendar.dateFormat}}"
+                                           is-open="calendar.opened['fromDate'+$index]"
+                                           datepicker-options="calendar.dateOptions" close-text="Close"
+                                           ng-click="calendar.open($event, 'fromDate'+$index)" class="form-control"
+                                           name="fromDate" id="field_fromDate"
+                                           max-date="hrEmpOtherServiceInfo.toDate"
+                                           ng-model="hrEmpOtherServiceInfo.fromDate" required/>
+                                    <div ng-show="editForm.fromDate.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.fromDate.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEmpOtherServiceInfo.viewMode">
+                                    <label class="control-label" translate="stepApp.hrEmpOtherServiceInfo.fromDate"
+                                           for="field_fromDate">FromDate</label>
+                                    <span class="form-control-static">&nbsp; : &nbsp;{{hrEmpOtherServiceInfo.fromDate | date:'mediumDate'}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpOtherServiceInfo.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEmpOtherServiceInfo.toDate"
+                                           for="field_toDate">ToDate</label>
+                                    <input datepicker-popup="{{calendar.dateFormat}}"
+                                           is-open="calendar.opened['toDate'+$index]"
+                                           datepicker-options="calendar.dateOptions" close-text="Close"
+                                           ng-click="calendar.open($event, 'toDate'+$index)" class="form-control"
+                                           name="toDate" id="field_toDate"
+                                           ng-model="hrEmpOtherServiceInfo.toDate"
+                                           min-date="hrEmpOtherServiceInfo.fromDate"
+                                    />
+                                </div>
+                                <div ng-show="hrEmpOtherServiceInfo.viewMode">
+                                    <label class="control-label" translate="stepApp.hrEmpOtherServiceInfo.toDate"
+                                           for="field_toDate">ToDate</label>
+                                    <span class="form-control-static">&nbsp; : &nbsp;{{hrEmpOtherServiceInfo.toDate | date:'mediumDate'}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">&nbsp;</div>
+                            <div class="form-group col-sm-6 text-right">
+                                <div class="input-margin">
+                                    <button ng-show="!hrEmpOtherServiceInfo.viewMode" type="button"
+                                            ng-click="changeProfileMode(hrEmpOtherServiceInfo)"
+                                            class="btn btn-default btn-sm"><span
+                                        class="glyphicon glyphicon-remove"></span>&nbsp;{{hrEmpOtherServiceInfo.viewModeText}}
+                                    </button>
+                                    <button ng-show="!hrEmpOtherServiceInfo.viewMode"
+                                            ng-click="updateProfile(hrEmpOtherServiceInfo, $index)"
+                                            type="button" ng-disabled="editForm.$invalid || isSaving"
+                                            class="btn btn-primary btn-sm">
+                                        <span class="glyphicon glyphicon-save"></span>&nbsp;<span
+                                        translate="entity.action.save">Save</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- End of Loop -->
+                <div class="col-sm-12 no_padding text-right">
+                    <button type="submit" class="btn btn-primary" ng-show="!addMode"
+                            ng-disabled="editForm.$invalid || isSaving" ng-click="addMore()"><i
+                        class="fa fa-plus-square"></i>
+                        <span translate="global.menu.account.addmore">Add More</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

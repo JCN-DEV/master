@@ -1,0 +1,527 @@
+<style>
+    .highlightedText
+    {
+    color: black;
+    background-color: yellow;
+    }
+    .hrm-dash {
+    background: #CBD8DE;
+    padding: 15px;
+    }
+</style>
+<div class="col-sm-12 no_padding common-list">
+    <h2><span translate="stepApp.hrmHome.dashboard.generalHomeTitle"></span></h2>
+    <div class="col-sm-12 padding-tb">
+        <!--<div class="col-sm-6 hr-sub-title su_hrm_center">
+            <strong><h3 translate="stepApp.hrmHome.dashboard.subTitle"></h3></strong>
+        </div>-->
+        <div style="margin:5px 0px;" class="col-sm-12 text-right">
+            <button type="button" ng-model="button" ng-click="loadAll()"
+                    ng-disabled="(requestEntityCounter!=totalNumberOfEntity)" class="btn btn-primary btn-sm"><i
+                class="fa fa-refresh"></i> <span translate="stepApp.hrmHome.dashboard.Refresh">Refresh</span>
+            </button>
+        </div>
+    </div>
+    <div class="col-sm-12 mpo-detail no_padding">
+        <tabset justified="true">
+            <tab
+                heading="{{'stepApp.hrmHome.dashboard.dashboardTab1' | translate}} ({{newRequestList.length}})">
+                <div class="table-responsive">
+                    <div class="row padding-tb">
+                        <div class="col-sm-5">
+                            <label translate="global.menu.entities.search">Search:</label>
+                            <input class="searchText" id="searchText" ng-model="searchText" name="searchText"
+                                   type="text"/>
+                            <input ng-hide="true" id="clearButton" value="Clear" type="button"
+                                   ng-click="clearSearchText('request')">
+                        </div>
+                        <div class="col-sm-7">
+                            <button type="button" ng-click="approvalAllConfirmation('accept','request')"
+                                    class="btn btn-primary btn-sm" ng-show="selectedRequestList.length">
+                                <span translate="stepApp.hrmHome.dashboard.requestAcceptAll">Accept All</span>&nbsp;[{{selectedRequestList.length}}]
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-12 table-responsive no_padding">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th ng-click="sort('entityName','request')">
+                                    <span translate="stepApp.hrmHome.dashboard.entityName">Module Name</span>
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='entityName'"
+                                              ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                </th>
+                                <th ng-click="sort('requestFrom','request')">
+                                    <span translate="stepApp.hrmHome.dashboard.requestFrom">Request From</span>
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='requestFrom'"
+                                              ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                </th>
+                                <th><span translate="stepApp.hrmHome.dashboard.requestSummary">Summary Name</span>
+                                </th>
+                                <th ng-click="sort('requestDate','request')">
+                                    <span translate="stepApp.hrmHome.dashboard.requestDate">Request Date</span>
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='requestDate'"
+                                              ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                </th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr dir-paginate="requestObj in newRequestList |orderBy:sortKey:reverse|filter:searchText|itemsPerPage:15"
+                                pagination-id="requestListPaginate">
+                                <td><input type="checkbox" ng-click='addRemoveRequestList(requestObj)'
+                                           ng-model="requestObj.isSelected"
+                                           data-checklist-model="selectedRequestList"
+                                           data-checklist-value="requestObj.rowId"></td>
+                                <td>{{requestObj.entityName}}</td>
+                                <td><a ui-sref="hrEmployeeInfo.detail({id:requestObj.employeeId})">{{requestObj.requestFrom}}</a>
+                                </td>
+                                <td>{{requestObj.requestSummary}}</td>
+                                <td>{{requestObj.requestDate | date:'mediumDate'}}</td>
+                                <td class="text-right">
+                                    <button type="button" ng-click="approvalViewDetail(requestObj)"
+                                            class="btn btn-info btn-sm">
+                                        <span translate="stepApp.hrmHome.dashboard.requestView">View</span>
+                                    </button>
+                                    <button type="button" ng-click="approvalConfirmation(requestObj, 'accept')"
+                                            class="btn btn-primary btn-sm">
+                                        <span translate="stepApp.hrmHome.dashboard.requestAccept">Accept</span>
+                                    </button>
+                                    <button type="button" ng-click="approvalConfirmation(requestObj, 'reject')"
+                                            class="btn btn-danger btn-sm">
+                                        <span translate="stepApp.hrmHome.dashboard.requestReject">Reject</span>
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <dir-pagination-controls auto-hide="false" max-size="5" direction-links="true"
+                                                 boundary-links="true"
+                                                 pagination-id="requestListPaginate"></dir-pagination-controls>
+                    </div>
+                </div>
+            </tab>
+            <tab
+                heading="{{'stepApp.hrmHome.dashboard.dashboardTab2' | translate}}  ({{updateRequestList.length}})">
+                <div class="table-responsive">
+                    <div class="row padding-tb">
+                        <div class="col-sm-5">
+                            <label translate="global.menu.entities.search">Search:</label>
+                            <input class="searchText" id="updateSearchText" ng-model="updateSearchText"
+                                   name="updateSearchText" type="text"/>
+                            <input ng-hide="true" id="updateSearchButton" value="Clear" type="button"
+                                   ng-click="clearSearchText('update')">
+                        </div>
+                        <div class="col-sm-7">
+                            <button type="button" ng-click="approvalAllConfirmation('accept','update')"
+                                    class="btn btn-primary btn-sm" ng-show="selectedUpdateList.length">
+                                <span translate="stepApp.hrmHome.dashboard.requestAcceptAll">Accept All</span>&nbsp;[{{selectedUpdateList.length}}]
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-12 table-responsive no_padding">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th ng-click="sort('entityName','update')">
+                                    <span translate="stepApp.hrmHome.dashboard.entityName">Module Name</span>
+                                        <span class="glyphicon sort-icon" ng-show="sortKey2=='entityName'"
+                                              ng-class="{'glyphicon-chevron-up':reverse2,'glyphicon-chevron-down':!reverse2}"></span>
+                                </th>
+                                <th ng-click="sort('requestFrom','update')">
+                                    <span translate="stepApp.hrmHome.dashboard.requestFrom">Request From</span>
+                                        <span class="glyphicon sort-icon" ng-show="sortKey2=='requestFrom'"
+                                              ng-class="{'glyphicon-chevron-up':reverse2,'glyphicon-chevron-down':!reverse2}"></span>
+                                </th>
+                                <th><span translate="stepApp.hrmHome.dashboard.requestSummary">Summary Name</span>
+                                </th>
+                                <th ng-click="sort('requestDate','update')">
+                                    <span translate="stepApp.hrmHome.dashboard.requestDate">Request Date</span>
+                                        <span class="glyphicon sort-icon" ng-show="sortKey2=='requestDate'"
+                                              ng-class="{'glyphicon-chevron-up':reverse2,'glyphicon-chevron-down':!reverse2}"></span>
+                                </th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr dir-paginate="requestObj in updateRequestList |orderBy:sortKey2:reverse2|filter:updateSearchText|itemsPerPage:15"
+                                pagination-id="updateListPaginate">
+                                <td><input type="checkbox" ng-click='addRemoveUpdateList(requestObj)'
+                                           ng-model="requestObj.isSelected"
+                                           data-checklist-model="selectedUpdateList"
+                                           data-checklist-value="requestObj.rowId"></td>
+                                <td>{{requestObj.entityName}}</td>
+                                <td><a ui-sref="hrEmployeeInfo.detail({id:requestObj.employeeId})">{{requestObj.requestFrom}}</a>
+                                </td>
+                                <td>{{requestObj.requestSummary}}</td>
+                                <td>{{requestObj.requestDate | date:'mediumDate'}}</td>
+                                <td class="hrm-button text-right">
+                                    <button type="button" ng-click="approvalViewDetail(requestObj)"
+                                            class="btn btn-info btn-sm">
+                                          <span translate="stepApp.hrmHome.dashboard.requestView">View</span>
+                                    </button>
+                                    <button type="button" ng-click="approvalConfirmation(requestObj, 'accept')"
+                                            class="btn btn-primary btn-sm">
+                                        <span translate="stepApp.hrmHome.dashboard.requestAccept">Accept</span>
+                                    </button>
+                                    <button type="button" ng-click="approvalConfirmation(requestObj, 'reject')"
+                                            class="btn btn-danger btn-sm">
+                                        <span translate="stepApp.hrmHome.dashboard.requestReject"> Reject</span>
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <dir-pagination-controls auto-hide="false" max-size="5" direction-links="true"
+                                                 boundary-links="true"
+                                                 pagination-id="updateListPaginate"></dir-pagination-controls>
+                    </div>
+                </div>
+            </tab>
+            <tab
+                heading="{{'stepApp.hrmHome.dashboard.dashboardTab3' | translate}}  ({{applApprvRequestList.length}})">
+                <div class="table-responsive">
+
+                    <div class="row padding-tb">
+                        <!-- <div class="col-sm-5">
+                             <label translate="global.menu.entities.search">Search:</label><input id="applApprvSearchText" ng-model="applApprvSearchText" name="applApprvSearchText" type="text" />
+                             <input ng-hide="true" id="applApprvSearchButton" value="Clear" type="button" ng-click="clearSearchText('update')">
+                         </div>-->
+                        <div class="col-sm-5">
+                            <label translate="global.menu.entities.search">Search:</label>
+                            <input class="searchText" id="applApprvSearchText" ng-model="applApprvSearchText"
+                                   name="applApprvSearchText" type="text"/>
+                            <input ng-hide="true" id="applApprvSearchButton" value="Clear" type="button"
+                                   ng-click="clearSearchText('update')">
+                        </div>
+                        <div class="col-sm-7">
+                            <button type="button" ng-click="approvalAllConfirmation('accept','applAppr')"
+                                    class="btn btn-primary btn-sm" ng-show="selectedApplApprvList.length">
+                                <span translate="stepApp.hrmHome.dashboard.requestAcceptAll">Accept All</span>&nbsp;[{{selectedUpdateList.length}}]
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-12 table-responsive no_padding">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th ng-click="sort('entityName','applAppr')">
+                                    <span translate="stepApp.hrmHome.dashboard.entityName">Module Name</span>
+                                        <span class="glyphicon sort-icon" ng-show="sortKey3=='entityName'"
+                                              ng-class="{'glyphicon-chevron-up':reverse3,'glyphicon-chevron-down':!reverse3}"></span>
+                                </th>
+                                <th ng-click="sort('requestFrom','applAppr')">
+                                    <span translate="stepApp.hrmHome.dashboard.requestFrom">Request From</span>
+                                        <span class="glyphicon sort-icon" ng-show="sortKey3=='requestFrom'"
+                                              ng-class="{'glyphicon-chevron-up':reverse3,'glyphicon-chevron-down':!reverse3}"></span>
+                                </th>
+                                <th><span translate="stepApp.hrmHome.dashboard.requestSummary">Summary Name</span>
+                                </th>
+                                <th ng-click="sort('requestDate','applAppr')">
+                                    <span translate="stepApp.hrmHome.dashboard.requestDate">Request Date</span>
+                                        <span class="glyphicon sort-icon" ng-show="sortKey3=='requestDate'"
+                                              ng-class="{'glyphicon-chevron-up':reverse3,'glyphicon-chevron-down':!reverse3}"></span>
+                                </th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr dir-paginate="requestObj in applApprvRequestList |orderBy:sortKey2:reverse2|filter:applApprvSearchText|itemsPerPage:15"
+                                pagination-id="applApprvListPaginate">
+                                <td><input type="checkbox" ng-click='addRemoveUpdateList(requestObj)'
+                                           ng-model="requestObj.isSelected"
+                                           data-checklist-model="selectedApplApprvList"
+                                           data-checklist-value="requestObj.rowId"></td>
+                                <td>{{requestObj.entityName}}</td>
+                                <td><a ui-sref="hrEmployeeInfo.detail({id:requestObj.employeeId})">{{requestObj.requestFrom}}</a>
+                                </td>
+                                <td>{{requestObj.requestSummary}}</td>
+                                <td>{{requestObj.requestDate | date:'mediumDate'}}</td>
+                                <td class="hrm-button">
+                                    <button type="submit" class="btn btn-primary btn-sm"
+                                            ui-sref="hrEmpTransferApplInfo.appr({id:requestObj.entityId})">
+                                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span
+                                        translate="entity.action.view"> View</span>
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <dir-pagination-controls auto-hide="false" max-size="5" direction-links="true"
+                                                 boundary-links="true"
+                                                 pagination-id="applApprvListPaginate"></dir-pagination-controls>
+                    </div>
+                </div>
+            </tab>
+            <tab heading="{{'stepApp.hrmHome.dashboard.dashboardTab4' | translate}}  ({{approvedList.length}})">
+                <div class="table-responsive">
+                    <div class="row padding-tb">
+                        <div class="col-sm-5">
+                            <label translate="global.menu.entities.search">Search:</label>
+                            <input class="searchText" id="approvedListSearch" ng-model="approvedListSearch"
+                                   name="approvedListSearch" type="text"/>
+                        </div>
+                        <div class="col-sm-7">&nbsp;</div>
+                    </div>
+                    <div class="col-md-12 table-responsive no_padding">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th ng-click="sort('entityName','approved')">
+                                    <span translate="stepApp.hrmHome.dashboard.entityName">Module Name</span>
+                                        <span class="glyphicon sort-icon" ng-show="sortKey4=='entityName'"
+                                              ng-class="{'glyphicon-chevron-up':reverse4,'glyphicon-chevron-down':!reverse4}"></span>
+                                </th>
+                                <th ng-click="sort('requestFrom','approved')">
+                                    <span translate="stepApp.hrmHome.dashboard.requestFrom">Request From</span>
+                                        <span class="glyphicon sort-icon" ng-show="sortKey4=='requestFrom'"
+                                              ng-class="{'glyphicon-chevron-up':reverse4,'glyphicon-chevron-down':!reverse4}"></span>
+                                </th>
+                                <th><span translate="stepApp.hrmHome.dashboard.requestSummary">Summary Name</span>
+                                </th>
+                                <th ng-click="sort('requestDate','approved')">
+                                    <span translate="stepApp.hrmHome.dashboard.requestDate">Request Date</span>
+                                        <span class="glyphicon sort-icon" ng-show="sortKey4=='requestDate'"
+                                              ng-class="{'glyphicon-chevron-up':reverse4,'glyphicon-chevron-down':!reverse4}"></span>
+                                </th>
+                                <th translate="global.menu.account.comments">Comments</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr dir-paginate="requestObj in approvedList |orderBy:sortKey4:reverse4|filter:approvedListSearch|itemsPerPage:20"
+                                pagination-id="approvedListPaginate">
+                                <td>{{requestObj.entityName}}</td>
+                                <td><a ui-sref="hrEmployeeInfo.detail({id:requestObj.employeeId})">{{requestObj.requestFrom}}</a>
+                                </td>
+                                <td>{{requestObj.requestSummary}}</td>
+                                <td>{{requestObj.requestDate | date:'mediumDate'}}</td>
+                                <td>{{requestObj.logComments}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <dir-pagination-controls max-size="10" direction-links="true" boundary-links="true"
+                                                 pagination-id="approvedListPaginate"></dir-pagination-controls>
+                    </div>
+                </div>
+            </tab>
+            <tab heading="{{'stepApp.hrmHome.dashboard.dashboardTab5' | translate}}  ({{rejectedList.length}})">
+                <div class="table-responsive">
+                    <div class="row padding-tb">
+                        <div class="col-sm-5">
+                            <label translate="global.menu.entities.search">Search:</label>
+                            <input class="searchText" id="rejectedListSearch" ng-model="rejectedListSearch"
+                                   name="rejectedListSearch" type="text"/>
+                        </div>
+                        <div class="col-sm-7">&nbsp;</div>
+                    </div>
+
+                    <div class="col-md-12 table-responsive no_padding">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th ng-click="sort('entityName','rejected')">
+                                    <span translate="stepApp.hrmHome.dashboard.entityName">Module Name</span>
+                                        <span class="glyphicon sort-icon" ng-show="sortKey5=='entityName'"
+                                              ng-class="{'glyphicon-chevron-up':reverse5,'glyphicon-chevron-down':!reverse5}"></span>
+                                </th>
+                                <th ng-click="sort('requestFrom','rejected')">
+                                    <span translate="stepApp.hrmHome.dashboard.requestFrom">Request From</span>
+                                        <span class="glyphicon sort-icon" ng-show="sortKey5=='requestFrom'"
+                                              ng-class="{'glyphicon-chevron-up':reverse5,'glyphicon-chevron-down':!reverse5}"></span>
+                                </th>
+                                <th><span translate="stepApp.hrmHome.dashboard.requestSummary">Summary Name</span>
+                                </th>
+                                <th ng-click="sort('requestDate','rejected')">
+                                    <span translate="stepApp.hrmHome.dashboard.requestDate">Request Date</span>
+                                        <span class="glyphicon sort-icon" ng-show="sortKey5=='requestDate'"
+                                              ng-class="{'glyphicon-chevron-up':reverse5,'glyphicon-chevron-down':!reverse5}"></span>
+                                </th>
+                                <th translate="global.menu.account.comments">Comments</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr dir-paginate="requestObj in rejectedList |orderBy:sortKey5:reverse5|filter:rejectedListSearch|itemsPerPage:20"
+                                pagination-id="rejectedListPaginate">
+                                <td>{{requestObj.entityName}}</td>
+                                <td><a ui-sref="hrEmployeeInfo.detail({id:requestObj.employeeId})">{{requestObj.requestFrom}}</a>
+                                </td>
+                                <td>{{requestObj.requestSummary}}</td>
+                                <td>{{requestObj.requestDate | date:'mediumDate'}}</td>
+                                <td>{{requestObj.logComments}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <dir-pagination-controls max-size="10" direction-links="true" boundary-links="true"
+                                                 pagination-id="rejectedListPaginate"></dir-pagination-controls>
+                    </div>
+                </div>
+            </tab>
+        </tabset>
+    </div>
+
+</div>
+<div class="modal animated bounceInUp" id="approveRejectConfirmation">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="approvalForm" ng-submit="approvalAction(approvalObj)">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                            ng-click="clear()">&times;</button>
+                    <h4 class="modal-title" translate="entity.delete.title">Confirm Approval operation of
+                        {{approvalObj.entityName}}</h4>
+                </div>
+                <div class="modal-body">
+                    <div ng-if="approvalObj.actionType == 'accept'">
+                        <p><span
+                            translate="stepApp.hrmHome.approveConfirm"> Are you sure you want to approve this ?</span>
+                        </p>
+                    </div>
+                    <div ng-if="approvalObj.actionType == 'reject'">
+                        <label class="control-label" for="field_logcomments"
+                               translate="global.menu.account.comments">Comments</label>
+                        <textarea class="form-control" name="logComments" id="field_logcomments"
+                                  ng-model="approvalObj.logComments"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                        <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                        translate="entity.action.close">close</span>
+                    </button>
+                    <span ng-if="approvalObj.actionType == 'accept'">
+                        <button type="submit" ng-disabled="approvalForm.$invalid" class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                            translate="stepApp.hrmHome.buttonTextApprove"> Approve</span>
+                        </button>
+                    </span>
+                    <span ng-if="approvalObj.actionType == 'reject'">
+                        <button type="submit" ng-disabled="approvalForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                            translate="stepApp.hrmHome.buttonTextReject"> Reject</span>
+                        </button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="approveViewDetailForm">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="approvalForm" ng-submit="approvalViewAction()">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                            ng-click="clear()">&times;</button>
+                    <h4 class="modal-title">{{approvalObj.viewFormTitle}}</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th><span translate="stepApp.hrmHome.approve.fieldName">Field</span></th>
+                                <th><span translate="stepApp.hrmHome.approve.fieldNewData">New Value</span></th>
+                                <th>
+                                    <span ng-if="approvalObj.haveLogData">
+                                        <span translate="stepApp.hrmHome.approve.fieldOldData">Old Value</span>
+                                    </span>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="data in approvalObj.dataList">
+                                <td>
+                                    <span>{{data.dataLevel}}</span>
+                                    <a ng-if="data.dataType === 'img'" class="btn btn-link"
+                                       ng-click="processImageView(approvalObj)">View</a>
+                                </td>
+                                <td>
+                                    <span class="form-control-static"
+                                          ng-class="(data.data1Value != data.data2Value && approvalObj.haveLogData==true) ? 'highlightedText' : ''">
+                                        <span ng-if="data.dataType === 'date'">
+                                            {{data.data1Value | date:'mediumDate'}}
+                                        </span>
+                                        <span ng-if="data.dataType === 'text'">
+                                            {{data.data1Value}}
+                                        </span>
+                                        <span ng-if="data.dataType === 'img'">
+                                            <span ng-if="approvalObj.fileContentUrl">
+                                                <img dyna-src="{{approvalObj.fileContentUrl}}" class="img-thumbnail"
+                                                     style="width:150px; height:150px"/>
+                                            </span>
+                                        </span>
+                                        <span ng-if="data.dataType === 'img2'">
+                                            <span ng-if="approvalObj.fileContentUrl2">
+                                                <img dyna-src="{{approvalObj.fileContentUrl2}}" class="img-thumbnail"
+                                                     style="width:150px; height:150px"/>
+                                            </span>
+                                        </span>
+
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">
+                                        <span ng-if="data.dataType === 'date'">
+                                            {{data.data2Value | date:'mediumDate'}}
+                                        </span>
+                                        <span ng-if="data.dataType === 'text'">
+                                            {{data.data2Value}}
+                                        </span>
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="3">
+                                    <label class="control-label" translate="stepApp.hrmHome.approve.approvalChoice">Approval
+                                        Choice</label>
+                                    <span>
+                                        <input type="radio" data-ng-model="approvalObj.isApproved" name="isApproved"
+                                               data-ng-value="true">&nbsp;<span
+                                        translate="stepApp.hrmHome.buttonTextApprove">Approve</span>&nbsp;|&nbsp;
+                                        <input type="radio" data-ng-model="approvalObj.isApproved" name="isApproved"
+                                               data-ng-value="false">&nbsp;<span
+                                        translate="stepApp.hrmHome.buttonTextReject"> Reject</span>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <div ng-hide="approvalObj.isApproved">
+                                        <label class="control-label"
+                                               translate="stepApp.hrmHome.approve.logComments">LogComments</label>
+                                            <textarea class="form-control" name="logComments"
+                                                      ng-model="approvalObj.logComments"></textarea>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                        <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                        translate="entity.action.close">Close</span>
+                    </button>
+                    <span ng-show="approvalObj.isApproved">
+                        <button type="submit" class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                            translate="stepApp.hrmHome.buttonTextApprove">Approve</span>
+                        </button>
+                    </span>
+                    <span ng-hide="approvalObj.isApproved">
+                        <button type="submit" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                            translate="stepApp.hrmHome.buttonTextReject"> Reject</span>
+                        </button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

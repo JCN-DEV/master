@@ -1,0 +1,152 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="instComiteFormation.id == null" id="myInstComiteFormationLabel"
+            translate="stepApp.instComiteFormation.home.createOrEditLabel">Create or edit a InstComiteFormation</h4>
+        <h4 ng-show="instComiteFormation.id != null" id="myInstComiteFormationLabel"
+            translate="stepApp.instComiteFormation.home.EditLabel">Create or edit a InstComiteFormation</h4>
+        <div class="modal-body col-sm-12 padding-tb">
+            <!--<jh-alert-error></jh-alert-error>-->
+            <!-- <div class="form-group col-sm-6">
+                 <label for="id" translate="global.field.id">ID</label>
+                 <input type="text" class="form-control" id="id" name="id"
+                         ng-model="instComiteFormation.id" readonly />
+             </div>-->
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.instComiteFormation.comiteName" for="field_comiteName">ComiteName</label>
+                <input type="text" class="form-control" name="comiteName" id="field_comiteName"
+                       ng-model="instComiteFormation.comiteName" required
+                       data-toggle="tooltip"
+                       tooltip="{{'stepApp.instComiteFormation.comiteName' | translate}}"
+                       placeholder="{{'stepApp.instComiteFormation.comiteName' | translate}}"
+                />
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.instComiteFormation.comiteType" for="field_comiteType">ComiteType</label>
+                <input type="text" class="form-control" name="comiteType" id="field_comiteType"
+                       ng-model="instComiteFormation.comiteType" required
+                       data-toggle="tooltip"
+                       tooltip="{{'stepApp.instComiteFormation.comiteType' | translate}}"
+                       placeholder="{{'stepApp.instComiteFormation.comiteType' | translate}}"
+                />
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.instComiteFormation.timeFrom" for="field_timeFrom">TimeFrom</label>
+                <input type="number" class="form-control" name="timeFrom" id="field_timeFrom"
+                       ng-model="instComiteFormation.timeFrom" required
+                       data-toggle="tooltip"
+                       tooltip="{{'stepApp.instComiteFormation.timeFrom' | translate}}"
+                       placeholder="{{'stepApp.instComiteFormation.timeFrom' | translate}}"
+                />
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.instComiteFormation.timeTo" for="field_timeTo">TimeTo</label>
+                <input type="number" class="form-control" name="timeTo" id="field_timeTo"
+                       ng-model="instComiteFormation.timeTo" required
+                       data-toggle="tooltip"
+                       tooltip="{{'stepApp.instComiteFormation.timeTo' | translate}}"
+                       placeholder="{{'stepApp.instComiteFormation.timeTo' | translate}}"
+                />
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.instComiteFormation.formationDate"
+                       for="field_formationDate">FormationDate</label>
+                <!--<input type="date" class="form-control" name="formationDate" id="field_formationDate"
+                        ng-model="instComiteFormation.formationDate" required
+                         />-->
+                <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.formationDate"
+                       datepicker-options="calendar.dateOptions" close-text="Close"
+                       ng-click="calendar.open($event, 'formationDate')" class="form-control"
+                       name="formationDate" id="field_formationDate"
+                       ng-model="instComiteFormation.formationDate"
+                       data-toggle="tooltip"
+                       tooltip="{{'stepApp.instComiteFormation.formationDate' | translate}}"
+                       placeholder="yyyy-mm-dd"
+                />
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.instComiteFormation.address" for="field_address">Address</label>
+                <textarea type="text" class="form-control" name="address" id="field_address"
+                          ng-model="instComiteFormation.address" required
+                          cols="30" rows="3"
+                          data-toggle="tooltip"
+                          tooltip="{{'stepApp.instComiteFormation.address' | translate}}"
+                          placeholder="{{'stepApp.instComiteFormation.address' | translate}}"
+                ></textarea>
+            </div>
+            <!--<div class="row">
+                <div class="col-md-12">
+                    <label for="committee-email" translate="global.form.email">E-mail</label>
+                </div>
+                <div class="col-md-7">
+                    <input type="email" class="form-control" id="committee-email" name="email"
+                           placeholder="{{'global.form.email.placeholder' | translate}}"
+                           ng-model="personEmail">
+                </div>
+                <div class="col-md-2">
+                    <input ng-disabled="personEmail == null" type="button" class="btn btn-success" value="Search"
+                           ng-click="searchCommitteePresident()">
+                </div>
+
+            </div>-->
+
+            <!--<div class="row" ng-if="instComiteFormation.instMemShip.id != null">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th translate="stepApp.instMemShip.fullName">FullName</th>
+                            <th translate="stepApp.instMemShip.email">Email</th>
+                            <th translate="stepApp.instMemShip.contact">Contact</th>
+                            <th translate="stepApp.instMemShip.designation">Designation</th>
+                            <th translate="stepApp.instMemShip.orgName">OrgName</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>{{instComiteFormation.instMemShip.fullName}}</td>
+                            <td>{{instComiteFormation.instMemShip.email}}</td>
+                            <td>{{instComiteFormation.instMemShip.contact}}</td>
+                            <td>{{instComiteFormation.instMemShip.designation}}</td>
+                            <td>{{instComiteFormation.instMemShip.orgName}}</td>
+                        </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>-->
+            <!-- <div class="form-group col-sm-6">
+                 <label translate="stepApp.instComiteFormation.instMemShip" for="field_instMemShip">instMemShip</label>
+                 <select class="form-control" id="field_instMemShip" name="instMemShip" ng-model="instComiteFormation.instMemShip" ng-options="instMemShip as instMemShip.email for instMemShip in instmemships track by instMemShip.id">
+                     <option value=""></option>
+                 </select>
+             </div>-->
+            <!-- <div class="form-group col-sm-6">
+                 <label translate="stepApp.instMemShip.searchEmail" for="field_searchEmail">searchEmail</label>
+                 <input type="text" class="form-control" name="address" id="field_searchEmail"
+                        ng-model="instMemShip.searchEmail" required
+                     />
+                 <button type="button" class="btn btn-default col-sm-3">
+                     <span class="glyphicon glyphicon-search"></span>&nbsp;<span translate="entity.action.search">Search</span>
+                 </button>
+              </div>-->
+
+            <div class="modal-footer col-sm-12">
+                <button type="button" class="btn btn-default" class="btn pull-left" data-dismiss="modal"
+                        onclick="window.history.back()">
+                    <span class=" glyphicon glyphicon-arrow-left"></span>&nbsp;<span
+                    translate="entity.action.back">Back</span>
+                </button>
+                <button type="submit" ng-disabled="editForm.$invalid || isSaving " class="btn btn-primary">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;
+                    <span ng-show="instComiteFormation.id == null" translate="entity.action.save">Save</span>
+                    <span ng-show="instComiteFormation.id != null" translate="entity.action.update">Save</span>
+                </button>
+            </div>
+        </div>
+    </form>
+    <!--</div>
+    </div>-->
+</div>

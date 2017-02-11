@@ -1,0 +1,100 @@
+<div class="col-md-12 common-list">
+    <h2 translate="stepApp.hrEmpAcrInfo.home.title">HrEmpAcrInfos</h2>
+    <div class="col-md-12 padding-tb">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+        <div class="col-xs-4 no_padding text-right ">
+            <button class="btn btn-primary su_sea_pri" ui-sref="hrEmpAcrInfo.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.hrEmpAcrInfo.home.createLabel">Create a new HrEmpAcrInfo</span>
+            </button>
+        </div>
+    </div>
+    <!--<jh-alert></jh-alert>-->
+    <!--<div class="col-sm-12 padding-tb no-print">
+        <div class="col-md-8 col-xs-12 no_padding">
+            <div class="col-md-6 no_padding">
+                <b>&lt;!&ndash;{{ (hrEmpAcrInfos | filter:q).length }}&ndash;&gt; <span
+                    translate="global.home.searchhere">Search Here :</span></b>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-search"
+                                                                         aria-hidden="true"></i></span>
+                    <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <b><span translate="global.home.itemperpage">Items per page:</span></b>
+                <div class="input-group">
+                    <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-xs-12 text-right no_padding dlbtn-top">
+            <button class="btn btn-primary su_sea_pri" ui-sref="hrEmpAcrInfo.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.hrEmpAcrInfo.home.createLabel">Create a new HrEmpAcrInfo</span>
+            </button>
+        </div>
+    </div>-->
+
+    <div class="col-sm-12  table-responsive no_padding">
+        <table class="table table-striped ">
+            <thead>
+            <tr>
+                <th><span translate="global.form.serial">serial</span></th>
+                <th><span translate="global.field.id">ID</span></th>
+                <th><span translate="stepApp.hrEmpAcrInfo.employeeInfo">employeeInfo</span></th>
+                <th><span translate="stepApp.hrEmpAcrInfo.acrYear">AcrYear</span></th>
+                <th><span translate="stepApp.hrEmpAcrInfo.totalMarks">TotalMarks</span></th>
+                <th><span translate="stepApp.hrEmpAcrInfo.overallEvaluation">OverallEvaluation</span></th>
+                <!--<th><span translate="stepApp.hrEmpAcrInfo.promotionStatus">PromotionStatus</span> </th>
+                <th><span translate="stepApp.hrEmpAcrInfo.acrDate">AcrDate</span></th>
+                -->
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-animate="'animate'"
+                dir-paginate="hrEmpAcrInfo in hrEmpAcrInfos | filter:q | itemsPerPage: pageSize track by hrEmpAcrInfo.id"
+                current-page="currentPage">
+                <td>{{pageSize * (currentPage-1)+$index+1}}</td>
+                <td><a ui-sref="hrEmpAcrInfo.detail({id:hrEmpAcrInfo.id})">{{hrEmpAcrInfo.id}}</a></td>
+                <td>
+                    <a ui-sref="hrEmployeeInfo.detail({id:hrEmpAcrInfo.employeeInfo.id})">{{hrEmpAcrInfo.employeeInfo.fullName}}</a>
+                </td>
+                <td>{{hrEmpAcrInfo.acrYear}}</td>
+                <td>{{hrEmpAcrInfo.totalMarks}}</td>
+                <td>{{hrEmpAcrInfo.overallEvaluation}}</td>
+                <!--<td>{{hrEmpAcrInfo.promotionStatus}}</td>
+                <td>{{hrEmpAcrInfo.acrDate | date:'mediumDate'}}</td>
+                -->
+                <td class="text-right no-print">
+                    <button type="submit"
+                            ui-sref="hrEmpAcrInfo.detail({id:hrEmpAcrInfo.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="hrEmpAcrInfo.edit({id:hrEmpAcrInfo.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                        translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="hrEmpAcrInfo.delete({id:hrEmpAcrInfo.id})"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                        translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <nav class="no-print">
+        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                 template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+    </nav>
+</div>

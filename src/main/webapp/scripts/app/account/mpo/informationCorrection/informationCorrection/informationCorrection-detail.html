@@ -1,0 +1,93 @@
+<div class="col-md-12 common-table">
+    <h2><span translate="stepApp.informationCorrection.detail.title">InformationCorrection</span>
+        {{informationCorrection.id}}</h2>
+    <br>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+                <th translate="entity.detail.previous">previous Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-if="informationCorrection.dob != null">
+                <td>
+                    <span translate="stepApp.informationCorrection.dob">Dob</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{informationCorrection.dob | date:'mediumDate'}}</span>
+                </td>
+                <td>
+                    <span
+                        class="form-control-static">{{informationCorrection.instEmployee.dob | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr ng-if="informationCorrection.name != null">
+                <td>
+                    <span translate="stepApp.informationCorrection.name">Name</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{informationCorrection.name}}</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{informationCorrection.name}}</span>
+                </td>
+            </tr>
+            <tr ng-if="informationCorrection.indexNo != null">
+                <td>
+                    <span translate="stepApp.informationCorrection.indexNo">IndexNo</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{informationCorrection.indexNo}}</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{informationCorrection.indexNo}}</span>
+                </td>
+            </tr>
+            <tr ng-if="informationCorrection.bankAccountNo != null">
+                <td>
+                    <span translate="stepApp.informationCorrection.bankAccountNo">BankAccountNo</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{informationCorrection.bankAccountNo}}</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{informationCorrection.bankAccountNo}}</span>
+                </td>
+            </tr>
+
+            <tr ng-if="informationCorrection.instEmplDesignation.id != null">
+                <td>
+                    <span translate="stepApp.informationCorrection.instEmplDesignation">instEmplDesignation</span>
+                </td>
+                <td>
+                    <a class="form-control-static"
+                       ui-sref="instEmplDesignation.detail({id:informationCorrection.instEmplDesignation.id})">{{informationCorrection.instEmplDesignation.name}}</a>
+                </td>
+
+                <td>
+                    <a class="form-control-static"
+                       ui-sref="instEmplDesignation.detail({id:informationCorrection.instEmplDesignation.id})">{{informationCorrection.instEmplDesignation.name}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.informationCorrection.createdDate">CreatedDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{informationCorrection.createdDate | date:'mediumDate'}}</span>
+                </td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info no-print">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

@@ -1,0 +1,144 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 id="myEmployeeLoanMonthlyDeductionLabel"
+            translate="stepApp.employeeLoanMonthlyDeduction.home.createOrEditLabel">Create a EmployeeLoanMonthlyDeduction</h4>
+        <div class="col-md-12 padding-tb">
+            <div class="col-sm-12 no_padding">
+                <div class="col-sm-6">
+                    <label translate="stepApp.employeeLoanMonthlyDeduction.instEmployee" for="field_employeeID">Employee
+                        ID</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control"
+                               ng-model="employeeLoanMonthlyDeduction.employeeId"
+                               id="field_employeeID"
+                               placeholder="Search for...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" ng-click="searchEmployee()">Search
+                                    </button>
+                                </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 table-responsive padding-tb common-table" ng-hide="empInfoDiv">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Employee Name</th>
+                        <th> Designation</th>
+                        <th>Department</th>
+                        <th>Loan Requisition Code</th>
+                        <th>Apply Date</th>
+                    </tr>
+                    </thead>
+                    <tboady>
+                        <tr>
+                            <td>{{employeeName}}</td>
+                            <td>{{employeeDesignation}}</td>
+                            <td>{{employeeDept}}</td>
+                            <td>{{loanRequisitionCode}}</td>
+                            <td>{{applyDate}}</td>
+                        </tr>
+                    </tboady>
+                </table>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.employeeLoanMonthlyDeduction.billNo" for="field_billNo">Bill No</label>
+                <input type="text" class="form-control" name="billNo" id="field_billNo" ng-blur="findBillRegister()"
+                       ng-model="employeeLoanMonthlyDeduction.billNo" required/>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.employeeLoanMonthlyDeduction.checkNumber" for="field_checkNumber">Check Number</label>
+                <input type="text" class="form-control" name="checkNumber" id="field_checkNumber" ng-blur="findCheckRegister()"
+                       ng-model="employeeLoanMonthlyDeduction.checkNumber" required/>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.employeeLoanMonthlyDeduction.month" for="field_month">Month</label>
+                <select class="form-control" id="field_month" name="month"
+                        ng-model="employeeLoanMonthlyDeduction.month" month-options required>
+                </select>
+
+                <!--<input type="month" class="form-control" name="month" id="field_month"-->
+                       <!--ng-model="employeeLoanMonthlyDeduction.month"-->
+                       <!--required/>-->
+                <div ng-show="editForm.month.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.month.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.month.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.employeeLoanMonthlyDeduction.year" for="field_year">Year</label>
+                <input type="number" class="form-control" name="year" id="field_year"
+                       ng-model="employeeLoanMonthlyDeduction.year"
+                       required/>
+                <div ng-show="editForm.year.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.year.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.year.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.employeeLoanMonthlyDeduction.totalLoanAmountApproved" for="field_totalLoanAmountApproved">Total Loan Amount Approved</label>
+                <input type="number" class="form-control" name="totalLoanAmountApproved" id="field_totalLoanAmountApproved"
+                       ng-model="employeeLoanMonthlyDeduction.totalLoanAmountApproved" required/>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.employeeLoanMonthlyDeduction.totalInstallment" for="field_totalInstallment">Total Installment</label>
+                <input type="number" class="form-control" name="totalInstallment" id="field_totalInstallment"
+                       ng-model="employeeLoanMonthlyDeduction.totalInstallment" required/>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.employeeLoanMonthlyDeduction.monthlyDeductionAmount" for="field_monthlyDeductionAmount">monthly Deduction Amount</label>
+                <input type="number" class="form-control" name="monthlyDeductionAmount" id="field_monthlyDeductionAmount"
+                       ng-model="employeeLoanMonthlyDeduction.monthlyDeductionAmount" required/>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.employeeLoanMonthlyDeduction.reason" for="field_reason">Reason</label>
+                <input type="textArea" class="form-control" name="reason" id="field_reason"
+                       ng-model="employeeLoanMonthlyDeduction.reason" required/>
+            </div>
+
+            <!--<div class="form-group col-sm-6">-->
+                <!--<label translate="stepApp.employeeLoanMonthlyDeduction.status" for="field_status">Status</label>-->
+                <!--<div id="field_status">-->
+                    <!--<label class="radio-inline"><input type="radio" name="status" value="true"-->
+                                                       <!--ng-checked="(employeeLoanMonthlyDeduction.status == true || employeeLoanMonthlyDeduction.status== null)"-->
+                                                       <!--ng-model="employeeLoanMonthlyDeduction.status"><span-->
+                        <!--translate="entity.action.activate">Active</span></label>-->
+                    <!--<label class="radio-inline"><input type="radio" name="status" value="false"-->
+                                                       <!--ng-checked="(employeeLoanMonthlyDeduction.status == false && employeeLoanMonthlyDeduction.status != null)"-->
+                                                       <!--ng-model="employeeLoanMonthlyDeduction.status"><span-->
+                        <!--translate="entity.action.deactivate">Deactive</span></label>-->
+                <!--</div>-->
+            <!--</div>-->
+
+        </div>
+
+        <div class="col-md-12 text-right">
+            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="history.back()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

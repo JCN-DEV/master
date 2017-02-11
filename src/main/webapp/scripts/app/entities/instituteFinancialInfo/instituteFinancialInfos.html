@@ -1,0 +1,84 @@
+<div>
+    <h2 translate="stepApp.instituteFinancialInfo.home.title">InstituteFinancialInfos</h2>
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" ui-sref="instituteFinancialInfo.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="stepApp.instituteFinancialInfo.home.createLabel">Create a new InstituteFinancialInfo</span>
+                </button>
+            </div>
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a InstituteFinancialInfo</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="global.field.id">ID</th>
+                    <th translate="stepApp.instituteFinancialInfo.bankName">BankName</th>
+                    <th translate="stepApp.instituteFinancialInfo.branchName">BranchName</th>
+                    <th translate="stepApp.instituteFinancialInfo.accountType">AccountType</th>
+                    <th translate="stepApp.instituteFinancialInfo.accountNo">AccountNo</th>
+                    <th translate="stepApp.instituteFinancialInfo.issueDate">IssueDate</th>
+                    <th translate="stepApp.instituteFinancialInfo.expireDate">ExpireDate</th>
+                    <th translate="stepApp.instituteFinancialInfo.amount">Amount</th>
+                    <th translate="stepApp.instituteFinancialInfo.status">Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="instituteFinancialInfo in instituteFinancialInfos track by instituteFinancialInfo.id">
+                    <td><a ui-sref="instituteFinancialInfo.detail({id:instituteFinancialInfo.id})">{{instituteFinancialInfo.id}}</a></td>
+                    <td>{{instituteFinancialInfo.bankName}}</td>
+                    <td>{{instituteFinancialInfo.branchName}}</td>
+                    <td translate="{{'stepApp.accountType.' + instituteFinancialInfo.accountType}}">{{instituteFinancialInfo.accountType}}</td>
+                    <td>{{instituteFinancialInfo.accountNo}}</td>
+                        <td>{{instituteFinancialInfo.issueDate | date:'mediumDate'}}</td>
+                        <td>{{instituteFinancialInfo.expireDate | date:'mediumDate'}}</td>
+                    <td>{{instituteFinancialInfo.amount}}</td>
+                    <td>{{instituteFinancialInfo.status}}</td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="instituteFinancialInfo.detail({id:instituteFinancialInfo.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="instituteFinancialInfo.edit({id:instituteFinancialInfo.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="instituteFinancialInfo.delete({id:instituteFinancialInfo.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pagination">
+                <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                <li class="active"><a>{{page + 1}}</a></li>
+                <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>

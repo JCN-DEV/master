@@ -1,0 +1,96 @@
+<div>
+    <h2 translate="stepApp.mpoVacancyRoleDesgnations.home.title">MpoVacancyRoleDesgnationss</h2>
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" ui-sref="mpoVacancyRoleDesgnations.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="stepApp.mpoVacancyRoleDesgnations.home.createLabel">Create a new MpoVacancyRoleDesgnations</span>
+                </button>
+            </div>
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a MpoVacancyRoleDesgnations</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="global.field.id">ID</th>
+                    <th translate="stepApp.mpoVacancyRoleDesgnations.crateDate">CrateDate</th>
+                    <th translate="stepApp.mpoVacancyRoleDesgnations.updateDate">UpdateDate</th>
+                    <th translate="stepApp.mpoVacancyRoleDesgnations.status">Status</th>
+                    <th translate="stepApp.mpoVacancyRoleDesgnations.totalPost">TotalPost</th>
+                    <th translate="stepApp.mpoVacancyRoleDesgnations.mpoVacancyRole">mpoVacancyRole</th>
+                    <th translate="stepApp.mpoVacancyRoleDesgnations.createBy">createBy</th>
+                    <th translate="stepApp.mpoVacancyRoleDesgnations.updateBy">updateBy</th>
+                    <th translate="stepApp.mpoVacancyRoleDesgnations.instEmplDesignation">instEmplDesignation</th>
+                    <th translate="stepApp.mpoVacancyRoleDesgnations.cmsSubject">cmsSubject</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="mpoVacancyRoleDesgnations in mpoVacancyRoleDesgnationss track by mpoVacancyRoleDesgnations.id">
+                    <td><a ui-sref="mpoVacancyRoleDesgnations.detail({id:mpoVacancyRoleDesgnations.id})">{{mpoVacancyRoleDesgnations.id}}</a></td>
+                        <td>{{mpoVacancyRoleDesgnations.crateDate | date:'mediumDate'}}</td>
+                        <td>{{mpoVacancyRoleDesgnations.updateDate | date:'mediumDate'}}</td>
+                    <td>{{mpoVacancyRoleDesgnations.status}}</td>
+                    <td>{{mpoVacancyRoleDesgnations.totalPost}}</td>
+                    <td>
+                        <a ui-sref="mpoVacancyRole.detail({id:mpoVacancyRoleDesgnations.mpoVacancyRole.id})">{{mpoVacancyRoleDesgnations.mpoVacancyRole.id}}</a>
+                    </td>
+                    <td>
+                        {{mpoVacancyRoleDesgnations.createBy.login}}
+                    </td>
+                    <td>
+                        {{mpoVacancyRoleDesgnations.updateBy.login}}
+                    </td>
+                    <td>
+                        <a ui-sref="instEmplDesignation.detail({id:mpoVacancyRoleDesgnations.instEmplDesignation.id})">{{mpoVacancyRoleDesgnations.instEmplDesignation.name}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="cmsSubject.detail({id:mpoVacancyRoleDesgnations.cmsSubject.id})">{{mpoVacancyRoleDesgnations.cmsSubject.name}}</a>
+                    </td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="mpoVacancyRoleDesgnations.detail({id:mpoVacancyRoleDesgnations.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="mpoVacancyRoleDesgnations.edit({id:mpoVacancyRoleDesgnations.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="mpoVacancyRoleDesgnations.delete({id:mpoVacancyRoleDesgnations.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pagination">
+                <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                <li class="active"><a>{{page + 1}}</a></li>
+                <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>

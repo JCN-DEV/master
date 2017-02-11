@@ -1,0 +1,395 @@
+<div class="col-sm-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()">
+            <h4 ng-show="dlContUpld.id == null" class="panel-title" id="myDlContUpldLabel" translate="stepApp.dlContUpld.home.createOrEditLabel">Create or edit a DlContUpld</h4>
+            <h4 ng-show="dlContUpld.id != null" class="panel-title" id="myDlContUpldLabel" translate="stepApp.dlContUpld.home.EditLabel">Create or edit a DlContUpld</h4>
+        <div class="panel-body col-sm-12 padding-tb">
+            <!--<div class="form-group col-sm-6">
+                <label for="id" translate="global.field.id">ID</label>
+                <input type="text" class="form-control" id="id" name="id"
+                        ng-model="dlContUpld.id" readonly />
+            </div>-->
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dlContUpld.dlContTypeSet" for="field_division">Content Types</label>
+                <select class="form-control" id="field_division"
+                        ng-change="updatedDlContCatSet(dlContUpld.dlContTypeSet)" name="dlContTypeSet"
+                        ng-model="dlContUpld.dlContTypeSet"
+                        ng-options="dlContTypeSet as dlContTypeSet.name for dlContTypeSet in dlContTypeSets track by dlContTypeSet.id"
+
+                    >
+                    <option disabled selected value="">{{'global.home.select' |translate}}</option>
+                    <option value=""> {{dlContTypeSet}}</option>
+                </select>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dlContUpld.dlContCatSet" for="field_district">District</label>
+                <select class="form-control" id="field_district" ng-disabled="!(dlContUpld.dlContTypeSet)"
+                        ng-change="updatedDlContSCatSet(dlContUpld.dlContCatSet)" name="dlContCatSet"
+                        ng-model="dlContUpld.dlContCatSet"
+                        ng-options="dlContCatSet as dlContCatSet.name for dlContCatSet in dlContCatSets track by dlContCatSet.id"
+
+                    >
+                    <option disabled selected value="">{{'global.home.select' |translate}}</option>
+                    <option value=""> {{dlContCatSet}}</option>
+                </select>
+            </div>
+
+            <div class="form-group col-sm-6">
+
+                <label translate="stepApp.dlContUpld.dlContSCatSet" for="field_upazila">upazila</label>
+                <select class="form-control" id="field_upazila" ng-disabled="!(dlContUpld.dlContCatSet)"
+                        name="dlContSCatSet" ng-model="dlContUpld.dlContSCatSet"
+                        ng-options="dlContSCatSet as dlContSCatSet.name for dlContSCatSet in dlContSCatSets track by dlContSCatSet.id"
+                      >
+                    <option value=""> {{dlContSCatSet}}</option>
+                </select>
+            </div>
+            <div class="form-group col-sm-6">
+
+                <label translate="stepApp.dlContUpld.dlSource" for="field_upazila">upazila</label>
+                <select class="form-control" id=""
+                        name="dlSourceSetUp" ng-model="dlContUpld.dlSourceSetUp"
+                        ng-options="dlSourceSetUp as dlSourceSetUp.name for dlSourceSetUp in dlSourceSetUps | filter:dlSourceSetUp.status='true'"
+                    >
+                    <option disabled selected value="">{{'global.home.select' |translate}}</option>
+                    <option value=""> {{dlSourceSetUp.name}}</option>
+                </select>
+            </div>
+
+
+
+
+
+            <!--<div class="form-group col-sm-6">-->
+                <!--<label translate="stepApp.dlContUpld.code" for="field_code">Code</label>-->
+                <!--<input type="text" class="form-control" name="code" id="field_code"-->
+                       <!--ng-model="dlContUpld.code"-->
+                       <!--ng-remote-validate="/api/dlContUplds/contUpldCodeUnique/"-->
+                       <!--ng-remote-method="GET"-->
+
+                <!--/>-->
+                <!--<span class="message" ng-show="editForm.code.$pending">validating...</span>-->
+                <!--<div ng-show="editForm.code.$invalid">-->
+                    <!--<p style="color:red"-->
+                       <!--ng-show="editForm.code.$error.ngRemoteValidate">-->
+                        <!--This content code is already exist-->
+                    <!--</p>-->
+                <!--</div>-->
+               <!--&lt;!&ndash; <div>-->
+                    <!--<span class="message" ng-show="editForm.code.$pending">validating...</span>-->
+                <!--</div>-->
+                <!--<div ng-show="editForm.code.$invalid">-->
+                    <!--<p style="color:red"-->
+                       <!--ng-show="editForm.code.$error.ngRemoteValidate">-->
+                        <!--This content code is already exist-->
+                    <!--</p>-->
+                <!--</div>&ndash;&gt;-->
+
+
+                <!--&lt;!&ndash;<span class="message" ng-show="editForm.code.$pending">validating...</span>-->
+                <!--<div ng-show="editForm.code.$invalid">-->
+                    <!--<p class="help-block"-->
+                       <!--ng-show="editForm.code.$error.ngRemoteValidate">-->
+                        <!--This content code is already exist-->
+                    <!--</p>-->
+                <!--</div>&ndash;&gt;-->
+            <!--</div>-->
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dlContUpld.cName" for="field_code">Code</label>
+                <input type="text" class="form-control" name="code" id="field_code"
+                       ng-model="dlContUpld.cName"
+                       placeholder="{{'stepApp.dlContUpld.cName' | translate}}"
+
+                />
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dlContUpld.authName" for="field_authName">AuthName</label>
+                <textarea type="text" class="form-control" name="authName" id="field_authName"
+                       ng-model="dlContUpld.authName"
+                       placeholder="{{'stepApp.dlContUpld.authName' | translate}}"
+                ></textarea>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dlContUpld.edition" for="field_edition">Edition</label>
+                <input type="text" class="form-control"  name="edition" id="field_edition"
+                       ng-model="dlContUpld.edition"
+                       placeholder="{{'stepApp.dlContUpld.edition' | translate}}"
+                />
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dlContUpld.isbnNo" for="field_isbnNo">IsbnNo</label>
+                <input type="text" class="form-control" name="isbnNo" id="field_isbnNo"
+                       ng-model="dlContUpld.isbnNo"
+                       ng-remote-validate="/api/dlContUplds/dlContupldsetisbn/"
+                       ng-remote-method="GET"
+                       placeholder="{{'stepApp.dlContUpld.isbnNo' | translate}}"
+
+                    />
+                <span class="message" ng-show="editForm.isbnNo.$pending">validating...</span>
+                <div ng-show="editForm.isbnNo.$invalid">
+                    <p style="color:red"
+                       ng-show="editForm.isbnNo.$error.ngRemoteValidate">
+                        This File Type is already exist
+                    </p>
+                </div>
+
+            </div>
+
+
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dlContUpld.copyright" for="field_copyright">Copyright</label>
+                <label  class="radio-inline"><input type="radio" name="debitCredit" ng-model="Copyright" value="true" ng-checked="Copyright == true || Copyright == null"><span translate="stepApp.dlContUpld.yes">Activate</span></label>
+                <label class="radio-inline"><input type="radio" name="debitCredit"  ng-model="Copyright" value="false"><span translate="stepApp.dlContUpld.no">Deactivate</span></label>
+
+                <input type="text" class="form-control" name="copyright" id="field_copyright"
+                       ng-model="dlContUpld.copyright"
+                       ng-show="Copyright == 'true'"
+                       ng-hide="Copyright == 'false'"
+
+                />
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dlContUpld.yearOfPublication" for="field_copyright">Year Of publication</label>
+                <input type="text" class="form-control" name="copyright" id="field_copyright"
+                       ng-model="dlContUpld.yearOfPublication"
+                       placeholder="{{'stepApp.dlContUpld.yearOfPublication' | translate}}"
+                />
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dlContUpld.publisher" for="field_publisher">Publisher</label>
+                <input type="text" class="form-control" name="publisher" id="field_publisher"
+                       ng-model="dlContUpld.publisher"
+                       placeholder="{{'stepApp.dlContUpld.publisher' | translate}}"
+                />
+            </div>
+
+
+        <!--<div class="form-group col-sm-6">
+            <label translate="stepApp.dlContUpld.createdDate" for="field_createdDate">CreatedDate</label>
+            <input type="date" class="form-control" name="createdDate" id="field_createdDate"
+                    ng-model="dlContUpld.createdDate"
+                     />
+        </div>
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.dlContUpld.updatedDate" for="field_updatedDate">UpdatedDate</label>
+            <input type="date" class="form-control" name="updatedDate" id="field_updatedDate"
+                    ng-model="dlContUpld.updatedDate"
+                     />
+        </div>
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.dlContUpld.createdBy" for="field_createdBy">CreatedBy</label>
+            <input type="number" class="form-control" name="createdBy" id="field_createdBy"
+                    ng-model="dlContUpld.createdBy"
+                     />
+        </div>
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.dlContUpld.updatedBy" for="field_updatedBy">UpdatedBy</label>
+            <input type="number" class="form-control" name="updatedBy" id="field_updatedBy"
+                    ng-model="dlContUpld.updatedBy"
+                     />
+        </div>
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.dlContUpld.status" for="field_status">Status</label>
+            <input type="number" class="form-control" name="status" id="field_status"
+                    ng-model="dlContUpld.status"
+                     />
+        </div>-->
+
+        <!--<div class="form-group col-sm-6">
+            <label translate="stepApp.dlContUpld.dlContTypeSet" for="field_dlContTypeSet">dlContTypeSet</label>
+            <select class="form-control" id="field_dlContTypeSet" name="dlContTypeSet"
+                    ng-model="dlContUpld.dlContTypeSet" ng-options="dlContTypeSet as dlContTypeSet.name for dlContTypeSet in dlconttypesets track by dlContTypeSet.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.dlContUpld.dlContCatSet" for="field_dlContCatSet">dlContCatSet</label>
+            <select class="form-control" id="field_dlContCatSet" name="dlContCatSet" ng-model="dlContUpld.dlContCatSet" ng-options="dlContCatSet as dlContCatSet.name for dlContCatSet in dlcontcatsets track by dlContCatSet.id">
+                <option value=""></option>
+            </select>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.dlContUpld.dlContSCatSet" for="field_dlContSCatSet">dlContSCatSet</label>
+            <select class="form-control" id="field_dlContSCatSet" name="dlContSCatSet" ng-model="dlContUpld.dlContSCatSet" ng-options="dlContSCatSet as dlContSCatSet.name for dlContSCatSet in dlcontscatsets track by dlContSCatSet.id">
+                <option value=""></option>
+            </select>
+        </div>
+
+
+-->
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.dlContUpld.dlFileType" for="field_dlFileType">dlFileType</label>
+            <select ng-change="filetype(dlContUpld.dlFileType)" class="form-control" id="field_dlFileType" name="dlFileType" ng-model="dlContUpld.dlFileType"
+                    ng-options="dlFileType as dlFileType.fileType for dlFileType in dlfiletypes | filter:dlFileType.pStatus='true'">
+                <option disabled selected value="">{{'global.home.select' |translate}}</option>
+                <option value="">{{dlContUpld.dlFileType.fileType}}</option>
+            </select>
+        </div>
+        <!--<div  class="col-sm-6">
+            <span ng-repeat="dlFileTypes in dlFileTypes">
+                {{dlFileTypes.fileType}},
+            </span>
+
+        </div>-->
+        <div class="form-group col-md-6 no_padding" ngf-drop ngf-change="setContent($file, dlContUpld)">
+            <div class="col-sm-12">
+                <label class="control-label" translate="stepApp.dlContUpld.content" for="field_content">Content Upload</label>
+
+                <div>
+                    <div class="help-block clearfix">
+                        <span class="pull-left">{{dlContUpld.contentContentType}} {{byteSize(dlContUpld.content)}}</span>
+
+                        <button ng-click="dlContUpld.content=null; dlContUpld.contentContentType=null;"
+                                ng-if="dlContUpld.content"
+                                class="btn btn-default btn-xs pull-right">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </div>
+
+                    <div class="col-md-9 no_padding">
+                        <input type="text" readonly class="form-control" name="contentName"
+                               ng-model="dlContUpld.contentName"/>
+
+                    </div>
+                    <div class="col-md-3 no_padding">
+                        <button type="file"
+                                ngf-select class="btn btn-default btn-block"
+                                ngf-change="setContent($file, dlContUpld)"
+                                accept="{{allowedTypes}}"
+                                ng-show="!fileUploadFinished"
+                                translate="entity.action.addblob">
+                        </button>
+                    </div>
+
+                    <div class="col-md-2" ng-show="dlContUpld.contentName!=null && dlContUpld.content.id!=null">
+
+                        <a class="download-afl btn btn-primary" href="/assets/dl/{{dlContUpld.contentName}}"  class="btn btn-primary" download>Download
+                        </a>
+
+                    </div>
+
+                    <input type="hidden" class="form-control" name="content" id="field_content"
+                           ng-model="dlContUpld.content"
+                    />
+                    <input type="hidden" class="form-control" name="contentContentType" id="field_contentContentType"
+                           ng-model="dlContUpld.contentContentType"
+                    />
+
+                </div>
+                <div class="col-sm-12" ng-if="dlContUpld.dlFileType">
+                    <span >
+                      <p style="color:green;">You can upload maximum  <span style="color:red; border: 1px dotted;
+    border-radius: 20%;">{{appId.limitMb}}</span>  mb on this type</p>
+                    </span>
+                </div>
+
+            </div>
+
+            <!--<div class="col-md-5" ng-show="dlContUpld.contentName==null">
+
+                <label class="control-label">&nbsp;</label>
+                <div class="form-group">
+                    <p class="col-sm-12">
+                        <a ng-disabled="true" class="download-afl btn btn-primary" href="javascript:void(0)"  class="btn btn-primary" download>Download
+                        </a>
+                    </p>
+                </div>
+            </div>-->
+
+        </div>
+        <div class="form-group col-md-6 no_padding" ngf-drop ngf-change="setContentImage($file, dlContUpld)">
+            <div class="col-sm-12">
+                <label class="control-label" translate="stepApp.dlContUpld.contentImage" for="field_content">Content Upload</label>
+
+                <div>
+                    <div class="help-block clearfix">
+                        <span class="pull-left">{{dlContUpld.contentImageContentType}} {{byteSize(dlContUpld.contentImage)}}</span>
+
+                        <button ng-click="dlContUpld.content=null; dlContUpld.contentImageContentType=null;"
+                                ng-if="dlContUpld.contentImage"
+                                class="btn btn-default btn-xs pull-right">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </div>
+
+                    <div class="col-md-9 no_padding">
+                        <input type="text" readonly class="form-control" name="contentName"
+                               ng-model="dlContUpld.contentImageName"/>
+
+                    </div>
+                    <div class="col-md-3 no_padding">
+                        <button type="file"
+                                ngf-select class="btn btn-default btn-block"
+                                ngf-change="setContentImage($file, dlContUpld)"
+                                accept=".jpg,.png,.jpeg"
+                                ng-show="!fileUploadFinished"
+                                translate="entity.action.addblob">
+                        </button>
+                    </div>
+
+                    <div class="col-md-2" ng-show="dlContUpld.contentImageName!=null && dlContUpld.contentImage.id!=null">
+
+                        <a class="download-afl btn btn-primary" href="/assets/dl/{{dlContUpld.contentImageName}}"  class="btn btn-primary" download>Download
+                        </a>
+
+                    </div>
+
+                    <input type="hidden" class="form-control" name="content" id="field_content_image"
+                           ng-model="dlContUpld.contentImage"
+                    />
+                    <input type="hidden" class="form-control" name="contentContentType" id="field_contentImageContentType"
+                           ng-model="dlContUpld.contentImageContentType"
+                    />
+
+                </div>
+
+
+            </div>
+
+            <!--<div class="col-md-5" ng-show="dlContUpld.contentName==null">
+
+                <label class="control-label">&nbsp;</label>
+                <div class="form-group">
+                    <p class="col-sm-12">
+                        <a ng-disabled="true" class="download-afl btn btn-primary" href="javascript:void(0)"  class="btn btn-primary" download>Download
+                        </a>
+                    </p>
+                </div>
+            </div>-->
+
+        </div>
+
+        <!--<div class="form-group col-sm-6">
+            <label  translate="stepApp.dlContUpld.instEmployee" for="field_instEmployee">instEmployee</label>
+            <input class="form-control" ng-blur="getEmployeeInfo(dlContUpld.instEmployee)" id="field_instEmployee" type="text" name="instEmployee" ng-model="dlContUpld.instEmployee">
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label  translate="stepApp.dlContUpld.instEmployee" for="field_instEmployee">instEmployee</label>
+            <input class="form-control" id="field_instEmzployee" type="text" name="instEmployee" ng-model="getEmplInfoByCode.name">
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label  translate="stepApp.dlContUpld.instEmployee" for="field_instEmployee">instEmployee</label>
+            <input class="form-control" id="field_instEvmployee" type="text" name="instEmployee" ng-model="getEmplInfoByCode.email">
+        </div>-->
+
+
+        <div class="panel-footer col-sm-12 text-right">
+            <button type="button" class="btn btn-default" ui-sref="libraryInfo.dlContUpld">
+                <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back">Back</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving|| editForm.$pending" class="btn btn-primary">
+                <span ng-hide="dlContUpld.id" translate="entity.action.save"></span>
+                <span ng-show = "dlContUpld.id" translate="entity.action.update"></span>
+            </button>
+        </div>
+        </div>
+    </form>
+</div>

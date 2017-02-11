@@ -1,0 +1,71 @@
+<div>
+    <h2 translate="stepApp.smsServiceForward.home.title">SmsServiceForwards</h2>
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+
+            </div>
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <select ng-change="searchByComplaint(smsServiceForward.smsServiceComplaint)" class="form-control" id="field_smsServiceComplaint" name="smsServiceComplaint" ng-model="smsServiceForward.smsServiceComplaint" ng-options="smsServiceComplaint as smsServiceComplaint.complaintName for smsServiceComplaint in smsservicecomplaints track by smsServiceComplaint.id">
+                        <option value=""></option>
+                    </select>
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
+                    <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="cc"><span translate="stepApp.smsServiceForward.cc">Cc</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="serviceStatus"><span translate="stepApp.smsServiceForward.serviceStatus">ServiceStatus</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="forwardDate"><span translate="stepApp.smsServiceForward.forwardDate">ForwardDate</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="smsServiceComplaint.complaintName"><span translate="stepApp.smsServiceForward.smsServiceComplaint">smsServiceComplaint</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="smsServiceDepartment.name"><span translate="stepApp.smsServiceForward.smsServiceDepartment">smsServiceDepartment</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="smsServiceForward in smsServiceForwards track by smsServiceForward.id">
+                    <td><a ui-sref="smsServiceForward.detail({id:smsServiceForward.id})">{{smsServiceForward.id}}</a></td>
+                    <td>{{smsServiceForward.cc}}</td>
+                    <td>{{smsServiceForward.serviceStatus}}</td>
+                    <td>{{smsServiceForward.forwardDate | date:'mediumDate'}}</td>
+                    <td>
+                        <a ui-sref="smsServiceComplaint.detail({id:smsServiceForward.smsServiceComplaint.id})">{{smsServiceForward.smsServiceComplaint.complaintName}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="smsServiceDepartment.detail({id:smsServiceForward.smsServiceDepartment.id})">{{smsServiceForward.smsServiceDepartment.name}}</a>
+                    </td>
+                    <td align="right">
+                        <button type="submit"
+                                ui-sref="smsServiceForward.detail({id:smsServiceForward.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit" ui-sref="smsServiceForward.edit({id:smsServiceForward.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button ng-hide="true" type="submit" ui-sref="smsServiceForward.delete({id:smsServiceForward.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <uib-pagination class="pagination-sm" total-items="totalItems" ng-model="page" ng-change="loadAll()"></uib-pagination>
+    </div>
+</div>

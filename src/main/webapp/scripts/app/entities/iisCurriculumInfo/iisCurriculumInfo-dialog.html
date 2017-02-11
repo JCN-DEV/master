@@ -1,0 +1,67 @@
+<div class="col-sm-12 no_padding iisCurriculum">
+    <form class="col-sm-12 no_padding " name="editForm" role="form" novalidate ng-submit="save()">
+        <div class="modal-header col-sm-12 no_padding">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                    ng-click="clear()">&times;</button>
+            <h4 class="modal-title" id="myIisCurriculumInfoLabel"
+                translate="stepApp.iisCurriculumInfo.home.createOrEditLabel">Create or edit a IisCurriculumInfo</h4>
+        </div>
+        <div class="modal-body col-sm-12 no_padding">
+            <!-- <jh-alert-error></jh-alert-error>-->
+            <div class="form-group">
+                <label for="id" translate="global.field.id">ID</label>
+                <input type="text" class="form-control" id="id" name="id"
+                       ng-model="iisCurriculumInfo.id" readonly/>
+            </div>
+            <div class="form-group">
+                <label translate="stepApp.iisCurriculumInfo.firstDate" for="field_firstDate">FirstDate</label>
+                <input type="date" class="form-control" name="firstDate" id="field_firstDate"
+                       ng-model="iisCurriculumInfo.firstDate"
+                />
+            </div>
+            <div class="form-group">
+                <label translate="stepApp.iisCurriculumInfo.lastDate" for="field_lastDate">LastDate</label>
+                <input type="date" class="form-control" name="lastDate" id="field_lastDate"
+                       ng-model="iisCurriculumInfo.lastDate"
+                />
+            </div>
+            <div class="form-group">
+                <label translate="stepApp.iisCurriculumInfo.mpoEnlisted" for="field_mpoEnlisted">MpoEnlisted</label>
+                <input type="checkbox" class="form-control" name="mpoEnlisted" id="field_mpoEnlisted"
+                       ng-model="iisCurriculumInfo.mpoEnlisted"
+                />
+            </div>
+            <div class="form-group">
+                <label translate="stepApp.iisCurriculumInfo.recNo" for="field_recNo">RecNo</label>
+                <input type="text" class="form-control" name="recNo" id="field_recNo"
+                       ng-model="iisCurriculumInfo.recNo"
+                />
+            </div>
+            <div class="form-group">
+                <label translate="stepApp.iisCurriculumInfo.mpoDate" for="field_mpoDate">MpoDate</label>
+                <input type="date" class="form-control" name="mpoDate" id="field_mpoDate"
+                       ng-model="iisCurriculumInfo.mpoDate"
+                />
+            </div>
+
+            <div class="form-group">
+                <label translate="stepApp.iisCurriculumInfo.cmsCurriculum"
+                       for="field_cmsCurriculum">cmsCurriculum</label>
+                <select class="form-control" id="field_cmsCurriculum" name="cmsCurriculum"
+                        ng-model="iisCurriculumInfo.cmsCurriculum"
+                        ng-options="cmsCurriculum as cmsCurriculum.name for cmsCurriculum in cmscurriculums track by cmsCurriculum.id">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+        <div class="modal-footer col-sm-12 no_padding">
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

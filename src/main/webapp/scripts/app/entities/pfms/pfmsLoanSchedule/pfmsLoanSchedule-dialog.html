@@ -1,0 +1,146 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-if="pfmsLoanSchedule == null" id="myPfmsLoanScheduleLabel"
+            translate="stepApp.pfmsLoanSchedule.home.createOrEditLabel">Create or edit a PfmsLoanSchedule</h4>
+        <h4 ng-if="pfmsLoanSchedule != null" id="myPfmsLoanScheduleLabel"
+            translate="stepApp.pfmsLoanSchedule.home.EditLabel">Create or edit a PfmsLoanSchedule</h4>
+        <div class="panel-body">
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsLoanSchedule.employeeInfo" for="field_employeeInfo">employeeInfo</label>
+                <!--<select class="form-control" id="field_employeeInfo" name="employeeInfo" ng-model="pfmsLoanSchedule.employeeInfo" ng-options="HrEmployeeInfo as HrEmployeeInfo.fullName for HrEmployeeInfo in hremployeeinfos track by HrEmployeeInfo.id">-->
+                <!--<option value=""></option>-->
+                <!--</select>-->
+                <div class="input-group">
+                    <input type="text" class="form-control" autocomplete="off" ng-model="pfmsLoanSchedule.employeeInfo"
+                           typeahead="HrEmployeeInfo as (HrEmployeeInfo.fullName + ' - ' + HrEmployeeInfo.employeeId) for HrEmployeeInfo in hremployeeinfos | unique: 'HrEmployeeInfo.id' |filter:$viewValue "
+                           id="field_employeeInfo" required
+                           placeholder="{{'stepApp.pfmsLoanSchedule.employeeInfo' | translate}}">
+                    <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="loadEmployeeInfo()">
+                    <span class="glyphicon"></span>&nbsp;<span translate="stepApp.pfmsLoanSchedule.search">Search</span>
+            </button>
+                </span>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsLoanSchedule.departmentName" for="field_almLeaveType">Department</label>
+                <span class="form-control">{{departmentName}}</span>
+            </div>
+
+            <div class="form-group col-md-6 ">
+                <label translate="stepApp.pfmsLoanSchedule.designationName" for="field_Designation">Designation</label>
+                <span class="form-control">{{designationName}}</span>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsLoanSchedule.nationality" for="field_nationality">nationality</label>
+                <span class="form-control">{{nationality}}</span>
+            </div>
+
+            <div class="form-group col-md-6 ">
+                <label translate="stepApp.pfmsLoanSchedule.fatherName" for="field_fatherName">fatherName</label>
+                <span class="form-control">{{fatherName}}</span>
+            </div>
+
+            <div class="form-group col-md-6 ">
+                <label translate="stepApp.pfmsLoanSchedule.dutySide" for="field_dutySide">dutySide</label>
+                <span class="form-control">{{dutySide}}</span>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsLoanSchedule.pfmsLoanApplication" for="field_pfmsLoanApplication">pfmsLoanApplication</label>
+                <select class="form-control" id="field_pfmsLoanApplication" name="pfmsLoanApplication"
+                        ng-model="pfmsLoanSchedule.pfmsLoanApplication"
+                        ng-options="PfmsLoanApplication as PfmsLoanApplication.id for PfmsLoanApplication in pfmsloanapplications track by PfmsLoanApplication.id">
+                    <option value=""></option>
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsLoanSchedule.loanYear" for="field_loanYear">LoanYear</label>
+                <input type="number" class="form-control" name="loanYear" id="field_loanYear"
+                       ng-model="pfmsLoanSchedule.loanYear"
+                       required/>
+                <div ng-show="editForm.loanYear.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.loanYear.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.loanYear.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsLoanSchedule.loanMonth" for="field_loanMonth">loanMonth</label>
+                <select class="form-control" name="loanMonth"
+
+                        ng-model="pfmsLoanSchedule.loanMonth"
+                        ng-options="MonthOpt as MonthOpt for MonthOpt in monthList.monthOptions track by MonthOpt"
+                        id="field_loanMonth" required>
+                </select>
+
+                <div ng-show="editForm.loanMonth.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.loanMonth.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+
+                </div>
+                <div ng-show="!isExitsData">
+                    <p style="color: red">{{duplicateDataMessage}}</p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsLoanSchedule.deductedAmount"
+                       for="field_deductedAmount">DeductedAmount</label>
+                <input type="number" class="form-control" name="deductedAmount" id="field_deductedAmount"
+                       ng-model="pfmsLoanSchedule.deductedAmount"
+                       required/>
+                <div ng-show="editForm.deductedAmount.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.deductedAmount.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.deductedAmount.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsLoanSchedule.installmentNo"
+                       for="field_installmentNo">InstallmentNo</label>
+                <input type="number" class="form-control" name="installmentNo" id="field_installmentNo"
+                       ng-model="pfmsLoanSchedule.installmentNo"
+                       required/>
+                <div ng-show="editForm.installmentNo.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.installmentNo.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.installmentNo.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsLoanSchedule.reason" for="field_reason">Reason</label>
+                <input type="text" class="form-control" name="reason" id="field_reason"
+                       ng-model="pfmsLoanSchedule.reason"
+                />
+            </div>
+        </div>
+        <div class="panel-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.history.back()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                translate="entity.action.back">Back</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+                <span ng-hide="pfmsLoanSchedule.id" translate="entity.action.save"></span>
+                <span ng-show="pfmsLoanSchedule.id" translate="entity.action.update"></span>
+            </button>
+        </div>
+    </form>
+</div>

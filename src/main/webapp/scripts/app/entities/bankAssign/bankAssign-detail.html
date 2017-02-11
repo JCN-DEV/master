@@ -1,0 +1,78 @@
+
+<div>
+    <h2><span translate="stepApp.bankAssign.detail.title">BankAssign</span> {{bankAssign.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="stepApp.bankAssign.createdDate">CreatedDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{bankAssign.createdDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.bankAssign.modifiedDate">ModifiedDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{bankAssign.modifiedDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.bankAssign.status">Status</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{bankAssign.status}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.bankAssign.createdBy">createdBy</span>
+                </td>
+                <td>
+                    {{bankAssign.createdBy.login}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.bankAssign.updatedBy">updatedBy</span>
+                </td>
+                <td>
+                    {{bankAssign.updatedBy.login}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.bankAssign.bank">bank</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="bankSetup.detail({id:bankAssign.bank.id})">{{bankAssign.bank.name}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.bankAssign.upazila">upazila</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="upazila.detail({id:bankAssign.upazila.id})">{{bankAssign.upazila.name}}</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

@@ -1,0 +1,444 @@
+<div class="col-md-12 common-list">
+    <div class="general-title">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="modal-title su_h4_size panel-title"><span
+                    translate="stepApp.pfmsUtmostGpfApp.loanApprove.generalHomeTitle"></span></h4>
+            </div>
+            <div class="bg-panel padding-bt panel-body">
+                <div class="col-sm-6 hr-sub-title su_hrm_center">
+                    <strong><h3 translate="stepApp.pfmsUtmostGpfApp.loanApprove.subTitle"></h3></strong>
+                </div>
+                <div style="margin:5px 0px;" class="col-sm-6 text-right dlbtn-top">
+                    <button type="button" ng-model="button" ng-click="loadAll()" class="btn btn-primary btn-sm"><i
+                        class="fa fa-refresh"></i> <span translate="stepApp.pfmsUtmostGpfApp.loanApprove.Refresh">Refresh</span>
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-12 three_tab no_padding panel">
+                <tabset justified="true">
+                    <tab
+                        heading="{{'stepApp.pfmsUtmostGpfApp.loanApprove.dashboardTab1' | translate}} ({{newRequestList.length}})">
+                        <div class="table-responsive">
+                            <div class="row">
+                                <div class="col-sm-5 search-three">
+                                    <label>Search:</label><input id="searchText" ng-model="searchText" name="searchText"
+                                                                 type="text"/>
+                                    <input ng-hide="true" id="clearButton" value="Clear" type="button"
+                                           ng-click="clearSearchText('request')">
+                                </div>
+                            </div>
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th ng-click="sort('entityName','request')">
+                                        <span translate="stepApp.pfmsUtmostGpfApp.employeeInfo">employeeInfo</span>
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='entityName'"
+                                              ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                    </th>
+                                    <th ng-click="sort('requestDate','request')">
+                                        <span translate="stepApp.pfmsUtmostGpfApp.prlDate">prlDate</span>
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='requestFrom'"
+                                              ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                    </th>
+                                    <th ng-click="sort('requestFrom','request')">
+                                        <span translate="stepApp.pfmsUtmostGpfApp.gpfNo">gpfNo</span>
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='requestFrom'"
+                                              ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                    </th>
+                                    <th ng-click="sort('requestFrom','request')">
+                                        <span translate="stepApp.pfmsUtmostGpfApp.tokenNo">tokenNo</span>
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='requestFrom'"
+                                              ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                    </th>
+                                    <th><span translate="stepApp.pfmsUtmostGpfApp.approvalStatus">approvalStatus</span>
+                                    </th>
+                                    <th ng-click="sort('requestFrom','request')">
+                                        <span translate="stepApp.pfmsUtmostGpfApp.billNo">billNo</span>
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='requestDate'"
+                                              ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                    </th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr dir-paginate="requestObj in newRequestList |orderBy:sortKey:reverse|filter:searchText|itemsPerPage:15"
+                                    pagination-id="requestListPaginate">
+                                    <td>
+                                        <a ui-sref="hrEmployeeInfo.detail({id:pfmsUtmostGpfApp.employeeInfo.id})">{{requestObj.employeeInfo.fullName}}</a>
+                                    </td>
+                                    <td>{{requestObj.prlDate | date:'mediumDate'}}</td>
+
+                                    <td>{{requestObj.gpfNo}}</td>
+                                    <td>{{requestObj.tokenNo}}</td>
+                                    <td translate="{{'stepApp.approvalStatus.' + requestObj.approvalStatus}}">
+                                        {{requestObj.approvalStatus}}
+                                    </td>
+                                    <td>{{requestObj.billNo}}</td>
+                                    <td class="hrm-button">
+                                        <button type="button" ng-click="approvalViewDetail(requestObj)"
+                                                class="btn btn-info btn-sm">
+                                            <span
+                                                translate="stepApp.pfmsUtmostGpfApp.loanApprove.requestView">View</span>
+                                        </button>
+                                        <button type="button" ng-click="approvalConfirmation(requestObj, 'accept')"
+                                                class="btn btn-primary btn-sm">
+                                            <span
+                                                translate="stepApp.pfmsUtmostGpfApp.loanApprove.requestAccept">Accept</span>
+                                        </button>
+                                        <button type="button" ng-click="approvalConfirmation(requestObj, 'reject')"
+                                                class="btn btn-danger btn-sm">
+                                            <span
+                                                translate="stepApp.pfmsUtmostGpfApp.loanApprove.requestReject">Reject</span>
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true"
+                                                     pagination-id="requestListPaginate"></dir-pagination-controls>
+                        </div>
+                    </tab>
+                    <tab
+                        heading="{{'stepApp.pfmsUtmostGpfApp.loanApprove.dashboardTab3' | translate}}  ({{approvedList.length}})">
+                        <div class="table-responsive">
+                            <div class="row">
+                                <div class="col-sm-5 search-three">
+                                    <label>Search:</label><input id="searchTextApp" ng-model="searchTextApp"
+                                                                 name="searchTextApp" type="text"/>
+                                    <input ng-hide="true" id="clearButtonApp" value="Clear" type="button"
+                                           ng-click="clearSearchTextApp('request')">
+                                </div>
+                            </div>
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th ng-click="sort('entityName','approved')">
+                                        <span translate="stepApp.pfmsUtmostGpfApp.employeeInfo">employeeInfo</span>
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='entityName'"
+                                              ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                    </th>
+
+                                    <th ng-click="sort('requestDate','request')">
+                                        <span translate="stepApp.pfmsUtmostGpfApp.prlDate">prlDate</span>
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='requestFrom'"
+                                              ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                    </th>
+                                    <th ng-click="sort('requestFrom','request')">
+                                        <span translate="stepApp.pfmsUtmostGpfApp.gpfNo">gpfNo</span>
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='requestFrom'"
+                                              ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                    </th>
+                                    <th ng-click="sort('requestFrom','request')">
+                                        <span translate="stepApp.pfmsUtmostGpfApp.tokenNo">tokenNo</span>
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='requestFrom'"
+                                              ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                    </th>
+                                    <th><span translate="stepApp.pfmsUtmostGpfApp.approvalStatus">approvalStatus</span>
+                                    </th>
+                                    <th ng-click="sort('requestFrom','request')">
+                                        <span translate="stepApp.pfmsUtmostGpfApp.billNo">billNo</span>
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='requestDate'"
+                                              ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr dir-paginate="requestObj in approvedList |orderBy:sortKey3:reverse3|itemsPerPage:20|filter:searchTextApp"
+                                    pagination-id="approvedListPaginate">
+                                    <!--<td><a ui-sref="pfmsUtmostGpfApp.detail({id:pfmsUtmostGpfApp.id})">{{requestObj.id}}</a></td>-->
+                                    <td>
+                                        <a ui-sref="hrEmployeeInfo.detail({id:pfmsUtmostGpfApp.employeeInfo.id})">{{requestObj.employeeInfo.fullName}}</a>
+                                    </td>
+
+                                    <td>{{requestObj.prlDate | date:'mediumDate'}}</td>
+
+                                    <td>{{requestObj.gpfNo}}</td>
+                                    <td>{{requestObj.tokenNo}}</td>
+                                    <td translate="{{'stepApp.approvalStatus.' + requestObj.approvalStatus}}">
+                                        {{requestObj.approvalStatus}}
+                                    </td>
+                                    <td>{{requestObj.billNo}}</td>
+
+                                </tr>
+                                </tbody>
+                            </table>
+                            <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true"
+                                                     pagination-id="approvedListPaginate"></dir-pagination-controls>
+                        </div>
+                    </tab>
+                    <tab
+                        heading="{{'stepApp.pfmsUtmostGpfApp.loanApprove.dashboardTab4' | translate}}  ({{rejectedList.length}})">
+                        <div class="table-responsive">
+                            <div class="row">
+                                <div class="col-sm-5 search-three">
+                                    <label>Search:</label><input id="searchTextRej" ng-model="searchTextRej"
+                                                                 name="searchTextRej" type="text"/>
+                                    <input ng-hide="true" id="clearButtonRej" value="Clear" type="button"
+                                           ng-click="clearSearchTextRej('approved')">
+                                </div>
+                            </div>
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th ng-click="sort('entityName','rejected')">
+                                        <span translate="stepApp.pfmsUtmostGpfApp.employeeInfo">employeeInfo</span>
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='entityName'"
+                                              ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                    </th>
+                                    <th ng-click="sort('requestDate','request')">
+                                        <span translate="stepApp.pfmsUtmostGpfApp.prlDate">prlDate</span>
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='requestFrom'"
+                                              ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                    </th>
+                                    <th ng-click="sort('requestFrom','request')">
+                                        <span translate="stepApp.pfmsUtmostGpfApp.gpfNo">gpfNo</span>
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='requestFrom'"
+                                              ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                    </th>
+                                    <th ng-click="sort('requestFrom','request')">
+                                        <span translate="stepApp.pfmsUtmostGpfApp.tokenNo">tokenNo</span>
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='requestFrom'"
+                                              ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                    </th>
+                                    <th><span translate="stepApp.pfmsUtmostGpfApp.approvalStatus">approvalStatus</span>
+                                    </th>
+                                    <th ng-click="sort('requestFrom','request')">
+                                        <span translate="stepApp.pfmsUtmostGpfApp.billNo">billNo</span>
+                                        <span class="glyphicon sort-icon" ng-show="sortKey=='requestDate'"
+                                              ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr dir-paginate="requestObj in rejectedList |orderBy:sortKey4:reverse4|itemsPerPage:20|filter:searchTextRej"
+                                    pagination-id="rejectedListPaginate">
+                                    <!--<td><a ui-sref="pfmsUtmostGpfApp.detail({id:pfmsUtmostGpfApp.id})">{{requestObj.id}}</a></td>-->
+                                    <td>
+                                        <a ui-sref="hrEmployeeInfo.detail({id:pfmsUtmostGpfApp.employeeInfo.id})">{{requestObj.employeeInfo.fullName}}</a>
+                                    </td>
+                                    <td>{{requestObj.prlDate | date:'mediumDate'}}</td>
+                                    <td>{{requestObj.gpfNo}}</td>
+                                    <td>{{requestObj.tokenNo}}</td>
+                                    <td translate="{{'stepApp.approvalStatus.' + requestObj.approvalStatus}}">
+                                        {{requestObj.approvalStatus}}
+                                    </td>
+                                    <td>{{requestObj.billNo}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true"
+                                                     pagination-id="rejectedListPaginate"></dir-pagination-controls>
+                        </div>
+                    </tab>
+                </tabset>
+            </div>
+        </div>
+    </div>
+    <div class="modal animated bounceInUp" id="approveRejectConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="approvalForm" ng-submit="approvalActionDirect()">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" translate="entity.delete.title">Confirm Approval operation of
+                            {{approvalObj.leaveTypeName}}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div ng-if="approvalObj.actionType == 'accept'">
+                            <p>Are you sure you want to approve this ?</p>
+                        </div>
+                        <div ng-if="approvalObj.actionType == 'reject'">
+                            <label class="control-label" for="field_logcomments">Comments</label>
+                            <textarea class="form-control" name="logComments" id="field_logcomments"
+                                      ng-model="approvalObj.logComments"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                            translate="entity.action.close">close</span>
+                        </button>
+                        <span ng-if="approvalObj.actionType == 'accept'">
+                        <button type="submit" ng-disabled="approvalForm.$invalid" class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                            translate="stepApp.hrmHome.buttonTextApprove"> Approve</span>
+                        </button>
+                    </span>
+                        <span ng-if="approvalObj.actionType == 'reject'">
+                        <button type="submit" ng-disabled="approvalForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                            translate="stepApp.hrmHome.buttonTextReject"> Reject</span>
+                        </button>
+                    </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="approveViewDetailForm">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="approvalForm" ng-submit="approvalViewAction()">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title">{{approvalObj.viewFormTitle}}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th><span translate="stepApp.pfmsUtmostGpfApp.loanApprove.fieldName">Field</span>
+                                    </th>
+                                    <th><span translate="stepApp.pfmsUtmostGpfApp.loanApprove.fieldData">Value</span>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <span translate="stepApp.pfmsUtmostGpfApp.employeeInfo">employeeInfo</span>
+                                    </td>
+                                    <td>
+                                        <a class="form-control-static"
+                                           ui-sref="hrEmployeeInfo.detail({id:pfmsUtmostGpfApp.employeeInfo.id})">{{approvalObj.employeeInfo.fullName}}</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span translate="stepApp.pfmsUtmostGpfApp.prlDate">PrlDate</span>
+                                    </td>
+                                    <td>
+                                        <span
+                                            class="form-control-static">{{approvalObj.prlDate | date:'mediumDate'}}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span translate="stepApp.pfmsUtmostGpfApp.gpfNo">GpfNo</span>
+                                    </td>
+                                    <td>
+                                        <span class="form-control-static">{{approvalObj.gpfNo}}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span translate="stepApp.pfmsUtmostGpfApp.lastDeduction">LastDeduction</span>
+                                    </td>
+                                    <td>
+                                        <span class="form-control-static">{{approvalObj.lastDeduction}}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span translate="stepApp.pfmsUtmostGpfApp.deductionDate">DeductionDate</span>
+                                    </td>
+                                    <td>
+                                        <span class="form-control-static">{{approvalObj.deductionDate | date:'mediumDate'}}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span translate="stepApp.pfmsUtmostGpfApp.billNo">BillNo</span>
+                                    </td>
+                                    <td>
+                                        <span class="form-control-static">{{approvalObj.billNo}}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span translate="stepApp.pfmsUtmostGpfApp.billDate">BillDate</span>
+                                    </td>
+                                    <td>
+                                        <span
+                                            class="form-control-static">{{approvalObj.billDate | date:'mediumDate'}}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span translate="stepApp.pfmsUtmostGpfApp.tokenNo">TokenNo</span>
+                                    </td>
+                                    <td>
+                                        <span class="form-control-static">{{approvalObj.tokenNo}}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span translate="stepApp.pfmsUtmostGpfApp.tokenDate">TokenDate</span>
+                                    </td>
+                                    <td>
+                                        <span
+                                            class="form-control-static">{{approvalObj.tokenDate | date:'mediumDate'}}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span translate="stepApp.pfmsUtmostGpfApp.withdrawFrom">WithdrawFrom</span>
+                                    </td>
+                                    <td>
+                                        <span class="form-control-static">{{approvalObj.withdrawFrom}}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span translate="stepApp.pfmsUtmostGpfApp.applyDate">ApplyDate</span>
+                                    </td>
+                                    <td>
+                                        <span
+                                            class="form-control-static">{{approvalObj.applyDate | date:'mediumDate'}}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <label class="control-label"
+                                               translate="stepApp.pfmsUtmostGpfApp.loanApprove.approvalChoice">Approval
+                                            Choice</label>
+                                        <span>
+                                        <input type="radio" data-ng-model="approvalObj.isApproved" name="isApproved"
+                                               data-ng-value="true">&nbsp;<span
+                                            translate="stepApp.pfmsUtmostGpfApp.loanApprove.buttonTextApprove">Approve</span>&nbsp;|&nbsp;
+                                        <input type="radio" data-ng-model="approvalObj.isApproved" name="isApproved"
+                                               data-ng-value="false">&nbsp;<span
+                                            translate="stepApp.pfmsUtmostGpfApp.loanApprove.buttonTextReject"> Reject</span>
+                                    </span>
+                                    </td>
+                                </tr>
+                                <!--<tr>-->
+                                <!--<td colspan="3">-->
+                                <!--<div ng-hide="approvalObj.isApproved">-->
+                                <!--<label class="control-label" translate="stepApp.pfmsUtmostGpfApp.loanApprove.comments">Comments</label>-->
+                                <!--<textarea class="form-control" name="comments" ng-model="approvalObj.comments"></textarea>-->
+                                <!--</div>-->
+                                <!--</td>-->
+                                <!--</tr>-->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                            translate="entity.action.close">Close</span>
+                        </button>
+                        <span ng-show="approvalObj.isApproved">
+                        <button type="submit" class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                            translate="stepApp.pfmsUtmostGpfApp.loanApprove.buttonTextApprove">Approve</span>
+                        </button>
+                    </span>
+                        <span ng-hide="approvalObj.isApproved">
+                        <button type="submit" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                            translate="stepApp.pfmsUtmostGpfApp.loanApprove.buttonTextReject"> Reject</span>
+                        </button>
+                    </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,136 @@
+<div class="">
+    <div>
+
+        <div class="col-md-12"><h2 translate="stepApp.dlEmpReg.home.title" style="margin: 10px 0px"></h2></div>
+        <!--<h2 translate="stepApp.dlEmpReg.home.title">DlEmpRegs</h2>-->
+        <div class="col-sm-12 padding-bt no_padding">
+            <div class="col-md-4 padding-bt no_padding">
+                <b>{{ (dlEmpReg|filter:q).length }} results found</b>
+                <div class="input-group">
+                    <span class="input-group-addon dlbtn" id="basic-addon1"><i class="fa fa-search"></i></span>
+                    <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+                </div>
+            </div>
+            <div class="col-md-4 padding-bt"> <b>Items per page:</b>
+                <div class="input-group">
+                    <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+                </div>
+            </div>
+            <div class="col-md-4 text-right no_padding">
+                <button class="btn btn-primary dlbtn dlbtn-top" ui-sref="libraryInfo.dlEmpReg.new">
+                    <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.dlEmpReg.home.createLabel">Create a new DlEmpRegs</span>
+                </button>
+            </div>
+        </div>
+
+        <!--<div class="col-md-12 padding-bt no_padding">
+            <div class="col-md-6 no_padding">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group btn_input_left">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="Search">
+                        <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="col-md-6 text-right no_padding">
+                <button class="btn btn-primary" ui-sref="libraryInfo.libraryInfo.dlEmpReg.new">
+                    <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.dlEmpReg.home.btbAdd">Create a new DlEmpReg</span>
+                </button>
+            </div>
+
+        </div>-->
+
+
+        <div class="modal fade" id="deleteDlEmpRegConfirmation">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form name="deleteForm" ng-submit="confirmDelete(dlEmpReg.id)">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                    ng-click="clear()">&times;</button>
+                            <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p translate="stepApp.dlEmpReg.delete.question" translate-values="{id: '{{dlEmpReg.id}}'}">Are you sure you want to delete this DlEmpReg?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                            </button>
+                            <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                                <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12 table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th translate="global.field.id">ID</th>
+                    <th translate="stepApp.dlEmpReg.userName">UserName</th>
+                    <th translate="stepApp.dlEmpReg.userPw">UserPw</th>
+                    <!--<th translate="stepApp.dlEmpReg.createdDate">CreatedDate</th>-->
+                    <!--<th translate="stepApp.dlEmpReg.updatedDate">UpdatedDate</th>-->
+                    <!--<th translate="stepApp.dlEmpReg.createdBy">CreatedBy</th>-->
+                    <!--<th translate="stepApp.dlEmpReg.updatedBy">UpdatedBy</th>-->
+                    <!--<th translate="stepApp.dlEmpReg.status">Status</th>-->
+                    <th translate="stepApp.dlEmpReg.instEmployee">instEmployee</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="dlEmpReg in dlEmpRegs track by dlEmpReg.id">
+                    <td><a ui-sref="libraryInfo.dlEmpReg.detail({id:dlEmpReg.id})">{{dlEmpReg.id}}</a></td>
+                    <td>{{dlEmpReg.userName}}</td>
+                    <td>{{dlEmpReg.userPw}}</td>
+                    <!--<td>{{dlEmpReg.createdDate | date:'mediumDate'}}</td>-->
+                    <!--<td>{{dlEmpReg.updatedDate | date:'mediumDate'}}</td>-->
+                    <!--<td>{{dlEmpReg.createdBy}}</td>-->
+                    <!--<td>{{dlEmpReg.updatedBy}}</td>-->
+                    <!--<td>{{dlEmpReg.status}}</td>-->
+                    <td>
+                        <a ui-sref="instEmployee.detail({id:dlEmpReg.instEmployee.id})">{{dlEmpReg.instEmployee.name}}</a>
+                    </td>
+                    <td class="text-right">
+                        <button type="submit"
+                                ui-sref="libraryInfo.dlEmpReg.detail({id:dlEmpReg.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="libraryInfo.dlEmpReg.edit({id:dlEmpReg.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="delete(dlEmpReg.id)"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <!--<nav>-->
+            <!--<ul class="pagination">-->
+            <!--<li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>-->
+            <!--<li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>-->
+            <!--<li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>-->
+            <!--<li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>-->
+            <!--<li class="active"><a>{{page + 1}}</a></li>-->
+            <!--<li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>-->
+            <!--<li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>-->
+            <!--<li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>-->
+            <!--<li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>-->
+            <!--</ul>-->
+            <!--</nav>-->
+        </div>
+    </div>
+</div>

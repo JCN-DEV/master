@@ -1,0 +1,125 @@
+
+<form name="editForm" class="form form-horizontal" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header bg-primary">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myAclEntryLabel" translate="stepApp.aclEntry.home.createOrEditLabel">Create or edit a AclEntry</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" for="id" translate="global.field.id">ID</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="id" name="id" ng-model="aclEntry.id" readonly />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.aclEntry.aceOrder" for="field_aceOrder">AceOrder</label>
+            <div class="col-sm-8">
+            <input type="number" class="form-control" name="aceOrder" id="field_aceOrder"
+                    ng-model="aclEntry.aceOrder"
+                    required />
+            <div ng-show="editForm.aceOrder.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.aceOrder.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.aceOrder.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.aclEntry.mask" for="field_mask">Mask</label>
+            <div class="col-sm-8">
+            <input type="number" class="form-control" name="mask" id="field_mask"
+                    ng-model="aclEntry.mask"
+                    required />
+            <div ng-show="editForm.mask.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.mask.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.mask.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.aclEntry.granting" for="field_granting">Granting</label>
+            <div class="col-sm-8">
+            <input type="checkbox" class="form-control" name="granting" id="field_granting"
+                    ng-model="aclEntry.granting"
+                     />
+            <div ng-show="editForm.granting.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.granting.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.aclEntry.auditSuccess" for="field_auditSuccess">AuditSuccess</label>
+            <div class="col-sm-8">
+            <input type="checkbox" class="form-control" name="auditSuccess" id="field_auditSuccess"
+                    ng-model="aclEntry.auditSuccess"
+                     />
+            <div ng-show="editForm.auditSuccess.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.auditSuccess.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.aclEntry.auditFailure" for="field_auditFailure">AuditFailure</label>
+            <div class="col-sm-8">
+            <input type="checkbox" class="form-control" name="auditFailure" id="field_auditFailure"
+                    ng-model="aclEntry.auditFailure"
+                     />
+            <div ng-show="editForm.auditFailure.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.auditFailure.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.aclEntry.aclObjectIdentity" for="field_aclObjectIdentity">aclObjectIdentity</label>
+            <div class="col-sm-8">
+                <select class="form-control" id="field_aclObjectIdentity" name="aclObjectIdentity" ng-model="aclEntry.aclObjectIdentity" ng-options="aclObjectIdentity as aclObjectIdentity.id for aclObjectIdentity in aclobjectidentitys track by aclObjectIdentity.id">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.aclEntry.aclSid" for="field_aclSid">aclSid</label>
+            <div class="col-sm-8">
+                <select class="form-control" id="field_aclSid" name="aclSid" ng-model="aclEntry.aclSid" ng-options="aclSid as aclSid.sid for aclSid in aclsids track by aclSid.id">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="form-group">
+            <div class="col-md-offset-4 col-md-8">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

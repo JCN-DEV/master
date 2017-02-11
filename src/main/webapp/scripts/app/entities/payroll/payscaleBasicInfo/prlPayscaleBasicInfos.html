@@ -1,0 +1,76 @@
+<div>
+    <h2 translate="stepApp.prlPayscaleBasicInfo.home.title">PrlPayscaleBasicInfos</h2>
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" ui-sref="prlPayscaleBasicInfo.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="stepApp.prlPayscaleBasicInfo.home.createLabel">Create a new PrlPayscaleBasicInfo</span>
+                </button>
+            </div>
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a PrlPayscaleBasicInfo</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
+                    <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="serialNumber"><span translate="stepApp.prlPayscaleBasicInfo.serialNumber">SerialNumber</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="basicAmount"><span translate="stepApp.prlPayscaleBasicInfo.basicAmount">BasicAmount</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="activeStatus"><span translate="stepApp.prlPayscaleBasicInfo.activeStatus">ActiveStatus</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="createDate"><span translate="stepApp.prlPayscaleBasicInfo.createDate">CreateDate</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="createBy"><span translate="stepApp.prlPayscaleBasicInfo.createBy">CreateBy</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="updateDate"><span translate="stepApp.prlPayscaleBasicInfo.updateDate">UpdateDate</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="updateBy"><span translate="stepApp.prlPayscaleBasicInfo.updateBy">UpdateBy</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="payscaleInfo.name"><span translate="stepApp.prlPayscaleBasicInfo.payscaleInfo">payscaleInfo</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="prlPayscaleBasicInfo in prlPayscaleBasicInfos track by prlPayscaleBasicInfo.id">
+                    <td><a ui-sref="prlPayscaleBasicInfo.detail({id:prlPayscaleBasicInfo.id})">{{prlPayscaleBasicInfo.id}}</a></td>
+                    <td>{{prlPayscaleBasicInfo.serialNumber}}</td>
+                    <td>{{prlPayscaleBasicInfo.basicAmount}}</td>
+                    <td>{{prlPayscaleBasicInfo.activeStatus}}</td>
+                        <td>{{prlPayscaleBasicInfo.createDate | date:'mediumDate'}}</td>
+                    <td>{{prlPayscaleBasicInfo.createBy}}</td>
+                        <td>{{prlPayscaleBasicInfo.updateDate | date:'mediumDate'}}</td>
+                    <td>{{prlPayscaleBasicInfo.updateBy}}</td>
+                    <td>
+                        <a ui-sref="PrlPayscaleInfo.detail({id:prlPayscaleBasicInfo.payscaleInfo.id})">{{prlPayscaleBasicInfo.payscaleInfo.name}}</a>
+                    </td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="prlPayscaleBasicInfo.detail({id:prlPayscaleBasicInfo.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="prlPayscaleBasicInfo.edit({id:prlPayscaleBasicInfo.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="prlPayscaleBasicInfo.delete({id:prlPayscaleBasicInfo.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <uib-pagination class="pagination-sm" total-items="totalItems" ng-model="page" ng-change="loadAll()"></uib-pagination>
+    </div>
+</div>

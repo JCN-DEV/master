@@ -1,0 +1,94 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myPgmsAppRetirmntAttachLabel" translate="stepApp.pgmsAppRetirmntAttach.home.createOrEditLabel">Create or edit a PgmsAppRetirmntAttach</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="pgmsAppRetirmntAttach.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.pgmsAppRetirmntAttach.appRetirmntPenId" for="field_appRetirmntPenId">AppRetirmntPenId</label>
+            <input type="number" class="form-control" name="appRetirmntPenId" id="field_appRetirmntPenId"
+                    ng-model="pgmsAppRetirmntAttach.appRetirmntPenId"
+                    required />
+            <div ng-show="editForm.appRetirmntPenId.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.appRetirmntPenId.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.appRetirmntPenId.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group" ngf-drop ngf-change="setAttachment($file, pgmsAppRetirmntAttach)">
+            <label translate="stepApp.pgmsAppRetirmntAttach.attachment" for="field_attachment">Attachment</label>
+            <div>
+                <div class="help-block clearfix">
+                    <span class="pull-left">{{pgmsAppRetirmntAttach.attachmentContentType}} {{byteSize(pgmsAppRetirmntAttach.attachment)}}</span>
+                    <button ng-click="pgmsAppRetirmntAttach.attachment=null;pgmsAppRetirmntAttach.attachmentContentType=null;"
+                            ng-if="pgmsAppRetirmntAttach.attachment"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="file" ngf-select class="btn btn-default btn-block"
+                        ngf-change="setAttachment($file, pgmsAppRetirmntAttach)" translate="entity.action.addblob">
+                    Add blob
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="attachment" id="field_attachment"
+                    ng-model="pgmsAppRetirmntAttach.attachment"
+                     />
+            <input type="hidden" class="form-control" name="attachmentContentType" id="field_attachmentContentType"
+                    ng-model="pgmsAppRetirmntAttach.attachmentContentType" />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.pgmsAppRetirmntAttach.attachDocName" for="field_attachDocName">AttachDocName</label>
+            <input type="text" class="form-control" name="attachDocName" id="field_attachDocName"
+                    ng-model="pgmsAppRetirmntAttach.attachDocName"
+                    required />
+            <div ng-show="editForm.attachDocName.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.attachDocName.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.pgmsAppRetirmntAttach.attachDocType" for="field_attachDocType">AttachDocType</label>
+            <input type="text" class="form-control" name="attachDocType" id="field_attachDocType"
+                    ng-model="pgmsAppRetirmntAttach.attachDocType"
+                    required />
+            <div ng-show="editForm.attachDocType.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.attachDocType.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.pgmsAppRetirmntAttach.attachName" for="field_attachName">attachName</label>
+            <select class="form-control" id="field_attachName" name="attachName" ng-model="pgmsAppRetirmntAttach.attachName" ng-options="PgmsRetirmntAttachInfo as PgmsRetirmntAttachInfo.attachName for PgmsRetirmntAttachInfo in pgmsretirmntattachinfos track by PgmsRetirmntAttachInfo.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

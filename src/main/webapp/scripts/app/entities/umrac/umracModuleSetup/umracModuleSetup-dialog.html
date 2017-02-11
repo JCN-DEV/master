@@ -1,0 +1,159 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="umracModuleSetup.id == null" id="myUmracModuleSetupLabel" translate="stepApp.umracModuleSetup.home.createOrEditLabel">Create or edit a UmracModuleSetup</h4>
+        <h4 ng-show="umracModuleSetup.id != null" id="myUmracModuleSetupLabel" translate="stepApp.umracModuleSetup.home.EditLabel">Create or edit a UmracModuleSetup</h4>
+        <div class="panel-body">
+            <!--<jh-alert-error></jh-alert-error>-->
+            <!--<div class="form-group">-->
+            <!--<label for="id" translate="global.field.id">ID</label>-->
+            <!--<input type="text" class="form-control" id="id" name="id"-->
+            <!--ng-model="umracModuleSetup.id" readonly />-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<label translate="stepApp.umracModuleSetup.moduleId" for="field_moduleId">ModuleId</label>-->
+            <!--<input type="text" class="form-control" name="moduleId" id="field_moduleId"-->
+            <!--ng-model="umracModuleSetup.moduleId"-->
+            <!--/>-->
+            <!--</div>-->
+            <div class="row">
+                <div class="col-md-6">
+                    <!--<div class="form-group">
+                        <label translate="stepApp.umracModuleSetup.moduleName" for="field_moduleName">ModuleName</label>
+                        <input type="text" class="form-control" name="moduleName" id="field_moduleName"
+                               ng-model="umracModuleSetup.moduleName"
+                               placeholder="{{'stepApp.umracModuleSetup.moduleName' | translate}}"
+                               tooltip="{{'stepApp.umracModuleSetup.moduleName' | translate}}"
+                               required/>
+                        <div ng-show="editForm.moduleName.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.moduleName.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>-->
+                    <div class="form-group">
+                        <label translate="stepApp.umracModuleSetup.moduleName" for="field_moduleName">ModuleName</label>
+                        <input type="text" class="form-control" name="moduleName" id="field_moduleName"
+                               ng-model="umracModuleSetup.moduleName"
+                               ng-remote-validate="/api/umracModuleSetups/moduleName/"
+                               ng-remote-method="GET"
+                               required/>
+                        <span class="message" ng-show="editForm.moduleName.$pending">validating...</span>
+                        <div ng-show="editForm.moduleName.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.moduleName.$error.required && editForm.moduleName.$dirty"
+                               translate="entity.validation.required">
+                                Module Name is required.
+                            </p>
+                        </div>
+                        <div ng-show="editForm.moduleName.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.moduleName.$error.ngRemoteValidate">
+                                Same Module Name Already Exists
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.umracModuleSetup.moduleUrl" for="field_moduleUrl">ModuleUrl</label>
+                        <input type="text" class="form-control" name="moduleUrl" id="field_moduleUrl"
+                               ng-model="umracModuleSetup.moduleUrl"
+                               placeholder="{{'stepApp.umracModuleSetup.moduleUrl' | translate}}"
+                               tooltip="{{'stepApp.umracModuleSetup.moduleUrl' | translate}}"
+                               required/>
+                        <div ng-show="editForm.moduleUrl.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.moduleUrl.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.umracModuleSetup.description"
+                               for="field_description">Description</label>
+                        <textarea type="text" class="form-control" name="description" id="field_description"
+                               ng-model="umracModuleSetup.description"
+                               placeholder="{{'stepApp.umracModuleSetup.description' | translate}}"
+                               tooltip="{{'stepApp.umracModuleSetup.description' | translate}}"
+                                  rows="3" cols="30"
+                        ></textarea>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <h6 class="control-label col-sm-12" translate="stepApp.umracModuleSetup.status">Status</h6>
+                        <div class="col-sm-12" ng-init="checked=true">
+                            <input type="radio" name="status" value="true" ng-checked="umracModuleSetup.status == true"
+                                   tooltip="{{'stepApp.umracModuleSetup.status' | translate}}"
+                                   ng-model="umracModuleSetup.status"><span
+                            translate="entity.action.activate">Active</span>&nbsp;&nbsp;
+                            <input type="radio" name="status" value="false"
+                                   ng-checked="umracModuleSetup.status == false"
+                                   tooltip="{{'stepApp.umracModuleSetup.status' | translate}}"
+                                   ng-model="umracModuleSetup.status">
+                            <span translate="entity.action.deactivate">Deactive</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--<div class="form-group">-->
+            <!--<label translate="stepApp.umracModuleSetup.status" for="field_status">Status</label><br>-->
+
+            <!--<select name="status" ng-model="umracModuleSetup.status" id="field_status">-->
+            <!--<option value="">-&#45;&#45;Please select-&#45;&#45;</option>-->
+            <!--<option value="true">Active</option>-->
+            <!--<option value="false">InActive</option>-->
+            <!--</select>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<label translate="stepApp.umracModuleSetup.status" for="field_status">Status</label>-->
+            <!--<input type="checkbox" class="form-control" name="status" id="field_status"-->
+            <!--ng-model="umracModuleSetup.status"-->
+            <!--/>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<label translate="stepApp.umracModuleSetup.createDate" for="field_createDate">CreateDate</label>-->
+            <!--<input type="date" class="form-control" name="createDate" id="field_createDate"-->
+            <!--ng-model="umracModuleSetup.createDate"-->
+            <!--/>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<label translate="stepApp.umracModuleSetup.createBy" for="field_createBy">CreateBy</label>-->
+            <!--<input type="number" class="form-control" name="createBy" id="field_createBy"-->
+            <!--ng-model="umracModuleSetup.createBy"-->
+            <!--/>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<label translate="stepApp.umracModuleSetup.updatedBy" for="field_updatedBy">UpdatedBy</label>-->
+            <!--<input type="number" class="form-control" name="updatedBy" id="field_updatedBy"-->
+            <!--ng-model="umracModuleSetup.updatedBy"-->
+            <!--/>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<label translate="stepApp.umracModuleSetup.updatedTime" for="field_updatedTime">UpdatedTime</label>-->
+            <!--<input type="date" class="form-control" name="updatedTime" id="field_updatedTime"-->
+            <!--ng-model="umracModuleSetup.updatedTime"-->
+            <!--/>-->
+            <!--</div>-->
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="umracModuleSetup.id == null" translate="entity.action.save">Save</span>
+                <span ng-show="umracModuleSetup.id != null" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

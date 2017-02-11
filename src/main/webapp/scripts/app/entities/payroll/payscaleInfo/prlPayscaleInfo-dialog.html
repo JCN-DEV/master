@@ -1,0 +1,174 @@
+<form name="editForm" role="form" novalidate show-validation>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="modal-title" id="myPrlPayscaleInfoLabel" translate="stepApp.prlPayscaleInfo.home.createOrEditLabel">Create or edit a PrlPayscaleInfo</h4>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label translate="stepApp.prlPayscaleInfo.gazetteInfo" for="field_gazetteInfo">gazetteInfo</label>
+                    <select class="form-control" id="field_gazetteInfo" name="gazetteInfo"
+                            ng-change="checkPayscaleUniqueness()" required
+                            ng-model="prlPayscaleInfo.gazetteInfo" ng-options="HrGazetteSetup as HrGazetteSetup.gazetteName for HrGazetteSetup in hrgazettesetups track by HrGazetteSetup.id">
+                        <option value=""></option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label translate="stepApp.prlPayscaleInfo.gradeInfo" for="field_gradeInfo">gradeInfo</label>
+                    <select class="form-control" id="field_gradeInfo" name="gradeInfo" required
+                            ng-change="checkPayscaleUniqueness()"
+                            ng-model="prlPayscaleInfo.gradeInfo" ng-options="HrGradeSetup as HrGradeSetup.gradeCode for HrGradeSetup in hrgradesetups track by HrGradeSetup.id">
+                        <option value=""></option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.prlPayscaleInfo.maxBasicElegYear" for="field_maxBasicElegYear">MaxBasicElegYear</label>
+                    <input type="number" class="form-control" name="maxBasicElegYear" id="field_maxBasicElegYear"
+                           ng-model="prlPayscaleInfo.maxBasicElegYear" required/>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.prlPayscaleInfo.name" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name" required
+                           ng-model="prlPayscaleInfo.name"/>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.prlPayscaleInfo.activeStatus" for="field_activeStatus">ActiveStatus</label>
+                    <input type="checkbox" class="form-control" name="activeStatus" id="field_activeStatus"
+                           ng-model="prlPayscaleInfo.activeStatus"/>
+                    <div ng-show="editForm.activeStatus.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6 text-right">
+                <span class="message" ng-show="payscaleValidationChecking">validating...</span>
+                <div ng-show="payscaleAlreadyExist" class="alert alert-danger">
+                    Payscale already exists !!!
+                </div>
+            </div>
+            <div class="col-md-6 text-right">
+                <br/><br/>
+                <button type="button" ng-click="savePayscaleInfo()" ng-disabled="editForm.$invalid || isSaving || payscaleAlreadyExist" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;
+                    <span ng-show="prlPayscaleInfo.id==null" translate="entity.action.save">Save</span>
+                    <span ng-show="prlPayscaleInfo.id!=null" translate="entity.action.update">update</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+</form>
+
+    <div class="panel-group">
+        <div class="panel ">
+            <div class="panel-body bg-panel" ng-repeat="prlPayscaleBasicInfo in prlBasicPayscaleList">
+                <form  class="form-horizontal " name="editFormBasic" role="form" ng-submit="savePayScaleBasic()" novalidate show-validation>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="control-label" translate="stepApp.prlPayscaleBasicInfo.serialNumber" for="field_serialNumber">SerialNumber</label>
+                            <input ng-show="!prlPayscaleBasicInfo.viewMode" type="number" class="form-control" name="serialNumber" id="field_serialNumber"
+                                   ng-model="prlPayscaleBasicInfo.serialNumber" required/>
+                            <div ng-show="prlPayscaleBasicInfo.viewMode" class="form-control-static">{{prlPayscaleBasicInfo.serialNumber}}</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="control-label" translate="stepApp.prlPayscaleBasicInfo.basicAmount" for="field_basicAmount">BasicAmount</label>
+                            <input ng-show="!prlPayscaleBasicInfo.viewMode" type="number" class="form-control" name="basicAmount" id="field_basicAmount"
+                                   ng-model="prlPayscaleBasicInfo.basicAmount" required/>
+                            <div ng-show="prlPayscaleBasicInfo.viewMode" class="form-control-static">{{prlPayscaleBasicInfo.basicAmount}}</div>
+                        </div>
+                        <div class="col-md-4">
+                            <button ng-show="prlPayscaleBasicInfo.viewMode" type="button" ng-click="changeProfileMode(prlPayscaleBasicInfo)"
+                                    class="btn btn-primary btn-sm">{{prlPayscaleBasicInfo.viewModeText}}
+                            </button>
+                            <button type="button" ng-show="!prlPayscaleBasicInfo.viewMode"
+                                    ng-click="changeProfileMode(prlPayscaleBasicInfo)" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-remove"></span>&nbsp;{{prlPayscaleBasicInfo.viewModeText}}
+                            </button>
+                            <button ng-click="savePayScaleBasic(prlPayscaleBasicInfo, $index)" ng-show="!prlPayscaleBasicInfo.viewMode"
+                                    type="button" ng-disabled="editFormBasic.$invalid || isSaving" class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                                <span ng-show="prlPayscaleBasicInfo.id==null" translate="entity.action.save">Save</span>
+                                <span ng-show="prlPayscaleBasicInfo.id!=null" translate="entity.action.update">update</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+            <div class="col-sm-8 no_padding left">
+                <div data-ng-show="showError" ng-class="{fade:doFade}" class="alert alert-danger"><strong>{{errorMessage}}</strong></div>
+            </div>
+            <div class="col-sm-4 no_padding text-right">
+                <button type="button" class="btn btn-primary" ng-show="prlPayscaleInfo.id" ng-click="addMore()"><i class="fa fa-plus-square"></i>
+                    Add Basic
+                </button>
+            </div>
+        </div>
+    </div>
+<br/>
+<div class="panel-group">
+    <div class="panel ">
+        <div class="panel-body bg-panel" ng-repeat="prlPayscaleAllowanceInfo in prlPayscaleAllowanceList">
+            <form  class="form-horizontal " name="editFormAllowance" role="form" ng-submit="savePayScaleAllowance()" novalidate show-validation>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label translate="stepApp.prlPayscaleAllowanceInfo.allowanceInfo">allowanceInfo</label>
+                        <div class="form-control-static">{{prlPayscaleAllowanceInfo.allowanceInfo.name}}</div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="control-label" translate="stepApp.prlPayscaleAllowanceInfo.fixedBasic">FixedBasic</label>
+                        <div class="form-control">
+                            <input type="radio" data-ng-model="prlPayscaleAllowanceInfo.fixedBasic" name="fixedBasic" data-ng-value="true">&nbsp;Fixed&nbsp;|&nbsp;
+                            <input type="radio" data-ng-model="prlPayscaleAllowanceInfo.fixedBasic" name="fixedBasic" data-ng-value="false">&nbsp;Percentage
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="control-label" translate="stepApp.prlPayscaleAllowanceInfo.basicMinimum" for="field_basicMinimum">BasicMinimum</label>
+                        <input type="number" class="form-control" ng-max="prlPayscaleAllowanceInfo.basicMaximum" name="basicMinimum" id="field_basicMinimum"
+                               ng-model="prlPayscaleAllowanceInfo.basicMinimum" required/>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="control-label" translate="stepApp.prlPayscaleAllowanceInfo.basicMaximum" for="field_basicMaximum">BasicMaximum</label>
+                        <input type="number" ng-min="prlPayscaleAllowanceInfo.basicMinimum" class="form-control" name="basicMaximum" id="field_basicMaximum"
+                               ng-model="prlPayscaleAllowanceInfo.basicMaximum" required/>
+                    </div>
+                    <div class="col-md-2">
+                        <button ng-click="savePayscaleAllowanceData(prlPayscaleAllowanceInfo, $index)"
+                                type="button" ng-disabled="editFormAllowance.$invalid || isSaving" class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-save"></span>&nbsp;
+                            <span ng-show="prlPayscaleAllowanceInfo.id==null || prlPayscaleAllowanceInfo.id==0" translate="entity.action.save">Save</span>
+                            <span ng-show="prlPayscaleAllowanceInfo.id!=null && prlPayscaleAllowanceInfo.id!=0" translate="entity.action.update">update</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer ">
+        <button type="button" class="btn btn-default" class="btn " data-dismiss="modal" onclick="window.history.back()">
+            <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;<span translate="entity.action.back">Back</span>
+        </button>
+</div>

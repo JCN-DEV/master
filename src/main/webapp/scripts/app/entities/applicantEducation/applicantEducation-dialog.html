@@ -1,0 +1,123 @@
+
+<form name="editForm" class="form form-horizontal" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header bg-primary">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myApplicantEducationLabel" translate="stepApp.applicantEducation.home.createOrEditLabel">Create or edit a ApplicantEducation</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" for="id" translate="global.field.id">ID</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="id" name="id" ng-model="applicantEducation.id" readonly />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.applicantEducation.name" for="field_name">Name</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="name" id="field_name"
+                    ng-model="applicantEducation.name"
+                    required ng-minlength="2" ng-maxlength="512" />
+            <div ng-show="editForm.name.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.name.$error.minlength" translate="entity.validation.minlength" translate-value-min="2">
+                    This field is required to be at least 2 characters.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.name.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="512">
+                    This field cannot be longer than 512 characters.
+                </p>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.applicantEducation.applicantGroup" for="field_applicantGroup">ApplicantGroup</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="applicantGroup" id="field_applicantGroup"
+                    ng-model="applicantEducation.applicantGroup"
+                     />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.applicantEducation.gpa" for="field_gpa">Gpa</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="gpa" id="field_gpa"
+                    ng-model="applicantEducation.gpa"
+                     />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.applicantEducation.examYear" for="field_examYear">ExamYear</label>
+            <div class="col-sm-8">
+            <input type="date" class="form-control" name="examYear" id="field_examYear"
+                    ng-model="applicantEducation.examYear"
+                     />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.applicantEducation.examResultDate" for="field_examResultDate">ExamResultDate</label>
+            <div class="col-sm-8">
+            <input type="date" class="form-control" name="examResultDate" id="field_examResultDate"
+                    ng-model="applicantEducation.examResultDate"
+                     />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.applicantEducation.remarks" for="field_remarks">Remarks</label>
+            <div class="col-sm-8">
+            <input type="text" class="form-control" name="remarks" id="field_remarks"
+                    ng-model="applicantEducation.remarks"
+                    ng-maxlength="1024" />
+            <div ng-show="editForm.remarks.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.remarks.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="1024">
+                    This field cannot be longer than 1024 characters.
+                </p>
+            </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.applicantEducation.employee" for="field_employee">employee</label>
+            <div class="col-sm-8">
+                <select class="form-control" id="field_employee" name="employee" ng-model="applicantEducation.employee" ng-options="employee as employee.name for employee in employees track by employee.id">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.applicantEducation.institute" for="field_institute">institute</label>
+            <div class="col-sm-8">
+                <select class="form-control" id="field_institute" name="institute" ng-model="applicantEducation.institute" ng-options="institute as institute.name for institute in institutes track by institute.id">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label" translate="stepApp.applicantEducation.manager" for="field_manager">manager</label>
+            <div class="col-sm-8">
+                <select class="form-control" id="field_manager" name="manager" ng-model="applicantEducation.manager" ng-options="user as user.login for user in users track by user.id">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="form-group">
+            <div class="col-md-offset-4 col-md-8">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,149 @@
+<div class="col-sm-12 common-list">
+    <div class="">
+        <h2 translate="stepApp.almEmpLeaveInitialize.home.title">AlmEmpLeaveInitializes</h2>
+        <div class="col-md-12 padding-tb">
+            <div class="col-xs-4 no_padding">
+                <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+            </div>
+            <div class="col-xs-4">
+                <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+            </div>
+            <div class="col-xs-4 no_padding text-right ">
+                <button class="btn btn-primary  " ui-sref="almEmpLeaveInitialize.new">
+                    <span class="glyphicon glyphicon-plus"></span> <span
+                    translate="stepApp.almEmpLeaveInitialize.home.createLabel">Create a new AlmEmpLeaveInitialize</span>
+                </button>
+            </div>
+        </div>
+        <!--<jh-alert></jh-alert>-->
+        <!--<div class="col-sm-12 padding-tb">
+            <div class="col-md-4  no_padding">
+                <b><span translate="global.home.searchhere">Search Here :</span></b>
+                <div class="input-group">
+                    <span class="input-group-addon dlbtn" id="basic-addon1"><i class="fa fa-search"></i></span>
+                    <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+                </div>
+            </div>
+            <div class="col-md-4 no_padding"><b><span translate="global.home.itemperpage">Items per page:</span></b>
+                <div class="input-group">
+                    <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+                </div>
+            </div>
+            <div class="col-md-4 text-right no_padding">
+                <button class="btn btn-primary dlbtn dlbtn-top" ui-sref="almEmpLeaveInitialize.new">
+                    <span class="glyphicon glyphicon-plus"></span> <span
+                    translate="stepApp.almEmpLeaveInitialize.home.createLabel">Create a new AlmEmpLeaveInitialize</span>
+                </button>
+            </div>
+        </div>-->
+        <!--<div class="col-md-12 no_padding paddingbt">
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </form>
+            </div>
+            <div class="col-md-4 text-right">
+                <button class="btn btn-primary" ui-sref="almEmpLeaveInitialize.new">
+                    <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.almEmpLeaveInitialize.home.createLabel">Create a new AlmEmpLeaveInitialize</span>
+                </button>
+            </div>
+
+        </div>-->
+    </div>
+    <div class="modal fade" id="deleteAlmEmpLeaveInitializeConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(almEmpLeaveInitialize.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p translate="stepApp.almEmpLeaveInitialize.delete.question"
+                           translate-values="{id: '{{almEmpLeaveInitialize.id}}'}">Are you sure you want to delete this
+                            AlmEmpLeaveInitialize?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                            translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                            translate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 no_padding">
+        <table class="table table-striped ">
+            <thead>
+            <tr>
+                <th><span translate="global.form.serial">serial</span></th>
+                <th translate="stepApp.almEmpLeaveInitialize.employeeInfo">employeeInfo</th>
+                <th translate="stepApp.almEmpLeaveInitialize.almLeaveType">almLeaveType</th>
+                <th translate="stepApp.almEmpLeaveInitialize.year">Year</th>
+                <th translate="stepApp.almEmpLeaveInitialize.leaveEarned">LeaveEarned</th>
+                <th translate="stepApp.almEmpLeaveInitialize.leaveTaken">LeaveTaken</th>
+                <th translate="stepApp.almEmpLeaveInitialize.leaveForwarded">LeaveForwarded</th>
+                <th translate="stepApp.almEmpLeaveInitialize.leaveOnApply">LeaveOnApply</th>
+                <th translate="stepApp.almEmpLeaveInitialize.leaveBalance">LeaveBalance</th>
+                <th translate="stepApp.almEmpLeaveInitialize.activeStatus">ActiveStatus</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--<tr dir-paginate="almEmpLeaveInitialize in almEmpLeaveInitializes  | filter:q | itemsPerPage: pageSize">-->
+            <tr dir-paginate="almEmpLeaveInitialize in almEmpLeaveInitializes | filter:q | itemsPerPage: pageSize track by almEmpLeaveInitialize.id"
+                current-page="currentPage">
+                <td>{{pageSize*(currentPage-1)+$index+1}}</td>
+                <td>
+                    <a ui-sref="HrEmployeeInfo.detail({id:almEmpLeaveInitialize.employeeInfo.id})">{{almEmpLeaveInitialize.employeeInfo.fullName}}</a>
+                </td>
+                <td>
+                    <a ui-sref="AlmLeaveType.detail({id:almEmpLeaveInitialize.almLeaveType.id})">{{almEmpLeaveInitialize.almLeaveType.leaveTypeName}}</a>
+                </td>
+                <td>{{almEmpLeaveInitialize.year}}</td>
+                <td>{{almEmpLeaveInitialize.leaveEarned}}</td>
+                <td>{{almEmpLeaveInitialize.leaveTaken}}</td>
+                <td>{{almEmpLeaveInitialize.leaveForwarded}}</td>
+                <td>{{almEmpLeaveInitialize.leaveOnApply}}</td>
+                <td>{{almEmpLeaveInitialize.leaveBalance}}</td>
+                <td>{{almEmpLeaveInitialize.activeStatus ? 'Yes':'No'}}</td>
+
+                <td class="text-right">
+                    <button type="submit"
+                            ui-sref="almEmpLeaveInitialize.detail({id:almEmpLeaveInitialize.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span
+                        translate="entity.action.view"> View</span>
+                    </button>
+                    <!--<button type="submit"-->
+                    <!--ui-sref="almEmpLeaveInitialize.edit({id:almEmpLeaveInitialize.id})"-->
+                    <!--class="btn btn-primary btn-sm">-->
+                    <!--<span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>-->
+                    <!--</button>-->
+                    <button type="submit"
+                            ng-click="delete(almEmpLeaveInitialize.id)"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                        translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                     template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+    <!---->
+</div>

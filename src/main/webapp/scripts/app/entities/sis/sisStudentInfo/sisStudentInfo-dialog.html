@@ -1,0 +1,808 @@
+<div class="col-md-12 common-dialogue" ng-if="sisApplicationPreviewOff">
+
+<form name="editForm" role="form" novalidate ng-submit="save()" class="sis-dialog" show-validation>
+
+    <div>
+        <h4 id="mySisStudentInfoLabel" translate="stepApp.sisStudentInfo.home.createOrEditLabel">Create or edit a SisStudentInfo</h4>
+    </div>
+    <div class="sis-dialog">
+        <!--<jh-alert-error></jh-alert-error>-->
+        <!--<div class="form-group">-->
+            <!--<label for="id" translate="global.field.id">ID</label>-->
+            <!--<input type="text" class="form-control" id="id" name="id"-->
+                    <!--ng-model="sisStudentInfo.id" readonly />-->
+        <!--</div>-->
+        <div class="col-sm-12 no_padding">
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="states" translate="stepApp.sisStudentInfo.Institute" >Institute</label>
+                    <input name="states" id="states" type="text"
+                           placeholder="{{'stepApp.sisStudentInfo.Institute' | translate}}" ng-model="selectedInstitute" typeahead="state for state in sisInstitutes | filter:$viewValue | limitTo:8" class="form-control">
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.sisStudentInfo.applicationId" for="field_applicationId">ApplicationId</label>
+                    <div class="input-group">
+                        <input name="applicationId" id="field_applicationId" type="text"
+                               placeholder="{{'stepApp.sisStudentInfo.applicationId' | translate}}" ng-model="sisStudentInfo.applicationId" typeahead="applicationId for applicationId in sisApplications | filter:$viewValue | limitTo:8" class="form-control">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="searchApplicationId(sisStudentInfo.applicationId)">
+                                <span class="glyphicon glyphicon-search"></span>&nbsp;<span translate="stepApp.sisStudentInfo.Search">Search</span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 no_padding sis-search-content">
+            <div class="col-md-2 form-group" ngf-drop ngf-change="setStuPicture($file, sisStudentInfo)" ngf-pattern="'image/*'">
+                <div class=" text-center">
+                    <div class="sis-image">
+                        <img
+                            data-ng-src="{{'data:' + sisStudentInfo.stuPictureContentType + ';base64,' + sisStudentInfo.stuPicture}}"
+                            ng-if="sisStudentInfo.stuPicture"/>
+
+                        <div class="help-block clearfix">
+                            <span class="pull-left">{{sisStudentInfo.stuPictureContentType}} {{byteSize(sisStudentInfo.stuPicture)}}</span>
+                            <button ng-click="sisStudentInfo.stuPicture=null;sisStudentInfo.stuPictureContentType=null;"
+                                    ng-if="sisStudentInfo.stuPicture"
+                                    class="btn btn-default btn-xs pull-right">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </div>
+                        <center><br>
+                            <button type="file" ngf-select class="btn btn-default"
+                                    ngf-change="setStuPicture($file, sisStudentInfo)" accept="image/*"
+                                    translate="entity.action.addlogo">
+                                Add image
+                            </button>
+                    </div>
+                    <input type="hidden" class="form-control" name="stuPicture" id="field_stuPicture"
+                           ng-model="sisStudentInfo.stuPicture"
+                    />
+                    <input type="hidden" class="form-control" name="stuPictureContentType"
+                           id="field_stuPictureContentType"
+                           ng-model="sisStudentInfo.stuPictureContentType"/>
+                </div>
+            </div>
+            <div class="col-md-10 no_padding">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.sisStudentInfo.instituteName" for="field_instituteName">InstituteName</label>
+                        <input type="text" class="form-control" name="instituteName" id="field_instituteName"
+                               ng-model="sisStudentInfo.instituteName"
+                               readonly/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.sisStudentInfo.TradeTechnology" for="field_TradeTechnology">TradeTechnology</label>
+                        <input type="text" class="form-control" name="TradeTechnology" id="field_TradeTechnology"
+                               ng-model="sisStudentInfo.TradeTechnology"
+                               readonly/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <!--<label translate="stepApp.sisStudentInfo.name" for="field_name">Name</label>-->
+                        <label translate="stepApp.sisStudentInfo.studentName" for="field_name">StudentName</label>
+                        <input type="text" class="form-control" name="name" id="field_name"
+                               ng-model="sisStudentInfo.name"
+                               required readonly/>
+                        <div ng-show="editForm.name.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.sisStudentInfo.fatherName" for="field_fatherName">FatherName</label>
+                        <input type="text" class="form-control" name="fatherName" id="field_fatherName"
+                               ng-model="sisStudentInfo.fatherName"
+                               readonly/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.sisStudentInfo.motherName" for="field_motherName">MotherName</label>
+                        <input type="text" class="form-control" name="motherName" id="field_motherName"
+                               ng-model="sisStudentInfo.motherName"
+                               readonly/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.sisStudentInfo.dateOfBirth" for="field_dateOfBirth">DateOfBirth</label>
+                        <input type="text" class="form-control" name="dateOfBirth" id="field_dateOfBirth"
+                               ng-model="sisStudentInfo.dateOfBirth"
+                               readonly/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisStudentInfo.gender" for="field_gender">Gender</label>
+                <input type="text" class="form-control" name="gender" id="field_gender"
+                       ng-model="sisStudentInfo.gender"
+                    />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisStudentInfo.religion" for="field_religion">Religion</label>
+                <input type="text" class="form-control" name="religion" id="field_religion"
+                       ng-model="sisStudentInfo.religion"
+                    />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisStudentInfo.bloodGroup" for="field_bloodGroup">BloodGroup</label>
+                <input type="text" class="form-control" name="bloodGroup" id="field_bloodGroup"
+                       ng-model="sisStudentInfo.bloodGroup"
+                    />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisStudentInfo.maritalStatus" for="field_maritalStatus">MaritalStatus</label>
+                <input type="text" class="form-control" name="maritalStatus" id="field_maritalStatus"
+                       ng-model="sisStudentInfo.maritalStatus"
+                    />
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="border-line">
+                <h5 translate="stepApp.sisStudentInfo.presentAddress">Present Address</h5>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisStudentInfo.presentAddress" for="field_presentAddress">PresentAddress</label>
+                <input type="text" class="form-control" name="presentAddress" id="field_presentAddress"
+                       ng-model="sisStudentInfo.presentAddress"
+                    />
+            </div>
+        </div>
+
+        <!--<div class="form-group">
+            <label translate="stepApp.sisStudentInfo.studentName" for="field_studentName">StudentName</label>
+            <input type="text" class="form-control" name="studentName" id="field_studentName"
+                    ng-model="sisStudentInfo.studentName"
+                     />
+        </div>-->
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisStudentInfo.countryPresent" for="field_countryPresent">countryPresent</label>
+                <select class="form-control" id="field_countryPresent" name="countryPresent"
+                        ng-model="sisStudentInfo.countryPresent"
+                        ng-options="Country as Country.name for Country in countrys ">
+                    <option value="sss">sssss</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisStudentInfo.divisionPresent" for="field_divisionPresent">divisionPresent</label>
+                <select class="form-control" id="field_divisionPresent" name="divisionPresent"
+                        ng-model="sisStudentInfo.divisionPresent"
+                        ng-options="Division as Division.name for Division in divisions track by Division.id" ng-change="DistrictQuery(sisStudentInfo.divisionPresent)">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisStudentInfo.districtPresent" for="field_districtPresent">districtPresent</label>
+                <select class="form-control" id="field_districtPresent" name="districtPresent"
+                        ng-model="sisStudentInfo.districtPresent"
+                        ng-options="District as District.name for District in districts track by District.id" ng-change="LoadUpazila(sisStudentInfo.districtPresent)">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisStudentInfo.villageHouse" for="field_villageHouse">Village House</label>
+                <input type="text" class="form-control" name="villageHouse" id="field_villageHouse"
+                       ng-model="sisStudentInfo.villageHouse"
+                    />
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisStudentInfo.thanaUpozila" for="field_thanaUpozila">Thana Upozila</label>
+                <select class="form-control" id="field_thanaUpozila" name="thanaUpozila"
+                        ng-model="sisStudentInfo.thanaUpozila"
+                        ng-options="Upazila as Upazila.name for Upazila in Upazilas track by Upazila.id">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="border-line">
+                <h5 translate="stepApp.sisStudentInfo.permanentAddress">Permanent Address</h5>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisStudentInfo.permanentAddress" for="field_permanentAddress">Permanent Address</label>
+                <input type="text" class="form-control" name="permanentAddress" id="field_permanentAddress"
+                       ng-model="sisStudentInfo.permanentAddress"/>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisStudentInfo.countryPermanent" for="field_countryPermanent">country Permanent</label>
+                <select class="form-control" id="field_countryPermanent" name="countryPermanent" ng-model="sisStudentInfo.countryPermanent" ng-options="Country as Country.name for Country in countrys track by Country.id">
+                    <option value="Bangladesh">Bangladesh</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisStudentInfo.divisionPermanent" for="field_divisionPermanent">Division Permanent</label>
+                <select class="form-control" id="field_divisionPermanent" name="divisionPermanent"
+                        ng-model="sisStudentInfo.divisionPermanent"
+                        ng-options="Division as Division.name for Division in divisions track by Division.id" ng-change="DistrictPermanent(sisStudentInfo.divisionPermanent)">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisStudentInfo.districtPermanent" for="field_districtPermanent">District Permanent</label>
+                <select class="form-control" id="field_districtPermanent" name="districtPermanent"
+                        ng-model="sisStudentInfo.districtPermanent"
+                        ng-options="District as District.name for District in districtions track by District.id" ng-change="LoadPerUpazila(sisStudentInfo.districtPermanent)">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisStudentInfo.villageHousePer" for="field_villageHousePer">Village House</label>
+                <input type="text" class="form-control" name="villageHousePer" id="field_villageHousePer"
+                       ng-model="sisStudentInfo.villageHousePer"
+                    />
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisStudentInfo.thanaUpozilaPer" for="field_thanaUpozilaPer">Thana Upozila</label>
+                <select class="form-control" id="field_thanaUpozilaPer" name="thanaUpozilaPer"
+                        ng-model="sisStudentInfo.thanaUpozilaPer"
+                        ng-options="Upazila as Upazila.name for Upazila in UpazilaPer track by Upazila.id">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="border-line">
+                <h5 translate="stepApp.sisStudentInfo.ContactInformation">Contact Information</h5>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisStudentInfo.mobileNo" for="field_mobileNo">MobileNo</label>
+                <input type="text" class="form-control" name="mobileNo" id="field_mobileNo"
+                       ng-model="sisStudentInfo.mobileNo"
+                       required/>
+                <div ng-show="editForm.mobileNo.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.mobileNo.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisStudentInfo.contactNoHome" for="field_contactNoHome">ContactNoHome</label>
+                <input type="text" class="form-control" name="contactNoHome" id="field_contactNoHome"
+                       ng-model="sisStudentInfo.contactNoHome"
+                    />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisStudentInfo.emailAddress" for="field_emailAddress">EmailAddress</label>
+                <input type="text" class="form-control" name="emailAddress" id="field_emailAddress"
+                       ng-model="sisStudentInfo.emailAddress"
+                       required />
+                <div ng-show="editForm.emailAddress.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.emailAddress.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisStudentInfo.nationality" for="field_nationality">Nationality</label>
+                <input type="text" class="form-control" name="nationality" id="field_nationality"
+                       ng-model="sisStudentInfo.nationality"
+                       value="Bangladeshi"
+                    />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisStudentInfo.nationalIdNo" for="field_nationalIdNo">NationalIdNo</label>
+                <input type="text" class="form-control" name="nationalIdNo" id="field_nationalIdNo"
+                       ng-model="sisStudentInfo.nationalIdNo"
+                    />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisStudentInfo.birthCertificateNo" for="field_birthCertificateNo">BirthCertificateNo</label>
+                <input type="text" class="form-control" name="birthCertificateNo" id="field_birthCertificateNo"
+                       ng-model="sisStudentInfo.birthCertificateNo"
+                    />
+            </div>
+        </div>
+        <div class="col-md-12 no_padding">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.sisStudentInfo.quota" for="field_quotaReg">quotaReg</label>
+                    <input type="text" class="form-control" name="quotaReg" id="field_quotaReg"
+                           ng-model="sisStudentInfo.quotaReg"
+                        />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.sisStudentInfo.curriculum" for="field_curriculum">Curriculum</label>
+                    <input type="text" class="form-control" name="curriculum" id="field_curriculum"
+                           ng-model="sisStudentInfo.curriculum"
+                    />
+                </div>
+            </div>
+
+        </div>
+        <!--<div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisStudentInfo.createDate" for="field_createDate">CreateDate</label>
+                <input type="date" class="form-control" name="createDate" id="field_createDate"
+                       ng-model="sisStudentInfo.createDate"
+                    />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisStudentInfo.createBy" for="field_createBy">CreateBy</label>
+                <input type="number" class="form-control" name="createBy" id="field_createBy"
+                       ng-model="sisStudentInfo.createBy"
+                    />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisStudentInfo.updateDate" for="field_updateDate">UpdateDate</label>
+                <input type="date" class="form-control" name="updateDate" id="field_updateDate"
+                       ng-model="sisStudentInfo.updateDate"
+                    />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisStudentInfo.updateBy" for="field_updateBy">UpdateBy</label>
+                <input type="number" class="form-control" name="updateBy" id="field_updateBy"
+                       ng-model="sisStudentInfo.updateBy"
+                    />
+            </div>
+        </div>-->
+
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisStudentInfo.shift" for="field_shift">shift</label>
+                <input type="text" class="form-control" name="shift" id="field_shift"
+                       ng-model="sisStudentInfo.shift"
+                    />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="check-box"  >&nbsp;</label>
+                <label class="check-box" >
+                    <input type="checkbox"  name="activeStatus" id="field_activeStatus"
+                           ng-model="sisStudentInfo.activeStatus"
+                    />
+                    <span translate="stepApp.sisStudentInfo.activeStatus" >ActiveStatus</span>
+                </label>
+
+            </div>
+        </div>
+ <!--       <div class="col-md-6">
+        <div class="form-group">
+            <label translate="stepApp.sisStudentInfo.divisionPresent" for="field_divisionPresent">divisionPresent</label>
+            <select class="form-control" id="field_divisionPresent" name="divisionPresent" ng-model="sisStudentInfo.divisionPresent" ng-options="Division as Division.name for Division in divisions track by Division.id">
+                <option value=""></option>
+            </select>
+        </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisStudentInfo.countryPresent" for="field_countryPresent">countryPresent</label>
+                <select class="form-control" id="field_countryPresent" name="countryPresent" ng-model="sisStudentInfo.countryPresent" ng-options="Country as Country.name for Country in countrys track by Country.id">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.sisStudentInfo.divisionPermanent" for="field_divisionPermanent">divisionPermanent</label>
+                <select class="form-control" id="field_divisionPermanent" name="divisionPermanent" ng-model="sisStudentInfo.divisionPermanent" ng-options="Division as Division.name for Division in divisions track by Division.id">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6">
+        <div class="form-group">
+            <label translate="stepApp.sisStudentInfo.districtPermanent" for="field_districtPermanent">districtPermanent</label>
+            <select class="form-control" id="field_districtPermanent" name="districtPermanent" ng-model="sisStudentInfo.districtPermanent" ng-options="District as District.name for District in districts track by District.id">
+                <option value=""></option>
+            </select>
+        </div>
+        </div>
+
+        <div class="col-md-6">
+        <div class="form-group">
+            <label translate="stepApp.sisStudentInfo.countryPermanent" for="field_countryPermanent">countryPermanent</label>
+            <select class="form-control" id="field_countryPermanent" name="countryPermanent" ng-model="sisStudentInfo.countryPermanent" ng-options="Country as Country.name for Country in countrys track by Country.id">
+                <option value=""></option>
+            </select>
+        </div>
+        </div>-->
+        <!--<div class="form-group">-->
+            <!--<label translate="stepApp.sisStudentInfo.quota" for="field_quota">quota</label>-->
+            <!--<select class="form-control" id="field_quota" name="quota" ng-model="sisStudentInfo.quota" ng-options="SisQuota as SisQuota.name for SisQuota in sisquotas track by SisQuota.id">-->
+                <!--<option value=""></option>-->
+            <!--</select>-->
+        <!--</div>-->
+    </div>
+    <div class="modal-footer col-md-12 ">
+        <button type="button" class="btn btn-info" data-dismiss="modal" ng-click="previewAction()">
+            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span>Preview</span>
+        </button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>
+</div>
+
+
+<!-- Preview Code -->
+<div class="col-sm-12 no_padding common-table" ng-if="sisApplicationPreview">
+    <h2><span translate="stepApp.sisStudentInfo.detail.title">SisStudentInfo</span></h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <!--<thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>-->
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="stepApp.sisStudentInfo.name">Name</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{sisStudentInfo.name}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.sisStudentInfo.stuPicture">StuPicture</span>
+                </td>
+                <td>
+                    <div>
+                        <img
+                            data-ng-src="{{'data:' + sisStudentInfo.stuPictureContentType + ';base64,' + sisStudentInfo.stuPicture}}"
+                            style="max-height: 100px;" ng-if="sisStudentInfo.stuPicture"/>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.sisStudentInfo.instituteName">InstituteName</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{sisStudentInfo.instituteName}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.sisStudentInfo.TradeTechnology">TradeTechnology</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{sisStudentInfo.TradeTechnology}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.sisStudentInfo.studentName">StudentName</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{sisStudentInfo.studentName}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.sisStudentInfo.fatherName">FatherName</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{sisStudentInfo.fatherName}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.sisStudentInfo.motherName">MotherName</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{sisStudentInfo.motherName}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.sisStudentInfo.dateOfBirth">DateOfBirth</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{sisStudentInfo.dateOfBirth}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.sisStudentInfo.presentAddress">PresentAddress</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{sisStudentInfo.presentAddress}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.sisStudentInfo.permanentAddress">PermanentAddress</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{sisStudentInfo.permanentAddress}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.sisStudentInfo.nationality">Nationality</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{sisStudentInfo.nationality}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.sisStudentInfo.nationalIdNo">NationalIdNo</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{sisStudentInfo.nationalIdNo}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.sisStudentInfo.birthCertificateNo">BirthCertificateNo</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{sisStudentInfo.birthCertificateNo}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.sisStudentInfo.mobileNo">MobileNo</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{sisStudentInfo.mobileNo}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.sisStudentInfo.contactNoHome">ContactNoHome</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{sisStudentInfo.contactNoHome}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.sisStudentInfo.emailAddress">EmailAddress</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{sisStudentInfo.emailAddress}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.sisStudentInfo.gender">Gender</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{sisStudentInfo.gender}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.sisStudentInfo.maritalStatus">MaritalStatus</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{sisStudentInfo.maritalStatus}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.sisStudentInfo.bloodGroup">BloodGroup</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{sisStudentInfo.bloodGroup}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.sisStudentInfo.religion">Religion</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{sisStudentInfo.religion}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.sisStudentInfo.activeStatus">ActiveStatus</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{sisStudentInfo.activeStatus}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.sisStudentInfo.createDate">CreateDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{sisStudentInfo.createDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.sisStudentInfo.createBy">CreateBy</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{sisStudentInfo.createBy}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.sisStudentInfo.updateDate">UpdateDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{sisStudentInfo.updateDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.sisStudentInfo.updateBy">UpdateBy</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{sisStudentInfo.updateBy}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.sisStudentInfo.curriculum">Curriculum</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{sisStudentInfo.curriculum}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.sisStudentInfo.applicationId">ApplicationId</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{sisStudentInfo.applicationId}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.sisStudentInfo.divisionPresent">divisionPresent</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="Division.detail({id:sisStudentInfo.divisionPresent.id})">{{sisStudentInfo.divisionPresent.name}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.sisStudentInfo.divisionPermanent">divisionPermanent</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="Division.detail({id:sisStudentInfo.divisionPermanent.id})">{{sisStudentInfo.divisionPermanent.name}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.sisStudentInfo.districtPresent">districtPresent</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="District.detail({id:sisStudentInfo.districtPresent.id})">{{sisStudentInfo.districtPresent.name}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.sisStudentInfo.districtPermanent">districtPermanent</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="District.detail({id:sisStudentInfo.districtPermanent.id})">{{sisStudentInfo.districtPermanent.name}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.sisStudentInfo.countryPresent">countryPresent</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="Country.detail({id:sisStudentInfo.countryPresent.id})">{{sisStudentInfo.countryPresent.name}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.sisStudentInfo.countryPermanent">countryPermanent</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="Country.detail({id:sisStudentInfo.countryPermanent.id})">{{sisStudentInfo.countryPermanent.name}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.sisStudentInfo.quota">quota</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="SisQuota.detail({id:sisStudentInfo.quota.id})">{{sisStudentInfo.quota.name}}</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-sm-12 back-button text-right">
+        <button type="button" class="btn btn-info" data-dismiss="modal" ng-click="previewAction()">
+            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span>Back</span>
+        </button>
+        <button type="button"
+                onclick="window.print();"
+                class="btn btn-warning">
+            <span class="glyphicon glyphicon-print"></span>&nbsp;<span> Print</span>
+        </button>
+    </div>
+
+</div>

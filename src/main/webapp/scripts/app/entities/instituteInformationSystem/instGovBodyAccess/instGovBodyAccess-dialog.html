@@ -1,0 +1,76 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+    <div class="modal-header">
+        <h4 class="modal-title" id="myInstGovBodyAccessLabel" translate="stepApp.instGovBodyAccess.home.createOrEditLabel">Create or edit a InstGovBodyAccess</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group col-sm-6" ng-if="instMemShip.id == null">
+            <label translate="stepApp.instGovBodyAccess.username" for="field_username">Username</label>
+            <input type="text" class="form-control" name="login" id="field_username"
+                   ng-model="instGovBodyAccess.user.login"
+                   ng-remote-validate="/api/account/checkLogin/"
+                   ng-remote-method="GET"
+                   required/>
+            <span class="message" ng-show="editForm.login.$pending">validating...</span>
+            <div ng-show="editForm.login.$invalid">
+                <p style="color:red"
+                   ng-show="editForm.login.$error.ngRemoteValidate">
+                    This username is already exist.
+                </p>
+            </div>
+        </div>
+        <div class="form-group col-sm-6" ng-if="instGovBodyAccess.id == null">
+            <label translate="stepApp.instGovBodyAccess.email" for="field_email">Email</label>
+            <input type="text" class="form-control" name="email" id="field_email"
+                   ng-model="instGovBodyAccess.email"
+                   ng-remote-validate="/api/account/checkEmail/"
+                   ng-remote-method="GET"
+                   required/>
+            <span class="message" ng-show="editForm.email.$pending">validating...</span>
+            <div ng-show="editForm.email.$invalid">
+                <p style="color:red"
+                   ng-show="editForm.email.$error.ngRemoteValidate">
+                    This email address is already exist.
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.instGovBodyAccess.fullName" for="field_fullName">FullName</label>
+            <input type="text" class="form-control" name="fullName" id="field_fullName"
+                   ng-model="instMemShip.fullName"
+                />
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.instGovBodyAccess.gender" for="field_gender">Gender</label>
+            <div id="field_gender">
+                <label  class="radio-inline"><input type="radio" name="gender" value="male" ng-checked="(instGovBodyAccess.gender == male || instGovBodyAccess.gender == null)" ng-model="instGovBodyAccess.gender" ><span translate="stepApp.instGovBodyAccess.male">Active</span></label>
+                <label class="radio-inline"><input type="radio" name="gender"  value="female" ng-checked="(instGovBodyAccess.gender == female && instGovBodyAccess.gender != null)"  ng-model="instGovBodyAccess.gender"><span translate="stepApp.instGovBodyAccess.female">Deactive</span></label>
+                <label class="radio-inline"><input type="radio" name="gender"  value="others" ng-checked="(instGovBodyAccess.gender == others && instGovBodyAccess.gender != null)"  ng-model="instGovBodyAccess.gender"><span translate="stepApp.instGovBodyAccess.others">Deactive</span></label>
+            </div>
+
+        </div>
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.instGovBodyAccess.address" for="field_address">Address</label>
+            <input type="text" class="form-control" name="address" id="field_address"
+                   ng-model="instGovBodyAccess.address"
+                />
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.instGovBodyAccess.contact" for="field_contact">Contact</label>
+            <input type="text" class="form-control" name="contact" id="field_contact"
+                   ng-model="instGovBodyAccess.contact"
+                />
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" onclick="window.history.back()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

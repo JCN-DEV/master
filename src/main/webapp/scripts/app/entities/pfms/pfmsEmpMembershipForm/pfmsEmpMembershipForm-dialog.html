@@ -1,0 +1,406 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-if="pfmsEmpMembershipForm.id == null" class="modal-title" id="myPfmsEmpMembershipFormLabel"
+            translate="stepApp.pfmsEmpMembershipForm.home.createOrEditLabel">Create or edit a PfmsEmpMembershipForm</h4>
+        <h4 ng-if="pfmsEmpMembershipForm.id != null" class="modal-title" id="myPfmsEmpMembershipFormLabel"
+            translate="stepApp.pfmsEmpMembershipForm.home.EditLabel">Create or edit a PfmsEmpMembershipForm</h4>
+        <div class="modal-body ">
+            <div class="col-md-12 no_padding">
+                <div class="col-md-6">
+                    <label translate="stepApp.pfmsEmpMembershipForm.employeeInfo"
+                           for="field_employeeInfo">employeeInfo</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" autocomplete="off"
+                               ng-model="pfmsEmpMembershipForm.employeeInfo"
+                               typeahead='HrEmployeeInfo as (HrEmployeeInfo.fullName + " - " + HrEmployeeInfo.employeeId) for HrEmployeeInfo in hremployeeinfos | filter:$viewValue'
+                               id="field_employeeInfo" required
+                               placeholder="{{'stepApp.pfmsEmpMembershipForm.employeeInfo' | translate}}">
+                        <span class="input-group-btn">
+                        <button type="button" class="btn btn-primary" ng-click="loadEmployeeInfo()">
+                                <span class="glyphicon"></span>&nbsp;<span
+                            translate="stepApp.pfmsEmpMembershipForm.search">Search</span>
+                        </button>
+                    </span>
+                    </div>
+                    <div ng-show="!isExitsData">
+                        <p style="color: red">Member is already exists.</p>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMembershipForm.employeeInfo" for="field_employeeInfo">employeeInfo</label>
+                &lt;!&ndash;<select class="form-control" id="field_employeeInfo" name="employeeInfo" ng-model="pfmsEmpMembershipForm.employeeInfo" ng-options="HrEmployeeInfo as HrEmployeeInfo.fullName for HrEmployeeInfo in hremployeeinfos track by HrEmployeeInfo.id">&ndash;&gt;
+                &lt;!&ndash;<option value=""></option>&ndash;&gt;
+                &lt;!&ndash;</select>&ndash;&gt;
+
+                <input type="text" class="form-control autocomplete"   autocomplete="off" ng-model="pfmsEmpMembershipForm.employeeInfo"
+                typeahead='HrEmployeeInfo as (HrEmployeeInfo.fullName + " - " + HrEmployeeInfo.employeeId) for HrEmployeeInfo in hremployeeinfos | filter:$viewValue'
+                id="field_employeeInfo" required placeholder="{{'stepApp.pfmsEmpMembershipForm.employeeInfo' | translate}}">
+                <div ng-show="!isExitsData">
+                    <p style="color: red">Member is already exists.</p>
+                </div>
+
+            </div>
+            <div class="form-group col-md-6">
+                <button type="button" class="btn btn-default" ng-click="loadEmployeeInfo()">
+                    <span class="form-control">
+                        <span class="glyphicon"></span>&nbsp;<span translate="stepApp.pfmsEmpMembershipForm.search">Search</span>
+                    </span>
+                </button>
+            </div>-->
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMembershipForm.departmentName"
+                       for="field_almLeaveType">Department</label>
+                <span class="form-control">{{departmentName}}</span>
+            </div>
+
+            <div class="form-group col-md-6 ">
+                <label translate="stepApp.pfmsEmpMembershipForm.designationName"
+                       for="field_Designation">Designation</label>
+                <span class="form-control">{{designationName}}</span>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMembershipForm.nationality" for="field_nationality">nationality</label>
+                <span class="form-control">{{nationality}}</span>
+            </div>
+
+            <div class="form-group col-md-6 ">
+                <label translate="stepApp.pfmsEmpMembershipForm.fatherName" for="field_fatherName">fatherName</label>
+                <span class="form-control">{{fatherName}}</span>
+            </div>
+
+            <div class="form-group col-md-6 ">
+                <label translate="stepApp.pfmsEmpMembershipForm.dutySide" for="field_dutySide">dutySide</label>
+                <span class="form-control">{{dutySide}}</span>
+            </div>
+
+            <div class="form-group col-md-6 ">
+                <label translate="stepApp.pfmsEmpMembershipForm.accountNo" for="field_accountNo">accountNo</label>
+                <input type="text" class="form-control" name="accountNo" id="field_accountNo"
+                       ng-model="pfmsEmpMembershipForm.accountNo"
+                       required/>
+                <div ng-show="editForm.accountNo.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.accountNo.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMembershipForm.employeeStatusPfms" for="field_employeeStatusPfms">Applicable
+                    Gender</label>
+                <select class="form-control" name="employeeStatusPfms"
+                        ng-model="pfmsEmpMembershipForm.employeeStatusPfms" ng-change="onChangeEmployeeStatus()"
+                        id="field_employeeStatusPfms" required>
+                    <option value="">{{'stepApp.pfmsEmpMembershipForm.employeeStatusPfms' | translate}}</option>
+                    <option value="Permanent" translate="stepApp.pfmsEmpMembershipForm.permanent">Permanent</option>
+                    <option value="Temporary" translate="stepApp.pfmsEmpMembershipForm.temporary">Temporary</option>
+                    <option value="Internship" translate="stepApp.pfmsEmpMembershipForm.internship">Internship</option>
+                </select>
+                <div ng-show="editForm.employeeStatusPfms.$invalid">
+                    <p class="help-block" ng-show="editForm.employeeStatusPfms.$error.required"
+                       translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6" ng-show="isMinimumThreeYrsShow">
+                <label translate="stepApp.pfmsEmpMembershipForm.isMinimumThreeYrs" for="field_isMinimumThreeYrs">IsMinimumThreeYrs</label>
+
+                <span class="form-control">
+                 <input type="radio" data-ng-model="pfmsEmpMembershipForm.isMinimumThreeYrs" name="isMinimumThreeYrs"
+                        data-ng-value="true">&nbsp;Yes&nbsp;|&nbsp;
+                 <input type="radio" data-ng-model="pfmsEmpMembershipForm.isMinimumThreeYrs" name="isMinimumThreeYrs"
+                        data-ng-value="false">&nbsp;No
+            </span>
+                <div ng-show="editForm.isMinimumThreeYrs.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.isMinimumThreeYrs.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMembershipForm.isMandatoryContribute"
+                       for="field_isMandatoryContribute">IsMandatoryContribute</label>
+
+                <span class="form-control">
+                 <input type="radio" data-ng-model="pfmsEmpMembershipForm.isMandatoryContribute"
+                        name="isMandatoryContribute" data-ng-value="true">&nbsp;Mandatory&nbsp;|&nbsp;
+                 <input type="radio" data-ng-model="pfmsEmpMembershipForm.isMandatoryContribute"
+                        name="isMandatoryContribute" data-ng-value="false">&nbsp;Willingly
+            </span>
+                <div ng-show="editForm.isMandatoryContribute.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.isMandatoryContribute.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMembershipForm.isAnotherContFund" for="field_isAnotherContFund">IsAnotherContFund</label>
+                <span class="form-control">
+                 <input type="radio" data-ng-model="pfmsEmpMembershipForm.isAnotherContFund" name="isAnotherContFund"
+                        data-ng-value="true">&nbsp;Yes&nbsp;|&nbsp;
+                 <input type="radio" data-ng-model="pfmsEmpMembershipForm.isAnotherContFund" name="isAnotherContFund"
+                        data-ng-value="false">&nbsp;No
+            </span>
+            </div>
+            <div class="form-group col-md-6" ng-show="pfmsEmpMembershipForm.isAnotherContFund">
+                <label translate="stepApp.pfmsEmpMembershipForm.fundName" for="field_fundName">FundName</label>
+                <input type="text" class="form-control" name="fundName" id="field_fundName"
+                       ng-model="pfmsEmpMembershipForm.fundName"
+                />
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMembershipForm.isEmpFamily" for="field_isEmpFamily">IsEmpFamily</label>
+                <span class="form-control">
+                 <input type="radio" data-ng-model="pfmsEmpMembershipForm.isEmpFamily" name="isEmpFamily"
+                        data-ng-value="true">&nbsp;Yes&nbsp;|&nbsp;
+                 <input type="radio" data-ng-model="pfmsEmpMembershipForm.isEmpFamily" name="isEmpFamily"
+                        data-ng-value="false">&nbsp;No
+            </span>
+                <div ng-show="editForm.isEmpFamily.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.isEmpFamily.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMembershipForm.percentOfDeduct" for="field_percentOfDeduct">PercentOfDeduct</label>
+                <input type="number" class="form-control" name="percentOfDeduct" id="field_percentOfDeduct"
+                       ng-model="pfmsEmpMembershipForm.percentOfDeduct" ng-change="onChangePercentOfDeduct()"
+                       required/>
+                <div ng-show="editForm.percentOfDeduct.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.percentOfDeduct.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.percentOfDeduct.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+                <div ng-show="!isInRange">
+                    <p style="color: red">Percent of deduct should be within 5% to 25%.</p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMembershipForm.isMoneySection" for="field_isMoneySection">IsMoneySection</label>
+                <span class="form-control">
+                 <input type="radio" data-ng-model="pfmsEmpMembershipForm.isMoneySection" name="isMoneySection"
+                        data-ng-value="true">&nbsp;Money Section&nbsp;|&nbsp;
+                 <input type="radio" data-ng-model="pfmsEmpMembershipForm.isMoneySection" name="isMoneySection"
+                        data-ng-value="false">&nbsp;Staling Section
+            </span>
+                <div ng-show="editForm.isMoneySection.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.isMoneySection.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+            <div ng-show="pfmsEmpMembershipForm.isEmpFamily">
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.pfmsEmpMembershipForm.nomineeName"
+                           for="field_nomineeName">NomineeName</label>
+                    <input type="text" class="form-control" name="nomineeName" id="field_nomineeName"
+                           ng-model="pfmsEmpMembershipForm.nomineeName"/>
+
+                </div>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.pfmsEmpMembershipForm.ageOfNominee"
+                           for="field_ageOfNominee">AgeOfNominee</label>
+                    <input type="number" class="form-control" name="ageOfNominee" id="field_ageOfNominee"
+                           ng-model="pfmsEmpMembershipForm.ageOfNominee"
+                    />
+                </div>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.pfmsEmpMembershipForm.relationship"
+                           for="field_relationship">relationship</label>
+                    <select class="form-control" id="field_relationship" name="relationship"
+                            ng-model="pfmsEmpMembershipForm.relationship"
+                            ng-options="Relationship as Relationship.name for Relationship in relationships track by Relationship.id">
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.pfmsEmpMembershipForm.nomineeAddress" for="field_nomineeAddress">NomineeAddress</label>
+                    <input type="text" class="form-control" name="nomineeAddress" id="field_nomineeAddress"
+                           ng-model="pfmsEmpMembershipForm.nomineeAddress"
+                    />
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMembershipForm.witnessNameOne" for="field_witnessNameOne">WitnessNameOne</label>
+                <input type="text" class="form-control" name="witnessNameOne" id="field_witnessNameOne"
+                       ng-model="pfmsEmpMembershipForm.witnessNameOne"
+                />
+            </div>
+
+            <div class="col-md-12 no_padding">
+                <!--<div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMembershipForm.witnessMobileNoOne" for="field_witnessMobileNoOne">WitnessMobileNoOne</label>
+                <input type="text" class="form-control" name="witnessMobileNoOne" id="field_witnessMobileNoOne"
+                       ng-model="pfmsEmpMembershipForm.witnessMobileNoOne"
+                        />
+            </div>-->
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.pfmsEmpMembershipForm.witnessMobileNoOne"
+                               for="field_witnessMobileNoOne">WitnessMobileNoOne</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="witnessMobileNoOne"
+                                   id="field_witnessMobileNoOne"
+                                   ng-model="pfmsEmpMembershipForm.witnessMobileNoOne"
+                                   ng-minlength="11" ng-maxlength="18" required numeric-only-mobile/>
+                            <div ng-show="editForm.witnessMobileNoOne.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.witnessMobileNoOne.$error.required"
+                                   translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.witnessMobileNoOne.$error.minlength"
+                                   translate="entity.validation.minlength" translate-value-min="11">
+                                    This field is required to be at least 11 characters.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.witnessMobileNoOne.$error.maxlength"
+                                   translate="entity.validation.maxlength" translate-value-max="11">
+                                    This field cannot be longer than 11 characters.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMembershipForm.witnessMobileNoTwo" for="field_witnessMobileNoTwo">WitnessMobileNoTwo</label>
+                <input type="text" class="form-control" name="witnessMobileNoTwo" id="field_witnessMobileNoTwo"
+                       ng-model="pfmsEmpMembershipForm.witnessMobileNoTwo"
+                        />
+            </div>-->
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.pfmsEmpMembershipForm.witnessMobileNoTwo"
+                               for="field_witnessMobileNoTwo">WitnessMobileNoTwo</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="witnessMobileNoTwo"
+                                   id="field_witnessMobileNoTwo"
+                                   ng-model="pfmsEmpMembershipForm.witnessMobileNoTwo"
+                                   ng-minlength="11" ng-maxlength="18" required numeric-only-mobile/>
+                            <div ng-show="editForm.witnessMobileNoTwo.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.witnessMobileNoTwo.$error.required"
+                                   translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.witnessMobileNoTwo.$error.minlength"
+                                   translate="entity.validation.minlength" translate-value-min="11">
+                                    This field is required to be at least 11 characters.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.witnessMobileNoTwo.$error.maxlength"
+                                   translate="entity.validation.maxlength" translate-value-max="11">
+                                    This field cannot be longer than 11 characters.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMembershipForm.witnessAddressOne" for="field_witnessAddressOne">WitnessAddressOne</label>
+                <input type="text" class="form-control" name="witnessAddressOne" id="field_witnessAddressOne"
+                       ng-model="pfmsEmpMembershipForm.witnessAddressOne"
+                />
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMembershipForm.witnessNameTwo" for="field_witnessNameTwo">WitnessNameTwo</label>
+                <input type="text" class="form-control" name="witnessNameTwo" id="field_witnessNameTwo"
+                       ng-model="pfmsEmpMembershipForm.witnessNameTwo"
+                />
+            </div>
+
+
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMembershipForm.witnessAddressTwo" for="field_witnessAddressTwo">WitnessAddressTwo</label>
+                <input type="text" class="form-control" name="witnessAddressTwo" id="field_witnessAddressTwo"
+                       ng-model="pfmsEmpMembershipForm.witnessAddressTwo"
+                />
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMembershipForm.stationName" for="field_stationName">StationName</label>
+                <input type="text" class="form-control" name="stationName" id="field_stationName"
+                       ng-model="pfmsEmpMembershipForm.stationName"
+                />
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMembershipForm.applicationDate" for="field_applicationDate">ApplicationDate</label>
+
+                <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.applicationDate"
+                       datepicker-options="calendar.dateOptions" close-text="Close"
+                       ng-click="calendar.open($event, 'applicationDate')" class="form-control" name="applicationDate"
+                       id="field_applicationDate"
+                       ng-model="pfmsEmpMembershipForm.applicationDate" required min-date="newDate"/>
+
+                <div ng-show="editForm.applicationDate.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.applicationDate.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMembershipForm.remarks" for="field_remarks">Remarks</label>
+                <input type="text" class="form-control" name="remarks" id="field_remarks"
+                       ng-model="pfmsEmpMembershipForm.remarks"
+                       required/>
+                <div ng-show="editForm.remarks.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.remarks.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMembershipForm.activeStatus"
+                       for="field_activeStatus">ActiveStatus</label>
+                <span class="form-control">
+                 <input type="radio" data-ng-model="pfmsEmpMembershipForm.activeStatus" name="activeStatus"
+                        data-ng-value="true">&nbsp;Active&nbsp;|&nbsp;
+                 <input type="radio" data-ng-model="pfmsEmpMembershipForm.activeStatus" name="activeStatus"
+                        data-ng-value="false">&nbsp;Inactive
+            </span>
+                <div ng-show="editForm.activeStatus.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.history.back()">
+                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                    translate="entity.action.back">Back</span>
+                </button>
+                <button type="submit"
+                        ng-disabled="editForm.$invalid || editForm.$submitted || !isExitsData || !isInRange"
+                        class="btn btn-primary">
+                    <span ng-hide="pfmsEmpMembershipForm.id" translate="entity.action.save"></span>
+                    <span ng-show="pfmsEmpMembershipForm.id" translate="entity.action.update"></span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

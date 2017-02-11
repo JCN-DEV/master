@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <property name="now" value="now()" dbms="mysql,h2"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+    <property name="now" value="sysdate" dbms="oracle"/>
+
+    <property name="autoIncrement" value="true" dbms="mysql,h2,postgresql,oracle"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle"/>
+
+    <!--
+        Added the entity InstEmplRecruitInfo.
+    -->
+    <changeSet id="20151209160820" author="jhipster">
+        <createTable tableName="inst_empl_recruit_info">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="salary_scale" type="varchar(30)">
+                <constraints nullable="false" />
+            </column>
+            <column name="salary_code" type="varchar(20)">
+                <constraints nullable="false" />
+            </column>
+            <column name="month_salry_govt_provided" type="decimal(10,2)">
+                <constraints nullable="false" />
+            </column>
+            <column name="month_salry_inst_provided" type="decimal(10,2)">
+                <constraints nullable="false" />
+            </column>
+            <column name="gb_resol_receive_date" type="date">
+                <constraints nullable="false" />
+            </column>
+            <column name="gb_resol_agenda_no" type="varchar(30)">
+                <constraints nullable="false" />
+            </column>
+            <column name="circular_paper_name" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="circular_published_date" type="date">
+                <constraints nullable="false" />
+            </column>
+            <column name="exam_receive_date" type="date">
+                <constraints nullable="false" />
+            </column>
+            <column name="dg_represent_name" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="dg_represent_designa" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="dg_represent_addr" type="varchar(60)">
+                <constraints nullable="false" />
+            </column>
+            <column name="board_represent_name" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="board_represent_designa" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="board_represent_addr" type="varchar(127)">
+                <constraints nullable="false" />
+            </column>
+            <column name="approve_gbresol_date" type="date">
+                <constraints nullable="false" />
+            </column>
+            <column name="permit_agenda_no" type="varchar(50)"/>
+            <column name="recruitment_date" type="date">
+                <constraints nullable="false" />
+            </column>
+            <column name="present_inst_join_date" type="date">
+                <constraints nullable="false" />
+            </column>
+            <column name="present_post_join_date" type="date">
+                <constraints nullable="false" />
+            </column>
+            <column name="dg_represent_recrd_no" type="varchar(30)">
+                <constraints nullable="false" />
+            </column>
+            <column name="board_represent_recrd_no" type="varchar(30)">
+                <constraints nullable="false" />
+            </column>
+            <column name="department" type="varchar(50)"/>
+            <column name="inst_employee_id" type="bigint"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="inst_employee_id"
+                                 baseTableName="inst_empl_recruit_info"
+                                 constraintName="fk_inst_emp_rcrt_inf_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="inst_employee"/>
+        <!--<loadData encoding="UTF-8"
+                  file="config/liquibase/instEmpRecruitInfo.csv"
+                  separator=","
+                  tableName="inst_empl_recruit_info"/>-->
+
+    </changeSet>
+</databaseChangeLog>

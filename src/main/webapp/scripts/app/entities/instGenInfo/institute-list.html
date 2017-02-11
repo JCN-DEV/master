@@ -1,0 +1,117 @@
+<div>
+    <h2 translate="stepApp.instGenInfo.home.title">InstGenInfos</h2>
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4" has-authority = "ROLE_USER">
+                <!-- <button class="btn btn-primary" ui-sref="instGenInfo.new">
+                     <span class="glyphicon glyphicon-flash"></span> <span translate="stepApp.instGenInfo.home.createLabel">Create a new InstGenInfo</span>
+                 </button>-->
+            </div>
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a InstGenInfo</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <!-- <th translate="global.field.id">ID</th>-->
+            <th class="text-center" translate="global.form.serial">serial</th>
+            <th translate="stepApp.instGenInfo.code">Code</th>
+            <th translate="stepApp.instGenInfo.name">Name</th>
+            <!-- <th translate="stepApp.instGenInfo.publicationDate">PublicationDate</th>
+             <th translate="stepApp.instGenInfo.type">Type</th>
+             <th translate="stepApp.instGenInfo.village">Village</th>
+             <th translate="stepApp.instGenInfo.postOffice">PostOffice</th>
+             <th translate="stepApp.instGenInfo.postCode">PostCode</th>
+             <th translate="stepApp.instGenInfo.landPhone">LandPhone</th>
+             <th translate="stepApp.instGenInfo.mobileNo">MobileNo</th>
+             <th translate="stepApp.instGenInfo.email">Email</th>
+             <th translate="stepApp.instGenInfo.consArea">ConsArea</th>-->
+            <th translate="stepApp.instGenInfo.status">Status</th>
+            <!--<th translate="stepApp.instGenInfo.institute">institute</th>
+            <th translate="stepApp.instGenInfo.upazila">upazila</th>-->
+            <th translate="stepApp.instGenInfo.action">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--<tr ng-repeat="instGenInfo in instGenInfos track by instGenInfo.id ">-->
+        <tr dir-paginate="instGenInfo in instGenInfos | filter:q | itemsPerPage: pageSize track by instGenInfo.id"
+            current-page="currentPage">
+            <td class="text-center">{{pageSize*(currentPage-1)+$index+1}}</td>
+            <!--<td><a ui-sref="instGenInfo.detail({id:instGenInfo.id})">{{instGenInfo.id}}</a></td>-->
+            <td>{{instGenInfo.code}}</td>
+            <td>{{instGenInfo.name}}</td>
+            <!-- <td>{{instGenInfo.publicationDate | date:'mediumDate'}}</td>
+             <td translate="{{'stepApp.instType.' + instGenInfo.type}}">{{instGenInfo.type}}</td>
+             <td>{{instGenInfo.village}}</td>
+             <td>{{instGenInfo.postOffice}}</td>
+             <td>{{instGenInfo.postCode}}</td>
+             <td>{{instGenInfo.landPhone}}</td>
+             <td>{{instGenInfo.mobileNo}}</td>
+             <td>{{instGenInfo.email}}</td>
+             <td>{{instGenInfo.consArea}}</td>-->
+            <!--<td>{{instGenInfo.status}}</td>-->
+            <td>{{(instGenInfo.status === 0 ? "Insert" : (instGenInfo.status === 2 ? "Update" :"Something or"))}}
+
+            </td>
+            <!--<td>
+                <a ui-sref="institute.detail({id:instGenInfo.institute.id})">{{instGenInfo.institute.code}}</a>
+            </td>
+            <td>
+                <a ui-sref="upazila.detail({id:instGenInfo.upazila.id})">{{instGenInfo.upazila.name}}</a>
+            </td>-->
+            <td>
+                <button type="submit"
+                        ui-sref="instGenInfo.detail({id:instGenInfo.id})"
+                        class="btn btn-info btn-sm">
+
+                    <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view">View</span>
+                </button>
+                <button type="submit" ng-if="instGenInfo.edit"
+                        ui-sref="instGenInfo.edit({id:instGenInfo.id})"
+                        class="btn btn-primary btn-sm">
+                    <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit">Edit</span>
+                </button>
+                <button type="submit" ng-if="instGenInfo.approved"
+                        has-any-authority = "ROLE_ADMIN"
+                        ui-sref="instGenInfo.approve({id:instGenInfo.id})"
+                        class="btn btn-primary btn-sm">
+                    <span class="glyphicon glyphicon-check"></span>&nbsp;<span translate="entity.action.approve"> Approve</span>
+                </button>
+                <button type="submit" ng-if="instGenInfo.reject"
+                        ui-sref="instGenInfo.delete({id:instGenInfo.id})"
+                        class="btn btn-danger btn-sm">
+                    <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.reject">Reject</span>
+
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <nav>
+        <ul class="pagination">
+            <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+            <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+            <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+            <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+            <li class="active"><a>{{page + 1}}</a></li>
+            <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+            <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+            <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+            <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+        </ul>
+    </nav>
+</div>
+</div>

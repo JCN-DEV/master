@@ -1,0 +1,163 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>-->
+        <h4 ng-if="pfmsLoanApplication.id == null" class="modal-title" id="myPfmsLoanApplicationLabel" translate="stepApp.pfmsLoanApplication.home.createOrEditLabel">Create or edit a PfmsLoanApplication</h4>
+        <h4 ng-if="pfmsLoanApplication.id != null" class="modal-title" id="myPfmsLoanApplicationLabel" translate="stepApp.pfmsLoanApplication.home.EditLabel">Create or edit a PfmsLoanApplication</h4>
+    </div>
+    <div class="panel-body">
+        <!--<div class="form-group col-sm-6">
+            <label translate="stepApp.pfmsLoanApplication.employeeInfo" for="field_employeeInfo">employeeInfo</label>
+            <select class="form-control" id="field_employeeInfo" name="employeeInfo" ng-model="pfmsLoanApplication.employeeInfo" ng-options="HrEmployeeInfo as HrEmployeeInfo.fullName for HrEmployeeInfo in hremployeeinfos track by HrEmployeeInfo.id">
+                <option value=""></option>
+            </select>
+        </div>-->
+        <!--<div class="form-group col-sm-6">
+            <label translate="stepApp.pfmsLoanApplication.timesOfWithdraw" for="field_timesOfWithdraw">TimesOfWithdraw</label>
+            <span class="form-control">
+                 <input type="radio" data-ng-model="pfmsLoanApplication.timesOfWithdraw" ng-change="timesOfWithdrawalChck()" name="timesOfWithdraw" data-ng-value="1" required>&nbsp;First&nbsp;&nbsp;
+                 <input type="radio" data-ng-model="pfmsLoanApplication.timesOfWithdraw" ng-change="timesOfWithdrawalChck()" name="timesOfWithdraw" data-ng-value="2">&nbsp;Second
+                 <input type="radio" data-ng-model="pfmsLoanApplication.timesOfWithdraw" ng-change="timesOfWithdrawalChck()" name="timesOfWithdraw" data-ng-value="3">&nbsp;Third
+            </span>
+            <div ng-show="!isTimeOfWithDrawCheck">
+                <p style="color: red">{{timesOfWithdrawalCheckMessage}}</p>
+            </div>
+            <div ng-show="editForm.timesOfWithdraw.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.timesOfWithdraw.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>-->
+        <div class="form-group col-md-6">
+            <label translate="stepApp.pfmsLoanApplication.departmentName" for="field_almLeaveType">Department</label>
+            <span class="form-control">{{departmentName}}</span>
+        </div>
+
+        <div class="form-group col-md-6 ">
+            <label translate="stepApp.pfmsLoanApplication.designationName" for="field_Designation">Designation</label>
+            <span class="form-control">{{designationName}}</span>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label translate="stepApp.pfmsLoanApplication.nationality" for="field_nationality">nationality</label>
+            <span class="form-control">{{nationality}}</span>
+        </div>
+
+        <div class="form-group col-md-6 ">
+            <label translate="stepApp.pfmsLoanApplication.fatherName" for="field_fatherName">fatherName</label>
+            <span class="form-control">{{fatherName}}</span>
+        </div>
+
+        <div class="form-group col-md-6 ">
+            <label translate="stepApp.pfmsLoanApplication.dutySide" for="field_dutySide">dutySide</label>
+            <span class="form-control">{{dutySide}}</span>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.pfmsLoanApplication.loanAmount" for="field_loanAmount">LoanAmount</label>
+            <input type="number" class="form-control" name="loanAmount" id="field_loanAmount"
+                   ng-model="pfmsLoanApplication.loanAmount" ng-change = "seventyFivePercentCheck()"
+                   required />
+            <div ng-show="!isSeventyFiveParcentCheck">
+                <p style="color: red">{{seventyFivePercentCheckMessage}}</p>
+            </div>
+            <div ng-show="!isSeventyFiveParcentCheckEmpty">
+                <p style="color: red">{{seventyFivePercentCheckMessageEmpty}}</p>
+            </div>
+            <div ng-show="!isTimeOfWithDrawCheck">
+                <p style="color: red">{{timesOfWithdrawalCheckMessage}}</p>
+            </div>
+            <div ng-show="!isPendingLoan">
+                <p style="color: red">{{pendingLoanCheckMessage}}</p>
+            </div>
+            <div ng-show="!isTimeOfWithDrawTwoCheck">
+                <p style="color: red">{{timesOfWithdrawalTwoCheckMessage}}</p>
+            </div>
+            <div ng-show="editForm.loanAmount.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.loanAmount.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                   ng-show="editForm.loanAmount.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.pfmsLoanApplication.noOfInstallment" for="field_noOfInstallment">NoOfInstallment</label>
+            <input type="number" class="form-control" name="noOfInstallment" id="field_noOfInstallment"
+                   ng-model="pfmsLoanApplication.noOfInstallment"
+                   required />
+            <div ng-show="editForm.noOfInstallment.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.noOfInstallment.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                   ng-show="editForm.noOfInstallment.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.pfmsLoanApplication.reasonOfWithdrawal" for="field_reasonOfWithdrawal">ReasonOfWithdrawal</label>
+            <input type="text" class="form-control" name="reasonOfWithdrawal" id="field_reasonOfWithdrawal"
+                   ng-model="pfmsLoanApplication.reasonOfWithdrawal"
+                   required />
+            <div ng-show="editForm.reasonOfWithdrawal.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.reasonOfWithdrawal.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <!--<div ng-if="pfmsLoanApplication.timesOfWithdraw == 2 || pfmsLoanApplication.timesOfWithdraw == 3">-->
+        <div ng-repeat="model in collection track by model.id">
+            {{model.name}}
+
+            <!--<div class="form-group col-sm-6" >-->
+                <!--<label translate="stepApp.pfmsLoanApplication.isRepayFirstWithdraw" for="field_isRepayFirstWithdraw">IsRepayFirstWithdraw</label>-->
+                <!--<span class="form-control">-->
+                    <!--<input type="radio" data-ng-model="pfmsLoanApplication.isRepayFirstWithdraw" ng-change="onCheckedFirstWithdraw()" name="isRepayFirstWithdraw" data-ng-value="true">&nbsp;Yes&nbsp;|&nbsp;-->
+                    <!--<input type="radio" data-ng-model="pfmsLoanApplication.isRepayFirstWithdraw" name="isRepayFirstWithdraw" data-ng-value="false">&nbsp;No-->
+                <!--</span>-->
+            <!--</div>-->
+            <div class="form-group col-sm-6" ng-hide="pfmsLoanApplication.isRepayFirstWithdraw">
+                <label translate="stepApp.pfmsLoanApplication.noOfInstallmentLeft" for="field_noOfInstallmentLeft">NoOfInstallmentLeft</label>
+                <input type="number" class="form-control" name="noOfInstallmentLeft" id="field_noOfInstallmentLeft"
+                       ng-model="pfmsLoanApplication.noOfInstallmentLeft"
+                        />
+            </div>
+            <div class="form-group col-sm-6" ng-hide="pfmsLoanApplication.isRepayFirstWithdraw">
+                <label translate="stepApp.pfmsLoanApplication.lastInstallmentReDate" for="field_lastInstallmentReDate">LastInstallmentReDate</label>
+
+                <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.lastInstallmentReDate"
+                       datepicker-options="calendar.dateOptions" close-text="Close"
+                       ng-click="calendar.open($event, 'lastInstallmentReDate')" class="form-control" name="lastInstallmentReDate" id="field_lastInstallmentReDate"
+                       ng-model="pfmsLoanApplication.lastInstallmentReDate" />
+            </div>
+        </div>
+        <!--</div>-->
+       <!-- <div class="form-group col-sm-6">
+            <label translate="stepApp.pfmsLoanApplication.applicationDate" for="field_applicationDate">ApplicationDate</label>
+            <input type="date" class="form-control" name="applicationDate" id="field_applicationDate"
+                   ng-model="pfmsLoanApplication.applicationDate"
+                    />
+        </div>-->
+    </div>
+    <div class="panel-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.history.back()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted || !isSeventyFiveParcentCheck || !isSeventyFiveParcentCheck || !isTimeOfWithDrawCheck || !isPendingLoan" class="btn btn-primary">
+                <span ng-hide="pfmsLoanApplication.id" translate="entity.action.save"></span>
+                <span ng-show="pfmsLoanApplication.id" translate="entity.action.update"></span>
+            </button>
+        </div>
+</div>
+</form>
+

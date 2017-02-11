@@ -1,0 +1,50 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myNameCnclApplicationEditLogLabel" translate="stepApp.nameCnclApplicationEditLog.home.createOrEditLabel">Create or edit a NameCnclApplicationEditLog</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="nameCnclApplicationEditLog.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.nameCnclApplicationEditLog.status" for="field_status">Status</label>
+            <input type="number" class="form-control" name="status" id="field_status"
+                    ng-model="nameCnclApplicationEditLog.status"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.nameCnclApplicationEditLog.remarks" for="field_remarks">Remarks</label>
+            <input type="text" class="form-control" name="remarks" id="field_remarks"
+                    ng-model="nameCnclApplicationEditLog.remarks"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.nameCnclApplicationEditLog.created_date" for="field_created_date">Created_date</label>
+            <input type="date" class="form-control" name="created_date" id="field_created_date"
+                    ng-model="nameCnclApplicationEditLog.created_date"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.nameCnclApplicationEditLog.nameCnclApplication" for="field_nameCnclApplication">nameCnclApplication</label>
+            <select class="form-control" id="field_nameCnclApplication" name="nameCnclApplication" ng-model="nameCnclApplicationEditLog.nameCnclApplication" ng-options="nameCnclApplication as nameCnclApplication.id for nameCnclApplication in namecnclapplications track by nameCnclApplication.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

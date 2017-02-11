@@ -1,0 +1,49 @@
+'use strict';
+
+angular.module('stepApp')
+    .factory('PrlSalaryStructureInfo', function ($resource, DateUtils) {
+        return $resource('api/prlSalaryStructureInfos/:id', {}, {
+            'query': { method: 'GET', isArray: true},
+            'get': {
+                method: 'GET',
+                transformResponse: function (data) {
+                    data = angular.fromJson(data);
+                    data.effectiveDate = DateUtils.convertLocaleDateFromServer(data.effectiveDate);
+                    data.createDate = DateUtils.convertLocaleDateFromServer(data.createDate);
+                    data.updateDate = DateUtils.convertLocaleDateFromServer(data.updateDate);
+                    return data;
+                }
+            },
+            'update': {
+                method: 'PUT',
+                transformRequest: function (data) {
+                    data.effectiveDate = DateUtils.convertLocaleDateToServer(data.effectiveDate);
+                    data.createDate = DateUtils.convertLocaleDateToServer(data.createDate);
+                    data.updateDate = DateUtils.convertLocaleDateToServer(data.updateDate);
+                    return angular.toJson(data);
+                }
+            },
+            'save': {
+                method: 'POST',
+                transformRequest: function (data) {
+                    data.effectiveDate = DateUtils.convertLocaleDateToServer(data.effectiveDate);
+                    data.createDate = DateUtils.convertLocaleDateToServer(data.createDate);
+                    data.updateDate = DateUtils.convertLocaleDateToServer(data.updateDate);
+                    return angular.toJson(data);
+                }
+            }
+        });
+    }).factory('PrlSalaryStructureInfoByFilter', function ($resource)
+    {
+        return $resource('api/prlSalaryStructureInfosByFilter/:psid/:grdid/:empid', {},
+            {
+                'get': { method: 'GET', isArray: true}
+            });
+    })
+    .factory('PrlSalaryStructureInfoByEmp', function ($resource)
+    {
+      return $resource('api/prlSalaryStructureInfosByEmp/:salid/:empid', {},
+      {
+          'get': { method: 'GET', isArray: false}
+      });
+    });

@@ -1,0 +1,99 @@
+<div class="col-sm-12 common-list">
+    <h2 translate="stepApp.instLevel.home.title">InstLevels</h2>
+    <!--<jh-alert></jh-alert>-->
+    <div class="col-md-12 padding-tb no-print">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+        <div class="col-xs-4 no_padding text-right ">
+            <button class="btn btn-primary" ui-sref="setup.instLevel.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.instLevel.home.createLabel">Create a new InstLevel</span>
+            </button>
+        </div>
+    </div>
+    <!--<div class="col-sm-12 padding-tb no-print">
+        <div class="col-md-4 no_padding">
+            <b>{{ (instLevels|filter:q).length }} results found</b>
+            <div class="input-group">
+                <span class="input-group-addon dlbtn" id="basic-addon1"><i class="fa fa-search"></i></span>
+                <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+            </div>
+        </div>
+        <div class="col-md-4 no_padding"><b>Items per page:</b>
+            <div class="input-group">
+                <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+            </div>
+        </div>
+        <div class="col-md-4 text-right no_padding">
+            <button class="btn btn-primary dlbtn dlbtn-top" ui-sref="setup.instLevel.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.instLevel.home.createLabel">Create a new InstLevel</span>
+            </button>
+        </div>
+    </div>-->
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th class="text-center" translate="global.form.serial">serial</th>
+                <!--<th translate="global.field.id">ID</th>-->
+                <th translate="stepApp.instLevel.code">Code</th>
+                <th translate="stepApp.instLevel.name">Name</th>
+                <th translate="stepApp.instLevel.description">Description</th>
+                <th translate="stepApp.instLevel.status">Status</th>
+                <th class="text-center no-print" translate="entity.action.action"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr dir-paginate="instLevel in instLevels  | filter:q | itemsPerPage: pageSize" current-page="currentPage">
+                <!--<td><a ui-sref="instLevel.detail({id:instLevel.id})">{{instLevel.id}}</a></td>-->
+                <td class="text-center">{{pageSize*(currentPage-1)+$index+1}}</td>
+                <td>{{instLevel.code}}</td>
+                <td>{{instLevel.name}}</td>
+                <td>{{instLevel.description}}</td>
+                <td><span ng-show="instLevel.pStatus==true">Active</span>
+                    <span ng-show="instLevel.pStatus==false">Inactive</span></td>
+                <!--      <td>{{instLevel.createdDate | date:'mediumDate'}}</td>
+                      <td>{{instLevel.updatedDate | date:'mediumDate'}}</td>
+                  <td>{{instLevel.createdBy}}</td>
+                  <td>{{instLevel.updatedBy}}</td>-->
+                <!--<td>{{instLevel.status}}</td>-->
+                <td class="text-right no-print">
+                    <button type="submit"
+                            ui-sref="setup.instLevel.detail({id:instLevel.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="setup.instLevel.edit({id:instLevel.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                        translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="setup.instLevel.delete({id:instLevel.id})"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                        translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav class="no-print">
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                     template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+    <div class="col-md-12 no-print text-right">
+        <button type="submit" class="btn btn-sm btn-primary no-print" onclick="window.print()" >
+            <i class="fa fa-print"></i>&nbsp;
+            <span translate="entity.action.print" >Print</span>
+        </button>
+    </div>
+    <div style="color:#fff" ng-if="currentPageNumber" class="col-md-12 text-center">
+        {{currentPageNumber}}
+    </div>
+</div>

@@ -1,0 +1,69 @@
+<div class="col-md-12 common-list">
+    <h2 translate="stepApp.employeeLoanRequisitionForm.home.loanPendingTitle">Employee Loan Pending List</h2>
+    <div class="col-md-12 padding-tb">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+
+    </div>
+
+    <div class="col-sm-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th><span translate="global.form.serial">Serial</span></th>
+                <th translate="stepApp.employeeLoanRequisitionForm.employeeLoanTypeSetup">Employee LoanType Setup</th>
+                <th translate="stepApp.employeeLoanRequisitionForm.employeeLoanRulesSetup">employeeLoanRulesSetup</th>
+                <th translate="stepApp.employeeLoanRequisitionForm.loanRequisitionCode">LoanRequisitionCode</th>
+                <th translate="stepApp.employeeLoanRequisitionForm.employeeID">Employee ID</th>
+                <th translate="stepApp.employeeLoanRequisitionForm.employeeID">Employee Name</th>
+                <th translate="stepApp.employeeLoanRequisitionForm.amount">Amount</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr dir-paginate="employeeLoanRequisitionForm in employeeLoanRequisitionForms | filter:q | itemsPerPage: pageSize" current-page="currentPage">
+            <!--<tr ng-repeat="employeeLoanRequisitionForm in employeeLoanRequisitionForms track by employeeLoanRequisitionForm.id">-->
+                <td>{{pageSize*(currentPage-1)+$index+1}}</td>
+                <td>{{employeeLoanRequisitionForm.LOAN_TYPE_NAME}}</td>
+                <td>{{employeeLoanRequisitionForm.LOAN_NAME}}</td>
+                <td>{{employeeLoanRequisitionForm.LOAN_REQUISITION_CODE}}</td>
+                <td>{{employeeLoanRequisitionForm.EMPLOYEE_ID}}</td>
+                <td>{{employeeLoanRequisitionForm.FULL_NAME}}</td>
+                <td>{{employeeLoanRequisitionForm.AMOUNT}}</td>
+
+                <td class="text-right">
+                    <button type="submit"
+                            ui-sref="employeeLoanInfo.viewAndApprove({id:employeeLoanRequisitionForm.ID})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-check"></span>&nbsp;<span translate="view&approve"> View & Approve</span>
+                    </button>
+
+                    <button type="submit"  has-any-authority="ROLE_DG"
+                            ui-sref="employeeLoanInfo.reject({id:employeeLoanRequisitionForm.id})"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                        translate="entity.action.reject" ui-sref-active="active">Reject</span>
+                    </button>
+                    <!--<button type="submit"-->
+                    <!--ui-sref="employeeLoanInfo.employeeLoanRequisitionForm.edit({id:employeeLoanRequisitionForm.id})"-->
+                    <!--class="btn btn-primary btn-sm">-->
+                    <!--<span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>-->
+                    <!--</button>-->
+                    <!--<button type="submit"-->
+                    <!--ng-click="delete(employeeLoanRequisitionForm.id)"-->
+                    <!--class="btn btn-danger btn-sm">-->
+                    <!--<span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>-->
+                    <!--</button>-->
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+</div>

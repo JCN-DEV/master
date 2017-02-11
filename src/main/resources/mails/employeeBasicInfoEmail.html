@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{email.activation.title}">JHipster activation</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<p th:text="#{email.activation.greeting(${employee.fullName})}">
+    Dear
+</p>
+<p th:text="#{email.employee.confirmation.text}">
+    Your step employee registration completed with these information.
+</p>
+<table with="50%" border="0">
+    <tr>
+        <td>User Name</td>
+        <td><span th:text="${employee.user.login}"></span></td>
+    </tr>
+    <tr>
+        <td>Password</td>
+        <td><span th:text="${employee.logComments}"></span></td>
+    </tr>
+    <tr>
+        <td>Employee Name</td>
+        <td><span th:text="${employee.fullName}"></span></td>
+    </tr>
+    <tr>
+        <td>Employee ID</td>
+        <td><span th:text="${employee.employeeId}"></span></td>
+    </tr>
+    <tr>
+        <td>Work Area</td>
+        <td><span th:text="${employee.workArea.typeName}"></span></td>
+    </tr>
+    <tr>
+        <td>Department Name</td>
+        <td><span th:text="${employee.departmentInfo.departmentInfo.departmentName}"></span></td>
+    </tr>
+    <tr>
+        <td>Designation</td>
+        <td><span th:text="${employee.designationInfo.designationInfo.designationName}"></span></td>
+    </tr>
+    <tr>
+        <td>Employee Type</td>
+        <td><span th:text="${employee.employeeType.typeName}"></span></td>
+    </tr>
+    <tr>
+        <td>Employement Type</td>
+        <td><span th:text="${employee.employementType.typeName}"></span></td>
+    </tr>
+    <tr>
+        <td>Mobile Number</td>
+        <td><span th:text="${employee.mobileNumber}"></span></td>
+    </tr>
+    <tr>
+        <td>National ID</td>
+        <td><span th:text="${employee.nationalId}"></span></td>
+    </tr>
+</table>
+<p>
+    <span th:text="#{email.employee.regards.text}">Regards, </span>
+    <br/>
+    <em th:text="#{email.signature}">Step Team.</em>
+</p>
+</body>
+</html>

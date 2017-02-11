@@ -1,0 +1,92 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+    <div class="modal-header">
+        <h4 ng-show="hrPayScaleSetup.id == null"class="modal-title" id="myHrPayScaleSetupLabel" translate="stepApp.hrPayScaleSetup.home.createOrEditLabel">Create or edit a HrPayScaleSetup</h4>
+        <h4 ng-show="hrPayScaleSetup.id != null"class="modal-title" id="myHrPayScaleSetupLabel" translate="stepApp.hrPayScaleSetup.home.EditLabel">Create or edit a HrPayScaleSetup</h4>
+    </div>
+    <div class="modal-body">
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label class="control-label" translate="stepApp.hrPayScaleSetup.payScaleCode" for="field_payScaleCode">PayScaleCode</label>
+                    <input type="text" class="form-control" name="payScaleCode" id="field_payScaleCode"
+                           ng-model="hrPayScaleSetup.payScaleCode"
+                           ng-remote-validate="/api/hrPayScaleSetups/checkcode/"
+                           ng-remote-method="GET"
+                           ng-remote-throttle="500"
+                           required />
+                    <span class="message" ng-show="editForm.payScaleCode.$pending">validating...</span>
+                    <div ng-show="editForm.payScaleCode.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.payScaleCode.$error.ngRemoteValidate">
+                            Payscale code already exists!!!
+                        </p>
+                    </div>
+                    <div ng-show="editForm.payScaleCode.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.payScaleCode.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.hrPayScaleSetup.basicPayScale" for="field_basicPayScale">BasicPayScale</label>
+                    <input type="number" class="form-control" name="basicPayScale" id="field_basicPayScale"
+                           ng-model="hrPayScaleSetup.basicPayScale" required />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.hrPayScaleSetup.gazetteInfo" for="field_gazetteInfo">gazetteInfo</label>
+                    <select class="form-control" id="field_gazetteInfo" name="gazetteInfo" ng-model="hrPayScaleSetup.gazetteInfo"
+                            ng-options="hrGazetteSetup as hrGazetteSetup.gazetteName for hrGazetteSetup in hrgazettesetups track by hrGazetteSetup.id" required>
+                        <option value="">Select Gazette</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.hrPayScaleSetup.gradeInfo" for="field_gradeInfo">gradeInfo</label>
+                    <select class="form-control" id="field_gradeInfo" name="gradeInfo" ng-model="hrPayScaleSetup.gradeInfo" ng-options="HrGradeSetup as HrGradeSetup.gradeCode for HrGradeSetup in hrgradesetups track by HrGradeSetup.id" required>
+                        <option value="">Select Grade</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.hrPayScaleSetup.activeStatus">ActiveStatus</label>
+                <span class="form-control">
+                    <input type="radio" data-ng-model="hrPayScaleSetup.activeStatus" name="activeStatus" data-ng-value="true">&nbsp;Active&nbsp;|&nbsp;
+                    <input type="radio" data-ng-model="hrPayScaleSetup.activeStatus" name="activeStatus" data-ng-value="false">&nbsp;Inactive
+                </span>
+                    <div ng-show="editForm.activeStatus.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" class="btn " data-dismiss="modal" onclick="window.history.back()">
+            <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;<span translate="entity.action.back">Back</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,109 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myInstituteFinancialInfoLabel" translate="stepApp.instituteFinancialInfo.home.createOrEditLabel">Create or edit a InstituteFinancialInfo</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="instituteFinancialInfo.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instituteFinancialInfo.bankName" for="field_bankName">BankName</label>
+            <input type="text" class="form-control" name="bankName" id="field_bankName"
+                    ng-model="instituteFinancialInfo.bankName"
+                    required />
+            <div ng-show="editForm.bankName.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.bankName.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instituteFinancialInfo.branchName" for="field_branchName">BranchName</label>
+            <input type="text" class="form-control" name="branchName" id="field_branchName"
+                    ng-model="instituteFinancialInfo.branchName"
+                    required />
+            <div ng-show="editForm.branchName.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.branchName.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instituteFinancialInfo.accountType" for="field_accountType">AccountType</label>
+            <select class="form-control" name="accountType" ng-model="instituteFinancialInfo.accountType" id="field_accountType" required>
+                <option value="General_Fund" translate="stepApp.accountType.General_Fund">General_Fund</option>
+                <option value="Preserved_Fund" translate="stepApp.accountType.Preserved_Fund">Preserved_Fund</option>
+            </select>
+            <div ng-show="editForm.accountType.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.accountType.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instituteFinancialInfo.accountNo" for="field_accountNo">AccountNo</label>
+            <input type="text" class="form-control" name="accountNo" id="field_accountNo"
+                    ng-model="instituteFinancialInfo.accountNo"
+                    required />
+            <div ng-show="editForm.accountNo.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.accountNo.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instituteFinancialInfo.issueDate" for="field_issueDate">IssueDate</label>
+            <input type="date" class="form-control" name="issueDate" id="field_issueDate"
+                    ng-model="instituteFinancialInfo.issueDate"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instituteFinancialInfo.expireDate" for="field_expireDate">ExpireDate</label>
+            <input type="date" class="form-control" name="expireDate" id="field_expireDate"
+                    ng-model="instituteFinancialInfo.expireDate"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instituteFinancialInfo.amount" for="field_amount">Amount</label>
+            <input type="number" class="form-control" name="amount" id="field_amount"
+                    ng-model="instituteFinancialInfo.amount"
+                    required />
+            <div ng-show="editForm.amount.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.amount.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.amount.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instituteFinancialInfo.status" for="field_status">Status</label>
+            <input type="number" class="form-control" name="status" id="field_status"
+                    ng-model="instituteFinancialInfo.status"
+                     />
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

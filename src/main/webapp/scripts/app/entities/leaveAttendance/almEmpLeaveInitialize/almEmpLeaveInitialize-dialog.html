@@ -1,0 +1,201 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()">
+        <h4 class="modal-title" ng-show="almEmpLeaveInitialize.id == null" id="myAlmEmpLeaveInitializeLabel"
+            translate="stepApp.almEmpLeaveInitialize.home.createOrEditLabel">Create or edit a AlmEmpLeaveInitialize</h4>
+        <h4 class="modal-title" ng-show="almEmpLeaveInitialize.id != null" id="myAlmEmpLeaveInitializeLabel2"
+            translate="stepApp.almEmpLeaveInitialize.home.EditLabel">Create or edit a AlmEmpLeaveInitialize</h4>
+        <div class="modal-body">
+            <jh-alert-error></jh-alert-error>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" for="field_workArea" translate="stepApp.almEmpLeaveInitialize.workarea">Work Area</label>
+                    <select class="form-control" id="field_workArea" name="workArea" ng-model="workArea" ng-change="loadModelByWorkArea(workArea)"
+                            ng-options="MiscTypeSetup as MiscTypeSetup.typeName for MiscTypeSetup in workAreaList track by MiscTypeSetup.id">
+                        <option value="">Select Work Area</option>
+                    </select>
+                    <span class="help">No of Employee: {{hremployeeinfos.length}}</span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.almEmpLeaveInitialize.employeeInfo"
+                           for="field_employeeInfo">employeeInfo</label>
+                    <input type="text" class="form-control autocomplete" autocomplete="off"
+                           tooltip="{{'stepApp.almEmpLeaveInitialize.employeeInfo' | translate}}"
+                           placeholder="{{'stepApp.almEmpLeaveInitialize.employeeInfo' | translate}}"
+                           ng-model="almEmpLeaveInitialize.employeeInfo"
+                           name="employeeInfo"
+                           typeahead='HrEmployeeInfo as (HrEmployeeInfo.fullName + " - " + HrEmployeeInfo.employeeId) for HrEmployeeInfo in hremployeeinfos | filter:$viewValue'
+                           id="field_employeeInfo" required>
+
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.almEmpLeaveInitialize.almLeaveType"
+                           for="field_almLeaveType">almLeaveType</label>
+                    <select class="form-control" id="field_almLeaveType" ng-change="getEmpLeaveBalanceInfo()"
+                            tooltip="{{'stepApp.almEmpLeaveInitialize.almLeaveType' | translate}}"
+                            name="almLeaveType" ng-model="almEmpLeaveInitialize.almLeaveType"
+                            ng-options="AlmLeaveType as AlmLeaveType.leaveTypeName for AlmLeaveType in almleavetypes track by AlmLeaveType.id"
+                            required>
+                        <option value="" translate="stepApp.almEmpLeaveInitialize.almLeaveType"> Select Leave Type
+                        </option>
+                    </select>
+                    <div ng-show="!isGenderCheck">
+                        <p style="color: red">{{genderErrorMessage}}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label translate="stepApp.almEmpLeaveInitialize.year" for="field_year">Year</label>
+                    <input type="number" class="form-control" name="year" id="field_year" readonly="readonly"
+                           tooltip="{{'stepApp.almEmpLeaveInitialize.year' | translate}}"
+                           placeholder="{{'stepApp.almEmpLeaveInitialize.year' | translate}}"
+                           ng-model="almEmpLeaveInitialize.year"
+                    />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label translate="stepApp.almEmpLeaveInitialize.curLeaveEarned" for="field_curLeaveEarned">LeaveEarned</label>
+                    <input type="number" class="form-control" readonly="readonly" name="curLeaveEarned"
+                           id="field_curLeaveEarned"
+                           ng-model="curLeaveEarned"
+                           tooltip="{{'stepApp.almEmpLeaveInitialize.curLeaveEarned' | translate}}"
+                           placeholder="{{'stepApp.almEmpLeaveInitialize.curLeaveEarned' | translate}}"
+                    />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label translate="stepApp.almEmpLeaveInitialize.curLeaveTaken"
+                           for="field_curLeaveTaken">LeaveTaken</label>
+                    <input type="number" class="form-control" readonly="readonly" name="curLeaveTaken"
+                           id="field_curLeaveTaken"
+                           ng-model="curLeaveTaken"
+                           tooltip="{{'stepApp.almEmpLeaveInitialize.curLeaveTaken' | translate}}"
+                           placeholder="{{'stepApp.almEmpLeaveInitialize.curLeaveTaken' | translate}}"
+                    />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label translate="stepApp.almEmpLeaveInitialize.curLeaveForwarded" for="field_curLeaveForwarded">LeaveForwarded</label>
+                    <input type="number" class="form-control" readonly="readonly" name="curLeaveForwarded"
+                           id="field_curLeaveForwarded"
+                           ng-model="curLeaveForwarded"
+                           tooltip="{{'stepApp.almEmpLeaveInitialize.curLeaveForwarded' | translate}}"
+                           placeholder="{{'stepApp.almEmpLeaveInitialize.curLeaveForwarded' | translate}}"
+                    />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label translate="stepApp.almEmpLeaveInitialize.curLeaveOnApply" for="field_curLeaveOnApply">LeaveOnApply</label>
+                    <input type="number" class="form-control" readonly="readonly" name="curLeaveOnApply"
+                           id="field_curLeaveOnApply"
+                           ng-model="curLeaveOnApply"
+                           tooltip="{{'stepApp.almEmpLeaveInitialize.curLeaveOnApply' | translate}}"
+                           placeholder="{{'stepApp.almEmpLeaveInitialize.curLeaveOnApply' | translate}}"
+                    />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label translate="stepApp.almEmpLeaveInitialize.curLeaveBalance" for="field_curLeaveBalance">CurLeaveBalance</label>
+                    <input type="number" class="form-control" readonly="readonly" name="curLeaveBalance"
+                           id="field_curLeaveBalance"
+                           ng-model="curLeaveBalance"
+                           tooltip="{{'stepApp.almEmpLeaveInitialize.curLeaveBalance' | translate}}"
+                           placeholder="{{'stepApp.almEmpLeaveInitialize.curLeaveBalance' | translate}}"
+                    />
+
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label translate="stepApp.almEmpLeaveInitialize.leaveEarned"
+                           for="field_leaveEarned">LeaveEarned</label>
+                    <input type="number" class="form-control" name="leaveEarned" id="field_leaveEarned" required
+                           ng-model="almEmpLeaveInitialize.leaveEarned"
+                           tooltip="{{'stepApp.almEmpLeaveInitialize.leaveEarned' | translate}}"
+                           placeholder="{{'stepApp.almEmpLeaveInitialize.leaveEarned' | translate}}"
+                    />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label translate="stepApp.almEmpLeaveInitialize.leaveTaken"
+                           for="field_leaveTaken">LeaveTaken</label>
+                    <input type="number" class="form-control" name="leaveTaken" id="field_leaveTaken" required
+                           ng-model="almEmpLeaveInitialize.leaveTaken"
+                           tooltip="{{'stepApp.almEmpLeaveInitialize.leaveTaken' | translate}}"
+                           placeholder="{{'stepApp.almEmpLeaveInitialize.leaveTaken' | translate}}"
+                    />
+                </div>
+            </div>
+            <!--<div class="col-md-4">-->
+                <!--<div class="form-group">-->
+                    <!--<label translate="stepApp.almEmpLeaveInitialize.leaveForwarded" for="field_leaveForwarded">LeaveForwarded</label>-->
+                    <!--<input type="number" class="form-control" name="leaveForwarded" id="field_leaveForwarded" required-->
+                           <!--ng-model="almEmpLeaveInitialize.leaveForwarded"-->
+                           <!--tooltip="{{'stepApp.almEmpLeaveInitialize.leaveForwarded' | translate}}"-->
+                           <!--placeholder="{{'stepApp.almEmpLeaveInitialize.leaveForwarded' | translate}}"-->
+                    <!--/>-->
+                <!--</div>-->
+            <!--</div>-->
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label translate="stepApp.almEmpLeaveInitialize.leaveOnApply"
+                           for="field_leaveOnApply">LeaveOnApply</label>
+                    <input type="number" class="form-control" name="leaveOnApply" id="field_leaveOnApply" required
+                           ng-model="almEmpLeaveInitialize.leaveOnApply"
+                           tooltip="{{'stepApp.almEmpLeaveInitialize.leaveOnApply' | translate}}"
+                           placeholder="{{'stepApp.almEmpLeaveInitialize.leaveOnApply' | translate}}"
+                    />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label translate="stepApp.almEmpLeaveInitialize.leaveBalance"
+                           for="field_leaveBalance">LeaveBalance</label>
+                    <input type="number" class="form-control" name="leaveBalance" id="field_leaveBalance" required
+                           ng-model="almEmpLeaveInitialize.leaveBalance"
+                           tooltip="{{'stepApp.almEmpLeaveInitialize.leaveBalance' | translate}}"
+                           placeholder="{{'stepApp.almEmpLeaveInitialize.leaveBalance' | translate}}"
+                    />
+                </div>
+            </div>
+            <div class="form-group">
+                <label translate="stepApp.almEmpLeaveInitialize.activeStatus">ActiveStatus</label>
+                <input tooltip="{{'stepApp.almEmpLeaveInitialize.activeStatus' | translate}}" type="radio"
+                       data-ng-model="almEmpLeaveInitialize.activeStatus" name="activeStatus"
+                       data-ng-value="true">&nbsp;Active&nbsp;|&nbsp;
+                <input tooltip="{{'stepApp.almEmpLeaveInitialize.activeStatus' | translate}}" type="radio"
+                       data-ng-model="almEmpLeaveInitialize.activeStatus" name="activeStatus"
+                       data-ng-value="false">&nbsp;Inactive
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button"
+                    onclick="window.history.back()"
+                    class="btn btn-info">
+                <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span
+                translate="entity.action.back"> Back</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted || !isGenderCheck"
+                    class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="almEmpLeaveInitialize.id == null" translate="entity.action.save">Save</span>
+                <span ng-show="almEmpLeaveInitialize.id != null" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

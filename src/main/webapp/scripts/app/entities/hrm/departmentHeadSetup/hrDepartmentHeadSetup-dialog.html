@@ -1,0 +1,112 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="hrDepartmentHeadSetup.id == null" class="modal-title" id="myHrDepartmentHeadSetupLabel"
+            translate="stepApp.hrDepartmentHeadSetup.home.createOrEditLabel">Create or edit a HrDepartmentHeadSetup</h4>
+        <h4 ng-show="hrDepartmentHeadSetup.id != null" class="modal-title" id="myHrDepartmentHeadSetupLabel"
+            translate="stepApp.hrDepartmentHeadSetup.home.EditLabel">Create or edit a HrDepartmentHeadSetup</h4>
+        <div class="modal-body col-md-12 padding-tb">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrDepartmentHeadSetup.departmentCode"
+                               for="field_departmentCode">DepartmentCode</label>
+                        <input type="text" class="form-control" name="departmentCode" id="field_departmentCode"
+                               ng-model="hrDepartmentHeadSetup.departmentCode"
+                               ng-remote-validate="/api/hrDepartmentHeadSetups/checkcode/"
+                               ng-remote-method="GET"
+                               ng-remote-throttle="500"
+                               required/>
+                        <span class="message" ng-show="editForm.departmentCode.$pending">validating...</span>
+                        <div ng-show="editForm.departmentCode.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.departmentCode.$error.ngRemoteValidate">
+                                Department code already exists !!!
+                            </p>
+                        </div>
+                        <div ng-show="editForm.departmentCode.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.departmentCode.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrDepartmentHeadSetup.departmentName"
+                               for="field_departmentName">DepartmentName</label>
+                        <input type="text" class="form-control" name="departmentName" id="field_departmentName"
+                               ng-model="hrDepartmentHeadSetup.departmentName"
+                               ng-remote-validate="/api/hrDepartmentHeadSetups/checkname/"
+                               ng-remote-method="GET"
+                               ng-remote-throttle="500"
+                               required/>
+                        <span class="message" ng-show="editForm.departmentName.$pending">validating...</span>
+                        <div ng-show="editForm.departmentName.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.departmentName.$error.ngRemoteValidate">
+                                Department name already exists !!!
+                            </p>
+                        </div>
+                        <div ng-show="editForm.departmentName.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.departmentName.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrDepartmentHeadSetup.departmentDetail"
+                               for="field_departmentDetail">DepartmentDetail</label>
+                    <textarea class="form-control" name="departmentDetail" id="field_departmentDetail"
+                              ng-model="hrDepartmentHeadSetup.departmentDetail" ng-maxlength="200"></textarea>
+                        <div ng-show="editForm.departmentDetail.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.departmentDetail.$error.maxlength"
+                               translate="entity.validation.maxlength" translate-value-max="200">
+                                This field cannot be longer than 200 characters.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label"
+                               translate="stepApp.hrDepartmentHeadSetup.activeStatus">ActiveStatus</label>
+                <span class="form-control">
+                    <input type="radio" data-ng-model="hrDepartmentHeadSetup.activeStatus" name="activeStatus"
+                           data-ng-value="true">&nbsp;Active&nbsp;|&nbsp;
+                    <input type="radio" data-ng-model="hrDepartmentHeadSetup.activeStatus" name="activeStatus"
+                           data-ng-value="false">&nbsp;Inactive
+                </span>
+                        <div ng-show="editForm.activeStatus.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" class="btn " data-dismiss="modal"
+                    onclick="window.history.back()">
+                <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;<span
+                translate="entity.action.back">Back</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="hrDepartmentHeadSetup.id == null" translate="entity.action.save">Save</span>
+                <span ng-show="hrDepartmentHeadSetup.id != null" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

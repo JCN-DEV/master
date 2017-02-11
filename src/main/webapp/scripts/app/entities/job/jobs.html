@@ -1,0 +1,145 @@
+<div class="col-md-3 responsive_padding no-print">
+    <ng-include src="'scripts/app/entities/jobPortal/jp-admin-menu.html'"></ng-include>
+</div>
+<div class="col-md-9 lbl-dash">
+    <div class="col-md-12 common-list">
+        <h2 class="page-header" translate="global.home.archiveJobs">Jobs</h2>
+        <div class="col-md-12 padding-bt">
+            <div class="col-xs-4 no_padding">
+                <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+            </div>
+            <div class="col-xs-4">
+                <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+            </div>
+        </div>
+
+        <!--<div class="modal fade" id="deleteJobConfirmation">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form name="deleteForm" ng-submit="confirmDelete(job.id)">
+                        <div class="modal-header bg-primary">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                    ng-click="clear()">&times;</button>
+                            <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p translate="stepApp.job.delete.question" translate-values="{id: '{{job.id}}'}">Are you sure
+                                you want to delete this Job?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                                translate="entity.action.cancel">Cancel</span>
+                            </button>
+                            <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                                <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                                translate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>-->
+
+        <div class="col-sm-12 col-md-12  table-responsive no_padding">
+            <table class="table table-hover table-striped">
+                <!--<caption class="caption notice text-center">
+                    <div translate="entity.action.found"
+                         translate-values="{found: '{{jobs.length}}', total: '{{total}}'}">{{jobs.length}} jobs retrieved
+                        from total of {{total}} jobs
+                    </div>
+                </caption>-->
+
+                <thead>
+                <tr>
+                    <th><input type="checkbox" ng-model="areAllJobsSelected"
+                               ng-change="updateJobsSelection(jobs, areAllJobsSelected)"></th>
+                    <!--<th ng-click="order('id', reverse=!reverse)" translate="global.field.id">ID</th>-->
+                    <th ng-click="order('id', reverse=!reverse)" translate="global.field.serial">Serial No</th>
+                    <th ng-click="order('title', reverse=!reverse)" translate="stepApp.job.title">Title</th>
+                    <th translate="stepApp.job.organization">employer</th>
+                    <th ng-click="order('type', reverse=!reverse)" translate="stepApp.job.type">Type</th>
+                    <th ng-click="order('applicationDeadline', reverse=!reverse)"
+                        translate="stepApp.job.applicationDeadline">Deadline
+                    </th>
+                    <!--<th ng-click="order('status', reverse=!reverse)" translate="stepApp.job.status">Status</th>-->
+
+                    <th translate="stepApp.job.country">country</th>
+                    <th translate="stepApp.job.action">Action</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr dir-paginate="job in jobs | filter:q | itemsPerPage: pageSize track by job.id"
+                    current-page="currentPage">
+                    <td><input type="checkbox" ng-model="job.isSelected"/></td>
+                    <!--<td><a ui-sref="job.detail({id:job.id})">{{job.id}}</a></td>-->
+                    <td>{{pageSize * (currentPage-1)+$index+1}}</td>
+                    <td>{{job.cat.cat}}</td>
+                    <td>
+                        <a ui-sref="employer.detail({id:job.employer.id})">{{job.employer.name}}</a>
+                    </td>
+                    <td>{{job.jobType.name}}</td>
+                    <!--<td translate="{{'stepApp.JobStatus.' + job.status}}">{{job.status}}</td>-->
+                    <td>{{job.applicationDeadline | date}}</td>
+
+                    <td>
+                        <a ui-sref="country.detail({id:job.country.id})">{{job.country.name}}</a>
+                    </td>
+                    <td class="text-right no-print">
+                        <button type="submit"
+                                ui-sref="job.detail({id:job.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span
+                            translate="entity.action.view"> View</span>
+                        </button>
+                        <!--<button type="submit"
+                                ui-sref="job.edit({id:job.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                            translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="delete(job.id)"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                            translate="entity.action.delete"> Delete</span>
+                        </button>-->
+                    </td>
+                    <!--<td class="text-right">
+                        <button type="submit"
+                                ui-sref="job.detail({id:job.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view">View</span>
+                        </button>
+                        &lt;!&ndash;<button type="submit"
+                                ui-sref="job.edit({id:job.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                            translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="delete(job.id)"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                            translate="entity.action.delete"> Delete</span>
+                        </button>&ndash;&gt;
+                    </td>-->
+                </tr>
+                </tbody>
+            </table>
+            <nav class="no-print">
+                <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                         template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+            </nav>
+        </div>
+        <div class="no-print   text-right">
+            <button type="submit" name="submit" onclick="window.print()" class="btn btn-primary">
+                <span class="glyphicon glyphicon-print"></span>&nbsp;<span
+                translate="entity.action.print">Print</span>
+            </button>
+        </div>
+    </div>
+
+</div>
+

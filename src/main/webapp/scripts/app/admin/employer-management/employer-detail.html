@@ -1,0 +1,301 @@
+<style>
+    .bold {
+        font-weight: bold;color: red;
+    }
+</style>
+
+<div class="common-list">
+    <h2 style="height: 45px; color:#444"><span translate="stepApp.employer.detail.title">employer</span> {{tempEmployer.status}}
+
+        <div class="button-group" style="margin-top: -24px;">
+            <button type="submit"
+                    class="btn btn-success btn-sm pull-right" ng-click="hideSingleView()">
+                <span class="glyphicon glyphicon-arrow-left "></span>&nbsp;<span translate="entity.action.back"> Back</span>
+            </button>
+            <button type="submit"
+                    ui-sref="employer.reject({id:tempEmployer.id})"
+                    class="btn btn-danger btn-sm pull-right" ng-show="tempEmployer.status == 'pending' || tempEmployer.status == 'update'">
+                <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.reject"> Reject</span>
+            </button>
+            <button type="submit"
+                    ui-sref="employer.approve({id:tempEmployer.id})"
+                    class="btn btn-success btn-sm pull-right" ng-show="tempEmployer.status == 'pending' || tempEmployer.status == 'update'">
+                <span class="glyphicon glyphicon-sunglasses"></span>&nbsp;<span translate="entity.action.approve" > Approve</span>
+            </button>
+            <button type="submit"
+                    ui-sref="employer.deactivate({id:tempEmployer.id})"
+                    class="btn btn-danger btn-sm pull-right" ng-show="tempEmployer.status == 'approved'">
+                <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.deActivate"> DeActivate</span>
+            </button>
+            <button type="submit"
+                    ui-sref="employer.activate({id:tempEmployer.id})"
+                    class="btn btn-success btn-sm pull-right" ng-show="tempEmployer.status == 'deActivated'">
+                    <!--class="btn btn-success btn-sm pull-right" ng-show="tempEmployer.status == 'rejected' || tempEmployer.status == 'updateReject' || tempEmployer.status == 'deActivated'">-->
+                <span class="glyphicon"></span>&nbsp;<span translate="entity.action.activate"> Active</span>
+            </button>
+        </div>
+
+    </h2>
+
+    <div class="table-responsive table-bordered table table-hover">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th ng-if="showOldInfo" ng-hide="tempEmployer.status == 'pending' || tempEmployer.status == 'updatePending'">Old Info</th>
+                <th>{{showOldInfo ? 'New Information' : 'Information'}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="stepApp.employer.email">Email</span>
+                </td>
+                <td ng-if="showOldInfo" ng-hide="tempEmployer.status == 'pending'">
+                    <span class="form-control-static">{{employer.user.email}}</span>
+                </td>
+                <td>
+                    <span ng-class="tempEmployer.user.email !== employer.user.email && tempEmployer.status != 'pending' ? 'bold' : '' "  class="form-control-static">{{tempEmployer.user.email}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td width="40%">
+                    <span translate="stepApp.employer.name">Name</span>
+                </td>
+                <td ng-if="showOldInfo" ng-hide="tempEmployer.status == 'pending'">
+                    <span class="form-control-static">{{employer.name}}</span>
+                </td>
+                <td>
+                    <span ng-class="tempEmployer.name != employer.name && tempEmployer.status != 'pending' ? 'bold' : '' " class="form-control-static">{{tempEmployer.name}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.employer.alternativeCompanyName">AlternativeCompanyName</span>
+                </td>
+                <td ng-if="showOldInfo" ng-hide="tempEmployer.status == 'pending'">
+                    <span class="form-control-static">{{employer.alternativeCompanyName}}</span>
+                </td>
+                <td>
+                    <span ng-class="tempEmployer.alternativeCompanyName !== employer.alternativeCompanyName && tempEmployer.status != 'pending' ? 'bold' : '' "  class="form-control-static">{{tempEmployer.alternativeCompanyName}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.employer.contactPersonName">ContactPersonName</span>
+                </td>
+                <td ng-if="showOldInfo" ng-hide="tempEmployer.status == 'pending'">
+                    <span class="form-control-static">{{employer.contactPersonName}}</span>
+                </td>
+                <td>
+                    <span ng-class="tempEmployer.contactPersonName != employer.contactPersonName && tempEmployer.status != 'pending' ? 'bold' : '' " class="form-control-static">{{tempEmployer.contactPersonName}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.employer.personDesignation">PersonDesignation</span>
+                </td>
+                <td ng-if="showOldInfo" ng-hide="tempEmployer.status == 'pending'">
+                    <span class="form-control-static">{{employer.personDesignation}}</span>
+                </td>
+                <td>
+                    <span ng-class="tempEmployer.personDesignation != employer.personDesignation && tempEmployer.status != 'pending' ? 'bold' : '' " class="form-control-static">{{tempEmployer.personDesignation}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.employer.contactNumber">ContactNumber</span>
+                </td>
+                <td ng-if="showOldInfo" ng-hide="tempEmployer.status == 'pending'">
+                    <span class="form-control-static">{{employer.contactNumber}}</span>
+                </td>
+                <td>
+                    <span ng-class="tempEmployer.contactNumber != employer.contactNumber && tempEmployer.status != 'pending' ? 'bold' : '' " class="form-control-static">{{tempEmployer.contactNumber}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.employer.companyInformation">CompanyInformation</span>
+                </td>
+                <td ng-if="showOldInfo" ng-hide="tempEmployer.status == 'pending'">
+                    <span class="form-control-static">{{employer.companyInformation}}</span>
+                </td>
+                <td>
+                    <span ng-class="tempEmployer.companyInformation != employer.companyInformation && tempEmployer.status != 'pending' ? 'bold' : '' " class="form-control-static">{{tempEmployer.companyInformation}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.employer.address">Address</span>
+                </td>
+                <td ng-if="showOldInfo" ng-hide="tempEmployer.status == 'pending'">
+                    <span class="form-control-static">{{employer.address}}</span>
+                </td>
+                <td>
+                    <span ng-class="tempEmployer.address != employer.address && tempEmployer.status != 'pending' ? 'bold' : '' " class="form-control-static">{{tempEmployer.address}}</span>
+                </td>
+            </tr>
+            <tr ng-if="employer.city != null">
+                <td>
+                    <span translate="stepApp.employer.city">City</span>
+                </td>
+                <td ng-if="showOldInfo" >
+                    <span  class="form-control-static">{{employer.city}}</span>
+                    <span  class="form-control-static">{{employer.district.name}}</span>
+                </td>
+                <td>
+                    <span ng-class="tempEmployer.city != employer.city && tempEmployer.status != 'pending' ? 'bold' : '' " class="form-control-static">{{tempEmployer.city}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.employer.zipCode">ZipCode</span>
+                </td>
+                <td ng-if="showOldInfo" ng-hide="tempEmployer.status == 'pending'">
+                    <span class="form-control-static">{{employer.zipCode}}</span>
+                </td>
+                <td>
+                    <span ng-class="tempEmployer.zipCode != employer.zipCode && tempEmployer.status != 'pending' ? 'bold' : '' " class="form-control-static">{{tempEmployer.zipCode}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.employer.companyWebsite">CompanyWebsite</span>
+                </td>
+                <td ng-if="showOldInfo" ng-hide="tempEmployer.status == 'pending'">
+                    <span class="form-control-static">{{employer.companyWebsite}}</span>
+                </td>
+                <td>
+                    <span ng-class="tempEmployer.companyWebsite != employer.companyWebsite && tempEmployer.status != 'pending' ? 'bold' : '' " class="form-control-static">{{tempEmployer.companyWebsite}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.employer.institute">Institute</span>
+                </td>
+                <td ng-if="showOldInfo" ng-hide="tempEmployer.status == 'pending'">
+                    <span class="form-control-static">{{employer.institute.name}}</span>
+                </td>
+                <td>
+                    <span ng-class="tempEmployer.industryType != employer.industryType && tempEmployer.status != 'pending' ? 'bold' : '' " class="form-control-static">{{tempEmployer.institute.name}}</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <span translate="stepApp.employer.division">District</span>
+                </td>
+                <td ng-if="showOldInfo" ng-hide="tempEmployer.status == 'pending'">
+                    <span class="form-control-static">{{employer.institute.upazila.district.division.name}}</span>
+                </td>
+                <td>
+                    <span ng-class="tempEmployer.industryType != employer.industryType && tempEmployer.status != 'pending' ? 'bold' : '' " class="form-control-static">{{tempEmployer.institute.upazila.district.division.name}}</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <span translate="stepApp.employer.district">District</span>
+                </td>
+                <td ng-if="showOldInfo" ng-hide="tempEmployer.status == 'pending'">
+                    <span class="form-control-static">{{employer.institute.upazila.district.name}}</span>
+                </td>
+                <td>
+                    <span ng-class="tempEmployer.industryType != employer.industryType && tempEmployer.status != 'pending' ? 'bold' : '' " class="form-control-static">{{tempEmployer.institute.upazila.district.name}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.employer.thana">upazila</span>
+                </td>
+                <td ng-if="showOldInfo" ng-hide="tempEmployer.status == 'pending'">
+                    <span class="form-control-static">{{employer.institute.upazila.name}}</span>
+                </td>
+                <td>
+                    <span ng-class="tempEmployer.industryType != employer.industryType && tempEmployer.status != 'pending' ? 'bold' : '' " class="form-control-static">{{tempEmployer.institute.upazila.name}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.employer.organizationCategory">Category</span>
+                </td>
+                <td ng-if="showOldInfo" ng-hide="tempEmployer.status == 'pending'">
+                    <span class="form-control-static">{{employer.organizationCategory.name}}</span>
+                </td>
+                <td>
+                    <span ng-class="tempEmployer.industryType != employer.industryType && tempEmployer.status != 'pending' ? 'bold' : '' " class="form-control-static">{{tempEmployer.organizationCategory.name}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.employer.organizationType">Type</span>
+                </td>
+                <td ng-if="showOldInfo" ng-hide="tempEmployer.status == 'pending'">
+                    <span class="form-control-static">{{employer.organizationType.name}}</span>
+                </td>
+                <td>
+                    <span ng-class="tempEmployer.industryType != employer.industryType && tempEmployer.status != 'pending' ? 'bold' : '' " class="form-control-static">{{tempEmployer.organizationType.name}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.employer.businessDescription">BusinessDescription</span>
+                </td>
+                <td ng-if="showOldInfo" ng-hide="tempEmployer.status == 'pending'">
+                    <span class="form-control-static">{{employer.businessDescription}}</span>
+                </td>
+                <td>
+                    <span ng-class="tempEmployer.businessDescription != employer.businessDescription && tempEmployer.status != 'pending' ? 'bold' : '' " class="form-control-static">{{tempEmployer.businessDescription}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.employer.status">Status</span>
+                </td>
+                <td ng-if="showOldInfo" ng-hide="tempEmployer.status == 'pending'">
+                    <span ng-show="employer.status" class="form-control-static" translate="{{'stepApp.employer.' + employer.status}}">{{employer.status}}</span>
+                </td>
+                <td>
+                    <span ng-class="tempEmployer.tempEmployerStatus != employer.tempEmployerStatus && tempEmployer.status != 'pending' ? 'bold' : '' " class="form-control-static" translate="{{'stepApp.tempEmployerStatus.' + employer.status}}">{{tempEmployer.status}}</span>
+                </td>
+            </tr>
+            <!--<tr>
+                <td>
+                    <span translate="stepApp.employer.user">Username</span>
+                </td>
+                <td ng-hide="tempEmployer.status == 'pending'">
+                    {{employer.user.login}}
+                </td>
+                <td>
+                    {{tempEmployer.user.login}}
+                </td>
+            </tr>-->
+            <tr>
+                <td>
+                    <span translate="stepApp.employer.country">country</span>
+                </td>
+                <td ng-if="showOldInfo" ng-hide="tempEmployer.status == 'pending'">
+                    {{employer.country.name}}
+                </td>
+                <td>
+                    {{tempEmployer.country.name}}
+                </td>
+            </tr>
+            <!--<tr ng-show="employer.companyLogoContentType">-->
+            <tr>
+                <td>
+                    <span translate="stepApp.employer.companyLogo">CompanyLogo</span>
+                </td>
+                <td ng-if="showOldInfo" ng-hide="tempEmployer.status == 'pending'">
+                    <img width="200" data-ng-src="{{'data:' + employer.companyLogoContentType + ';base64,' + employer.companyLogo}}" style="max-width: 100%;" ng-if="employer.companyLogo"/>
+                    <!--<div>{{tempEmployer.companyLogoContentType}}  {{byteSize(tempEmployer.companyLogo)}}</div>-->
+                </td>
+                <td>
+                    <img width="200" data-ng-src="{{'data:' + tempEmployer.companyLogoContentType + ';base64,' + tempEmployer.companyLogo}}" style="max-width: 100%;" ng-if="tempEmployer.companyLogo"/>
+                    <!--<div>{{tempEmployer.companyLogoContentType}}  {{byteSize(tempEmployer.companyLogo)}}</div>-->
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

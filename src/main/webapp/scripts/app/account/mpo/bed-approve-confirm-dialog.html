@@ -1,0 +1,64 @@
+<!--
+<form name="approveForm" ng-submit="confirmApprove(timescaleApplication.id)">
+    <div class="modal-header bg-primary">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" translate="entity.approve.title">Confirm delete operation</h4>
+    </div>
+    <div class="modal-body">
+       <p translate="entity.forward.question">Are you sure you want to forward?</p>
+       <p translate="entity.approve.question">Are you sure you want to Approve?</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-success">
+            <span class="glyphicon glyphicon-ok"></span>&nbsp;<span ng-if="!approveVal" translate="entity.action.forward">Forward</span> <span ng-if="approveVal" translate="entity.action.approve">Approve</span>
+        </button>
+    </div>
+</form>
+-->
+
+<form name="approveForm" ng-submit="confirmApprove(forward.forwardTo)">
+    <div class="modal-header bg-primary">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" ng-if="!approveVal" translate="entity.forward.title">Confirm forward operation</h4>
+        <h4 class="modal-title" ng-if="approveVal" translate="entity.approve.title">Confirm approve operation</h4>
+    </div>
+    <div class="modal-body">
+        <p ng-if="!approveVal" translate="entity.forward.question">Are you sure you want to forward?</p>
+        <p ng-if="approveVal" translate="entity.approve.question">Are you sure you want to Approve?</p>
+        <div class="form-group col-md-6" has-any-authority="ROLE_FRONTDESK">
+            <input class="" name="memoNo" type="text"  placeholder="Provide memo number"
+                   ng-model="bEdApplication.memoNo">
+        </div>
+        <div class="form-group col-md-6">
+            <textarea class=""  placeholder="{{'remarks' | translate}}"
+                      ng-model="remark"></textarea>
+        </div>
+        <div ng-if="!approveVal"  class="form-group col-md-6">
+            <label class=" control-label"
+                   for="field_type">Forward To</label>
+
+            <select class="form-control" required="" id="field_type" name="forwardTo" ng-model="forward.forwardTo" ng-options="forward as forward.viewMessage for forward in forwardingList track by forward.code">
+                <option value="">Select Forward Type</option>
+            </select>
+
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-success">
+
+            <span class="glyphicon glyphicon-ok"></span>&nbsp;
+            <span ng-if="!approveVal" translate="entity.action.forward">Forward</span>
+            <span ng-if="approveVal" translate="entity.action.approve">Approve</span>
+
+        </button>
+    </div>
+</form>

@@ -1,0 +1,1233 @@
+<div class="col-sm-12 common-dialogue">
+    <h4 translate="stepApp.instEmployee.home.instEmployeePersonalInfo">Create or edit a InstEmployee</h4>
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <div class="panel-body padding-tb">
+            <!--<jh-alert-error></jh-alert-error>-->
+            <div class="col-sm-12 no_padding">
+                <div class="col-sm-9 no_padding">
+                    <div class="form-group col-md-6">
+                        <label translate="stepApp.instEmployee.fatherName" for="field_fatherName">FatherName</label>
+                        <input type="text" class="form-control" name="fatherName" id="field_fatherName"
+                               ng-model="instEmployee.fatherName"
+                               tooltip="{{'stepApp.instEmployee.fatherName' | translate}}"
+                               placeholder="{{'stepApp.instEmployee.fatherName' | translate}}"
+                               required/>
+
+                        <div ng-show="editForm.fatherName.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.fatherName.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label translate="stepApp.instEmployee.motherName" for="field_motherName">MotherName</label>
+                        <input type="text" class="form-control" name="motherName" id="field_motherName"
+                               ng-model="instEmployee.motherName"
+                               tooltip="{{'stepApp.instEmployee.motherName' | translate}}"
+                               placeholder="{{'stepApp.instEmployee.motherName' | translate}}"
+                               required/>
+
+                        <div ng-show="editForm.motherName.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.motherName.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label translate="stepApp.instEmployee.gender" for="field_gender">Gender</label>
+                        <select type="text" class="form-control" name="gender" id="field_gender"
+                                tooltip="{{'stepApp.instEmployee.gender' | translate}}"
+                                ng-model="instEmployee.gender">
+                            <option value="" translate="stepApp.instEmployee.gender"></option>
+                            <option value="Male" translate="stepApp.instEmployee.Male">Male</option>
+                            <option value="Female" translate="stepApp.instEmployee.Female">Female</option>
+                            <option value="others" translate="stepApp.instEmployee.Others">Others</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label translate="stepApp.instEmployee.dob" for="field_dob">Dob</label>
+                        <input type="text" class="form-control" name="dob" id="field_dob"
+                               ng-model="instEmployee.dob"
+                               required
+                               tooltip="{{'stepApp.instEmployee.motherName' | translate}}"
+                               datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.dob"
+                               placeholder="{{'entity.placeholder.dateformat' | translate}}"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               ng-click="calendar.open($event, 'dob')"/>
+
+                        <div ng-show="editForm.dob.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.dob.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- <div class="form-group col-md-6">
+                         <label translate="stepApp.instEmployee.level" for="field_level">Level</label>
+                         <select type="text" class="form-control" name="level" id="field_level"
+                                 ng-model="instEmployee.level">
+                             <option value="HSC(BM)" translate="stepApp.instEmployee.hsc">HSC(BM)</option>
+                             <option value="SSC(VOC)" translate="stepApp.instEmployee.ssc">SSC(VOC)</option>
+                             <option value="Both" translate="stepApp.instEmployee.both">Both</option>
+                         </select>
+                     </div>-->
+                    <div class="form-group col-md-6">
+                        <label translate="stepApp.instEmployee.quota" for="field_quota">Level</label>
+                        <select type="text" class="form-control" name="quota" id="field_quota"
+                                tooltip="{{'stepApp.instEmployee.quota' | translate}}"
+                                ng-model="instEmployee.quota">
+                            <option value="" translate="stepApp.instEmployee.quota"></option>
+                            <option value="Freedom_Fighter" translate="stepApp.quota.freedomFighter">HSC(BM)</option>
+                            <option value="Child of Freedom Fighter" translate="stepApp.quota.ChildOfFreedomFighter">
+                                SSC(VOC)
+                            </option>
+                            <option value="Grand Child of Freedom Fighter"
+                                    translate="stepApp.quota.GChildOfFreedomFighter">
+                                Both
+                            </option>
+                            <option value="Tribal" translate="stepApp.quota.tribal">Both</option>
+                            <option value="Others" translate="stepApp.quota.others">Both</option>
+                            <option value="Others" translate="stepApp.quota.noQuota">Both</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label translate="stepApp.instEmployee.maritalStatus"
+                               for="field_maritalStatus">MaritalStatus</label>
+                        <select class="form-control" name="maritalStatus" ng-model="instEmployee.maritalStatus"
+                                id="field_maritalStatus" tooltip="{{'stepApp.instEmployee.maritalStatus' | translate}}">
+                            <option value="" translate="stepApp.instEmployee.maritalStatus"></option>
+                            <option value="Single" translate="stepApp.maritalStatus.Single">Single</option>
+                            <option value="Married" translate="stepApp.maritalStatus.Married">Married</option>
+                            <option value="Widower" translate="stepApp.maritalStatus.Widower">Widower</option>
+                            <option value="Widow" translate="stepApp.maritalStatus.Widow">Widow</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-3 no_padding">
+                    <div class="border-img">
+                        <div class="img-thumb">
+                            <img ng-src="{{url}}" alt=" IMAGE">
+                        </div>
+                        <div class="img-input">
+                            <input type="file" class="btn btn-primary btn-xs btn-block" ngf-drop
+                                   ngf-change="setImage($file, instEmployee)" ngf-select
+                                   ngf-change="setStudentImage($file, srmsRegInfo)" role="button">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--<div class="form-group col-md-6">
+                <label translate="stepApp.instEmployee.maritalStatus" for="field_maritalStatus">MaritalStatus</label>
+                <select class="form-control" name="maritalStatus" ng-model="instEmployee.maritalStatus"
+                        id="field_maritalStatus">
+                    <option value="Single" translate="stepApp.maritalStatus.Single">Single</option>
+                    <option value="Married" translate="stepApp.maritalStatus.Married">Married</option>
+                    <option value="Widower" translate="stepApp.maritalStatus.Widower">Widower</option>
+                    <option value="Widow" translate="stepApp.maritalStatus.Widow">Widow</option>
+                </select>
+            </div>-->
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instEmployee.bloodGroup" for="field_bloodGroup">BloodGroup</label>
+                <select class="form-control" name="bloodGroup" ng-model="instEmployee.bloodGroup" id="field_bloodGroup"
+                        tooltip="{{'stepApp.instEmployee.bloodGroup' | translate}}">
+                    <option value="" translate="stepApp.instEmployee.bloodGroup"></option>
+                    <option value="A_POSITIVE" translate="stepApp.bloodGroup.A_POSITIVE">A (+)</option>
+                    <option value="A_NEGATIVE" translate="stepApp.bloodGroup.A_NEGATIVE">A (-)</option>
+                    <option value="B_POSITIVE" translate="stepApp.bloodGroup.B_POSITIVE">B (+)</option>
+                    <option value="B_NEGATIVE" translate="stepApp.bloodGroup.B_NEGATIVE">B (-)</option>
+                    <option value="O_POSITIVE" translate="stepApp.bloodGroup.O_POSITIVE">O (-)</option>
+                    <option value="O_NEGATIVE" translate="stepApp.bloodGroup.O_NEGATIVE">O (-)</option>
+                    <option value="AB_POSITIVE" translate="stepApp.bloodGroup.AB_POSITIVE">AB (-)</option>
+                    <option value="AB_NEGATIVE" translate="stepApp.bloodGroup.AB_NEGATIVE">AB (-)</option>
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instEmployee.tin" for="field_tin">Tin</label>
+                <input type="text" class="form-control" name="tin" id="field_tin"
+                       ng-model="instEmployee.tin"
+                       tooltip="{{'stepApp.instEmployee.tin' | translate}}"
+                       placeholder="{{'stepApp.instEmployee.tin' | translate}}"
+                />
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instEmployee.religion" for="field_religion">religion</label>
+                <select class="form-control" id="field_religion" name="religion" ng-model="instEmployee.religion"
+                        tooltip="{{'stepApp.instEmployee.religion' | translate}}"
+                        ng-options="religion as religion.name for religion in religions | orderBy:'id' track by religion.id">
+                    <option value="" translate="stepApp.instEmployee.religion"></option>
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instEmployee.nationality" for="field_nationality">Nationality</label>
+                <input type="text" class="form-control" name="nationality" id="field_nationality"
+                       ng-model="instEmployee.nationality"
+                       tooltip="{{'stepApp.instEmployee.nationality' | translate}}"
+                       placeholder="{{'stepApp.instEmployee.nationality' | translate}}"
+                       required/>
+            </div>
+            <!--                 new addd           -->
+            <div class="col-md-12 no_padding">
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instEmployee.nid" for="field_nid">Nid</label>
+                    <input type="text" class="form-control" name="nid" id="field_nid" required numeric-only
+                           ng-model="instEmployee.nid" ng-maxlength="17" ng-minlength="17"
+                           placeholder="{{'stepApp.instEmployee.nid' | translate}}"
+                           tootlip="{{'stepApp.instEmployee.nid' | translate}}"
+                    />
+                    <div ng-show="editForm.nid.$invalid">
+                        <div ng-show="editForm.nid.$error.pattern">
+                            <p class="help-block"
+                               ng-show="editForm.nid.$error.pattern">
+                                Number Only
+                            </p>
+                        </div>
+                        <p class="help-block"
+                           ng-show="editForm.nid.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+
+                        <p class="help-block"
+                           ng-show="editForm.nid.$error.minlength" translate="entity.validation.minlength"
+                           translate-value-min="17">
+                            This field cannot be longer than 17 characters.
+                        </p>
+                        <p class="help-block"
+                           ng-show="editForm.nid.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="17">
+                            This field cannot be longer than 17 characters.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-md-6" ngf-drop ngf-change="setNidImage($file, instEmployee)">
+                    <label translate="stepApp.instEmployee.nidImage" for="field_nidImage">NidImage</label>
+
+                    <div>
+                        <div class="help-block clearfix">
+                        <span
+                            class="pull-left">{{instEmployee.nidImageContentType}} {{byteSize(instEmployee.nidImage)}}</span>
+                            <button ng-click="instEmployee.nidImage=null;instEmployee.nidImageContentType=null;"
+                                    ng-if="instEmployee.nidImage"
+                                    class="btn btn-default btn-xs pull-right">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </div>
+                        <!--<button type="file" ngf-select class="btn btn-default btn-block"
+                                ngf-change="setNidImage($file, instEmployee)" translate="entity.action.addblob">
+                            Add blob
+                        </button>-->
+                        <div class="form-group col-md-9 no_padding">
+                            <input type="text" readonly class="form-control" name="nidImageName" id="field_nidImageName"
+                                   ng-model="instEmployee.nidImageName"
+                            />
+                        </div>
+                        <div class="form-group col-md-3">
+                            <button type="file" ngf-select class="btn btn-default btn-block"
+                                    ngf-change="setNidImage($file, instEmployee)" translate="entity.action.addblob">
+                                Add blob
+                            </button>
+                        </div>
+                    </div>
+                    <input type="hidden" class="form-control" name="nidImage" id="field_nidImage"
+                           ng-model="instEmployee.nidImage"
+                    />
+                    <input type="hidden" class="form-control" name="nidImageContentType" id="field_nidImageContentType"
+                           ng-model="instEmployee.nidImageContentType"/>
+                    <!-- <div class="col-sm-6 text-center">
+                         <img width="150px" height="150px" data-ng-src="{{'data:' + instEmployee.nidImageContentType + ';base64,' + instEmployee.nidImage}}"
+                              style="max-height: 100px;" ng-if="instEmployee.nidImage"/>
+                     </div>-->
+                </div>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instEmployee.birthCertNo" for="field_birthCertNo">BirthCertNo</label>
+                    <input type="text" class="form-control" name="birthCertNo" id="field_birthCertNo"
+                           ng-model="instEmployee.birthCertNo"
+                           placeholder="{{'stepApp.instEmployee.birthCertNo' | translate}}"
+                           tootlip="{{'stepApp.instEmployee.birthCertNo' | translate}}"
+                    />
+                </div>
+
+
+                <div class="form-group col-md-6" ngf-drop ngf-change="setBirthCertImage($file, instEmployee)">
+                    <label translate="stepApp.instEmployee.birthCertImage"
+                           for="field_birthCertImage">BirthCertImage</label>
+
+                    <div>
+                        <div class="help-block clearfix">
+                            <span class="pull-left">{{instEmployee.birthCertImageContentType}} {{byteSize(instEmployee.birthCertImage)}}</span>
+                            <button
+                                ng-click="instEmployee.birthCertImage=null;instEmployee.birthCertImageContentType=null;"
+                                ng-if="instEmployee.birthCertImage"
+                                class="btn btn-default btn-xs pull-right">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </div>
+                        <div class="form-group col-md-9 no_padding">
+                            <input type="text" readonly class="form-control" name="birthCertNoName"
+                                   id="field_birthCertImageName"
+                                   ng-model="instEmployee.birthCertNoName"
+                            />
+                        </div>
+                        <div class="form-group col-md-3">
+                            <button type="file" ngf-select class="btn btn-default btn-block"
+                                    ngf-change="setBirthCertImage($file, instEmployee)"
+                                    translate="entity.action.addblob">
+                                Add blob
+                            </button>
+                        </div>
+
+                    </div>
+                    <input type="hidden" class="form-control" name="birthCertImage" id="field_birthCertImage"
+                           ng-model="instEmployee.birthCertImage"
+                    />
+                    <input type="hidden" class="form-control" name="birthCertImageContentType"
+                           id="field_birthCertImageContentType"
+                           ng-model="instEmployee.birthCertImageContentType"/>
+                </div>
+                <div class="col-sm-12 no_padding Emergency_Contact" ng-if="instEmployee.category === 'Teacher'">
+                    <fieldset>
+                        <h3 translate="stepApp.instEmployee.registeredInfo">registeredInfo</h3>
+
+                        <div class="form-group col-md-6">
+                            <span><label translate="stepApp.instEmployee.registeredCertificateSubject"
+                                         for="field_registeredCertificateSubject">Tin</label><label style="color: #f00">
+                                &nbsp;*</label></span>
+                            <input type="text" class="form-control" name="registeredCertificateSubject"
+                                   id="field_registeredCertificateSubject" ng-change="registrationFieldErrorFunction()"
+                                   ng-model="instEmployee.registeredCertificateSubject"
+                                   tooltip="{{'stepApp.instEmployee.registeredCertificateSubject' | translate}}"
+                                   placeholder="{{'stepApp.instEmployee.registeredCertificateSubject' | translate}}"
+                            />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <span><label translate="stepApp.instEmployee.registrationExamYear"
+                                         for="field_registrationExamYear">registrationExamYear</label><label
+                                style="color: #f00">&nbsp;*</label></span>
+                            <!--<input type="text" class="form-control" name="registrationExamYear" id="field_registrationExamYear"
+                                   ng-model="instEmployee.registrationExamYear"
+                                />-->
+                            <input type="text" class="form-control" name="dob" id="field_registrationExamYear"
+                                   ng-model="instEmployee.registrationExamYear"
+                                   ng-change="registrationFieldErrorFunction()"
+                                   datepicker-popup="{{calendar.dateFormat}}"
+                                   is-open="calendar.opened.registrationExamYear"
+                                   placeholder="{{'entity.placeholder.dateformat' | translate}}"
+                                   datepicker-options="calendar.dateOptions" close-text="Close"
+                                   ng-click="calendar.open($event, 'registrationExamYear')"
+                                   tooltip="{{'stepApp.instEmployee.registrationExamYear' | translate}}"
+                            />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <span><label translate="stepApp.instEmployee.registeredCertificateNo"
+                                         for="field_registeredCertificateNo">registeredCertificateNo</label><label
+                                style="color: #f00">&nbsp;*</label></span>
+                            <input type="text" class="form-control" name="registeredCertificateNo"
+                                   id="field_registeredCertificateNo" ng-change="registrationFieldErrorFunction()"
+                                   ng-model="instEmployee.registeredCertificateNo"
+                                   tooltip="{{'stepApp.instEmployee.registeredCertificateNo' | translate}}"
+                                   placeholder="{{'stepApp.instEmployee.registeredCertificateNo' | translate}}"
+                            />
+                        </div>
+
+                    </fieldset>
+
+                </div>
+                <div>
+
+                    <div class="col-sm-12 no_padding Emergency_Contact">
+                        <fieldset>
+                            <h3 translate="stepApp.instEmployee.home.registrationInfo">Registration Information</h3>
+                            <div class="form-group col-md-6">
+                                <label translate="stepApp.instEmployee.code" for="field_code">Code</label>
+                                <!--<label id="field_code" class="form-control">{{instEmployee.code}}</label>-->
+                                <input type="text" class="form-control" value="{{instEmployee.code}}" readonly>
+                                <!--<input type="text" class="form-control" name="code" id="field_code"
+                                       ng-model="instEmployee.code"
+                                       ng-remote-validate="/api/instEmployee/checkDuplicateCode/"
+                                       ng-remote-method="GET"
+                                       ng-remote-throttle="1000"
+                                       ng-disabled="instEmployee.id"
+                                       required/>-->
+                                <span class="message validating" ng-show="editForm.code.$pending">validating...</span>
+
+                                <div ng-show="editForm.code.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.code.$error.required" translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+
+                                    <p class="help-block"
+                                       ng-show="editForm.code.$error.ngRemoteValidate">
+                                        This Code already exists!
+                                    </p>
+                                </div>
+                            </div>
+                            <!--<div class="form-group col-md-6">
+                                <label translate="stepApp.instEmployee.name" for="field_name">Teacher/Employee Full
+                                    Name</label>
+                                <input type="text" class="form-control" name="name" id="field_name"
+                                       ng-model="instEmployee.name"
+                                       required/>
+
+                                <div ng-show="editForm.name.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label translate="stepApp.instEmployee.category" for="field_category">Category</label>
+                                <select class="form-control" name="category" ng-model="instEmployee.category"
+                                        id="field_category" required>
+                                    <option value="Teacher" translate="stepApp.EmpType.Teacher">Teacher</option>
+                                    <option value="Employee" translate="stepApp.EmpType.Employee">Employee</option>
+                                    <option value="Staff" translate="stepApp.EmpType.Staff">Staff</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label translate="stepApp.instEmployee.level" for="field_level">Level</label>
+                                <select type="text" class="form-control" name="level" id="field_level"
+                                        ng-model="instEmployee.level" required>
+                                    &lt;!&ndash; <option value="HSC(BM)" translate="stepApp.instEmployee.hsc">HSC(BM)</option>
+                                     <option value="SSC(VOC)" translate="stepApp.instEmployee.ssc">SSC(VOC)</option>
+                                     <option value="Both" translate="stepApp.instEmployee.both">Both</option>&ndash;&gt;
+                                    <option value="SSC VOC" translate="stepApp.TeacherLevel.SSC_VOC">SSC VOC</option>
+                                    <option value="HSC BM" translate="stepApp.TeacherLevel.HSC_BM">HSC BM</option>
+                                    <option value="MADRASA VOC" translate="stepApp.TeacherLevel.MADRASA_VOC">MADRASA VOC
+                                    </option>
+                                    <option value="MADRASA BM" translate="stepApp.TeacherLevel.MADRASA_BM">MADRASA BM
+                                    </option>
+                                    <option value="AGRI INSTITUTE" translate="stepApp.TeacherLevel.AGRI_INSTITUTE">AGRI
+                                        INSTITUTE
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label translate="stepApp.instEmployee.designation" for="field_instEmplDesignation">Designation</label>
+                                <select class="form-control" required id="field_instEmplDesignation"
+                                        name="instEmplDesignation" ng-model="instEmployee.instEmplDesignation"
+                                        ng-options="instEmplDesignation as instEmplDesignation.name for instEmplDesignation in instEmplDesignation | orderBy:'id' track by instEmplDesignation.id">
+                                    <option value=""></option>
+                                </select>
+
+                                <div ng-show="editForm.designation.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.designation.$error.required"
+                                       translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label translate="stepApp.instEmployee.typeOfPosition" for="field_typeOfPosition">Type Of
+                                    Position</label>
+                                <select class="form-control" name="typeOfPosition" ng-model="instEmployee.typeOfPosition"
+                                        id="field_typeOfPosition" required>
+                                    <option value="Full Time" translate="stepApp.instEmployee.fullTime">Full Time</option>
+                                    <option value="Part Time" translate="stepApp.instEmployee.partTime">Part Time</option>
+                                    <option value="Administrative" translate="stepApp.instEmployee.administrative">
+                                        Administrative
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label translate="stepApp.instEmployee.courseTech" for="field_cmsTrade"  id="label-cmsTrade">Technology</label>
+                                <select ng-change="CourseTradeChange(cmsTrade)" class="form-control" id="field_cmsTrade" name="courseTech" ng-model="cmsTrade" ng-options="cmsTrade as cmsTrade.name for cmsTrade in cmsTrades | orderBy:'id' track by cmsTrade.id"
+                                        ng-required="isRequired">
+                                    <option value="">{{selectedTech}}</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label translate="stepApp.instEmployee.courseSub" for="field_cmsSubAssign" id="label-cmsSubAssign">Subject</label>
+                                <select class="form-control" ng-disabled="!cmsTrade" id="field_cmsSubAssign" name="cmsSubAssign" ng-model="instEmployee.cmsSubAssign" ng-options="cmsSubAssign as cmsSubAssign.cmsSubject.name for cmsSubAssign in cmsSubAssigns | orderBy:'id' track by cmsSubAssign.id"
+                                        ng-required="isRequired">
+                                    <option value="">{{SelectedSubs}}</option>
+                                </select>
+                                <div ng-show="editForm.courseSub.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.courseSub.$error.required" translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+                                </div>
+                            </div>
+
+                            &lt;!&ndash;<div class="form-group col-md-6">
+                                <label translate="stepApp.instEmployee.courseTech" for="field_courseTech">Technology</label>
+                                <select ng-change="CourseTechChange(instEmployee.courseTech)" class="form-control"
+                                        id="field_courseTech" name="courseTech" ng-model="instEmployee.courseTech"
+                                        ng-options="courseTech as courseTech.name for courseTech in coursetechs | orderBy:'id' track by courseTech.id"
+                                        required>
+                                    <option value="">{{selectedTech}}</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label translate="stepApp.instEmployee.courseSub" for="field_courseSub">Subject</label>
+                                <select class="form-control" ng-disabled="!instEmployee.courseTech" id="field_courseSub"
+                                        name="courseSub" ng-model="instEmployee.courseSub"
+                                        ng-options="courseSub as courseSub.name for courseSub in coursesubs | orderBy:'id' track by courseSub.id"
+                                        required>
+                                    <option value="">{{SelectedSubs}}</option>
+                                </select>
+
+                                <div ng-show="editForm.courseSub.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.courseSub.$error.required" translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+                                </div>
+                            </div>&ndash;&gt;
+                            &lt;!&ndash; <div class="form-group col-md-6">
+                                 <label translate="stepApp.instEmployee.email" for="field_email">Email Address</label>
+                                 <input type="email" class="form-control" name="email" id="field_email" required ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/"
+                                        ng-model="instEmployee.email"
+                                        ng-remote-validate="/api/instEmployee/checkDuplicateEmail/"
+                                        ng-remote-method="GET"
+                                        ng-remote-throttle="1000"
+                                        ng-disabled="instEmployee.id"
+                                        required />
+                                 <span class="message validating" ng-show="editForm.email.$pending || editForm.input.$error">validating...</span>
+                                 <div ng-show="editForm.email.$invalid">
+                                     <p class="help-block"
+                                        ng-show="editForm.email.$error.required && editForm.email.$dirty" translate="entity.validation.required">
+                                         This field is required.
+                                     </p>
+                                 </div>
+                                 <div ng-show="editForm.email.$invalid">
+                                     <p class="help-block"
+                                        ng-show="editForm.email.$error.ngRemoteValidate">
+                                         This email is already exist
+                                     </p>
+                                 </div>
+                                 <div ng-show="editForm.email.$error">
+                                     <p class="help-block"
+                                        ng-show="editForm.email.$error">
+                                         Not Valid Email
+                                     </p>
+                                 </div>
+                             </div>&ndash;&gt;
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label translate="stepApp.instEmployee.email" for="field_email">Email</label>
+                                    <input type="email" class="form-control" custom-email name="email" id="field_email"
+                                           required
+                                           ng-remote-validate="/api/account/checkEmail/"
+                                           ng-remote-method="GET"
+                                           ng-remote-throttle="1000"
+                                           ng-model="instEmployee.email"/>
+                                    <span class="message validating" ng-show="editForm.email.$pending ">validating...</span>
+
+                                    <div ng-show="editForm.email.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.email.$error.required && editForm.email.$dirty"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                    <div ng-show="editForm.email.$error.email">
+                                        <p class="help-block"
+                                           ng-show="editForm.email.$error.email">
+                                            Not Valid Email
+                                        </p>
+                                    </div>
+                                    <div ng-show="editForm.email.$error.ngRemoteValidate">
+                                        <p class="help-block"
+                                           ng-show="editForm.email.$error.ngRemoteValidate">
+                                            This email is already exist
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label translate="stepApp.instEmployee.contactNo" for="field_contactNo">Contact No</label>
+                                <input type="text" class="form-control" name="contactNo" id="field_contactNo"
+                                       ng-model="instEmployee.contactNo" ng-pattern="/^\d+$/" placeholder="{{'stepApp.instEmployee.contact' | translate}}"
+                                       ng-maxlength="11" ng-minlength="11"
+                                       required/>
+
+                                <div ng-show="editForm.contactNo.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.contactNo.$error.required" translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+
+                                    <p class="help-block"
+                                       ng-show="editForm.contactNo.$error.minlength" translate="entity.validation.minlength"
+                                       translate-value-min="11">
+                                        This field cannot be longer than 11 characters.
+                                    </p>
+
+                                    <p class="help-block"
+                                       ng-show="editForm.contactNo.$error.maxlength" translate="entity.validation.maxlength"
+                                       translate-value-max="11">
+                                        This field cannot be longer than 11 characters.
+                                    </p>
+                                </div>
+                            </div>-->
+
+                            <div class="form-group col-md-6">
+                                <label translate="stepApp.instEmployee.name" for="field_name">Teacher/Employee Full
+                                    Name</label>
+                                <input type="text" class="form-control" name="name" id="field_name"
+                                       ng-model="instEmployee.name"
+                                       tooltip="{{'stepApp.instEmployee.name' | translate}}"
+                                       placeholder="{{'stepApp.instEmployee.name' | translate}}"
+                                       required/>
+                                <div ng-show="editForm.name.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!--<div class="form-group col-md-6">
+                                <label translate="stepApp.instEmployee.level" for="field_level" id="label-level">Level</label>
+                                <select class="form-control" ng-change="setDesignation(instEmployee.instLevel)" name="level" id="field_level" ng-options="instLevel as instLevel.name for instLevel in instLevels track by instLevel.id" ng-model="instEmployee.instLevel"></select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label translate="stepApp.instEmployee.designation" for="field_instEmplDesignation">Designation</label>
+                                <select class="form-control"
+                                        required id="field_instEmplDesignation"
+                                        name="instEmplDesignation"
+                                        ng-model="instEmployee.instEmplDesignation"
+                                        ng-options="instEmplDesignation as instEmplDesignation.name for instEmplDesignation in instEmplDesignation | orderBy:'id' track by instEmplDesignation.id">
+                                    <option value=""></option>
+                                </select>
+                                <div ng-show="editForm.designation.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.designation.$error.required" translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label translate="stepApp.instEmployee.typeOfPosition" for="field_typeOfPosition">Type Of Position</label>
+                                <select class="form-control" name="typeOfPosition" ng-model="instEmployee.typeOfPosition" id="field_typeOfPosition" required>
+                                    <option value="Full Time" translate="stepApp.instEmployee.fullTime">Full Time</option>
+                                    <option value="Part Time" translate="stepApp.instEmployee.partTime">Part Time</option>
+                                    <option value="Administrative" translate="stepApp.instEmployee.administrative">Administrative</option>
+                                </select>
+                            </div>
+
+                            &lt;!&ndash;<div class="form-group col-md-6">
+                                <label translate="stepApp.instEmployee.courseTech" for="field_courseTech"  id="label-courseTech">Technology</label>
+                                <select ng-change="CourseTechChange(instEmployee.courseTech)" class="form-control" id="field_courseTech" name="courseTech" ng-model="instEmployee.courseTech" ng-options="courseTech as courseTech.name for courseTech in coursetechs | orderBy:'id' track by courseTech.id"
+                                        ng-required="isRequired">
+                                    <option value="">{{selectedTech}}</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label translate="stepApp.instEmployee.courseSub" for="field_courseSub" id="label-subject">Subject</label>
+                                <select class="form-control" ng-disabled="!instEmployee.courseTech" id="field_courseSub" name="courseSub" ng-model="instEmployee.courseSub" ng-options="courseSub as courseSub.name for courseSub in coursesubs | orderBy:'id' track by courseSub.id"
+                                        ng-required="isRequired">
+                                    <option value="">{{SelectedSubs}}</option>
+                                </select>
+                                <div ng-show="editForm.courseSub.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.courseSub.$error.required" translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+                                </div>
+                            </div>&ndash;&gt;
+
+                            <div class="form-group col-md-6">
+                                <label translate="stepApp.instEmployee.courseTech" for="field_cmsTrade"  id="label-cmsTrade">Technology</label>
+                                <select ng-change="CourseTradeChange(cmsTrade)" class="form-control" id="field_cmsTrade" name="courseTech" ng-model="cmsTrade" ng-options="cmsTrade as cmsTrade.name for cmsTrade in cmsTrades | orderBy:'id' track by cmsTrade.id"
+                                        required>
+                                    <option value="">{{selectedTech}}</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label translate="stepApp.instEmployee.courseSub" for="field_cmsSubAssign" id="label-cmsSubAssign">Subject</label>
+                                <select class="form-control" ng-disabled="!cmsTrade" id="field_cmsSubAssign" name="cmsSubAssign" ng-model="instEmployee.cmsSubAssign" ng-options="cmsSubAssign as cmsSubAssign.cmsSubject.name for cmsSubAssign in cmsSubAssigns | orderBy:'id' track by cmsSubAssign.id"
+                                        required>
+                                    <option value="">{{SelectedSubs}}</option>
+                                </select>
+                                <div ng-show="editForm.courseSub.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.courseSub.$error.required" translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+                                </div>
+                            </div>-->
+                            <!-- <div class="form-group col-md-6">
+                                 <label translate="stepApp.instEmployee.email" for="field_email">Email Address</label>
+                                 <input type="email" class="form-control" name="email" id="field_email" required ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/"
+                                        ng-model="instEmployee.email"
+                                        ng-remote-validate="/api/instEmployee/checkDuplicateEmail/"
+                                        ng-remote-method="GET"
+                                        ng-remote-throttle="1000"
+                                        ng-disabled="instEmployee.id"
+                                        required />
+                                 <span class="message validating" ng-show="editForm.email.$pending || editForm.input.$error">validating...</span>
+                                 <div ng-show="editForm.email.$invalid">
+                                     <p class="help-block"
+                                        ng-show="editForm.email.$error.required && editForm.email.$dirty" translate="entity.validation.required">
+                                         This field is required.
+                                     </p>
+                                 </div>
+                                 <div ng-show="editForm.email.$invalid">
+                                     <p class="help-block"
+                                        ng-show="editForm.email.$error.ngRemoteValidate">
+                                         This email is already exist
+                                     </p>
+                                 </div>
+                                 <div ng-show="editForm.email.$error">
+                                     <p class="help-block"
+                                        ng-show="editForm.email.$error">
+                                         Not Valid Email
+                                     </p>
+                                 </div>
+                             </div>-->
+
+                            <div class="form-group col-md-6">
+                                <label translate="stepApp.instEmployee.email" for="field_email"
+                                       id="label-email">Email</label>
+                                <input type="email" class="form-control" custom-email name="email" id="field_email"
+                                       required
+                                       ng-remote-validate="/api/account/checkEmail/"
+                                       ng-remote-method="GET"
+                                       ng-remote-throttle="1000"
+                                       ng-model="instEmployee.email"
+                                       placeholder="example@email.com"
+                                       tooltip="example@email.com"
+                                />
+                                <span class="message validating" ng-show="editForm.email.$pending ">validating...</span>
+                                <div ng-show="editForm.email.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.email.$error.required && editForm.email.$dirty"
+                                       translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+                                </div>
+                                <div ng-show="editForm.email.$error.email">
+                                    <p class="help-block"
+                                       ng-show="editForm.email.$error.email">
+                                        Not Valid Email
+                                    </p>
+                                </div>
+                                <div ng-show="editForm.email.$error.ngRemoteValidate">
+                                    <p class="help-block"
+                                       ng-show="editForm.email.$error.ngRemoteValidate">
+                                        This email is already exist
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label translate="stepApp.instEmployee.contactNo" for="field_contactNo"
+                                       id="label-contactNo">Contact No</label>
+                                <input type="text" class="form-control" name="contactNo" id="field_contactNo"
+                                       ng-model="instEmployee.contactNo" ng-pattern="/^\d+$/"
+                                       placeholder="{{'stepApp.instEmployee.contact' | translate}}"
+                                       ng-maxlength="11" ng-minlength="11"
+                                       tooltip="{{'stepApp.instEmployee.contactNo' | translate}}"
+                                       required/>
+                                <div ng-show="editForm.contactNo.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.contactNo.$error.required"
+                                       translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+                                    <p class="help-block"
+                                       ng-show="editForm.contactNo.$error.minlength"
+                                       translate="entity.validation.minlength"
+                                       translate-value-min="11">
+                                        This field cannot be longer than 11 Digit.
+                                    </p>
+                                    <p class="help-block"
+                                       ng-show="editForm.contactNo.$error.maxlength"
+                                       translate="entity.validation.maxlength"
+                                       translate-value-max="11">
+                                        This field cannot be longer than 11 Digit.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label translate="stepApp.instEmployee.altContactNo" for="field_altContactNo">Contact
+                                    No</label>
+                                <input type="text" class="form-control" name="altContactNo" id="field_altContactNo"
+                                       ng-model="instEmployee.altContactNo" ng-pattern="/^\d+$/"
+                                       placeholder="{{'stepApp.instEmployee.contact' | translate}}"
+                                       ng-maxlength="11" ng-minlength="11"
+                                       tooltip="{{'stepApp.instEmployee.altContactNo' | translate}}"
+                                />
+
+                                <div ng-show="editForm.altContactNo.$invalid">
+
+                                    <p class="help-block"
+                                       ng-show="editForm.altContactNo.$error.minlength"
+                                       translate="entity.validation.minlength"
+                                       translate-value-min="11">
+                                        This field cannot be longer than 11 characters.
+                                    </p>
+
+                                    <p class="help-block"
+                                       ng-show="editForm.altContactNo.$error.maxlength"
+                                       translate="entity.validation.maxlength"
+                                       translate-value-max="11">
+                                        This field cannot be longer than 11 characters.
+                                    </p>
+                                </div>
+                            </div>
+
+
+                        </fieldset>
+                    </div>
+
+                </div>
+
+
+                <div class="col-sm-12 no_padding Emergency_Contact">
+                    <fieldset>
+                        <h3 translate="stepApp.instEmployee.conPerName">ConPerName</h3>
+
+                        <div class="form-group col-md-6">
+                            <label translate="stepApp.instEmployee.name" for="field_conPerName">ConPerName</label>
+                            <input type="text" class="form-control" name="conPerName" id="field_conPerName"
+                                   ng-model="instEmployee.conPerName"
+                                   tooltip="{{'stepApp.instEmployee.name' | translate}}"
+                                   placeholder="{{'stepApp.instEmployee.name' | translate}}"
+
+                            />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label translate="stepApp.instEmployee.conPerMobile"
+                                   for="field_conPerMobile">ConPerMobile</label>
+                            <input type="number" class="form-control" name="conPerMobile" id="field_conPerMobile"
+                                   ng-model="instEmployee.conPerMobile"
+                                   tooltip="{{'stepApp.instEmployee.conPerMobile' | translate}}"
+                                   placeholder="{{'stepApp.instEmployee.conPerMobile' | translate}}"
+                            />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label translate="stepApp.instEmployee.conPerAddress"
+                                   for="field_conPerAddress">ConPerAddress</label>
+                        <textarea class="form-control" name="conPerAddress" id="field_conPerAddress"
+                                  tooltip="{{'stepApp.instEmployee.conPerAddress' | translate}}"
+                                  placeholder="{{'stepApp.instEmployee.conPerAddress' | translate}}"
+                                  ng-model="instEmployee.conPerAddress">
+                        </textarea>
+                        </div>
+
+                    </fieldset>
+
+                </div>
+
+                <div class="col-sm-12 no_padding Emergency_Contact">
+                    <fieldset>
+                        <h3 translate="stepApp.instEmplBankInfo.bankInformation">Bank Information</h3>
+
+                        <div class="form-group hide">
+                            <label for="id" translate="global.field.id">ID</label>
+                            <input type="text" class="form-control" id="id" name="id"
+                                   ng-model="instEmplBankInfo.id" readonly/>
+                        </div>
+                        <!-- <div class="form-group col-md-6">
+                             <label translate="stepApp.instEmplBankInfo.bankName" for="field_bankName">BankName</label>
+                             <input type="text" class="form-control" name="bankName" id="field_bankName"
+                                    ng-model="instEmplBankInfo.bankName"
+                                    required/>
+
+                             <div ng-show="editForm.bankName.$invalid">
+                                 <p class="help-block"
+                                    ng-show="editForm.bankName.$error.required" translate="entity.validation.required">
+                                     This field is required.
+                                 </p>
+                             </div>
+                         </div>-->
+                        <div class="form-group col-sm-6">
+                            <label translate="stepApp.instEmplBankInfo.bankName" for="field_bankSetup">BankSetup</label>
+                            <!--<select class="form-control" id="field_bankSetup" name="BankSetup"
+                                    ng-model="instEmplBankInfo.bankSetup"
+                                    tooltip="{{'stepApp.instEmplBankInfo.bankName' | translate}}"
+                                    ng-options="bankSetup as bankSetup.name for bankSetup in bankSetups track by bankSetup.id"
+                                    required>bankBranches
+                                &lt;!&ndash;<option value=""></option>&ndash;&gt;
+                            </select>-->
+                            <input type="text" class="form-control" id="field_bankSetup" name="BankSetup"
+                                    ng-model="bankName"
+                                    readonly  required>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label translate="stepApp.instEmplBankInfo.bankBranch"
+                                   for="field_bankBranch">BankBranch</label>
+                            <select class="form-control" id="field_bankBranch" name="bankBranch"
+                                    ng-model="instEmplBankInfo.bankBranc"
+                                    tooltip="{{'stepApp.instEmplBankInfo.bankBranc' | translate}}"
+                                    ng-options="bankBranch as bankBranch.brName for bankBranch in bankBranchesNew "
+                                    required>
+                                <option value="">{{instEmplBankInfo.bankBranc.brName}}</option>
+                            </select>
+                            <!--<input type="text" class="form-control" name="bankBranch" id="field_bankBranch"
+                                   ng-model="instEmplBankInfo.bankBranch"
+                                   tooltip="{{'stepApp.instEmplBankInfo.bankBranch' | translate}}"
+                                   placeholder="{{'stepApp.instEmplBankInfo.bankBranch' | translate}}"
+                                   required/>-->
+
+                            <div ng-show="editForm.bankBranch.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.bankBranch.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label translate="stepApp.instEmplBankInfo.bankAccountNo" for="field_bankAccountNo">BankAccountNo</label>
+                            <input type="text" class="form-control" name="bankAccountNo" id="field_bankAccountNo"
+                                   ng-model="instEmplBankInfo.bankAccountNo"
+                                   tooltip="{{'stepApp.instEmplBankInfo.bankAccountNo' | translate}}"
+                                   placeholder="{{'stepApp.instEmplBankInfo.bankAccountNo' | translate}}"
+                                   required/>
+
+                            <div ng-show="editForm.bankAccountNo.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.bankAccountNo.$error.required"
+                                   translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div id="education-div" class="col-lg-12 col-md-12 education-div">
+                    <h3 translate="stepApp.instEmployee.EmpAddress">Employee Address</h3>
+                </div>
+                <div id="address-div" class="col-md-6">
+                    <h4 translate="stepApp.instEmployee.preEmpAddress"> Present Address</h4>
+
+                    <div class="form-group ">
+                        <label translate="stepApp.instEmployee.villageHouse">Village/House</label>
+                        <input type="text" ng-model="instEmpAddress.villageOrHouse" class="form-control" name="Village"
+                               tooltip="{{'stepApp.instEmployee.villageHouse' | translate}}"
+                               placeholder="{{'stepApp.instEmployee.villageHouse' | translate}}"
+                        >
+
+                        <div ng-show="editForm.Village.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.Village.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label translate="stepApp.instEmployee.roadBlock">Road/Block</label>
+                        <input type="text" ng-model="instEmpAddress.roadBlockSector" class="form-control" name="Road"
+                               tooltip="{{'stepApp.instEmployee.roadBlock' | translate}}"
+                               placeholder="{{'stepApp.instEmployee.roadBlock' | translate}}"
+                        >
+
+                        <div ng-show="editForm.Road.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.Road.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label translate="stepApp.instGenInfo.division" for="field_predivision">Division</label>
+                        <select class="form-control" id="field_predivision" name="division"
+                                ng-change="divisionChange(parmDivsion)"
+                                ng-model="parmDivsion" required
+                                tooltip="{{'stepApp.instGenInfo.division' | translate}}"
+                                ng-options="division as division.name for division in divisions|filter:removeNull track by division.id">
+                            <option value="" translate="stepApp.instGenInfo.division">{{PreDivisionSelect}}</option>
+
+                            <!-- <option ng-repeat="division in divisions" value="{{division}}">{{division.name}}</option>-->
+                            <!--ng-model="instEmpAddress.upazila.district.division" ng-options="division as division.name for division in divisions|filter:removeNull track by division.id" >-->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label translate="stepApp.instGenInfo.district" for="field_predistrict">District</label>
+                        <select class="form-control" id="field_predistrict" ng-disabled="!PreDistrictSelect"
+                                name="district"
+                                ng-change="districtChange(instEmpAddress.district)"
+                                ng-model="instEmpAddress.district" required
+                                tooltip="{{'stepApp.instGenInfo.district' | translate}}"
+                                ng-options="district as district.name for district in districts track by district.id">
+                            <option value="" translate="stepApp.instGenInfo.district">{{PreDistrictSelect}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group ">
+                        <label translate="stepApp.instGenInfo.upazila" for="field_preupazila">upazila</label>
+                        <select class="form-control" id="field_preupazila" ng-disabled="!PreUpzilaSelect" name="upazila"
+                                ng-change="upazilaChange()"
+                                tooltip="{{'stepApp.instGenInfo.upazila' | translate}}"
+                                ng-model="instEmpAddress.upazila" required
+                                ng-options="upazila as upazila.name for upazila in upazilas track by upazila.id">
+                            <option value="" translate="stepApp.instGenInfo.upazila">{{PreUpzilaSelect}}</option>
+                        </select>
+                    </div>
+
+
+                    <!--<table class="table">-->
+                    <!--<thead>-->
+                    <!--<tr>-->
+                    <!--<th colspan="2"> Present Address</th>-->
+                    <!--</tr>-->
+                    <!--</thead>-->
+                    <!--<tbody>-->
+                    <!--<tr>-->
+                    <!--<td class="app_re_info">Village/House</td>-->
+                    <!--<td>-->
+                    <!--<div class="form-group">-->
+                    <!--<input type="text" class="form-control"  name="Village">-->
+                    <!--</div>-->
+                    <!--</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                    <!--<td class="app_re_info">Road/Block</td>-->
+                    <!--<td>-->
+                    <!--<div class="form-group">-->
+                    <!--<input type="text" class="form-control" name="Road">-->
+                    <!--</div>-->
+                    <!--</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                    <!--<td class="app_re_info">Division</td>-->
+                    <!--<td>-->
+                    <!--<div class="form-group" >-->
+                    <!--<label translate="stepApp.instGenInfo.division" for="field_predivision">Division</label>-->
+                    <!--<select  class="form-control" id="field_predivision"  name="division" ng-change="divisionChange(parmDivsion)"-->
+                    <!--ng-model="parmDivsion" ng-options="division as division.name for division in divisions|filter:removeNull track by division.id" >-->
+                    <!--&lt;!&ndash; <option ng-repeat="division in divisions" value="{{division}}">{{division.name}}</option>&ndash;&gt;-->
+                    <!--&lt;!&ndash;ng-model="instEmpAddress.upazila.district.division" ng-options="division as division.name for division in divisions|filter:removeNull track by division.id" >&ndash;&gt;-->
+                    <!--</select>-->
+                    <!--</div>-->
+                    <!--</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                    <!--<td class="app_re_info">District</td>-->
+                    <!--<td>-->
+                    <!--<div class="form-group">-->
+                    <!--<label translate="stepApp.instGenInfo.district" for="field_predistrict">District</label>-->
+                    <!--<select class="form-control" id="field_predistrict" ng-disabled="!PreDistrictSelect"  name="district"-->
+                    <!--ng-model="instEmpAddress.upazila.district" ng-options="district as district.name for district in districts track by district.id">-->
+                    <!--<option value="">{{PreDistrictSelect}}</option>-->
+                    <!--</select>-->
+                    <!--</div>-->
+
+                    <!--</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                    <!--<td class="app_re_info">Upazilla</td>-->
+                    <!--<td>-->
+                    <!--<div class="form-group">-->
+                    <!--<label translate="stepApp.instGenInfo.upazila" for="field_preupazila">upazila</label>-->
+                    <!--<select class="form-control" id="field_preupazila" ng-disabled="!PreUpzilaSelect" name="upazila" ng-change="PreUpZillaChange(instEmpAddress.upazila)"-->
+                    <!--ng-model="instEmpAddress.upazila" ng-options="upazila as upazila.name for upazila in upazilas track by upazila.id">-->
+                    <!--<option value="">{{PreUpzilaSelect}}</option>-->
+                    <!--</select>-->
+                    <!--</div>-->
+                    <!--</td>-->
+                    <!--</tr>-->
+
+
+                    <!--</tbody>-->
+                    <!--</table>-->
+                </div>
+
+
+                <div id="address-div" class="col-md-6 ">
+                    <!--<h3>Permanent Address</h3>-->
+                    <h4 translate="stepApp.instEmployee.perEmpAddress"> Permanent Address</h4>
+
+                    <div>
+                        <input type="checkbox" name="sameAddress" id="sameAddress"
+                               ng-disabled="!instEmpAddress.upazila || !instEmpAddress.villageOrHouse || !instEmpAddress.roadBlockSector "
+                               ng-model="instEmpAddress.sameAddress"
+                               tooltip="{{'stepApp.instEmployee.perEmpAddress' | translate}}"
+                               placeholder="{{'stepApp.instEmployee.perEmpAddress' | translate}}"
+                               ng-click="changeSameAddress(instEmpAddress.sameAddress)"><span>&nbsp;</span>
+                        <label
+                            translate="stepApp.instEmployee.sameAsPresentAdd">Same as present Address</label></div>
+                    <div class="form-group ">
+                        <label translate="stepApp.instEmployee.villageHouse">Village/House</label>
+                        <input type="text" ng-model="instEmpAddress.prevVillageOrHouse" class="form-control"
+                               tooltip="{{'stepApp.instEmployee.villageHouse' | translate}}"
+                               placeholder="{{'stepApp.instEmployee.villageHouse' | translate}}"
+                               name="Village">
+
+                        <div ng-show="editForm.Village.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.Village.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label translate="stepApp.instEmployee.roadBlock">Road/Block</label>
+                        <input type="text" ng-model="instEmpAddress.prevRoadBlockSector" class="form-control"
+                               tooltip="{{'stepApp.instEmployee.roadBlock' | translate}}"
+                               placeholder="{{'stepApp.instEmployee.roadBlock' | translate}}"
+                               name="Road">
+
+                        <div ng-show="editForm.Road.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.Road.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label translate="stepApp.instGenInfo.division" for="field_perdivision">Division</label>
+                        <select class="form-control" id="field_perdivision" name="division"
+                                ng-model="instEmpAddress.prevDivision"
+                                ng-change="PreDivisionChange(instEmpAddress.prevDivision)" required
+                                tooltip="{{'stepApp.instGenInfo.division' | translate}}"
+                                ng-options="division as division.name for division in prevdivisions track by division.id">
+                            <option value="">{{divisionSelect}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label translate="stepApp.instGenInfo.district" for="field_perdistrict">District</label>
+                        <select class="form-control" id="field_perdistrict" name="district"
+                                ng-disabled="!districtSelect"
+                                ng-model="instEmpAddress.prevDistrict"
+                                tooltip="{{'stepApp.instGenInfo.district' | translate}}"
+                                ng-change="PreDistrictChange(instEmpAddress.prevDistrict)" required
+                                ng-options="district as district.name for district in prevdistricts track by district.id">
+                            <option value="">{{districtSelect}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label translate="stepApp.instGenInfo.upazila" for="field_perupazila">upazila</label>
+                        <select class="form-control" id="field_perupazila" name="upazila" ng-disabled="!upazilaSelect"
+                                ng-model="instEmpAddress.prevUpazila" required
+                                tooltip="{{'stepApp.instGenInfo.upazila' | translate}}"
+                                ng-options="upazila as upazila.name for upazila in prevupazilas track by upazila.id">
+                            <option value="">{{upazilaSelect}}</option>
+                        </select>
+                    </div>
+
+
+                    <!--<table class="table">-->
+                    <!--<thead>-->
+                    <!--<tr>-->
+                    <!--<th colspan="2"> Permanent Address</th>-->
+                    <!--</tr>-->
+                    <!--</thead>-->
+                    <!--<tbody>-->
+                    <!--<tr>-->
+                    <!--<td class="app_re_info">Village/House</td>-->
+                    <!--<td>-->
+                    <!--<div class="form-group">-->
+                    <!--<input type="text" class="form-control" name="Village">-->
+                    <!--</div>-->
+                    <!--</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                    <!--<td class="app_re_info">Road/Block</td>-->
+                    <!--<td>-->
+                    <!--<div class="form-group">-->
+                    <!--<input type="text" class="form-control" name="Road">-->
+                    <!--</div>-->
+                    <!--</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                    <!--<td class="app_re_info">Division</td>-->
+                    <!--<td>-->
+                    <!--<div class="form-group" >-->
+                    <!--<label translate="stepApp.instGenInfo.division" for="field_perdivision">Division</label>-->
+
+                    <!--<select  class="form-control" id="field_perdivision"  name="division" ng-model="instEmpAddress.prevUpazila.district.division"-->
+                    <!--ng-options="division as division.name for division in divisions track by division.id" >-->
+                    <!--</select>-->
+                    <!--</div>-->
+                    <!--</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                    <!--<td class="app_re_info">District</td>-->
+                    <!--<td>-->
+                    <!--<div class="form-group">-->
+                    <!--<label translate="stepApp.instGenInfo.district" for="field_perdistrict">District</label>-->
+                    <!--<select class="form-control" id="field_perdistrict"  name="district" ng-model="instEmpAddress.prevUpazila.district"-->
+                    <!--ng-options="district as district.name for district in prevdistricts track by district.id">-->
+                    <!--</select>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash;district as district.name for district in districts track by district.id&ndash;&gt;-->
+                    <!--</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                    <!--<td class="app_re_info">Upazilla</td>-->
+                    <!--<td>-->
+                    <!--<div class="form-group">-->
+                    <!--<label translate="stepApp.instGenInfo.upazila" for="field_perupazila">upazila</label>-->
+                    <!--<select class="form-control" id="field_perupazila" name="upazila"  ng-model="instEmpAddress.prevUpazila"-->
+                    <!--ng-options="upazila as upazila.name for upazila in prevupazilas track by upazila.id">-->
+                    <!--</select>-->
+                    <!--</div>-->
+                    <!--</td>-->
+                    <!--</tr>-->
+
+
+                    <!--</tbody>-->
+                    <!--</table>-->
+                </div>
+
+                <div class="col-md-12 text-right">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                        <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                        translate="entity.action.cancel">Cancel</span>
+                    </button>
+                    <button type="submit" ng-disabled="editForm.$invalid || isSaving || registrationField"
+                            class="btn btn-primary">
+                        <span class="glyphicon glyphicon-save"></span>&nbsp;
+                        <span ng-show="instEmployee.id == null" translate="entity.action.save">Save</span>
+                        <span ng-show="instEmployee.id != null" translate="entity.action.update">Save</span>
+                    </button>
+                </div>
+            </div>
+            <!-- <div class="col-sm-3"><div class="form-group">
+                 <img class="img-responsive" height="100%" width="100%" style="background:black;">
+                 <div class="form-group" ngf-drop ngf-change="setImage($file, instEmployee)" ngf-pattern="'image/*'">
+                     <div class="col-sm-12 no_padding">
+                             <center>
+                                 <img  data-ng-src="{{'data:' + instEmployee.imageContentType + ';base64,' + instEmployee.image}}"
+                                       style="max-height: 100px;" ng-if="instEmployee.image"/>
+                             </center>
+                             <div class="help-block clearfix">
+                                 <span class="pull-left">{{instEmployee.imageContentType}} {{byteSize(instEmployee.image)}}</span>
+                                 <button ng-click="instEmployee.image=null;instEmployee.imageContentType=null;"
+                                         ng-if="instEmployee.image"
+                                         class="btn btn-default btn-xs pull-right">
+                                     <span class="glyphicon glyphicon-remove"></span>
+                                 </button>
+                             </div>
+                             <center><br>
+                                 <button type="file" ngf-select class="btn btn-default"
+                                         ngf-change="setImage($file, instEmployee)" accept="image/*" >
+                                     Add image
+                                 </button>
+                             </center>
+                         <input type="hidden" class="form-control" name="companyLogo" id="field_companyLogo"
+                                ng-model="instEmployee.image"
+                             />
+                         <input type="hidden" class="form-control" name="companyLogoContentType" id="field_companyLogoContentType"
+                                ng-model="instEmployee.imageContentType" />
+                     </div>
+                 </div>
+             </div>-->
+
+        </div>
+    </form>
+</div>

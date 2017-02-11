@@ -1,0 +1,53 @@
+<!--<div class="row">
+    <div class="col-md-3">
+        <ng-include src="'scripts/app/account/mpo/mpo-left-menu.html'"></ng-include>
+    </div>-->
+    <div class="col-md-12 no_padding">
+
+        <div ng-show="isAdmin">
+            <ng-include src="'scripts/app/account/mpo/mpo-search-form.html'"></ng-include>
+        </div>
+
+    </div>
+    <div class="col-md-12 no_padding">
+
+        <div class="application_information resume_main_ ">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span translate="{{'stepApp.attachment.appEnrInfo'}}">Application Status of</span> <b>{{applicationlogs[0].mpoApplicationId.instEmployee.code}}</b></h3>
+                </div>
+                <div class="resume_main_ time-scale">
+                    <table class="table table-striped ">
+                        <thead>
+                        <tr>
+                            <th translate="{{'stepApp.attachment.Status'}}">
+                                Status
+                            </th>
+                            <th translate="{{'stepApp.attachment.ActionDate'}}">
+                                Action Date
+                            </th>
+                            <th translate="{{'stepApp.attachment.remarks'}}">
+                                Remarks
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="applicationLog in applicationlogs">
+                            <td>{{applicationLog.remarks}}</td>
+                            <td>{{applicationLog.fromDate}}</td>
+                            <td>
+                                <span class="" ng-show="applicationLog.status == 1 ">{{applicationLog.cause}}1</span>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="pull-left">
+    <span class="btn btn-primary" onclick="window.history.back()" translate="{{'stepApp.employee.back'}}">back</span>
+</div>
+<!--</div>-->

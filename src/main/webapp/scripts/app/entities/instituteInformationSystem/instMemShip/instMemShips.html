@@ -1,0 +1,117 @@
+<div class="col-md-12 common-list">
+    <h2 translate="stepApp.instMemShip.home.title">InstMemShips</h2>
+   <!-- <jh-alert></jh-alert>-->
+    <!--<div class="col-sm-12 padding-tb no-print">
+        <div class="col-md-6 no_padding">
+            <form name="searchForm" class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery">
+                </div>
+                <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span>
+                </button>
+            </form>
+        </div>
+        <div class="col-md-6 no_padding text-right">
+            <button class="btn btn-primary" ui-sref="instituteInfo.instMemShip.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.instMemShip.home.createLabel">Create a new InstMemShip</span>
+            </button>
+        </div>
+    </div>-->
+    <div class="col-md-12 padding-bt">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+        <div class="col-md-4 text-right  no_padding">
+            <button class="btn btn-primary" ui-sref="instituteInfo.instMemShip.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.instMemShip.home.createLabel">Create a new InstMemShip</span>
+            </button>
+        </div>
+    </div>
+    <div class="col-sm-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <!--<th translate="global.field.id">ID</th>-->
+                    <th translate="stepApp.instMemShip.fullName">FullName</th>
+                    <!--<th translate="stepApp.instMemShip.dob">Dob</th>
+                    <th translate="stepApp.instMemShip.gender">Gender</th>
+                    <th translate="stepApp.instMemShip.address">Address</th>-->
+                    <th translate="stepApp.instMemShip.email">Email</th>
+                    <th translate="stepApp.instMemShip.contact">Contact</th>
+                    <th translate="stepApp.instMemShip.designation">Designation</th>
+                    <th translate="stepApp.instMemShip.orgName">OrgName</th>
+                  <!--  <th translate="stepApp.instMemShip.orgAdd">OrgAdd</th>
+                    <th translate="stepApp.instMemShip.orgContact">OrgContact</th>
+                   -->
+                    <th class="no-print text-center" translate="entity.action.action"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--<tr ng-repeat="instMemShip in instMemShips track by instMemShip.id">-->
+                <tr dir-paginate="instMemShip in instMemShips | filter:q | itemsPerPage: pageSize track by instMemShip.id" current-page="currentPage">
+
+                <!--<td><a ui-sref="instMemShip.detail({id:instMemShip.id})">{{instMemShip.id}}</a></td>-->
+                    <td>{{instMemShip.fullName}}</td>
+                      <!--  <td>{{instMemShip.dob | date:'mediumDate'}}</td>
+                    <td>{{instMemShip.gender}}</td>
+                    <td>{{instMemShip.address}}</td>-->
+                    <td>{{instMemShip.email}}</td>
+                    <td>{{instMemShip.contact}}</td>
+                    <td>{{instMemShip.designation}}</td>
+                    <td>{{instMemShip.orgName}}</td>
+                   <!-- <td>{{instMemShip.orgAdd}}</td>
+                    <td>{{instMemShip.orgContact}}</td>-->
+                    <td class="text-right no-print">
+                        <button type="submit"
+                                ui-sref="instituteInfo.instMemShip.detail({id:instMemShip.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="instituteInfo.instMemShip.edit({id:instMemShip.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                       <!-- <button type="submit"
+                                ui-sref="instituteInfo.instMemShip.delete({id:instMemShip.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>-->
+                        <button type="button" ng-if="instMemShip.user.activated"
+                                ng-click="deactivateMember(instMemShip)"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.inactive"> inactivate</span>
+                        </button>
+                        <button type="button" ng-if="!instMemShip.user.activated"
+                                ng-click="activateMember(instMemShip)"
+                                class="btn btn-success btn-sm">
+                            <span class="glyphicon glyphicon-ok-circle"></span>&nbsp;<span translate="entity.action.active"> activate</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <nav>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+    <div class="col-sm-12 text-left no-print">
+        <button type="button" class="btn btn-default" class="btn pull-left"  data-dismiss="modal"
+                ui-sref="instituteInfo.instComiteFormation">
+            <span class=" glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back">Back</span>
+        </button>
+    </div>
+    <div class="no-print   text-right padding-tb">
+        <button type="submit" name="submit" onclick="window.print()" class="btn btn-primary">
+            <span class="glyphicon glyphicon-print"></span>&nbsp;<span
+            translate="entity.action.print">Print</span>
+        </button>
+    </div>
+<!--</div>
+</div>-->
+</div>

@@ -1,0 +1,126 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myEmployeeLoanCheckRegisterLabel" translate="stepApp.employeeLoanCheckRegister.home.createOrEditLabel">Create or edit a EmployeeLoanCheckRegister</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="employeeLoanCheckRegister.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.employeeLoanCheckRegister.applicationType" for="field_applicationType">ApplicationType</label>
+            <input type="text" class="form-control" name="applicationType" id="field_applicationType"
+                    ng-model="employeeLoanCheckRegister.applicationType"
+                    required />
+            <div ng-show="editForm.applicationType.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.applicationType.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.employeeLoanCheckRegister.numberOfWithdrawal" for="field_numberOfWithdrawal">NumberOfWithdrawal</label>
+            <input type="number" class="form-control" name="numberOfWithdrawal" id="field_numberOfWithdrawal"
+                    ng-model="employeeLoanCheckRegister.numberOfWithdrawal"
+                    required />
+            <div ng-show="editForm.numberOfWithdrawal.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.numberOfWithdrawal.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.numberOfWithdrawal.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.employeeLoanCheckRegister.checkNumber" for="field_checkNumber">CheckNumber</label>
+            <input type="text" class="form-control" name="checkNumber" id="field_checkNumber"
+                    ng-model="employeeLoanCheckRegister.checkNumber"
+                    required />
+            <div ng-show="editForm.checkNumber.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.checkNumber.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.employeeLoanCheckRegister.tokenNumber" for="field_tokenNumber">TokenNumber</label>
+            <input type="text" class="form-control" name="tokenNumber" id="field_tokenNumber"
+                    ng-model="employeeLoanCheckRegister.tokenNumber"
+                    required />
+            <div ng-show="editForm.tokenNumber.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.tokenNumber.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.employeeLoanCheckRegister.status" for="field_status">Status</label>
+            <input type="number" class="form-control" name="status" id="field_status"
+                    ng-model="employeeLoanCheckRegister.status"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.employeeLoanCheckRegister.createDate" for="field_createDate">CreateDate</label>
+            <input type="date" class="form-control" name="createDate" id="field_createDate"
+                    ng-model="employeeLoanCheckRegister.createDate"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.employeeLoanCheckRegister.createBy" for="field_createBy">CreateBy</label>
+            <input type="number" class="form-control" name="createBy" id="field_createBy"
+                    ng-model="employeeLoanCheckRegister.createBy"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.employeeLoanCheckRegister.updateDate" for="field_updateDate">UpdateDate</label>
+            <input type="date" class="form-control" name="updateDate" id="field_updateDate"
+                    ng-model="employeeLoanCheckRegister.updateDate"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.employeeLoanCheckRegister.updateBy" for="field_updateBy">UpdateBy</label>
+            <input type="number" class="form-control" name="updateBy" id="field_updateBy"
+                    ng-model="employeeLoanCheckRegister.updateBy"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.employeeLoanCheckRegister.instEmployee" for="field_instEmployee">instEmployee</label>
+            <select class="form-control" id="field_instEmployee" name="instEmployee" ng-model="employeeLoanCheckRegister.instEmployee" ng-options="instEmployee as instEmployee.name for instEmployee in instemployees track by instEmployee.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.employeeLoanCheckRegister.employeeLoanRequisitionForm" for="field_employeeLoanRequisitionForm">employeeLoanRequisitionForm</label>
+            <select class="form-control" id="field_employeeLoanRequisitionForm" name="employeeLoanRequisitionForm" ng-model="employeeLoanCheckRegister.employeeLoanRequisitionForm" ng-options="employeeLoanRequisitionForm as employeeLoanRequisitionForm.loanRequisitionCode for employeeLoanRequisitionForm in employeeloanrequisitionforms track by employeeLoanRequisitionForm.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.employeeLoanCheckRegister.employeeLoanBillRegister" for="field_employeeLoanBillRegister">employeeLoanBillRegister</label>
+            <select class="form-control" id="field_employeeLoanBillRegister" name="employeeLoanBillRegister" ng-model="employeeLoanCheckRegister.employeeLoanBillRegister" ng-options="employeeLoanBillRegister as employeeLoanBillRegister.billNo for employeeLoanBillRegister in employeeloanbillregisters | orderBy:'id' track by employeeLoanBillRegister.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

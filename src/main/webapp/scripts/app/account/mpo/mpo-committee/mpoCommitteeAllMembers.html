@@ -1,0 +1,112 @@
+<div class="row">
+    <div class="col-md-3 no-print">
+        <ng-include src="'scripts/app/account/mpo/mpo-left-menu.html'"></ng-include>
+    </div>
+
+    <div class="col-md-9 lbl-dash">
+
+        <div class="col-md-12 common-list">
+
+            <h2 translate="stepApp.mpoCommitteePersonInfo.home.title " > MpoCommitteePersonInfos</h2>
+            <!--    <jh-alert></jh-alert>-->
+            <!--<div class="col-md-12 padding-tb no-print">
+                <div class="col-md-12 no_padding">
+                    <div class="col-md-6 no_padding">
+                        <b>&lt;!&ndash;{{ (dlContTypeSets|filter:q).length }}&ndash;&gt; <span translate="global.home.searchhere">Search Here :</span></b>
+                        <div class="input-group">
+                            <span class="input-group-addon dlbtn" id="basic-addon1"><i class="fa fa-search"></i></span>
+                            <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+                        </div>
+                    </div>
+                    <div class="col-md-4 no_padding"><b><span translate="global.home.itemperpage">Items per page:</span></b>
+                        <div class="input-group">
+                            <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+            <div class="col-md-12 padding-bt">
+                <div class="col-xs-4 no_padding">
+                    <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+                </div>
+                <div class="col-xs-4">
+                    <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+                </div>
+                <div class="col-xs-4 no_padding text-right ">
+
+                </div>
+            </div>
+            <div class="col-md-12 table-responsive no_padding">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th translate="global.form.serial">serial</th>
+                        <th translate="stepApp.mpoCommitteePersonInfo.name">name</th>
+                        <th translate="stepApp.mpoCommitteePersonInfo.contactNo">ContactNo</th>
+                        <!--<th translate="stepApp.mpoCommitteePersonInfo.address">Address</th>-->
+                        <th translate="stepApp.mpoCommitteePersonInfo.designation">Designation</th>
+                        <th translate="stepApp.mpoCommitteePersonInfo.orgName">OrgName</th>
+                        <th translate="stepApp.mpoCommitteePersonInfo.status">Activated</th>
+                        <th translate="stepApp.mpoCommitteePersonInfo.email">user</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-animate="'animate'"
+                        dir-paginate="mpoCommitteePersonInfo in mpoCommitteePersonInfos | filter:q | itemsPerPage: pageSize track by mpoCommitteePersonInfo.id"
+                        current-page="currentPage">
+                        <td>{{$index+1}}</td>
+                        <td>
+                            {{mpoCommitteePersonInfo.user.firstName}}
+                        </td>
+                        <td>{{mpoCommitteePersonInfo.contactNo}}</td>
+                        <!--<td>{{mpoCommitteePersonInfo.address}}</td>-->
+                        <td>{{mpoCommitteePersonInfo.designation}}</td>
+                        <td>{{mpoCommitteePersonInfo.orgName}}</td>
+                        <td>{{mpoCommitteePersonInfo.activated != null && mpoCommitteePersonInfo.activated ?
+                            'Active':'Inactive'}}
+                        </td>
+                        <td>
+                            {{mpoCommitteePersonInfo.user.email}}
+                        </td>
+                        <td class="text-right no-print">
+                            <button type="submit"
+                                    ui-sref="mpoCommitteePersonInfo.detail({id:mpoCommitteePersonInfo.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span
+                                translate="entity.action.view"> View</span>
+                            </button>
+                            <!--<button type="button" ng-if="mpoCommitteePersonInfo.activated"
+                                      ng-click="deactivateMember(mpoCommitteePersonInfo)"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.deactivate"> Deactivate</span>
+                            </button>-->
+                            <button type="submit"
+                                    ui-sref="mpoCommitteePersonInfo.edit({id:mpoCommitteePersonInfo.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                                translate="entity.action.edit"> Edit</span>
+                            </button>
+                            <!--<button type="submit"
+                                    ui-sref="mpoCommitteePersonInfo.delete({id:mpoCommitteePersonInfo.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                            </button>-->
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <nav>
+                    <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                             template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+                </nav>
+            </div>
+            <div class="col-md-12 no-print text-right">
+                <button type="submit" class="btn btn-sm btn-primary no-print" onclick="window.print()">
+                    <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                    translate="entity.action.print" >Print</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

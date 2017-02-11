@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="employer" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f76bbc05-0eb7-4c9b-94cc-e8a215fdaedb">
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     employer."id" AS employer_id,
+     employer."name" AS employer_name,
+     employer."alternative_company_name" AS employer_alternative_company_name,
+     employer."contact_person_name" AS employer_contact_person_name,
+     employer."person_designation" AS employer_person_designation,
+     employer."contact_number" AS employer_contact_number,
+     employer."company_information" AS employer_company_information,
+     employer."address" AS employer_address,
+     employer."city" AS employer_city,
+     employer."zip_code" AS employer_zip_code,
+     employer."company_website" AS employer_company_website,
+     employer."industry_type" AS employer_industry_type,
+     employer."business_description" AS employer_business_description,
+     employer."company_logo" AS employer_company_logo,
+     employer."company_logo_content_type" AS employer_company_logo_content_type,
+     employer."user_id" AS employer_user_id,
+     employer."country_id" AS employer_country_id,
+     employer."manager_id" AS employer_manager_id
+FROM
+     "public"."employer" employer]]>
+	</queryString>
+	<field name="employer_id" class="java.lang.Long"/>
+	<field name="employer_name" class="java.lang.String"/>
+	<field name="employer_manager_id" class="java.lang.Long"/>
+	<group name="employer_manager_id">
+		<groupExpression><![CDATA[$F{employer_manager_id}]]></groupExpression>
+		<groupHeader>
+			<band height="33">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="100" height="32" forecolor="#666666" backcolor="#E6E6E6" uuid="521e19d3-7a09-4c7b-af65-68708d86a808"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[employer_manager_id]]></text>
+				</staticText>
+				<textField>
+					<reportElement mode="Opaque" x="100" y="0" width="455" height="32" forecolor="#006699" backcolor="#E6E6E6" uuid="07d82fc8-80f1-46d9-b242-3dd96b515efd"/>
+					<textElement>
+						<font size="24" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{employer_manager_id}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="-20" y="32" width="595" height="1" forecolor="#666666" uuid="899ef663-126d-46df-8092-36c695577fa2"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699" uuid="903b58e5-32b7-4db5-a6ac-619db9f3ef99"/>
+				<staticText>
+					<reportElement x="20" y="20" width="234" height="43" forecolor="#FFFFFF" uuid="2f4c9e1c-6abb-47a3-a677-61d0cbd80290"/>
+					<textElement>
+						<font size="34" isBold="true"/>
+					</textElement>
+					<text><![CDATA[TITLE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="395" y="43" width="180" height="20" forecolor="#FFFFFF" uuid="2ec1c182-b2eb-4017-86f3-9acc89aba472"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Add a description here]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="73dcb09e-b16f-413f-8c26-8d8e7d344c32"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="277" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="fab4f11f-d967-4980-a532-f613b7dd2732"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[employer_id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="277" y="0" width="277" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="1295df27-60c2-40f2-ab50-270b51b22ecc"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[employer_name]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="0e7c5d75-383e-4a7f-b19d-f0c21f6bc9b8"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="277" height="20" uuid="fbe41a5d-748c-4c72-9bf5-7a19c4678e7e"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{employer_id}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="277" y="0" width="277" height="20" uuid="8b6be005-cd06-44aa-b725-577c88962fbd"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{employer_name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="9afff978-2180-458d-bd1f-bb05a3d4e4fa"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="e5869632-b0db-4775-8996-ba5420e2a43d"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="b76630f7-2681-4dfc-94e7-b73d91ec3ecf"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

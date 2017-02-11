@@ -1,0 +1,89 @@
+<!--<div class="row">
+    <div class="col-md-3">
+        <ng-include src="'scripts/app/account/mpo/mpo-left-menu.html'"></ng-include>
+    </div>
+
+    <div class="col-md-9">-->
+        <div class="cmscurriculam">
+            <div class="panel-heading cmsheading">
+                <h3 class="panel-title">
+                    PayScale Assign
+                </h3>
+            </div>
+        </div>
+        <!--{{mpoApplication}}-->
+
+        <form name="payScaleAssignForm" role="form" novalidate ng-submit="save()">
+            <div class="col-sm-12 pnl-border payscale-ass">
+            <div class="form-group col-sm-6">
+                <label class="">MPO Application Name</label>
+                <div >
+                    {{mpoApplication.instEmployee.name}} <br>
+                    {{mpoApplication.instEmployee.email}} <br>
+                    {{mpoApplication.instEmployee.contactNo}} <br>
+                </div>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label class="">Select PayScale</label>
+                <select ng-change="showPayScaleDetails()" ng-model="payScaleID" ng-options="payScale.id as payScale.code for payScale in payScales">
+                    <option value="" selected="selected">Select payScale</option>
+                </select>
+            </div>
+
+            <div ng-show="payScaleDetails != '' ">
+                <table class="table td">
+                    <thead>
+                        <th colspan="2">PayScale Details</th>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{'stepApp.payScale.code' | translate}}</td>
+                        <td>{{payScaleDetails.code}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'stepApp.payScale.payScaleClass' | translate}}</td>
+                        <td>{{payScaleDetails.payScaleClass}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'stepApp.payScale.grade' | translate}}</td>
+                        <td>{{payScaleDetails.grade}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'stepApp.payScale.gradeName' | translate}}</td>
+                        <td>{{payScaleDetails.gradeName}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'stepApp.payScale.basicAmount' | translate}}</td>
+                        <td>{{payScaleDetails.basicAmount}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'stepApp.payScale.houseAllowance' | translate}}</td>
+                        <td>{{payScaleDetails.houseAllowance}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'stepApp.payScale.medicalAllowance' | translate}}</td>
+                        <td>{{payScaleDetails.medicalAllowance}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'stepApp.payScale.welfareAmount' | translate}}</td>
+                        <td>{{payScaleDetails.welfareAmount}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{'stepApp.payScale.retirementAmount' | translate}}</td>
+                        <td>{{payScaleDetails.retirementAmount}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="col-sm-12 text-right no-print">
+                    <button type="submit" class="btn btn-success">Assign PayScale</button>
+                </div>
+            </div>
+
+            </div>
+        </form>
+<!--
+
+    </div>
+</div>
+-->

@@ -1,0 +1,82 @@
+<div>
+    <h2 translate="stepApp.mpoCommitteeHistory.home.title">MpoCommitteeHistorys</h2>
+    <jh-alert></jh-alert>
+    <div class="container no-print">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" ui-sref="mpoCommitteeHistory.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="stepApp.mpoCommitteeHistory.home.createLabel">Create a new MpoCommitteeHistory</span>
+                </button>
+            </div>
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a MpoCommitteeHistory</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="global.field.id">ID</th>
+                    <th translate="stepApp.mpoCommitteeHistory.month">Month</th>
+                    <th translate="stepApp.mpoCommitteeHistory.year">Year</th>
+                    <th translate="stepApp.mpoCommitteeHistory.dateCrated">DateCrated</th>
+                    <th translate="stepApp.mpoCommitteeHistory.dateModified">DateModified</th>
+                    <th translate="stepApp.mpoCommitteeHistory.status">Status</th>
+                    <th translate="stepApp.mpoCommitteeHistory.mpoCommitteePersonInfo">mpoCommitteePersonInfo</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="mpoCommitteeHistory in mpoCommitteeHistorys track by mpoCommitteeHistory.id">
+                    <td><a ui-sref="mpoCommitteeHistory.detail({id:mpoCommitteeHistory.id})">{{mpoCommitteeHistory.id}}</a></td>
+                    <td>{{mpoCommitteeHistory.month}}</td>
+                    <td>{{mpoCommitteeHistory.year}}</td>
+                        <td>{{mpoCommitteeHistory.dateCrated | date:'mediumDate'}}</td>
+                        <td>{{mpoCommitteeHistory.dateModified | date:'mediumDate'}}</td>
+                    <td>{{mpoCommitteeHistory.status}}</td>
+                    <td>
+                        <a ui-sref="mpoCommitteePersonInfo.detail({id:mpoCommitteeHistory.mpoCommitteePersonInfo.id})">{{mpoCommitteeHistory.mpoCommitteePersonInfo.contactNo}}</a>
+                    </td>
+                    <td class="text-right no-print">
+                        <button type="submit"
+                                ui-sref="mpoCommitteeHistory.detail({id:mpoCommitteeHistory.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="mpoCommitteeHistory.edit({id:mpoCommitteeHistory.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="mpoCommitteeHistory.delete({id:mpoCommitteeHistory.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav class="no-print">
+            <ul class="pagination">
+                <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                <li class="active"><a>{{page + 1}}</a></li>
+                <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>

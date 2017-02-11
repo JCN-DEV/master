@@ -1,0 +1,166 @@
+<div class="service-form-area">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="modal-title" id="myHrEmpProfMemberInfoLabel"><span
+                translate="stepApp.hrEmpProfMemberInfo.home.profileViewEditTitle"></span> : {{hrEmployeeInfo.fullName}}
+            </h4>
+        </div>
+        <div class="panel-body bg-panel hr_label">
+            <div class="row hrm-view">
+                <span ng-show="addMode">
+                    <span ng-show="noEmployeeFound" class="alert">Employee is not created yet.</span>
+                </span>
+            </div>
+            <div class="panel-group">
+                <!-- For Loop Start From Here-->
+                <div class="bg-panel" ng-repeat="hrEmpProfMemberInfo in hrEmpProfMemberInfoList">
+                    <form class="form-horizontal " name="editForm" role="form" ng-submit="save()" novalidate
+                          show-validation>
+                        <div class="row hrm-view panel-heading no_padding">
+                            <div class="col-sm-7 no_padding">
+                                <strong>{{hrEmpProfMemberInfo.organizationName}} :
+                                    {{hrEmpProfMemberInfo.membershipNumber}}</strong>
+                            </div>
+                            <div class="col-sm-5 no_padding text-right">
+                                <button
+                                    ng-hide="noEmployeeFound || hrEmpProfMemberInfo.isLocked || hrEmpProfMemberInfo.logStatus==6"
+                                    type="button" ng-click="changeProfileMode(hrEmpProfMemberInfo)"
+                                    class="btn btn-primary btn-sm">{{hrEmpProfMemberInfo.viewModeText}}
+                                </button>
+                                <span ng-show="hrEmpProfMemberInfo.isLocked" class="alert alert-warning"><span
+                                    translate="stepApp.hrmHome.recordLocked">Pending</span></span>
+                                    <span ng-if="hrEmpProfMemberInfo.logStatus == 3">
+                                        <span class="alert alert-warning" translate="stepApp.hrmHome.requestRejected">Rejected</span>
+                                    </span>
+                            </div>
+                        </div>
+                        <div class="row hrm-view">
+                            <div class="col-sm-12 text-right">
+                                    <span class="alert-warning" ng-if="hrEmpProfMemberInfo.logStatus == 3">
+                                        <span class="control-label"
+                                              translate="stepApp.hrmHome.rejectionReason">Reason</span>: &nbsp; : &nbsp;{{hrEmpProfMemberInfo.logComments}}
+                                    </span>
+                            </div>
+                        </div>
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpProfMemberInfo.viewMode" class="input-margin">
+                                    <label class="control-label"
+                                           translate="stepApp.hrEmpProfMemberInfo.organizationName"
+                                           for="field_organizationName">OrganizationName</label>
+                                    <input type="text" class="form-control" name="organizationName"
+                                           id="field_organizationName"
+                                           ng-model="hrEmpProfMemberInfo.organizationName" required/>
+                                    <div ng-show="editForm.organizationName.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.organizationName.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEmpProfMemberInfo.viewMode">
+                                    <label class="control-label"
+                                           translate="stepApp.hrEmpProfMemberInfo.organizationName"
+                                           for="field_organizationName">OrganizationName</label>
+                                    <span class="form-control-static">&nbsp; : &nbsp;{{hrEmpProfMemberInfo.organizationName}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpProfMemberInfo.viewMode" class="input-margin">
+                                    <label class="control-label"
+                                           translate="stepApp.hrEmpProfMemberInfo.membershipCategory"
+                                           for="field_membershipCategory">membershipCategory</label>
+                                    <select class="form-control" id="field_membershipCategory" name="membershipCategory"
+                                            ng-model="hrEmpProfMemberInfo.membershipCategory"
+                                            ng-options="MiscTypeSetup as MiscTypeSetup.typeName for MiscTypeSetup in memberCatList track by MiscTypeSetup.id">
+                                        <option value=""></option>
+                                    </select>
+                                    <div ng-show="editForm.membershipCategory.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.membershipCategory.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEmpProfMemberInfo.viewMode">
+                                    <label class="control-label"
+                                           translate="stepApp.hrEmpProfMemberInfo.membershipCategory"
+                                           for="field_membershipCategory">membershipCategory</label>
+                                    <span class="form-control-static">&nbsp; : &nbsp;{{hrEmpProfMemberInfo.membershipCategory.typeName}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpProfMemberInfo.viewMode" class="input-margin">
+                                    <label class="control-label"
+                                           translate="stepApp.hrEmpProfMemberInfo.membershipNumber"
+                                           for="field_membershipNumber">MembershipNumber</label>
+                                    <input type="text" class="form-control" name="membershipNumber"
+                                           id="field_membershipNumber"
+                                           ng-model="hrEmpProfMemberInfo.membershipNumber" required/>
+                                    <div ng-show="editForm.membershipNumber.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.membershipNumber.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEmpProfMemberInfo.viewMode">
+                                    <label class="control-label"
+                                           translate="stepApp.hrEmpProfMemberInfo.membershipNumber"
+                                           for="field_membershipNumber">MembershipNumber</label>
+                                    <span class="form-control-static">&nbsp; : &nbsp;{{hrEmpProfMemberInfo.membershipNumber}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label class="control-label" translate="stepApp.hrEmpProfMemberInfo.membershipDate"
+                                       for="field_membershipDate">MembershipDate</label>
+                                <div ng-show="!hrEmpProfMemberInfo.viewMode" class="input-margin">
+                                    <input datepicker-popup="{{calendar.dateFormat}}"
+                                           is-open="calendar.opened['membershipDate'+$index]"
+                                           datepicker-options="calendar.dateOptions" close-text="Close"
+                                           ng-click="calendar.open($event, 'membershipDate'+$index)"
+                                           class="form-control" name="membershipDate" id="field_membershipDate"
+                                           ng-model="hrEmpProfMemberInfo.membershipDate"/>
+                                </div>
+                                <span ng-show="hrEmpProfMemberInfo.viewMode" class="form-control-static">&nbsp; : &nbsp;{{hrEmpProfMemberInfo.membershipDate | date:'mediumDate'}}</span>
+                            </div>
+                        </div>
+
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">&nbsp;</div>
+                            <div class="form-group col-sm-6 text-right">
+                                <div class="input-margin">
+                                    <button ng-show="!hrEmpProfMemberInfo.viewMode" type="button"
+                                            ng-click="changeProfileMode(hrEmpProfMemberInfo)"
+                                            class="btn btn-default btn-sm"><span
+                                        class="glyphicon glyphicon-remove"></span>&nbsp;{{hrEmpProfMemberInfo.viewModeText}}
+                                    </button>
+                                    <button ng-show="!hrEmpProfMemberInfo.viewMode"
+                                            ng-click="updateProfile(hrEmpProfMemberInfo, $index)" type="button"
+                                            ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary btn-sm">
+                                        <span class="glyphicon glyphicon-save"></span>&nbsp;<span
+                                        translate="entity.action.save">Save</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- End of Loop -->
+                <div class="col-sm-12 no_padding text-right">
+                    <button type="submit" class="btn btn-primary" ng-show="!addMode"
+                            ng-disabled="editForm.$invalid || isSaving" ng-click="addMore()"><i
+                        class="fa fa-plus-square"></i>
+                        <span translate="global.menu.account.addmore">Add More</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

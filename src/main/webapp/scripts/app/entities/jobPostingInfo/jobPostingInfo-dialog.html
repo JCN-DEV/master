@@ -1,0 +1,339 @@
+<div class="col-sm-3">
+    <ng-include src="'scripts/app/entities/sis/left-menu.html'"></ng-include>
+    <!--<ul class="custom-menu" id="left-menu1">
+        &lt;!&ndash; <li class="">
+             <a  class=""  data-toggle="collapse" data-parent="#left-menu1" data-target="#firstLink"><i class="fa fa-tachometer"></i>
+                 <span translate="stepApp.leftmenu.sis"></span> </span><i class="pull-right fa fa-angle-down"></i></a>
+             <ul id="firstLink" class="collapse search-accordion sis_menu">
+                 &lt;!&ndash;<li >
+                     <a class=""  ui-sref="sisQuota" ui-sref-active="active">
+                         <i class="fa fa-cogs"></i><span translate="global.menu.entities.sisQuota">Quota Setup</span>
+                     </a>
+                 </li>&ndash;&gt;&ndash;&gt;
+        <li has-any-authority="ROLE_ADMIN,ROLE_GOVT_STUDENT" >
+            <a class=""  ui-sref="sisStudentInfo" ui-sref-active="active">
+                <i class="fa fa-info-circle"></i><span translate="global.menu.entities.sisStudentInfo">Student Info</span>
+            </a>
+        </li>
+        <li has-any-authority="ROLE_ADMIN,ROLE_GOVT_STUDENT">
+            <a class=""  ui-sref="sisEducationHistory" ui-sref-active="active">
+                <i class="fa fa-history"></i><span translate="global.menu.entities.sisEducationHistory">Education History</span>
+            </a>
+        </li>
+
+        <li has-any-authority="ROLE_ADMIN,ROLE_GOVT_STUDENT">
+            <a class=""  ui-sref="jobPlacementInfo" ui-sref-active="active">
+                <i class="fa fa-pencil-square-o"></i>
+                <span translate="global.menu.entities.jobPlacementInfo">Job Placement Info</span>
+
+            </a>
+        </li>
+        <li has-any-authority="ROLE_ADMIN">
+            <a class=""  ui-sref="jobPostingInfo" ui-sref-active="active">
+                <i class="fa fa-pencil-square-o"></i>
+                <span translate="global.menu.entities.jobPostingInfo">Job Posting Info</span>
+
+            </a>
+        </li>
+        <li has-any-authority="ROLE_ADMIN,ROLE_GOVT_STUDENT">
+            <a class=""  ui-sref="jobSuggestions" ui-sref-active="active">
+                <i class="fa fa-pencil-square-o"></i>
+                <span translate="global.menu.entities.jobSuggestions">Job Suggestions Info</span>
+
+            </a>
+        </li>
+        <li  has-any-authority="ROLE_ADMIN" ui-sref-active="active" ><a ui-sref="sisStudentReg" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+            &#xA0;<span translate="global.menu.entities.sisStudentReg">sisStudentReg</span></a></li>
+
+        &lt;!&ndash; </ul>&ndash;&gt;
+        </li>
+    </ul>-->
+</div>
+<div class="col-sm-9 common-dialogue">
+<form class="col-sm-12 no_padding" name="editForm" role="form" novalidate ng-submit="save()">
+        <div>
+            <h4 id="myJobPostingInfoLabel" translate="stepApp.jobPostingInfo.home.createOrEditLabel">Create or edit a JobPostingInfo</h4>
+        </div>
+
+    <div class="sis-dialog col-sm-12 no_padding">
+
+        <!--<div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="jobPostingInfo.id" readonly />
+        </div>-->
+        <!--<div class="form-group">
+            <label translate="stepApp.jobPostingInfo.jobPostId" for="field_jobPostId">JobPostId</label>
+            <input type="text" class="form-control" name="jobPostId" id="field_jobPostId"
+                    ng-model="jobPostingInfo.jobPostId"
+                     />
+        </div>-->
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.jobPostingInfo.jobTitle" for="field_jobTitle">JobTitle</label>
+                <input type="text" class="form-control" name="jobTitle" id="field_jobTitle"
+                       ng-model="jobPostingInfo.jobTitle"
+                       required />
+                <div ng-show="editForm.jobTitle.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.jobTitle.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.jobPostingInfo.organizatinName" for="field_organizatinName">OrganizatinName</label>
+                <input type="text" class="form-control" name="organizatinName" id="field_organizatinName"
+                       ng-model="jobPostingInfo.organizatinName"
+                       required />
+                <div ng-show="editForm.organizatinName.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.organizatinName.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.jobPostingInfo.jobNature" for="field_jobNature">jobNature</label>
+                <select class="form-control" id="field_jobNature" name="jobNature" ng-model="jobPostingInfo.jobNature" ng-options="jobType as jobType.name for jobType in jobtypes track by jobType.id">
+                    <option value="Select Job Type"></option>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.jobPostingInfo.jobVacancy" for="field_jobVacancy">JobVacancy</label>
+                <input type="text" class="form-control" name="jobVacancy" id="field_jobVacancy"
+                       ng-model="jobPostingInfo.jobVacancy"
+                       required />
+                <div ng-show="editForm.jobVacancy.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.jobVacancy.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.jobPostingInfo.salaryRange" for="field_salaryRange">SalaryRange</label>
+                <input type="text" class="form-control" name="salaryRange" id="field_salaryRange"
+                       ng-model="jobPostingInfo.salaryRange"
+                       required />
+                <div ng-show="editForm.salaryRange.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.salaryRange.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.jobPostingInfo.jobSource" for="field_jobSource">JobSource</label>
+                <input type="text" class="form-control" name="jobSource" id="field_jobSource"
+                       ng-model="jobPostingInfo.jobSource"
+                       required />
+                <div ng-show="editForm.jobSource.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.jobSource.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.jobPostingInfo.publishedDate" for="field_publishedDate">PublishedDate</label>
+                <!--<input type="date" class="form-control" name="publishedDate" id="field_publishedDate"
+                        ng-model="jobPostingInfo.publishedDate"
+                         />-->
+                <div class="input-margin">
+                    <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.publishedDate"
+                           datepicker-options="calendar.dateOptions" close-text="Close"
+                           ng-click="calendar.open($event, 'publishedDate')" class="form-control" name="publishedDate"
+                           id="field_publishedDate"
+                           ng-model="jobPostingInfo.publishedDate"
+                           required/>
+
+                    <div ng-show="editForm.publishedDate.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.publishedDate.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.jobPostingInfo.applicationDateLine" for="field_applicationDateLine">ApplicationDateLine</label>
+                <!--<input type="date" class="form-control" name="applicationDateLine" id="field_applicationDateLine"
+                        ng-model="jobPostingInfo.applicationDateLine"
+                         />-->
+                <div class="input-margin">
+                    <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.applicationDateLine"
+                           datepicker-options="calendar.dateOptions" close-text="Close"
+                           ng-click="calendar.open($event, 'applicationDateLine')" class="form-control" name="applicationDateLine"
+                           id="field_applicationDateLine"
+                           ng-model="jobPostingInfo.applicationDateLine"
+                           required/>
+
+                    <div ng-show="editForm.applicationDateLine.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.applicationDateLine.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.jobPostingInfo.jobDescription" for="field_jobDescription">JobDescription</label>
+                <textarea id="textJobDescription" cols="20" rows="5" my-maxlength="5" class="form-control" name="jobDescription" id="field_jobDescription"
+                          ng-model="jobPostingInfo.jobDescription"
+                          required />
+                <div ng-show="editForm.jobDescription.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.jobDescription.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!--<div class="form-group">
+            <label translate="stepApp.jobPostingInfo.jobFileName" for="field_jobFileName">JobFileName</label>
+            <input type="text" class="form-control" name="jobFileName" id="field_jobFileName"
+                    ng-model="jobPostingInfo.jobFileName"
+                     />
+        </div>-->
+
+
+       <!-- <div class="form-group" ngf-drop ngf-change="setUpload($file, jobPostingInfo)">
+            <label translate="stepApp.jobPostingInfo.upload" for="field_upload">Upload</label>
+            <div>
+                <div class="help-block clearfix">
+                    <span class="pull-left">{{jobPostingInfo.uploadContentType}} {{byteSize(jobPostingInfo.upload)}}</span>
+                    <button ng-click="jobPostingInfo.upload=null;jobPostingInfo.uploadContentType=null;"
+                            ng-if="jobPostingInfo.upload"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="file" ngf-select class="btn btn-default btn-block"
+                        ngf-change="setUpload($file, jobPostingInfo)" translate="entity.action.addblob">
+                    Add blob
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="upload" id="field_upload"
+                    ng-model="jobPostingInfo.upload"
+                     />
+            <input type="hidden" class="form-control" name="uploadContentType" id="field_uploadContentType"
+                    ng-model="jobPostingInfo.uploadContentType" />
+        </div>-->
+        <!-- Starting--------------------------------------->
+        <div class="col-md-6">
+            <div class="form-group" ngf-drop ngf-change="setContentImage($file, jobPostingInfo)">
+                <div class="col-sm-12">
+                    <label class="control-label" translate="stepApp.jobPostingInfo.upload" for="field_Upload">
+                        Upload</label>
+                    <div>
+                        <div class="help-block clearfix">
+                    <span
+                        class="pull-left">{{jobPostingInfo.uploadContentType}} {{byteSize(jobPostingInfo.upload)}}</span>
+
+                            <button ng-click="jobPostingInfo.upload=null; jobPostingInfo.uploadContentType=null;"
+                                    ng-if="jobPostingInfo.upload"
+                                    class="btn btn-default btn-xs pull-right">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </div>
+
+                        <div class="col-md-9 no_padding">
+                            <input type="text" readonly class="form-control" name="jobFileName"
+                                   ng-model="jobPostingInfo.uploadedFileName"/>
+
+                        </div>
+                        <div class="col-md-3 no_padding">
+                            <button type="file"
+                                    ngf-select class="btn btn-default btn-block"
+                                    ngf-change="setContentImage($file, jobPostingInfo)"
+                                    accept="{{allowedFileTypes}}"
+                                    ng-show="!fileUploadFinished"
+                                    translate="entity.action.addblob">
+                            </button>
+                        </div>
+                        <div class="col-md-2"
+                             ng-show="jobPostingInfo.jobFileName!=null && jobPostingInfo.upload.id!=null">
+                            <a class="download-afl btn btn-primary" href="/assets/JobPostingContent/jobPostingInfo/{{jobPostingInfo.jobFileName}}"
+
+                               class="btn btn-primary" download>Download
+                            </a>
+                        </div>
+
+                        <input type="hidden" class="form-control" name="upload" id="field_upload"
+                               ng-model="jobPostingInfo.uploadedFileName"
+                            />
+                        <input type="hidden" class="form-control" name="uploadContentType" id="field_uploadContentType"
+                               ng-model="jobPostingInfo.uploadContentType"
+                            />
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <!--Ending ------------------------------------------>
+        <!--<div class="form-group">
+            <label translate="stepApp.jobPostingInfo.createDate" for="field_createDate">CreateDate</label>
+            <input type="date" class="form-control" name="createDate" id="field_createDate"
+                    ng-model="jobPostingInfo.createDate"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.jobPostingInfo.createBy" for="field_createBy">CreateBy</label>
+            <input type="number" class="form-control" name="createBy" id="field_createBy"
+                    ng-model="jobPostingInfo.createBy"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.jobPostingInfo.updateBy" for="field_updateBy">UpdateBy</label>
+            <input type="number" class="form-control" name="updateBy" id="field_updateBy"
+                    ng-model="jobPostingInfo.updateBy"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.jobPostingInfo.updateDate" for="field_updateDate">UpdateDate</label>
+            <input type="date" class="form-control" name="updateDate" id="field_updateDate"
+                    ng-model="jobPostingInfo.updateDate"
+                     />
+        </div>-->
+
+
+    </div>
+    <div class="modal-footer col-sm-12 no_padding">
+        <!--<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>-->
+        <div class="col-md-12">
+            <button type="button" class="btn btn-default" class="btn " data-dismiss="modal" onclick="window.history.back()">
+                <i class="fa fa-angle-double-left"></i>&nbsp;<span translate="entity.action.back">Back</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+            </button>
+        </div>
+
+    </div>
+</form>
+</div>

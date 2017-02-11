@@ -1,0 +1,314 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="saveProfile()" show-validation>
+        <div class="panel-body">
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.jpEmployee.nameRecom" for="field_jp_name">Name</label>
+                <input type="text" class="form-control" name="name" id="field_jp_name" required=""
+                       ng-model="jpEmployee.name"
+                       ng-maxlength="50"/>
+
+                <div ng-show="editForm.name.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.name.$error.maxlength" translate="entity.validation.maxlength"
+                       translate-value-max="50">
+                        This field cannot be longer than 50 characters.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.jpEmployee.fatherName" for="field_fatherName">FatherName</label>
+                <input type="text" class="form-control" name="fatherName" id="field_fatherName"
+                       ng-model="jpEmployee.fatherName" required=""
+                       ng-maxlength="50"/>
+
+                <div ng-show="editForm.fatherName.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.fatherName.$error.maxlength" translate="entity.validation.maxlength"
+                       translate-value-max="50">
+                        This field cannot be longer than 50 characters.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.jpEmployee.motherName" for="field_motherName">MotherName</label>
+                <input type="text" class="form-control" name="motherName" id="field_motherName"
+                       ng-model="jpEmployee.motherName" required=""
+                       ng-maxlength="50"/>
+
+                <div ng-show="editForm.motherName.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.motherName.$error.maxlength" translate="entity.validation.maxlength"
+                       translate-value-max="50">
+                        This field cannot be longer than 50 characters.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.jpEmployee.gender" for="field_gender">Gender</label>
+                <select class="form-control" name="gender" ng-model="jpEmployee.gender" id="field_gender">
+                    <option >{{'stepApp.jpEmployee.gender' | translate}}</option>
+                    <option value="Male" translate="stepApp.EmployeeGender.Male">Male</option>
+                    <option value="Female" translate="stepApp.EmployeeGender.Female">Female</option>
+                    <option value="Other" translate="stepApp.EmployeeGender.Other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.jpEmployee.district" for="field_district">Home District</label>
+                <select class="form-control" id="field_district" name="district" required ng-model="jpEmployee.district"
+                        ng-options="district as district.name for district in districts track by district.id">
+                    <option value="">Select District</option>
+                </select>
+
+            </div>
+            <!--district as district.name for district in districts track by district.id-->
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.jpEmployee.presentAddressRecom"
+                       for="field_presentAddress">PresentAddress</label>
+            <textarea class="form-control" name="presentAddress" id="field_presentAddress"
+                      ng-model="jpEmployee.presentAddress"
+            ></textarea>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.jpEmployee.permanentAddressRecom"
+                       for="field_permanentAddress">PermanentAddress</label>
+            <textarea class="form-control" name="permanentAddress" id="field_permanentAddress"
+                      ng-model="jpEmployee.permanentAddress" required=""
+            ></textarea>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.jpEmployee.dobRecom" for="field_dob">Dob</label>
+                <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.dob" required=""
+                       datepicker-options="calendar.dateOptions" close-text="Close"
+                       ng-click="calendar.open($event, 'dob')" class="form-control" name="dob" id="field_dob"
+                       ng-model="jpEmployee.dob"/>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.jpEmployee.maritialStatus"
+                       for="field_maritialStatus">MaritialStatus</label>
+                <select class="form-control" name="maritialStatus" ng-model="jpEmployee.maritialStatus"
+                        id="field_maritialStatus">
+                    <option value="Single" translate="stepApp.maritialStatus.Single">Single</option>
+                    <option value="Married" translate="stepApp.maritialStatus.Married">Married</option>
+                    <option value="Other" translate="stepApp.maritialStatus.Other">Other</option>
+                </select>
+            </div>
+            <!--<div class="form-group col-sm-6">
+                <label translate="stepApp.jpEmployee.nidNo" for="field_nidNo">NidNo</label>
+                <input type="text" class="form-control" name="nidNo" id="field_nidNo"
+                       ng-model="jpEmployee.nidNo"
+                       numeric-only
+                       ng-maxlength="17" maxlength="17"
+                       minlength="17"
+                       required/>
+
+                <div ng-show="editForm.nidNo.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.nidNo.$error.pattern" translate="entity.validation.invalidId">
+                        Number does not allow!
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.nidNo.$error.maxlength" translate="entity.validation.maxlength"
+                       translate-value-max="17">
+                        This field cannot be longer than 17 characters.
+                    </p>
+                </div>
+            </div>-->
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.jpEmployee.nidNo" for="field_nidNo">NidNo</label>
+                <input type="text" class="form-control" name="nidNo" id="field_nidNo"
+                       ng-model="jpEmployee.nidNo"
+                       maxlength="17"
+                       minlength="17"
+                />
+                <div ng-show="editForm.nidNo.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.nidNo.$error.maxlength" >
+                        This field cannot be longer than 17 digits.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.nidNo.$error.minlength" >
+                        This field cannot be smaller than 17 digits.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.jpEmployee.nationality" for="field_nationality">Nationality</label>
+                <input type="text" class="form-control" name="nationality" id="field_nationality"
+                       ng-pattern="/^[a-zA-Z ]*$/"
+                       ng-model="jpEmployee.nationality" required
+                />
+                <div ng-show="editForm.nationality.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.nationality.$error.pattern" translate="entity.validation.patternNotNum"
+                       translate-value-max="16">
+                        Number does not allow!
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.jpEmployee.mobileNo" for="field_mobileNo">MobileNo</label>
+                <input type="text" class="form-control" name="mobileNo" id="field_mobileNo"
+                       ng-model="jpEmployee.mobileNo"
+                       numeric-only
+                       ng-maxlength="13"/>
+
+                <div ng-show="editForm.mobileNo.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.mobileNo.$error.maxlength" translate="entity.validation.maxlength"
+                       translate-value-max="13">
+                        This field cannot be longer than 13 characters.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.jpEmployee.officePhone" for="field_officePhone">OfficePhone</label>
+                <input type="text" class="form-control" name="officePhone" id="field_officePhone" numeric-only
+                       ng-model="jpEmployee.officePhone"
+                       ng-maxlength="13"/>
+
+                <div ng-show="editForm.officePhone.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.officePhone.$error.maxlength" translate="entity.validation.maxlength"
+                       translate-value-max="13">
+                        This field cannot be longer than 13 characters.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.jpEmployee.emailRecom" for="field_email">Email</label>
+                <input type="email" class="form-control" name="email" id="field_email" required=""
+                       ng-model="jpEmployee.email"
+                       ng-maxlength="30"/>
+
+                <!--<div ng-show="editForm.email.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.email.$error.maxlength" translate="entity.validation.maxlength"
+                       translate-value-max="30">
+                        This field cannot be longer than 30 characters.
+                    </p>
+                </div>-->
+                <div ng-show="editForm.email.$dirty && editForm.email.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.email.$error.required" translate="global.messages.validate.email.required">
+                        Your e-mail is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.email.$error.email" translate="global.messages.validate.email.invalid">
+                        Your e-mail is invalid.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.email.$error.minlength" translate="global.messages.validate.email.minlength">
+                        Your e-mail is required to be at least 5 characters.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.email.$error.maxlength" translate="global.messages.validate.email.maxlength">
+                        Your e-mail cannot be longer than 30 characters.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.jpEmployee.alternativeMail"
+                       for="field_alternativeMail">AlternativeMail</label>
+                <input type="email" class="form-control" name="alternativeMail" id="field_alternativeMail"
+                       ng-model="jpEmployee.alternativeMail"
+                       ng-maxlength="30"/>
+
+                <div ng-show="editForm.alternativeMail.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.alternativeMail.$error.maxlength" translate="entity.validation.maxlength"
+                       translate-value-max="30">
+                        This field cannot be longer than 30 characters.
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.jpEmployee.availibilityType"
+                       for="field_availibilityType">AvailibilityType</label>
+                <select class="form-control" name="availibilityType" ng-model="jpEmployee.availibilityType"
+                        id="field_availibilityType">
+                    <option value="Full_Time" translate="stepApp.EmployeeAvailability.Full_Time">Full_Time</option>
+                    <option value="Part_Time" translate="stepApp.EmployeeAvailability.Part_Time">Part_Time</option>
+                    <option value="Salary_Based" translate="stepApp.EmployeeAvailability.Salary_Based">
+                        Salary_Based
+                    </option>
+                    <option value="Commission_Based" translate="stepApp.EmployeeAvailability.Commission_Based">
+                        Commission_Based
+                    </option>
+                    <option value="Project_Based" translate="stepApp.EmployeeAvailability.Project_Based">
+                        Project_Based
+                    </option>
+                </select>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.jpEmployee.religion" for="field_religion">religion</label>
+                <select class="form-control" id="field_religion" name="religion" ng-model="jpEmployee.religion"
+                        ng-options="religion as religion.name for religion in religions track by religion.id">
+                    <option value=""></option>
+                </select>
+            </div>
+            <div class="form-group col-sm-12">
+                <label translate="stepApp.jpEmployee.objective" for="field_objective">Objective</label>
+            <textarea class="form-control" name="objective" id="field_objective"
+                      ng-model="jpEmployee.objective"
+                      ng-maxlength="200"></textarea>
+
+                <div ng-show="editForm.objective.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.objective.$error.maxlength" translate="entity.validation.maxlength"
+                       translate-value-max="200">
+                        This field cannot be longer than 200 characters.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <img ng-if="url" ng-src="{{url}}" class="img-responsive" alt="Image">
+                <div class="form-group" ngf-drop ngf-change="setPicture($file, jpEmployee)">
+                    <label translate="stepApp.jpEmployee.picture" for="field_picture">Picture</label>
+
+                    <div>
+                        <div class="help-block clearfix">
+                            <!--<span class="pull-left">{{jpEmployee.cvContentType}} {{byteSize(jpEmployee.cv)}}</span>-->
+                            <button ng-click="jpEmployee.picture=null;"
+                                    ng-if="jpEmployee.picture"
+                                    class="btn btn-default btn-xs pull-right">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </div>
+                        <button type="file"  ngf-select class="btn btn-default" accept="image/*"
+                                ngf-change="setPicture($file, jpEmployee)" translate="entity.action.addImage">
+                            Add blob
+                        </button>
+                    </div>
+                    <input type="hidden" class="form-control" name="picture" id="field_picture"
+                           ng-model="jpEmployee.cv"
+                    />
+                </div>
+                <div style="color:red" ng-if="fileRequired == null">
+                    <p style="color:red">
+                        Image require
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="col-sm-12 text-right">
+                <!--<button type="button" class="btn btn-default" ng-click="changeProfileMode(true)" ui-sref="resume">-->
+                <button type="button" class="btn btn-default" ng-click="cancel()">
+                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                    translate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted || fileRequired ==null" class="btn btn-primary">
+                    <!--<span class="glyphicon glyphicon-save"></span>&nbsp;-->
+                    <span ng-show="jpEmployee.id == null" translate="entity.action.save">Save</span>
+                    <span ng-show="jpEmployee.id != null" translate="entity.action.update">Save</span>
+                </button>
+            </div>
+        </div>
+
+    </form>
+</div>

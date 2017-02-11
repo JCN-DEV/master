@@ -1,0 +1,1139 @@
+<div class="col-sm-12 no_padding custom-form common-dialogue">
+    <form ng-show="currentStep == 'one'" name="editForm2" role="form" novalidate ng-submit="risNext('two')"
+          show-validation>
+        <h4 class="modal-title" id="myRisNewAppFormLabel" translate="stepApp.risNewAppForm.home.createOrEditLabel">
+            Create or edit a RisNewAppForm</h4>
+        <div class="modal-body col-sm-12 padding-tb">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label col-sm-12 no_padding" translate="stepApp.risNewAppForm.circularNo"
+                           for="field_circularNo">CircularNo</label>
+                    <select class="form-control" id="field_circularNo" name="circularNo"
+                            ng-click="getPosition(risNewAppForm.circularNo)"
+                            ng-model="risNewAppForm.circularNo"
+                            ng-options="circular as circular.CIRCULARNO for circular in circulars"
+                            required>
+                        <option value="">Select Circular Number</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.risNewAppForm.designation" for="field_designation">Designation</label>
+                    <select class="form-control" id="field_Designation" name="designation"
+                            ng-model="risNewAppForm.designation"
+                            ng-options="designation as designation.POSITION for designation in pos"
+                            required>
+                        <option value="">Select Designation</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group" ngf-drop ngf-change="setApplicantImg($file, risNewAppForm)">
+                    <div class="col-sm-12 no_padding">
+                        <label translate="stepApp.risNewAppForm.applicantImg"
+                               for="field_applicantImg">ApplicantImg</label>
+                        <div>
+                            <div class="help-block clearfix">
+                                <span class="pull-left">{{risNewAppForm.applicantImgContentType}} {{byteSize(risNewAppForm.applicantImg)}}</span>
+                                <button
+                                    ng-click="risNewAppForm.applicantImg=null; risNewAppForm.applicantImgContentType=null;"
+                                    ng-if="risNewAppForm.applicantImg"
+                                    class="btn btn-default btn-xs pull-right">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                            </div>
+
+                            <!--<div class="col-md-9 padding-left0">
+                                <input type="text" readonly class="form-control" name="applicantImgName"
+                                       ng-model="risNewAppForm.applicantImgName"/>
+                            </div>
+                            <div class="col-md-3 no_padding">
+                                <button type="file"
+                                        ngf-select class="btn btn-default btn-block"
+                                        ngf-change="setApplicantImg($file, risNewAppForm)"
+                                        accept=".jpeg,.png,.jpg"
+                                        ng-show="!fileUploadFinished"
+                                        translate="entity.action.addblob">
+                                </button>
+                            </div>-->
+                            <div class="input-group">
+                                <input type="text" readonly name="applicantImgName"
+                                       ng-model="risNewAppForm.applicantImgName" class="form-control"
+                                       placeholder="Search for...">
+                              <span class="input-group-btn">
+                                <button ngf-select ngf-change="setApplicantImg($file, risNewAppForm)"
+                                        accept=".jpeg,.png,.jpg"
+                                        ng-show="!fileUploadFinished"
+                                        translate="entity.action.addblob" class="btn btn-default" type="button">Go!
+                                </button>
+                              </span>
+                            </div>
+                            <div class="col-md-2"
+                                 ng-show="risNewAppForm.applicantImgName!=null && risNewAppForm.applicantImg.id!=null">
+                                <a class="download-afl btn btn-primary"
+                                   href="assets/dlms/{{risNewAppForm.applicantImgName}}" class="btn btn-primary"
+                                   download>Download
+                                </a>
+                            </div>
+                            <input type="hidden" class="form-control" name="applicantImg" id="field_applicantImg"
+                                   ng-model="risNewAppForm.applicantImg"
+                            />
+                            <input type="hidden" class="form-control" name="applicantImgContentType"
+                                   id="field_applicantImgContentType"
+                                   ng-model="risNewAppForm.applicantImgContentType"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.risNewAppForm.applicationDate"
+                           for="field_applicationDate">ApplicationDate</label>
+                    <div class="input-margin">
+                        <input type="text" datepicker-popup="{{calendar.dateFormat}}"
+                               is-open="calendar.opened.applicationDate"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               ng-click="calendar.open($event, 'applicationDate')" class="form-control"
+                               name="applicationDate" id="field_applicationDate"
+                               ng-model="risNewAppForm.applicationDate"
+                               required/>
+                        <div ng-show="editForm2.applicationDate.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm2.applicationDate.$error.required"
+                               translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.risNewAppForm.applicantsNameBn" for="field_applicantsNameBn">ApplicantsNameBn</label>
+                    <input type="text" class="form-control" name="applicantsNameBn" id="field_applicantsNameBn"
+                           ng-model="risNewAppForm.applicantsNameBn"
+                           required/>
+                    <div ng-show="editForm2.applicantsNameBn.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm2.applicantsNameBn.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.risNewAppForm.applicantsNameEn" for="field_applicantsNameEn">ApplicantsNameEn</label>
+                    <input type="text" class="form-control" name="applicantsNameEn" id="field_applicantsNameEn"
+                           ng-model="risNewAppForm.applicantsNameEn"
+                           required/>
+                    <div ng-show="editForm2.applicantsNameEn.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm2.applicantsNameEn.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.risNewAppForm.nationalId" for="field_nationalId">NationalId</label>
+                    <input type="number" class="form-control" name="nationalId" id="field_nationalId"
+                           ng-model="risNewAppForm.nationalId" ng-minlength="17" ng-maxlength="17"
+                           required
+                    />
+                    <div ng-show="editForm2.nationalId.$invalid">
+                        <p class="help-block2" ng-show="editForm2.nationalId.$error.required"
+                           translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                        <p class="help-block2" ng-show="editForm2.nationalId.$error.minlength">
+                            Please enter 17 digits valid NID number
+                        </p>
+                        <p class="help-block2" ng-show="editForm2.nationalId.$error.maxlength">
+                            Please enter 17 digits valid NID number
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.risNewAppForm.birthCertificateNo" for="field_birthCertificateNo">BirthCertificateNo</label>
+                    <input type="number" class="form-control" name="birthCertificateNo" id="field_birthCertificateNo"
+                           ng-model="risNewAppForm.birthCertificateNo"
+                           required maxlength="17" minlength="17"/>
+                    <div ng-show="editForm2.birthCertificateNo.$invalid">
+                        <p class="help-block2"
+                           ng-show="editForm2.birthCertificateNo.$error.required"
+                           translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                        <p class="help-block2"
+                           ng-show="editForm2.birthCertificateNo.$error.number" translate="entity.validation.number">
+                            This field should be a number.
+                        </p>
+                        <p class="help-block2" ng-show="editForm2.birthCertificateNo.$error.minlength">
+                            Please enter 17 digits valid Birth Certificate number
+                        </p>
+                        <p class="help-block2" ng-show="editForm2.birthCertificateNo.$error.maxlength">
+                            Please enter 17 digits valid Birth Certificate number
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.risNewAppForm.birthDate" for="field_birthDate">BirthDate</label>
+                    <div class="input-margin">
+                        <input type="text" date='dd-MM-yyyy' ng-change="amarDate(risNewAppForm.birthDate)"
+                               datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.birthDate"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               ng-click="calendar.open($event, 'birthDate')" class="form-control" name="birthDate"
+                               id="field_birthDate"
+                               ng-model="risNewAppForm.birthDate"
+                               required value="{{ risNewAppForm.birthDate | date : 'dd.MM.y'}}"/>
+                        <div ng-show="editForm2.birthDate.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm2.birthDate.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                        <div>
+                            {{birthError}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--district birth place here -->
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.risNewAppForm.district" for="field_district">district</label>
+                    <select class="form-control" id="field_district" name="district"
+                            ng-model="risNewAppForm.district"
+                            ng-options="district as district.name for district in districts track by district.id">
+                        <option value=""></option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.risNewAppForm.age" for="field_age">Age</label>
+                    <input type="text" class="form-control" name="age" id="field_age"
+                           ng-model="risNewAppForm.age"
+                           required readonly/>
+                    <div ng-show="editForm2.age.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm2.age.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.risNewAppForm.fathersName" for="field_fathersName">FathersName</label>
+                    <input type="text" class="form-control" name="fathersName" id="field_fathersName"
+                           ng-model="risNewAppForm.fathersName"
+                           required/>
+                    <div ng-show="editForm2.fathersName.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm2.fathersName.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.risNewAppForm.mothersName" for="field_mothersName">MothersName</label>
+                    <input type="text" class="form-control" name="mothersName" id="field_mothersName"
+                           ng-model="risNewAppForm.mothersName"
+                           required/>
+                    <div ng-show="editForm2.mothersName.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm2.mothersName.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-sm-12">
+                <label translate="stepApp.risNewAppForm.Quota" for="field_qouta">Quota</label>
+                <div class="radio">
+                    <label><input type="radio" name="qouta" ng-model="risNewAppForm.qouta"
+                                  value="{{'stepApp.risNewAppForm.QuotaFreedom' | translate}}"><span>{{'stepApp.risNewAppForm.QuotaFreedom' | translate}}</span></label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="qouta" ng-model="risNewAppForm.qouta"
+                                  value="{{'stepApp.risNewAppForm.QuotaDisable' | translate}}"><span>{{'stepApp.risNewAppForm.QuotaDisable' | translate}}</span></label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="qouta" ng-model="risNewAppForm.qouta"
+                                  value="'stepApp.risNewAppForm.QuotaTribal' | translate"><span>{{'stepApp.risNewAppForm.QuotaTribal' | translate}}</span></label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="qouta" ng-model="risNewAppForm.qouta"
+                                  value="stepApp.risNewAppForm.QuotaAnsar' | translate"><span>{{'stepApp.risNewAppForm.QuotaAnsar' | translate}}</span></label>
+                </div>
+
+                <div class="radio">
+                    <label><input type="radio" name="qouta" ng-model="risNewAppForm.qouta"
+                                  value="{{'stepApp.risNewAppForm.QuotaNone' | translate}}"><span>{{'stepApp.risNewAppForm.QuotaNone' | translate}}</span></label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="qouta" ng-model="risNewAppForm.qouta"
+                                  value="{{'stepApp.risNewAppForm.QuotaOther' | translate}}"><span>{{'stepApp.risNewAppForm.QuotaOther' | translate}}</span></label>
+                </div>
+
+            </div>
+
+            <div ng-if="risNewAppForm.qouta == 'Other'" class="col-md-12">
+                <div class="form-group col-md-6">
+                    <input type="text" class="form-control" name="qouta" id="field_qouta"
+                           ng-model="risNewAppForm.OtherQuota"
+                           required/>
+
+                </div>
+            </div>
+
+
+            <div class="col-sm-12">
+                <hr>
+            </div>
+            <div class="col-sm-12">
+                <h3>Present Address Bangla</h3>
+            </div>
+            <!--gap here -->
+
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.risNewAppForm.holdingNameBnPresent" for="field_holdingNameBnPresent">HoldingNameBnPresent</label>
+                    <input type="text" class="form-control" name="holdingNameBnPresent" id="field_holdingNameBnPresent"
+                           ng-model="risNewAppForm.holdingNameBnPresent"
+                           required/>
+                    <div ng-show="editForm2.holdingNameBnPresent.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm2.holdingNameBnPresent.$error.required"
+                           translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.risNewAppForm.villageBnPresent" for="field_villageBnPresent">VillageBnPresent</label>
+                    <input type="text" class="form-control" name="villageBnPresent" id="field_villageBnPresent"
+                           ng-model="risNewAppForm.villageBnPresent"
+                           required/>
+                    <div ng-show="editForm2.villageBnPresent.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm2.villageBnPresent.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.risNewAppForm.unionBnPresent"
+                           for="field_unionBnPresent">UnionBnPresent</label>
+                    <input type="text" class="form-control" name="unionBnPresent" id="field_unionBnPresent"
+                           ng-model="risNewAppForm.unionBnPresent"
+                           required/>
+                    <div ng-show="editForm2.unionBnPresent.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm2.unionBnPresent.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.risNewAppForm.poBnPresent" for="field_poBnPresent">PoBnPresent</label>
+                    <input type="text" class="form-control" name="poBnPresent" id="field_poBnPresent"
+                           ng-model="risNewAppForm.poBnPresent"
+                           required/>
+                    <div ng-show="editForm2.poBnPresent.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm2.poBnPresent.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.risNewAppForm.poCodeBnPresent"
+                           for="field_poCodeBnPresent">PoCodeBnPresent</label>
+                    <input type="text" class="form-control" name="poCodeBnPresent" id="field_poCodeBnPresent"
+                           ng-model="risNewAppForm.poCodeBnPresent"
+                           required/>
+                    <div ng-show="editForm2.poCodeBnPresent.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm2.poCodeBnPresent.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <hr>
+                <h3>Permanent Address Bangla</h3>
+                <div><input type="checkbox" name="sameAddress" id="sameAddress"
+                            ng-model="risNewAppForm.sameBnAddress"
+                            ng-click="changeSameAddress(risNewAppForm.sameBnAddress)"><span>&nbsp;</span><label
+                    translate="stepApp.risNewAppForm.sameAsPresentAdd">Same as present Address</label></div>
+            </div>
+            <!--bangla present address ends here and bangla permanent address start from here-->
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.risNewAppForm.holdingNameBnPermanent" for="field_holdingNameBnPermanent">HoldingNameBnPermanent</label>
+                    <input type="text" class="form-control" name="holdingNameBnPermanent"
+                           id="field_holdingNameBnPermanent"
+                           ng-model="risNewAppForm.holdingNameBnPermanent"
+                           required/>
+                    <div ng-show="editForm2.holdingNameBnPermanent.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm2.holdingNameBnPermanent.$error.required"
+                           translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.risNewAppForm.villageBnPermanent" for="field_villageBnPermanent">VillageBnPermanent</label>
+                    <input type="text" class="form-control" name="villageBnPermanent" id="field_villageBnPermanent"
+                           ng-model="risNewAppForm.villageBnPermanent"
+                           required/>
+                    <div ng-show="editForm2.villageBnPermanent.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm2.villageBnPermanent.$error.required"
+                           translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.risNewAppForm.unionBnPermanent" for="field_unionBnPermanent">UnionBnPermanent</label>
+                    <input type="text" class="form-control" name="unionBnPermanent" id="field_unionBnPermanent"
+                           ng-model="risNewAppForm.unionBnPermanent"
+                           required/>
+                    <div ng-show="editForm2.unionBnPermanent.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm2.unionBnPermanent.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.risNewAppForm.poBnPermanent"
+                           for="field_poBnPermanent">PoBnPermanent</label>
+                    <input type="text" class="form-control" name="poBnPermanent" id="field_poBnPermanent"
+                           ng-model="risNewAppForm.poBnPermanent"
+                           required/>
+                    <div ng-show="editForm2.poBnPermanent.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm2.poBnPermanent.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.risNewAppForm.poCodeBnPermanent" for="field_poCodeBnPermanent">PoCodeBnPermanent</label>
+                    <input type="text" class="form-control" name="poCodeBnPermanent" id="field_poCodeBnPermanent"
+                           ng-model="risNewAppForm.poCodeBnPermanent"
+                           required/>
+                    <div ng-show="editForm2.poCodeBnPermanent.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm2.poCodeBnPermanent.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <hr>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.risNewAppForm.contactPhone" for="field_contactPhone">ContactPhone</label>
+                    <input type="text" class="form-control" name="contactPhone" id="field_contactPhone"
+                           ng-model="risNewAppForm.contactPhone"
+                           required minlength="11"/>
+                    <div ng-show="editForm.contactPhone.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm2.contactPhone.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                        <p class="help-block"
+                           ng-show="editForm2.contactPhone.$error.number" translate="entity.validation.number">
+                            This field should be a number.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.risNewAppForm.email" for="field_email">Email</label>
+                    <input type="text" class="form-control" name="email" id="field_email"
+                           ng-model="risNewAppForm.email"
+                           required/>
+                    <div ng-show="editForm2.email.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm2.email.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.risNewAppForm.nationality" for="field_nationality">Nationality</label>
+                    <input type="text" class="form-control" name="nationality" id="field_nationality"
+                           ng-model="risNewAppForm.nationality"
+                           required/>
+                    <div ng-show="editForm2.nationality.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm2.nationality.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.risNewAppForm.profession" for="field_profession">Profession</label>
+                    <input type="text" class="form-control" name="profession" id="field_profession"
+                           ng-model="risNewAppForm.profession"
+                           required/>
+                    <div ng-show="editForm2.profession.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm2.profession.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.risNewAppForm.religion" for="field_religion">Religion</label>
+                    <select class="form-control" name="religion" ng-model="risNewAppForm.religion" id="field_religion"
+                            required>
+                        <option value="Islam" translate="stepApp.Religions.Islam">Islam</option>
+                        <option value="Hinduism" translate="stepApp.Religions.Hinduism">Hinduism</option>
+                        <option value="Christianity" translate="stepApp.Religions.Christian">Christianity</option>
+                        <option value="Buddhism" translate="stepApp.Religions.Buddhism">Buddhism</option>
+                    </select>
+                    <div ng-show="editForm2.religion.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm2.religion.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <hr>
+                <hr>
+                <h3>Present Address</h3>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.risNewAppForm.holdingNameEnPresent" for="field_holdingNameEnPresent">HoldingNameEnPresent</label>
+                    <input type="text" class="form-control" name="holdingNameEnPresent" id="field_holdingNameEnPresent"
+                           ng-model="risNewAppForm.holdingNameEnPresent"
+                           required/>
+                    <div ng-show="editForm2.holdingNameEnPresent.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm2.holdingNameEnPresent.$error.required"
+                           translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.risNewAppForm.villageEnPresent" for="field_villageEnPresent">VillageEnPresent</label>
+                    <input type="text" class="form-control" name="villageEnPresent" id="field_villageEnPresent"
+                           ng-model="risNewAppForm.villageEnPresent"
+                           required/>
+                    <div ng-show="editForm2.villageEnPresent.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm2.villageEnPresent.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.risNewAppForm.unionEnPresent"
+                           for="field_unionEnPresent">UnionEnPresent</label>
+                    <input type="text" class="form-control" name="unionEnPresent" id="field_unionEnPresent"
+                           ng-model="risNewAppForm.unionEnPresent"
+                           required/>
+                    <div ng-show="editForm2.unionEnPresent.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm2.unionEnPresent.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.risNewAppForm.poEnPresent" for="field_poEnPresent">PoEnPresent</label>
+                    <input type="text" class="form-control" name="poEnPresent" id="field_poEnPresent"
+                           ng-model="risNewAppForm.poEnPresent"
+                           required/>
+                    <div ng-show="editForm2.poEnPresent.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm2.poEnPresent.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.risNewAppForm.poCodeEnPresent"
+                           for="field_poCodeEnPresent">PoCodeEnPresent</label>
+                    <input type="text" class="form-control" name="poCodeEnPresent" id="field_poCodeEnPresent"
+                           ng-model="risNewAppForm.poCodeEnPresent"
+                           required/>
+                    <div ng-show="editForm2.poCodeEnPresent.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm2.poCodeEnPresent.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!--present ends here permanent starts here-->
+            <div class="col-sm-12">
+                <hr>
+                <h3>Permanent Address</h3>
+                <div><input type="checkbox" name="sameAddress" id="sameAddress"
+                            ng-model="risNewAppForm.sameAddress"
+                            ng-click="changeEnSameAddress(risNewAppForm.sameAddress)"><span>&nbsp;</span><label
+                    translate="stepApp.risNewAppForm.sameAsPresentAdd">Same as present Address</label></div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.risNewAppForm.holdingNameEnPermanent" for="field_holdingNameEnPermanent">HoldingNameEnPermanent</label>
+                    <input type="text" class="form-control" name="holdingNameEnPermanent"
+                           id="field_holdingNameEnPermanent"
+                           ng-model="risNewAppForm.holdingNameEnPermanent"
+                           required/>
+                    <div ng-show="editForm2.holdingNameEnPermanent.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm2.holdingNameEnPermanent.$error.required"
+                           translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.risNewAppForm.villageEnPermanent" for="field_villageEnPermanent">VillageEnPermanent</label>
+                    <input type="text" class="form-control" name="villageEnPermanent" id="field_villageEnPermanent"
+                           ng-model="risNewAppForm.villageEnPermanent"
+                           required/>
+                    <div ng-show="editForm2.villageEnPermanent.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm2.villageEnPermanent.$error.required"
+                           translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.risNewAppForm.unionEnPermanent" for="field_unionEnPermanent">UnionEnPermanent</label>
+                    <input type="text" class="form-control" name="unionEnPermanent" id="field_unionEnPermanent"
+                           ng-model="risNewAppForm.unionEnPermanent"
+                           required/>
+                    <div ng-show="editForm2.unionEnPermanent.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm2.unionEnPermanent.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.risNewAppForm.poEnPermanent"
+                           for="field_poEnPermanent">PoEnPermanent</label>
+                    <input type="text" class="form-control" name="poEnPermanent" id="field_poEnPermanent"
+                           ng-model="risNewAppForm.poEnPermanent"
+                           required/>
+                    <div ng-show="editForm2.poEnPermanent.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm2.poEnPermanent.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.risNewAppForm.poCodeEnPermanent" for="field_poCodeEnPermanent">PoCodeEnPermanent</label>
+                    <input type="text" class="form-control" name="poCodeEnPermanent" id="field_poCodeEnPermanent"
+                           ng-model="risNewAppForm.poCodeEnPermanent"
+                           required/>
+                    <div ng-show="editForm2.poCodeEnPermanent.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm2.poCodeEnPermanent.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <hr>
+            </div>
+            <!--<div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.risNewAppForm.createDate" for="field_createDate">CreateDate</label>
+                    <div class="input-margin">
+                        <input type="text" datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.createDate"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               ng-click="calendar.open($event, 'createDate')" class="form-control" name="createDate" id="field_createDate"
+                               ng-model="risNewAppForm.createDate"
+                               required />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.risNewAppForm.createBy" for="field_createBy">CreateBy</label>
+                    <input type="number" class="form-control" name="createBy" id="field_createBy"
+                            ng-model="risNewAppForm.createBy"
+                             />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.risNewAppForm.updateDate" for="field_updateDate">UpdateDate</label>
+                    <input type="text" datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.updateDate"
+                           datepicker-options="calendar.dateOptions" close-text="Close"
+                           ng-click="calendar.open($event, 'updateDate')" class="form-control" name="updateDate" id="field_updateDate"
+                           ng-model="risNewAppForm.updateDate"
+                           required />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group ">
+                    <label translate="stepApp.risNewAppForm.updateBy" for="field_updateBy">UpdateBy</label>
+                    <input type="number" class="form-control" name="updateBy" id="field_updateBy"
+                            ng-model="risNewAppForm.updateBy"
+                             />
+                </div>
+            </div>-->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.risNewAppForm.upazila" for="field_upazila">upazila</label>
+                    <select class="form-control" id="field_upazila" name="upazila" ng-model="risNewAppForm.upazila"
+                            ng-options="upazila as upazila.name for upazila in upazilas track by upazila.id">
+                        <option value=""></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer col-sm-12">
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                translate="entity.action.cancel">Cancel</span>
+            </button>
+            <!--<button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+            </button>-->
+            <button type="submit" ng-required="true" class="btn btn-primary"
+                    ng-disabled="editForm2.$invalid || editForm2.$submitted">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.next">Next</span>
+            </button>
+        </div>
+    </form>
+</div>
+<form ng-show="currentStep == 'two'" class="col-sm-12 no_padding custom-form common-dialogue" name="editForm"
+      role="form" novalidate show-validation>
+    <h4 class="modal-title" id="myRisNewAppFormTwoLabel"
+        translate="stepApp.risNewAppFormTwo.home.createOrEditLabel">Create or edit a RisNewAppFormTwo</h4>
+    <div class="modal-body col-sm-12 padding-tb">
+        <div class="col-sm-12" ng-repeat="item in items track by $index">
+            <h3 translate="stepApp.risNewAppFormTwo.educationQuali" class="text-center ris-heading">Educational
+                Qualification</h3>
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.risNewAppFormTwo.examName" for="field_examName">ExamName</label>
+                <select class="form-control" id="field_examName" name="examName" ng-model="item.examName" required>
+                    <option value="">Select Education</option>
+                    <option value="S.S.C(VOC)">S.S.C/VOC/DAKHIL</option>
+                    <option value="H.S.C(ALIM)">H.S.C/ALIM</option>
+                    <option value="B.Sc">B.Sc</option>
+                    <option value="Masters">Masters</option>
+                    <option value="Ph.D">Ph.D</option>
+                </select>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.risNewAppFormTwo.subject" for="field_subject">Subject</label>
+                <input type="text" class="form-control" name="subject" id="field_subject"
+                       ng-model="item.subject"
+                />
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.risNewAppFormTwo.educationalInstitute" for="field_educationalInstitute">EducationalInstitute</label>
+                <input type="text" class="form-control" name="educationalInstitute" id="field_educationalInstitute"
+                       ng-model="item.educationalInstitute"
+                />
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.risNewAppFormTwo.passingYear" for="field_passingYear">PassingYear</label>
+                <input type="number" class="form-control" name="passingYear" id="field_passingYear"
+                       ng-model="item.passingYear"
+                />
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.risNewAppFormTwo.boardUniversity"
+                       for="field_boardUniversity">BoardUniversity</label>
+                <input type="text" class="form-control" name="boardUniversity" id="field_boardUniversity"
+                       ng-model="item.boardUniversity"
+                />
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.risNewAppFormTwo.additionalInformation" for="field_additionalInformation">AdditionalInformation</label>
+                <input type="text" class="form-control" name="additionalInformation" id="field_additionalInformation"
+                       ng-model="item.additionalInformation"
+                />
+            </div>
+
+
+            <div class="col-sm-12 text-right no_padding"
+                 ng-show="items.length > 1 && $index > 0" ng-click="items.splice($index, 1)">
+                <button type="button" class="btn btn-danger">
+                    <span class="glyphicon glyphicon-plus"></span>&nbsp;<span
+                    translate="entity.action.remove">Remove</span>
+                </button>
+            </div>
+        </div>
+
+        <div style="margin-top:15px;" class="col-sm-12 text-right">
+            <button ng-click="add()" type="button" class="btn btn-default">
+                <span class="glyphicon glyphicon-plus"></span>&nbsp;<span
+                translate="entity.action.addMore">addMore</span>
+            </button>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.risNewAppFormTwo.experience" for="field_experience">Experience</label>
+            <input type="text" class="form-control" name="experience" id="field_experience"
+                   ng-model="item.experience"
+            />
+        </div>
+
+
+        <!--<div class="col-sm-12" ng-repeat="item in items track by $index">
+            sa
+            <label for="field_question">Question</label>
+                <textarea type="text" class="form-control" name="question" id="field_question"
+                          ng-model="item.question"
+                          required rows="5"></textarea>
+
+            <div ng-show="editForm.question.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.question.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.questionSubmit.marks" for="field_marks">Marks</label>
+            <input type="number" class="form-control" name="marks" id="field_marks"
+                   ng-model="item.marks"
+            />
+        </div>
+    </div>
+    <div class="form-group col-sm-6">
+        <a class="btn btn-success" ng-click="add()">Add More Questions and Marks</a>
+    </div>-->
+
+
+        <div class="col-sm-12 clear-fix text-center">
+            <h3 class="ris-heading">Financial Document</h3>
+        </div>
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.risNewAppFormTwo.bankDraftNo" for="field_bankDraftNo">BankDraftNo</label>
+            <input type="text" class="form-control" name="bankDraftNo" id="field_bankDraftNo"
+                   ng-model="risNewAppFormTwo.bankDraftNo"
+            />
+        </div>
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.risNewAppFormTwo.dateFinDocument"
+                   for="field_dateFinDocument">DateFinDocument</label>
+            <input type="text" datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.dateFinDocument"
+                   datepicker-options="calendar.dateOptions" close-text="Close"
+                   ng-click="calendar.open($event, 'dateFinDocument')" class="form-control" name="dateFinDocument"
+                   id="field_dateFinDocument"
+                   ng-model="risNewAppFormTwo.dateFinDocument"
+                   required/>
+        </div>
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.risNewAppFormTwo.bankName" for="field_bankName">BankName</label>
+            <input type="text" class="form-control" name="bankName" id="field_bankName"
+                   ng-model="risNewAppFormTwo.bankName"
+            />
+        </div>
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.risNewAppFormTwo.branchName" for="field_branchName">BranchName</label>
+            <input type="text" class="form-control" name="branchName" id="field_branchName"
+                   ng-model="risNewAppFormTwo.branchName"
+            />
+        </div>
+
+        <!--<div class="form-group col-sm-6">
+            <label translate="stepApp.dlContTypeSet.pStatus" for="field_pStatus">PStatus</label>
+            <div id="field_pStatus">
+                <label  class="radio-inline">
+                    <input type="radio" name="pStatus" value="true" ng-checked="(dlContTypeSet.pStatus == true || dlContTypeSet.pStatus == null)"
+                           ng-model="dlContTypeSet.pStatus">
+                    <span translate="entity.action.activate">Active</span>
+                </label>
+                <label class="radio-inline"><input type="radio" name="pStatus"  value="false" ng-checked="(dlContTypeSet.pStatus == false && dlContTypeSet.pStatus != null)"  ng-model="dlContTypeSet.pStatus"><span translate="entity.action.deactivate">Deactive</span></label>
+            </div>
+        </div>-->
+
+
+        <!--<div class="form-group col-sm-6" ngf-drop ngf-change="setBankInvoice($file, risNewAppFormTwo)">
+            <label translate="stepApp.risNewAppFormTwo.bankInvoice" for="field_bankInvoice">BankInvoice</label>
+            <div>
+                <div class="help-block clearfix">
+                    <span class="pull-left">{{risNewAppFormTwo.bankInvoiceContentType}} {{byteSize(risNewAppFormTwo.bankInvoice)}}</span>
+                    <button ng-click="risNewAppFormTwo.bankInvoice=null;risNewAppFormTwo.bankInvoiceContentType=null;"
+                            ng-if="risNewAppFormTwo.bankInvoice"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="file" ngf-select class="btn btn-default btn-block"
+                        ngf-change="setBankInvoice($file, risNewAppFormTwo)" translate="entity.action.addblob">
+                    Add blob
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="bankInvoice" id="field_bankInvoice"
+                   ng-model="risNewAppFormTwo.bankInvoice"
+            />
+            <input type="hidden" class="form-control" name="bankInvoiceContentType" id="field_bankInvoiceContentType"
+                   ng-model="risNewAppFormTwo.bankInvoiceContentType" />
+        </div>-->
+
+        <div class="form-group col-sm-6" ngf-drop ngf-change="setBankInvoice($file, risNewAppFormTwo)">
+            <div class="col-sm-12 no_padding">
+                <label translate="stepApp.risNewAppFormTwo.bankInvoice" for="field_bankInvoice">BankInvoice</label>
+                <div>
+                    <div class="help-block clearfix">
+                        <span class="pull-left">{{risNewAppFormTwo.bankInvoiceContentType}} {{byteSize(risNewAppFormTwo.bankInvoice)}}</span>
+                        <button
+                            ng-click="risNewAppFormTwo.bankInvoice=null;risNewAppFormTwo.bankInvoiceContentType=null;"
+                            ng-if="risNewAppFormTwo.bankInvoice"
+                            class="btn btn-default btn-xs pull-right">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </div>
+
+                    <div class="col-md-9 padding-left0">
+                        <input type="text" readonly class="form-control" name="bankInvoiceName"
+                               ng-model="risNewAppFormTwo.bankInvoiceName"/>
+
+                    </div>
+                    <div class="col-md-3 no_padding">
+                        <button type="file"
+                                ngf-select class="btn btn-default btn-block"
+                                ngf-change="setBankInvoice($file, risNewAppFormTwo)"
+                                accept=".jpeg,.png,.jpg"
+                                ng-show="!fileUploadFinished"
+                                translate="entity.action.addblob">
+                        </button>
+                    </div>
+                    <div class="col-md-2"
+                         ng-show="risNewAppFormTwo.bankInvoiceName!=null && risNewAppFormTwo.bankInvoice.id!=null">
+                        <a class="download-afl btn btn-primary" href="assets/dlms/{{risNewAppFormTwo.bankInvoiceName}}"
+                           class="btn btn-primary" download>Download
+                        </a>
+                    </div>
+                    <input type="hidden" class="form-control" name="signature" id="field_bankInvoice"
+                           ng-model="risNewAppFormTwo.bankInvoice"
+                    />
+                    <input type="hidden" class="form-control" name="signatureContentType"
+                           id="field_bankInvoiceContentType"
+                           ng-model="risNewAppFormTwo.bankInvoiceContentType"/>
+                </div>
+            </div>
+        </div>
+
+
+        <!--<div class="form-group col-sm-6" ngf-drop ngf-change="setSignature($file, risNewAppFormTwo)">
+            <label translate="stepApp.risNewAppFormTwo.signature" for="field_signature">Signature</label>
+            <div>
+                <div class="help-block clearfix">
+                    <span class="pull-left">{{risNewAppFormTwo.signatureContentType}} {{byteSize(risNewAppFormTwo.signature)}}</span>
+                    <button ng-click="risNewAppFormTwo.signature=null;risNewAppFormTwo.signatureContentType=null;"
+                            ng-if="risNewAppFormTwo.signature"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="file" ngf-select class="btn btn-default btn-block"
+                        ngf-change="setSignature($file, risNewAppFormTwo)" translate="entity.action.addblob">
+                    Add blob
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="signature" id="field_signature"
+                   ng-model="risNewAppFormTwo.signature"
+            />
+            <input type="hidden" class="form-control" name="signatureContentType" id="field_signatureContentType"
+                   ng-model="risNewAppFormTwo.signatureContentType" />
+        </div>-->
+
+
+        <div class="form-group col-sm-6" ngf-drop ngf-change="setSignature($file, risNewAppFormTwo)">
+            <div class="col-sm-12 no_padding">
+                <label translate="stepApp.risNewAppFormTwo.signature" for="field_signature">Signature</label>
+
+                <div>
+                    <div class="help-block clearfix">
+                        <span class="pull-left">{{risNewAppFormTwo.signatureContentType}} {{byteSize(risNewAppFormTwo.signature)}}</span>
+                        <button ng-click="risNewAppFormTwo.signature=null;risNewAppFormTwo.signatureContentType=null;"
+                                ng-if="risNewAppFormTwo.signature"
+                                class="btn btn-default btn-xs pull-right">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </div>
+
+                    <div class="col-md-9 padding-left0">
+                        <input type="text" readonly class="form-control" name="signatureImgName"
+                               ng-model="risNewAppFormTwo.signatureImgName"/>
+
+                    </div>
+                    <div class="col-md-3 no_padding">
+                        <button type="file"
+                                ngf-select class="btn btn-default btn-block"
+                                ngf-change="setSignature($file, risNewAppFormTwo)"
+                                accept=".jpeg,.png,.jpg"
+                                ng-show="!fileUploadFinished"
+                                translate="entity.action.addblob">
+                        </button>
+                    </div>
+                    <div class="col-md-2"
+                         ng-show="risNewAppFormTwo.signatureImgName!=null && risNewAppFormTwo.signature.id!=null">
+                        <a class="download-afl btn btn-primary" href="assets/dlms/{{risNewAppFormTwo.signatureImgName}}"
+                           class="btn btn-primary" download>Download
+                        </a>
+                    </div>
+                    <input type="hidden" class="form-control" name="signature" id="field_signature"
+                           ng-model="risNewAppFormTwo.signature"
+                    />
+                    <input type="hidden" class="form-control" name="signatureContentType"
+                           id="field_signatureContentType"
+                           ng-model="risNewAppFormTwo.signatureContentType"/>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label class="control-label col-sm-12 no_padding" translate="stepApp.risNewAppFormTwo.departmentalCandidate"
+                   for="field_departmentalCandidate">DepartmentalCandidate</label>
+            <!--<input type="text" class="form-control" name="departmentalCandidate"
+                   id="field_departmentalCandidate"
+                    ng-model="risNewAppFormTwo.departmentalCandidate"
+                     />-->
+            <input id="field_departmentalCandidate"
+                   ng-model="risNewAppFormTwo.departmentalCandidate"
+                   type="radio"
+                   value="yes"
+                   name="departmentalCandidate"
+                   ng-checked="(risNewAppFormTwo.departmentalCandidate == Yes || risNewAppFormTwo.departmentalCandidate == null)"
+            >Yes
+            <input ng-model="risNewAppFormTwo.departmentalCandidate" type="radio" name="departmentalCandidate"
+                   value="No"
+                   ng-checked="(risNewAppFormTwo.departmentalCandidate == No || risNewAppFormTwo.departmentalCandidate == null)"
+            >No
+            <input ng-model="risNewAppFormTwo.departmentalCandidate" type="radio" name="departmentalCandidate"
+                   value="N/A"
+                   ng-checked="(risNewAppFormTwo.departmentalCandidate == N/A || risNewAppFormTwo.departmentalCandidate == null)"
+            >N/A
+
+
+        </div>
+        <div class="col-sm-12 clear-fix">
+            <hr>
+        </div>
+        <!-- <div class="form-group col-sm-6">
+             <label translate="stepApp.risNewAppFormTwo.createdDate" for="field_createdDate">CreatedDate</label>
+             <input type="text" datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.createdDate"
+                    datepicker-options="calendar.dateOptions" close-text="Close"
+                    ng-click="calendar.open($event, 'createdDate')" class="form-control" name="createdDate" id="field_createdDate"
+                    ng-model="risNewAppFormTwo.createdDate"
+                    required />
+         </div>
+         <div class="form-group col-sm-6">
+             <label translate="stepApp.risNewAppFormTwo.updatedDate" for="field_updatedDate">UpdatedDate</label>
+
+             <input type="text" datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.updatedDate"
+                    datepicker-options="calendar.dateOptions" close-text="Close"
+                    ng-click="calendar.open($event, 'updatedDate')" class="form-control" name="updatedDate" id="field_updatedDate"
+                    ng-model="risNewAppFormTwo.updatedDate"
+                    required />
+         </div>
+         <div class="form-group col-sm-6">
+             <label translate="stepApp.risNewAppFormTwo.createdBy" for="field_createdBy">CreatedBy</label>
+             <input type="number" class="form-control" name="createdBy" id="field_createdBy"
+                    ng-model="risNewAppFormTwo.createdBy"
+             />
+         </div>
+         <div class="form-group col-sm-6">
+             <label translate="stepApp.risNewAppFormTwo.updatedBy" for="field_updatedBy">UpdatedBy</label>
+             <input type="number" class="form-control" name="updatedBy" id="field_updatedBy"
+                    ng-model="risNewAppFormTwo.updatedBy"
+             />
+         </div>
+         <div class="form-group col-sm-6">
+             <label translate="stepApp.risNewAppFormTwo.status" for="field_status">Status</label>
+             <input type="number" class="form-control" name="status" id="field_status"
+                    ng-model="risNewAppFormTwo.status"
+             />
+         </div>-->
+
+    </div>
+    {{editForm.$submitted}}
+    {{editForm.$invalid}}
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+            translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-click="save()" ng-disabled="editForm.$invalid || editForm.$submitted"
+                class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

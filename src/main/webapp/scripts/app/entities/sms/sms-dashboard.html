@@ -1,0 +1,68 @@
+<div>
+    <h2 translate="stepApp.smsServiceComplaint.home.dashboardtitle">Complain Dashboard</h2>
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <form name="searchForm" class="form-inline">
+                    <select ng-hide="true" ng-change="searchByDeparment(smsServiceComplaint.smsServiceDepartment)" class="form-control" id="field_smsServiceDepartment" name="smsServiceDepartment" ng-model="smsServiceComplaint.smsServiceDepartment" ng-options="smsServiceDepartment as smsServiceDepartment.name for smsServiceDepartment in smsservicedepartments track by smsServiceDepartment.id">
+                        <option value="">Select Department</option>
+                    </select>
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr >
+                <th><span translate="stepApp.smsServiceComplaint.complaintCode">ComplaintCode</span></th>
+                <th><span translate="stepApp.smsServiceComplaint.priority">Priority</span></th>
+                <th><span translate="stepApp.smsServiceComplaint.complaintName">ComplaintName</span> </th>
+                <th><span translate="stepApp.smsServiceComplaint.smsServiceName">smsServiceName</span> </th>
+                <th><span translate="stepApp.smsServiceComplaint.smsServiceDepartment">smsServiceDepartment</span></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="smsServiceComplaint in smsServiceComplaints track by smsServiceComplaint.id">
+                <td>{{smsServiceComplaint.complaintCode}}</td>
+                <td translate="{{'stepApp.priority.' + smsServiceComplaint.priority}}">{{smsServiceComplaint.priority}}</td>
+                <td>{{smsServiceComplaint.complaintName}}</td>
+                <td>
+                    <a ui-sref="smsServiceName.detail({id:smsServiceComplaint.smsServiceName.id})">{{smsServiceComplaint.smsServiceName.serviceName}}</a>
+                </td>
+                <td>
+                    <a ui-sref="smsServiceDepartment.detail({id:smsServiceComplaint.smsServiceDepartment.id})">{{smsServiceComplaint.smsServiceDepartment.name}}</a>
+                </td>
+                <td align="right">
+                    <button type="submit" ui-sref="smsServiceComplaint.detail({id:smsServiceComplaint.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                    <button ng-hide="true" type="submit" ui-sref="smsServiceComplaint.edit({id:smsServiceComplaint.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit" ui-sref="smsServiceReply.new({id:smsServiceComplaint.id})"
+                            class="btn btn-warning btn-sm">
+                        <span translate="stepApp.smsServiceComplaint.replyButton">Reply</span>
+                    </button>
+                    <button type="submit" ui-sref="smsServiceForward.new({id:smsServiceComplaint.id})"
+                            class="btn btn-warning btn-sm">
+                        <span translate="stepApp.smsServiceComplaint.forwardButton">Forward</span>
+                    </button>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

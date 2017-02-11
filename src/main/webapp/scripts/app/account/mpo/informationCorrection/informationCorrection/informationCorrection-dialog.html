@@ -1,0 +1,110 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myInformationCorrectionLabel" translate="stepApp.informationCorrection.home.createOrEditLabel">Create or edit a InformationCorrection</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="informationCorrection.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.informationCorrection.dob" for="field_dob">Dob</label>
+            <input type="date" class="form-control" name="dob" id="field_dob"
+                    ng-model="informationCorrection.dob"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.informationCorrection.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                    ng-model="informationCorrection.name"
+                    ng-maxlength="200" />
+            <div ng-show="editForm.name.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.name.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="200">
+                    This field cannot be longer than 200 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.informationCorrection.indexNo" for="field_indexNo">IndexNo</label>
+            <input type="text" class="form-control" name="indexNo" id="field_indexNo"
+                    ng-model="informationCorrection.indexNo"
+                    ng-maxlength="30" />
+            <div ng-show="editForm.indexNo.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.indexNo.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="30">
+                    This field cannot be longer than 30 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.informationCorrection.bankAccountNo" for="field_bankAccountNo">BankAccountNo</label>
+            <input type="text" class="form-control" name="bankAccountNo" id="field_bankAccountNo"
+                    ng-model="informationCorrection.bankAccountNo"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.informationCorrection.adForwarded" for="field_adForwarded">AdForwarded</label>
+            <input type="checkbox" class="form-control" name="adForwarded" id="field_adForwarded"
+                    ng-model="informationCorrection.adForwarded"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.informationCorrection.dgFinalApproval" for="field_dgFinalApproval">DgFinalApproval</label>
+            <input type="checkbox" class="form-control" name="dgFinalApproval" id="field_dgFinalApproval"
+                    ng-model="informationCorrection.dgFinalApproval"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.informationCorrection.createdDate" for="field_createdDate">CreatedDate</label>
+            <input type="date" class="form-control" name="createdDate" id="field_createdDate"
+                    ng-model="informationCorrection.createdDate"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.informationCorrection.modifiedDate" for="field_modifiedDate">ModifiedDate</label>
+            <input type="date" class="form-control" name="modifiedDate" id="field_modifiedDate"
+                    ng-model="informationCorrection.modifiedDate"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.informationCorrection.directorComment" for="field_directorComment">DirectorComment</label>
+            <input type="text" class="form-control" name="directorComment" id="field_directorComment"
+                    ng-model="informationCorrection.directorComment"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.informationCorrection.status" for="field_status">Status</label>
+            <input type="number" class="form-control" name="status" id="field_status"
+                    ng-model="informationCorrection.status"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.informationCorrection.instEmployee" for="field_instEmployee">instEmployee</label>
+            <select class="form-control" id="field_instEmployee" name="instEmployee" ng-model="informationCorrection.instEmployee" ng-options="instEmployee as instEmployee.name for instEmployee in instemployees track by instEmployee.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.informationCorrection.instEmplDesignation" for="field_instEmplDesignation">instEmplDesignation</label>
+            <select class="form-control" id="field_instEmplDesignation" name="instEmplDesignation" ng-model="informationCorrection.instEmplDesignation" ng-options="instEmplDesignation as instEmplDesignation.name for instEmplDesignation in instempldesignations track by instEmplDesignation.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

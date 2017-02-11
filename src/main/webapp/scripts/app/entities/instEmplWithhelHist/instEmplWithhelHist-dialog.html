@@ -1,0 +1,108 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myInstEmplWithhelHistLabel" translate="stepApp.instEmplWithhelHist.home.createOrEditLabel">Create or edit a InstEmplWithhelHist</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="instEmplWithhelHist.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmplWithhelHist.withheldAmount" for="field_withheldAmount">WithheldAmount</label>
+            <input type="number" class="form-control" name="withheldAmount" id="field_withheldAmount"
+                    ng-model="instEmplWithhelHist.withheldAmount"
+                    required />
+            <div ng-show="editForm.withheldAmount.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.withheldAmount.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.withheldAmount.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmplWithhelHist.startDate" for="field_startDate">StartDate</label>
+            <input type="date" class="form-control" name="startDate" id="field_startDate"
+                    ng-model="instEmplWithhelHist.startDate"
+                    required />
+            <div ng-show="editForm.startDate.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.startDate.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmplWithhelHist.stopDate" for="field_stopDate">StopDate</label>
+            <input type="date" class="form-control" name="stopDate" id="field_stopDate"
+                    ng-model="instEmplWithhelHist.stopDate"
+                    required />
+            <div ng-show="editForm.stopDate.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.stopDate.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmplWithhelHist.createdDate" for="field_createdDate">CreatedDate</label>
+            <input type="date" class="form-control" name="createdDate" id="field_createdDate"
+                    ng-model="instEmplWithhelHist.createdDate"
+                    required />
+            <div ng-show="editForm.createdDate.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.createdDate.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmplWithhelHist.modifiedDate" for="field_modifiedDate">ModifiedDate</label>
+            <input type="date" class="form-control" name="modifiedDate" id="field_modifiedDate"
+                    ng-model="instEmplWithhelHist.modifiedDate"
+                    required />
+            <div ng-show="editForm.modifiedDate.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.modifiedDate.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmplWithhelHist.status" for="field_status">Status</label>
+            <input type="number" class="form-control" name="status" id="field_status"
+                    ng-model="instEmplWithhelHist.status"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmplWithhelHist.remark" for="field_remark">Remark</label>
+            <input type="text" class="form-control" name="remark" id="field_remark"
+                    ng-model="instEmplWithhelHist.remark"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.instEmplWithhelHist.instEmployee" for="field_instEmployee">instEmployee</label>
+            <select class="form-control" id="field_instEmployee" name="instEmployee" ng-model="instEmplWithhelHist.instEmployee" ng-options="instEmployee as instEmployee.name for instEmployee in instemployees track by instEmployee.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

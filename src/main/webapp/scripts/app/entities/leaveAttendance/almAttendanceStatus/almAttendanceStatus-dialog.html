@@ -1,0 +1,121 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+<!--
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"                 ng-click="clear()">&times;</button>
+-->
+        <h4 ng-show="almAttendanceStatus.id == null" class="modal-title" id="myAlmAttendanceStatusLabel" translate="stepApp.almAttendanceStatus.home.createOrEditLabel">Create or edit a AlmAttendanceStatus</h4>
+        <h4 ng-show="almAttendanceStatus.id != null" class="modal-title" id="myAlmAttendanceStatusLabel" translate="stepApp.almAttendanceStatus.home.EditLabel">Create or edit a AlmAttendanceStatus</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+
+        <div class="row">
+            <div class="form-group col-sm-4">
+                <label translate="stepApp.almAttendanceStatus.attendanceStatusName" for="field_attendanceStatusName">AttendanceStatusName</label>
+
+                <input type="text" class="form-control" name="attendanceStatusName" id="field_attendanceStatusName"
+                       ng-model="almAttendanceStatus.attendanceStatusName"
+                       ng-remote-validate="/api/almAttendanceStatuss/checkname/"
+                       ng-remote-method="GET"
+                       ng-remote-throttle="500"
+                       required />
+                <span class="message" ng-show="editForm.attendanceStatusName.$pending">validating...</span>
+                <div ng-show="editForm.attendanceStatusName.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.attendanceStatusName.$error.ngRemoteValidate">
+                        Status Name already exists
+                    </p>
+                </div>
+                <div ng-show="editForm.attendanceStatusName.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.attendanceStatusName.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-sm-4">
+                <label translate="stepApp.almAttendanceStatus.attendanceCode" for="field_attendanceCode">AttendanceCode</label>
+
+                <input type="text" class="form-control" name="attendanceCode" id="field_attendanceCode"
+                       ng-model="almAttendanceStatus.attendanceCode"
+                       ng-remote-validate="/api/almAttendanceStatuss/checkCode/"
+                       ng-remote-method="GET"
+                       ng-remote-throttle="500"
+                       required />
+                <span class="message" ng-show="editForm.attendanceCode.$pending">validating...</span>
+                <div ng-show="editForm.attendanceCode.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.attendanceCode.$error.ngRemoteValidate">
+                        Code is already exists
+                    </p>
+                </div>
+                <div ng-show="editForm.attendanceCode.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.attendanceCode.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+
+
+            </div>
+            <div class="form-group col-sm-4">
+                <label translate="stepApp.almAttendanceStatus.shortCode" for="field_shortCode">ShortCode</label>
+
+                <input type="text" class="form-control" name="shortCode" id="field_shortCode"
+                       ng-model="almAttendanceStatus.shortCode"
+                       ng-remote-validate="/api/almAttendanceStatuss/checkShortCode/"
+                       ng-remote-method="GET"
+                       ng-remote-throttle="500"
+                       required />
+                <span class="message" ng-show="editForm.shortCode.$pending">validating...</span>
+                <div ng-show="editForm.shortCode.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.shortCode.$error.ngRemoteValidate">
+                        Code is already exists
+                    </p>
+                </div>
+                <div ng-show="editForm.shortCode.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.shortCode.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.almAttendanceStatus.description" for="field_description">Description</label>
+                <textarea type="text" class="form-control" name="description" id="field_description"
+                          ng-model="almAttendanceStatus.description"
+                    ></textarea>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.almAttendanceStatus.activeStatus" for="field_activeStatus">ActiveStatus</label>
+            <span class="form-control">
+                    <input type="radio" data-ng-model="almAttendanceStatus.activeStatus" name="activeStatus" checked="checked" data-ng-value="true">&nbsp;Active&nbsp;|&nbsp;
+                    <input type="radio" data-ng-model="almAttendanceStatus.activeStatus" name="activeStatus" data-ng-value="false">&nbsp;Inactive
+                </span>
+                <div ng-show="editForm.activeStatus.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default"  data-dismiss="modal" onclick="window.history.back()">
+            <i class="fa fa-angle-double-left"></i>&nbsp;<span translate="entity.action.back">Back</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

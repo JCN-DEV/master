@@ -1,0 +1,199 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="almOnDutyLeaveApp.id == null" class="modal-title" id="myAlmOnDutyLeaveAppLabel"
+            translate="stepApp.almOnDutyLeaveApp.home.createOrEditLabel">Create or edit a AlmOnDutyLeaveApp</h4>
+        <h4 ng-show="almOnDutyLeaveApp.id != null" class="modal-title" id="myAlmOnDutyLeaveAppLabel"
+            translate="stepApp.almOnDutyLeaveApp.home.EditLabel">Create or edit a AlmOnDutyLeaveApp</h4>
+        <div class="modal-body col-md-12 padding-tb">
+            <jh-alert-error></jh-alert-error>
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="form-group ">
+                        <label translate="stepApp.almEmpLeaveApplication.departmentName" for="field_almLeaveType">Employee
+                            Name</label>
+                        <span class="form-control">{{hrEmployeeInfo.fullName}}</span>
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group ">
+                        <label translate="stepApp.almEmpLeaveApplication.departmentName" for="field_almLeaveType">Department</label>
+                        <span class="form-control">{{departmentName}}</span>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="form-group ">
+                        <label translate="stepApp.almEmpLeaveApplication.designationName" for="field_almLeaveType">Designation</label>
+                        <span class="form-control">{{designationName}}</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group ">
+                        <label translate="stepApp.almEmpLeaveApplication.workAreaName"
+                               for="field_almLeaveType">workArea</label>
+                        <span class="form-control">{{workAreaName}}</span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group ">
+                        <label translate="stepApp.almOnDutyLeaveApp.almDutySide"
+                               for="field_almDutySide">almDutySide</label>
+                        <select class="form-control" id="field_almDutySide" name="almDutySide"
+                                ng-model="almOnDutyLeaveApp.almDutySide"
+                                ng-options="AlmDutySide as AlmDutySide.sideName for AlmDutySide in almdutysides track by AlmDutySide.id">
+                            <option value="">Select Site</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.almOnDutyLeaveApp.dutyDate" for="field_dutyDate">DutyDate</label>
+
+                        <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.dutyDate"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               ng-click="calendar.open($event, 'dutyDate')" class="form-control" name="dutyDate"
+                               id="field_dutyDate"
+                               ng-model="almOnDutyLeaveApp.dutyDate" required/>
+                        <div ng-show="editForm.dutyDate.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.dutyDate.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group ">
+                        <label translate="stepApp.almOnDutyLeaveApp.dutyInTimeHour" for="field_dutyInTimeHour">DutyInTimeHour</label>
+
+                        <select class="form-control" name="dutyInTimeHour" id="field_dutyInTimeHour"
+                                ng-options="hourOption for hourOption in hourData.hourOptions"
+                                ng-model="almOnDutyLeaveApp.dutyInTimeHour" required>
+                            <option selected="selected" value=""></option>
+                        </select>
+
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label translate="stepApp.almOnDutyLeaveApp.dutyInTimeMin" for="field_dutyInTimeMin">DutyInTimeMin</label>
+
+                        <select class="form-control" name="dutyInTimeMin" id="field_dutyInTimeMin"
+                                ng-options="minOption for minOption in minData.minOptions"
+                                ng-model="almOnDutyLeaveApp.dutyInTimeMin" required>
+                            <option selected="selected" value=""></option>
+                        </select>
+
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label translate="stepApp.almOnDutyLeaveApp.dutyOutTimeHour" for="field_dutyOutTimeHour">DutyOutTimeHour</label>
+
+                        <select class="form-control" name="dutyOutTimeHour" id="field_dutyOutTimeHour"
+                                ng-options="hourOption for hourOption in hourData.hourOptions"
+                                ng-model="almOnDutyLeaveApp.dutyOutTimeHour" required>
+                            <option selected="selected" value=""></option>
+                        </select>
+
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label translate="stepApp.almOnDutyLeaveApp.dutyOutTimeMin" for="field_dutyOutTimeMin">DutyOutTimeMin</label>
+                        <select class="form-control" name="dutyOutTimeMin" id="field_dutyOutTimeMin"
+                                ng-options="minOption for minOption in minData.minOptions"
+                                ng-model="almOnDutyLeaveApp.dutyOutTimeMin" required>
+                            <option selected="selected" value=""></option>
+                        </select>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group ">
+                        <label translate="stepApp.almOnDutyLeaveApp.isMoreDay" for="field_isMoreDay">isMoreDay</label>
+
+                 <span class="form-control">
+                    <input type="radio" data-ng-model="almOnDutyLeaveApp.isMoreDay" name="isMoreDay"
+                           data-ng-value="true">&nbsp;Yes&nbsp;|&nbsp;
+                    <input type="radio" data-ng-model="almOnDutyLeaveApp.isMoreDay" name="isMoreDay"
+                           data-ng-value="false">&nbsp;No
+                </span>
+                        <div ng-show="editForm.isMoreDay.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.isMoreDay.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6" ng-show="almOnDutyLeaveApp.isMoreDay">
+                    <div class="form-group ">
+                        <label translate="stepApp.almOnDutyLeaveApp.endDutyDate"
+                               for="field_endDutyDate">EndDutyDate</label>
+
+                        <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.endDutyDate"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               ng-click="calendar.open($event, 'endDutyDate')" class="form-control" name="endDutyDate"
+                               id="field_endDutyDate"
+                               ng-model="almOnDutyLeaveApp.endDutyDate"/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group ">
+                        <label translate="stepApp.almOnDutyLeaveApp.activeStatus"
+                               for="field_activeStatus">ActiveStatus</label>
+
+                 <span class="form-control">
+                    <input type="radio" data-ng-model="almOnDutyLeaveApp.activeStatus" name="activeStatus"
+                           data-ng-value="true">&nbsp;Active&nbsp;|&nbsp;
+                    <input type="radio" data-ng-model="almOnDutyLeaveApp.activeStatus" name="activeStatus"
+                           data-ng-value="false">&nbsp;Inactive
+                </span>
+                        <div ng-show="editForm.activeStatus.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group ">
+                        <label translate="stepApp.almOnDutyLeaveApp.reason" for="field_reason">Reason</label>
+                    <textarea type="text" class="form-control" name="reason" id="field_reason"
+                              ng-model="almOnDutyLeaveApp.reason"
+                    ></textarea>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.history.back()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="almOnDutyLeaveApp.id == null" translate="entity.action.save">Save</span>
+                <span ng-show="almOnDutyLeaveApp.id != null" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,228 @@
+<div class="col-md-12 common-list">
+    <h2 translate="stepApp.dlBookReturn.dlClearance">DlBookReturns</h2>
+
+    <div class="col-sm-12 padding-tb no-print">
+        <div class="col-md-6 col-lg-offset-3"
+             style="background:rgba(167, 165, 165, 0.22); padding: 5px; box-shadow: 0 2px 8px 0 rgba(0,0,0,0.2);margin-bottom: 10px">
+            <div class=" form-group">
+                <label translate="stepApp.dlBookReturn.studentId" for="field_issueId">IssueId</label>
+                <input type="number" class="form-control" name="issueId" id="field_issueId"
+                       ng-model="stuId" min="0" ng-blur="showDetail(stuId)"
+                       placeholder="Enter Student ID"
+                    />
+            </div>
+        </div>
+    </div>
+    <!-- <div class="col-sm-12 padding-bt no_padding">
+
+         <div class="col-md-6 no_padding">
+             <form name="searchForm" class="form-inline">
+                 <div class="form-group">
+                     <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery">
+                 </div>
+                 <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span>
+                 </button>
+             </form>
+         </div>
+         <div class="col-md-6 text-right no_padding">
+             <button class="btn btn-primary" ui-sref="libraryInfo.dlBookReturn.new">
+                 <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.dlBookReturn.home.createLabel">Create a new DlBookReturn</span>
+             </button>
+         </div>
+     </div>-->
+
+
+ <!--   <div class="col-sm-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="global.field.id">ID</th>
+                <th translate="stepApp.dlBookReturn.issueId">IssueId</th>
+                &lt;!&ndash;<th translate="stepApp.dlBookReturn.createdDate">CreatedDate</th>
+                <th translate="stepApp.dlBookReturn.updatedDate">UpdatedDate</th>
+                <th translate="stepApp.dlBookReturn.createdBy">CreatedBy</th>
+                <th translate="stepApp.dlBookReturn.updatedBy">UpdatedBy</th>&ndash;&gt;
+                <th translate="stepApp.dlBookReturn.status">Status</th>
+                <th translate="stepApp.dlBookReturn.receivedStatus">Status</th>
+                <th translate="stepApp.dlBookReturn.instEmployee">instEmployee</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr dir-paginate="dlBookReturn in dlBookClearance | filter:q | itemsPerPage: pageSize"
+                current-page="currentPage">
+                <td><a ui-sref="dlBookReturn.detail({id:dlBookReturn.id})">{{dlBookReturn.id}}</a></td>
+                <td>{{dlBookReturn.issueId}}</td>
+                &lt;!&ndash;<td>{{dlBookReturn.createdDate | date:'mediumDate'}}</td>
+                <td>{{dlBookReturn.updatedDate | date:'mediumDate'}}</td>
+                <td>{{dlBookReturn.createdBy}}</td>
+                <td>{{dlBookReturn.updatedBy}}</td>&ndash;&gt;
+                <td>{{dlBookReturn.status}}</td>
+                <td>
+                    <span style="background:#ff9999" ng-if="dlBookReturn.receivedStatus=='receivedWithFine'">Received With Fine</span>
+                    <span style="background:#ff4d4d" ng-if="dlBookReturn.receivedStatus=='receivedWithCompansationFine'">Received With Compansation & Fine</span>
+                    <span style="background:#00cc66" ng-if="dlBookReturn.receivedStatus=='received'">Received</span>
+                    <span style="background:#ff6666" ng-if="dlBookReturn.receivedStatus=='receivedWithCompensation'">Received with compansation</span>
+                    <span  style="background:#ff0000" ng-if="dlBookReturn.receivedStatus=='notReceived'">Not Received</span>
+
+                    </td>
+                <td>
+                    <a ui-sref="instEmployee.detail({id:dlBookReturn.instEmployee.id})">{{dlBookReturn.instEmployee.name}}</a>
+                </td>
+                <td class="text-right">
+                    <button type="submit"
+                            ui-sref="libraryInfo.dlBookReturn.detail({id:dlBookReturn.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="libraryInfo.dlBookReturn.edit({id:dlBookReturn.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                        translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="libraryInfo.dlBookReturn.delete({id:dlBookReturn.id})"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                        translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                     template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+
+        </nav>
+    </div>-->
+</div>
+
+
+<div ng-if="stuId" class="panel panel-default">
+    <div class="panel-body">
+        <div class="col-md-12">
+            <div class="receipt-head" style="text-align: center">
+                <h2>Library Final Clearance</h2>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <table style="width: 100%">
+                <tr>
+                    <td width=""><p>Student Name :{{dlBookClearance[0].dlBookIssue.sisStudentInfo.name}}</p></td>
+                    <td class="boxone"><p>Receipt No : 00000007</p></td>
+                </tr>
+                <tr>
+                    <td width=""><p>Student ID :{{dlBookClearance[0].dlBookIssue.sisStudentInfo.id}} </p></td>
+                    <td class="boxone"><p>Date : {{DateForRecipt | date:'mediumDate'}}</p></td>
+                </tr>
+                <tr>
+                    <td width=""><p>Institute Name :{{dlBookClearance[0].institute.name}} </p></td>
+                    <!--<td class="boxone"></td>-->
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-12">
+            <table class="table-value" style="width: 100%; margin: 20px 0px">
+                <tr style="background: #e5e5e5">
+                    <td>Serial No</td>
+                    <td>Requisition No</td>
+                    <td>Title</td>
+                    <td>Author</td>
+                    <td>Edition</td>
+                    <td>Status</td>
+                </tr>
+                <tr dir-paginate="dlBookReturn in dlBookClearance | filter:q | itemsPerPage: pageSize" current-page="currentPage">
+
+
+                    <td>{{$index+1}}</td>
+                    <td>{{dlBookReturn.dlBookIssue.id}}</td>
+                    <td>{{dlBookReturn.dlBookIssue.dlBookInfo.title}}</td>
+                    <td>{{dlBookReturn.dlBookIssue.dlBookInfo.authorName}}</td>
+                    <td>{{dlBookReturn.dlBookIssue.dlBookEdition.edition}}</td>
+                    <!--<td><span style="color:green">{{dlBookReturn.receivedStatus}}</span></td>-->
+                    <td>
+                        <span style="color:#ff9999" ng-if="dlBookReturn.receivedStatus=='receivedWithFine'">Received With Fine</span>
+                        <span style="color:#ff4d4d" ng-if="dlBookReturn.receivedStatus=='receivedWithCompensationFine'">Received With Compansation & Fine</span>
+                        <span style="color:#00cc66" ng-if="dlBookReturn.receivedStatus=='received'">Received</span>
+                        <span style="color:#ff6666" ng-if="dlBookReturn.receivedStatus=='receivedWithCompensation'">Received with compansation</span>
+                        <span  style="color:#ff0000" ng-if="dlBookReturn.receivedStatus=='notReceived'">Not Received</span>
+                    </td>
+
+                </tr>
+
+
+
+
+            </table>
+        </div>
+        <!--<div class="col-md-12 ">-->
+            <!--<table class="table_area" style="width: 100%; text-align: right">-->
+
+                <!--<tr >-->
+                    <!--<td width="80%">Total Amount of Fine :</td>-->
+                    <!--<td width="20%" class="box" style="border-top:none">50</td>-->
+                <!--</tr>-->
+                <!--<tr >-->
+                    <!--<td>Amount of Compensation:</td>-->
+                    <!--<td class="box">100</td>-->
+                <!--</tr>-->
+            <!--</table>-->
+        <!--</div>-->
+        <div class="col-md-12">
+            <div class="remark">
+                <h2 style="font-size: 15px; ">Remarks :</h2>
+                <div class="remark-text">
+                    <p> This note is served to inform that.<b style="color:red">{{dlBookClearance[0].dlBookIssue.sisStudentInfo.name}}</b>
+                       has no outstanding fees ormaterials for the library</p>
+                    <p><b>Thank You.</b></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12" style="text-align: right; margin-top: 30px">
+            <p><b>Authorize Signature:</b> _ _ _ _ _ _</p>
+        </div>
+    </div>
+    <button type="submit" onclick="window.print()" class="btn btn-info no-print">
+        <span class="glyphicon glyphicon-arrow-print"></span>&nbsp;<span translate="entity.action.print"> Print</span>
+    </button>
+</div>
+<style>
+    .receipt-head h2{
+        font-size: 15px;
+        color:#444;
+        text-transform: uppercase;
+    }
+    .first_col p{
+        border: 1px  solid #ddd;
+        border-bottom:none;
+        margin: 0;
+        padding: 5px;
+        text-align: center;
+    }
+    .box{
+        border: 1px solid #ddd;
+        text-align: center;
+        height: 25px;
+        width:184px;
+    }
+    .boxone{
+        width:184px;
+    }
+    .table_area tr td:first-child{
+        padding-right: 15px;
+    }
+    .table_area{
+        border-bottom: 1px solid #ddd;
+        border-top:1px solid #ddd;
+    }
+    .table-value tr td{
+        border: 1px solid #ddd;
+        text-align: center;
+    }
+    .remark-text{
+        border: 1px solid #888; padding: 15px;
+    }
+</style>
+

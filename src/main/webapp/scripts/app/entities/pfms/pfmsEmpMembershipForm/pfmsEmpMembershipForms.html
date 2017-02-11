@@ -1,0 +1,137 @@
+<div class="col-md-12 common-list">
+    <h2 class="panel-heading" translate="stepApp.pfmsEmpMembershipForm.home.title">pfmsEmpMembershipForms</h2>
+    <div class="col-md-12 padding-tb">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control"
+                   placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control"
+                   placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+        <div class="col-xs-4 no_padding text-right ">
+            <button class="btn btn-primary " ui-sref="pfmsEmpMembershipForm.new">
+                <span class="glyphicon glyphicon-plus"></span><span
+                translate="stepApp.pfmsEmpMembershipForm.home.createLabel">Create a new pfmsEmpMembershipForm</span>
+            </button>
+        </div>
+    </div>
+    <div class="modal fade" id="deletepfmsEmpMembershipFormConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(pfmsEmpMembershipForm.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p translate="stepApp.pfmsEmpMembershipForm.delete.question"
+                           translate-values="{id: '{{pfmsEmpMembershipForm.id}}'}">Are you sure you want to delete
+                            this pfmsEmpMembershipForm?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                            translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                            translate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="global.field.serial">Serial</th>
+                <th translate="stepApp.pfmsEmpMembershipForm.employeeInfo">employeeInfo</th>
+                <th translate="stepApp.pfmsEmpMembershipForm.isMinimumThreeYrs">IsMinimumThreeYrs</th>
+                <!--<th translate="stepApp.pfmsEmpMembershipForm.isMandatoryContribute">IsMandatoryContribute</th>-->
+                <th translate="stepApp.pfmsEmpMembershipForm.isAnotherContFund">IsAnotherContFund</th>
+                <!--<th translate="stepApp.pfmsEmpMembershipForm.fundName">FundName</th>-->
+                <!--<th translate="stepApp.pfmsEmpMembershipForm.isEmpFamily">IsEmpFamily</th>
+                <th translate="stepApp.pfmsEmpMembershipForm.percentOfDeduct">PercentOfDeduct</th>
+                <th translate="stepApp.pfmsEmpMembershipForm.isMoneySection">IsMoneySection</th>
+                <th translate="stepApp.pfmsEmpMembershipForm.nomineeName">NomineeName</th>
+                <th translate="stepApp.pfmsEmpMembershipForm.ageOfNominee">AgeOfNominee</th>
+                <th translate="stepApp.pfmsEmpMembershipForm.relationship">relationship</th>
+                <th translate="stepApp.pfmsEmpMembershipForm.nomineeAddress">NomineeAddress</th>
+                <th translate="stepApp.pfmsEmpMembershipForm.witnessNameOne">WitnessNameOne</th>
+                <th translate="stepApp.pfmsEmpMembershipForm.witnessMobileNoOne">WitnessMobileNoOne</th>
+                <th translate="stepApp.pfmsEmpMembershipForm.witnessAddressOne">WitnessAddressOne</th>
+                <th translate="stepApp.pfmsEmpMembershipForm.witnessNameTwo">WitnessNameTwo</th>
+                <th translate="stepApp.pfmsEmpMembershipForm.witnessMobileNoTwo">WitnessMobileNoTwo</th>
+                <th translate="stepApp.pfmsEmpMembershipForm.witnessAddressTwo">WitnessAddressTwo</th>
+                <th translate="stepApp.pfmsEmpMembershipForm.stationName">StationName</th>
+                <th translate="stepApp.pfmsEmpMembershipForm.applicationDate">ApplicationDate</th>
+                <th translate="stepApp.pfmsEmpMembershipForm.remarks">Remarks</th>-->
+                <th translate="stepApp.pfmsEmpMembershipForm.activeStatus">ActiveStatus</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr dir-paginate="pfmsEmpMembershipForm in pfmsEmpMembershipForms | filter:q | itemsPerPage: pageSize track by pfmsEmpMembershipForm.id"
+                current-page="currentPage">
+                <td>{{pageSize*(currentPage-1)+$index+1}}</td>
+                <!--<td><a ui-sref="pfmsEmpMembershipForm.detail({id:pfmsEmpMembershipForm.id})">{{pfmsEmpMembershipForm.id}}</a></td>-->
+                <td>
+                    <a ui-sref="HrEmployeeInfo.detail({id:pfmsEmpMembershipForm.employeeInfo.id})">{{pfmsEmpMembershipForm.employeeInfo.fullName}}</a>
+                </td>
+
+                <td>{{pfmsEmpMembershipForm.isMinimumThreeYrs ? 'Yes': 'No'}}</td>
+                <!--<td>{{pfmsEmpMembershipForm.isMandatoryContribute ? 'Mandatory': 'Willingly'}}</td>-->
+                <td>{{pfmsEmpMembershipForm.isAnotherContFund? 'Yes': 'No'}}</td>
+                <!--<td>{{pfmsEmpMembershipForm.fundName}}</td>-->
+                <!--<td>{{pfmsEmpMembershipForm.isEmpFamily ? 'Yes': 'No'}}</td>
+                <td>{{pfmsEmpMembershipForm.percentOfDeduct}}</td>
+                <td>{{pfmsEmpMembershipForm.isMoneySection? 'Money section': 'Staling section '}}</td>
+                <td>{{pfmsEmpMembershipForm.nomineeName}}</td>
+                <td>{{pfmsEmpMembershipForm.ageOfNominee}}</td>
+                <td>
+                    <a ui-sref="Relationship.detail({id:pfmsEmpMembershipForm.relationship.id})">{{pfmsEmpMembershipForm.relationship.name}}</a>
+                </td>
+                <td>{{pfmsEmpMembershipForm.nomineeAddress}}</td>
+                <td>{{pfmsEmpMembershipForm.witnessNameOne}}</td>
+                <td>{{pfmsEmpMembershipForm.witnessMobileNoOne}}</td>
+                <td>{{pfmsEmpMembershipForm.witnessAddressOne}}</td>
+                <td>{{pfmsEmpMembershipForm.witnessNameTwo}}</td>
+                <td>{{pfmsEmpMembershipForm.witnessMobileNoTwo}}</td>
+                <td>{{pfmsEmpMembershipForm.witnessAddressTwo}}</td>
+                <td>{{pfmsEmpMembershipForm.stationName}}</td>
+                <td>{{pfmsEmpMembershipForm.applicationDate | date:'mediumDate'}}</td>
+                <td>{{pfmsEmpMembershipForm.remarks}}</td>-->
+                <td>{{pfmsEmpMembershipForm.activeStatus ? 'Yes' : 'No'}}</td>
+
+                <td class="text-right">
+                    <button type="submit"
+                            ui-sref="pfmsEmpMembershipForm.detail({id:pfmsEmpMembershipForm.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span
+                        translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="pfmsEmpMembershipForm.edit({id:pfmsEmpMembershipForm.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                        translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit"
+                            ng-click="delete(pfmsEmpMembershipForm.id)"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                        translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+</div>

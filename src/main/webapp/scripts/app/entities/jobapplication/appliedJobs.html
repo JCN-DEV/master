@@ -1,0 +1,50 @@
+<div class="row">
+    <div class="col-md-3">
+        <ng-include src="'scripts/app/entities/jobPortal/jp-user-menu.html'"></ng-include>
+    </div>
+    <div class="col-md-9 common-list" ng-if="jobapplications.length > 0">
+        <h2 translate="stepApp.jobapplication.home.title">Jobapplications</h2>
+        <br>
+        <div class="col-md-12 table-responsive no_padding">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th translate="stepApp.job.title">Job Title</th>
+                    <th translate="stepApp.jobapplication.appliedDate">AppliedDate</th>
+                    <th translate="stepApp.jobapplication.applicantStatus">Status</th>
+                    <th translate="stepApp.job.applicationDeadline">Deadline</th>
+                    <!--    <th>Action</th>-->
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="jobapplication in jobapplications track by jobapplication.id | orderBy: jobapplication.appliedDate">
+                    <td><a ui-sref="job.detail({id:jobapplication.job.id})">{{jobapplication.job.cat.cat}}</a></td>
+                    <td>{{jobapplication.appliedDate | date:'mediumDate'}}</td>
+                    <td>{{jobapplication.applicantStatus}}</td>
+                    <td>{{jobapplication.job.applicationDeadline | date:'mediumDate'}}</td>
+                    <!--<td>
+                        <button type="submit"
+                                ng-click="delete(jobapplication.id)"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>-->
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-9" ng-if="jobapplications.length < 1">
+        <div class="col-sm-12">
+            <table class="table">
+                <tbody>
+                <tr class="jpResumeTable">
+                    <td>
+                        <h5>You did not apply for any job</h5>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

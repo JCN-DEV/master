@@ -1,0 +1,681 @@
+<div class="col-md-12 common-table">
+    <div class="col-md-12 no_padding" ng-show="!showApplicationButtion">
+        <h2 class="header-margin" translate="stepApp.mpo.nameCancellationDetails">Name Cancellation Application
+            Details </h2>
+        <br>
+        <div class="tab-3">
+            <tabset justified="true">
+                <tr>
+                    <button class="btn btn-primary alignright"
+                            ui-sref="nameCnclAppApprove({appid: timescaleId,apAll:apAll})" ng-show="showApproveButton">
+                        Approve
+                    </button>
+                </tr>
+                <tr>
+                    <button class="btn btn-primary alignright" ui-sref="nameCnclDeny({appid: timescaleId,apAll:apAll})"
+                            ng-show="showApproveButton">Decline
+                    </button>
+                </tr>
+                <tab heading="{{'stepApp.mpo.Profile' | translate}}" select="profile()">
+                    <div class="col-md-12 table-responsive no_padding">
+                        <table class="table table-striped">
+                            <!--<thead>
+                            <tr>
+                                <th translate="entity.detail.field">Field</th>
+                                <th translate="entity.detail.value">Value</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.employee.name">Name</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{employee.name}}</span>
+                                </td>
+                            </tr>
+                            &lt;!&ndash;<tr>
+                                <td>
+                                    <span translate="stepApp.employee.nameEnglish">NameEnglish</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{employee.nameEnglish}}</span>
+                                </td>
+                            </tr>&ndash;&gt;
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.employee.father">Father</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{employee.fatherName}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.employee.mother">Mother</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{employee.motherName}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.employee.presentAddress">PresentAddress</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{instEmpAddress.presentAddress}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.employee.permanentAddress">PermanentAddress</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{employee.permanentAddress}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.employee.gender">Gender</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static"
+                                          translate="{{'stepApp.Gender.' + employee.gender}}">{{employee.gender}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.employee.dob">Dob</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{employee.dob | date:'mediumDate'}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.employee.zipCode">ZipCode</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{employee.zipCode}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.employee.registrationCertificateSubject">RegistrationCertificateSubject</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{employee.registrationCertificateSubject}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.employee.registrationExamYear">RegistrationExamYear</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{employee.registrationExamYear}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span
+                                        translate="stepApp.employee.registrationCetificateNo">RegistrationCetificateNo</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{employee.registrationCetificateNo}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.employee.indexNo">IndexNo</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{employee.indexNo}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.employee.bankName">BankName</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{instEmplBankInfo.bankName}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.employee.bankBranch">BankBranch</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{instEmplBankInfo.bankBranch}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.employee.bankAccountNo">BankAccountNo</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{instEmplBankInfo.bankAccountNo}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.employee.designation">Designation</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{employee.instEmplDesignation.name}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.employee.subject">Subject</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{employee.subject}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.employee.salaryScale">SalaryScale</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{employee.salaryScale}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.employee.salaryCode">SalaryCode</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{employee.salaryCode}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.employee.monthlySalaryGovtProvided">MonthlySalaryGovtProvided</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{employee.monthlySalaryGovtProvided}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.employee.monthlySalaryInstituteProvided">MonthlySalaryInstituteProvided</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{employee.monthlySalaryInstituteProvided}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span
+                                        translate="stepApp.employee.gbResolutionReceiveDate">GbResolutionReceiveDate</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{employee.gbResolutionReceiveDate | date:'mediumDate'}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.employee.gbResolutionAgendaNo">GbResolutionAgendaNo</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{employee.gbResolutionAgendaNo}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.employee.circularPaperName">CircularPaperName</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{employee.circularPaperName}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span
+                                        translate="stepApp.employee.circularPublishedDate">CircularPublishedDate</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{employee.circularPublishedDate | date:'mediumDate'}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span
+                                        translate="stepApp.employee.recruitExamReceiveDate">RecruitExamReceiveDate</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{employee.recruitExamReceiveDate | date:'mediumDate'}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.employee.dgRepresentativeName">DgRepresentativeName</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{employee.dgRepresentativeName}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.employee.dgRepresentativeDesignation">DgRepresentativeDesignation</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{employee.dgRepresentativeDesignation}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span
+                                        translate="stepApp.employee.dgRepresentativeAddress">DgRepresentativeAddress</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{employee.dgRepresentativeAddress}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span
+                                        translate="stepApp.employee.boardRepresentativeName">BoardRepresentativeName</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{employee.boardRepresentativeName}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.employee.boardRepresentativeDesignation">BoardRepresentativeDesignation</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{employee.boardRepresentativeDesignation}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.employee.boardRepresentativeAddress">BoardRepresentativeAddress</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{employee.boardRepresentativeAddress}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.employee.recruitApproveGBResolutionDate">RecruitApproveGBResolutionDate</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{employee.recruitApproveGBResolutionDate | date:'mediumDate'}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span
+                                        translate="stepApp.employee.recruitPermitAgendaNo">RecruitPermitAgendaNo</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{employee.recruitPermitAgendaNo}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.employee.recruitmentDate">RecruitmentDate</span>
+                                </td>
+                                <td>
+                                    <span
+                                        class="form-control-static">{{employee.recruitmentDate | date:'mediumDate'}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span
+                                        translate="stepApp.employee.presentInstituteJoinDate">PresentInstituteJoinDate</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{employee.presentInstituteJoinDate | date:'mediumDate'}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.employee.presentPostJoinDate">PresentPostJoinDate</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{employee.presentPostJoinDate | date:'mediumDate'}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.employee.timeScaleGBResolutionDate">TimeScaleGBResolutionDate</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{employee.timeScaleGBResolutionDate | date:'mediumDate'}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.employee.totalJobDuration">TotalJobDuration</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{employee.totalJobDuration}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.employee.currentPositionJobDuration">CurrentPositionJobDuration</span>
+                                </td>
+                                <td>
+                                    <span class="form-control-static">{{employee.currentPositionJobDuration}}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.employee.manager">manager</span>
+                                </td>
+                                <td>
+                                    {{employee.manager.login}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.employee.institute">institute</span>
+                                </td>
+                                <td>
+                                    <a class="form-control-static"
+                                       ui-sref="institute.detail({id:employee.institute.id})">{{employee.institute.name}}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.employee.payScale">payScale</span>
+                                </td>
+                                <td>
+                    <span ng-repeat="payScale in employee.payScales">
+                        <a class="form-control-static" ui-sref="payScale.detail({id: {{payScale.id}}})">{{payScale.code}}</a>{{$last ? '' : ', '}}
+                    <span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span translate="stepApp.employee.user">user</span>
+                                </td>
+                                <td>
+                                    {{employee.user.login}}
+                                </td>
+                            </tr>-->
+                            <tr>
+                                <td class=""> {{'stepApp.employee.TrackID' | translate}}</td>
+                                <td>{{employee.code}}</td>
+                                <td class="">{{'stepApp.employee.nameEnglish' | translate}}</td>
+                                <td>{{employee.name}}</td>
+                            </tr>
+
+                            <tr>
+                                <td class=""> {{'stepApp.employee.fatherName' | translate}}</td>
+                                <td>{{employee.fatherName}}</td>
+                                <td class="">{{'stepApp.employee.motherName' | translate}}</td>
+                                <td>{{employee.motherName}}</td>
+                            </tr>
+
+                            <tr>
+                                <td class="">{{'stepApp.employee.email' | translate}}</td>
+                                <td>{{employee.email}}</td>
+                                <td class="">{{'stepApp.employee.gender' | translate}}</td>
+                                <td>{{employee.gender}}</td>
+                            </tr>
+
+                            <tr>
+                                <td class="">{{'stepApp.employee.dob' | translate}}</td>
+                                <td>{{employee.dob}}</td>
+                                <td class="">{{'stepApp.employee.registrationCertificateSubject' |
+                                    translate}}
+                                </td>
+                                <td>{{employee.registrationCertificateSubject}}</td>
+                            </tr>
+
+                            <tr>
+                                <td class="">{{'stepApp.employee.registrationExamYear' | translate}}
+                                </td>
+                                <td>{{employee.registrationExamYear}}</td>
+                                <td class="">{{'stepApp.employee.registrationCetificateNo' |
+                                    translate}}
+                                </td>
+                                <td>{{employee.registrationCetificateNo}}</td>
+                            </tr>
+
+                            <tr>
+                                <td class="">{{'stepApp.employee.indexNo' | translate}}</td>
+                                <td>{{employee.indexNo}}</td>
+                                <td class="">{{'stepApp.employee.bankName' | translate}}</td>
+                                <td>{{instEmplBankInfo.bankName}}</td>
+                            </tr>
+
+                            <tr>
+                                <td class="">{{'stepApp.employee.bankBranch' | translate}}</td>
+                                <td>{{instEmplBankInfo.bankBranc.brName}}</td>
+                                <td class="">{{'stepApp.employee.bankAccountNo' | translate}}</td>
+                                <td>{{instEmplBankInfo.bankAccountNo}}</td>
+                            </tr>
+                            <tr>
+                                <td class="">{{'stepApp.employee.bloodGroup' | translate}}</td>
+                                <td>{{employee.bloodGroup}}</td>
+                                <td class="">{{'stepApp.employee.conPerMobile' | translate}}</td>
+                                <td>{{employee.conPerMobile}}</td>
+                            </tr>
+                            <tr>
+                                <td class="">{{'stepApp.employee.maritalStatus' | translate}}</td>
+                                <td>{{employee.maritalStatus}}</td>
+                                <td class="">{{'stepApp.employee.contactNo' | translate}}</td>
+                                <td>{{employee.contactNo}}</td>
+
+                            </tr>
+                            <tr>
+                                <td class="">{{'stepApp.employee.nationality' | translate}}</td>
+                                <td>{{employee.nationality}}</td>
+                                <td class="">{{'stepApp.employee.nid' | translate}}</td>
+                                <td>{{employee.nid}}</td>
+                            </tr>
+                            <tr>
+                                <td class="">{{'stepApp.employee.nidImage' | translate}}</td>
+                                <td class="">
+                                    <a href="javascript:void(0)"
+                                       ng-click="previewImage(employee.nidImage, employee.nidImageContentType,'National Id image of '+employee.name)">{{employee.nidImageName}}</a>
+                                </td>
+                                <td class="">{{'stepApp.employee.birthCertNoImage' | translate}}</td>
+                                <td class="">
+                                    <a href="javascript:void(0)"
+                                       ng-click="previewImage(employee.birthCertImage, employee.birthCertImageContentType,'Birth Certificate image of '+employee.name)"><span
+                                        class="form-control-static">{{employee.birthCertNoName}}</span></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </tab>
+                <!-- <tab heading="{{'stepApp.mpo.Education' | translate}}" select="educations()">
+
+                     <table class="table table-hover table-striped">
+                         &lt;!&ndash;<thead>
+                         <tr>
+                             <th translate="stepApp.applicantEducation.name">Name</th>
+                             <th translate="stepApp.applicantEducation.applicantGroup">Group</th>
+                             <th translate="stepApp.applicantEducation.gpa">Gpa</th>
+                             <th translate="stepApp.applicantEducation.examYear">ExamYear</th>
+                             <th translate="stepApp.applicantEducation.remarks">Remarks</th>
+                             <th></th>
+                         </tr>
+                         </thead>
+                         <tbody>
+                         <tr
+                             ng-repeat="applicantEducation in applicantEducations track by applicantEducation.id">
+                             <td>{{applicantEducation.name}}</td>
+                             <td>{{applicantEducation.applicantGroup}}</td>
+                             <td>{{applicantEducation.gpa}}</td>
+                             <td>{{applicantEducation.examYear | date:'mediumDate'}}</td>
+                             <td>{{applicantEducation.employee.remarks}}</td>
+                             <td>
+                                 <div class="btn-group btn-group-sm">
+                                     <button type="submit"
+                                             ui-sref="MpoApplicantEducationEdit({educationId:applicantEducation.id})"
+                                             class="btn btn-primary btn-sm">
+                                         <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                                         translate="entity.action.edit"> Edit</span>
+                                     </button>
+                                     <button type="submit"
+                                             ui-sref="MpoApplicantEducationDelete({educationId:applicantEducation.id})"
+                                             class="btn btn-danger btn-sm">
+                                         <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                                         translate="entity.action.delete"> Delete</span>
+                                     </button>
+                                 </div>
+                             </td>
+                         </tr>
+                         </tbody>&ndash;&gt;
+                         <thead class="">
+                         <tr>
+                             <th translate="stepApp.mpo.mpoEducation.name">Name</th>
+                             <th translate="stepApp.mpo.mpoEducation.applicantGrp">Applicant Group</th>
+                             <th translate="stepApp.mpo.mpoEducation.gpa">Gpa</th>
+                             <th translate="stepApp.mpo.mpoEducation.examYear">Exam Year</th>
+                             <th translate="stepApp.mpo.mpoEducation.examResult">Exam Result Date</th>
+                             <th translate="stepApp.mpo.mpoEducation.remark">Remarks</th>
+                             <th></th>
+                         </tr>
+                         </thead>
+                         <tbody>
+                         <tr ng-repeat="appEducation in applicantEducation">
+                             <td>{{appEducation.certificateName}}</td>
+                             <td>Group</td>
+                             <td>{{appEducation.cgpa}}</td>
+                             <td>{{appEducation.passingYear}}</td>
+                             <td>Result Date</td>
+                             <td>Remarks</td>
+                             <td><a href="javascript:void(0)" ng-click="previewImage(appEducation.certificateCopy, appEducation.certificateCopyContentType,appEducation.certificateName+' Certificate image of '+employee.name)"><span class="form-control-static">View Certificate</span></a></td>
+                         </tr>
+                         </tbody>
+                     </table>
+                 </tab>-->
+                <tab heading="{{'stepApp.mpo.nameCnclApplication' | translate}}" select="training()">
+                    <div class="col-md-12 table-responsive no_padding">
+                        <table class="table  table-stripped">
+                            <thead>
+                            <tr>
+                                <th translate="stepApp.nameCnclApplication.cause">Cause</th>
+                                <!-- &lt;!&ndash;<th translate="stepApp.mpo.mpoEducation.subject">Subject</th>-->
+                                <th translate="stepApp.nameCnclApplication.resignDate">Result</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>{{nameCnclApplication.cause}}</td>
+                                <td>{{nameCnclApplication.resignDate |date}}</td>
+                                <!--<td>{{appTraining.result}}</td>
+                                <td><a href="javascript:void(0)" ng-click="previewImage(appTraining.attachment, appTraining.attachmentContentType,appTraining.name+' Certificate image of '+employee.name)"><span class="form-control-static">View Certificate</span></a></td>
+                           --> </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </tab>
+                <tab heading="{{'stepApp.mpo.Attachment' | translate}}" select="attachment()">
+                    <div class="col-md-12 table-responsive no_padding">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th ng-click="order('name', reverse=!reverse)" translate="stepApp.attachment.name">
+                                    Name
+                                </th>
+                                <th ng-click="order('remarks', reverse=!reverse)"
+                                    translate="stepApp.attachment.remarks">
+                                    Remarks
+                                </th>
+                                <th translate="stepApp.attachment.action">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody id="accordion"
+                                   ng-repeat="attachment in attachments  | filter:filter | orderBy:predicate:reverse track by attachment.id">
+                            <tr data-parent="#accordion" ng-click="displayAttachment(attachment)" data-toggle="collapse"
+                                data-target="#{{attachment.id}}" aria-expanded="false"
+                                aria-controls="{{attachment.id}}">
+                                <!--<td><a ng-show="attachment.fileContentType">{{attachment.name}}</a></td>-->
+                                <td><a href="javascript:void(0)"
+                                       ng-click="previewImage(attachment.file, attachment.fileContentType,'Image of '+attachment.name)">{{attachment.name}}</a>
+                                </td>
+                                <td>{{attachment.remarks}}</td>
+                                <!--<td class="btn-group">
+                                    <button  ng-show="attachment.fileContentType" type="button" ng-click="previewImage(attachment.file, attachment.fileContentType,'Image of '+attachment.name)"
+                                             class="btn btn-view btn-sm" >
+                                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                                    </button>
+                                </td>-->
+                                <td><a href="javascript:void(0)"
+                                       ng-click="previewImage(attachment.file, attachment.fileContentType,'Image of '+attachment.name)"><span
+                                    translate="entity.action.view"> View</span></a></td>
+                            </tr>
+                            <!-- <tr id="{{attachment.id}}" class="collapse">
+                                 <td colspan="6">
+                                     <img ng-src="{{url}}" class="img-thumbnail" alt="{{attachment.name}}">
+                                 </td>
+                             </tr>-->
+                            </tbody>
+                        </table>
+                    </div>
+                </tab>
+                <!--<tab heading="Attachment" select="attachment()">
+                    <table class="table table-hover table-striped">
+                        &lt;!&ndash;<caption class="caption notice text-center">
+                            <div translate="entity.action.found"
+                                 translate-values="{found: '{{attachments.length}}', total: '{{total}}'}">{{cats.length}} attachments retrieved from total of {{total}} attachments
+                            </div>
+                        </caption>&ndash;&gt;
+
+                        <thead>
+                        <tr>
+                            <th ng-click="order('name', reverse=!reverse)" translate="stepApp.attachment.name">Name</th>
+                            <th ng-click="order('remarks', reverse=!reverse)" translate="stepApp.attachment.remarks">Remarks</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="attachment in attachments  | filter:filter | orderBy:predicate:reverse track by attachment.id">
+                            <td ng-show="attachment.fileContentType"><a ng-click="displayAttachment(attachment)">{{attachment.name}}</a></td>
+                            <td ng-show="!attachment.fileContentType">{{attachment.name}}</td>
+
+                            <td>{{attachment.remarks}}</td>
+
+                            <td class="btn-group">
+                                <button type="submit"
+                                        ng-click="displayAttachment(attachment)"
+                                        class="btn btn-success btn-sm">
+                                    <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </tab>-->
+                <tab ng-show="searchByTrackID" heading="Status">
+                    <div class="panel panel-primary no_padding">
+                        <h2><span
+                            translate="stepApp.attachment.appStatus">Application Status of </span><b>
+                            {{mpoApplicationlogs[0].mpoApplicationId.instEmployee.code}}</b></h2>
+                        <div class="panel-body no_padding">
+                            <div class="col-md-12 table-responsive no_padding">
+                                <table class="table table-striped resume_main_">
+                                    <thead>
+                                    <tr>
+                                        <th translate="stepApp.attachment.Status">Status</th>
+                                        <th translate="stepApp.attachment.ActionDate">Action Date</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="mpoApplicationlog in mpoApplicationlogs">
+                                        <td>{{mpoApplicationlog.remarks}}</td>
+                                        <td>{{mpoApplicationlog.fromDate}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+            </tabset>
+        </div>
+    </div>
+</div>

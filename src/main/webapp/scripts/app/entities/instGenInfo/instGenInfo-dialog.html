@@ -1,0 +1,242 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" class="panel panel-primary" novalidate ng-submit="save()" show-validation>
+        <h4 translate="stepApp.instGenInfo.home.createOrEditLabel">Create InstGenInfo</h4>
+        <div class="panel-body col-md-12 no_padding">
+            <jh-alert-error></jh-alert-error>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.instGenInfo.code" for="field_code">Code</label>
+                        <input type="text" class="form-control" name="code" id="field_code"
+                               ng-model="instGenInfo.code"
+                               required ng-disabled="instGenInfo.id"
+                               data-toggle="tooltip"
+                               tooltip="{{'stepApp.instGenInfo.code' | translate}}"
+                               placeholder="{{'stepApp.instGenInfo.code' | translate}}"
+                        />
+
+                        <div ng-show="editForm.code.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.code.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.instGenInfo.name" for="field_name">Name</label>
+                        <input type="text" class="form-control" name="name" id="field_name"
+                               ng-model="instGenInfo.name"
+                               data-toggle="tooltip"
+                               tooltip="{{'stepApp.instGenInfo.name' | translate}}"
+                               placeholder="{{'stepApp.instGenInfo.name' | translate}}"
+                               required/>
+
+                        <div ng-show="editForm.name.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        <label translate="stepApp.instGenInfo.publicationDate" for="field_publicationDate">Publication
+                            Date</label>
+                        <input type="text" class="form-control" name="publicationDate" id="field_publicationDate"
+                               ng-model="instGenInfo.publicationDate"
+                               required
+                               datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.publicationDate"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               ng-click="calendar.open($event, 'publicationDate')"
+                               data-toggle="tooltip"
+                               tooltip="{{'stepApp.instGenInfo.publicationDate' | translate}}"
+                               placeholder="yyyy-mm-dd"
+                        />
+
+
+                        <div ng-show="editForm.publicationDate.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.publicationDate.$error.required"
+                               translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.instGenInfo.type" for="field_type">Type</label>
+                        <select class="form-control" name="type" ng-model="instGenInfo.type" id="field_type" required tooltip="{{'stepApp.instGenInfo.type' | translate}}">
+                            <option value="Government" translate="stepApp.instType.Government">Government</option>
+                            <option value="NonGovernment" translate="stepApp.instType.NonGovernment">NonGovernment </option>
+                        </select>
+
+                        <div ng-show="editForm.type.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.type.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        <label translate="stepApp.instGenInfo.village" for="field_village">Village</label>
+                        <input type="text" class="form-control" name="village" id="field_village"
+                               ng-model="instGenInfo.village"
+                               data-toggle="tooltip"
+                               tooltip="{{'stepApp.instGenInfo.village' | translate}}"
+                               placeholder="{{'stepApp.instGenInfo.village' | translate}}"
+                        />
+                    </div>
+                </div>
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        <label translate="stepApp.instGenInfo.postOffice" for="field_postOffice">Post Office</label>
+                        <input type="text" class="form-control" name="postOffice" id="field_postOffice"
+                               ng-model="instGenInfo.postOffice"
+                               data-toggle="tooltip"
+                               tooltip="{{'stepApp.instGenInfo.postOffice' | translate}}"
+                               placeholder="{{'stepApp.instGenInfo.postOffice' | translate}}"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.instGenInfo.postCode" for="field_postCode">Post Code</label>
+                        <input type="text" class="form-control" name="postCode" id="field_postCode"
+                               ng-model="instGenInfo.postCode"
+                               data-toggle="tooltip"
+                               tooltip="{{'stepApp.instGenInfo.postCode' | translate}}"
+                               placeholder="{{'stepApp.instGenInfo.postCode' | translate}}"
+                        />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.instGenInfo.landPhone" for="field_landPhone">Land Phone</label>
+                        <input type="tel" title="Phone Number?!?!" class="form-control" name="landPhone"
+                               id="field_landPhone"
+                               ng-model="instGenInfo.landPhone"
+                               data-toggle="tooltip"
+                               tooltip="{{'stepApp.instGenInfo.landPhone' | translate}}"
+                               placeholder="{{'stepApp.instGenInfo.landPhone' | translate}}"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.instGenInfo.mobileNo" for="field_mobileNo">Mobile No</label>
+                        <input type="text" pattern="[0-9]*" title="Mobile Number?!?!" class="form-control"
+                               name="mobileNo"
+                               id="field_mobileNo"
+                               ng-model="instGenInfo.mobileNo" min="0" required
+                               data-toggle="tooltip"
+                               tooltip="{{'stepApp.instGenInfo.mobileNo' | translate}}"
+                               placeholder="01XXXXXXXXX"
+                        />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.instGenInfo.email" for="field_email">Email</label>
+                        <input type="email" class="form-control" name="email" id="field_email"
+                               ng-model="instGenInfo.email" required
+                               data-toggle="tooltip"
+                               tooltip="{{'stepApp.instGenInfo.email' | translate}}"
+                               placeholder="{{'stepApp.instGenInfo.email' | translate}}"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.instGenInfo.consArea" for="field_consArea">Cons Area</label>
+                        <input type="text" class="form-control" name="consArea" id="field_consArea"
+                               ng-model="instGenInfo.consArea"
+                               data-toggle="tooltip"
+                               tooltip="{{'stepApp.instGenInfo.consArea' | translate}}"
+                               placeholder="{{'stepApp.instGenInfo.consArea' | translate}}"
+                        />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.instGenInfo.division" for="field_division">Division</label>
+                        <select class="form-control" id="field_division"
+                                ng-change="updatedDistrict(instGenInfo.division)"
+                                name="division" ng-model="instGenInfo.division"
+                                ng-options="division as division.name for division in divisions track by division.id"
+                                required tooltip="{{'stepApp.instGenInfo.division' | translate}}">
+                            <option value="" translate="stepApp.instGenInfo.division"> Select Division First</option>
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.instGenInfo.district" for="field_district">District</label>
+                        <select class="form-control" id="field_district"
+                                ng-change="updatedUpazila(instGenInfo.district)"
+                                name="district" ng-model="instGenInfo.district"
+                                ng-options="district as district.name for district in districts track by district.id"
+                                tooltip="{{'stepApp.instGenInfo.district' | translate}}">
+                            <option value="" translate="stepApp.instGenInfo.district" > Select Your District</option>
+                        </select>
+                    </div>
+                    <!--district as district.name for district in districts track by district.id-->
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.instGenInfo.upazila" for="field_upazila">upazila</label>
+                        <select class="form-control" id="field_upazila" name="upazila" ng-model="instGenInfo.upazila"
+                                ng-options="upazila as upazila.name for upazila in upazilas track by upazila.id"
+                                tooltip="{{'stepApp.instGenInfo.upazila' | translate}}">
+                            <option value="" translate="stepApp.instGenInfo.upazila"> Select Upazila</option>
+
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" class="btn pull-left" data-dismiss="modal"
+                    onclick="window.history.back()">
+                <span class=" glyphicon glyphicon-arrow-left"></span>&nbsp;<span
+                translate="entity.action.back">Back</span>
+            </button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+            </button>
+        </div>
+    </form>
+
+
+

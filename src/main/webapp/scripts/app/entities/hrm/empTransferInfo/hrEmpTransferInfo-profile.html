@@ -1,0 +1,349 @@
+<div class="service-form-area">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="modal-title" id="myHrEmpTransferInfoLabel"><span
+                translate="stepApp.hrEmpTransferInfo.home.profileViewEditTitle"></span> : {{hrEmployeeInfo.fullName}}
+            </h4>
+        </div>
+        <div class="panel-body bg-panel">
+            <div class="row hrm-view">
+                <span ng-show="addMode">
+                    <span ng-show="noEmployeeFound" class="alert">Employee is not created yet.</span>
+                </span>
+            </div>
+            <div class="panel-group hr_label">
+                <!-- For Loop Start From Here-->
+                <div class="bg-panel" ng-repeat="hrEmpTransferInfo in hrEmpTransferInfoList">
+                    <form class="form-horizontal " name="editForm" role="form" ng-submit="save()" novalidate
+                          show-validation>
+                        <div class="row hrm-view panel-heading no_padding">
+                            <div class="col-sm-7 no_padding">
+                                <strong>{{hrEmpTransferInfo.transferType.typeName}} :
+                                    {{hrEmpTransferInfo.jobCategory.typeName}}</strong>
+                            </div>
+                            <div class="col-sm-5 no_padding text-right">
+                                <button
+                                    ng-hide="noEmployeeFound || hrEmpTransferInfo.isLocked || hrEmpTransferInfo.logStatus==6"
+                                    type="button" ng-click="changeProfileMode(hrEmpTransferInfo)"
+                                    class="btn btn-primary btn-sm">{{hrEmpTransferInfo.viewModeText}}
+                                </button>
+                                <span ng-show="hrEmpTransferInfo.isLocked" class="alert alert-warning"><span
+                                    translate="stepApp.hrmHome.recordLocked">Pending</span></span>
+                                    <span ng-if="hrEmpTransferInfo.logStatus == 3">
+                                        <span class="alert alert-warning" translate="stepApp.hrmHome.requestRejected">Rejected</span>
+                                    </span>
+                            </div>
+                        </div>
+                        <div class="row hrm-view">
+                            <div class="col-sm-12 text-right">
+                                    <span class="alert-warning" ng-if="hrEmpTransferInfo.logStatus == 3">
+                                        <span class="control-label"
+                                              translate="stepApp.hrmHome.rejectionReason">Reason</span>:&nbsp; : &nbsp; {{hrEmpTransferInfo.logComments}}
+                                    </span>
+                            </div>
+                        </div>
+
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpTransferInfo.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEmpTransferInfo.transferType"
+                                           for="field_transferType">transferType</label>
+                                    <select class="form-control" id="field_transferType" name="transferType"
+                                            ng-model="hrEmpTransferInfo.transferType"
+                                            ng-options="MiscTypeSetup as MiscTypeSetup.typeName for MiscTypeSetup in transferTypeList track by MiscTypeSetup.id"
+                                            required>
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                                <div ng-show="hrEmpTransferInfo.viewMode">
+                                    <label class="control-label" translate="stepApp.hrEmpTransferInfo.transferType"
+                                           for="field_transferType">transferType</label>
+                                    <span class="form-control-static">&nbsp; : &nbsp;{{hrEmpTransferInfo.transferType.typeName}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">&nbsp;</div>
+                        </div>
+
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpTransferInfo.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEmpTransferInfo.jobCategory"
+                                           for="field_jobCategory">jobCategory</label>
+                                    <select class="form-control" id="field_jobCategory" name="jobCategory"
+                                            ng-model="hrEmpTransferInfo.jobCategory"
+                                            ng-options="MiscTypeSetup as MiscTypeSetup.typeName for MiscTypeSetup in jobCategoryList track by MiscTypeSetup.id"
+                                            required>
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                                <div ng-show="hrEmpTransferInfo.viewMode">
+                                    <label class="control-label" translate="stepApp.hrEmpTransferInfo.jobCategory"
+                                           for="field_jobCategory">jobCategory</label>
+                                    <span class="form-control-static">&nbsp; : &nbsp;{{hrEmpTransferInfo.jobCategory.typeName}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpTransferInfo.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEmpTransferInfo.locationFrom"
+                                           for="field_locationFrom">LocationFrom</label>
+                                    <input type="text" class="form-control" name="locationFrom" id="field_locationFrom"
+                                           ng-model="hrEmpTransferInfo.locationFrom"
+                                           required/>
+                                    <div ng-show="editForm.locationFrom.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.locationFrom.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEmpTransferInfo.viewMode">
+                                    <label class="control-label" translate="stepApp.hrEmpTransferInfo.locationFrom"
+                                           for="field_locationFrom">LocationFrom</label>
+                                    <span
+                                        class="form-control-static">&nbsp; : &nbsp;{{hrEmpTransferInfo.locationFrom}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpTransferInfo.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEmpTransferInfo.locationTo"
+                                           for="field_locationTo">LocationTo</label>
+                                    <input type="text" class="form-control" name="locationTo" id="field_locationTo"
+                                           ng-model="hrEmpTransferInfo.locationTo"
+                                           required/>
+                                    <div ng-show="editForm.locationTo.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.locationTo.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEmpTransferInfo.viewMode">
+                                    <label class="control-label" translate="stepApp.hrEmpTransferInfo.locationTo"
+                                           for="field_locationTo">LocationTo</label>
+                                    <span
+                                        class="form-control-static">&nbsp; : &nbsp;{{hrEmpTransferInfo.locationTo}}</span>
+                                </div>
+
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpTransferInfo.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEmpTransferInfo.designation"
+                                           for="field_designation">Designation</label>
+                                    <input type="text" class="form-control" name="designation" id="field_designation"
+                                           ng-model="hrEmpTransferInfo.designation"
+                                           required/>
+                                    <div ng-show="editForm.designation.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.designation.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEmpTransferInfo.viewMode">
+                                    <label class="control-label" translate="stepApp.hrEmpTransferInfo.designation"
+                                           for="field_designation">Designation</label>
+                                    <span
+                                        class="form-control-static">&nbsp; : &nbsp;{{hrEmpTransferInfo.designation}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpTransferInfo.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEmpTransferInfo.departmentFrom"
+                                           for="field_departmentFrom">DepartmentFrom</label>
+                                    <input type="text" class="form-control" name="departmentFrom"
+                                           id="field_departmentFrom"
+                                           ng-model="hrEmpTransferInfo.departmentFrom"
+                                           required/>
+                                    <div ng-show="editForm.departmentFrom.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.departmentFrom.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEmpTransferInfo.viewMode">
+                                    <label class="control-label" translate="stepApp.hrEmpTransferInfo.departmentFrom"
+                                           for="field_departmentFrom">DepartmentFrom</label>
+                                    <span class="form-control-static">&nbsp; : &nbsp;{{hrEmpTransferInfo.departmentFrom}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpTransferInfo.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEmpTransferInfo.departmentTo"
+                                           for="field_departmentTo">DepartmentTo</label>
+                                    <input type="text" class="form-control" name="departmentTo" id="field_departmentTo"
+                                           ng-model="hrEmpTransferInfo.departmentTo"
+                                           required/>
+                                    <div ng-show="editForm.departmentTo.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.departmentTo.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEmpTransferInfo.viewMode">
+                                    <label class="control-label" translate="stepApp.hrEmpTransferInfo.departmentTo"
+                                           for="field_departmentTo">DepartmentTo</label>
+                                    <span
+                                        class="form-control-static">&nbsp; : &nbsp;{{hrEmpTransferInfo.departmentTo}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpTransferInfo.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEmpTransferInfo.fromDate"
+                                           for="field_fromDate">FromDate</label>
+                                    <input datepicker-popup="{{calendar.dateFormat}}"
+                                           is-open="calendar.opened['fromDate'+$index]"
+                                           datepicker-options="calendar.dateOptions" close-text="Close"
+                                           ng-click="calendar.open($event, 'fromDate'+$index)" class="form-control"
+                                           name="fromDate" id="field_fromDate"
+                                           ng-model="hrEmpTransferInfo.fromDate"
+                                           max-date="hrEmpTransferInfo.toDate"
+                                           required/>
+                                    <div ng-show="editForm.fromDate.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.fromDate.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEmpTransferInfo.viewMode">
+                                    <label class="control-label" translate="stepApp.hrEmpTransferInfo.fromDate"
+                                           for="field_fromDate">FromDate</label>
+                                    <span class="form-control-static">&nbsp; : &nbsp;{{hrEmpTransferInfo.fromDate | date:'mediumDate'}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpTransferInfo.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEmpTransferInfo.toDate"
+                                           for="field_toDate">ToDate</label>
+                                    <input datepicker-popup="{{calendar.dateFormat}}"
+                                           is-open="calendar.opened['toDate'+$index]"
+                                           datepicker-options="calendar.dateOptions" close-text="Close"
+                                           ng-click="calendar.open($event, 'toDate'+$index)" class="form-control"
+                                           name="toDate" id="field_toDate"
+                                           min-date="hrEmpTransferInfo.fromDate"
+                                           ng-model="hrEmpTransferInfo.toDate"
+                                           required/>
+                                    <div ng-show="editForm.toDate.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.toDate.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEmpTransferInfo.viewMode">
+                                    <label class="control-label" translate="stepApp.hrEmpTransferInfo.toDate"
+                                           for="field_toDate">ToDate</label>
+                                    <span class="form-control-static">&nbsp; : &nbsp;{{hrEmpTransferInfo.toDate | date:'mediumDate'}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">
+                                <label class="control-label" translate="stepApp.hrEmpTransferInfo.officeOrderNo"
+                                       for="field_officeOrderNo">OfficeOrderNo</label>
+                                <div ng-show="!hrEmpTransferInfo.viewMode" class="input-margin">
+                                    <input type="text" class="form-control" name="officeOrderNo"
+                                           id="field_officeOrderNo"
+                                           ng-model="hrEmpTransferInfo.officeOrderNo"/>
+                                </div>
+                                <span ng-show="hrEmpTransferInfo.viewMode" class="form-control-static">&nbsp; : &nbsp;{{hrEmpTransferInfo.officeOrderNo}}</span>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label class="control-label" translate="stepApp.hrEmpTransferInfo.goDate"
+                                       for="field_goDate">GoDate</label>
+                                <div ng-show="!hrEmpTransferInfo.viewMode" class="input-margin">
+                                    <input datepicker-popup="{{calendar.dateFormat}}"
+                                           is-open="calendar.opened['goDate'+$index]"
+                                           datepicker-options="calendar.dateOptions" close-text="Close"
+                                           ng-click="calendar.open($event, 'goDate'+$index)" class="form-control"
+                                           name="goDate" id="field_goDate"
+                                           ng-model="hrEmpTransferInfo.goDate"/>
+                                </div>
+                                <span ng-show="hrEmpTransferInfo.viewMode" class="form-control-static">&nbsp; : &nbsp;{{hrEmpTransferInfo.goDate | date:'mediumDate'}}</span>
+                            </div>
+                        </div>
+
+
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6" ngf-drop ngf-change="setGoDoc($file, hrEmpTransferInfo)">
+                                <label class="control-label" translate="stepApp.hrEmpTransferInfo.goDoc"
+                                       for="field_goDoc">GoDoc</label>
+                                <div ng-show="!hrEmpTransferInfo.viewMode" class="input-margin">
+
+                                    <div class="help-block clearfix">
+                                        <span class="pull-left">&nbsp; : &nbsp;{{hrEmpTransferInfo.goDocContentType}} {{byteSize(hrEmpTransferInfo.goDoc)}}</span>
+                                        <button
+                                            ng-click="hrEmpTransferInfo.goDoc=null;hrEmpTransferInfo.goDocContentType=null;"
+                                            ng-if="hrEmpTransferInfo.goDoc"
+                                            class="btn btn-default btn-xs pull-right">
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                        </button>
+                                    </div>
+                                    <button type="file" ngf-select class="btn btn-default btn-block"
+                                            ngf-change="setGoDoc($file, hrEmpTransferInfo)"
+                                            translate="entity.action.addblob">
+                                        Add blob
+                                    </button>
+
+                                    <input type="hidden" class="form-control" name="goDoc" id="field_goDoc"
+                                           ng-model="hrEmpTransferInfo.goDoc"
+                                    />
+                                    <input type="hidden" class="form-control" name="goDocContentType"
+                                           id="field_goDocContentType"
+                                           ng-model="hrEmpTransferInfo.goDocContentType"/>
+                                </div>
+                                <a ng-if="hrEmpTransferInfo.goDocContentType" class="btn btn-link"
+                                   ng-click="previewImage(hrEmpTransferInfo)">View</a>
+                            </div>
+
+                            <div class="form-group col-sm-6 text-right">
+                                <div class="input-margin">
+                                    <button ng-show="!hrEmpTransferInfo.viewMode" type="button"
+                                            ng-click="changeProfileMode(hrEmpTransferInfo)"
+                                            class="btn btn-default btn-sm"><span
+                                        class="glyphicon glyphicon-remove"></span>&nbsp;{{hrEmpTransferInfo.viewModeText}}
+                                    </button>
+                                    <button ng-show="!hrEmpTransferInfo.viewMode"
+                                            ng-click="updateProfile(hrEmpTransferInfo, $index)"
+                                            type="button" ng-disabled="editForm.$invalid || isSaving"
+                                            class="btn btn-primary btn-sm">
+                                        <span class="glyphicon glyphicon-save"></span>&nbsp;<span
+                                        translate="entity.action.save">Save</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <!-- End of Loop -->
+                <div class="col-sm-12 text-right no_padding">
+                    <button type="submit" class="btn btn-primary" ng-show="!addMode"
+                            ng-disabled="editForm.$invalid || isSaving" ng-click="addMore()"><i
+                        class="fa fa-plus-square"></i>
+                        <span translate="global.menu.account.addmore">Add More</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

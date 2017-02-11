@@ -1,0 +1,68 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myInstComiteFormationTempLabel" translate="stepApp.instComiteFormationTemp.home.createOrEditLabel">Create or edit a InstComiteFormationTemp</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="instComiteFormationTemp.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instComiteFormationTemp.comiteName" for="field_comiteName">ComiteName</label>
+            <input type="text" class="form-control" name="comiteName" id="field_comiteName"
+                    ng-model="instComiteFormationTemp.comiteName"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instComiteFormationTemp.comiteType" for="field_comiteType">ComiteType</label>
+            <input type="text" class="form-control" name="comiteType" id="field_comiteType"
+                    ng-model="instComiteFormationTemp.comiteType"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instComiteFormationTemp.address" for="field_address">Address</label>
+            <input type="text" class="form-control" name="address" id="field_address"
+                    ng-model="instComiteFormationTemp.address"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instComiteFormationTemp.timeFrom" for="field_timeFrom">TimeFrom</label>
+            <input type="number" class="form-control" name="timeFrom" id="field_timeFrom"
+                    ng-model="instComiteFormationTemp.timeFrom"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instComiteFormationTemp.timeTo" for="field_timeTo">TimeTo</label>
+            <input type="number" class="form-control" name="timeTo" id="field_timeTo"
+                    ng-model="instComiteFormationTemp.timeTo"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instComiteFormationTemp.formationDate" for="field_formationDate">FormationDate</label>
+            <input type="date" class="form-control" name="formationDate" id="field_formationDate"
+                    ng-model="instComiteFormationTemp.formationDate"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.instComiteFormationTemp.instMemShip" for="field_instMemShip">instMemShip</label>
+            <select class="form-control" id="field_instMemShip" name="instMemShip" ng-model="instComiteFormationTemp.instMemShip" ng-options="instMemShip as instMemShip.email for instMemShip in instmemships track by instMemShip.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

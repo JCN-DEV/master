@@ -1,0 +1,197 @@
+<div class="col-md-3">
+    <ng-include src="'scripts/app/account/mpo/mpo-left-menu.html'"></ng-include>
+</div>
+<div class="col-md-9 lbl-dash">
+    <div class="col-md-12 common-list no_padding">
+        <h2 class="heading_center" translate="stepApp.payScale.home.title">PayScale</h2>
+        <div class="col-md-12 padding-tb">
+            <div class="col-xs-4 no_padding">
+                <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+            </div>
+            <div class="col-xs-4">
+                <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+            </div>
+            <div class="col-xs-4 no_padding text-right ">
+                <button class="btn btn-primary pull-right" ui-sref="payScale.new">
+                    <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.payScale.home.createLabel">Create a new PayScale</span>
+                </button>
+            </div>
+        </div>
+        <!--<div class="col-sm-12  padding-tb no-print">
+            <div class="col-md-8 no_padding ">
+                <div class="col-md-6 no_padding">
+                    <b> <span translate="global.home.searchhere"></span>:</b>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1"><i class="fa fa-search" aria-hidden="true"></i></span>
+                        <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <b><span translate="global.home.itemperpage"></span>:</b>
+                    <div class="input-group">
+                        <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 no_padding text-right btn-top">
+                <button class="btn btn-primary pull-right" ui-sref="payScale.new">
+                    <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.payScale.home.createLabel">Create a new PayScale</span>
+                </button>
+            </div>
+        </div>-->
+
+
+
+        <table class=" table col-md-12 table-striped table-responsive">
+            <caption class="notice text-center" translate="entity.action.found"
+                     translate-values="{found: '{{payScales.length}}', total: '{{total}}'}">{{payScales.length}}
+                payScales
+                retrieved from total of {{total}} payScales
+            </caption>
+            <thead>
+            <tr>
+                <th class="text-center" translate="global.form.serial">serial</th>
+                <th class="text-center" translate="stepApp.payScale.payScaleClass">payScaleClass</th>
+                <th class="text-center" translate="stepApp.payScale.code">Code</th>
+                <th class="text-center" translate="stepApp.payScale.grade">Grade</th>
+                <th class="text-center" translate="stepApp.payScale.basicAmount">BasicAmount</th>
+                <th class="text-center" translate="entity.action.action">BasicAmount</th>
+
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr dir-paginate="payScale in payScales | filter:q | itemsPerPage: pageSize track by payScale.id" current-page="currentPage">
+
+                <!--<td><a ui-sref="payScale.detail({id:payScale.id})">{{payScale.id}}</a></td>-->
+                <td class="text-center">{{$index+1}}</td>
+                <td class="text-center">{{payScale.payScaleClass}}</td>
+                <td class="text-center">{{payScale.code}}</td>
+                <td class="text-center">{{payScale.grade}}</td>
+                <td class="text-center">{{payScale.basicAmount}}</td>
+                <!--<td>{{payScale.houseAllowance}}</td>-->
+                <!--<td>{{payScale.medicalAllowance}}</td>-->
+                <!--<td>{{payScale.welfareAmount}}</td>-->
+                <!--<td>{{payScale.retirementAmount}}</td>-->
+                <td class="text-right no-print">
+                    <button type="submit"
+                            ui-sref="payScale.detail({id:payScale.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="payScale.edit({id:payScale.id})"
+                            class="btn  btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                        translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="payScale.delete({id:payScale.id})"
+                            class="btn btn-danger  btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                        translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav class="no-print">
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                     template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+</div>
+
+
+<!--<div>
+    <h2 translate="stepApp.payScale.home.title">PayScales</h2>
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" ui-sref="payScale.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="stepApp.payScale.home.createLabel">Create a new PayScale</span>
+                </button>
+            </div>
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a PayScale</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="global.field.id">ID</th>
+                    <th translate="stepApp.payScale.code">Code</th>
+                    <th translate="stepApp.payScale.payScaleClass">PayScaleClass</th>
+                    <th translate="stepApp.payScale.grade">Grade</th>
+                    <th translate="stepApp.payScale.gradeName">GradeName</th>
+                    <th translate="stepApp.payScale.basicAmount">BasicAmount</th>
+                    <th translate="stepApp.payScale.houseAllowance">HouseAllowance</th>
+                    <th translate="stepApp.payScale.medicalAllowance">MedicalAllowance</th>
+                    <th translate="stepApp.payScale.welfareAmount">WelfareAmount</th>
+                    <th translate="stepApp.payScale.retirementAmount">RetirementAmount</th>
+                    <th translate="stepApp.payScale.date">Date</th>
+                    <th translate="stepApp.payScale.manager">manager</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="payScale in payScales track by payScale.id">
+                    <td><a ui-sref="payScale.detail({id:payScale.id})">{{payScale.id}}</a></td>
+                    <td>{{payScale.code}}</td>
+                    <td>{{payScale.payScaleClass}}</td>
+                    <td>{{payScale.grade}}</td>
+                    <td>{{payScale.gradeName}}</td>
+                    <td>{{payScale.basicAmount}}</td>
+                    <td>{{payScale.houseAllowance}}</td>
+                    <td>{{payScale.medicalAllowance}}</td>
+                    <td>{{payScale.welfareAmount}}</td>
+                    <td>{{payScale.retirementAmount}}</td>
+                        <td>{{payScale.date | date:'mediumDate'}}</td>
+                    <td>
+                        {{payScale.manager.login}}
+                    </td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="payScale.detail({id:payScale.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="payScale.edit({id:payScale.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="payScale.delete({id:payScale.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pagination">
+                <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                <li class="active"><a>{{page + 1}}</a></li>
+                <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>-->

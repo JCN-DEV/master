@@ -1,0 +1,165 @@
+<div class="col-md-12 common-list">
+    <h2 ng-show="timescaleAppliedLists.pending == 'pending'" translate="global.menu.account.principalPendingList">
+        Principal Application Pending List</h2>
+    <h2 ng-show="timescaleAppliedLists.pending == 'approved'" translate="global.menu.account.principalApprovedList">
+        Principal Application Approved List</h2>
+    <div class="row">
+        <div class="col-xs-4">
+            <b>{{ (timescaleAppliedLists|filter:q).length }} results found</b>
+            <label for="search">Search:</label>
+            <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+        </div>
+        <div class="col-xs-4">
+            <label for="search">items per page:</label>
+            <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+        </div>
+    </div>
+    <br>
+    <div class="col-lg-12 no_padding profe-pending">
+        <tabset justified="true">
+            <!--<tr> <button class="btn btn-primary alignright" ui-sref="mpoApprove({id: mpoId})" ng-show="showApproveButton" >Forward</button></tr>
+            <tr> <button class="btn btn-primary alignright" ui-sref="mpoApprove({id: mpoId})" ng-show="showApprove" >Approve</button></tr>
+            <tr> <button class="btn btn-primary alignright" ui-sref="mpoApprove({id: mpoId})" ng-show="showApproveButton" >Approve</button></tr>
+            <tr> <button class="btn btn-primary alignright" ui-sref="mpoDeny({id: mpoId})" ng-show="showApproveButton" >Decline</button></tr>-->
+            <tab heading="{{'stepApp.mpo.all' | translate}}" select="all()">
+
+            </tab>
+            <tab heading="{{'stepApp.mpo.ssc' | translate}}" select="ssc()">
+
+            </tab>
+            <tab heading="{{'stepApp.mpo.hsc' | translate}}" select="hsc()">
+
+            </tab>
+            <tab heading="{{'stepApp.mpo.mdvoc' | translate}}" select="mdvoc()">
+
+            </tab>
+            <tab heading="{{'stepApp.mpo.mdbm' | translate}}" select="mdbm()">
+
+            </tab>
+        </tabset>
+    </div>
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="stepApp.mpo.thead.institutename"> Institute Name</th>
+                <th translate="stepApp.mpo.thead.applicantname"> Applicant Name</th>
+                <th translate="stepApp.mpo.thead.id"> ID</th>
+                <th translate="stepApp.mpo.thead.district"> District</th>
+                <th translate="stepApp.mpo.thead.status"> Status</th>
+                <th translate="stepApp.mpo.thead.action"> Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-animate="'animate'"
+                dir-paginate="timescaleAppliedList in timescaleAppliedLists | filter:q | itemsPerPage: pageSize | orderBy:'$index':true"
+                current-page="currentPage">
+                <!--<td>{{mpoAppliedList.instEmployee.code}}</td>
+                <td>{{mpoAppliedList.instEmployee.institute.name}}</td>
+                <td>{{mpoAppliedList.instEmployee.institute.upazila.name}}</td>
+                <td>{{mpoAppliedLists.pending}}</td>-->
+                <td>{{timescaleAppliedList.CODE}}</td>
+                <td>{{timescaleAppliedList.INST_NAME}}</td>
+                <td>{{timescaleAppliedList.UPZILA_NAME}}</td>
+                <td></td>
+                <td>{{timescaleAppliedLists.pending}}</td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <!--<button class="btn btn-default" ui-sref="mpo.details({id:mpoAppliedList.MPO_ID})">
+                                 View & Approve
+                        </button>-->
+                        <button class="btn btn-default"
+                                ui-sref="professorApplicationDetails({id:timescaleAppliedList.TIMESCALE_ID})">
+                             <span translate="stepApp.mpo.view&approve">View & Approve</span>
+                        </button>
+                        <button has-any-authority="ROLE_ADMIN,ROLE_FRONTDESK,ROLE_AD,ROLE_DIRECTOR,ROLE_DG"
+                                class="btn btn-default pull-right"
+                                ui-sref="professorApplicationDetails({code:timescaleAppliedList.CODE})">
+                            <span translate="stepApp.mpo.checklist">Check List</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <!--for pagination and real time search add bellow nav tab -->
+        <nav>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                     template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+    <!--</div>
+    </div>-->
+    <div has-any-authority="ROLE_AD" ng-if="timescaleAppliedLists.length > 0">
+        <button class="btn btn-success pull-right" ng-if="summaryList.length < 1" ng-click="createSummary()">Create
+            Summary List
+        </button>
+        <button class="btn btn-success pull-right" ng-if="summaryList.length > 0" ng-click="forwardSummaryList()">
+            Forward
+        </button>
+    </div>
+    <div class=" col-sm-12" ng-if="summaryList.length > 0">
+        <h3 translate="stepApp.mpo.summaryList">Summary List</h3>
+        <div class="col-md-12 table-responsive no_padding">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th translate="stepApp.mpo.thead.slNo"> Serial No</th>
+                    <!--<th translate="stepApp.mpo.thead.applicationDate">Application Date</th>
+                    <th translate="stepApp.mpo.thead.approveByDeo"> Approved By deo</th>-->
+                    <th translate="stepApp.mpo.thead.institutename"> Institute Name</th>
+                    <th translate="stepApp.mpo.thead.code"> Institute code</th>
+                    <!--<th translate="stepApp.mpo.thead.upazilla"> Upazila</th>
+                    <th translate="stepApp.mpo.thead.district"> District</th>
+                    <th translate="stepApp.mpo.thead.applicantname"> Applicant Name</th>
+                    <th translate="stepApp.mpo.thead.dob"> Date of birth</th>
+                    <th translate="stepApp.mpo.thead.bank"> Bank Name & Account No</th>
+                    <th translate="stepApp.mpo.thead.designation"> Designation And Subject</th>
+                    <th translate="stepApp.mpo.thead.registerIndex">Register Index</th>
+                    <th translate="stepApp.mpo.thead.dgRepresentative">DG Representative</th>
+                    <th translate="stepApp.mpo.thead.recDateOfGB">Recommend Date of Gov-body</th>
+                    <th translate="stepApp.mpo.thead.joiningDate">Joining Date</th>
+                    <th translate="stepApp.mpo.thead.G.O">G.O. yes/no</th>
+                    <th translate="stepApp.mpo.thead.payCode">Pay Code</th>-->
+                    <th has-any-authority="ROLE_DG,ROLE_DIRECTOR" translate="stepApp.mpo.thead.action">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!--<tr ng-repeat="mpoAppliedList in mpoAppliedLists | orderBy:'$index':true">-->
+                <tr ng-repeat="each in summaryList">
+                    <td>{{$index+1}}</td>
+                    <!--<td>{{each.APPLICATION_DATE | date}}</td>
+                    <td>{{each.CMT_APPROVE_DATE | date}}--{{each.DEO_APPROVE_DATE | date}}</td>-->
+                    <td>{{each.INST_NAME}}</td>
+                    <td>{{each.INST_CODE}}</td>
+                    <!--<td>{{each.UPZ_NAME}}</td>
+                    <td>{{each.DISTRICT}}</td>
+                    <td>{{each.NAME}}</td>
+                    <td>{{each.DOB | date}}</td>
+                    <td>{{each.BANK_NAME}},{{each.BANK_ACCOUNT}}</td>
+                    <td>{{each.DESIGNATION}}-{{each.SUBJECT}}</td>
+                    <td>{{each.REGISTERED_NO}}</td>
+                    <td>{{each.DG_REPRESENTITIVE}}</td>
+                    <td>{{each.GB_REC_DATE | date}}</td>
+                    <td>{{each.JOIN_DATE | date}}</td>
+                    <td>{{each.GOV_ORDER == 1? 'Yes' : 'No'}}</td>
+                    <td>{{each.PAY_CODE}}</td>-->
+                    <td has-any-authority="ROLE_DG,ROLE_DIRECTOR" class="text-right">
+                        <div class="btn-group">
+                            <button class="btn btn-default" ui-sref="professorApplicationDetails({id:each.MPO_ID})">
+                                <span translate="stepApp.mpo.view">View</span>
+                            </button>
+                            <button class="btn btn-primary" ui-sref="professorApprove({id: each.MPO_ID})">
+                                <span translate="stepApp.mpo.approve">Approve</span>
+                            </button>
+                            <button class="btn btn-danger" ui-sref="professorDeny({id: each.MPO_ID})">
+                                <span translate="stepApp.mpo.reject">Reject</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

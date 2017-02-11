@@ -1,0 +1,101 @@
+<!--<div class="cmscurriculam">
+    <div class="panel-heading cmsheading">
+        <h3 class="panel-title" translate="stepApp.cmsSemester.home.title">CmsSemesters</h3>
+    </div>
+    <div class="row cmsCnew su_btn_center">
+        <div class="col-md-8 col-sm-12 col-xs-12">
+            <form name="searchForm" class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control su_searchbox" ng-model="searchQuery" id="searchQuery" placeholder="{{'global.home.searchLabel' | translate}}">
+
+                    <button class="btn btn-primary su_searchbtn" ng-click="search()"><i class="fa fa-search-plus"></i>
+                    </button>
+                </div>
+
+            </form>
+        </div>
+        <div class="col-md-4 col-sm-12 col-xs-12 su_btn_center text-right">
+            <button class="btn btn-primary" ui-sref="courseInfo.cmsSemester.new" >
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.cmsSemester.home.createLabel">New</span>
+            </button>
+        </div>
+
+    </div>-->
+
+
+
+    <div class="col-sm-12 common-list">
+        <h2 class="panel-title" translate="stepApp.cmsSemester.home.title">CmsSemesters</h2>
+        <div class="col-md-12 col-sm-12 col-xs-12 padding-tb">
+            <div class="col-md-4 no_padding">
+                <b><span translate="global.home.searchhere">Search Here :</span></b>
+                <input ng-model="q" id="search" type="text" class="form-control"  placeholder="Search for...">
+            </div>
+            <div class="col-md-2">
+                <b><span translate="global.home.itemperpage">Items per page:</span></b>
+                <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+            </div>
+            <div class="col-md-6 btn-top text-right no_padding">
+                <button class="btn btn-primary" ui-sref="courseInfo.cmsSemester.new" >
+                    <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.cmsSemester.home.createLabel">New</span>
+                </button>
+            </div>
+        </div>
+
+
+
+
+    <div class="col-md-12 table-responsive no_padding">
+         <table class="table table-striped">
+            <thead>
+                <tr>
+                    <!--<th translate="global.field.id">ID</th>-->
+                    <th translate="stepApp.cmsSemester.code">Code</th>
+                    <th translate="stepApp.cmsSemester.name">Name</th>
+                    <!--<th translate="stepApp.cmsSemester.year">Year</th>
+                    <th translate="stepApp.cmsSemester.duration">Duration</th>
+                    <th translate="stepApp.cmsSemester.description">Description</th>-->
+                    <th translate="stepApp.cmsSemester.status">Status</th>
+                    <th translate="stepApp.cmsSemester.cmsCurriculum">cmsCurriculum</th>
+                    <th translate="entity.action.action" class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class=" book-info wow animated zoomIn" data-wow-duration="1s" data-wow-delay="0s" dir-paginate="cmsSemester in cmsSemesters  | filter:q | itemsPerPage: pageSize track by cmsSemester.id " >
+                    <!--<td><a ui-sref="cmsSemester.detail({id:cmsSemester.id})">{{cmsSemester.id}}</a></td>-->
+                    <td>{{cmsSemester.code}}</td>
+                    <td>{{cmsSemester.name}}</td>
+                    <!--<td>{{cmsSemester.year}}</td>
+                    <td>{{cmsSemester.duration}}</td>
+                    <td>{{cmsSemester.description}}</td>-->
+                    <td>
+                        <span style="color: #005f00"  ng-show="cmsSemester.status == true" class="form-control-static"><span translate="entity.action.activate">Active</span></span>
+                        <span style="color: red" ng-show="cmsSemester.status == false" class="form-control-static"><span translate="entity.action.deactivate">Deactive</span></span></td>
+                    <td>
+                        <a ui-sref="cmsCurriculum.detail({id:cmsSemester.cmsCurriculum.id})">{{cmsSemester.cmsCurriculum.name}}</a>
+                    </td>
+                    <td class="text-right">
+                        <button type="submit"
+                                ui-sref="courseInfo.cmsSemester.detail({id:cmsSemester.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="courseInfo.cmsSemester.edit({id:cmsSemester.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <!--<button type="submit"
+                                ui-sref="cmsSemester.delete({id:cmsSemester.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>-->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+</div>

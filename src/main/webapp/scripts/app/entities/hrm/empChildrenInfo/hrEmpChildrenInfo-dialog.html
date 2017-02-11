@@ -1,0 +1,145 @@
+<!---===child info dialod===--->
+<div class="service-form-area">
+    <div class="panel panel-default">
+        <div class="panel-heading" >
+            <h4 ng-show="hrEmpChildrenInfo.id == null"class="modal-title" translate="stepApp.hrEmpChildrenInfo.home.createOrEditLabel">Create or edit a HrEmpChildrenInfo</h4>
+            <h4 ng-show="hrEmpChildrenInfo.id != null"class="modal-title" translate="stepApp.hrEmpChildrenInfo.home.EditLabel">Create or edit a HrEmpChildrenInfo</h4>
+        </div>
+        <div class="panel-body bg-panel">
+            <form  class="form-horizontal " name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+                <div class="row">
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label" for="field_workArea" translate="stepApp.hrEmpChildrenInfo.workarea">Work Area</label>
+                            <div class="input-margin">
+                                <select class="form-control" id="field_workArea" name="workArea" ng-model="workArea" ng-change="loadModelByWorkArea(workArea)"
+                                        ng-options="MiscTypeSetup as MiscTypeSetup.typeName for MiscTypeSetup in workAreaList track by MiscTypeSetup.id">
+                                    <option value="">Select Work Area</option>
+                                </select>
+                                <span class="help">No of Employee: {{hremployeeinfos.length}}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label" translate="stepApp.hrEmpChildrenInfo.employeeInfo" for="field_employeeInfo">employeeInfo</label>
+                            <div class="input-margin">
+                                <input type="text" class="form-control autocomplete" autocomplete="off" ng-model="hrEmpChildrenInfo.employeeInfo" typeahead='HrEmployeeInfo as (HrEmployeeInfo.fullName + " " + HrEmployeeInfo.employeeId) for HrEmployeeInfo in hremployeeinfos | filter:$viewValue' id="field_employeeInfo" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmpChildrenInfo.childrenName" for="field_childrenName">ChildrenName</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="childrenName" id="field_childrenName"
+                                   ng-model="hrEmpChildrenInfo.childrenName" required />
+                            <div ng-show="editForm.childrenName.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.childrenName.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmpChildrenInfo.childrenNameBn" for="field_childrenNameBn">ChildrenNameBn</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="childrenNameBn" id="field_childrenNameBn"
+                                   ng-model="hrEmpChildrenInfo.childrenNameBn"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmpChildrenInfo.dateOfBirth" for="field_dateOfBirth">DateOfBirth</label>
+                        <div class="input-margin">
+                            <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.dateOfBirth"
+                                   datepicker-options="calendar.dateOptions" close-text="Close"
+                                   ng-click="calendar.open($event, 'dateOfBirth')" class="form-control" name="dateOfBirth" id="field_dateOfBirth"
+                                   ng-model="hrEmpChildrenInfo.dateOfBirth" required />
+                            <div ng-show="editForm.dateOfBirth.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.dateOfBirth.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label"  translate="stepApp.hrEmpChildrenInfo.gender" for="field_gender">Gender</label>
+                        <div class="input-margin">
+                            <select class="form-control" name="gender" ng-model="hrEmpChildrenInfo.gender" id="field_gender" required>
+                                <option value="Male" translate="global.home.male">Male</option>
+                                <option value="Female" translate="global.home.female">Female</option>
+                                <option value="Other" translate="global.home.others">Other</option>
+                            </select>
+                            <div ng-show="editForm.gender.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.gender.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmpChildrenInfo.activeStatus">ActiveStatus</label>
+                        <div class="input-margin">
+                            <label class="radio-inline">
+                                <input type="radio" data-ng-model="hrEmpChildrenInfo.activeStatus" name="activeStatus" data-ng-value="true">&nbsp;<span translate="stepApp.hrEmpChildrenInfo.active"></span>&nbsp;&nbsp;
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" data-ng-model="hrEmpChildrenInfo.activeStatus" name="activeStatus" data-ng-value="false">&nbsp;<span translate="stepApp.hrEmpChildrenInfo.inactive"></span>
+                            </label>
+                            <div ng-show="editForm.activeStatus.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 text-right">
+                    <div class="form-group">
+                        <div class="">
+                            <!--<button type="button" class="btn btn-default"  data-dismiss="modal" onclick="window.history.back()">
+                                <span class="glyphicon glyphicon-ban-circle"> </span><span translate="entity.action.back" >Back</span>
+                            </button>-->
+
+                            <button class="btn btn-default" data-dismiss="modal" onclick="window.history.back()">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                                <span class="ng-scope" translate="entity.action.back" >Back</span>
+                            </button>
+
+                            <button  ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary btn-sm">
+                                <span class=" glyphicon glyphicon-save"></span>
+                                <span class="ng-scope" translate="entity.action.save" >Save</span>
+                            </button>
+
+                            <!--<button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary btn-sm">
+                                <span translate="entity.action.save">Save</span>
+                            </button>-->
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

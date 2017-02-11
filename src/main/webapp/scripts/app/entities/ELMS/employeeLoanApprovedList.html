@@ -1,0 +1,82 @@
+<div class="col-md-12 common-list">
+    <h2  id="myEmployeeLoanRequisitionFormLabel"
+         translate="stepApp.employeeLoanRequisitionForm.home.title">Loan Application Approve List</h2>
+    <div class="col-md-12 padding-tb">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+    </div>
+    <!--<div class="col-sm-12 padding-tb ">
+        <div class="col-md-4 no_padding">
+            <b>{{ (employeeLoanRequisitionForm|filter:q).length }} results found</b>
+            <div class="input-group">
+                <span class="input-group-addon elmsbtn" id="basic-addon1"><i class="fa fa-search"></i></span>
+                <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+            </div>
+        </div>
+        <div class="col-md-4 "><b>Items per page:</b>
+            <div class="input-group">
+                <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+            </div>
+        </div>
+    </div>-->
+
+
+    <div class="col-sm-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th><span translate="global.form.serial">serial</span></th>
+                <th translate="stepApp.employeeLoanRequisitionForm.employeeLoanTypeSetup">employee Loan Type Setup</th>
+                <th translate="stepApp.employeeLoanRequisitionForm.employeeLoanRulesSetup">employee Loan Rules Setup</th>
+                <th translate="stepApp.employeeLoanRequisitionForm.loanRequisitionCode">Loan Requisition Code</th>
+                <th translate="stepApp.employeeLoanRequisitionForm.employeeID">Employee Id</th>
+                <th translate="stepApp.employeeLoanRequisitionForm.amount">Amount</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--<tr ng-repeat="employeeLoanRequisitionForm in employeeLoanRequisitionForms track by employeeLoanRequisitionForm.id">-->
+            <tr dir-paginate="employeeLoanRequisitionForm in employeeLoanRequisitionForms | filter:q | itemsPerPage: pageSize" current-page="currentPage">
+
+            <td>{{pageSize*(currentPage-1)+$index+1}}</td>
+                <td>
+                    <a ui-sref="employeeLoanTypeSetup.detail({id:employeeLoanRequisitionForm.employeeLoanTypeSetup.id})">{{employeeLoanRequisitionForm.employeeLoanTypeSetup.loanTypeName}}</a>
+                </td>
+                <td>
+                    <a ui-sref="employeeLoanRulesSetup.detail({id:employeeLoanRequisitionForm.employeeLoanRulesSetup.id})">{{employeeLoanRequisitionForm.employeeLoanRulesSetup.loanName}}</a>
+                </td>
+                <td>{{employeeLoanRequisitionForm.loanRequisitionCode}}</td>
+                <td>{{employeeLoanRequisitionForm.employeeInfo.id}}</td>
+                <td>{{employeeLoanRequisitionForm.amount}}</td>
+
+                <td class="text-right">
+                    <button type="submit"
+                            ui-sref="employeeLoanInfo.employeeLoanRequisitionForm.detail({id:employeeLoanRequisitionForm.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view">View</span>
+                    </button>
+                    <!--<button type="submit" ng-show="editLoanForm"-->
+                            <!--ui-sref="employeeLoanInfo.employeeLoanRequisitionForm.edit({id:employeeLoanRequisitionForm.id})"-->
+                            <!--class="btn btn-primary btn-sm">-->
+                        <!--<span class="glyphicon glyphicon-pencil"></span>&nbsp;<span-->
+                        <!--translate="entity.action.edit">Edit</span>-->
+                    <!--</button>-->
+                    <!--<button type="submit"-->
+                    <!--ng-click="delete(employeeLoanRequisitionForm.id)"-->
+                    <!--class="btn btn-danger btn-sm">-->
+                    <!--<span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>-->
+                    <!--</button>-->
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                     template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+</div>

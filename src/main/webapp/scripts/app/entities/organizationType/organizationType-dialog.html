@@ -1,0 +1,114 @@
+<div class="col-md-3">
+    <ng-include src="'scripts/app/entities/jobPortal/jp-admin-menu.html'"></ng-include>
+</div>
+<div class="col-md-9 lbl-dash">
+    <div class="col-md-12 common-dialogue">
+        <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+            <h4 class="modal-title" ng-show="organizationType.id == null" id="myOrganizationTypeLabel"
+                translate="stepApp.organizationType.home.createLabel">Create or edit a OrganizationType</h4>
+            <h4 class="modal-title" ng-show="organizationType.id != null" id="myOrganizationTypeLabel1"
+                translate="stepApp.organizationType.home.editLabel">Create or edit a OrganizationType</h4>
+            <div class="modal-body">
+                <jh-alert-error></jh-alert-error>
+                <!--<div class="form-group">
+                    <label for="id" translate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                            ng-model="organizationType.id" readonly />
+                </div>-->
+                <!--<div class="form-group">
+                    <label translate="stepApp.organizationType.name" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                            ng-model="organizationType.name"
+                            required ng-maxlength="100" />
+                    <div ng-show="editForm.name.$invalid">
+                        <p class="help-block"
+                            ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                        <p class="help-block"
+                            ng-show="editForm.name.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="100">
+                            This field cannot be longer than 100 characters.
+                        </p>
+                    </div>
+                </div>-->
+
+                <div class="form-group">
+                    <label translate="stepApp.organizationType.name" for="field_name">Name</label>
+                    <input type="text" class="form-control" id="field_name" name="name"
+                           ng-model="organizationType.name"
+                           ng-remote-validate="/api/organizationType/checkByName/"
+                           ng-remote-method="GET"
+                           ng-remote-throttle="500"
+                           ng-maxlength='50'
+                           placeholder="{{'stepApp.organizationType.name' | translate}}"
+                           tooltip="{{'stepApp.organizationType.name' | translate}}"
+                           required>
+                    <span class="message validating" ng-show="editForm.name.$pending">validating...</span>
+                    <div ng-show="editForm.name.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.name.$error.ngRemoteValidate">
+                            Type already exists!
+                        </p>
+                    </div>
+                    <div ng-show="editForm.name.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                        <p class="help-block"
+                           ng-show="editForm.name.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="50">
+                            This field cannot be longer than 50 characters.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label translate="stepApp.organizationType.description" for="field_description">Description</label>
+            <textarea type="text" class="form-control" name="description" id="field_description"
+                      ng-model="organizationType.description"
+                      placeholder="{{'stepApp.organizationType.description' | translate}}"
+                      tooltip="{{'stepApp.organizationType.description' | translate}}"
+            ></textarea>
+                    <div ng-show="editForm.description.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.description.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label" translate="stepApp.organizationType.status">Status</label>
+                    <div class="col-sm-8">
+                        <input type="radio" name="status" ng-checked="organizationType.status == true"
+                               tooltip="{{'stepApp.organizationType.status' | translate}}"
+                               ng-model="organizationType.status" value="true"><span translate="entity.action.activate" >Active</span>
+                        <input type="radio" name="status" ng-checked="organizationType.status == false"
+                               tooltip="{{'stepApp.organizationType.status' | translate}}"
+                               ng-model="organizationType.status" value="false"><span translate="entity.action.deactivate" >Inactive</span>
+                    </div>
+                </div>
+                <br/><br/>
+
+                <!--        <div class="form-group">
+                            <label translate="stepApp.organizationType.status" for="field_status">Status</label>
+                            <input type="checkbox" class="form-control" name="status" id="field_status"
+                                    ng-model="organizationType.status"
+                                     />
+                        </div>-->
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" onclick="window.history.back()">
+                    <span class="glyphicon glyphicon-remove"></span>&nbsp;<span
+                    translate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-save"></span>
+                    <!--</span>&nbsp;<span translate="entity.action.save">Save</span>-->
+                    <span ng-show="organizationType.id == null" translate="entity.action.save">Save</span><span
+                    ng-show="organizationType.id != null" translate="entity.action.update">Update</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

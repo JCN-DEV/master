@@ -1,0 +1,74 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="mySisStudentInfoSubjLabel" translate="stepApp.sisStudentInfoSubj.home.createOrEditLabel">Create or edit a SisStudentInfoSubj</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="sisStudentInfoSubj.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.sisStudentInfoSubj.subject" for="field_subject">Subject</label>
+            <input type="text" class="form-control" name="subject" id="field_subject"
+                    ng-model="sisStudentInfoSubj.subject"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.sisStudentInfoSubj.subjectType" for="field_subjectType">SubjectType</label>
+            <input type="text" class="form-control" name="subjectType" id="field_subjectType"
+                    ng-model="sisStudentInfoSubj.subjectType"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.sisStudentInfoSubj.activeStatus" for="field_activeStatus">ActiveStatus</label>
+            <input type="checkbox" class="form-control" name="activeStatus" id="field_activeStatus"
+                    ng-model="sisStudentInfoSubj.activeStatus"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.sisStudentInfoSubj.createDate" for="field_createDate">CreateDate</label>
+            <input type="date" class="form-control" name="createDate" id="field_createDate"
+                    ng-model="sisStudentInfoSubj.createDate"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.sisStudentInfoSubj.createBy" for="field_createBy">CreateBy</label>
+            <input type="number" class="form-control" name="createBy" id="field_createBy"
+                    ng-model="sisStudentInfoSubj.createBy"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.sisStudentInfoSubj.updateDate" for="field_updateDate">UpdateDate</label>
+            <input type="date" class="form-control" name="updateDate" id="field_updateDate"
+                    ng-model="sisStudentInfoSubj.updateDate"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.sisStudentInfoSubj.updateBy" for="field_updateBy">UpdateBy</label>
+            <input type="number" class="form-control" name="updateBy" id="field_updateBy"
+                    ng-model="sisStudentInfoSubj.updateBy"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.sisStudentInfoSubj.stdInfoId" for="field_stdInfoId">stdInfoId</label>
+            <select class="form-control" id="field_stdInfoId" name="stdInfoId" ng-model="sisStudentInfoSubj.stdInfoId" ng-options="SisStudentInfo as SisStudentInfo.name for SisStudentInfo in sisstudentinfos track by SisStudentInfo.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

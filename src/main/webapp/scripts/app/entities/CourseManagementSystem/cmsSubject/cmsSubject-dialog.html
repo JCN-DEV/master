@@ -1,0 +1,304 @@
+<div class="cmscurriculam">
+    <div class="panel-heading cmsheading" ng-show="cmsSubject.code==null">
+        <h3 class="panel-title" translate="stepApp.cmsSubject.home.createOrEditLabel">CmsSubjects</h3>
+    </div>
+    <div class="panel-heading cmsheading" ng-hide="cmsSubject.code==null">
+        <h3 class="panel-title" translate="stepApp.cmsSubject.home.edit">CmsSubjects</h3>
+    </div>
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <div class="panel-body">
+<!--
+            <div ng-show="message != '' " class="alert alert-danger">{{message}}</div>
+-->
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label translate="stepApp.cmsSubject.cmsCurriculum" for="field_cmsCurriculum">cmsCurriculum</label>
+                    <select class="form-control" id="field_cmsCurriculum" name="cmsCurriculum"
+                            ng-model="cmsSubject.cmsCurriculum"
+                            ng-change="loadSyllabusByCurriculum(cmsSubject.cmsCurriculum)"
+                            ng-options="cmsCurriculum as cmsCurriculum.name for cmsCurriculum in cmscurriculums | filter:cmsCurriculum.status='true'">
+                        <option value="">{{cmsSubject.cmsCurriculum.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label translate="stepApp.cmsSubject.cmsSyllabus" for="field_cmsSyllabus">cmsSyllabus</label>
+                    <select class="form-control" id="field_cmsSyllabus" name="cmsSyllabus"
+                            ng-model="cmsSubject.cmsSyllabus"
+                            ng-options="cmsSyllabus as cmsSyllabus.name for cmsSyllabus in cmsSyllabuss | filter:filterActiveSyllabus() ">
+                        <option value="">{{cmsSubject.cmsSyllabus.name}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.cmsSubject.code" for="field_code">Code</label>
+                    <input type="text" class="form-control" name="code" id="field_code"
+                           ng-model="cmsSubject.code"
+                           ng-remote-validate="/api/cmsSubjects/name/"
+                           ng-remote-method="GET"
+                           required />
+                    <span class="message" ng-show="editForm.code.$pending">validating...</span>
+
+                    <div ng-show="editForm.code.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.code.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                    <div ng-show="editForm.code.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.code.$error.ngRemoteValidate">
+                            This code is already exist
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.cmsSubject.name" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                           ng-model="cmsSubject.name"
+                           ng-remote-validate="/api/cmsSubjects/name/"
+                           ng-remote-method="GET"
+                           required />
+                    <span class="message" ng-show="editForm.name.$pending">validating...</span>
+
+                    <div ng-show="editForm.name.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                    <div ng-show="editForm.name.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.name.$error.ngRemoteValidate">
+                            This code is already exist
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+
+
+            <div class="col-sm-12 cms-head">
+                <h3>Credit Setup</h3>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.cmsSubject.theoryCredHr" for="field_theoryCredHr">TheoryCredHr</label>
+                    <input type="number" class="form-control" name="theoryCredHr" id="field_theoryCredHr"
+                           ng-model="cmsSubject.theoryCredHr" min="0"
+                           required/>
+
+                    <div ng-show="editForm.theoryCredHr.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.theoryCredHr.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+
+                        <p class="help-block"
+                           ng-show="editForm.theoryCredHr.$error.number" translate="entity.validation.number">
+                            This field should be a number.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.cmsSubject.pracCredHr" for="field_pracCredHr">PracCredHr</label>
+                    <input type="number" class="form-control" name="pracCredHr" id="field_pracCredHr"
+                           ng-model="cmsSubject.pracCredHr"
+                        />
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.cmsSubject.totalCredHr" for="field_totalCredHr">TotalCredHr</label>
+                    <input type="number" class="form-control" name="totalCredHr" id="field_totalCredHr"
+                           readonly value="{{cmsSubject.theoryCredHr+cmsSubject.pracCredHr}}"
+                        />
+                </div>
+            </div>
+            <!-- <div class="col-sm-4">
+                 <div class="form-group">
+                     <label class="control-label" translate="stepApp.cmsSubject.totalCredHr" for="field_totalCredHr">TotalCredHr</label>
+                     <input type="number" class="form-control" name="totalCredHr" id="field_totalCredHr"
+                            value= "{{cmsSubject.theoryCredHr+cmsSubject.pracCredHr}}" />
+                 </div>
+             </div>-->
+            <div class="col-sm-12 cms-head">
+                <h3>Mark Setup</h3>
+            </div>
+            <div class="col-sm-6 col-md-6 ">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.cmsSubject.theoryCon" for="field_theoryCon">TheoryCon</label>
+                    <input type="number" class="form-control" name="theoryCon" id="field_theoryCon"
+                           ng-model="cmsSubject.theoryCon" min="0"
+                           required/>
+
+                    <div ng-show="editForm.theoryCon.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.theoryCon.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+
+                        <p class="help-block"
+                           ng-show="editForm.theoryCon.$error.number" translate="entity.validation.number">
+                            This field should be a number.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="col-sm-4">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.cmsSubject.pracCredHr" for="field_pracCredHr">PracCredHr</label>
+                    <input type="number" class="form-control" name="pracCredHr" id="field_pracCredHr"
+                           ng-model="cmsSubject.pracCredHr"
+                        />
+                </div>
+            </div>-->
+
+
+            <!-- <div class="col-sm-6">
+                 <div class="form-group">
+                     <label class="control-label" translate="stepApp.cmsSubject.theoryCon" for="field_theoryCon">TheoryCon</label>
+                     <input type="number" class="form-control" name="theoryCon" id="field_theoryCon"
+                            ng-model="cmsSubject.theoryCon"
+                            required/>
+
+                     <div ng-show="editForm.theoryCon.$invalid">
+                         <p class="help-block"
+                            ng-show="editForm.theoryCon.$error.required" translate="entity.validation.required">
+                             This field is required.
+                         </p>
+
+                         <p class="help-block"
+                            ng-show="editForm.theoryCon.$error.number" translate="entity.validation.number">
+                             This field should be a number.
+                         </p>
+                     </div>
+                 </div>
+             </div>-->
+            <div class="col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.cmsSubject.theoryFinal" for="field_theoryFinal">TheoryFinal</label>
+                    <input type="number" class="form-control" name="theoryFinal" id="field_theoryFinal"
+                           ng-model="cmsSubject.theoryFinal" min="0"
+                           required/>
+
+                    <div ng-show="editForm.theoryFinal.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.theoryFinal.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+
+                        <p class="help-block"
+                           ng-show="editForm.theoryFinal.$error.number" translate="entity.validation.number">
+                            This field should be a number.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.cmsSubject.pracCon"
+                           for="field_pracCon">PracCon</label>
+                    <input type="number" class="form-control" name="pracCon" id="field_pracCon"
+                           ng-model="cmsSubject.pracCon" min="0"
+                        />
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.cmsSubject.pracFinal" for="field_pracFinal">PracFinal</label>
+                    <input type="number" class="form-control" name="pracFinal" id="field_pracFinal"
+                           ng-model="cmsSubject.pracFinal" min="0"
+                        />
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.cmsSubject.totalMarks"
+                           for="field_totalMarks">TotalMarks</label>
+                    <input type="number" class="form-control" name="totalMarks" id="field_totalMarks"
+                           readonly value="{{cmsSubject.theoryCon+cmsSubject.theoryFinal+cmsSubject.pracCon+cmsSubject.pracFinal}}"/>
+
+                </div>
+        </div>
+            <!--<div class="col-sm-6 col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.cmsSubject.status" for="field_status">Status</label>
+                    <input type="checkbox" class="form-control" name="status" id="field_status"
+                           ng-model="cmsSubject.status"
+                        />
+                </div>
+            </div>-->
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.cmsCurriculum.status" >Status</label>
+
+                    <div class="input-margin">
+                        <label  class="radio-inline"><input type="radio" name="status" value="true" checked="true" ng-checked="cmsSubject.status == true" ng-model="cmsSubject.status"><span translate="entity.action.activate">Activate</span></label>
+                        <label class="radio-inline"><input type="radio" name="status"  value="false" ng-checked="cmsSubject.status == false" ng-model="cmsSubject.status"><span translate="entity.action.deactivate">Deactivate</span></label>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.cmsSubject.description" for="field_description">Description</label>
+                    <textarea type="text" class="form-control" name="description" id="field_description"
+                              ng-model="cmsSubject.description" cols="20" rows="3"
+                        ></textarea>
+                </div>
+            </div>
+            <div class="col-sm-12 text-right">
+                <button type="submit"
+                        onclick="window.history.back()"
+                        class="btn btn-info">
+                    <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+                </button>
+                <button type="button" class="btn btn-default" ng-click="clear()">
+                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.clear">Clear</span>
+                </button>
+                <button type="submit" ng-disabled="editForm.$invalid || isSaving || uniqueError" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                </button>
+            </div>
+
+            <!-- <div class="col-sm-6">
+                 <div class="form-group">
+                     <label class="control-label" translate="stepApp.cmsSubject.description" for="field_description">Description</label>
+                     <input type="text" class="form-control" name="description" id="field_description"
+                            ng-model="cmsSubject.description"
+                         />
+                 </div>
+             </div>-->
+
+
+            <!--<div class="col-sm-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.cmsSubject.status" for="field_status">Status</label>
+                    <input type="checkbox" class="form-control" name="status" id="field_status"
+                           ng-model="cmsSubject.status"
+                        />
+                </div>
+            </div>-->
+            <!-- <div class="col-sm-12 text-right">
+                 <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                     <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                 </button>
+                 <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                     <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                 </button>
+             </div>-->
+
+
+        </div>
+    </form>
+</div>

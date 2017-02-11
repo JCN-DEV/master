@@ -1,0 +1,214 @@
+<div class="col-md-3 ">
+    <ng-include src="'scripts/app/entities/sis/left-menu.html'"></ng-include>
+    <!--<ul class="custom-menu" id="left-menu1">
+        &lt;!&ndash; <li class="">
+             <a  class=""  data-toggle="collapse" data-parent="#left-menu1" data-target="#firstLink"><i class="fa fa-tachometer"></i>
+                 <span translate="stepApp.leftmenu.sis"></span> </span><i class="pull-right fa fa-angle-down"></i></a>
+             <ul id="firstLink" class="collapse search-accordion sis_menu">
+                 &lt;!&ndash;<li >
+                     <a class=""  ui-sref="sisQuota" ui-sref-active="active">
+                         <i class="fa fa-cogs"></i><span translate="global.menu.entities.sisQuota">Quota Setup</span>
+                     </a>
+                 </li>&ndash;&gt;&ndash;&gt;
+        <li has-any-authority="ROLE_ADMIN,ROLE_GOVT_STUDENT" >
+            <a class=""  ui-sref="sisStudentInfo" ui-sref-active="active">
+                <i class="fa fa-info-circle"></i><span translate="global.menu.entities.sisStudentInfo">Student Info</span>
+            </a>
+        </li>
+        <li has-any-authority="ROLE_ADMIN,ROLE_GOVT_STUDENT">
+            <a class=""  ui-sref="sisEducationHistory" ui-sref-active="active">
+                <i class="fa fa-history"></i><span translate="global.menu.entities.sisEducationHistory">Education History</span>
+            </a>
+        </li>
+
+        <li has-any-authority="ROLE_ADMIN,ROLE_GOVT_STUDENT">
+            <a class=""  ui-sref="jobPlacementInfo" ui-sref-active="active">
+                <i class="fa fa-pencil-square-o"></i>
+                <span translate="global.menu.entities.jobPlacementInfo">Job Placement Info</span>
+
+            </a>
+        </li>
+        <li has-any-authority="ROLE_ADMIN">
+            <a class=""  ui-sref="jobPostingInfo" ui-sref-active="active">
+                <i class="fa fa-pencil-square-o"></i>
+                <span translate="global.menu.entities.jobPostingInfo">Job Posting Info</span>
+
+            </a>
+        </li>
+        <li has-any-authority="ROLE_ADMIN,ROLE_GOVT_STUDENT">
+            <a class=""  ui-sref="jobSuggestions" ui-sref-active="active">
+                <i class="fa fa-pencil-square-o"></i>
+                <span translate="global.menu.entities.jobSuggestions">Job Suggestions Info</span>
+
+            </a>
+        </li>
+        <li  has-any-authority="ROLE_ADMIN" ui-sref-active="active" ><a ui-sref="sisStudentReg" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+            &#xA0;<span translate="global.menu.entities.sisStudentReg">sisStudentReg</span></a></li>
+
+        &lt;!&ndash; </ul>&ndash;&gt;
+        </li>
+    </ul>-->
+</div>
+
+<div class="col-md-9">
+    <h2><span translate="stepApp.jobPostingInfo.detail.title">JobPostingInfo</span> <!--{{jobPostingInfo.id}}--></h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="stepApp.jobPostingInfo.jobPostId">JobPostId</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{jobPostingInfo.jobPostId}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.jobPostingInfo.jobTitle">JobTitle</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{jobPostingInfo.jobTitle}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.jobPostingInfo.organizatinName">OrganizatinName</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{jobPostingInfo.organizatinName}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.jobPostingInfo.jobNature">jobNature</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="jobType.detail({id:jobPostingInfo.jobNature.id})">{{jobPostingInfo.jobNature.name}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.jobPostingInfo.jobVacancy">JobVacancy</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{jobPostingInfo.jobVacancy}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.jobPostingInfo.salaryRange">SalaryRange</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{jobPostingInfo.salaryRange}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.jobPostingInfo.jobSource">JobSource</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{jobPostingInfo.jobSource}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.jobPostingInfo.publishedDate">PublishedDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{jobPostingInfo.publishedDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.jobPostingInfo.applicationDateLine">ApplicationDateLine</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{jobPostingInfo.applicationDateLine | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.jobPostingInfo.jobDescription">JobDescription</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{jobPostingInfo.jobDescription}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.jobPostingInfo.jobFileName">JobFileName</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{jobPostingInfo.jobFileName}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.jobPostingInfo.upload">Upload</span>
+                </td>
+                <td>
+                    <!--<span class="form-control-static">{{jobPostingInfo.upload}}</span>
+                    <div>{{jobPostingInfo.uploadContentType}}  {{byteSize(jobPostingInfo.upload)}}</div>-->
+                    <!--<button type="submit"
+                            ng-click="previewImage(jobPostingInfo.jobPostId, jobPostingInfo.jobTitle, jobPostingInfo.jobFileName)"
+                            class="btn btn-warning btn-sm" tooltip="Show JobPosting">
+                        <span class="glyphicon glyphicon-picture"></span>
+                    </button>-->
+                    <button type="submit"
+                            ng-click="previewImage(jobPostingInfo.upload, jobPostingInfo.uploadContentType, jobPostingInfo.jobFileName)"
+                            class="btn btn-warning btn-sm" tooltip="Show JobPosting">
+                        <span class="glyphicon glyphicon-picture"></span>
+
+                    </button>
+                </td>
+            </tr>
+            <!--<tr>
+                <td>
+                    <span translate="stepApp.jobPostingInfo.createDate">CreateDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{jobPostingInfo.createDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.jobPostingInfo.createBy">CreateBy</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{jobPostingInfo.createBy}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.jobPostingInfo.updateBy">UpdateBy</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{jobPostingInfo.updateBy}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.jobPostingInfo.updateDate">UpdateDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{jobPostingInfo.updateDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>-->
+
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

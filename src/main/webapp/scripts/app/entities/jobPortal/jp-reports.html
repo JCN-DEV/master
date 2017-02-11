@@ -1,0 +1,313 @@
+<div class="row">
+        <div class="panel panel-body form-group col-sm-6 col-sm-offset-3 pull-left">
+            <label>Report Type</label>
+            <select ng-change="reportChange()" ng-model="jasperReport" name="jasperReport" class="form-control" ng-options="jasperReport as jasperReport.name for jasperReport in jasperReports track by jasperReport.id">
+                <option value="">Select Report Type</option>
+            </select><br>
+            <!-- start report parameters -->
+            <div ng-repeat="jasperReportParameter in jasperReportParameters track by $index">
+                <div ng-if="jasperReportParameter.type == 'combo'">
+                    <div ng-if="jasperReportParameter.servicename== 'institute'">
+                        <div class="form-group col-sm-4 input-margin">
+                            <label class="col-sm-12 control-label" for="{{jasperReportParameter.name}}">{{jasperReportParameter.flevel}}</label>
+                            <div class="col-sm-12">
+                                <select class="form-control" id="{{jasperReportParameter.name}}"
+                                        name="{{jasperReportParameter.flevel}}"
+                                        ng-options="institute.code as institute.name for institute in institutes track by institute.id"
+                                        ng-model="jasperReportParameter.actiontype" required="false">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="jasperReportParameter.servicename== 'status'">
+                        <div class="form-group col-sm-4 input-margin">
+                            <label class="col-sm-12 control-label" for="{{jasperReportParameter.name}}">{{jasperReportParameter.flevel}}</label>
+                            <div class="col-sm-12">
+                                <select class="form-control" id="{{jasperReportParameter.name}}"
+                                        name="{{jasperReportParameter.flevel}}"
+                                        ng-options="status.id as status.id for status in allStatus track by institute.id"
+                                        ng-model="jasperReportParameter.actiontype" required="false">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="jasperReportParameter.servicename== 'gender'">
+                        <div class="form-group col-sm-4 input-margin">
+                            <label class="col-sm-12 control-label" for="{{jasperReportParameter.name}}">{{jasperReportParameter.flevel}}</label>
+                            <div class="col-sm-12">
+                                <select class="form-control" id="{{jasperReportParameter.name}}"
+                                        name="{{jasperReportParameter.flevel}}"
+                                        ng-options="gender.id as gender.id for gender in genders track by institute.id"
+                                        ng-model="jasperReportParameter.actiontype" required="false">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="jasperReportParameter.servicename== 'organizationType'">
+                        <div class="form-group col-sm-4 input-margin">
+                            <label class="col-sm-12 control-label" for="{{jasperReportParameter.name}}">{{jasperReportParameter.flevel}}</label>
+                            <div class="col-sm-12">
+                                <select ng-change="list_change(jasperReportParameter.actiontype)" class="form-control" id="{{jasperReportParameter.name}}"
+                                        name="{{jasperReportParameter.flevel}}"
+                                        ng-options="organization.name as organization.name for organization in organizations track by organization.id"
+                                        ng-model="jasperReportParameter.actiontype" required="false">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="jasperReportParameter.servicename== 'publication'">
+                        <div class="form-group col-sm-4 input-margin">
+                            <label class="col-sm-12 control-label" for="{{jasperReportParameter.name}}">{{jasperReportParameter.flevel}}</label>
+                            <div class="col-sm-12">
+                                <select ng-change="list_change(jasperReportParameter.actiontype)" class="form-control" id="{{jasperReportParameter.name}}"
+                                        name="{{jasperReportParameter.flevel}}"
+                                        ng-options="contentType.name as contentType.name for contentType in contentTypes track by contentType.id"
+                                        ng-model="jasperReportParameter.actiontype" required="false">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="jasperReportParameter.servicename== 'employer'">
+                        <div class="form-group col-sm-4 input-margin">
+                            <label class="col-sm-12 control-label" for="{{jasperReportParameter.name}}">{{jasperReportParameter.flevel}}</label>
+                            <div class="col-sm-12">
+                                <select class="form-control" id="{{jasperReportParameter.name}}"
+                                        name="{{jasperReportParameter.flevel}}"
+                                        ng-options="employer.name as employer.name for employer in employers track by employer.id"
+                                        ng-model="jasperReportParameter.actiontype" required="false">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="jasperReportParameter.servicename== 'organizationCategory'">
+                        <div class="form-group col-sm-4 input-margin">
+                            <label class="col-sm-12 control-label" for="{{jasperReportParameter.name}}">{{jasperReportParameter.flevel}}</label>
+                            <div class="col-sm-12">
+                                <select class="form-control" id="{{jasperReportParameter.name}}"
+                                        name="{{jasperReportParameter.flevel}}"
+                                        ng-options="category.name as category.name for category in organizationCategories track by category.id"
+                                        ng-model="jasperReportParameter.actiontype" required="false">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="jasperReportParameter.servicename== 'division'">
+                        <div class="form-group col-sm-4 input-margin">
+                            <label class="col-sm-12 control-label" for="{{jasperReportParameter.name}}">{{jasperReportParameter.flevel}}</label>
+                            <div class="col-sm-12">
+                                <select ng-change="updatedDistrict(jasperReportParameter.actiontype)" class="form-control" id="{{jasperReportParameter.name}}"
+                                        name="{{jasperReportParameter.flevel}}"
+                                        ng-options="division.name as division.name for division in divisions track by division.id"
+                                        ng-model="jasperReportParameter.actiontype" required="false">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="jasperReportParameter.servicename== 'district'">
+                        <div class="form-group col-sm-4 input-margin">
+                            <label class="col-sm-12 control-label" for="{{jasperReportParameter.name}}">{{jasperReportParameter.flevel}}</label>
+                            <div class="col-sm-12">
+                                <select ng-change="updatedUpazila(jasperReportParameter.actiontype)" class="form-control" id="{{jasperReportParameter.name}}"
+                                        name="{{jasperReportParameter.flevel}}"
+                                        ng-options="district.name as district.name for district in districts track by district.id"
+                                        ng-model="jasperReportParameter.actiontype" required="false">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="jasperReportParameter.servicename== 'upazila'">
+                        <div class="form-group col-sm-4 input-margin">
+                            <label class="col-sm-12 control-label" for="{{jasperReportParameter.name}}">{{jasperReportParameter.flevel}}</label>
+                            <div class="col-sm-12">
+                                <select class="form-control" id="{{jasperReportParameter.name}}"
+                                        name="{{jasperReportParameter.flevel}}"
+                                        ng-options="upazila.name as upazila.name for upazila in upazilas track by upazila.id"
+                                        ng-model="jasperReportParameter.actiontype" required="false">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="jasperReportParameter.servicename== 'cat'">
+                        <div class="form-group col-sm-4 input-margin">
+                            <label class="col-sm-12 control-label" for="{{jasperReportParameter.name}}">{{jasperReportParameter.flevel}}</label>
+                            <div class="col-sm-12">
+                                <select ng-change="list_change(jasperReportParameter.actiontype)" class="form-control" id="{{jasperReportParameter.name}}"
+                                        name="{{jasperReportParameter.flevel}}"
+                                        ng-options="cat as cat for upazila in cats track by cat.id"
+                                        ng-model="jasperReportParameter.actiontype" required="false">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="jasperReportParameter.servicename== 'contentCategory'">
+                        <div class="form-group col-sm-4 input-margin">
+                            <label class="col-sm-12 control-label" for="{{jasperReportParameter.name}}">{{jasperReportParameter.flevel}}</label>
+                            <div class="col-sm-12">
+                                <select ng-change="list_change(jasperReportParameter.actiontype)" class="form-control" id="{{jasperReportParameter.name}}"
+                                        name="{{jasperReportParameter.flevel}}"
+                                        ng-options="dlContCat.name as dlContCat.name for dlContCat in dlContCategories track by dlContCat.id"
+                                        ng-model="jasperReportParameter.actiontype" required="false">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="jasperReportParameter.servicename== 'contentSubCategory'">
+                        <div class="form-group col-sm-4 input-margin">
+                            <label class="col-sm-12 control-label" for="{{jasperReportParameter.name}}">{{jasperReportParameter.flevel}}</label>
+                            <div class="col-sm-12">
+                                <select ng-change="list_change(jasperReportParameter.actiontype)" class="form-control" id="{{jasperReportParameter.name}}"
+                                        name="{{jasperReportParameter.flevel}}"
+                                        ng-options="dlContSubCategory.name as dlContSubCategory.name for dlContSubCategory in dlContSubCategories track by dlContSubCategory.id"
+                                        ng-model="jasperReportParameter.actiontype" required="false">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="jasperReportParameter.servicename== 'contentSourceName'">
+                        <div class="form-group col-sm-4 input-margin">
+                            <label class="col-sm-12 control-label" for="{{jasperReportParameter.name}}">{{jasperReportParameter.flevel}}</label>
+                            <div class="col-sm-12">
+                                <select ng-change="list_change(jasperReportParameter.actiontype)" class="form-control" id="{{jasperReportParameter.name}}"
+                                        name="{{jasperReportParameter.flevel}}"
+                                        ng-options="contentSource.name as contentSource.name for contentSource in contentSources track by contentSource.id"
+                                        ng-model="jasperReportParameter.actiontype" required="false">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="jasperReportParameter.servicename== 'contentTypeName'">
+                        <div class="form-group col-sm-4 input-margin">
+                            <label class="col-sm-12 control-label" for="{{jasperReportParameter.name}}">{{jasperReportParameter.flevel}}</label>
+                            <div class="col-sm-12">
+                                <select ng-change="list_change(jasperReportParameter.actiontype)" class="form-control" id="{{jasperReportParameter.name}}"
+                                        name="{{jasperReportParameter.flevel}}"
+                                        ng-options="contentType.name as contentType.name for contentType in contentType track by contentType.id"
+                                        ng-model="jasperReportParameter.actiontype" required="false">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="jasperReportParameter.servicename== 'authorName'">
+                        <div class="form-group col-sm-4 input-margin">
+                            <label class="col-sm-12 control-label" for="{{jasperReportParameter.name}}">{{jasperReportParameter.flevel}}</label>
+                            <div class="col-sm-12">
+                                <select class="form-control" id="{{jasperReportParameter.name}}"
+                                        name="{{jasperReportParameter.flevel}}"
+                                        ng-options="book.authorName as book.authorName for book in books track by book.id"
+                                        ng-model="jasperReportParameter.actiontype" required="false">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="jasperReportParameter.servicename== 'fileFormat'">
+                        <div class="form-group col-sm-4 input-margin">
+                            <label class="col-sm-12 control-label" for="{{jasperReportParameter.name}}">{{jasperReportParameter.flevel}}</label>
+                            <div class="col-sm-12">
+                                <select class="form-control" id="{{jasperReportParameter.name}}"
+                                        name="{{jasperReportParameter.flevel}}"
+                                        ng-options="fileType.fileType as fileType.fileType for fileType in fileTypes track by fileType.id"
+                                        ng-model="jasperReportParameter.actiontype" required="false">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div ng-if="jasperReportParameter.type == 'text'">
+                    <div class="form-group col-sm-4 no_padding  input-margin">
+                            <label class="col-sm-12 control-label "
+                                  for="txt{{$index}}">{{jasperReportParameter.flevel}}</label>
+                           <div class="col-sm-12 ">
+
+                               <input type="text"
+
+                                      class="form-control"
+                                      name="txt{{$index}}"
+                                      id="txt{{$index}}"
+                                      ng-model="jasperReportParameter.actiontype"
+                                      ng-init="jasperReportParameter.actiontype=''"
+                                   />
+                           </div>
+
+                    </div>
+                </div>
+                <!--<div ng-if="jasperReportParameter.type == 'date'">-->
+                    <!--<div class="form-group col-sm-4">-->
+                        <!--<label class="col-sm-12 control-label"-->
+                               <!--for="date{{$index}}">{{jasperReportParameter.flevel}}</label>-->
+                        <!--<div class="col-sm-12">-->
+                            <!--<input datepicker-popup="{{calendar.dateFormat}}"-->
+                                   <!--is-open="calendar.opened.date"-->
+                                   <!--datepicker-options="calendar.dateOptions" close-text="Close"-->
+                                   <!--ng-click="calendar.open($event, 'date')" class="form-control"-->
+                                   <!--name="date{{$index}}" id="date{{$index}}"-->
+                                   <!--ng-model="jasperReportParameter.actiontype"-->
+                                   <!--placeholder="yyyy-MM-dd"-->
+                            <!--/>-->
+
+                            <!--<div>-->
+                                <!--<p class="help-block"-->
+                                   <!--ng-show="rptForm.date{{$index}}.$error.date">-->
+                                    <!--Not a valid date!-->
+                                <!--</p>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div ng-if="jasperReportParameter.type == 'date'">
+                    <div class="form-group col-sm-4">
+                        <label class="col-sm-12 control-label"
+                               for="date{{$index}}">{{jasperReportParameter.flevel}}</label>
+                        <div class="col-sm-12">
+                            <input datepicker-popup="{{calendar.dateFormat}}"
+                                   is-open="calendar.opened['date'+$index]"
+                                   datepicker-options="calendar.dateOptions" close-text="Close"
+                                   ng-click="calendar.open($event, 'date'+$index)" class="form-control"
+                                   name="date{{$index}}" id="date{{$index}}"
+                                   ng-model="jasperReportParameter.actiontype"
+                                   ng-change="reportDate(jasperReportParameter.actiontype)"
+                                   placeholder="yyyy-MM-dd"
+                            />
+                            <div>
+                                <p class="help-block"
+                                   ng-show="rptForm.date{{$index}}.$error.date">
+                                    Not a valid date!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--date-->
+
+
+            </div>
+            <!-- end report parameters -->
+
+            <div class="col-md-12" style="text-align: center">
+                <button type="button" class="btn btn-primary" ng-click="reportPreview()">
+                    <span></span>&nbsp;<span>Generate Report</span>
+                </button>
+            </div>
+        </div>
+</div><!--end row -->
+
+<center><iframe style="top:0px; left:0px; bottom:0px; right:0px;
+    border:none; margin:0; padding:0; overflow:hidden; z-index:999999;"  height=625px width=950px seamless id="report_iframe" name="frame1" scroll="no" onload="document.getElementById('loadImg').style.display='none';"
+                ng-src="{{url}}">
+</iframe></center>

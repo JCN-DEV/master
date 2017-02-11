@@ -1,0 +1,110 @@
+<div class="row">
+    <div class="col-md-3">
+        <ng-include src="'scripts/app/account/mpo/mpo-left-menu.html'"></ng-include>
+    </div>
+    <div class="col-md-9 lbl-dash">
+        <div class="col-md-12 common-dialogue">
+            <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+                <h4 ng-if="attachmentCategory.id == null" class="modal-title" id="myAttachmentCategoryLabel" translate="stepApp.attachmentCategory.home.createLabel">Create a attachmentCategory</h4>
+                <h4 ng-if="attachmentCategory.id != null" class="modal-title" id="myAttachmentCategoryLabel" translate="stepApp.attachmentCategory.home.editLabel">Edit a attachmentCategory</h4>
+                <div class="modal-body">
+                    <div class="form-group" ng-show="false">
+                        <label for="id" translate="global.field.id">ID</label>
+                        <input type="text" class="form-control" id="id" name="id"
+                               ng-model="attachmentCategory.id" readonly/>
+                    </div>
+                    <div class="form-group">
+                        <label translate="stepApp.attachmentCategory.applicationName" for="field_applicationName">ApplicationName</label>
+                        <!--  <input type="text" class="form-control" name="applicationName" id="field_applicationName"
+                            ng-model="attachmentCategory.applicationName"
+                            required/>-->
+                        <select class="form-control" name="applicationName" ng-model="attachmentCategory.applicationName" id="field_applicationName" required>
+                            <option value="Assistant-Professor" >Assiatant Professor</option>
+                            <option value="Principle-Scale" >Principle Scale Application</option>
+                            <option value="MPO-Enlisting">MPO Enlisting</option>
+                            <option value="BED-Attachment" >B.Ed Attachment</option>
+                            <option value="Timescale" >Timescale</option>
+                            <option value="NameCancle" >Name Cancellation Application</option>
+                            <option value="InfoCorrect" >Information Correction Application</option>
+                        </select>
+                        <div ng-show="editForm.applicationName.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.applicationName.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="attachmentCategory.applicationName === 'MPO-Enlisting'">
+                        <label class=" control-label"
+                               translate="stepApp.attachmentCategory.instLevel" for="field_instLevel">Level</label>
+                        <select class="form-control" required id="field_instLevel" name="instLevel" ng-change="setDesignation(instLevel)" ng-model="instLevel" ng-options="instLevel as instLevel.name for instLevel in instLevels track by instLevel.id">
+                            <option value="">Select Institute Type</option>
+                        </select>
+                        <div ng-show="editForm.instLevel.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.instLevel.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <!--<div class="form-group" ng-if="instLevel.id != null">-->
+                    <div class="form-group">
+                        <label translate="stepApp.attachmentCategory.designationSetup" for="field_designationSetup">Attachment Designation</label>
+                        <select class="form-control" required id="field_designationSetup" name="designationSetup" ng-model="attachmentCategory.designationSetup"
+                                ng-options="designationSetup as designationSetup.designationInfo.designationName for designationSetup in designationSetups">
+                                <!--ng-options="designationSetup as instEmplDesignation.name for instEmplDesignation in instEmplDesignations track by instEmplDesignation.id">-->
+                            <option value="">{{attachmentCategory.designationSetup.designationInfo.designationName}}</option>
+                        </select>
+                        <div ng-show="editForm.designationSetup.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.designationSetup.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label translate="stepApp.attachmentCategory.attachmentName" for="field_attachmentName">AttachmentName</label>
+                        <input type="text" class="form-control" name="attachmentName" id="field_attachmentName"
+                               ng-model="attachmentCategory.attachmentName"
+                               required/>
+                        <div ng-show="editForm.attachmentName.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.attachmentName.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label translate="stepApp.attachmentCategory.module" for="field_module">module</label>
+                        <select class="form-control" id="field_module" name="module" ng-model="attachmentCategory.module"
+                                ng-options="module as module.name for module in modules track by module.id">
+                            <option value=""></option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <label class="col-sm-4 control-label" translate="stepApp.attachmentCategory.status">Status</label>
+                        <div class="col-sm-8">
+                            <input type="radio" name="status"  ng-model="attachmentCategory.status"
+                                   data-ng-value="true" ng-checked="true"
+                                   tooltip="{{'stepApp.attachmentCategory.status' | translate}}"
+                                   value="true"><span translate="entity.action.activate" >Active</span>
+                            <input type="radio" name="status" ng-model="attachmentCategory.status" data-ng-value="false"
+                                   tooltip="{{'stepApp.attachmentCategory.status' | translate}}"
+                                   value="false"><span translate="entity.action.deactivate" >Inactive</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" onclick="window.history.back()">
+                        <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                    </button>
+                    <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

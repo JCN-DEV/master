@@ -1,0 +1,305 @@
+<div class="">
+    <div class="col-md-3">
+        <ng-include src="'scripts/app/entities/jobPortal/jp-employer-menu.html'"></ng-include>
+    </div>
+    <div class="col-sm-9 col-md-9 lbl-dash">
+        <div class="col-md-12 common-dialogue" ng-show="!isNewProfile">
+            <h4 translate="stepApp.job.newJob">Create A Job</h4>
+            <div class="panel-body no_padding">
+                <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+                    <div ng-class="showPreview=='true' ? 'hide' : 'show'">
+                        <div class="col-lg-12 no_padding">
+                            <!--<div class="form-group col-md-6">
+                                <label class="control-label" translate="stepApp.job.title"
+                                       for="field_title">Title</label>
+                                <input type="text" class="form-control" name="title"
+                                       id="field_title" ng-model="job.title" required ng-minlength="3"/>
+
+                                <div ng-show="editForm.title.$invalid">
+                                    <p class="help-block" ng-show="editForm.title.$error.required"
+                                       translate="entity.validation.required">This field is
+                                        required.</p>
+
+                                    <p class="help-block" ng-show="editForm.title.$error.minlength"
+                                       translate="entity.validation.minlength"
+                                       translate-value-min="3">This field is required to be at
+                                        least 3 characters.</p>
+                                </div>
+                            </div>-->
+
+                            <div class="form-group col-md-6">
+                                <label class=" control-label"
+                                       translate="stepApp.job.title"
+                                       for="field_cat">job title</label>
+                                <select class="form-control" id="field_cat" name="cat" ng-change="changeCat()"
+                                        ng-model="job.cat" required=""
+                                        ng-options="cat as cat.cat for cat in cats track by cat.id">
+                                </select>
+
+                            </div>
+                            <div class="form-group col-md-6" ng-if="addNewCategory">
+                                <label class=" control-label"
+                                       translate="stepApp.job.addTitle"
+                                       for="category">job title</label>
+                                <!--<select class="form-control" id="field_cat"n name="cat" ng-change="changeCat()"
+                                        ng-model="job.cat" required=""
+                                        ng-options="cat as cat.cat for cat in cats track by cat.id">
+                                </select>-->
+
+                                <input type="text" class="form-control" id="category" name="category"
+                                       ng-model="category.cat"
+                                       ng-remote-validate="/api/cat/checkCategoryByName/"
+                                       ng-remote-method="GET"
+                                       ng-remote-throttle="500"
+                                       placeholder="Write job title here ....."
+                                       ng-minlength=3 ng-maxlength=50 required>
+                                <span class="message validating"
+                                      ng-show="editForm.category.$pending">validating...</span>
+                                <div ng-show="editForm.category.$invalid">
+                                    <p style="color:red; font-size:0.8em;"
+                                       ng-show="editForm.category.$error.ngRemoteValidate">
+                                        Category already exists!
+                                    </p>
+
+                                    <p style="color:red; font-size:0.8em;"
+                                       ng-show="editForm.category.$error.required && editForm.category.$dirty"
+                                       translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+
+                                    <p style="color:red; font-size:0.8em;"
+                                       ng-show="editForm.cat.$error.minlength" translate="entity.validation.minlength"
+                                       translate-value-min="3">
+                                        This field is required to be at least 3 characters.
+                                    </p>
+                                </div>
+
+                                <!-- <input type="text" id="field_cat2" class="form-control"  ng-model="category.cat" required="" placeholder="Write job title here ....."/>
+ -->
+                            </div>
+                            <!--<div class="form-group col-md-6">
+                                <label class=" control-label"
+                                       translate="stepApp.job.title"
+                                       for="field_cat">job title</label>
+
+                                <input type="text" class="form-control" ng-show="addNewCategory" ng-model="category.cat"/>
+                            </div>-->
+                            <div class="form-group col-md-6">
+                                <label class=" control-label"
+                                       translate="stepApp.job.type" for="field_type">Type</label>
+
+                                <select class="form-control" required="" id="field_type" name="jobType"
+                                        ng-model="job.jobType"
+                                        ng-options="jobType as jobType.name for jobType in jobTypes track by jobType.id">
+                                    <option value="">Select Job Type</option>
+                                </select>
+                                <!--<select class="form-control" id="field_type" name="industryType"
+                                        ng-model="job.JobType">
+                                    <option value="Full-Time" translate="stepApp.job.full-time">Full-Time</option>
+                                    <option value="Part-Time" translate="stepApp.job.part-time">Part-Time</option>
+                                    <option value="Hourly" translate="stepApp.job.hourly">Hourly</option>
+                                    <option value="Commission Based"
+                                            translate="stepApp.job.salary-based">Commission Based
+                                    </option>
+                                    <option value="Project Based" translate="stepApp.job.project">Project
+                                        Based
+                                    </option>
+                                </select>-->
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class=" control-label"
+                                       translate="stepApp.job.minimumSalary"
+                                       for="field_minimumSalary">MinimumSalary</label>
+                                <input type="number" class="form-control" name="minimumSalary"
+                                       id="field_minimumSalary" ng-model="job.minimumSalary" min="1"
+                                       ng-click="minSalary(job.minimumSalary)" ng-keyup="minSalary(job.minimumSalary)"/>
+
+                                <div ng-show="editForm.minimumSalary.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.minimumSalary.$error.required"
+                                       translate="entity.validation.required">This field is
+                                        required.</p>
+
+
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class=" control-label"
+                                       translate="stepApp.job.maximumSalary"
+                                       for="field_maximumSalary">MaximumSalary</label>
+                                <input ng-blur="salaryValidation()" type="number" class="form-control"
+                                       name="maximumSalary"
+                                       id="field_maximumSalary" min="1" ng-model="job.maximumSalary"/>
+
+                                <div ng-show="editForm.maximumSalary.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.maximumSalary.$error.required"
+                                       translate="entity.validation.required">This field is
+                                        required.</p>
+
+                                    <p class="help-block" ng-show="editForm.maximumSalary.$error.number"
+                                       translate="entity.validation.number">This field should be
+                                        a number.</p>
+                                </div>
+                                <p style="color:red; font-size:0.8em;" ng-show="salaryError">Max salary must be more
+                                    than min salary</p>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class=" control-label"
+                                       translate="stepApp.job.publishedAt" for="field_publishedAt">PublishedAt</label>
+                                <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.publishedAt"
+                                       datepicker-options="calendar.dateOptions" close-text="Close"
+                                       class="form-control" name="publishedAt"
+                                       id="field_publishedAt" ng-model="job.publishedAt" readonly/>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class=" control-label"
+                                       translate="stepApp.job.applicationDeadline"
+                                       for="field_applicationDeadline">Dead line</label>
+                                <input datepicker-popup="{{calendar.dateFormat}}"
+                                       is-open="calendar.opened.applicationDeadline"
+                                       datepicker-options="calendar.dateOptions" close-text="Close"
+                                       ng-click="calendar.open($event, 'applicationDeadline')" class="form-control"
+                                       required
+                                       name="applicationDeadline" id="field_applicationDeadline"
+                                       ng-model="job.applicationDeadline" ng-change="deadlineValidation()"/>
+
+                                <p ng-show="dateError" style="font-size: 0.9em; color:red;">Need a greater date !</p>
+                            </div>
+                            <!--<div class="form-group col-md-6">
+                                <label class=" control-label"
+                                       translate="stepApp.job.selectCat"
+                                       for="field_cat">cat</label>
+                                <select class="form-control" id="field_cat" multiple name="cat"
+                                        ng-model="job.cats"
+                                        ng-options="cat as cat.cat for cat in cats track by cat.id">
+                                </select>
+                            </div>-->
+                            <div class="form-group col-md-6">
+                                <label class=" control-label"
+                                       translate="stepApp.job.description" for="field_description">Description</label>
+                                <textarea type="text" class="form-control" name="description"
+                                          id="field_description" ng-model="job.description" required
+                                          cols="20" rows="3"
+                                          placeholder="{{'stepApp.job.jobDescription' | translate}}">
+                                </textarea>
+                                <div ng-show="editForm.description.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.description.$error.required"
+                                       translate="entity.validation.required">This field is
+                                        required.</p>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class=" control-label"
+                                       translate="stepApp.job.benefits" for="field_benefits">Benefits</label>
+                                <textarea type="text" class="form-control" name="benefits"
+                                          id="field_benefits" ng-model="job.benefits"
+                                          placeholder="{{'stepApp.job.jobBenefits' | translate}}"
+                                          cols="20" rows="3">
+                                </textarea>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class=" control-label"
+                                       translate="stepApp.job.educationRequirements"
+                                       for="field_educationRequirements">EducationRequirements</label>
+                                <textarea type="text" class="form-control"
+                                          name="educationRequirements" id="field_educationRequirements"
+                                          ng-model="job.educationRequirements" required cols="20"
+                                          rows="3"
+                                          placeholder="{{'stepApp.job.requiredEducational' | translate}}">
+                                </textarea>
+
+                                <div ng-show="editForm.educationRequirements.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.educationRequirements.$error.required"
+                                       translate="entity.validation.required">This field is
+                                        required.</p>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class=" control-label"
+                                       translate="stepApp.job.experienceRequirements"
+                                       for="field_experienceRequirements">ExperienceRequirements</label>
+                                <textarea type="text" class="form-control"
+                                          name="experienceRequirements" id="field_experienceRequirements"
+                                          ng-model="job.experienceRequirements"
+                                          placeholder="{{'stepApp.job.requiredExperiences' | translate}}"
+                                          cols="20" rows="3"></textarea>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class=" control-label"
+                                       translate="stepApp.job.otherRequirements"
+                                       for="field_otherRequirements">OtherRequirements</label>
+                                <textarea type="text" class="form-control"
+                                          name="otherRequirements" id="field_otherRequirements"
+                                          ng-model="job.otherRequirements" cols="20" rows="3"
+                                          placeholder="{{'stepApp.job.otherRequirement' | translate}}">
+
+                                </textarea>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class=" control-label" translate="stepApp.job.location"
+                                       for="field_location">City</label>
+                                <input type="text" class="form-control" name="location" id="field_location"
+                                       ng-model="job.location"
+                                       placeholder="{{'stepApp.job.City' | translate}}">
+
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class=" control-label"
+                                       translate="stepApp.job.vacancy" for="field_vacancy">Vacancy</label>
+                                <input type="number" class="form-control" name="vacancy"
+                                       id="field_vacancy" ng-model="job.vacancy" min="1" required/>
+
+                                <div ng-show="editForm.vacancy.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.vacancy.$error.required"
+                                       translate="entity.validation.required">This field is
+                                        required.</p>
+
+                                    <p class="help-block" ng-show="editForm.vacancy.$error.number"
+                                       translate="entity.validation.number">This field should be
+                                        a number.</p>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class=" control-label"
+                                       translate="stepApp.job.country" for="city">country</label>
+                                <select class="form-control" id="city" name="country"
+                                        ng-model="job.country"
+                                        ng-options="country as country.name for country in countries track by country.id"
+                                        required>
+                                    <option value="">Select Country</option>
+                                </select>
+                            </div>
+                            <div class="form-group job-button">
+                                <div class="col-sm-12 text-right ">
+							        <span ng-click="previewJob('true')" class="btn btn-primary"> &nbsp;<span
+                                        translate="entity.action.preview-job">Preview</span>
+                                    </span>
+                                    <button ng-show="createJob" type="submit"
+                                            ng-disabled="editForm.$invalid || isSaving || salaryError || dateError"
+                                            class="btn btn-primary">
+                                        &nbsp;<span translate="entity.action.post-job">Submit</span>
+                                    </button>
+                                    <button ng-show="updateJob" type="submit"
+                                            ng-disabled="editForm.$invalid || isSaving || salaryError || dateError"
+                                            class="btn btn-primary">
+                                        &nbsp;<span translate="entity.action.jobUpdate">Post</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-class="showPreview=='true' ? 'show' : 'hide'">
+                        <ng-include src="'scripts/app/entities/employer/_preview-job.html'"></ng-include>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="ng-cloak" ng-show="isNewProfile">
+        <strong class="alert alert-danger col-sm-12">Your Company Profile is awaiting for admin approval</strong>
+    </div>
+</div>

@@ -1,0 +1,82 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myMpoCommitteeHistoryLabel" translate="stepApp.mpoCommitteeHistory.home.createOrEditLabel">Create or edit a MpoCommitteeHistory</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="mpoCommitteeHistory.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.mpoCommitteeHistory.month" for="field_month">Month</label>
+            <input type="number" class="form-control" name="month" id="field_month"
+                    ng-model="mpoCommitteeHistory.month"
+                    required />
+            <div ng-show="editForm.month.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.month.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.month.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.mpoCommitteeHistory.year" for="field_year">Year</label>
+            <input type="number" class="form-control" name="year" id="field_year"
+                    ng-model="mpoCommitteeHistory.year"
+                    required />
+            <div ng-show="editForm.year.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.year.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.year.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.mpoCommitteeHistory.dateCrated" for="field_dateCrated">DateCrated</label>
+            <input type="date" class="form-control" name="dateCrated" id="field_dateCrated"
+                    ng-model="mpoCommitteeHistory.dateCrated"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.mpoCommitteeHistory.dateModified" for="field_dateModified">DateModified</label>
+            <input type="date" class="form-control" name="dateModified" id="field_dateModified"
+                    ng-model="mpoCommitteeHistory.dateModified"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.mpoCommitteeHistory.status" for="field_status">Status</label>
+            <input type="number" class="form-control" name="status" id="field_status"
+                    ng-model="mpoCommitteeHistory.status"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.mpoCommitteeHistory.mpoCommitteePersonInfo" for="field_mpoCommitteePersonInfo">mpoCommitteePersonInfo</label>
+            <select class="form-control" id="field_mpoCommitteePersonInfo" name="mpoCommitteePersonInfo" ng-model="mpoCommitteeHistory.mpoCommitteePersonInfo" ng-options="mpoCommitteePersonInfo as mpoCommitteePersonInfo.contactNo for mpoCommitteePersonInfo in mpocommitteepersoninfos track by mpoCommitteePersonInfo.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

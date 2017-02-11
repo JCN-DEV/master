@@ -1,0 +1,66 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myEmployeeLoanApproveAndForwardLabel" translate="stepApp.employeeLoanApproveAndForward.home.createOrEditLabel">Create a EmployeeLoanApproveAndForward</h4>
+    </div>
+    <div class="modal-body">
+
+        <!--<div class="form-group">-->
+            <!--<label translate="stepApp.employeeLoanApproveAndForward.approveFrom" for="field_approveFrom">Approve From </label>-->
+            <!--<input type="text" class="form-control" name="approveFrom" id="field_approveFrom"-->
+                   <!--ng-model="employeeLoanApproveAndForward.approveFrom"-->
+                   <!--readonly />-->
+        <!--</div>-->
+
+        <div class="form-group" ng-hide="authorityHide">
+            <label translate="stepApp.employeeLoanApproveAndForward.forwardToAuthority" for="field_authority">authority</label>
+            <select class="form-control" id="field_authority" name="authority" ng-model="employeeLoanApproveAndForward.forwardToAuthority" ng-options="authority as authority.viewMessage for authority in authoritys track by authority.code">
+                <option value=""></option>
+            </select>
+        </div>
+
+        <!--<div class="form-group">-->
+            <!--<label translate="stepApp.employeeLoanApproveAndForward.forwardToAuthority" for="field_forwardToAuthority">Forward To</label>-->
+            <!--<input type="text" class="form-control" name="forwardToAuthority" id="field_forwardToAuthority"-->
+                   <!--ng-model="employeeLoanApproveAndForward.forwardToAuthority"-->
+                   <!--readonly />-->
+        <!--</div>-->
+
+        <div class="form-group">
+            <label translate="stepApp.employeeLoanApproveAndForward.comments" for="field_comments">Comments</label>
+            <input type="textarea" class="form-control" name="comments" id="field_comments"
+                    ng-model="employeeLoanApproveAndForward.comments"
+                    required />
+            <div ng-show="editForm.comments.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.comments.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+
+        <!--<div class="form-group" ng-show="approveLoanAmountDiv">-->
+            <!--<label translate="stepApp.employeeLoanApproveAndForward.approvedLoanAmount" for="field_approvedLoanAmount">Approve Loan Amount</label>-->
+            <!--<input type="number" class="form-control" name="approvedLoanAmount" id="field_approvedLoanAmount"-->
+                   <!--ng-model="employeeLoanApproveAndForward.approvedLoanAmount"/>-->
+        <!--</div>-->
+
+        <!--<div class="form-group" ng-show="approveLoanInstallmentDiv">-->
+            <!--<label translate="stepApp.employeeLoanApproveAndForward.approvedLoanInstallment" for="field_approvedLoanInstallment">Approve Loan Installment</label>-->
+            <!--<input type="number" class="form-control" name="approvedLoanAmount" id="field_approvedLoanInstallment"-->
+                   <!--ng-model="employeeLoanApproveAndForward.approvedLoanInstallment"/>-->
+        <!--</div>-->
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.approve">Approve</span>
+        </button>
+    </div>
+</form>

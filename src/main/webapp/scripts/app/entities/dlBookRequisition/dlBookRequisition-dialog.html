@@ -1,0 +1,92 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myDlBookRequisitionLabel" translate="stepApp.dlBookRequisition.home.createOrEditLabel">Create or edit a DlBookRequisition</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="dlBookRequisition.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.dlBookRequisition.title" for="field_title">Title</label>
+            <input type="text" class="form-control" name="title" id="field_title"
+                    ng-model="dlBookRequisition.title"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.dlBookRequisition.edition" for="field_edition">Edition</label>
+            <input type="text" class="form-control" name="edition" id="field_edition"
+                    ng-model="dlBookRequisition.edition"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.dlBookRequisition.authorName" for="field_authorName">AuthorName</label>
+            <input type="text" class="form-control" name="authorName" id="field_authorName"
+                    ng-model="dlBookRequisition.authorName"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.dlBookRequisition.createDate" for="field_createDate">CreateDate</label>
+            <input type="date" class="form-control" name="createDate" id="field_createDate"
+                    ng-model="dlBookRequisition.createDate"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.dlBookRequisition.updateDate" for="field_updateDate">UpdateDate</label>
+            <input type="date" class="form-control" name="updateDate" id="field_updateDate"
+                    ng-model="dlBookRequisition.updateDate"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.dlBookRequisition.createBy" for="field_createBy">CreateBy</label>
+            <input type="number" class="form-control" name="createBy" id="field_createBy"
+                    ng-model="dlBookRequisition.createBy"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.dlBookRequisition.updateBy" for="field_updateBy">UpdateBy</label>
+            <input type="number" class="form-control" name="updateBy" id="field_updateBy"
+                    ng-model="dlBookRequisition.updateBy"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.dlBookRequisition.status" for="field_status">Status</label>
+            <input type="number" class="form-control" name="status" id="field_status"
+                    ng-model="dlBookRequisition.status"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.dlBookRequisition.dlContTypeSet" for="field_dlContTypeSet">dlContTypeSet</label>
+            <select class="form-control" id="field_dlContTypeSet" name="dlContTypeSet" ng-model="dlBookRequisition.dlContTypeSet" ng-options="dlContTypeSet as dlContTypeSet.name for dlContTypeSet in dlconttypesets track by dlContTypeSet.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.dlBookRequisition.dlContCatSet" for="field_dlContCatSet">dlContCatSet</label>
+            <select class="form-control" id="field_dlContCatSet" name="dlContCatSet" ng-model="dlBookRequisition.dlContCatSet" ng-options="dlContCatSet as dlContCatSet.name for dlContCatSet in dlcontcatsets track by dlContCatSet.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.dlBookRequisition.dlContSCatSet" for="field_dlContSCatSet">dlContSCatSet</label>
+            <select class="form-control" id="field_dlContSCatSet" name="dlContSCatSet" ng-model="dlBookRequisition.dlContSCatSet" ng-options="dlContSCatSet as dlContSCatSet.name for dlContSCatSet in dlcontscatsets track by dlContSCatSet.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

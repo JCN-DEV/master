@@ -1,0 +1,95 @@
+<div class="cmscurriculam">
+    <div class="panel-heading cmsheading">
+        <h3 class="panel-title" translate="stepApp.cmsSubAssign.home.title">CmsSubAssigns</h3>
+    </div>
+    <jh-alert></jh-alert>
+        <div class="row cmsCnew">
+            <div class="col-md-8 text-right">
+                <form name="searchForm" class="form-inline pull-left">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="{{'global.home.searchLabel' | translate}}">
+                    </div>
+                    <button class="btn btn-primary" ng-click="search()"><i class="fa fa-search-plus"></i>
+
+                    </button>
+                </form>
+            </div>
+            <div class="col-md-4 text-right pull-right">
+                <button class="btn btn-primary" ui-sref="courseInfo.subAssign.new">
+                    <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.cmsSubAssign.home.createLabel">Create a new CmsSubAssign</span>
+                </button>
+            </div>
+
+        </div>
+    <div class="table-responsive cmsheadrow">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                   <!-- <th translate="global.field.id">ID</th>-->
+                    <th translate="stepApp.cmsSubAssign.subject">Subject</th>
+                 <!--  <th translate="stepApp.cmsSubAssign.description">Description</th>
+                   <th translate="stepApp.cmsSubAssign.examFee">ExamFee</th>-->
+                   <th translate="stepApp.cmsSubAssign.status">Status</th>
+                   <th translate="stepApp.cmsSubAssign.cmsCurriculum">cmsCurriculum</th>
+                    <!--  <th translate="stepApp.cmsSubAssign.cmsTrade">cmsTrade</th>
+                     <th translate="stepApp.cmsSubAssign.cmsSemester">cmsSemester</th>
+                     <th translate="stepApp.cmsSubAssign.cmsSyllabus">cmsSyllabus</th>-->
+                    <th translate="entity.action.action">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="cmsSubAssign in cmsSubAssigns track by cmsSubAssign.id">
+                    <!--<td><a ui-sref="cmsSubAssign.detail({id:cmsSubAssign.id})">{{cmsSubAssign.id}}</a></td>-->
+                    <td>{{cmsSubAssign.cmsSubject.name}}</td>
+                    <!--<td>{{cmsSubAssign.description}}</td>
+                    <td>{{cmsSubAssign.examFee}}</td>-->
+                   <td>
+                       <span style="color: #005f00"  ng-show="cmsSubAssign.status == true" class="form-control-static"><span translate="entity.action.activate">Active</span></span>
+                       <span style="color: red" ng-show="cmsSubAssign.status == false" class="form-control-static"><span translate="entity.action.deactivate">Deactive</span></span>
+                   <td>
+                       <a ui-sref="cmsCurriculum.detail({id:cmsSubAssign.cmsCurriculum.id})">{{cmsSubAssign.cmsCurriculum.name}}</a>
+                   </td>
+                  <!-- <td>
+                       <a ui-sref="cmsTrade.detail({id:cmsSubAssign.cmsTrade.id})">{{cmsSubAssign.cmsTrade.name}}</a>
+                   </td>
+                   <td>
+                       <a ui-sref="cmsSemester.detail({id:cmsSubAssign.cmsSemester.id})">{{cmsSubAssign.cmsSemester.name}}</a>
+                   </td>
+                   <td>
+                       <a ui-sref="cmsSyllabus.detail({id:cmsSubAssign.cmsSyllabus.id})">{{cmsSubAssign.cmsSyllabus.name}}</a>
+                   </td>-->
+                    <td>
+                        <button type="submit"
+                                ui-sref="courseInfo.subAssign.detail({id:cmsSubAssign.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="courseInfo.subAssign.edit({id:cmsSubAssign.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <!--<button type="submit"
+                                ui-sref="cmsSubAssign.delete({id:cmsSubAssign.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>-->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pagination">
+                <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                <li class="active"><a>{{page + 1}}</a></li>
+                <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>

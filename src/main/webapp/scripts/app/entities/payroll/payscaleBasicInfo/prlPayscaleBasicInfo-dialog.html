@@ -1,0 +1,54 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myPrlPayscaleBasicInfoLabel" translate="stepApp.prlPayscaleBasicInfo.home.createOrEditLabel">Create or edit a PrlPayscaleBasicInfo</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="prlPayscaleBasicInfo.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.prlPayscaleBasicInfo.serialNumber" for="field_serialNumber">SerialNumber</label>
+            <input type="number" class="form-control" name="serialNumber" id="field_serialNumber"
+                    ng-model="prlPayscaleBasicInfo.serialNumber"/>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.prlPayscaleBasicInfo.basicAmount" for="field_basicAmount">BasicAmount</label>
+            <input type="number" class="form-control" name="basicAmount" id="field_basicAmount"
+                    ng-model="prlPayscaleBasicInfo.basicAmount"/>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.prlPayscaleBasicInfo.activeStatus" for="field_activeStatus">ActiveStatus</label>
+            <input type="checkbox" class="form-control" name="activeStatus" id="field_activeStatus"
+                    ng-model="prlPayscaleBasicInfo.activeStatus"
+                     />
+            <div ng-show="editForm.activeStatus.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.prlPayscaleBasicInfo.payscaleInfo" for="field_payscaleInfo">payscaleInfo</label>
+            <select class="form-control" id="field_payscaleInfo" name="payscaleInfo" ng-model="prlPayscaleBasicInfo.payscaleInfo" ng-options="PrlPayscaleInfo as PrlPayscaleInfo.name for PrlPayscaleInfo in prlpayscaleinfos track by PrlPayscaleInfo.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,73 @@
+<!--<div class="col-md-3">
+    <ng-include src="'scripts/app/account/mpo/mpo-left-menu.html'"></ng-include>
+</div>
+
+<div class="col-md-9" >-->
+    <div class="col-md-12 common-table">
+            <h2 class="heading_center" ng-show="payScalePendingLists.pending == 'pending'" translate="global.menu.account.appayCodePendingList">
+                Assistant Professor Pay Scale Pending List
+            </h2>
+            <h2 class="heading_center" ng-show="payScalePendingLists.pending == 'approved'" translate="global.menu.account.appayCodeApprovedList">
+                Assistant Professor Pay Scale Approved List
+            </h2>
+        <div class="col-md-12 padding-bt">
+            <div class="col-xs-4 no_padding">
+                <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+            </div>
+            <div class="col-xs-4">
+                <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+            </div>
+        </div>
+    <div class="col-md-12 no_padding table-responsive ">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="stepApp.mpo.serial">
+                        Serial
+                    </th>
+                    <th translate="stepApp.mpo.code">
+                        Code
+                    </th>
+                    <th translate="stepApp.mpo.institutename">
+                        Institute Name
+                    </th>
+                    <th translate="stepApp.mpo.upazila">
+                        Upazilla
+                    </th>
+                    <th translate="stepApp.mpo.status">
+                        Status
+                    </th>
+                    <th translate="stepApp.mpo.action">
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                 <tr ng-repeat="mpoApplication in payScalePendingLists">
+                 <tr dir-paginate="mpoApplication in payScalePendingLists | filter:q | itemsPerPage: pageSize " current-page="currentPage">
+
+                 <td>{{$index+1}}</td>
+                        <td>{{mpoApplication.CODE}}</td>
+                        <td>{{mpoApplication.INST_NAME}}</td>
+                        <td>{{mpoApplication.UPZILA_NAME}}</td>
+                        <td>{{mpoApplication.APP_STATUS}}</td>
+                        <td class="text-right no-print">
+                            <button class="btn btn-default" ui-sref="apscaleDetails({id:mpoApplication.ID})">
+                                <span translate="stepApp.mpo.View"> View</span>
+                            </button>
+                            <button ng-show="!mpoApplication.instEmployee.payScale" class="btn btn-success" ui-sref="mpo.apPaycodeAssign({id:mpoApplication.ID})">
+                                <span translate="stepApp.mpo.PayScaleAssign">PayScale Assign</span>
+                            </button>
+                            <button ng-show="mpoApplication.instEmployee.payScale" class="btn btn-success" ui-sref="mpo.apPaycodeAssign({id:mpoApplication.ID})">
+                                <span translate="stepApp.mpo.PayScaleReAssign">PayScaleReAssign</span>
+                            </button>
+                        </td>
+                 </tr>
+            </tbody>
+        </table>
+        <nav>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+    </div>
+<!--</div>-->

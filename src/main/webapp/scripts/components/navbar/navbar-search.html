@@ -1,0 +1,1614 @@
+<!--
+<div class="dashbord">
+    <div class="container-fluid no_padding">
+        <div class="cover-header-area">
+            <div class="banner-area">
+                <div class="row">
+                    <div class="col-md-12  col-xs-12 col-lg-12">
+                        <div class="top-area">
+                            <div class="top-area-bg"></div>
+                            <div class="ins-logo"><img src="/assets/images/govt-logo.png" alt=""/>
+                            </div>
+                            <div class="banner-heading">
+                                <h2>Directorate of Technical Education</h2>
+                                <h3>কারিগরি শিক্ষা অধিদপ্তর</h3>
+                            </div>
+                            <div class="govt-logo"><img src=" /assets/images/logo1.png" alt=""/>
+                            </div>
+                            <div class="parallelogram"></div>
+                            <div class="parallelogram2"></div>
+                            <div class="habijabi"></div>
+                            <div class="khabikahbi"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="top-header">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h3 class="hide">RECRUITMENT INFORMATION SYSTEM</h3>
+                    </div>
+                    <div class="col-md-3 search_form ">
+                        <form id="search-form pull-right" class="form-inline hide" class="form-inline form-search"
+                              ng-submit="submit()" name="form" role="form" novalidate
+                              show-validation>
+                            <div class="input-group">
+                                <input type="search" ng-model="q" class="form-control" placeholder="search for..."
+                                       required>
+                            </div>
+                            <button ng-disabled="form.$invalid" type="submit" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </form>
+                    </div>
+
+
+                    <div ng-controller="LanguageController">
+                        <div class="col-md-1 lang-area" ng-repeat="language in languages">
+                            <a active-menu="{{language}}" href="" class="lang" ng-click="changeLanguage(language)">{{language
+                                | findLanguageFromKey}}</a>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="notification-area">
+                            <ul class="nav navbar top-nav">
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
+                                        class="fa fa-bell"></i> <b class="caret"></b></a>
+                                    <ul class="dropdown-menu alert-dropdown">
+                                        <li>
+                                            <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Alert Name <span
+                                                class="label label-danger">Alert Badge</span></a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li>
+                                            <a href="#">View All</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="user-area">
+                            <ul class="nav navbar top-nav" ng-switch="isAuthenticated()">
+                                <li ng-class="{active: $state.includes('account')}" class="dropdown pointer">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                                        <span>
+                                            <span class="glyphicon glyphicon-user"></span>
+                                            <span class="hidden-tablet" translate="global.menu.account.main">Account{{global.menu.account.login}}</span>
+                                            <b class="caret"></b>
+                                        </span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li ui-sref-active="active" ng-switch-when="true"><a ui-sref="job-portal"><span
+                                            class="glyphicon glyphicon-dashboard"></span>
+                                            &#xA0;<span translate="global.menu.account.dashboard">dashboard</span></a>
+                                        </li>
+                                        <li ui-sref-active="active" ng-switch-when="true"><a ui-sref="settings"><span
+                                            class="glyphicon glyphicon-wrench"></span>
+                                            &#xA0;<span translate="global.menu.account.settings">Settings</span></a>
+                                        </li>
+                                        <li ui-sref-active="active" ng-switch-when="true"><a ui-sref="password"><span
+                                            class="glyphicon glyphicon-lock"></span>
+                                            &#xA0;<span translate="global.menu.account.password">Password</span></a>
+                                        </li>
+                                        <li ui-sref-active="active" ng-switch-when="true"><a ui-sref="sessions"><span
+                                            class="glyphicon glyphicon-cloud"></span>
+                                            &#xA0;<span translate="global.menu.account.sessions">Sessions</span></a>
+                                        </li>
+                                        <li ui-sref-active="active" ng-switch-when="true"><a href=""
+                                                                                             ng-click="logout()"><span
+                                            class="glyphicon glyphicon-log-out"></span>
+                                            &#xA0;<span translate="global.menu.account.logout">Log out</span></a></li>
+                                        <li ui-sref-active="active" ng-switch-when="false"><a ui-sref="login"><span
+                                            class="glyphicon glyphicon-log-in"></span>
+                                            &#xA0;<span translate="global.menu.account.login">Login</span></a></li>
+                                        <li ui-sref-active="active" ng-switch-when="false"><a ui-sref="register"><span
+                                            class="glyphicon glyphicon-plus-sign"></span>
+                                            &#xA0;<span translate="global.menu.account.jobSeekerRegister">Job Seeker Register</span></a>
+                                        </li>
+                                        <li ng-switch-when="false"><a ui-sref="employer.employer-registration"><span
+                                            class="glyphicon glyphicon-plus-sign"></span>
+                                            &#xA0;<span translate="global.menu.account.employerRegister">Employer Register</span></a></li>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    &lt;!&ndash;-=========  END HEADER AREA ========-&ndash;&gt;
+
+    <nav class="navbar navbar-inverse no-br" role="navigation">
+        <div>
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                &lt;!&ndash;<a class="navbar-brand" href="#/"><span class="" translate="global.title">jhipster</span> </a>&ndash;&gt;
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse" ng-switch="isAuthenticated()">
+                <ul class="nav navbar-nav nav-pills navbar-right">
+                    <li ui-sref-active="active">
+                        <a ui-sref="home">
+                            <span class="glyphicon glyphicon-home"></span>
+                            <span translate="global.menu.home">Home</span>
+                        </a>
+                    </li>
+                    <li has-any-authority="ROLE_ADMIN" ui-sref-active="active" ng-switch-when="true"><a ui-sref="deoregister"><span
+                        class="glyphicon glyphicon-asterisk"></span>
+                        &#xA0;<span translate="global.menu.deoRegistration">Deo Register</span></a>
+                    </li>
+                    <li ui-sref-active="active" ng-switch-when="true"><a ui-sref="job-portal"><span
+                        class="glyphicon glyphicon-asterisk"></span>
+                        &#xA0;<span translate="global.menu.jobPortal">Job Portal</span></a>
+                    </li>
+                    <li ui-sref-active="active" ng-switch-when="false"><a href="#/"><span
+                        class="glyphicon glyphicon-asterisk"></span>
+                        &#xA0;<span translate="global.menu.jobPortal">Job Portal</span></a>
+                    </li>
+                    <li ui-sref-active="active" ng-switch-when="false">
+                        <a ui-sref="instituteInfo.generalInfo.new">
+                            <span class="glyphicon glyphicon-home"></span>
+                            <span translate="global.menu.instituteInfo">Institute info</span>
+                        </a>
+                    </li>
+                    <li has-any-authority="ROLE_ADMIN,ROLE_MPOADMIN,ROLE_INSTITUTE,ROLE_INSTEMP,ROLE_FRONTDESK,ROLE_AD,ROLE_DIRECTOR,ROLE_DG,ROLE_DEO"
+                        ui-sref-active="active" ng-switch-when="true"
+                        class="dropdown pointer">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                                <span>
+                                    <span class="glyphicon glyphicon-tower"></span>
+                                    <span class="hidden-tablet" translate="global.menu.institute">Institute</span>
+                                    <b class="caret"></b>
+                                </span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li has-any-authority="ROLE_ADMIN, ROLE_INSTITUTE" ui-sref-active="active">
+                                <a ui-sref="instituteInfo"><span
+                                    class="glyphicon glyphicon-dashboard"></span>
+                                    &#xA0;<span translate="global.menu.instituteInfo">Institute Info</span></a>
+                            </li>
+                            <li has-any-authority="ROLE_ADMIN,ROLE_INSTITUTE">
+                                <a ui-sref="employeeInfo"><span
+                                    class="glyphicon glyphicon-dashboard"></span>
+                                    &#xA0;<span translate="global.menu.employee">Employee</span></a>
+                            </li>
+
+                            <li has-any-authority="ROLE_MPOADMIN,ROLE_ADMIN,ROLE_INSTITUTE,ROLE_INSTEMP,ROLE_FRONTDESK,ROLE_AD,ROLE_DIRECTOR,ROLE_DG,ROLE_DEO"
+                                ui-sref-active="active">
+                                <a ui-sref="mpo.application"><span
+                                    class="glyphicon glyphicon-dashboard"></span>
+                                    &#xA0;<span translate="global.menu.mpo">Mpo</span></a>
+                            </li>
+                            <li has-any-authority="ROLE_ADMIN,ROLE_INSTEMP" ui-sref-active="active">
+                                <a ui-sref="employeeInfo.personalInfo"><span
+                                    class="glyphicon glyphicon-dashboard"></span>
+                                    &#xA0;<span translate="global.menu.employeeInfo">Employee Info</span></a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                    <li ng-class="{active: $state.includes('admin')}" ng-switch-when="true" has-authority="ROLE_ADMIN"
+                        class="dropdown pointer">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                                <span>
+                                    <span class="glyphicon glyphicon-tower"></span>
+                                    <span class="hidden-tablet" translate="global.menu.admin.main">Administration</span>
+                                    <b class="caret"></b>
+                                </span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li ui-sref-active="active"><a ui-sref="user-management"><span
+                                class="glyphicon glyphicon-user"></span>
+                                &#xA0;<span translate="global.menu.admin.user-management">User management</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="employer-management"><span
+                                class="glyphicon glyphicon-user"></span>
+                                &#xA0;<span translate="global.menu.admin.employer-management">employer management</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="metrics"><span
+                                class="glyphicon glyphicon-dashboard"></span>
+                                &#xA0;<span translate="global.menu.admin.metrics">Metrics</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="health"><span class="glyphicon glyphicon-heart"></span>
+                                &#xA0;<span translate="global.menu.admin.health">Health</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="configuration"><span
+                                class="glyphicon glyphicon-list-alt"></span>
+                                &#xA0;<span translate="global.menu.admin.configuration">Configuration</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="audits"><span class="glyphicon glyphicon-bell"></span>
+                                &#xA0;<span translate="global.menu.admin.audits">Audits</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="logs"><span class="glyphicon glyphicon-tasks"></span>
+                                &#xA0;<span translate="global.menu.admin.logs">Logs</span></a></li>
+                            <li ng-hide="inProduction" ui-sref-active="active"><a ui-sref="docs"><span
+                                class="glyphicon glyphicon-book"></span>
+                                &#xA0;<span translate="global.menu.admin.apidocs">API</span></a></li>
+                            <li ng-hide="inProduction"><a href='/console' target="_tab"><span
+                                class="glyphicon glyphicon-hdd"></span>
+                                &#xA0;<span translate="global.menu.admin.database">Database</span></a></li>
+                            &lt;!&ndash; entities &ndash;&gt;
+                            <li ui-sref-active="active"><a ui-sref="author" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.author">author</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="book" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.book">book</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="careerInformation" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.careerInformation">careerInformation</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="cat" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.cat">cat</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="country" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.country">country</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="course" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.course">course</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="district" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.district">district</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="division" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.division">division</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="educationalQualification" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.educationalQualification">educationalQualification</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="employee" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.employee">employee</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="employer" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.employer">employer</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="experience" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.experience">experience</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="externalCV" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.externalCV">externalCV</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="institute" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.institute">institute</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="job" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.job">job</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="jobapplication" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.jobapplication">jobapplication</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="lang" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.lang">lang</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="principalRequirement" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.principalRequirement">principalRequirement</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="professionalQualification" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.professionalQualification">professionalQualification</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="reference" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.reference">reference</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="result" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.result">result</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="skill" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.skill">skill</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="staffCount" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.staffCount">staffCount</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="training" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.training">training</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="upazila" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.upazila">upazila</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="vacancy" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.vacancy">vacancy</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="applicantEducation" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.applicantEducation">applicantEducation</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="vacancy" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.vacancy">vacancy</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="employee" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.employee">employee</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="applicantEducation" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.applicantEducation">applicantEducation</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="instGenInfo" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instGenInfo">instGenInfo</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="instAdmInfo" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instAdmInfo">instAdmInfo</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="instBuilding" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instBuilding">instBuilding</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="instFinancialInfo" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instFinancialInfo">instFinancialInfo</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="instLand" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instLand">instLand</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="instGovernBody" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instGovernBody">instGovernBody</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="insAcademicInfo" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.insAcademicInfo">insAcademicInfo</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="instEmpCount" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instEmpCount">instEmpCount</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="instInfraInfo" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instInfraInfo">instInfraInfo</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="aclSid" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.aclSid">aclSid</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="aclClass" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.aclClass">aclClass</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="aclEntry" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.aclEntry">aclEntry</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="aclObjectIdentity" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.aclObjectIdentity">aclObjectIdentity</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="division" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.division">division</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="designation" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.designation">designation</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="courseTech" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.courseTech">courseTech</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="courseSubject" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.courseSubject">courseSubject</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="religion" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.religion">religion</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="quota" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.quota">quota</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="gradeSetup" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.gradeSetup">gradeSetup</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="instEmpAddress" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instEmpAddress">instEmpAddress</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="instEmpEduQuali" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instEmpEduQuali">instEmpEduQuali</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="instEmplHist" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instEmplHist">instEmplHist</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="instEmployee" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instEmployee">instEmployee</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="courseSub" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.courseSub">courseSub</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="assetTypeSetup" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.assetTypeSetup">assetTypeSetup</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="assetCategorySetup" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.assetCategorySetup">assetCategorySetup</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="attachment" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.attachment">attachment</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="attachmentCategory" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.attachmentCategory">attachmentCategory</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="module" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.modules">modules</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="country" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.country">country</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="professionalQualification" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.professionalQualification">professionalQualification</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="externalCV" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.externalCV">externalCV</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="tempEmployer" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.tempEmployer">tempEmployer</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="jobapplication" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.jobapplication">jobapplication</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="mpoApplication" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.mpoApplication">mpoApplication</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="religion" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.religion">religion</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="jpExperienceCategory" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.jpExperienceCategory">jpExperienceCategory</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="jpAcademicQualification" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.jpAcademicQualification">jpAcademicQualification</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="jpEmployeeExperience" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.jpEmployeeExperience">jpEmployeeExperience</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="jpEmploymentHistory" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.jpEmploymentHistory">jpEmploymentHistory</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="jpEmployee" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.jpEmployee">jpEmployee</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="jpLanguageProficiency" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.jpLanguageProficiency">jpLanguageProficiency</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="jpEmployeeTraining" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.jpEmployeeTraining">jpEmployeeTraining</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="jpEmployeeReference" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.jpEmployeeReference">jpEmployeeReference</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="assetTypeSetup" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.jpExperienceCategory">jpExperienceCategory</span></a>
+                            </li>
+
+
+                            <li ui-sref-active="active"><a ui-sref="assetManagements" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span>assetManagement</span></a></li>
+
+
+                            <li ui-sref-active="active"><a ui-sref="instEmplTraining" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instEmplTraining">instEmplTraining</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="payScale" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.payScale">payScale</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="instEmplDesignation" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instEmplDesignation">instEmplDesignation</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="mpoApplicationStatusLog" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.mpoApplicationStatusLog">mpoApplicationStatusLog</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="mpoApplicationEditLog" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.mpoApplicationEditLog">mpoApplicationEditLog</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="instEmplRecruitInfo" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instEmplRecruitInfo">instEmplRecruitInfo</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="instEmplExperience" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.instEmplExperience">instEmplExperience</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="instEmplBankInfo" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instEmplBankInfo">instEmplBankInfo</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="cmsCurriculum" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.cmsCurriculum">cmsCurriculum</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="cmsTrade" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.cmsTrade">cmsTrade</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="cmsSemester" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.cmsSemester">cmsSemester</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="cmsSyllabus" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.cmsSyllabus">cmsSyllabus</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="cmsSubject" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.cmsSubject">cmsSubject</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="cmsSubAssign" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.cmsSubAssign">cmsSubAssign</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="qrcodeGenLog" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.qrcodeGenLog">qrcodeGenLog</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="instituteBuilding" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instituteBuilding">instituteBuilding</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="instituteEmpCount" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instituteEmpCount">instituteEmpCount</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="instituteFinancialInfo" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.instituteFinancialInfo">instituteFinancialInfo</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="instituteGovernBody" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instituteGovernBody">instituteGovernBody</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="instituteLand" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instituteLand">instituteLand</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="instituteInfraInfo" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.instituteInfraInfo">instituteInfraInfo</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="feePaymentCategorySetup" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.feePaymentCategorySetup">feePaymentCategorySetup</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="feePaymentTypeSetup" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.feePaymentTypeSetup">feePaymentTypeSetup</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="smsGateway" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.smsGateway">smsGateway</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="feeInvoice" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.feeInvoice">feeInvoice</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="feePaymentCollection" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.feePaymentCollection">feePaymentCollection</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="fee" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.fee">fee</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="instLabInfo" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instLabInfo">instLabInfo</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="instShopInfo" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instShopInfo">instShopInfo</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="instituteLabInfo" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instituteLabInfo">instituteLabInfo</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="instituteShopInfo" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instituteShopInfo">instituteShopInfo</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="institutePlayGroundInfo" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.institutePlayGroundInfo">institutePlayGroundInfo</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="instPlayGroundInfo" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.instPlayGroundInfo">instPlayGroundInfo</span></a></li>
+                            <li ui-sref-active="active" ><a ui-sref="instEmpEduQuali" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instEmpEduQuali">instEmpEduQuali</span></a></li>
+                            <li ui-sref-active="active" ><a ui-sref="timeScaleApplication" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.timeScaleApplication">timeScaleApplication</span></a></li>
+                            <li ui-sref-active="active" ><a ui-sref="timeScaleApplicationStatusLog" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.timeScaleApplicationStatusLog">timeScaleApplicationStatusLog</span></a></li>
+                            <li ui-sref-active="active" ><a ui-sref="timeScaleApplicationEditLog" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.timeScaleApplicationEditLog">timeScaleApplicationEditLog</span></a></li>
+                            &lt;!&ndash; JHipster will add entities to the menu here &ndash;&gt;
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div ng-show="globalErrorMessage" class=" message error" style="margin: 5px 0px 0px 0px;padding:10px;border-radius: 3px;text-align: center">{{globalErrorMessage}}</div>
+    <div ng-show="globalSuccessMessage" class=" message success" style="margin: 5px 0px 0px 0px;padding:10px;border-radius: 3px;text-align: center;background: green;
+    color: white;">{{globalSuccessMessage}}</div>
+</div>
+-->
+<!--
+============================================-->
+<div class="dashbord">
+    <div class="container-fluid no_padding">
+        <div class="cover-header-area">
+            <div class="banner-area">
+                <div class="row">
+                    <div class="col-md-12  col-xs-12 col-lg-12 col-sm-12">
+                        <div class="top-area">
+                            <div class="top-area-bg"></div>
+                            <!--<div class="ins-logo"><img src="{{baseUrlLocation}}/assets/images/govt.png" alt=""/>-->
+                            <div class="ins-logo"><img src="./assets/images/govt-logo.png" alt=""/>
+                            </div>
+                            <div class="banner-heading">
+                                <h2>Directorate of Technical Education</h2>
+                                <h3>কারিগরি শিক্ষা অধিদপ্তর</h3>
+                            </div>
+                            <div class="govt-logo"><img src=" ./assets/images/logo1.png" alt=""/>
+                            </div>
+                            <div class="parallelogram"></div>
+                            <div class="parallelogram2"></div>
+                            <div class="habijabi"></div>
+                            <div class="khabikahbi"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="top-header">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h3 class="hide">RECRUITMENT INFORMATION SYSTEM</h3>
+                    </div>
+                    <!--<div class="col-md-4 search_form ">
+                        <form id="search-form pull-right" class="form-inline hide" class="form-inline form-search"
+                              ng-submit="submit()" name="form" role="form" novalidate
+                              show-validation>
+                            <div class="input-group">
+                                <input type="search" ng-model="q" class="form-control" placeholder="search for..."
+                                       required>
+                            </div>
+                            <button ng-disabled="form.$invalid" type="submit" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </form>
+                    </div>-->
+
+
+                    <div class="col-md-2">
+                        <div class="user-area">
+                            <!--<ul class="nav navbar top-nav" ng-switch="isAuthenticated()">
+                                <li ng-class="{active: $state.includes('account')}" class="dropdown pointer">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                                        <span>
+                                            <span class="glyphicon glyphicon-user"></span>
+                                            <span class="hidden-tablet">{{accountName == null ? 'Account' : accountName}}</span>
+                                            <b class="caret"></b>
+                                        </span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li has-any-authority="ROLE_ADMIN,ROLE_USER,ROLE_JPADMIN,ROLE_EMPLOYER" ui-sref-active="active" ng-switch-when="true"><a ui-sref="jp-dashboard"><span
+                                            class="glyphicon glyphicon-dashboard"></span>
+                                            &#xA0;<span translate="global.menu.account.dashboard">dashboard</span></a>
+                                        </li>
+                                        <li ui-sref-active="active" ng-switch-when="true"><a ui-sref="settings"><span
+                                            class="glyphicon glyphicon-wrench"></span>
+                                            &#xA0;<span translate="global.menu.account.settings">Settings</span></a>
+                                        </li>
+                                        <li ui-sref-active="active" ng-switch-when="true"><a ui-sref="password"><span
+                                            class="glyphicon glyphicon-lock"></span>
+                                            &#xA0;<span translate="global.menu.account.password">Password</span></a>
+                                        </li>
+                                        <li ui-sref-active="active" ng-switch-when="true"><a ui-sref="sessions"><span
+                                            class="glyphicon glyphicon-cloud"></span>
+                                            &#xA0;<span translate="global.menu.account.sessions">Sessions</span></a>
+                                        </li>
+                                        <li ui-sref-active="active" ng-switch-when="true"><a href=""
+                                                                                             ng-click="logout()"><span
+                                            class="glyphicon glyphicon-log-out"></span>
+                                            &#xA0;<span translate="global.menu.account.logout">Log out</span></a></li>
+                                        <li ui-sref-active="active" ng-switch-when="false"><a ui-sref="login"><span
+                                            class="glyphicon glyphicon-log-in"></span>
+                                            &#xA0;<span translate="global.menu.account.login">Login</span></a></li>
+                                        <li ui-sref-active="active" ng-switch-when="false"><a ui-sref="register"><span
+                                            class="glyphicon glyphicon-plus-sign"></span>
+                                            &#xA0;<span translate="global.menu.account.jobSeekerRegister">Job Seeker Register</span></a>
+                                        </li>
+                                        <li ng-switch-when="false"><a ui-sref="employer.employer-registration"><span
+                                            class="glyphicon glyphicon-plus-sign"></span>
+                                            &#xA0;<span translate="global.menu.account.employerRegister">Employer Register</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!---=========  END HEADER AREA ========--->
+
+    <nav class="navbar  su_mainmenu no-br" role="navigation">
+        <div>
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <!--<a class="navbar-brand" href="#/"><span class="" translate="global.title">jhipster</span> </a>-->
+            </div>
+
+            <div class="collapse navbar-collapse" id="navbar-collapse" ng-switch="isAuthenticated()">
+                <div ng-controller="LanguageController" class="su_lang">
+                    <div class="col-md-1 lang-area" ng-repeat="language in languages">
+                        <a active-menu="{{language}}" href="" class="lang su_a" ng-click="changeLanguage(language)">{{language
+                            | findLanguageFromKey}}</a>
+                    </div>
+                </div>
+                <ul class="nav navbar-nav nav-pills navbar-right">
+                    <li ui-sref-active="active">
+                        <a ui-sref="home">
+                            <span class="glyphicon glyphicon-home"></span>
+                            <span translate="global.menu.home">Home</span>
+                        </a>
+                    </li>
+                    <li has-any-authority="ROLE_ADMIN" ui-sref-active="active" ng-switch-when="true"><a ui-sref="deoregister"><span
+                        class="glyphicon glyphicon-asterisk"></span>
+                        &#xA0;<span translate="global.menu.deoRegistration">Deo Register</span></a>
+                    </li>
+                    <li has-any-authority="ROLE_ADMIN" ui-sref-active="active" ng-switch-when="true"><a ui-sref="dlExistBookInfo"><span
+                        class="glyphicon glyphicon-asterisk"></span>
+                        &#xA0;<span translate="global.menu.digitalLibrary">Deo Register</span></a>
+                    </li>
+                    <li has-any-authority="ROLE_ADMIN,ROLE_EMPLOYER,ROLE_USER" ui-sref-active="active" ng-switch-when="true"><a ui-sref="job-portal"><span
+                        class="glyphicon glyphicon-asterisk"></span>
+                        &#xA0;<span translate="global.menu.jobPortal">Job Portal</span></a>
+                    </li>
+                    <li ui-sref-active="active" ng-switch-when="false"><a  ui-sref="job-portal"><span
+                        class="glyphicon glyphicon-asterisk"></span>
+                        &#xA0;<span translate="global.menu.jobPortal">Job Portal</span></a>
+                    </li>
+                    <li ui-sref-active="active" ng-switch-when="false">
+                        <a ui-sref="instituteInfo.generalInfo.new">
+                            <span class="glyphicon glyphicon-home"></span>
+                            <span translate="global.menu.instituteInfo">Institute info</span>
+                        </a>
+                    </li>
+                    <!--....................-->
+                    <li ng-class="{active: $state.includes('account')}" class="dropdown pointer">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                                        <span>
+                                            <span class="glyphicon glyphicon-user"></span>
+                                            <span class="hidden-tablet">{{accountName == null ? 'Account' : accountName}}</span>
+                                            <b class="caret"></b>
+                                        </span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li has-any-authority="ROLE_ADMIN,ROLE_USER,ROLE_JPADMIN,ROLE_EMPLOYER" ui-sref-active="active" ng-switch-when="true"><a ui-sref="jp-dashboard"><span
+                                class="glyphicon glyphicon-dashboard"></span>
+                                &#xA0;<span translate="global.menu.account.dashboard">dashboard</span></a>
+                            </li>
+                            <li ui-sref-active="active" ng-switch-when="true"><a ui-sref="settings"><span
+                                class="glyphicon glyphicon-wrench"></span>
+                                &#xA0;<span translate="global.menu.account.settings">Settings</span></a>
+                            </li>
+                            <li ui-sref-active="active" ng-switch-when="true"><a ui-sref="password"><span
+                                class="glyphicon glyphicon-lock"></span>
+                                &#xA0;<span translate="global.menu.account.password">Password</span></a>
+                            </li>
+                            <li ui-sref-active="active" ng-switch-when="true"><a ui-sref="sessions"><span
+                                class="glyphicon glyphicon-cloud"></span>
+                                &#xA0;<span translate="global.menu.account.sessions">Sessions</span></a>
+                            </li>
+                            <li ui-sref-active="active" ng-switch-when="true"><a href=""
+                                                                                 ng-click="logout()"><span
+                                class="glyphicon glyphicon-log-out"></span>
+                                &#xA0;<span translate="global.menu.account.logout">Log out</span></a></li>
+                            <li ui-sref-active="active" ng-switch-when="false"><a ui-sref="login"><span
+                                class="glyphicon glyphicon-log-in"></span>
+                                &#xA0;<span translate="global.menu.account.login">Login</span></a></li>
+                            <li ui-sref-active="active" ng-switch-when="false"><a ui-sref="register"><span
+                                class="glyphicon glyphicon-plus-sign"></span>
+                                &#xA0;<span translate="global.menu.account.jobSeekerRegister">Job Seeker Register</span></a>
+                            </li>
+                            <li ng-switch-when="false"><a ui-sref="employer.employer-registration"><span
+                                class="glyphicon glyphicon-plus-sign"></span>
+                                &#xA0;<span translate="global.menu.account.employerRegister">Employer Register</span></a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!--........................-->
+
+
+                    <li has-any-authority="ROLE_ADMIN,ROLE_MPOADMIN,ROLE_INSTITUTE,ROLE_INSTEMP,ROLE_FRONTDESK,ROLE_AD,ROLE_DIRECTOR,ROLE_DG,ROLE_DEO"
+                        ui-sref-active="active" ng-switch-when="true"
+                        class="dropdown pointer">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                                <span>
+                                    <span class="glyphicon glyphicon-tower"></span>
+                                    <span class="hidden-tablet" translate="global.menu.institute">Institute</span>
+                                    <b class="caret"></b>
+                                </span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li has-any-authority="ROLE_ADMIN, ROLE_INSTITUTE" ui-sref-active="active">
+                                <a ui-sref="instituteInfo"><span
+                                    class="glyphicon glyphicon-dashboard"></span>
+                                    &#xA0;<span translate="global.menu.instituteInfo">Institute Info</span></a>
+                            </li>
+                            <li has-any-authority="ROLE_ADMIN" ui-sref-active="active">
+                                <a ui-sref="instEmplDesignation"><span
+                                    class="glyphicon glyphicon-dashboard"></span>
+                                    &#xA0;<span translate="global.menu.instEmplDesignation">Institute Teacher/Employee Designation</span></a>
+                            </li>
+                            <li has-any-authority="ROLE_INSTITUTE">
+                                <a ui-sref="employeeInfo"><span
+                                    class="glyphicon glyphicon-dashboard"></span>
+                                    &#xA0;<span translate="global.menu.employeeInfo">Employee</span></a>
+                            </li>
+
+                            <li has-any-authority="ROLE_MPOADMIN,ROLE_INSTITUTE,ROLE_FRONTDESK,ROLE_AD,ROLE_DIRECTOR,ROLE_DG,ROLE_DEO"
+                                ui-sref-active="active">
+                                <a ui-sref="mpo.dashboard"><span
+                                    class="glyphicon glyphicon-dashboard"></span>
+                                    &#xA0;<span translate="global.menu.mpo">Mpo</span></a>
+                            </li>
+                            <li has-any-authority="ROLE_INSTEMP"
+                                ui-sref-active="active">
+                                <a ui-sref="mpo.application"><span
+                                    class="glyphicon glyphicon-dashboard"></span>
+                                    &#xA0;<span translate="global.menu.mpo">Mpo</span></a>
+                            </li>
+                            <li has-any-authority="ROLE_INSTEMP" ui-sref-active="active">
+                                <a ui-sref="employeeInfo.personalInfo"><span
+                                    class="glyphicon glyphicon-dashboard"></span>
+                                    &#xA0;<span translate="global.menu.employeeInfo">Employee Info</span></a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                    <li ng-class="{active: $state.includes('admin')}" ng-switch-when="true" has-authority="ROLE_ADMIN"
+                        class="dropdown pointer">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                                <span>
+                                    <span class="glyphicon glyphicon-tower"></span>
+                                    <span class="hidden-tablet" translate="global.menu.admin.main">Administration</span>
+                                    <b class="caret"></b>
+                                </span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li ui-sref-active="active"><a ui-sref="user-management"><span
+                                class="glyphicon glyphicon-user"></span>
+                                &#xA0;<span translate="global.menu.admin.user-management">User management</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="employer-management"><span
+                                class="glyphicon glyphicon-user"></span>
+                                &#xA0;<span translate="global.menu.admin.employer-management">employer management</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="metrics"><span
+                                class="glyphicon glyphicon-dashboard"></span>
+                                &#xA0;<span translate="global.menu.admin.metrics">Metrics</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="health"><span class="glyphicon glyphicon-heart"></span>
+                                &#xA0;<span translate="global.menu.admin.health">Health</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="configuration"><span
+                                class="glyphicon glyphicon-list-alt"></span>
+                                &#xA0;<span translate="global.menu.admin.configuration">Configuration</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="audits"><span class="glyphicon glyphicon-bell"></span>
+                                &#xA0;<span translate="global.menu.admin.audits">Audits</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="logs"><span class="glyphicon glyphicon-tasks"></span>
+                                &#xA0;<span translate="global.menu.admin.logs">Logs</span></a></li>
+                            <li ng-hide="inProduction" ui-sref-active="active"><a ui-sref="docs"><span
+                                class="glyphicon glyphicon-book"></span>
+                                &#xA0;<span translate="global.menu.admin.apidocs">API</span></a></li>
+                            <li ng-hide="inProduction"><a href='/console' target="_tab"><span
+                                class="glyphicon glyphicon-hdd"></span>
+                                &#xA0;<span translate="global.menu.admin.database">Database</span></a></li>
+                            <!-- entities -->
+                            <li ui-sref-active="active"><a ui-sref="author" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.author">author</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="book" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.book">book</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="careerInformation" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.careerInformation">careerInformation</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="cat" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.cat">cat</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="country" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.country">country</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="course" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.course">course</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="district" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.district">district</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="division" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.division">division</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="educationalQualification" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.educationalQualification">educationalQualification</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="employee" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.employee">employee</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="employer" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.employer">employer</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="experience" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.experience">experience</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="externalCV" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.externalCV">externalCV</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="institute" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.institute">institute</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="job" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.job">job</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="jobapplication" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.jobapplication">jobapplication</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="lang" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.lang">lang</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="principalRequirement" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.principalRequirement">principalRequirement</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="professionalQualification" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.professionalQualification">professionalQualification</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="reference" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.reference">reference</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="result" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.result">result</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="skill" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.skill">skill</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="staffCount" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.staffCount">staffCount</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="training" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.training">training</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="upazila" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.upazila">upazila</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="vacancy" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.vacancy">vacancy</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="applicantEducation" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.applicantEducation">applicantEducation</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="vacancy" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.vacancy">vacancy</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="employee" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.employee">employee</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="applicantEducation" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.applicantEducation">applicantEducation</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="instGenInfo" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instGenInfo">instGenInfo</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="instAdmInfo" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instAdmInfo">instAdmInfo</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="instBuilding" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instBuilding">instBuilding</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="instFinancialInfo" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instFinancialInfo">instFinancialInfo</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="instLand" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instLand">instLand</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="instGovernBody" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instGovernBody">instGovernBody</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="insAcademicInfo" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.insAcademicInfo">insAcademicInfo</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="instEmpCount" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instEmpCount">instEmpCount</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="instInfraInfo" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instInfraInfo">instInfraInfo</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="aclSid" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.aclSid">aclSid</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="aclClass" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.aclClass">aclClass</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="aclEntry" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.aclEntry">aclEntry</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="aclObjectIdentity" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.aclObjectIdentity">aclObjectIdentity</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="division" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.division">division</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="designation" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.designation">designation</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="courseTech" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.courseTech">courseTech</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="courseSubject" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.courseSubject">courseSubject</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="religion" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.religion">religion</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="quota" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.quota">quota</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="gradeSetup" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.gradeSetup">gradeSetup</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="instEmpAddress" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instEmpAddress">instEmpAddress</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="instEmpEduQuali" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instEmpEduQuali">instEmpEduQuali</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="instEmplHist" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instEmplHist">instEmplHist</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="instEmployee" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instEmployee">instEmployee</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="courseSub" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.courseSub">courseSub</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="assetTypeSetup" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.assetTypeSetup">assetTypeSetup</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="assetCategorySetup" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.assetCategorySetup">assetCategorySetup</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="attachment" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.attachment">attachment</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="attachmentCategory" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.attachmentCategory">attachmentCategory</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="module" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.modules">modules</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="country" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.country">country</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="professionalQualification" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.professionalQualification">professionalQualification</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="externalCV" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.externalCV">externalCV</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="tempEmployer" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.tempEmployer">tempEmployer</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="jobapplication" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.jobapplication">jobapplication</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="mpoApplication" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.mpoApplication">mpoApplication</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="religion" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.religion">religion</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="jpExperienceCategory" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.jpExperienceCategory">jpExperienceCategory</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="jpAcademicQualification" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.jpAcademicQualification">jpAcademicQualification</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="jpEmployeeExperience" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.jpEmployeeExperience">jpEmployeeExperience</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="jpEmploymentHistory" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.jpEmploymentHistory">jpEmploymentHistory</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="jpEmployee" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.jpEmployee">jpEmployee</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="jpLanguageProficiency" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.jpLanguageProficiency">jpLanguageProficiency</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="jpEmployeeTraining" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.jpEmployeeTraining">jpEmployeeTraining</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="jpEmployeeReference" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.jpEmployeeReference">jpEmployeeReference</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="assetTypeSetup" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.jpExperienceCategory">jpExperienceCategory</span></a>
+                            </li>
+
+
+                            <li ui-sref-active="active"><a ui-sref="assetManagements" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span>assetManagement</span></a></li>
+
+
+                            <li ui-sref-active="active"><a ui-sref="instEmplTraining" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instEmplTraining">instEmplTraining</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="payScale" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.payScale">payScale</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="instEmplDesignation" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instEmplDesignation">instEmplDesignation</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="mpoApplicationStatusLog" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.mpoApplicationStatusLog">mpoApplicationStatusLog</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="mpoApplicationEditLog" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.mpoApplicationEditLog">mpoApplicationEditLog</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="instEmplRecruitInfo" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instEmplRecruitInfo">instEmplRecruitInfo</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="instEmplExperience" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.instEmplExperience">instEmplExperience</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="instEmplBankInfo" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instEmplBankInfo">instEmplBankInfo</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="cmsCurriculum" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.cmsCurriculum">cmsCurriculum</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="cmsTrade" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.cmsTrade">cmsTrade</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="cmsSemester" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.cmsSemester">cmsSemester</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="cmsSyllabus" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.cmsSyllabus">cmsSyllabus</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="cmsSubject" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.cmsSubject">cmsSubject</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="cmsSubAssign" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.cmsSubAssign">cmsSubAssign</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="qrcodeGenLog" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.qrcodeGenLog">qrcodeGenLog</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="instituteBuilding" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instituteBuilding">instituteBuilding</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="instituteEmpCount" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instituteEmpCount">instituteEmpCount</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="instituteFinancialInfo" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.instituteFinancialInfo">instituteFinancialInfo</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="instituteGovernBody" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instituteGovernBody">instituteGovernBody</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="instituteLand" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instituteLand">instituteLand</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="instituteInfraInfo" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.instituteInfraInfo">instituteInfraInfo</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="feePaymentCategorySetup" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.feePaymentCategorySetup">feePaymentCategorySetup</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="feePaymentTypeSetup" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.feePaymentTypeSetup">feePaymentTypeSetup</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="smsGateway" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.smsGateway">smsGateway</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="feeInvoice" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.feeInvoice">feeInvoice</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="feePaymentCollection" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.feePaymentCollection">feePaymentCollection</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="fee" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.fee">fee</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="instLabInfo" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instLabInfo">instLabInfo</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="instShopInfo" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instShopInfo">instShopInfo</span></a></li>
+                            <li ui-sref-active="active"><a ui-sref="instituteLabInfo" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instituteLabInfo">instituteLabInfo</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="instituteShopInfo" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instituteShopInfo">instituteShopInfo</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="institutePlayGroundInfo" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.institutePlayGroundInfo">institutePlayGroundInfo</span></a>
+                            </li>
+                            <li ui-sref-active="active"><a ui-sref="instPlayGroundInfo" data-toggle="collapse"
+                                                           data-target=".navbar-collapse.in"><span
+                                class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span
+                                    translate="global.menu.entities.instPlayGroundInfo">instPlayGroundInfo</span></a></li>
+                            <li ui-sref-active="active" ><a ui-sref="instEmpEduQuali" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.instEmpEduQuali">instEmpEduQuali</span></a></li>
+
+                            <li ui-sref-active="active" ><a ui-sref="jasperReport" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.jasperReport">jasperReport</span></a></li>
+                            <li ui-sref-active="active" ><a ui-sref="timeScaleApplication" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.timeScaleApplication">timeScaleApplication</span></a></li>
+                            <li ui-sref-active="active" ><a ui-sref="timeScaleApplicationStatusLog" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.timeScaleApplicationStatusLog">timeScaleApplicationStatusLog</span></a></li>
+                            <li ui-sref-active="active" ><a ui-sref="timeScaleApplicationEditLog" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.timeScaleApplicationEditLog">timeScaleApplicationEditLog</span></a></li>
+                            <li ui-sref-active="active" ><a ui-sref="bEdApplication" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.bEdApplication">bEdApplication</span></a></li>
+                            <li ui-sref-active="active" ><a ui-sref="bEdApplicationEditLog" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.bEdApplicationEditLog">bEdApplicationEditLog</span></a></li>
+                            <li ui-sref-active="active" ><a ui-sref="bEdApplicationStatusLog" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.bEdApplicationStatusLog">bEdApplicationStatusLog</span></a></li>
+                            <li ui-sref-active="active" ><a ui-sref="aPScaleApplication" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.aPScaleApplication">aPScaleApplication</span></a></li>
+                            <li ui-sref-active="active" ><a ui-sref="aPScaleApplicationEditLog" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.aPScaleApplicationEditLog">aPScaleApplicationEditLog</span></a></li>
+                            <li ui-sref-active="active" ><a ui-sref="aPScaleApplicationStatusLog" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.aPScaleApplicationStatusLog">aPScaleApplicationStatusLog</span></a></li>
+                            <li ui-sref-active="active" ><a ui-sref="professorApplication" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.professorApplication">professorApplication</span></a></li>
+                            <li ui-sref-active="active" ><a ui-sref="professorApplicationEditLog" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.professorApplicationEditLog">professorApplicationEditLog</span></a></li>
+                            <li ui-sref-active="active" ><a ui-sref="professorApplicationStatusLog" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.professorApplicationStatusLog">professorApplicationStatusLog</span></a></li>
+                            <li ui-sref-active="active" ><a ui-sref="dlBookCat" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.dlBookCat">dlBookCat</span></a></li>
+                            <li ui-sref-active="active" ><a ui-sref="dlBookType" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.dlBookType">dlBookType</span></a></li>
+                            <li ui-sref-active="active" ><a ui-sref="dlContentSetup" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.dlContentSetup">dlContentSetup</span></a></li>
+                            <li ui-sref-active="active" ><a ui-sref="dlContentUpload" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.dlContentUpload">dlContentUpload</span></a></li>
+                            <li ui-sref-active="active" ><a ui-sref="dlEmpReg" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.dlEmpReg">dlEmpReg</span></a></li>
+                            <li ui-sref-active="active" ><a ui-sref="dlExistBookInfo" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.dlExistBookInfo">dlExistBookInfo</span></a></li>
+                            <li ui-sref-active="active" ><a ui-sref="dlExistingBookIssue" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.dlExistingBookIssue">dlExistingBookIssue</span></a></li>
+                            <li ui-sref-active="active" ><a ui-sref="dlUllimConfig" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.dlUllimConfig">dlUllimConfig</span></a></li>
+                            <li ui-sref-active="active" ><a ui-sref="organizationType" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.organizationType">organizationType</span></a></li>
+                            <li ui-sref-active="active" ><a ui-sref="organizationCategory" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.organizationCategory">organizationCategory</span></a></li>
+                            <li ui-sref-active="active" ><a ui-sref="jobType" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.jobType">jobType</span></a></li>
+                            <li ui-sref-active="active" ><a ui-sref="eduBoard" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.eduBoard">eduBoard</span></a></li>
+                            <li ui-sref-active="active" ><a ui-sref="eduLevel" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.eduLevel">eduLevel</span></a></li>
+                            <li ui-sref-active="active" ><a ui-sref="jpSkill" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.jpSkill">jpSkill</span></a></li>
+                            <li ui-sref-active="active" ><a ui-sref="jpSkillLevel" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                                &#xA0;<span translate="global.menu.entities.jpSkillLevel">jpSkillLevel</span></a></li>
+                            <!-- JHipster will add entities to the menu here -->
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <div ng-show="globalErrorMessage" class=" message error" style="margin: 5px 0px 0px 0px;padding:10px;border-radius: 3px;text-align: center">{{globalErrorMessage}}</div>
+    <div ng-show="globalSuccessMessage" class=" message success" style="margin: 5px 0px 0px 0px;padding:10px;border-radius: 3px;text-align: center;background: green;
+    color: white;">{{globalSuccessMessage}}</div>
+</div>

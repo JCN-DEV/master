@@ -1,0 +1,156 @@
+<!--service assign-->
+<div class="service-form-area">
+    <div class="panel panel-default">
+        <div class="panel-heading" translate="stepApp.smsServiceAssign.home.title"> SmsServiceNames</div>
+        <div class="panel-body bg-panel">
+
+
+            <div class=" col-md-12 col-sm-12 col-xs-12 ">
+                <div class="form-group">
+
+                    <form name="searchForm" class="form-inline">
+                        <div class="form-group">
+                            <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="search">
+                        </div>
+                        <button class="btn btn-primary" ng-click="search()"><i class="fa fa-search-plus"></i>
+
+                        </button>
+                    </form>
+
+
+
+                    <button class="btn btn-primary" ui-sref="smsServiceAssign.new">
+                        <i class="fa fa-bolt"></i>
+                        <span <span translate="stepApp.smsServiceAssign.home.createLabel">Add New</span>
+                    </button>
+
+                </div>
+            </div>
+
+            <div class=" col-md-12 col-sm-12 col-xs-12 ">
+                <div class="table-responsive">
+                    <table class="table table-head-bg">
+
+                        <thead>
+                        <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
+                            <th jh-sort-by="id"><span translate="global.field.id">ID</span></th>
+                            <th jh-sort-by="smsServiceDepartment.name"><span translate="stepApp.smsServiceAssign.smsServiceDepartment">smsServiceDepartment</span></th>
+                            <th jh-sort-by="employee.name"><span translate="stepApp.smsServiceAssign.employee">employee</span> </th>
+                            <th jh-sort-by="activeStatus"><span translate="stepApp.smsServiceAssign.activeStatus">ActiveStatus</span> </th>
+                            <th></th>
+                        </tr>
+                        </thead>
+
+                        <tbody class="employee-list table-body-bg">
+
+
+
+                        <tr ng-repeat="smsServiceAssign in smsServiceAssigns track by smsServiceAssign.id">
+                            <td><a ui-sref="smsServiceAssign.detail({id:smsServiceAssign.id})">{{smsServiceAssign.id}}</a></td>
+                            <td>
+                                <a ui-sref="smsServiceDepartment.detail({id:smsServiceAssign.smsServiceDepartment.id})">{{smsServiceAssign.smsServiceDepartment.name}}</a>
+                            </td>
+                            <td>
+                                <a ui-sref="employee.detail({id:smsServiceAssign.employee.id})">{{smsServiceAssign.employee.name}}</a>
+                            </td>
+                            <td>{{smsServiceAssign.activeStatus}}</td>
+
+                            <td>
+                                <button type="submit" class="btn btn-xs btn-primary pull-right"     ui-sref="smsServiceAssign.detail({id:smsServiceAssign.id})" ><i class="fa fa-eye-slash"></i>
+
+                                    <span translate="entity.action.view"> View</span>
+                                </button>
+                                <button type="submit" class="btn btn-xs btn-primary pull-right"   ui-sref="smsServiceAssign.edit({id:smsServiceAssign.id})"><i class="fa fa-pencil"></i>
+                                    <span translate="entity.action.edit"> Edit</span>
+                                </button>
+                                <button ng-hide="true" type="submit" ui-sref="smsServiceType.delete({id:smsServiceType.id})" class="btn btn-danger btn-sm">
+                                    <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                                </button>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center">
+                    <uib-pagination class="pagination-sm" total-items="totalItems" ng-model="page" ng-change="loadAll()"></uib-pagination>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<!--End service assign-->
+
+
+
+
+<!---<div>
+    <h2 translate="stepApp.smsServiceAssign.home.title">SmsServiceAssigns</h2>
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" ui-sref="smsServiceAssign.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="stepApp.smsServiceAssign.home.createLabel">Create a new SmsServiceAssign</span>
+                </button>
+            </div>
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
+                    <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="smsServiceDepartment.name"><span translate="stepApp.smsServiceAssign.smsServiceDepartment">smsServiceDepartment</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="employee.name"><span translate="stepApp.smsServiceAssign.employee">employee</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="activeStatus"><span translate="stepApp.smsServiceAssign.activeStatus">ActiveStatus</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="smsServiceAssign in smsServiceAssigns track by smsServiceAssign.id">
+                    <td><a ui-sref="smsServiceAssign.detail({id:smsServiceAssign.id})">{{smsServiceAssign.id}}</a></td>
+                    <td>
+                        <a ui-sref="smsServiceDepartment.detail({id:smsServiceAssign.smsServiceDepartment.id})">{{smsServiceAssign.smsServiceDepartment.name}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="employee.detail({id:smsServiceAssign.employee.id})">{{smsServiceAssign.employee.name}}</a>
+                    </td>
+                    <td>{{smsServiceAssign.activeStatus}}</td>
+                    <td align="right">
+                        <button type="submit"
+                                ui-sref="smsServiceAssign.detail({id:smsServiceAssign.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="smsServiceAssign.edit({id:smsServiceAssign.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button ng-hide="true" type="submit" ui-sref="smsServiceAssign.delete({id:smsServiceAssign.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <uib-pagination class="pagination-sm" total-items="totalItems" ng-model="page" ng-change="loadAll()"></uib-pagination>
+    </div>
+</div>

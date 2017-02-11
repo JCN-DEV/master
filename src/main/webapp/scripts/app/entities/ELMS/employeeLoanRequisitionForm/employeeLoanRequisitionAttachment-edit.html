@@ -1,0 +1,25 @@
+    <div class="col-sm-6" ng-hide="loanApplicantAttachment[attachmentCount].noAttachment">
+        <div class="form-group" ngf-drop ngf-change="setFile($file, attachment)">
+            <div>
+                <div class="help-block clearfix">
+                    <span class="pull-left">{{loanApplicantAttachment[attachmentCount].fileContentType}} {{byteSize(loanApplicantAttachment[attachmentCount].file)}}</span>
+                    <button
+                        ng-click="loanApplicantAttachment.file=null;loanApplicantAttachment[attachmentCount].fileContentType=null;"
+                        ng-if="loanApplicantAttachment[attachmentCount].file"
+                        class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <div class="col-sm-12">
+                    <input type="file" ngf-select class="btn btn-default btn-sm col-sm-6"
+                           ngf-change="setFile($file, loanApplicantAttachment[attachmentCount])"
+                           translate="entity.action.addblob">
+                    </input>
+                </div>
+            </div>
+            <input type="hidden" class="form-control" name="file" id="field_file"
+                   ng-model="loanApplicantAttachment[attachmentCount].file"/>
+            <input type="hidden" class="form-control" name="fileContentType" id="field_fileContentType"
+                   ng-model="loanApplicantAttachment[attachmentCount].fileContentType"/>
+        </div>
+    </div>

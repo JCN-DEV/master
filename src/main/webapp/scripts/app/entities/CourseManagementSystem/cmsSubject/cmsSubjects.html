@@ -1,0 +1,117 @@
+<!--<div class="cmscurriculam">
+    <div class="panel-heading cmsheading">
+        <h3 class="panel-title" translate="stepApp.cmsSubject.home.title">CmsSubjects</h3>
+    </div>
+    <div class="row cmsCnew su_btn_center">
+        <div class="col-md-8 col-sm-12 col-xs-12">
+            <form name="searchForm" class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control su_searchbox" ng-model="searchQuery" id="searchQuery" placeholder="{{'global.home.searchLabel' | translate}}">
+
+                    <button class="btn btn-primary su_searchbtn" ng-click="search()"><i class="fa fa-search-plus"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4 col-sm-12 col-xs-12 su_btn_center text-right">
+            <button class="btn btn-primary" ui-sref="courseInfo.cmsSubject.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.cmsSubject.home.createLabel">Create a new CmsSubject</span>
+            </button>
+        </div>
+    </div>-->
+
+
+
+    <div class="col-sm-12 common-list">
+        <h2 class="panel-title" translate="stepApp.cmsSubject.home.title">CmsSubjects</h2>
+        <div class="col-md-12 col-sm-12 col-xs-12 padding-tb">
+            <div class="col-md-4 no_padding">
+                <b><span translate="global.home.searchhere">Search Here :</span></b>
+                <input ng-model="q" id="search" type="text" class="form-control"  placeholder="Search for...">
+            </div>
+            <div class="col-md-2">
+                <b><span translate="global.home.itemperpage">Items per page:</span></b>
+                <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+            </div>
+            <div class="col-md-6 btn-top text-right no_padding">
+                <button class="btn btn-primary" ui-sref="courseInfo.cmsSubject.new">
+                    <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.cmsSubject.home.createLabel">Create a new CmsSubject</span>
+                </button>
+            </div>
+        </div>
+
+
+
+    <div class="col-md-12  no_padding">
+        <table class="table">
+            <thead>
+                <tr>
+                    <!--<th translate="global.field.id">ID</th>-->
+                    <th translate="stepApp.cmsSubject.code">Code</th>
+                    <th translate="stepApp.cmsSubject.name">Name</th>
+                   <!-- <th translate="stepApp.cmsSubject.theoryCredHr">TheoryCredHr</th>
+                    <th translate="stepApp.cmsSubject.pracCredHr">PracCredHr</th>-->
+                    <!--  <th translate="stepApp.cmsSubject.totalCredHr">TotalCredHr</th>
+                     <th translate="stepApp.cmsSubject.theoryCon">TheoryCon</th>
+                    <th translate="stepApp.cmsSubject.theoryFinal">TheoryFinal</th>
+                     <th translate="stepApp.cmsSubject.pracCon">PracCon</th>
+                     <th translate="stepApp.cmsSubject.pracFinal">PracFinal</th>
+                     <th translate="stepApp.cmsSubject.totalMarks">TotalMarks</th>
+                     <th translate="stepApp.cmsSubject.description">Description</th>-->
+                     <th translate="stepApp.cmsSubject.status">Status</th>
+                     <th translate="stepApp.cmsSubject.cmsCurriculum">cmsCurriculum</th>
+                     <th translate="stepApp.cmsSubject.cmsSyllabus">cmsSyllabus</th>
+                     <th translate="entity.action.action">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr class=" book-info wow animated zoomIn" data-wow-duration="1s" data-wow-delay="0s" dir-paginate="cmsSubject in cmsSubjects  | filter:q | itemsPerPage: pageSize track by cmsSubject.id " >
+
+                <!-- <td><a ui-sref="cmsSubject.detail({id:cmsSubject.id})">{{cmsSubject.id}}</a></td>-->
+                    <td>{{cmsSubject.code}}</td>
+                    <td>{{cmsSubject.name}}</td>
+                    <!--  <td>{{cmsSubject.theoryCredHr}}</td>
+                     <td>{{cmsSubject.pracCredHr}}</td>
+                     <td>{{cmsSubject.totalCredHr}}</td>
+                     <td>{{cmsSubject.theoryCon}}</td>
+                    <td>{{cmsSubject.theoryFinal}}</td>
+                     <td>{{cmsSubject.pracCon}}</td>
+                     <td>{{cmsSubject.pracFinal}}</td>
+                     <td>{{cmsSubject.totalMarks}}</td>
+                     <td>{{cmsSubject.description}}</td>-->
+                    <td>
+                        <span style="color: #005f00"  ng-show="cmsSubject.status == true" class="form-control-static"><span translate="entity.action.activate">Active</span></span>
+                        <span style="color: red" ng-show="cmsSubject.status == false" class="form-control-static"><span translate="entity.action.deactivate">Deactive</span></span>
+                    </td>
+                    <td>
+                        <a ui-sref="cmsCurriculum.detail({id:cmsSubject.cmsCurriculum.id})">{{cmsSubject.cmsCurriculum.name}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="cmsSyllabus.detail({id:cmsSubject.cmsSyllabus.id})">{{cmsSubject.cmsSyllabus.name}}</a>
+                    </td>
+                    <td class="text-right">
+                        <button type="submit"
+                                ui-sref="courseInfo.cmsSubject.detail({id:cmsSubject.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="courseInfo.cmsSubject.edit({id:cmsSubject.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <!--<button type="submit"
+                                ui-sref="cmsSubject.delete({id:cmsSubject.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>-->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+</div>

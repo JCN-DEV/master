@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="HorizontalTemplate" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="5" bottomMargin="10" isFloatColumnFooter="true" whenResourceMissingType="Empty" uuid="c7a2d5ba-760c-4250-94ea-05e8e16a8840">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="label" mode="Opaque" backcolor="#CCCCCC" fill="Solid" hAlign="Center" vAlign="Middle" pattern="" fontSize="9" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman"/>
+	<style name="value" hAlign="Center" vAlign="Middle" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/dev/Desktop/report_template/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="reportTitle" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select id, name from country where id<20]]>
+	</queryString>
+	<field name="ID" class="java.math.BigDecimal"/>
+	<field name="NAME" class="java.lang.String"/>
+	<variable name="subTotal" class="java.lang.Integer">
+		<variableExpression><![CDATA[$V{subTotal}+1]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="grandTotal" class="java.lang.Integer">
+		<variableExpression><![CDATA[$V{grandTotal}+1]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="serial" class="java.lang.Integer">
+		<variableExpression><![CDATA[$V{serial} +1]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="43" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="43" uuid="2ae06b2c-6adb-4386-856b-2573b7dd421a"/>
+				<subreportParameter name="reportTitle">
+					<subreportParameterExpression><![CDATA[$P{reportTitle}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "dte_header-vert.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="23" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement style="label" x="0" y="0" width="277" height="20" uuid="160a8cbb-6d20-4bba-a172-6756dfcb2bad"/>
+				<text><![CDATA[NAME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="label" x="277" y="0" width="277" height="20" uuid="3e97da4d-da6c-45f8-bdeb-0f952efccfca"/>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField>
+				<reportElement style="value" x="0" y="0" width="277" height="16" uuid="8cd21b23-5819-43ce-b7ea-bb86cc222f06"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{NAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="value" x="277" y="0" width="277" height="16" uuid="e85d0436-0e84-4c22-8430-63c9a2544738"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{ID}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+    <pageFooter>
+        <band height="60" splitType="Stretch">
+            <line>
+                <reportElement x="5" y="21" width="546" height="1" uuid="f6324b45-51f1-412c-9716-1a0c11bc79b6"/>
+            </line>
+            <textField>
+                <reportElement x="456" y="24" width="68" height="20" uuid="f6ce9fbe-aefa-4314-8690-81dc99664a6a"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="9" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of  "]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="232" y="21" width="65" height="20" uuid="5efb1a41-9224-4a41-886c-f2a7a98a35a4"/>
+                <textElement verticalAlignment="Middle">
+                    <font size="9" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Printed by:]]></text>
+            </staticText>
+            <textField pattern="EEE, dd MMM yyyy &apos;at&apos; h:mm a" isBlankWhenNull="true">
+                <reportElement x="68" y="21" width="154" height="20" uuid="ea8a9ffb-80ba-4c3e-bde2-eee1d1d87250"/>
+                <textElement verticalAlignment="Middle">
+                    <font size="9" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+            </textField>
+            <textField evaluationTime="Report">
+                <reportElement x="523" y="24" width="33" height="20" uuid="472c76d0-045a-4cdf-a25e-b8d45a3c1d7e"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="9" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="10" y="21" width="64" height="20" uuid="2e0da5ad-41f5-44f4-bb05-5e322a60f841"/>
+                <textElement verticalAlignment="Middle">
+                    <font size="9" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Printed on:]]></text>
+            </staticText>
+        </band>
+    </pageFooter>
+	<summary>
+		<band height="70" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement mode="Opaque" x="211" y="4" width="149" height="20" backcolor="#CCCCCC" uuid="5eff9cb7-d366-4609-8423-95c15981ba14"/>
+				<box leftPadding="3">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Grand Total of Book:   "+$V{grandTotal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="167" y="47" width="154" height="20" uuid="557c56ec-9dfb-47e3-831e-94b3e78a5e12"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Prepared By DTE Team on ]]></text>
+			</staticText>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="320" y="47" width="100" height="20" uuid="0f1fd5ad-4e90-4d16-9dd6-e77476e72e1e"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,599 @@
+<div class="row">
+    <div class="col-md-3 no-print">
+        <ng-include src="'scripts/app/entities/jobPortal/jp-user-menu.html'"></ng-include>
+    </div>
+    <div class="col-md-9 no_padding">
+        <div class="my-user-resum no-print" ng-if="jpEmployee.id > 0">
+            <button class="btn btn-primary pull-right" onclick="window.print()">Print This Resume</button>
+        </div>
+        <div class="col-sm-12 common-table no_padding">
+            <div ng-if="!jpEmployee.id > 0">
+                <table class="table ">
+                    <tbody>
+                    <tr class="resume-table">
+                        <td>
+                            <h5>Please, complete your profile.</h5>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="jpResume" ng-if="jpEmployee.id > 0">
+                <!-- <h3>View Resume</h3>-->
+                <div class="col-sm-12 table-responsive no_padding">
+                    <table class="table table-striped">
+                        <tbody>
+                        <tr class="jpResumeTable">
+                            <div style="float: left">
+                                <h4>{{jpEmployee.name}}</h4>
+                                <span>Address: {{jpEmployee.presentAddress}}</span><br>
+                                <span>Mobile: {{jpEmployee.mobileNo}}</span><br>
+                                <span>Email : {{jpEmployee.email}}</span>
+                            </div>
+                            <div style="float: right">
+                                <img width="200" data-ng-src="{{'data:' + employer.pictureType + ';base64,' + jpEmployee.picture}}"/>
+
+                                <!--<img ng-src="{{url}}" alt="profile image">-->
+                            </div>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="jpResume" ng-if="jpEmployee.id > 0">
+                <h3 class="page-header" translate="global.menu.account.personalInfo">Basic Information</h3>
+
+                <div class="col-sm-12 table-responsive no_padding">
+                    <table class="table table-striped">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <span translate="stepApp.jpEmployee.name">Name</span>
+                            </td>
+                            <td>
+                                <span class="form-control-static">{{jpEmployee.name}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span translate="stepApp.jpEmployee.nationality">nationality</span>
+                            </td>
+                            <td>
+                                <span class="form-control-static">{{jpEmployee.nationality}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span translate="stepApp.jpEmployee.availibilityType">availibilityType</span>
+                            </td>
+                            <td>
+                                <span class="form-control-static">{{jpEmployee.availibilityType}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span translate="stepApp.jpEmployee.fatherName">Father</span>
+                            </td>
+                            <td>
+                                <span class="form-control-static">{{jpEmployee.fatherName}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span translate="stepApp.jpEmployee.motherName">Mother</span>
+                            </td>
+                            <td>
+                                <span class="form-control-static">{{jpEmployee.motherName}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span translate="stepApp.jpEmployee.district">district</span>
+                            </td>
+                            <td>
+                                <span class="form-control-static">{{jpEmployee.district.name}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span translate="stepApp.jpEmployee.presentAddress">PresentAddress</span>
+                            </td>
+                            <td>
+                                <span class="form-control-static">{{jpEmployee.presentAddress}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span translate="stepApp.jpEmployee.permanentAddress">PermanentAddress</span>
+                            </td>
+                            <td>
+                                <span class="form-control-static">{{jpEmployee.permanentAddress}}</span>
+                            </td>
+                        </tr>
+                        <!--<tr>
+                            <td translate="stepApp.jpEmployee.permanentAddress">PassingYear
+                            </td>
+                            <td>{{jpEmployee.permanentAddress}}</td>
+                        </tr>-->
+                        <!--<tr>
+                            <th translate="stepApp.jpEmployee.currentLocation">Duration
+                            </th>
+                            <td>{{jpEmployee.currentLocation}}</td>
+                        </tr>
+                        <tr>
+                            <th  translate="stepApp.jpEmployee.currentLocation"></th>
+                            <td>{{jpEmployee.currentLocation}}</td>
+                        </tr>-->
+
+                        <tr>
+                            <td translate="stepApp.jpEmployee.nidNo"></td>
+                            <td>{{jpEmployee.nidNo}}</td>
+                        </tr>
+                        <tr>
+                            <td translate="stepApp.jpEmployee.email"></td>
+                            <td>{{jpEmployee.email}}</td>
+                        </tr>
+                        <tr>
+                            <td translate="stepApp.jpEmployee.alternativeMail"></td>
+                            <td>{{jpEmployee.alternativeMail}}</td>
+                        </tr>
+                        <tr>
+                            <td translate="stepApp.jpEmployee.maritialStatus"></td>
+                            <td>{{jpEmployee.maritialStatus}}</td>
+                        </tr>
+                        <!-- <tr>
+                             <td translate="stepApp.jpEmployee.homePhone"></td>
+                             <td>{{jpEmployee.homePhone}}</td>
+                         </tr>-->
+
+                        <tr>
+                            <td translate="stepApp.jpEmployee.officePhone"></td>
+                            <td>{{jpEmployee.officePhone}}</td>
+                        </tr>
+                        <tr>
+                            <td translate="stepApp.jpEmployee.mobileNo"></td>
+                            <td>{{jpEmployee.mobileNo}}</td>
+                        </tr>
+                        <tr>
+                            <td translate="stepApp.jpEmployee.gender"></td>
+                            <td>{{jpEmployee.gender}}</td>
+                        </tr>
+                        <tr>
+                            <td translate="stepApp.jpEmployee.religion"></td>
+                            <td>{{jpEmployee.religion.name}}</td>
+                        </tr>
+                        <tr>
+                            <td translate="stepApp.jpEmployee.dob"></td>
+                            <td>{{jpEmployee.dob | date}}</td>
+                        </tr>
+                        <tr>
+                            <td translate="stepApp.jpEmployee.objective"></td>
+                            <td>{{jpEmployee.objective}}</td>
+                        </tr>
+                        <!-- <tr>
+                             <th  translate="stepApp.jpEmployee.presentSalary"></th>
+                             <td>{{jpEmployee.presentSalary}}</td>
+                         </tr>
+                         <tr>
+                             <th  translate="stepApp.jpEmployee.expectedSalary"></th>
+                             <td>{{jpEmployee.expectedSalary}}</td>
+                         </tr>-->
+
+
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+            <div class="jpResume" ng-if="academicQualifications.length > 0">
+                <h3 style="margin: 0" translate="global.menu.account.educationalQualification">Educational
+                    Qualification</h3>
+                <div class="col-sm-12 table-responsive no_padding">
+                    <!--<table class="table table-striped"
+                           ng-repeat="educationalQualification in academicQualifications  | filter:filter | orderBy:predicate:reverse track by educationalQualification.id">
+                        <thead>
+                        <th colspan="2">{{educationalQualification.eduLevel.name}}</th>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td ng-click="order('level', reverse=!reverse)"
+                                translate="stepApp.educationalQualification.level">Level
+                            </td>
+                            <td>{{educationalQualification.eduLevel.name}}</td>
+                        </tr>
+                        &lt;!&ndash;<tr>
+                            <td ng-click="order('degree', reverse=!reverse)"
+                                translate="stepApp.educationalQualification.degree">Degree
+                            </td>
+                            <td>{{educationalQualification.degreeTitle}}</td>
+                        </tr>&ndash;&gt;
+                        <tr>
+                            <td ng-click="order('major', reverse=!reverse)"
+                                translate="stepApp.educationalQualification.major">Major
+                            </td>
+                            <td>{{educationalQualification.major}}</td>
+                        </tr>
+                        <tr>
+                            <td ng-click="order('institute', reverse=!reverse)"
+                                translate="stepApp.educationalQualification.institute">Institute
+                            </td>
+                            <td>{{educationalQualification.institute}}</td>
+                        </tr>
+                        <tr>
+                            <td ng-click="order('board', reverse=!reverse)"
+                                translate="stepApp.educationalQualification.board">board
+                            </td>
+                            <td>{{educationalQualification.eduBoard.name}}</td>
+                        </tr>
+                        <tr>
+                            <td ng-click="order('result', reverse=!reverse)"
+                                translate="stepApp.educationalQualification.result">Result
+                            </td>
+                            <td>{{educationalQualification.result}}</td>
+                        </tr>
+                        <tr>
+                            <td ng-click="order('passingYear', reverse=!reverse)"
+                                translate="stepApp.educationalQualification.passingYear">PassingYear
+                            </td>
+                            <td>{{educationalQualification.passingyear}}</td>
+                        </tr>
+                        <tr>
+                            <td ng-click="order('duration', reverse=!reverse)"
+                                translate="stepApp.educationalQualification.duration">Duration
+                            </td>
+                            <td>{{educationalQualification.duration}}</td>
+                        </tr>
+                        &lt;!&ndash;<tr>
+                            <td></td>
+                            <td>{{educationalQualification.user.login}}</td>
+                        </tr>&ndash;&gt;
+
+                        </tbody>
+                    </table>-->
+
+                    <table class="table table-hover table-striped"
+                           ng-repeat="educationalQualification in academicQualifications  | filter:filter | orderBy:predicate:reverse track by educationalQualification.id">
+                        <tbody>
+                        <tr>
+                            <th colspan="2" class="experience_repeat_head">
+                                {{educationalQualification.eduLevel.name}}
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <td ng-click="order('level', reverse=!reverse)"
+                                translate="stepApp.educationalQualification.level">Level
+                            </td>
+                            <td>{{educationalQualification.eduLevel.name}}</td>
+                        </tr>
+                        <!--<tr>
+                            <td ng-click="order('degree', reverse=!reverse)"
+                                translate="stepApp.educationalQualification.degree">Degree
+                            </td>
+                            <td>{{educationalQualification.degreeTitle}}</td>
+                        </tr>-->
+                        <tr ng-if="educationalQualification.major">
+                            <td ng-click="order('major', reverse=!reverse)"
+                                translate="stepApp.educationalQualification.major">Major
+                            </td>
+                            <td>{{educationalQualification.major}}</td>
+                        </tr>
+                        <tr ng-if="educationalQualification.institute">
+                            <td ng-click="order('board', reverse=!reverse)"
+                                translate="stepApp.jpAcademicQualification.institute">Institute
+                            </td>
+                            <td>{{educationalQualification.institute}}</td>
+                        </tr>
+                        <tr ng-if="educationalQualification.eduLevel.name != 'SSC/Equivalent'">
+                            <td ng-click="order('duration', reverse=!reverse)"
+                                translate="stepApp.educationalQualification.duration">Duration
+                            </td>
+                            <td>{{educationalQualification.duration}}</td>
+                        </tr>
+                        <tr>
+                            <td ng-click="order('group', reverse=!reverse)"
+                                translate="stepApp.educationalQualification.group">group
+                            </td>
+                            <td>{{educationalQualification.group}}</td>
+                        </tr>
+                        <tr>
+                            <td ng-click="order('passingYear', reverse=!reverse)"
+                                translate="stepApp.educationalQualification.passingYear">PassingYear
+                            </td>
+                            <td>{{educationalQualification.passingyear}}</td>
+                        </tr>
+                        <!--<tr>
+                            <td ng-click="order('institute', reverse=!reverse)"
+                                translate="stepApp.educationalQualification.institute">Major
+                            </td>
+                            <td>{{educationalQualification.institute}}</td>
+                        </tr>-->
+                        <tr>
+                            <td ng-click="order('board', reverse=!reverse)"
+                                translate="stepApp.educationalQualification.board">Board
+                            </td>
+                            <td>{{educationalQualification.eduBoard.name}}</td>
+                        </tr>
+
+                        <tr>
+                            <td ng-click="order('result', reverse=!reverse)"
+                                translate="stepApp.educationalQualification.result">Result
+                            </td>
+                            <td>{{educationalQualification.result}}<span ng-if="!educationalQualification.isGpaResult"> Division/Class</span>
+                            </td>
+                        </tr>
+
+
+                        <tr ng-if="educationalQualification.gpaScale">
+                            <td ng-click="order('duration', reverse=!reverse)"
+                                translate="stepApp.instEmpEduQuali.gpaScale">gpaScale
+                            </td>
+                            <td>{{educationalQualification.gpaScale}}</td>
+                        </tr>
+                        <tr>
+                            <td ng-click="order('duration', reverse=!reverse)"
+                                translate="stepApp.instEmpEduQuali.session">session
+                            </td>
+                            <td>{{educationalQualification.session}}</td>
+                        </tr>
+                        <!--<tr>
+                            <td></td>
+                            <td>{{educationalQualification.user.login}}</td>
+                        </tr>-->
+                        <tr ng-if="educationalQualification.achivement">
+                            <td ng-click="order('level', reverse=!reverse)"
+                                translate="stepApp.educationalQualification.achivement">Level
+                            </td>
+                            <td>{{educationalQualification.achivement}}</td>
+                        </tr>
+                        <!--<tr>
+                            <td ng-click="order('level', reverse=!reverse)"
+                                translate="stepApp.educationalQualification.resulttype">resulttype
+                            </td>
+                            <td>{{educationalQualification.resulttype}}</td>
+                        </tr>-->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="jpResume" ng-if="employments.length > 0">
+                <h3 style="margin: 0" translate="global.menu.account.professionalExperience">Professional
+                    Experiences</h3>
+
+                <div class="col-sm-12 table-responsive no_padding">
+                    <table class="table table-striped"
+                           ng-repeat="employment in employments">
+                        <thead>
+                        <th colspan="2">{{employment.companyName}}</th>
+                        </thead>
+                        <tbody>
+
+                        <tr class="experience_repeat_head">
+                        </tr>
+                        <tr>
+                            <td
+                                translate="stepApp.jpEmploymentHistory.companyName">
+                                Company Name
+                            </td>
+                            <td>{{employment.companyName}}</td>
+                        </tr>
+                        <tr>
+                            <td
+                                translate="stepApp.jpEmploymentHistory.companyBusiness">
+                                Company Business
+                            </td>
+                            <td>{{employment.companyBusiness}}</td>
+                        </tr>
+                        <tr>
+                            <td translate="stepApp.jpEmploymentHistory.companyLocation">
+                                Company Location
+                            </td>
+                            <td>{{employment.companyLocation}}</td>
+                        </tr>
+                        <tr>
+                            <td
+                                translate="stepApp.jpEmploymentHistory.positionHeld">Position Held
+                            </td>
+                            <td>{{employment.positionHeld}}</td>
+                        </tr>
+                        <tr>
+                            <td
+                                translate="stepApp.jpEmploymentHistory.departmentName">Department Name
+                            </td>
+                            <td>{{employment.departmentName}}</td>
+                        </tr>
+                        <tr>
+                            <td translate="stepApp.jpEmploymentHistory.responsibility">Responsibility</td>
+                            <td>
+                                <a ui-sref="employee.detail({id:experience.employee.id})">{{employment.responsibility}}</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td translate="stepApp.jpEmploymentHistory.startFrom">Employment Time</td>
+                            <td>
+                                {{employment.startFrom}} <span
+                                ng-if="!employment.currentStatus">to {{employment.endTo}}</span>
+                            </td>
+                        </tr>
+                        <tr ng-if="employment.currentStatus">
+                            <td translate="stepApp.jpEmploymentHistory.currentStatus">Current Here</td>
+                            <td>Yes</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--<div class="jpResume">
+                    <h3 style="margin: 0"  translate="global.menu.account.professionalTraining">Professional Training</h3>
+
+                <table class="table" ng-repeat="skill in skills" >
+                    <thead></thead>
+                    <tbody class="skills_tabel">
+                    <tr class="skills_head">
+                        <td>Skills Name</td>
+
+                    </tr>
+                    <tr>
+                        <td ng-click="order('name', reverse=!reverse)" translate="stepApp.skill.name">name</td>
+                        <td>{{skill.skill}}</td>
+                    </tr>
+                    <tr>
+                        <td ng-click="order('level', reverse=!reverse)" translate="stepApp.jpEmployeeExperience.skillDescription">level</td>
+                        <td>{{skill.skillDescription}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>-->
+            <div class="jpResume" ng-if="trainings.length > 0">
+                <h3 style="margin: 0" translate="global.menu.account.trainings">Trainings</h3>
+
+                <div class="col-sm-12 table-responsive no_padding">
+                    <table class="table table-striped" ng-repeat="training in trainings">
+                        <thead>
+                        <th colspan="2">{{training.trainingTitle}}</th>
+                        </thead>
+                        <tbody class="skills_tabel">
+                        <tr class="skills_head">
+
+
+                        </tr>
+                        <tr>
+                            <td ng-click="order('name', reverse=!reverse)"
+                                translate="stepApp.jpEmployeeTraining.trainingTitle"></td>
+                            <td>{{training.trainingTitle}}</td>
+                        </tr>
+                        <tr>
+                            <td ng-click="order('level', reverse=!reverse)"
+                                translate="stepApp.jpEmployeeTraining.topicCovered"></td>
+                            <td>{{training.topicCovered}}</td>
+                        </tr>
+                        <tr>
+                            <td ng-click="order('level', reverse=!reverse)"
+                                translate="stepApp.jpEmployeeTraining.institute"></td>
+                            <td>{{training.institute}}</td>
+                        </tr>
+                        <tr>
+                            <td ng-click="order('level', reverse=!reverse)"
+                                translate="stepApp.jpEmployeeTraining.location"></td>
+                            <td>{{training.location}}</td>
+                        </tr>
+                        <tr>
+                            <td ng-click="order('level', reverse=!reverse)"
+                                translate="stepApp.jpEmployeeTraining.duration"></td>
+                            <td>{{training.duration}}</td>
+                        </tr>
+                        <tr>
+                            <td ng-click="order('level', reverse=!reverse)"
+                                translate="stepApp.jpEmployeeTraining.country"></td>
+                            <td>{{training.country.name}}</td>
+                        </tr>
+                        <tr>
+                            <td ng-click="order('level', reverse=!reverse)"
+                                translate="stepApp.jpEmployeeTraining.completionDate"></td>
+                            <td>{{training.completionDate}}</td>
+                        </tr>
+                        <tr>
+                            <td ng-click="order('level', reverse=!reverse)"
+                                translate="stepApp.jpEmployeeTraining.result"></td>
+                            <td>{{training.result}}</td>
+                        </tr>
+                        <!--<tr>
+                            <td ng-click="order('level', reverse=!reverse)" translate="stepApp.jpEmployeeExperience.skillDescription">level</td>
+                            <td>{{training.result}}</td>
+                        </tr>-->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-12 jp-lang">
+            <div class="jpResume" ng-if="skills.length > 0">
+                <h3 style="margin: 0" translate="global.menu.account.skills">Skills</h3>
+                <div class="col-sm-12 table-responsive no_padding">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr >
+                            <th ng-click="order('name', reverse=!reverse)" translate="stepApp.skill.name">name</th>
+                            <th ng-click="order('level', reverse=!reverse)"
+                                translate="stepApp.jpEmployeeExperience.skillDescription">level
+                            </th>
+                            <th ng-click="order('level', reverse=!reverse)"
+                                translate="stepApp.jpEmployeeExperience.skillLevel">level
+                            </th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="skill in skills  | filter:filter | orderBy:predicate:reverse track by skill.id">
+                            <td>{{skill.jpSkill.name}}</td>
+                            <td>{{skill.skillDescription}}</td>
+                            <td>{{skill.jpSkillLevel.name}}</td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="jpResume" ng-if="langs.length > 0">
+                <h3 style="margin: 0" translate="global.menu.account.languageProficency">Language Proficiency</h3>
+
+                <div class="col-sm-12 table-responsive no_padding">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th translate="stepApp.lang.name">Name</th>
+                            <th translate="stepApp.lang.reading">Reading</th>
+                            <th translate="stepApp.lang.writing">Writing</th>
+                            <th translate="stepApp.lang.speaking">Speaking</th>
+                            <th translate="stepApp.lang.listening">Listening</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="lang in langs">
+                            <td style="text-transform: capitalize">{{lang.name}}</td>
+                            <td>{{lang.reading}}</td>
+                            <td>{{lang.writing}}</td>
+                            <td>{{lang.speaking}}</td>
+                            <td>{{lang.listening}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="jpResume" ng-if="references.length > 0">
+                <h3 style="margin: 0" translate="global.menu.account.reference">References</h3>
+
+                <div class="col-sm-12 table-responsive no_padding">
+                    <table class="table table-striped" ng-repeat="reference in references">
+                        <thead>
+                        <tr>
+                            <th style="width: 14% !important;" translate="stepApp.jpEmployeeReference.name">Name</th>
+                            <th translate="stepApp.jpEmployeeReference.email">Email</th>
+                            <th translate="stepApp.jpEmployeeReference.organisation">Organization</th>
+                            <th translate="stepApp.jpEmployeeReference.designation">Designation</th>
+                            <th translate="stepApp.jpEmployeeReference.relation">Relation</th>
+                            <th translate="stepApp.jpEmployeeReference.phone">Phone</th>
+                            <th translate="stepApp.jpEmployeeReference.address">Address</th>
+                            <th translate="stepApp.jpEmployeeReference.remarks">Address</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td style="width: 14% !important;">{{reference.name}}</td>
+                            <td style="width: 15% !important;">{{reference.email}}</td>
+                            <td style="width: 14% !important;">{{reference.organisation}}</td>
+                            <td style="width: 13% !important;">{{reference.designation}}</td>
+                            <td style="width: 14% !important;">{{reference.relation}}</td>
+                            <td style="width: 14% !important;">{{reference.phone}}</td>
+                            <td style="width: 14% !important;">{{reference.address}}</td>
+                            <td style="width: 14% !important;">{{reference.remarks}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

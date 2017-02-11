@@ -1,0 +1,88 @@
+<!--<div class="row">
+<div class="col-md-3">
+    <ng-include src="'scripts/app/account/mpo/mpo-left-menu.html'"></ng-include>
+</div>
+
+<div class="col-md-9" >-->
+    <div class="col-sm-12 col-head no_padding">
+        <!--<div class="col-sm-6 col-head-heading">
+            <h3 class="header-margin" >Mpo Pending  List</h3>
+        </div>-->
+        <div class="col-sm-6 col-head-heading" ng-show="timescaleAppliedLists.pending == 'pending'">
+            <h3 class="header-margin" >Mpo Application Pending  List</h3>
+        </div>
+        <div class="col-sm-6 col-head-heading" ng-show="timescaleAppliedLists.pending == 'approved'">
+            <h3 class="header-margin" >Mpo Application Approved  List</h3>
+        </div>
+    </div>
+    <div class="mpo_submenu" style="margin-bottom: 15px">
+        <ul>
+            <li>
+                <a href=""><span class="glyphicon glyphicon-education"> </span>  SSC (VOC)</a>
+            </li>
+            <li>
+                <a href=""><span class="glyphicon glyphicon-education"> </span>  HSC (BM)</a>
+            </li>
+            <li>
+                <a href=""><span class="glyphicon glyphicon-education"> </span>  Madrasha (VOC)</a>
+            </li>
+            <li>
+                <a href=""><span class="glyphicon glyphicon-education"> </span>  Madrasha (BM)</a>
+            </li>
+        </ul>
+    </div>
+    <div class="education_q" >
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Code
+                    </th>
+                    <th>
+                        Institute Name
+                    </th>
+                    <th>
+                        Upazilla
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                 <tr ng-repeat="mpoAppliedList in mpoAppliedLists">
+                        <!--<td>{{mpoAppliedList.instEmployee.code}}</td>
+                        <td>{{mpoAppliedList.instEmployee.institute.name}}</td>
+                        <td>{{mpoAppliedList.instEmployee.institute.upazila.name}}</td>
+                        <td>{{mpoAppliedLists.pending}}</td>-->
+                        <td>{{mpoAppliedList.instEmployee.code}}</td>
+                        <td>{{mpoAppliedList.instEmployee.institute.name}}</td>
+                        <td>{{mpoAppliedList.instEmployee.institute.upazila.name}}</td>
+                        <td>{{mpoAppliedLists.pending}}</td>
+                        <td class="no-print text-right">
+                            <div class="btn-group">
+
+                            <button class="btn btn-default" ui-sref="mpo.details({id:mpoAppliedList.id})">
+                                 View
+                            </button>
+                            <button has-any-authority="ROLE_ADMIN,ROLE_FRONTDESK,ROLE_AD,ROLE_DIRECTOR,ROLE_DG,ROLE_MPOCOMMITTEE" class="btn btn-default pull-right" ui-sref="mpo.checklist({code:mpoAppliedList.instEmployee.code})">
+                                     Check List
+                            </button>
+                                <button class="btn btn-default" ui-sref="mpo.details({id:mpoAppliedList.id})">
+                                    Agree
+                                </button>
+                                <button class="btn btn-default" ui-sref="mpo.details({id:mpoAppliedList.id})">
+                                    Deny
+                                </button>
+                            </div>
+                        </td>
+
+                 </tr>
+            </tbody>
+        </table>
+    </div>
+<!--</div>
+</div>-->

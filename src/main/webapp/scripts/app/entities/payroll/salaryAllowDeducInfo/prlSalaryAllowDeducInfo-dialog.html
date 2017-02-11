@@ -1,0 +1,51 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myPrlSalaryAllowDeducInfoLabel" translate="stepApp.prlSalaryAllowDeducInfo.home.createOrEditLabel">Create or edit a PrlSalaryAllowDeducInfo</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label translate="stepApp.prlSalaryAllowDeducInfo.salaryStructureInfo" for="field_salaryStructureInfo">salaryStructureInfo</label>
+            <select class="form-control" id="field_salaryStructureInfo" name="salaryStructureInfo" ng-model="prlSalaryAllowDeducInfo.salaryStructureInfo" ng-options="PrlSalaryStructureInfo as PrlSalaryStructureInfo.id for PrlSalaryStructureInfo in prlsalarystructureinfos track by PrlSalaryStructureInfo.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.prlSalaryAllowDeducInfo.allowDeducInfo" for="field_allowDeducInfo">allowDeducInfo</label>
+            <select class="form-control" id="field_allowDeducInfo" name="allowDeducInfo" ng-model="prlSalaryAllowDeducInfo.allowDeducInfo" ng-options="PrlAllowDeductInfo as PrlAllowDeductInfo.name for PrlAllowDeductInfo in prlallowdeductinfos track by PrlAllowDeductInfo.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.prlSalaryAllowDeducInfo.allowDeducType" for="field_allowDeducType">AllowDeducType</label>
+            <input type="text" class="form-control" name="allowDeducType" id="field_allowDeducType"
+                    ng-model="prlSalaryAllowDeducInfo.allowDeducType"/>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.prlSalaryAllowDeducInfo.allowDeducValue" for="field_allowDeducValue">AllowDeducValue</label>
+            <input type="number" class="form-control" name="allowDeducValue" id="field_allowDeducValue"
+                    ng-model="prlSalaryAllowDeducInfo.allowDeducValue"/>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.prlSalaryAllowDeducInfo.activeStatus" for="field_activeStatus">ActiveStatus</label>
+            <input type="checkbox" class="form-control" name="activeStatus" id="field_activeStatus"
+                    ng-model="prlSalaryAllowDeducInfo.activeStatus"/>
+            <div ng-show="editForm.activeStatus.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" class="btn " data-dismiss="modal" onclick="window.history.back()">
+            <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;<span translate="entity.action.back">Back</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

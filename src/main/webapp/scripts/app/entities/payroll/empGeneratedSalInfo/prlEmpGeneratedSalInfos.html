@@ -1,0 +1,84 @@
+<div class="col-md-12 common-list">
+    <h2 class="panel-heading" translate="stepApp.prlEmpGeneratedSalInfo.home.title">PrlEmpGeneratedSalInfos</h2>
+    <div class="col-md-12 padding-tb">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control"
+                   placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control"
+                   placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+        <div class="col-xs-4 no_padding text-right ">
+            <!--<button class="btn btn-primary pull-right" ui-sref="prlEmpGeneratedSalInfo.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.prlEmpGeneratedSalInfo.home.createLabel">Create a new PrlEmpGeneratedSalInfo</span>
+            </button>-->
+        </div>
+    </div>
+
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+            <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
+                <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span
+                    class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="salaryInfo.salaryType"><span translate="stepApp.prlEmpGeneratedSalInfo.salaryInfo">salaryInfo</span>
+                    <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="employeeInfo.fullName"><span translate="stepApp.prlEmpGeneratedSalInfo.employeeInfo">employeeInfo</span>
+                    <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="basicAmount"><span
+                    translate="stepApp.prlEmpGeneratedSalInfo.basicAmount">BasicAmount</span> <span
+                    class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="grossAmount"><span
+                    translate="stepApp.prlEmpGeneratedSalInfo.grossAmount">GrossAmount</span> <span
+                    class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="payableAmount"><span translate="stepApp.prlEmpGeneratedSalInfo.payableAmount">PayableAmount</span>
+                    <span class="glyphicon glyphicon-sort"></span></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-animate="'animate'"
+                dir-paginate="prlEmpGeneratedSalInfo in prlEmpGeneratedSalInfos | filter:q | itemsPerPage: pageSize track by prlEmpGeneratedSalInfo.id"
+                current-page="currentPage">
+                <td><a ui-sref="prlEmpGeneratedSalInfo.detail({id:prlEmpGeneratedSalInfo.id})">{{prlEmpGeneratedSalInfo.id}}</a>
+                </td>
+                <td>
+                    <a ui-sref="prlGeneratedSalaryInfo.detail({id:prlEmpGeneratedSalInfo.salaryInfo.id})">
+                        {{prlEmpGeneratedSalInfo.salaryInfo.salaryType}}/{{prlEmpGeneratedSalInfo.salaryInfo.monthName}}/{{prlEmpGeneratedSalInfo.salaryInfo.yearName}}
+                    </a>
+                </td>
+                <td>
+                    <a ui-sref="hrEmployeeInfo.detail({id:prlEmpGeneratedSalInfo.employeeInfo.id})">{{prlEmpGeneratedSalInfo.employeeInfo.fullName}}</a>
+                </td>
+                <td>{{prlEmpGeneratedSalInfo.basicAmount}}</td>
+                <td>{{prlEmpGeneratedSalInfo.grossAmount}}</td>
+                <td>{{prlEmpGeneratedSalInfo.payableAmount}}</td>
+                <td class="text-right">
+                    <button type="submit"
+                            ui-sref="prlEmpGeneratedSalInfo.detail({id:prlEmpGeneratedSalInfo.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit" ng-hide="true"
+                            ui-sref="prlEmpGeneratedSalInfo.edit({id:prlEmpGeneratedSalInfo.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                        translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit" ng-hide="true"
+                            ui-sref="prlEmpGeneratedSalInfo.delete({id:prlEmpGeneratedSalInfo.id})"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                        translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <nav class="no-print">
+        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                 template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+    </nav>
+</div>

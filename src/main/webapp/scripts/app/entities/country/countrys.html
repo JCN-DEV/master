@@ -1,0 +1,110 @@
+<div class="col-md-3 responsive_padding no-print">
+    <ng-include src="'scripts/app/entities/jobPortal/jp-admin-menu.html'"></ng-include>
+</div>
+<div class="col-md-9 lbl-dash">
+    <div class="col-md-12 common-list">
+        <h2 class="heading_center" translate="stepApp.country.home.title">Country</h2>
+        <div class="col-md-12 padding-tb">
+            <div class="col-xs-4 no_padding">
+                <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+            </div>
+            <div class="col-xs-4">
+                <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+            </div>
+            <div class="col-xs-4 no_padding text-right ">
+                <button class="btn btn-primary" ui-sref="country.new">
+                    <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.country.home.createLabel">Create a new Country</span></span>
+                </button>
+            </div>
+        </div>
+       <!-- <div class="col-sm-12 padding-tb no-print">
+            <div class="col-md-8 no_padding no_padding">
+                <div class="col-md-6 no_padding">
+                    <b>&lt;!&ndash;{{ (hrDesignationSetups | filter:q).length }}&ndash;&gt; <span
+                        translate="global.home.searchhere"></span>:</b>
+                    <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1"><i class="fa fa-search"
+                                                                                 aria-hidden="true"></i></span>
+                        <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <b><span translate="global.home.itemperpage"></span>:</b>
+                    <div class="input-group">
+                        <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 no_padding text-right dlbtn-top">
+                <button class="btn btn-primary" ui-sref="country.new">
+                    <span class="glyphicon glyphicon-plus"></span> <span
+                    translate="stepApp.country.home.createLabel">Create a new Country</span></span>
+                </button>
+            </div>
+        </div>-->
+        <div class="clearfix"></div>
+        <div class="col-md-12 table-responsive no_padding">
+            <table class="table table-striped">
+                <!--<caption class="notice text-center" translate="entity.action.found"
+                         translate-values="{found: '{{countrys.length}}', total: '{{total}}'}">{{countrys.length}} countrys
+                    retrieved from total of {{total}} countrys
+                </caption>-->
+                <thead>
+                <tr>
+                    <th><input type="checkbox" ng-model="areAllCountrysSelected"
+                               ng-change="updateCountrysSelection(countrys, areAllCountrysSelected)"></th>
+                    <th translate="global.field.serial">Serial No</th>
+                    <th translate="stepApp.country.name">Name</th>
+                    <th translate="stepApp.country.isoCode3">IsoCode3</th>
+                    <th translate="stepApp.country.continent">Continent</th>
+                    <th translate="stepApp.country.capital">Capital</th>
+                    <th translate="stepApp.country.callingCode">CallingCode</th>
+                    <th class="text-center no-print" translate="stepApp.country.action">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr dir-paginate="country in countrys | filter:q | itemsPerPage: pageSize track by country.id"
+                    current-page="currentPage">
+                    <td><input type="checkbox" ng-model="country.isSelected"/></td>
+                    <td>{{pageSize*(currentPage-1)+$index + 1}}</td>
+                    <td>{{country.name}}</td>
+                    <td>{{country.isoCode3}}</td>
+                    <td>{{country.continent}}</td>
+                    <td>{{country.capital}}</td>
+                    <td>{{country.callingCode}}</td>
+                    <td class="text-right no-print">
+                        <button type="submit"
+                                ui-sref="country.detail({id:country.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span
+                            translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="country.edit({id:country.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                            translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="country.delete({id:country.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                            translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <nav class="no-print">
+                <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                         template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+            </nav>
+        </div>
+        <div class="no-print   text-right">
+            <button type="submit" name="submit" onclick="window.print()" class="btn btn-primary">
+                <span class="glyphicon glyphicon-print"></span>&nbsp;<span
+                translate="entity.action.print">Print</span>
+            </button>
+        </div>
+    </div>
+</div>

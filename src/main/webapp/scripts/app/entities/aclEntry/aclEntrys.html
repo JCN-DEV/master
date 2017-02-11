@@ -1,0 +1,110 @@
+<div>
+    <h2 translate="stepApp.aclEntry.home.title">AclEntrys</h2>
+    <jh-alert></jh-alert>
+    <div class="row">
+        <div class="col-md-3">
+            <button class="btn btn-primary" ui-sref="aclEntry.new">
+                <span class="glyphicon glyphicon-flash"></span> <span translate="stepApp.aclEntry.home.createLabel">Create a new AclEntry</span>
+            </button>
+        </div>
+        <div class="col-md-9">
+            <div class="pull-right">
+                <form name="searchForm" class="form-inline" ng-submit="search()" novalidate show-validation>
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="search for..." required>
+                    </div>
+                    <button ng-disabled="searchForm.$invalid" class="btn btn-info" type="submit"><span class="glyphicon glyphicon-search"></span> <span translate="entity.action.search">Search a AclEntry</span>
+                    </button>
+                </form>
+                <button ng-disabled="!areAllAclEntrysSelected" class="btn btn-default" ng-click="sync()">
+                    <i class="glyphicon glyphicon-refresh" aria-label="sync"></i>
+                    <span translate="entity.action.sync">sync</span>
+                </button>
+                <button ng-disabled="!areAllAclEntrysSelected" class="btn btn-default" ng-click="export()">
+                    <i class="glyphicon glyphicon-export" aria-label="export"></i>
+                    <span translate="entity.action.export">export</span>
+                </button>
+
+                <button ng-disabled="!areAllAclEntrysSelected" class="btn btn-default" ng-click="import()">
+                    <i class="glyphicon glyphicon-import" aria-label="import"></i>
+                    <span translate="entity.action.import">import</span>
+                </button>
+
+                <button ng-disabled="!areAllAclEntrysSelected" class="btn btn-default btn-danger" ng-click="deleteSelected()">
+                    <i class="glyphicon glyphicon-trash" aria-label="delete"></i>
+                    <span translate="entity.action.delete">delete</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-striped">
+	        <caption class="notice text-center" translate="entity.action.found"
+	                 translate-values="{found: '{{aclEntrys.length}}', total: '{{total}}'}">{{aclEntrys.length}} aclEntrys retrieved from total of {{total}} aclEntrys
+	        </caption>
+
+            <thead>
+                <tr>
+	                <th><input type="checkbox" ng-model="areAllAclEntrysSelected" ng-change="updateAclEntrysSelection(aclEntrys, areAllAclEntrysSelected)"></th>
+                    <th ng-click="order('id', reverse=!reverse)" translate="global.field.id">ID</th>
+                    <th ng-click="order('aceOrder', reverse=!reverse)" translate="stepApp.aclEntry.aceOrder">AceOrder</th>
+                    <th ng-click="order('mask', reverse=!reverse)" translate="stepApp.aclEntry.mask">Mask</th>
+                    <th ng-click="order('granting', reverse=!reverse)" translate="stepApp.aclEntry.granting">Granting</th>
+                    <th ng-click="order('auditSuccess', reverse=!reverse)" translate="stepApp.aclEntry.auditSuccess">AuditSuccess</th>
+                    <th ng-click="order('auditFailure', reverse=!reverse)" translate="stepApp.aclEntry.auditFailure">AuditFailure</th>
+                    <th translate="stepApp.aclEntry.aclObjectIdentity">aclObjectIdentity</th>
+                    <th translate="stepApp.aclEntry.aclSid">aclSid</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="aclEntry in aclEntrys  | filter:filter | orderBy:predicate:reverse track by aclEntry.id">
+				    <td><input type="checkbox" ng-model="aclEntry.isSelected"/></td>
+                    <td><a ui-sref="aclEntry.detail({id:aclEntry.id})">{{aclEntry.id}}</a></td>
+                    <td>{{aclEntry.aceOrder}}</td>
+                    <td>{{aclEntry.mask}}</td>
+                    <td>{{aclEntry.granting}}</td>
+                    <td>{{aclEntry.auditSuccess}}</td>
+                    <td>{{aclEntry.auditFailure}}</td>
+                    <td>
+                        <a ui-sref="aclObjectIdentity.detail({id:aclEntry.aclObjectIdentity.id})">{{aclEntry.aclObjectIdentity.id}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="aclSid.detail({id:aclEntry.aclSid.id})">{{aclEntry.aclSid.sid}}</a>
+                    </td>
+                    <td class="btn-group">
+                        <button type="submit"
+                                ui-sref="aclEntry.detail({id:aclEntry.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="aclEntry.edit({id:aclEntry.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="aclEntry.delete({id:aclEntry.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pagination">
+                <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                <li class="active"><a>{{page + 1}}</a></li>
+                <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>

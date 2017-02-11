@@ -1,0 +1,99 @@
+
+<form name="editForm" role="form" novalidate show-validation>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="modal-title" id="myPrlGeneratedSalaryInfoLabel" translate="stepApp.prlGeneratedSalaryInfo.home.createOrEditLabel">Create or edit a PrlGeneratedSalaryInfo</h4>
+    </div>
+    <div class="panel-body">
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-control">
+                    <label class="control-label" translate="stepApp.prlGeneratedSalaryInfo.operationType">Operation Type</label>
+                    <input type="radio" ng-model="isGenerate" ng-value="true">&nbsp;Generate Salary&nbsp;|&nbsp;
+                    <input type="radio" ng-model="isGenerate" ng-value="false">&nbsp;Disburse Salary
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-control">
+                    Recent: {{prlGeneratedSalaryInfoHist.monthName}}, {{prlGeneratedSalaryInfoHist.yearName}},
+                    ({{prlGeneratedSalaryInfoHist.salaryType}}),
+                    {{prlGeneratedSalaryInfoHist.processDate | date:'mediumDate'}}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.prlGeneratedSalaryInfo.yearName" for="field_yearName">YearName</label>
+                    <select class="form-control" id="field_yearName" name="yearName" ng-change="checkAlreadyGeneratedSalary()"
+                            ng-model="prlGeneratedSalaryInfo.yearName" ng-options="year for year in yearList">
+                        <option value="">Select Year</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.prlGeneratedSalaryInfo.monthName" for="field_monthName">MonthName</label>
+                    <select class="form-control" name="monthName" ng-change="checkAlreadyGeneratedSalary()"
+                            ng-model="prlGeneratedSalaryInfo.monthName" id="field_monthName" required>
+                        <option value="">Select Month</option>
+                        <option value="JAN">January</option>
+                        <option value="FEB">February</option>
+                        <option value="MAR">March</option>
+                        <option value="APR">April</option>
+                        <option value="MAY">May</option>
+                        <option value="JUN">June</option>
+                        <option value="JUL">July</option>
+                        <option value="AUG">August</option>
+                        <option value="SEP">Septermber</option>
+                        <option value="OCT">October</option>
+                        <option value="NOV">November</option>
+                        <option value="DEC">December</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.prlGeneratedSalaryInfo.salaryType" for="field_salaryType">SalaryType</label>
+                    <select class="form-control" name="salaryType" ng-change="checkAlreadyGeneratedSalary()"
+                            ng-model="prlGeneratedSalaryInfo.salaryType" id="field_salaryType" required>
+                        <option value="">Select Salary Type</option>
+                        <option value="ONETIME">One Time</option>
+                        <option value="MONTHLY">Monthly Salary</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-footer">
+            <span ng-show="isGenerate">
+                <span ng-show="!alreadyDisbursed" ng-if="alreadyGenerated">Salary Already Generated!!!</span>
+                <span ng-if="alreadyDisbursed">Salary Already Disbursed!!!</span>
+            </span>
+            <span ng-show="!isGenerate">
+                <span ng-if="alreadyDisbursed">Salary Already Disbursed!!!</span>
+                <span ng-show="allDataSelected" ng-if="!alreadyGenerated">Salary is not generated yet!!!</span>
+            </span>
+            <button type="button" class="btn btn-default" class="btn " data-dismiss="modal" onclick="window.history.back()">
+                <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;<span translate="entity.action.back">Back</span>
+            </button>
+            <button ng-show="isGenerate" type="button" ng-click="generateSalary()" ng-disabled="editForm.$invalid || isSaving || alreadyDisbursed" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;<span ng-show="!alreadyGenerated" translate="entity.action.generate">Generate</span>
+                <span ng-show="alreadyGenerated" translate="entity.action.regenerate">Regenerate</span>
+            </button>
+
+            <button ng-show="!isGenerate" type="button" ng-click="disburseSalary()" ng-disabled="editForm.$invalid || isSaving || !alreadyGenerated || alreadyDisbursed" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.disburse">Disburse</span>
+            </button>
+    </div>
+</div>
+    <div class="col-md-6">
+        <div class="form-control-static" ng-hide="isSaving">
+            <pre>{{responseMsg | json}}</pre>
+        </div>
+    </div>
+</form>

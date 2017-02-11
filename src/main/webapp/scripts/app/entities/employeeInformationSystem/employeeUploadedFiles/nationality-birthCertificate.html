@@ -1,0 +1,110 @@
+<div class="col-sm-12 col-head">
+    <div class="col-sm-12 col-head-heading">
+        <h3 class="header-margin">Nationality</h3>
+    </div>
+</div>
+<form class="panel panel-primary" name="ImageForm" ng-submit="save()">
+    <div class="panel-body">
+        <div class="col-sm-12 no_padding">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label translate="stepApp.instEmployee.nationality" for="field_nationality">Nationality</label>
+                <input type="text" class="form-control" name="nationality" id="field_nationality"
+                       ng-model="instEmployee.nationality"
+                />
+            </div>
+            <div class="form-group">
+                <label translate="stepApp.instEmployee.nid" for="field_nid">Nid</label>
+                <input type="text" class="form-control" name="nid" id="field_nid"
+                       ng-model="instEmployee.nid"
+                />
+            </div>
+
+            <div class="form-group " ngf-drop ngf-change="setNidImage($file, instEmployee)">
+                <label translate="stepApp.instEmployee.nidImage" for="field_nidImage">NidImage</label>
+
+                <div>
+                    <div class="help-block clearfix">
+                        <span
+                            class="pull-left">{{instEmployee.nidImageContentType}} {{byteSize(instEmployee.nidImage)}}</span>
+                        <button ng-click="instEmployee.nidImage=null;instEmployee.nidImageContentType=null;"
+                                ng-if="instEmployee.nidImage"
+                                class="btn btn-default btn-xs pull-right">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </div>
+                    <button type="file" ngf-select class="btn btn-default btn-block"
+                            ngf-change="setNidImage($file, instEmployee)" translate="entity.action.addblob">
+                        Add blob
+                    </button>
+                </div>
+                <input type="hidden" class="form-control" name="nidImage" id="field_nidImage"
+                       ng-model="instEmployee.nidImage"
+                />
+                <input type="hidden" class="form-control" name="nidImageContentType" id="field_nidImageContentType"
+                       ng-model="instEmployee.nidImageContentType"/>
+            </div>
+        </div>
+
+        <div class="col-sm-6 text-center">
+            <img width="150px" height="150px" data-ng-src="{{'data:' + instEmployee.nidImageContentType + ';base64,' + instEmployee.nidImage}}"
+                 style="max-height: 100px;" ng-if="instEmployee.nidImage"/>
+        </div>
+        </div>
+
+
+        <div class="col-sm-12 upload-attached no_padding" >
+            <h3>Birth Certificate</h3>
+
+            <div class="col-sm-6" style="margin-top:15px;">
+                <div class="form-group ">
+                    <label translate="stepApp.instEmployee.birthCertNo" for="field_birthCertNo">BirthCertNo</label>
+                    <input type="text" class="form-control" name="birthCertNo" id="field_birthCertNo"
+                           ng-model="instEmployee.birthCertNo"
+                    />
+                </div>
+
+                <div class="form-group " ngf-drop ngf-change="setBirthCertImage($file, instEmployee)">
+                    <label translate="stepApp.instEmployee.birthCertImage"
+                           for="field_birthCertImage">BirthCertImage</label>
+
+                    <div>
+                        <div class="help-block clearfix">
+                            <span class="pull-left">{{instEmployee.birthCertImageContentType}} {{byteSize(instEmployee.birthCertImage)}}</span>
+                            <button
+                                ng-click="instEmployee.birthCertImage=null;instEmployee.birthCertImageContentType=null;"
+                                ng-if="instEmployee.birthCertImage"
+                                class="btn btn-default btn-xs pull-right">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </div>
+                        <button type="file" ngf-select class="btn btn-default btn-block"
+                                ngf-change="setBirthCertImage($file, instEmployee)" translate="entity.action.addblob">
+                            Add blob
+                        </button>
+                    </div>
+                    <input type="hidden" class="form-control" name="birthCertImage" id="field_birthCertImage"
+                           ng-model="instEmployee.birthCertImage"
+                    />
+                    <input type="hidden" class="form-control" name="birthCertImageContentType"
+                           id="field_birthCertImageContentType"
+                           ng-model="instEmployee.birthCertImageContentType"/>
+                </div>
+            </div>
+            <div class="col-sm-6 text-center">
+                <img width="150px" height="150px" data-ng-src="{{'data:' + instEmployee.birthCertImageContentType + ';base64,' + instEmployee.birthCertImage}}"
+                     style="max-height: 100px;" ng-if="instEmployee.birthCertImage"/>
+            </div>
+        </div>
+    </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+            </button>
+        </div>
+
+</form>

@@ -1,0 +1,77 @@
+<form name="editForm" role="form" novalidate ng-submit="save()">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="modal-title" id="myPrlEmpGeneratedSalInfoLabel" translate="stepApp.prlEmpGeneratedSalInfo.home.createOrEditLabel">Create or edit a PrlEmpGeneratedSalInfo</h4>
+    </div>
+    <div class="panel-body">
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.prlEmpGeneratedSalInfo.salaryInfo" for="field_salaryInfo">salaryInfo</label>
+                <select class="form-control" id="field_salaryInfo" name="salaryInfo" ng-model="prlEmpGeneratedSalInfo.salaryInfo" ng-options="PrlGeneratedSalaryInfo as (PrlGeneratedSalaryInfo.salaryType+'/'+PrlGeneratedSalaryInfo.yearName+'/'+PrlGeneratedSalaryInfo.monthName) for PrlGeneratedSalaryInfo in prlgeneratedsalaryinfos track by PrlGeneratedSalaryInfo.id">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.prlEmpGeneratedSalInfo.salaryStructureInfo" for="field_salaryStructureInfo">salaryStructureInfo</label>
+                <select class="form-control" id="field_salaryStructureInfo" name="salaryStructureInfo" ng-model="prlEmpGeneratedSalInfo.salaryStructureInfo" ng-options="PrlSalaryStructureInfo as PrlSalaryStructureInfo.basicAmount for PrlSalaryStructureInfo in prlsalarystructureinfos track by PrlSalaryStructureInfo.id">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.prlEmpGeneratedSalInfo.employeeInfo" for="field_employeeInfo">employeeInfo</label>
+                <select class="form-control" id="field_employeeInfo" name="employeeInfo" ng-model="prlEmpGeneratedSalInfo.employeeInfo" ng-options="HrEmployeeInfo as HrEmployeeInfo.fullName for HrEmployeeInfo in hremployeeinfos track by HrEmployeeInfo.id">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" translate="stepApp.prlEmpGeneratedSalInfo.basicAmount" for="field_basicAmount">BasicAmount</label>
+                <input type="number" class="form-control" name="basicAmount" id="field_basicAmount"
+                       ng-model="prlEmpGeneratedSalInfo.basicAmount"/>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" translate="stepApp.prlEmpGeneratedSalInfo.grossAmount" for="field_grossAmount">GrossAmount</label>
+                <input type="number" class="form-control" name="grossAmount" id="field_grossAmount"
+                       ng-model="prlEmpGeneratedSalInfo.grossAmount"/>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" translate="stepApp.prlEmpGeneratedSalInfo.payableAmount" for="field_payableAmount">PayableAmount</label>
+                <input type="number" class="form-control" name="payableAmount" id="field_payableAmount"
+                       ng-model="prlEmpGeneratedSalInfo.payableAmount"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.prlEmpGeneratedSalInfo.disburseStatus" for="field_disburseStatus">DisburseStatus</label>
+            <input type="input" class="form-control" name="disburseStatus" id="field_disburseStatus"
+                   ng-model="prlEmpGeneratedSalInfo.disburseStatus" ng-maxlength="1"/>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.prlEmpGeneratedSalInfo.isDisbursable" for="field_isDisbursable">isDisbursable</label>
+            <input type="input" class="form-control" name="isDisbursable" id="field_isDisbursable"
+                   ng-model="prlEmpGeneratedSalInfo.isDisbursable" ng-maxlength="1"/>
+        </div>
+
+    </div>
+    <div class="panel-footer">
+            <button type="button" class="btn btn-default" class="btn " data-dismiss="modal" onclick="window.history.back()">
+                <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;<span translate="entity.action.back">Back</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+            </button>
+    </div>
+</div>
+</form>

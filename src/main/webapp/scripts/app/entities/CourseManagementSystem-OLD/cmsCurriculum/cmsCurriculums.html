@@ -1,0 +1,284 @@
+
+<!---curriculuam list-->
+
+    <div class="panel panel-default">
+        <div class="col-sm-12 col-head no_padding">
+            <div class="col-sm-6 col-head-heading">
+                <h3 class="panel-title" translate="stepApp.cmsCurriculum.home.title">SmsServiceDepartments</h3>
+            </div>
+            </div>
+        <div style="height: 50px;" class="col-sm-12">
+            <jh-alert></jh-alert>
+        </div>
+
+        <div class="panel-body bg-panel no_padding">
+
+
+            <div class=" col-md-12 col-sm-12 col-xs-12 ">
+                <div class="form-group">
+
+                    <form name="searchForm" class="form-inline">
+                        <div class="form-group">
+                           <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="{{'global.home.searchLabel' | translate}}">
+                        </div>
+                        <button class="btn btn-primary" ng-click="search()"><i class="fa fa-search-plus"></i>
+
+                        </button>
+                    </form>
+
+
+                    <button class="btn btn-primary pull-right" ui-sref="courseInfo.curriculum.new">
+
+                        <i class="fa fa-plus"></i> <span translate="stepApp.cmsCurriculum.home.createLabel">Add New</span>
+                    </button>
+
+                </div>
+            </div>
+
+
+
+            <div class=" col-md-12 col-sm-12 col-xs-12 no_padding">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th translate="global.field.id">ID</th>
+                            <th translate="stepApp.cmsCurriculum.code">Code</th>
+                            <th translate="stepApp.cmsCurriculum.name">Name</th>
+                            <th translate="stepApp.cmsCurriculum.duration">Duration</th>
+                            <th translate="entity.action.action">Action</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+
+                        <tr  ng-repeat="cmsCurriculum in cmsCurriculums track by cmsCurriculum.id">
+                            <td><a ui-sref="cmsCurriculum.detail({id:cmsCurriculum.id})">{{cmsCurriculum.id}}</a></td>
+                            <td>{{cmsCurriculum.code}}</td>
+                            <td>{{cmsCurriculum.name}}</td>
+                            <td>{{cmsCurriculum.duration}}</td>
+                            <td>
+                                <span style="color: #005f00"  ng-show="cmsCurriculum.status == true" class="form-control-static"><span translate="entity.action.activate">Active</span></span>
+                                <span style="color: red" ng-show="cmsCurriculum.status == false" class="form-control-static"><span translate="entity.action.deactivate">Deactive</span></span>
+                            <td>
+                            <td>
+                                <button type="submit" class="btn btn-sm btn-primary pull-right"      ui-sref="courseInfo.curriculum.detail({id:cmsCurriculum.id})" ><i class="fa fa-eye-slash"></i>
+
+                                    <span translate="entity.action.view"> View</span>
+                                </button>
+                                <button type="submit" class="btn btn-sm btn-primary pull-right"   ui-sref="courseInfo.curriculum.edit({id:cmsCurriculum.id})"><i class="fa fa-pencil"></i>
+                                    <span translate="entity.action.edit"> Edit</span>
+                                </button>
+                                <button ng-hide="true" type="submit" ng-click="delete(assetDistribution.id)" class="btn btn-xs btn-primary pull-right">
+                                    <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                                </button>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                <nav>
+                    <ul class="pagination">
+                        <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                        <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                        <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                        <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                        <li class="active"><a>{{page + 1}}</a></li>
+                        <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                        <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                        <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                        <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+                    </ul>
+                </nav>
+                <div class="text-center">
+                    <uib-pagination class="pagination-sm" total-items="totalItems" ng-model="page" ng-change="loadAll()"></uib-pagination>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<!---End curriculuam list-->
+
+
+<!--<div class="cmscurriculam">
+    <div class="panel-heading">
+        <h3 class="panel-title" translate="stepApp.cmsCurriculum.home.title">CmsCurriculums </h3>
+    </div>
+    <jh-alert></jh-alert>
+        <div class="row cmsCnew">
+
+            <div class="col-md-12 text-right">
+                <form name="searchForm" class="form-inline pull-left">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="search">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </form>
+
+                <button class="btn btn-primary" ui-sref="courseInfo.curriculum.new">
+                    <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.cmsCurriculum.home.createLabel">Create a new CmsCurriculum</span>
+                </button>
+
+            </div>
+           <!-- <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="search">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </form>
+            </div>-->
+      <!--  </div>
+
+
+<div class="panel panel-default curriculam-form">
+    <div class="panel-heading" translate="stepApp.cmsCurriculum.home.title">CmsCurriculums <button class="btn pull-right" ui-sref="courseInfo.curriculum.new">
+        <i class="pull-left fa fa-pencil-square-o"></i> <span translate="stepApp.cmsCurriculum.home.createLabel">Add new </span>
+         </button>
+    </div>
+    <div class="panel-body">
+    <div class="table-responsive">
+            <table class="table table-head-bg">
+                <thead>
+                <tr>
+                   &lt;!&ndash; <th translate="global.field.id">ID</th>&ndash;&gt;
+                    <th translate="stepApp.cmsCurriculum.code">Code</th>
+                    <th translate="stepApp.cmsCurriculum.name">Name</th>
+                    <th translate="stepApp.cmsCurriculum.status">Duration</th>
+                    <th translate="entity.action.action">Action</th>
+
+                </tr>
+                </thead>
+                <tbody class="employee-list">
+                <tr ng-repeat="cmsCurriculum in cmsCurriculums track by cmsCurriculum.id">
+                    &lt;!&ndash;<td><a ui-sref="cmsCurriculum.detail({id:cmsCurriculum.id})">{{cmsCurriculum.id}}</a></td>&ndash;&gt;
+                    <td>{{cmsCurriculum.code}}</td>
+                    <td>{{cmsCurriculum.name}}</td>
+                    <td>
+
+                    <span style="color: #005f00" ng-show="cmsCurriculum.status == true" class="form-control-static">Active</span>
+                    <span style="color: red"  ng-show="cmsCurriculum.status == false" class="form-control-static">Deactive</span>
+
+                     </td>
+
+                    <td>
+                        <div class="right-side">
+                        <button type="submit"
+                                ui-sref="courseInfo.curriculum.detail({id:cmsCurriculum.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                         </button>
+                         <button type="submit"
+                                ui-sref="courseInfo.curriculum.edit({id:cmsCurriculum.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                         </button>
+                        </div>
+                    </td>
+
+                </tr>
+
+                </tbody>
+            </table>
+            <nav>
+                <ul class="pagination">
+                    <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                    <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                    <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                    <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                    <li class="active"><a>{{page + 1}}</a></li>
+                    <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                    <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                    <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                    <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+                </ul>
+            </nav>
+        </div>
+
+    </div>
+</div>
+-->
+
+<!--
+
+<div class="cmscurriculam">
+    <div class="panel-heading">
+        <h3 class="panel-title" translate="stepApp.cmsCurriculum.home.title">CmsCurriculums</h3>
+    </div>
+    <jh-alert></jh-alert>
+        <div class="row">
+            <div class="col-md-12 text-right cmsCnew">
+                <button class="btn btn-primary" ui-sref="courseInfo.curriculum.new">
+                    <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.cmsCurriculum.home.createLabel">Create a new CmsCurriculum</span>
+                </button>
+            </div>
+            <!--<div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a CmsCurriculum</span>
+                    </button>
+                </form>
+            </div>-->
+<!--   </div>
+
+<div class="table-responsive">
+   <table class="table table-striped">
+       <thead>
+           <tr>
+               <th translate="global.field.id">ID</th>
+               <th translate="stepApp.cmsCurriculum.code">Code</th>
+               <th translate="stepApp.cmsCurriculum.name">Name</th>
+               <th translate="stepApp.cmsCurriculum.duration">Duration</th>
+              <!-- <th translate="stepApp.cmsCurriculum.description">Description</th>
+               <th translate="stepApp.cmsCurriculum.status">Status</th>-->
+<!--     <th></th>
+ </tr>
+</thead>
+<tbody>
+ <tr ng-repeat="cmsCurriculum in cmsCurriculums track by cmsCurriculum.id">
+     <td><a ui-sref="cmsCurriculum.detail({id:cmsCurriculum.id})">{{cmsCurriculum.id}}</a></td>
+     <td>{{cmsCurriculum.code}}</td>
+     <td>{{cmsCurriculum.name}}</td>
+     <td>{{cmsCurriculum.duration}}</td>
+     <!--<td>{{cmsCurriculum.description}}</td>
+     <td>{{cmsCurriculum.status}}</td>-->
+<!--    <td>
+        <button type="submit"
+                ui-sref="courseInfo.curriculum.detail({id:cmsCurriculum.id})"
+                class="btn btn-info btn-sm">
+            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+        </button>
+        <button type="submit"
+                ui-sref="courseInfo.curriculum.edit({id:cmsCurriculum.id})"
+                class="btn btn-primary btn-sm">
+            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+        </button>
+        <!--<button type="submit"
+                ui-sref="courseInfo.curriculum.delete({id:cmsCurriculum.id})"
+                class="btn btn-danger btn-sm">
+            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+        </button>-->
+<!--       </td>
+   </tr>
+</tbody>
+</table>
+<nav>
+<ul class="pagination">
+   <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+   <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+   <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+   <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+   <li class="active"><a>{{page + 1}}</a></li>
+   <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+   <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+   <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+   <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+</ul>
+</nav>
+</div>
+</div>

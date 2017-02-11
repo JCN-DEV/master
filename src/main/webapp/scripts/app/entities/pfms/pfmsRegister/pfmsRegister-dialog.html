@@ -1,0 +1,181 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+            <h4 ng-if="pfmsRegister.id == null" class="modal-title" id="myPfmsRegisterLabel"
+                translate="stepApp.pfmsRegister.home.createOrEditLabel">Create or edit a PfmsRegister</h4>
+            <h4 ng-if="pfmsRegister.id != null" class="modal-title" id="myPfmsRegisterLabel"
+                translate="stepApp.pfmsRegister.home.EditLabel">Create or edit a PfmsRegister</h4>
+            <div class="panel-body">
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.pfmsRegister.employeeInfo" for="field_employeeInfo">employeeInfo</label>
+                    <!--<select class="form-control" id="field_employeeInfo" name="employeeInfo" ng-model="pfmsRegister.employeeInfo" ng-options="HrEmployeeInfo as HrEmployeeInfo.fullName for HrEmployeeInfo in hremployeeinfos track by HrEmployeeInfo.id">-->
+                    <!--<option value=""></option>-->
+                    <!--</select>-->
+                    <div class="input-group">
+                        <input type="text" class="form-control" autocomplete="off" ng-model="pfmsRegister.employeeInfo"
+                               typeahead='HrEmployeeInfo as (HrEmployeeInfo.fullName + " - " + HrEmployeeInfo.employeeId) for HrEmployeeInfo in hremployeeinfos | filter:$viewValue'
+                               id="field_employeeInfo" required
+                               placeholder="{{'stepApp.pfmsRegister.employeeInfo' | translate}}">
+                        <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="loadEmployeeInfo()">
+                            <span class="glyphicon"></span>&nbsp;<span
+                            translate="stepApp.pfmsRegister.search">Search</span>
+                        </button>
+                    </span>
+                    </div>
+
+
+                </div>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.pfmsRegister.departmentName" for="field_almLeaveType">Department</label>
+                    <span class="form-control">{{departmentName}}</span>
+                </div>
+
+                <div class="form-group col-md-6 ">
+                    <label translate="stepApp.pfmsRegister.designationName" for="field_Designation">Designation</label>
+                    <span class="form-control">{{designationName}}</span>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.pfmsRegister.nationality" for="field_nationality">nationality</label>
+                    <span class="form-control">{{nationality}}</span>
+                </div>
+
+                <div class="form-group col-md-6 ">
+                    <label translate="stepApp.pfmsRegister.fatherName" for="field_fatherName">fatherName</label>
+                    <span class="form-control">{{fatherName}}</span>
+                </div>
+
+                <div class="form-group col-md-6 ">
+                    <label translate="stepApp.pfmsRegister.dutySide" for="field_dutySide">dutySide</label>
+                    <span class="form-control">{{dutySide}}</span>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.pfmsRegister.applicationType"
+                           for="field_applicationType">ApplicationType</label>
+                    <select class="form-control" name="applicationType" ng-model="pfmsRegister.applicationType"
+                            id="field_applicationType" required>
+                        <option value="">Select Application Type</option>
+                        <option value="Loan Application" translate="stepApp.pfmsRegister.LoanApplication">Loan
+                            Application
+                        </option>
+                        <option value="Provident Fund" translate="stepApp.pfmsRegister.ProvidentFund">Provident Fund
+                        </option>
+                    </select>
+
+                    <div ng-show="editForm.applicationType.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.applicationType.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.pfmsRegister.isBillRegister"
+                           for="field_isBillRegister">IsBillRegister</label>
+                    <span class="form-control">
+                    <input type="radio" data-ng-model="pfmsRegister.isBillRegister" name="isBillRegister"
+                           data-ng-value="true">&nbsp;Bill Register&nbsp;|&nbsp;
+                    <input type="radio" data-ng-model="pfmsRegister.isBillRegister" name="isBillRegister"
+                           data-ng-value="false">&nbsp;Check Register
+                </span>
+                    <div ng-show="editForm.isBillRegister.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.isBillRegister.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+                <div ng-if="pfmsRegister.isBillRegister">
+                    <div class="form-group col-sm-6">
+                        <label translate="stepApp.pfmsRegister.billNo" for="field_billNo">BillNo</label>
+                        <input type="text" class="form-control" name="billNo" id="field_billNo"
+                               ng-model="pfmsRegister.billNo"
+                        />
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label translate="stepApp.pfmsRegister.billIssueDate"
+                               for="field_billIssueDate">BillIssueDate</label>
+
+                        <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.billIssueDate"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               ng-click="calendar.open($event, 'billIssueDate')" class="form-control" name="leaveToDate"
+                               id="field_billIssueDate"
+                               ng-model="pfmsRegister.billIssueDate"/>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label translate="stepApp.pfmsRegister.billReceiverName" for="field_billReceiverName">BillReceiverName</label>
+                        <input type="text" class="form-control" name="billReceiverName" id="field_billReceiverName"
+                               ng-model="pfmsRegister.billReceiverName"
+                        />
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label translate="stepApp.pfmsRegister.billPlace" for="field_billPlace">BillPlace</label>
+                        <input type="text" class="form-control" name="billPlace" id="field_billPlace"
+                               ng-model="pfmsRegister.billPlace"
+                        />
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label translate="stepApp.pfmsRegister.billDate" for="field_billDate">BillDate</label>
+
+                        <!--<input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.billDate"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               ng-click="calendar.open($event, 'leaveToDate')"class="form-control" name="billDate" id="field_billDate"
+                               ng-model="pfmsRegister.billDate" />-->
+                        <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.billDate"
+                               datepicker-options="calendar.billDate" close-text="Close"
+                               ng-click="calendar.open($event, 'billDate')" class="form-control" name="billDate"
+                               id="field_billDate"
+                               ng-model="pfmsRegister.billDate"/>
+                    </div>
+
+                </div>
+
+                <div ng-if="!pfmsRegister.isBillRegister">
+                    <div class="form-group col-sm-6">
+                        <label translate="stepApp.pfmsRegister.noOfWithdrawal"
+                               for="field_noOfWithdrawal">NoOfWithdrawal</label>
+                        <input type="number" class="form-control" name="noOfWithdrawal" id="field_noOfWithdrawal"
+                               ng-model="pfmsRegister.noOfWithdrawal"
+                        />
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label translate="stepApp.pfmsRegister.checkNo" for="field_checkNo">CheckNo</label>
+                        <input type="text" class="form-control" name="checkNo" id="field_checkNo"
+                               ng-model="pfmsRegister.checkNo"
+                        />
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label translate="stepApp.pfmsRegister.checkDate" for="field_checkDate">CheckDate</label>
+
+                        <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.checkDate"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               ng-click="calendar.open($event, 'checkDate')" class="form-control" name="checkDate"
+                               id="field_checkDate"
+                               ng-model="pfmsRegister.checkDate"/>
+
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label translate="stepApp.pfmsRegister.checkTokenNo"
+                               for="field_checkTokenNo">CheckTokenNo</label>
+                        <input type="text" class="form-control" name="checkTokenNo" id="field_checkTokenNo"
+                               ng-model="pfmsRegister.checkTokenNo"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <button type="button"
+                        onclick="window.history.back()"
+                        class="btn btn-info">
+                    <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span
+                    translate="entity.action.back"> Back</span>
+                </button>
+                <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+                    <span ng-hide="pfmsRegister.id" translate="entity.action.save"></span>
+                    <span ng-show="pfmsRegister.id" translate="entity.action.update"></span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+

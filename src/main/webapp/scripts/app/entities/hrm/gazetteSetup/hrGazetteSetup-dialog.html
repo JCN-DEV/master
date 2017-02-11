@@ -1,0 +1,113 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="hrGazetteSetup.id == null" class="modal-title" id="myHrGazetteSetupLabel"
+            translate="stepApp.hrGazetteSetup.home.createOrEditLabel">Create or edit a HrGazetteSetup</h4>
+        <h4 ng-show="hrGazetteSetup.id != null" class="modal-title" id="myHrGazetteSetupLabel2"
+            translate="stepApp.hrGazetteSetup.home.EditLabel">Create or edit a HrGazetteSetup</h4>
+        <div class="modal-body col-md-12 padding-tb">
+            <jh-alert-error></jh-alert-error>
+
+            <div class="row">
+                <!--
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrGazetteSetup.gazetteCode"
+                               for="field_gazetteCode">GazetteCode</label>
+                        <input type="text" class="form-control" name="gazetteCode" id="field_gazetteCode"
+                               ng-model="hrGazetteSetup.gazetteCode"
+                               ng-remote-validate="/api/hrGazetteSetups/checkcode/"
+                               ng-remote-method="GET"
+                               ng-remote-throttle="500"
+                               required/>
+                        <span class="message" ng-show="editForm.gazetteCode.$pending">validating...</span>
+                        <div ng-show="editForm.gazetteCode.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.gazetteCode.$error.ngRemoteValidate">
+                                Gazette code already exists
+                            </p>
+                        </div>
+                        <div ng-show="editForm.gazetteCode.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.gazetteCode.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                -->
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrGazetteSetup.gazetteName"
+                               for="field_gazetteName">GazetteName</label>
+                        <input type="text" class="form-control" name="gazetteName" id="field_gazetteName"
+                               ng-model="hrGazetteSetup.gazetteName"
+                               required/>
+                        <div ng-show="editForm.gazetteName.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.gazetteName.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrGazetteSetup.gazetteYear"
+                               for="field_gazetteYear">GazetteYear</label>
+                        <input type="text" class="form-control" name="gazetteYear" id="field_gazetteYear"
+                               ng-model="hrGazetteSetup.gazetteYear"
+                            />
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrGazetteSetup.gazetteDetail"
+                               for="field_gazetteDetail">GazetteDetail</label>
+                    <textarea class="form-control" name="gazetteDetail" id="field_gazetteDetail"
+                              ng-model="hrGazetteSetup.gazetteDetail"></textarea>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label"
+                               translate="stepApp.hrGazetteSetup.activeStatus">ActiveStatus</label>
+                        <span class="form-control">
+                            <input type="radio" data-ng-model="hrGazetteSetup.activeStatus" name="activeStatus"
+                                   data-ng-value="true">&nbsp;Active&nbsp;|&nbsp;
+                            <input type="radio" data-ng-model="hrGazetteSetup.activeStatus" name="activeStatus"
+                                   data-ng-value="false">&nbsp;Inactive
+                        </span>
+                        <div ng-show="editForm.activeStatus.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" class="btn " data-dismiss="modal"
+                    onclick="window.history.back()">
+                <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;<span
+                translate="entity.action.back">Back</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="hrGazetteSetup.id == null" translate="entity.action.save">Save</span>
+                <span ng-show="hrGazetteSetup.id != null" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

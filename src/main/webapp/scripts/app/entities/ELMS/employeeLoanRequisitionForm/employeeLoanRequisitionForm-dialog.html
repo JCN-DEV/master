@@ -1,0 +1,223 @@
+<div class="col-sm-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 class="modal-title" id="myEmployeeLoanRequisitionFormLabel"
+            translate="stepApp.employeeLoanRequisitionForm.home.createOrEditLabel">Create a EmployeeLoanRequisitionForm</h4>
+
+
+        <div class="prev" ng-show="pageShow">
+            <div class="col-sm-12 modal-body no_padding">
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.employeeLoanRequisitionForm.employeeLoanTypeSetup"
+                           for="field_employeeLoanTypeSetup">employeeLoanTypeSetup</label>
+                    <select class="form-control" id="field_employeeLoanTypeSetup" name="employeeLoanTypeSetup"
+                            ng-change="getEmployeeLoanRulesByLoanType()"
+                            tooltip="{{'stepApp.employeeLoanRequisitionForm.employeeLoanTypeSetup' | translate}}"
+                            ng-model="employeeLoanRequisitionForm.employeeLoanTypeSetup"
+                            ng-options="employeeLoanTypeSetup as employeeLoanTypeSetup.loanTypeName for employeeLoanTypeSetup in employeeloantypesetups track by employeeLoanTypeSetup.id">
+                        <option value="" translate="stepApp.employeeLoanRequisitionForm.employeeLoanTypeSetup"></option>
+                    </select>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.employeeLoanRequisitionForm.employeeLoanRulesSetup"
+                           for="field_employeeLoanRulesSetup">employeeLoanRulesSetup</label>
+                    <select class="form-control" id="field_employeeLoanRulesSetup" name="employeeLoanRulesSetup"
+                            ng-model="employeeLoanRequisitionForm.employeeLoanRulesSetup"
+                            tooltip="{{'stepApp.employeeLoanRequisitionForm.employeeLoanRulesSetup' | translate}}"
+                            ng-options="employeeLoanRulesSetup as employeeLoanRulesSetup.loanName for employeeLoanRulesSetup in employeeLoanRulesSetups track by employeeLoanRulesSetup.id">
+                        <option value="" translate="stepApp.employeeLoanRequisitionForm.employeeLoanRulesSetup"></option>
+                    </select>
+                </div>
+
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.employeeLoanRequisitionForm.amount" for="field_amount">Amount</label>
+                    <input type="number" class="form-control" name="amount" id="field_amount"
+                           ng-model="employeeLoanRequisitionForm.amount" ng-blur="checkAmountForLoan()"
+                           tooltip="{{'stepApp.employeeLoanRequisitionForm.amount' | translate}}"
+                           placeholder="{{'stepApp.employeeLoanRequisitionForm.amount' | translate}}"
+                           required/>
+                    <div ng-show="editForm.amount.$invalid">
+                        <!--<p class="help-block"-->
+                           <!--ng-show="employeeLoanRequisitionForm.amount.$error.required" translate="entity.validation.required">-->
+                            <!--This field is required-->
+                        <!--</p>-->
+                        <p class="help-block"
+                           ng-show="editForm.amount.$error.number" translate="entity.validation.number">
+                            This field should be a number.
+                        </p>
+                    </div>
+                    <div class="col-sm-12" ng-if="errorForLoanAmount">
+                        <span style="color:red;margin-top:30px;font-size:14px;">Loan Amount Exceed The Rules</span>
+                    </div>
+                    <div class="col-sm-12" ng-if="errorForBasicSalary">
+                        <span style="color:red;margin-top:30px;font-size:14px;">You are not allowed to this Loan Type</span>
+                    </div>
+                    <div class="col-sm-12" ng-if="errorApplyForLoan">
+                        <span style="color:red;margin-top:30px;font-size:14px;">You aren't Eligible For Loan</span>
+                    </div>
+                    <div class="col-sm-12" ng-if="invalidLoanAmount">
+                        <span style="color:red;margin-top:30px;font-size:14px;">Invalid Loan Amount</span>
+                    </div>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.employeeLoanRequisitionForm.installment" for="field_installment">Installment</label>
+                    <input type="number" class="form-control" name="installment" id="field_installment"
+                           ng-model="employeeLoanRequisitionForm.installment" ng-blur="checkLoanInstallment()"
+                           tooltip="{{'stepApp.employeeLoanRequisitionForm.installment' | translate}}"
+                           placeholder="{{'stepApp.employeeLoanRequisitionForm.installment' | translate}}"
+                           required/>
+                    <div ng-show="editForm.installment.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.installment.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                        <p class="help-block"
+                           ng-show="editForm.installment.$error.number" translate="entity.validation.number">
+                            This field should be a number.
+                        </p>
+
+                    </div>
+                    <div class="col-sm-12" ng-if="errorForInstallment">
+                        <span style="color:red;margin-top:30px;font-size:14px;">Installment Exceed the Loan Rules.</span>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.employeeLoanRequisitionForm.createDate" for="field_createDate">Apply Date</label>
+                    <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.createDate"
+                           datepicker-options="calendar.dateOptions" close-text="Close"
+                           ng-click="calendar.open($event, 'createDate')"
+                           class="form-control" name="createDate" id="field_createDate"
+                           tooltip="{{'stepApp.employeeLoanRequisitionForm.installment' | translate}}"
+                           placeholder="yyyy-mm-dd"
+                           ng-model="employeeLoanRequisitionForm.createDate" required/>
+                </div>
+            </div>
+
+            <div class="modal-footer col-sm-12">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="button" class="btn btn-primary"
+                        ng-disabled="editForm.$invalid || editForm.$submitted || amountInvalid || installmentInvalid || invalidLoanAmount" ng-click="isPageShow()">
+                    <span class="glyphicon glyphicon-next"></span>&nbsp;<span translate="entity.action.next">Next</span>
+                </button>
+
+            </div>
+        </div>
+
+        <div class="next" ng-hide="pageShow">
+            <div class="col-sm-12 modal-body">
+                <h3 translate="{{'stepApp.employeeLoanRequisitionForm.employeeLoanAttachmentHeader'}}">Attachment
+                    Information</h3>
+                <div class="attachmentDiv" ng-repeat="attachmentCount in applicantAttachmentCount track by $index">
+                    <!--{{applicantAttachment[attachmentCount].attachment}}-->
+                    <div class="col-sm-12 no_padding">
+                        <div class="col-sm-6 no_padding">
+                            <div class="form-group">
+                                <select class="form-control" id="field_attachment" name="attachment"
+                                        ng-model="applicantAttachment[attachmentCount].attachment"
+
+                                        ng-change="setAttachment($index, applicantAttachment[attachmentCount],applicantAttachment[attachmentCount].noAttachment)">
+                                    <option value=""
+                                            translate="{{'stepApp.employeeLoanRequisitionForm.attachmentName'}}">
+                                        Attachment Name
+                                    </option>
+                                    <option
+                                        ng-repeat="empLoanAttachment in attachmentCategoryList | filter:{applicationName: 'Employee-Loan-Application'}:false track by empLoanAttachment.id"
+                                        value="{{empLoanAttachment}}">
+                                        {{empLoanAttachment.attachmentName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6" ng-hide="applicantAttachment[attachmentCount].noAttachment">
+                            <div class="form-group" ngf-drop ngf-change="setFile($file, attachment)">
+                                <div>
+                                    <div class="help-block clearfix">
+                                        <span class="pull-left">{{applicantAttachment[attachmentCount].fileContentType}} {{byteSize(applicantAttachment[attachmentCount].file)}}</span>
+                                        <button
+                                            ng-click="applicantAttachment.file=null;applicantAttachment[attachmentCount].fileContentType=null;"
+                                            ng-if="applicantAttachment[attachmentCount].file"
+                                            class="btn btn-default btn-xs pull-right">
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                        </button>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <input type="file" ngf-select class="btn btn-default btn-sm col-sm-6"
+                                               ngf-change="setFile($file, applicantAttachment[attachmentCount])"
+                                               translate="entity.action.addblob">
+                                        </input>
+                                        <div class="col-sm-6" ng-hide="attachmentCount=='0'">
+                                        <span class="col-sm-6 minus-btn"
+                                              ng-click="removeAttachment(attachmentCount)"><span
+                                            class="glyphicon glyphicon-minus"></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" class="form-control" name="file" id="field_file"
+                                       ng-model="applicantAttachment[attachmentCount].file"
+                                />
+                                <input type="hidden" class="form-control" name="fileContentType"
+                                       id="field_fileContentType"
+                                       ng-model="applicantAttachment[attachmentCount].fileContentType"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" ng-show="applicantAttachment[attachmentCount].noAttachment">
+                            <div class="col-sm-12">
+                                <div class="col-sm-6">
+                                    <!--<input class="form-control" type="text" required ng-blur="remarksChange()"-->
+                                    <input class="form-control" type="text" ng-change="remarksChange()"
+                                           ng-model="applicantAttachment[attachmentCount].remarks"
+                                           placeholder="Remarks"/>
+                                </div>
+                                <div class="col-sm-3" ng-hide="attachmentCount=='0'">
+                                <span class="col-sm-6 minus-btn" ng-click="removeAttachment(attachmentCount)"><span
+                                    class="glyphicon glyphicon-minus"></span></span>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-6 attachment_file">
+                        <div class="control-lebel">
+                            <div class="col-sm-12">
+                                <input ng-click='selectNoAttachment(applicantAttachment[attachmentCount].noAttachment,applicantAttachment[attachmentCount].attachment,applicantAttachment[attachmentCount].file)' type="checkbox" id="noAttachment"
+                                       ng-model="applicantAttachment[attachmentCount].noAttachment">
+                                <label class="control-label my_control_lebel" translate="{{'stepApp.employeeLoanRequisitionForm.dontHaveAttachment'}}">I don't have this attachment</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            <div class="col-sm-12">
+                <span ng-show="showAddMoreButton" class="btn btn-sm btn-primary pull-right"
+                      ng-click="addMoreAttachment()"><span
+                    class="glyphicon glyphicon-plus"></span>
+                </span>
+            </div>
+
+            <div class="col-sm-12" ng-show="duplicateError">
+                <span style="color:red;margin-top:30px;font-size:14px;">You have selected duplicate attachment, please check the selection.</span>
+            </div>
+            </div>
+
+            <div class="modal-footer col-sm-12">
+                <button type="button" class="btn btn-default" class="btn pull-left" data-dismiss="modal"
+                        ng-click="isPageBack()">
+                    <span class=" glyphicon glyphicon-arrow-left"></span>&nbsp;<span
+                    translate="entity.action.back">Back</span>
+                </button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" ng-disabled="loanReqFormHasError || editForm.$error.required || isSaving"  class="btn btn-primary">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span
+                    translate="entity.action.save">Apply </span>
+                </button>
+            </div>
+        </div>
+
+    </form>
+</div>

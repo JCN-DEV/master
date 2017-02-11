@@ -1,0 +1,124 @@
+<div class="col-sm-12 no_padding lbl-content common-list">
+    <h2 translate="stepApp.dlContUpld.home.title">DlContUplds</h2>
+    <!--<jh-alert></jh-alert>-->
+    <div class="col-md-12 " style="margin-top: 10px">
+        <div class="form-group col-md-2 ">
+            <div class="col-md-12 no_padding">
+                <label for="">Search By :</label>
+            </div>
+        </div>
+        <div class="col-md-7 no_padding">
+            <div class="form-group col-md-4">
+                <div class="col-md-12 no_padding">
+                    <input type="checkbox" ng-model="type" value="true"/> &nbsp;Publication
+                </div>
+                <div class="col-md-12 no_padding">
+                    <div class="form-group" ng-show="type">
+                        <select class="form-control" id="field_dlContTypeSet" name="dlContTypeSet"
+                                ng-model="dlContUpld.dlContTypeSet"
+                                ng-change="loadCategoryByType(dlContUpld.dlContTypeSet)"
+                                ng-options="dlContTypeSet as dlContTypeSet.name for dlContTypeSet in dlContTypeSets track by dlContTypeSet.id" >
+                            <option value="">Select Publication</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <div class="col-md-12 no_padding">
+                    <input type="checkbox" ng-model="Category"/> &nbsp; Category
+                </div>
+                <div class="col-md-12 no_padding">
+                    <div class="form-group" ng-show="Category">
+                        <select class="form-control" id="field_dlContCatSet" name="dlContCatSet"
+                                ng-model="dlContUpld.dlContCatSet"
+                                ng-change="loadSubCatByCategory(dlContUpld.dlContCatSet)"
+                                ng-options="dlContCatSet as dlContCatSet.name for dlContCatSet in dlContCatSetsFilter"
+                                ng-disabled="!(dlContUpld.dlContTypeSet)"
+
+
+                        >
+                            <option value="">Select Category</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <div class="col-md-12 no_padding">
+                    <input type="checkbox" ng-model="subcategory"/> &nbsp;Sub-Category
+                </div>
+                <div class="col-md-12 no_padding">
+                    <div class="form-group" ng-show="subcategory">
+                        <select class="form-control" id="field_dlContSCatSet" name="dlContSCatSet"
+                                ng-model="dlContUpld.dlContSCatSet"
+                                ng-options="dlContSCatSet as dlContSCatSet.name for dlContSCatSet in dlContSubCatSetsFilter"
+                                ng-disabled="!(dlContUpld.dlContCatSet)"
+                                ng-change="getBookBySCategory(dlContUpld.dlContSCatSet)">
+                            <option value="">Select Sub-Category</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </div>
+    <div class="col-md-12 padding-tb">
+        <div class="col-md-4">
+                <input ng-model="q" id="search" type="text" class="form-control" placeholder="{{'global.home.searchhere' | translate}}">
+
+        </div>
+        <div class="col-md-4">
+            <input type="number" min="1" max="100" class="form-control" ng-model="pageSize" placeholder="{{'global.home.itemperpage' | translate}}">
+        </div>
+        <div has-any-authority="ROLE_ADMIN,ROLE_USER,ROLE_INSTEMP" class="col-md-4 text-right no_padding">
+            <button class="btn btn-primary" ui-sref="libraryInfo.dlContUpld.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.dlContUpld.home.createLabel">Create a new DlContUpld</span>
+            </button>
+        </div>
+        <div has-any-authority="ROLE_GOVT_STUDENT,ROLE_INSTITUTE" class="col-md-4 text-right no_padding ">
+            <button class="btn btn-primary" ui-sref="libraryInfo.dlContUpld.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.dlContUpld.home.createLabel">Create a new DlContUpld</span>
+            </button>
+        </div>
+    </div>
+    <br>
+
+
+</div>
+<div class="col-sm-12 table-responsive common-list">
+    <div class="col-sm-4 book-info wow animated zoomIn" data-wow-duration="1s" data-wow-delay="0s"
+         dir-paginate="dlContUpld in dlContUplds | filter:q | itemsPerPage: pageSize" current-page="currentPage"
+         style="padding-left: 0px">
+        <div class="single-book-info">
+            <div class="left-book-img">
+                <a ui-sref="libraryInfo.dlContUpld.detail({id:dlContUpld.id})">
+                    <img width="200"
+                         data-ng-src="{{'data:' + dlContUpld.contentImageContentType + ';base64,' + dlContUpld.contentImage}}"/>
+                    <!-- <img src="{{dlContUpld.contentImageName}}" alt="book image">-->
+                </a>
+            </div>
+            <div class="book-details-info">
+                <p>Book Information</p>
+                <p>Tittle &nbsp;&nbsp;: {{dlContUpld.cName}}</p>
+                <p>Author&nbsp;&nbsp;: {{dlContUpld.authName | limitTo: 30}}</p>
+                <p>Edition &nbsp;: {{dlContUpld.edition}}</p>
+                <p>ISBN &nbsp;: {{dlContUpld.isbnNo}}</p>
+                <div class="book-detail-button">
+                    <a href="" ui-sref="libraryInfo.dlContUpld.detail({id:dlContUpld.id})"><i class="fa fa-eye"
+                                                                                              aria-hidden="true"></i></a>
+                    <a href="" ui-sref="libraryInfo.dlContUpld.edit({id:dlContUpld.id})"><i class="fa fa-pencil"
+                                                                                            aria-hidden="true"></i></a>
+                    <a href="" ui-sref="libraryInfo.dlContUpld.delete({id:dlContUpld.id})"><i class="fa fa-times"
+                                                                                              aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav>
+        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                 template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+    </nav>
+</div>
+</div>

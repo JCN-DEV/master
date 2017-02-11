@@ -1,0 +1,79 @@
+<div class="col-md-12 common-list">
+    <h2 class="panel-heading" translate="stepApp.prlSalaryGenerationLog.home.title">PrlSalaryGenerationLogs</h2>
+    <div class="col-md-12 padding-tb">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control"
+                   placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control"
+                   placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+        <div class="col-xs-4 no_padding text-right ">
+
+        </div>
+    </div>
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+            <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
+                <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span
+                    class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="generateDate"><span
+                    translate="stepApp.prlSalaryGenerationLog.generateDate">GenerateDate</span> <span
+                    class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="comments"><span translate="stepApp.prlSalaryGenerationLog.comments">Comments</span>
+                    <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="actionStatus"><span
+                    translate="stepApp.prlSalaryGenerationLog.actionStatus">ActionStatus</span> <span
+                    class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="generateBy"><span
+                    translate="stepApp.prlSalaryGenerationLog.generateBy">GenerateBy</span> <span
+                    class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="generatedSalaryInfo.salaryType"><span
+                    translate="stepApp.prlSalaryGenerationLog.generatedSalaryInfo">generatedSalaryInfo</span> <span
+                    class="glyphicon glyphicon-sort"></span></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-animate="'animate'"
+                dir-paginate="prlSalaryGenerationLog in prlSalaryGenerationLogs | filter:q | itemsPerPage: pageSize track by prlSalaryGenerationLog.id"
+                current-page="currentPage">
+                <td><a ui-sref="prlSalaryGenerationLog.detail({id:prlSalaryGenerationLog.id})">{{prlSalaryGenerationLog.id}}</a>
+                </td>
+                <td>{{prlSalaryGenerationLog.generateDate | date:'mediumDate'}}</td>
+                <td>{{prlSalaryGenerationLog.comments}}</td>
+                <td>{{prlSalaryGenerationLog.actionStatus}}</td>
+                <td>{{prlSalaryGenerationLog.generateBy}}</td>
+                <td>
+                    <a ui-sref="prlGeneratedSalaryInfo.detail({id:prlSalaryGenerationLog.generatedSalaryInfo.id})">{{prlSalaryGenerationLog.generatedSalaryInfo.salaryType}}</a>
+                </td>
+                <td class="text-right">
+                    <button type="submit"
+                            ui-sref="prlSalaryGenerationLog.detail({id:prlSalaryGenerationLog.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit" ng-hide="true"
+                            ui-sref="prlSalaryGenerationLog.edit({id:prlSalaryGenerationLog.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                        translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit" ng-hide="true"
+                            ui-sref="prlSalaryGenerationLog.delete({id:prlSalaryGenerationLog.id})"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                        translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <nav class="no-print">
+        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                 template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+    </nav>
+</div>

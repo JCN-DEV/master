@@ -1,0 +1,192 @@
+<div class="service-form-area">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="modal-title" id="myPgmsGrObtainSpecEmpLabel" translate="stepApp.pgmsGrObtainSpecEmp.home.createOrEditLabel">Create or edit a PgmsGrObtainSpecEmp</h4>
+        </div>
+        <div class="panel-body bg-panel">
+            <jh-alert-error></jh-alert-error>
+
+            <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsGrObtainSpecEmp.instEmpId" for="field_instEmpId">instEmpId</label>
+                        <div class="input-margin">
+                            <select class="form-control" id="field_instEmpId" name="instEmpId" ng-model="pgmsGrObtainSpecEmp.instEmpId" ng-options="HrEmployeeInfo as HrEmployeeInfo.employeeId for HrEmployeeInfo in hremployeeinfos track by HrEmployeeInfo.id">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                      <!--
+                          <span ng-if="iisAgencyInfo.id == null">
+                          ng-click="agencyInformation(iisAgencyInfo.reqtmntAgntLicnsNo)"
+                       -->
+                        <span>
+                            <input type="button" ng-click="employeeInfo(pgmsGrObtainSpecEmp.instEmpId)" value="Search" style="margin-top: 20px" class="btn btn-info"/>
+                        </span>
+
+                    </div>
+
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsGrObtainSpecEmp.empName" for="field_empName">EmpName</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="empName" id="field_empName"
+                                   ng-model="pgmsGrObtainSpecEmp.empName"
+                                   required />
+                            <div ng-show="editForm.empName.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.empName.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsGrObtainSpecEmp.empDesignation" for="field_empDesignation">EmpDesignation</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="empDesignation" id="field_empDesignation"
+                                   ng-model="pgmsGrObtainSpecEmp.empDesignation"
+                                   required />
+                            <div ng-show="editForm.empDesignation.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.empDesignation.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsGrObtainSpecEmp.empDepartment" for="field_empDepartment">EmpDepartment</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="empDepartment" id="field_empDepartment"
+                                   ng-model="pgmsGrObtainSpecEmp.empDepartment"
+                                   required />
+                            <div ng-show="editForm.empDepartment.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.empDepartment.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsGrObtainSpecEmp.empEndDate" for="field_empEndDate">EmpEndDate</label>
+                        <div class="input-margin">
+                            <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.empEndDate"
+                                   datepicker-options="calendar.dateOptions" close-text="Close"
+                                   ng-click="calendar.open($event, 'empEndDate')" class="form-control" name="empEndDate" id="field_empEndDate"
+                                   ng-model="pgmsGrObtainSpecEmp.empEndDate"
+                                   required />
+                            <div ng-show="editForm.empEndDate.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.empEndDate.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsGrObtainSpecEmp.empStatus">EmpStatus</label>
+                        <div class="input-margin">
+                            <label class="radio-inline">
+                                <input type="radio" data-ng-model="pgmsGrObtainSpecEmp.empStatus" name="empStatus" data-ng-value="true">&nbsp;Active&nbsp;&nbsp;
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" data-ng-model="pgmsGrObtainSpecEmp.empStatus" name="empStatus" data-ng-value="false">&nbsp;Inactive
+                            </label>
+                            <div ng-show="editForm.empStatus.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.empStatus.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsGrObtainSpecEmp.empWrkingYear" for="field_empWrkingYear">EmpWrkingYear</label>
+                        <div class="input-margin">
+                            <input type="number" class="form-control" name="empWrkingYear" id="field_empWrkingYear"
+                                   ng-model="pgmsGrObtainSpecEmp.empWrkingYear"
+                                   required />
+                            <div ng-show="editForm.empWrkingYear.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.empWrkingYear.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.empWrkingYear.$error.number" translate="entity.validation.number">
+                                    This field should be a number.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsGrObtainSpecEmp.obtainDate" for="field_obtainDate">ObtainDate</label>
+                        <div class="input-margin">
+                            <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.obtainDate"
+                                   datepicker-options="calendar.dateOptions" close-text="Close"
+                                   ng-click="calendar.open($event, 'obtainDate')" class="form-control" name="obtainDate" id="field_obtainDate"
+                                   ng-model="pgmsGrObtainSpecEmp.obtainDate"
+                                   required />
+                            <div ng-show="editForm.obtainDate.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.obtainDate.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsGrObtainSpecEmp.amountAsGr" for="field_amountAsGr">AmountAsGr</label>
+                        <div class="input-margin">
+                            <input type="number" class="form-control" name="amountAsGr" id="field_amountAsGr"
+                                   ng-model="pgmsGrObtainSpecEmp.amountAsGr"
+                                   required />
+                            <div ng-show="editForm.amountAsGr.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.amountAsGr.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.amountAsGr.$error.number" translate="entity.validation.number">
+                                    This field should be a number.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsGrObtainSpecEmp.activeStatus">ActiveStatus</label>
+                        <div class="input-margin">
+                            <label class="radio-inline">
+                                <input type="radio" data-ng-model="pgmsGrObtainSpecEmp.activeStatus" name="activeStatus" data-ng-value="true">&nbsp;Active&nbsp;&nbsp;
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" data-ng-model="pgmsGrObtainSpecEmp.activeStatus" name="activeStatus" data-ng-value="false">&nbsp;Inactive
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" class="btn " data-dismiss="modal" onclick="window.history.back()">
+                        <i class="fa fa-angle-double-left"></i>&nbsp;<span translate="entity.action.back">Back</span>
+                    </button>
+                    <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

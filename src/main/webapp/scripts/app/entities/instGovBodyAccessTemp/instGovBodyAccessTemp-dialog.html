@@ -1,0 +1,68 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myInstGovBodyAccessTempLabel" translate="stepApp.instGovBodyAccessTemp.home.createOrEditLabel">Create or edit a InstGovBodyAccessTemp</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="instGovBodyAccessTemp.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instGovBodyAccessTemp.dateCreated" for="field_dateCreated">DateCreated</label>
+            <input type="date" class="form-control" name="dateCreated" id="field_dateCreated"
+                    ng-model="instGovBodyAccessTemp.dateCreated"
+                    required />
+            <div ng-show="editForm.dateCreated.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.dateCreated.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instGovBodyAccessTemp.dateModified" for="field_dateModified">DateModified</label>
+            <input type="date" class="form-control" name="dateModified" id="field_dateModified"
+                    ng-model="instGovBodyAccessTemp.dateModified"
+                    required />
+            <div ng-show="editForm.dateModified.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.dateModified.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instGovBodyAccessTemp.status" for="field_status">Status</label>
+            <input type="number" class="form-control" name="status" id="field_status"
+                    ng-model="instGovBodyAccessTemp.status"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.instGovBodyAccessTemp.institute" for="field_institute">institute</label>
+            <select class="form-control" id="field_institute" name="institute" ng-model="instGovBodyAccessTemp.institute" ng-options="institute as institute.name for institute in institutes track by institute.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instGovBodyAccessTemp.user" for="field_user">user</label>
+            <select class="form-control" id="field_user" name="user" ng-model="instGovBodyAccessTemp.user" ng-options="user as user.login for user in users track by user.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

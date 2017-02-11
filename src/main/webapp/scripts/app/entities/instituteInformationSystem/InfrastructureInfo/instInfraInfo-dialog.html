@@ -1,0 +1,869 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" class="form-vertical panel panel-primary" novalidate ng-submit="save()">
+        <h4 ng-show="instBuilding.id==null" id="myInstEmpSpouseInfoLabel"
+            translate="stepApp.instInfraInfo.home.createOrEditLabel">Add InstInfraInfo</h4>
+        <h4 ng-hide="instBuilding.id==null" id="myInstEmpSpouseInfoLabel1"
+            translate="stepApp.instInfraInfo.home.EditLabel">Add InstInfraInfo</h4>
+        <div class="panel-body admin-info no_padding">
+            <div class="col-sm-12 no_padding">
+                <h3 translate="stepApp.instBuilding.home.createOrEditLabel"></h3>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instBuilding.nameOrNumber" for="field_name">Name/Number</label>
+                <input type="text" class="form-control" name="name" id="field_name"
+                       ng-model="instBuilding.name"
+                       required/>
+                <div ng-show="editForm.totalArea.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.totalArea.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instBuilding.totalArea" for="field_totalArea">Total Area</label>
+                <input type="text" class="form-control" name="totalArea" id="field_totalArea" placeholder="in square ft"
+                       ng-model="instBuilding.totalArea"
+                       required/>
+                <div ng-show="editForm.totalArea.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.totalArea.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-8 col-md-offset-4">
+                <label class="control-label" translate="stepApp.instBuilding.position" for="field_position">MPO
+                    Enlisted</label>
+                <div id="field_position">
+                    <label ng-repeat="positionLabel in positionLabels" class="radio-inline btn btn-default"><input
+                        type="radio" name="optradio" ng-model="instBuilding.direction" ng-value="positionLabel.id">{{positionLabel.code}}</label>
+                </div>
+            </div>
+
+
+            <!--<div class="col-md-12 no_padding">
+                <h3 translate="stepApp.instBuilding.roomHeading">Total number of Rooms</h3>
+            </div>-->
+
+
+            <!-- <div class="form-group col-md-3">
+                 <label translate="stepApp.instBuilding.totalRoom" for="field_totalRoom">Total Number of Classroom</label>
+                 <input type="number" class="form-control" name="totalRoom" id="field_totalRoom"
+                        ng-model="instBuilding.totalRoom" min="0"
+                        required />
+                 <div ng-show="editForm.classRoom.$invalid">
+                     <p class="help-block"
+                        ng-show="editForm.classRoom.$error.required" translate="entity.validation.required">
+                         This field is required.
+                     </p>
+                     <p class="help-block"
+                        ng-show="editForm.classRoom.$error.number" translate="entity.validation.number">
+                         This field should be a number.
+                     </p>
+                 </div>
+             </div>-->
+            <div class="form-group col-md-3">
+                <label translate="stepApp.instBuilding.classRoom" for="field_classRoom">Total Number of
+                    Classroom</label>
+                <input type="number" class="form-control" name="classRoom" id="field_classRoom"
+                       ng-model="instBuilding.classRoom" min="0"
+                       required/>
+                <div ng-show="editForm.classRoom.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.classRoom.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.classRoom.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <label translate="stepApp.instBuilding.officeRoom" for="field_officeRoom">OfficeRoom</label>
+                <input type="number" class="form-control" name="officeRoom" id="field_officeRoom"
+                       ng-model="instBuilding.officeRoom" min="0"
+                       required/>
+                <div ng-show="editForm.officeRoom.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.officeRoom.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.officeRoom.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <label translate="stepApp.instBuilding.teachersRoom" for="field_teachersRoom">OfficeRoom</label>
+                <input type="number" class="form-control" name="teachersRoom" id="field_teachersRoom"
+                       ng-model="instBuilding.teachersRoom" min="0"
+                       required/>
+                <div ng-show="editForm.officeRoom.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.officeRoom.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.officeRoom.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group col-md-3">
+                <label translate="stepApp.instBuilding.workshopRoom" for="field_workshopRoom">OfficeRoom</label>
+                <input type="number" class="form-control" name="workshopRoom" id="field_workshopRoom"
+                       ng-model="instBuilding.workshopRoom" min="0"
+                       required/>
+                <div ng-show="editForm.officeRoom.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.officeRoom.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.officeRoom.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group col-md-3">
+                <label translate="stepApp.instBuilding.trainingRoom" for="field_trainingRoom">OfficeRoom</label>
+                <input type="number" class="form-control" name="trainingRoom" id="field_trainingRoom"
+                       ng-model="instBuilding.trainingRoom" min="0"
+                       required/>
+                <div ng-show="editForm.officeRoom.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.officeRoom.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.officeRoom.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group col-md-3">
+                <label translate="stepApp.instBuilding.meetingRoom" for="field_meetingRoom">OfficeRoom</label>
+                <input type="number" class="form-control" name="meetingRoom" id="field_meetingRoom"
+                       ng-model="instBuilding.meetingRoom" min="0"
+                       required/>
+                <div ng-show="editForm.officeRoom.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.officeRoom.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.officeRoom.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group col-md-3">
+                <label translate="stepApp.instBuilding.researchRoom" for="field_researchRoom">OfficeRoom</label>
+                <input type="number" class="form-control" name="researchRoom" id="field_researchRoom"
+                       ng-model="instBuilding.researchRoom" min="0"
+                       required/>
+                <div ng-show="editForm.officeRoom.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.officeRoom.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.officeRoom.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group col-md-3">
+                <label translate="stepApp.instBuilding.labRoom" for="field_labRoom">OfficeRoom</label>
+                <input type="number" class="form-control" name="labRoom" id="field_labRoom"
+                       ng-model="instBuilding.labRoom" min="0"
+                       required/>
+                <div ng-show="editForm.officeRoom.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.officeRoom.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.officeRoom.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group col-md-3">
+                <label translate="stepApp.instBuilding.counselingRoom" for="field_counselingRoom">OfficeRoom</label>
+                <input type="number" class="form-control" name="counselingRoom" id="field_counselingRoom"
+                       ng-model="instBuilding.counselingRoom" min="0"
+                       required/>
+                <div ng-show="editForm.officeRoom.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.officeRoom.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.officeRoom.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group col-md-3">
+                <label translate="stepApp.instBuilding.auditoriumRoom" for="field_auditoriumRoom">OfficeRoom</label>
+                <input type="number" class="form-control" name="auditoriumRoom" id="field_auditoriumRoom"
+                       ng-model="instBuilding.auditoriumRoom" min="0"
+                       required/>
+                <div ng-show="editForm.officeRoom.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.officeRoom.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.officeRoom.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group col-md-3">
+                <label translate="stepApp.instBuilding.commonRoom" for="field_commonRoom">OfficeRoom</label>
+                <input type="number" class="form-control" name="commonRoom" id="field_commonRoom"
+                       ng-model="instBuilding.commonRoom" min="0"
+                       required/>
+                <div ng-show="editForm.officeRoom.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.officeRoom.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.officeRoom.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group col-md-3">
+                <label translate="stepApp.instBuilding.maleBathroom" for="field_maleBathroom">OfficeRoom</label>
+                <input type="number" class="form-control" name="maleBathroom" id="field_maleBathroom"
+                       ng-model="instBuilding.maleBathroom" min="0"
+                       required/>
+                <div ng-show="editForm.officeRoom.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.officeRoom.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.officeRoom.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group col-md-3">
+                <label translate="stepApp.instBuilding.femaleBathroom" for="field_femaleBathroom">OfficeRoom</label>
+                <input type="number" class="form-control" name="femaleBathroom" id="field_femaleBathroom"
+                       ng-model="instBuilding.femaleBathroom" min="0"
+                       required/>
+                <div ng-show="editForm.officeRoom.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.officeRoom.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.officeRoom.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group col-md-3">
+                <label translate="stepApp.instBuilding.storeRoom" for="field_storeRoom">OfficeRoom</label>
+                <input type="number" class="form-control" name="storeRoom" id="field_storeRoom"
+                       ng-model="instBuilding.storeRoom" min="0"
+                       required/>
+                <div ng-show="editForm.officeRoom.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.officeRoom.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.officeRoom.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <label translate="stepApp.instBuilding.totalLibraryRoom" for="field_totalLibraryRoom">OfficeRoom</label>
+                <input type="number" class="form-control" name="totalLibraryRoom" id="field_totalLibraryRoom"
+                       ng-model="instBuilding.totalLibraryRoom" min="0"
+                       required/>
+                <div ng-show="editForm.officeRoom.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.officeRoom.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.officeRoom.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <label translate="stepApp.instBuilding.totalShop" for="field_totalShop">OfficeRoom</label>
+                <input type="number" class="form-control" name="totalShop" id="field_totalShop"
+                       ng-model="instBuilding.totalShop" min="0"
+                       required/>
+                <div ng-show="editForm.officeRoom.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.officeRoom.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.officeRoom.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.instBuilding.home.pStatus">PStatus</label>
+            <div id="field_dStatus">
+                <label class="radio-inline"><input type="radio" name="dStatus" value="true"
+                                                   ng-checked="(instBuilding.dStatus == true || instBuilding.dStatus == null)"
+                                                   ng-model="instBuilding.dStatus"><span
+                    translate="stepApp.instBuilding.home.yes">YES</span></label>
+                <label class="radio-inline"><input type="radio" name="dStatus" value="false"
+                                                   ng-checked="(instBuilding.dStatus == false && instBuilding.dStatus != null)"
+                                                   ng-model="instBuilding.dStatus"><span
+                    translate="stepApp.instBuilding.home.no">NO</span></label>
+            </div>
+        </div>
+
+
+        <div class="panel-body admin-info" ng-hide="instBuilding.dStatus == 'false'">
+
+
+            <div class="form-group col-md-3">
+                <label translate="stepApp.instBuilding.mwashRoom" for="field_classRoom">Total Number of
+                    Classroom</label>
+                <input type="number" class="form-control" name="classRoom" id="field_dMwash"
+                       ng-model="instBuilding.dMwash" min="0"
+                       required/>
+                <div ng-show="editForm.dMwash.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.dMwash.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.dMwash.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <label translate="stepApp.instBuilding.fwashRoom" for="field_classRoom">Total Number of
+                    Classroom</label>
+                <input type="number" class="form-control" name="classRoom" id="field_dFmwash"
+                       ng-model="instBuilding.dFmwash" min="0"
+                       required/>
+                <div ng-show="editForm.dFmwash.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.dFmwash.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.dFmwash.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <label translate="stepApp.instBuilding.labNo" for="field_classRoom">Total Number of Classroom</label>
+                <input type="number" class="form-control" name="classRoom" id="field_dMwash"
+                       ng-model="instBuilding.labNo" min="0"
+                       required/>
+                <div ng-show="editForm.labNo.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.labNo.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.labNo.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <label translate="stepApp.instBuilding.workshopNo" for="field_classRoom">Total Number of
+                    Classroom</label>
+                <input type="number" class="form-control" name="classRoom" id="field_dMwash"
+                       ng-model="instBuilding.labNo" min="0"
+                       required/>
+                <div ng-show="editForm.workshopNo.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.workshopNo.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.workshopNo.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+
+
+            <!--<div class="form-group col-sm-6">
+                <label translate="stepApp.instBuilding.home.pStatus">PStatus</label>
+                <div id="field_ramp">
+                    <label  class="radio-inline"><input type="radio" name="ramp" value="true" ng-checked="(instBuilding.ramp == true || instBuilding.ramp == null)" ng-model="instBuilding.ramp"><span translate="stepApp.instBuilding.home.yes">YES</span></label>
+                    <label class="radio-inline"><input type="radio" name="ramp"  value="false" ng-checked="(instBuilding.ramp == false && instBuilding.ramp != null)"  ng-model="instBuilding.ramp"><span translate="stepApp.instBuilding.home.no">NO</span></label>
+                </div>
+            </div>-->
+
+
+        </div>
+
+
+        <div class="panel-body col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="panel-body" ng-repeat="instLabInfo in instLabInfos">
+                        <div class="col-md-12 admin-info no_padding">
+                            <div class="col-md-11 no_padding">
+                                <h3 translate="stepApp.instLabInfo.title">Library Information</h3>
+                            </div>
+                            <div class="col-sm-1 text-right no_padding">
+                                <input type="button" ng-hide="instLabInfo.id !=null || $index==0"
+                                       class="btn btn-link pull-right half-page-cross-btn-color"
+                                       ng-click="removeLibraryInfo(instLabInfo)" value="X"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label translate="stepApp.instLabInfo.nameOrNumber"
+                                   for="field_nameOrNumber">NameOrNumber</label>
+                            <input type="text" class="form-control" name="nameOrNumber" id="field_nameOrNumber"
+                                   ng-model="instLabInfo.nameOrNumber"
+                            />
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label translate="stepApp.instLabInfo.buildingNameOrNumber"
+                                   for="field_buildingNameOrNumber">BuildingNameOrNumber</label>
+                            <input type="text" class="form-control" name="buildingNameOrNumber"
+                                   id="field_buildingNameOrNumber"
+                                   ng-model="instLabInfo.buildingNameOrNumber"
+                            />
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label translate="stepApp.instLabInfo.length" for="field_length">Length</label>
+                            <input type="text" class="form-control" name="length" id="field_length" placeholder="ft"
+                                   ng-model="instLabInfo.length"
+                            />
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label translate="stepApp.instLabInfo.width" for="field_width">Width</label>
+                            <input type="text" class="form-control" name="width" id="field_width" placeholder="ft"
+                                   ng-model="instLabInfo.width"
+                            />
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label translate="stepApp.instLabInfo.totalBooks" for="field_totalBooks">TotalBooks</label>
+                            <input type="number" class="form-control" name="totalBooks" id="field_totalBooks"
+                                   ng-model="instLabInfo.totalBooks"
+                            />
+                        </div>
+
+                    </div>
+                    <div class="panel-footer">
+                        <input type="button" class="btn btn-link"
+                               ng-disabled="!instLabInfos[instLabInfos.length-1].nameOrNumber || !instLabInfos[instLabInfos.length-1].buildingNameOrNumber || !instLabInfos[instLabInfos.length-1].length || !instLabInfos[instLabInfos.length-1].width || !instLabInfos[instLabInfos.length-1].totalBooks"
+                               ng-click="addLibraryMore()" value="Add More"/>
+                        <!--<span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.addMore">Add More</span>
+                    </a>-->
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+                    <div class="panel-body" ng-repeat="instShopInfo in instShopInfos">
+                        <!--<div class="col-md-12 admin-info no_padding">
+                            <h3 translate="stepApp.instShopInfo.title">Workshop Information</h3>
+                        </div>-->
+                        <div class="col-md-12 admin-info no_padding">
+                            <div class="col-md-11 admin-info no_padding">
+                                <h3 translate="stepApp.instShopInfo.title">Workshop Information</h3>
+                            </div>
+                            <div class="col-sm-1 text-right no_padding">
+                                <input type="button" ng-hide="instShopInfo.id !=null || $index==0"
+                                       class="btn btn-link pull-right half-page-cross-btn-color"
+                                       ng-click="removeShopInfoInfo(instShopInfo)" value="X"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label translate="stepApp.instShopInfo.nameOrNumber"
+                                   for="field_nameOrNumber1">NameOrNumber</label>
+                            <input type="text" class="form-control" name="nameOrNumber" id="field_nameOrNumber1"
+                                   ng-model="instShopInfo.nameOrNumber"
+                            />
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label translate="stepApp.instShopInfo.buildingNameOrNumber"
+                                   for="field_buildingNameOrNumber1">BuildingNameOrNumber</label>
+                            <input type="text" class="form-control" name="buildingNameOrNumber"
+                                   id="field_buildingNameOrNumber1" placeholder="ft"
+                                   ng-model="instShopInfo.buildingNameOrNumber"
+                            />
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label translate="stepApp.instShopInfo.length" for="field_length1">Length</label>
+                            <input type="text" class="form-control" name="length" id="field_length1" placeholder="ft"
+                                   ng-model="instShopInfo.length"
+                            />
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label translate="stepApp.instShopInfo.width" for="field_width1">Width</label>
+                            <input type="text" class="form-control" name="width" id="field_width1" placeholder="ft"
+                                   ng-model="instShopInfo.width"
+                            />
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <input type="button" class="btn btn-link"
+                               ng-disabled="!instShopInfos[instShopInfos.length-1].nameOrNumber || !instShopInfos[instShopInfos.length-1].buildingNameOrNumber || !instShopInfos[instShopInfos.length-1].length || !instShopInfos[instShopInfos.length-1].width"
+                               ng-click="addWorkShopMore()" value="Add More"/>
+                        <!--<span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.addMore">Add More</span>
+                    </a>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="col-sm-12 admin-info no_padding">
+                <h3 translate="stepApp.instLand.home.createOrEditLabel"></h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instLand.mouja" for="field_mouja">Mouja</label>
+                    <input type="text" class="form-control" name="mouja" id="field_mouja"
+                           ng-model="instLand.mouja"
+                           required/>
+                    <div ng-show="editForm.mouja.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.mouja.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instLand.jlNo" for="field_jlNo">Jl No</label>
+                    <input type="text" class="form-control" name="jlNo" id="field_jlNo"
+                           ng-model="instLand.jlNo"
+                           required/>
+                    <div ng-show="editForm.jlNo.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.jlNo.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instLand.ledgerNo" for="field_ledgerNo">Ledger No</label>
+                    <input type="number" class="form-control" name="ledgerNo" id="field_ledgerNo"
+                           ng-model="instLand.ledgerNo" min="0"
+                           required/>
+                    <div ng-show="editForm.ledgerNo.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.ledgerNo.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                        <p class="help-block"
+                           ng-show="editForm.ledgerNo.$error.number" translate="entity.validation.number">
+                            This field should be a number.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instLand.dagNo" for="field_dagNo">Dag No</label>
+                    <input type="text" class="form-control" name="dagNo" id="field_dagNo"
+                           ng-model="instLand.dagNo"
+                           required/>
+                    <div ng-show="editForm.dagNo.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.dagNo.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instLand.amountOfLand" for="field_amountOfLand">Amount Of Land</label>
+                    <input type="number" class="form-control" name="amountOfLand" id="field_amountOfLand"
+                           placeholder="in acre"
+                           ng-model="instLand.amountOfLand" min="0"
+                           required/>
+                    <div ng-show="editForm.amountOfLand.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.amountOfLand.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                        <p class="help-block"
+                           ng-show="editForm.amountOfLand.$error.number" translate="entity.validation.number">
+                            This field should be a number.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instLand.landRegistrationLedgerNo" for="field_landRegistrationLedgerNo">Land
+                        Registration Ledger No</label>
+                    <input type="text" class="form-control" name="landRegistrationLedgerNo"
+                           id="field_landRegistrationLedgerNo"
+                           ng-model="instLand.landRegistrationLedgerNo"
+                           required/>
+                    <div ng-show="editForm.landRegistrationLedgerNo.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.landRegistrationLedgerNo.$error.required"
+                           translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+
+                    <label translate="stepApp.instLand.landRegistrationDate" for="field_landRegistrationDate">LandRegistrationDate</label>
+                    <input type="text" class="form-control" name="landRegistrationDate" id="field_landRegistrationDate"
+                           ng-model="instLand.landRegistrationDate"
+                           required
+                           datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.landRegistrationDate"
+                           datepicker-options="calendar.dateOptions" close-text="Close"
+                           ng-click="calendar.open($event, 'landRegistrationDate')"/>
+                    <div ng-show="editForm.landRegistrationDate.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.landRegistrationDate.$error.required"
+                           translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instLand.lastTaxPaymentDate" for="field_lastTaxPaymentDate">Last Tax
+                        Payment Date</label>
+                    <input type="text" class="form-control" name="lastTaxPaymentDate" id="field_lastTaxPaymentDate"
+                           ng-model="instLand.lastTaxPaymentDate"
+                           required
+                           datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.lastTaxPaymentDate"
+                           datepicker-options="calendar.dateOptions" close-text="Close"
+                           ng-click="calendar.open($event, 'lastTaxPaymentDate')"
+                    />
+                    <div ng-show="editForm.lastTaxPaymentDate.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.lastTaxPaymentDate.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <h3 translate="stepApp.instLand.boundary" ></h3>
+                    <div class="col-md-12">
+                        <div class="form-group col-md-2">
+                            <label translate="stepApp.instLand.boundaryNorth" for="field_boundaryNorth">Boundary
+                                North</label>
+                            <input type="number" class="form-control" name="boundaryNorth" id="field_boundaryNorth"
+                                   ng-model="instLand.boundaryNorth"
+                            />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label translate="stepApp.instLand.boundarySouth" for="field_boundarySouth">Boundary
+                                South</label>
+                            <input type="number" class="form-control" name="boundarySouth" id="field_boundarySouth"
+                                   ng-model="instLand.boundarySouth" min="0"
+                            />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label translate="stepApp.instLand.boundaryEast" for="field_boundaryEast">Boundary
+                                East</label>
+                            <input type="number" class="form-control" name="boundaryEast" id="field_boundaryEast"
+                                   ng-model="instLand.boundaryEast" min="0"
+                            />
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label translate="stepApp.instLand.boundaryWest" for="field_boundaryWest">Boundary
+                                West</label>
+                            <input type="number" class="form-control" name="boundaryWest" id="field_boundaryWest"
+                                   ng-model="instLand.boundaryWest" min="0"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instLand.distncFromDistHQ" for="field_distncFromDistHQ">Boundary
+                        West</label>
+                    <input type="text" class="form-control" placeholder="in Meter" name="distncFromDistHQ"
+                           id="field_distncFromDistHQ"
+                           ng-model="instLand.distncFromDistHQ" min="0"
+                    />
+                </div>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instLand.distncFromMainRd" for="field_distncFromMainRd">Boundary
+                        West</label>
+                    <input type="text" class="form-control" placeholder="in Meter" name="distncFromMainRd"
+                           id="field_distncFromMainRd"
+                           ng-model="instLand.distncFromMainRd" min="0"
+                    />
+                </div>
+                <div class="form-group col-md-6">
+                    <h6 translate="stepApp.instLand.boundaryWall" for="field_distncFromMainRd">Boundary West</h6>
+
+                    <div class="col-md-3">
+                        <label translate="stepApp.instLand.height">Height</label>
+                        <input type="text" numeric-only class="form-control" placeholder="ft" name="height"
+                               id="field_height"
+                               ng-model="instLand.height" min="0"
+                        />
+                    </div>
+
+                    <div class="col-md-3">
+                        <label translate="stepApp.instLand.width">Width</label>
+                        <input type="text" numeric-only class="form-control" placeholder="ft" name="width"
+                               id="field_lwidth"
+                               ng-model="instLand.width" min="0"
+                        />
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instLand.mutationNo" for="field_mutationNO">Mutation Number</label>
+                    <input type="text" class="form-control" name="mutationNo" id="field_mutationNo"
+                           ng-model="instLand.mutationNo" min="0"
+                    />
+                </div>
+
+                <div class="form-group col-md-6">
+
+                    <label translate="stepApp.instLand.mutationDate" for="field_mutationDate">Mutation Date</label>
+                    <input type="text" class="form-control" name="mutationDate" id="field_mutationDate"
+                           ng-model="instLand.mutationDate"
+                           datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.mutationDate"
+                           datepicker-options="calendar.dateOptions" close-text="Close"
+                           ng-click="calendar.open($event, 'mutationDate')"/>
+                </div>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instLand.deedNo" for="field_deedNo">Deed No</label>
+                    <input type="text" class="form-control" name="deedNo" id="field_deedNo"
+                           ng-model="instLand.deedNo" min="0"
+                    />
+                </div>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instLand.giverName" for="field_giverName">Giver Name</label>
+                    <input type="text" class="form-control" name="deedNo" id="field_giverName"
+                           ng-model="instLand.giverName" min="0"
+                    />
+                </div>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instLand.receiverName" for="field_receiverName">Receiver Name</label>
+                    <input type="text" class="form-control" name="deedNo" id="field_receiverName"
+                           ng-model="instLand.receiverName" min="0"
+                    />
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instLand.receiverDate" for="field_receiverDate">Receiver Date</label>
+                    <input type="text" class="form-control" name="receiverDate" id="field_receiverDate"
+                           ng-model="instLand.receiverDate"
+                           datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.receiverDate"
+                           datepicker-options="calendar.dateOptions" close-text="Close"
+                           ng-click="calendar.open($event, 'receiverDate')"/>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instLand.survey" for="field_survey">Land Survey</label>
+                <textarea type="text" class="form-control" name="survey" id="field_survey"
+                          ng-model="instLand.survey" min="0"
+                />
+                </div>
+                <div class="col-md-6 form-group">
+                    <label translate="stepApp.instLand.porcha">Porcha</label>
+                    <div class="col-sm-12">
+                        <input type="radio" name="porcha" value="cs" ng-model="instLand.porcha"><span
+                        translate="stepApp.instLand.cs">CS</span>&nbsp;&nbsp;
+                        <input type="radio" name="porcha" value="sa" ng-model="instLand.porcha"><span
+                        translate="stepApp.instLand.sa">SA</span>&nbsp;&nbsp;
+                        <input type="radio" name="porcha" value="rs" ng-model="instLand.porcha"><span
+                        translate="stepApp.instLand.rs">RS</span>&nbsp;&nbsp;
+                        <input type="radio" name="porcha" value="bs" ng-model="instLand.porcha"><span
+                        translate="stepApp.instLand.bs">BS</span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="panel-body">
+                <div ng-repeat="instPlayGroundInfo in instPlayGroundInfos">
+                    <!--<div class="col-sm-12 admin-info no_padding">
+                        <h3 translate="stepApp.instPlayGroundInfo.title"></h3>
+                    </div>-->
+                    <div class="col-md-12 admin-info no_padding">
+                        <div class="col-md-11 admin-info no_padding">
+                            <h3 translate="stepApp.instPlayGroundInfo.title">PlayGround Information</h3>
+                        </div>
+                        <div class="col-sm-1 text-right no_padding">
+                            <input type="button" ng-hide="instPlayGroundInfo.id !=null || $index==0"
+                                   class="btn btn-link pull-right cross-btn-color"
+                                   ng-click="removePlayGroundInfo(instPlayGroundInfo)" value="X"/>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label translate="stepApp.instPlayGroundInfo.playgroundNo"
+                               for="field_playgroundNo">PlaygroundNo</label>
+                        <input type="text" class="form-control" name="playgroundNo" id="field_playgroundNo"
+                               ng-model="instPlayGroundInfo.playgroundNo"
+                        />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label translate="stepApp.instPlayGroundInfo.area" for="field_area">Area</label>
+                        <input type="text" class="form-control" name="area" id="field_area" placeholder="in square ft"
+                               ng-model="instPlayGroundInfo.area"
+                        />
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <input type="button" class="btn btn-link"
+                           ng-disabled="!instPlayGroundInfos[instPlayGroundInfos.length-1].playgroundNo || !instPlayGroundInfos[instPlayGroundInfos.length-1].area"
+                           ng-click="addPlayGroundMore()" value="Add More"/><!--
+                   <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.addMore">Add More</span>
+               </a>-->
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" class="btn pull-left" data-dismiss="modal"
+                    onclick="window.history.back()">
+                <span class=" glyphicon glyphicon-arrow-left"></span>&nbsp;<span
+                translate="entity.action.back">Back</span>
+            </button>
+            <button type="submit"
+                    ng-disabled="(editForm.$invalid || isSaving) && (editForm.$invalid == false && !editForm.receiverDate.$dirty)"
+                    class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="instBuilding.id==null" translate="entity.action.save">Save</span>
+                <span ng-hide="instBuilding.id==null" translate="entity.action.update">Update</span>
+            </button>
+        </div>
+    </form>
+</div>

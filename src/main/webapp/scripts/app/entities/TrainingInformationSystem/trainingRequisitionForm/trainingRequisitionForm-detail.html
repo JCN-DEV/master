@@ -1,0 +1,178 @@
+<div class="col-md-12 common-table">
+    <h2><span translate="stepApp.trainingRequisitionForm.detail.title">TrainingRequisitionForm</span></h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="stepApp.trainingRequisitionForm.trainingCategorySetup">trainingCategorySetup</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="trainingCategorySetup.detail({id:trainingRequisitionForm.trainingCategorySetup.id})">{{trainingRequisitionForm.trainingCategorySetup.categoryName}}</a>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <span translate="stepApp.trainingRequisitionForm.trainingHeadSetup">trainingHeadSetup</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="trainingHeadSetup.detail({id:trainingRequisitionForm.trainingHeadSetup.id})">{{trainingRequisitionForm.trainingHeadSetup.headName}}</a>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <span translate="stepApp.trainingRequisitionForm.session">Session</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{trainingRequisitionForm.session}}</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <span translate="stepApp.trainingRequisitionForm.trainingType">TrainingType</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{trainingRequisitionForm.trainingType}}</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <span translate="stepApp.trainingRequisitionForm.requisitionCode">RequisitionCode</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{trainingRequisitionForm.requisitionCode}}</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <span translate="stepApp.trainingRequisitionForm.applyDate">ApplyDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{trainingRequisitionForm.applyDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <span translate="stepApp.trainingRequisitionForm.reason">Reason</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{trainingRequisitionForm.reason}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>Attachment File</td>
+                <td><a href="javascript:void(0)" ng-click="previewImage(trainingRequisitionForm.file, trainingRequisitionForm.fileContentType,'Training Requisition Attachment File')"></span>&nbsp;<span translate="entity.action.view"> View</span></a></td>
+            </tr>
+
+
+            <!--<tr>-->
+                <!--<td>-->
+                    <!--<span translate="stepApp.trainingRequisitionForm.fileName">FileName</span>-->
+                <!--</td>-->
+                <!--<td>-->
+                    <!--<span class="form-control-static">{{trainingRequisitionForm.fileName}}</span>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td colspan="2">-->
+                    <!--<div class="col-sm-12 ris-img">-->
+                        <!--<p translate="stepApp.trainingRequisitionForm.file">File</p>-->
+                        <!--<img class="col-sm-12"-->
+
+                             <!--src="assets/dlms/{{trainingRequisitionForm.fileContentName}}"-->
+                             <!--alt="File image">-->
+                    <!--</div>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td>-->
+                    <!--<span translate="stepApp.trainingRequisitionForm.fileContentName">FileContentName</span>-->
+                <!--</td>-->
+                <!--<td>-->
+                    <!--<span class="form-control-static">{{trainingRequisitionForm.fileContentName}}</span>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+                <!--<td>-->
+                    <!--<span translate="stepApp.trainingRequisitionForm.fileContentType">FileContentType</span>-->
+                <!--</td>-->
+                <!--<td>-->
+                    <!--<span class="form-control-static">{{trainingRequisitionForm.fileContentType}}</span>-->
+                <!--</td>-->
+            <!--</tr>-->
+            <tr>
+                <td>
+                    <span translate="stepApp.trainingRequisitionForm.applyBy">ApplyBy</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{trainingRequisitionForm.applyBy}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.trainingRequisitionForm.instituteName">Institute Name</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{trainingRequisitionForm.institute.name}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.trainingRequisitionForm.status">Status</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{trainingRequisitionForm.status ? 'Active' : 'Inactive'}}</span>
+                </td>
+            </tr>
+
+            <tr ng-if="trainingRequisitionForm.trainingType == 'Foreign' || trainingRequisitionForm.trainingType == Foreign">
+                <td>
+                    <span translate="stepApp.trainingRequisitionForm.country">country</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="country.detail({id:trainingRequisitionForm.country.id})">{{trainingRequisitionForm.country.name}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.trainingRequisitionForm.hrEmployeeInfo">HrEmployeeInfo</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="hrEmployeeInfo.detail({id:trainingRequisitionForm.hrEmployeeInfo.id})">{{trainingRequisitionForm.hrEmployeeInfo.employeeId}}</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table table-striped">
+            <thead>
+            <tr>Trainee Information</tr>
+            <tr>
+                <th ng-click="order('name', reverse=!reverse)" translate="stepApp.trainingRequisitionForm.employeeName">Employee Name</th>
+                <th ng-click="order('remarks', reverse=!reverse)" translate="stepApp.trainingRequisitionForm.employeeId">Employee Id</th>
+            </tr>
+            </thead>
+            <tbody id="accordion"  ng-repeat="traineeInfo in traineeInfoList track by traineeInfo.id">
+            <tr ng-if="applyTypeDTE">
+                <td>{{traineeInfo.hrEmployeeInfo.fullName}}</td>
+                <td>{{traineeInfo.hrEmployeeInfo.employeeId}}</td>
+            </tr>
+            <tr ng-if="applyTypeInstitute">
+                <td>{{traineeInfo.instEmployee.name}}</td>
+                <td>{{traineeInfo.instEmployee.code}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info no-print">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

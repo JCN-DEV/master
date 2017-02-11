@@ -1,0 +1,114 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myDrugsLabel" translate="stepApp.drugs.home.createOrEditLabel">Create or edit a Drugs</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <!--<div class="form-group">-->
+            <!--<label for="id" translate="global.field.id">ID</label>-->
+            <!--<input type="text" class="form-control" id="id" name="id"-->
+                    <!--ng-model="drugs.id" readonly />-->
+        <!--</div>-->
+        <div class="form-group">
+            <label translate="stepApp.drugs.types" for="field_types">Types</label>
+            <select class="form-control" name="types" id="field_types"
+                   ng-model="drugs.types"
+                >
+                <option value="Brand Name">Brand Name</option>
+                <option value="Generic Name">Generic Name</option>
+                </select>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.drugs.drugsFor" for="field_drugsFor">DrugsFor</label>
+            <input type="text" class="form-control" name="drugsFor" id="field_drugsFor"
+                    ng-model="drugs.drugsFor"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.drugs.drugClass" for="field_drugClass">DrugClass</label>
+            <input type="text" class="form-control" name="drugClass" id="field_drugClass"
+                    ng-model="drugs.drugClass"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.drugs.brandName" for="field_brandName">BrandName</label>
+            <input type="text" class="form-control" name="brandName" id="field_brandName"
+                    ng-model="drugs.brandName"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.drugs.status" for="field_status">Status</label>
+            <input type="checkbox" class="form-control" name="status" id="field_status"
+                    ng-model="drugs.status"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.drugs.createBy" for="field_createBy">CreateBy</label>
+            <input type="number" class="form-control" name="createBy" id="field_createBy"
+                    ng-model="drugs.createBy"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.drugs.createDate" for="field_createDate">CreateDate</label>
+            <input type="date" class="form-control" name="createDate" id="field_createDate"
+                    ng-model="drugs.createDate"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.drugs.updateBy" for="field_updateBy">UpdateBy</label>
+            <input type="number" class="form-control" name="updateBy" id="field_updateBy"
+                    ng-model="drugs.updateBy"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.drugs.updateDate" for="field_updateDate">UpdateDate</label>
+            <input type="date" class="form-control" name="updateDate" id="field_updateDate"
+                    ng-model="drugs.updateDate"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.drugs.remarks" for="field_remarks">Remarks</label>
+            <input type="text" class="form-control" name="remarks" id="field_remarks"
+                    ng-model="drugs.remarks"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.drugs.contains" for="field_contains">Contains</label>
+            <input type="text" class="form-control" name="contains" id="field_contains"
+                    ng-model="drugs.contains"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.drugs.dosageForm" for="field_dosageForm">DosageForm</label>
+            <input type="text" class="form-control" name="dosageForm" id="field_dosageForm"
+                    ng-model="drugs.dosageForm"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.drugs.manufacturer" for="field_manufacturer">Manufacturer</label>
+            <input type="text" class="form-control" name="manufacturer" id="field_manufacturer"
+                    ng-model="drugs.manufacturer"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.drugs.price" for="field_price">Price</label>
+            <input type="text" class="form-control" name="price" id="field_price"
+                    ng-model="drugs.price"
+                     />
+        </div>
+
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

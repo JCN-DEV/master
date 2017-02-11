@@ -1,0 +1,90 @@
+<div>
+    <h2 class="header-margin" translate="stepApp.instFinancialInfo.home.title">InstFinancialInfos</h2>
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" ui-sref="instGenInfo.instFinancialInfo.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="stepApp.instFinancialInfo.home.createLabel">Create a new InstFinancialInfo</span>
+                </button>
+            </div>
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a InstFinancialInfo</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="global.field.id">ID</th>
+                    <th translate="stepApp.instFinancialInfo.bankName">Bank Name</th>
+                    <th translate="stepApp.instFinancialInfo.branchName">Branch Name</th>
+                    <th translate="stepApp.instFinancialInfo.accountType">Account Type</th>
+                    <th translate="stepApp.instFinancialInfo.accountNo">Account No</th>
+                    <!--<th translate="stepApp.instFinancialInfo.issueDate">IssueDate</th>
+                    <th translate="stepApp.instFinancialInfo.expireDate">ExpireDate</th>-->
+                    <th translate="stepApp.instFinancialInfo.amount">Amount</th>
+                    <th translate="stepApp.instFinancialInfo.status">Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="instFinancialInfo in instFinancialInfos track by instFinancialInfo.id">
+                    <td><a ui-sref="instFinancialInfo.detail({id:instFinancialInfo.id})">{{instFinancialInfo.id}}</a></td>
+                    <td>{{instFinancialInfo.bankSetup.name}}</td>
+                    <td>{{instFinancialInfo.bankBranch.brName}}</td>
+                    <td translate="{{'stepApp.accountType.' + instFinancialInfo.accountType}}">{{instFinancialInfo.accountType}}</td>
+                    <td>{{instFinancialInfo.accountNo}}</td>
+                       <!-- <td>{{instFinancialInfo.issueDate | date:'mediumDate'}}</td>
+                        <td>{{instFinancialInfo.expireDate | date:'mediumDate'}}</td>-->
+                    <td>{{instFinancialInfo.amount}}</td>
+                    <td>{{(instFinancialInfo.status === 0 ? "Insert" : (instFinancialInfo.status === 2 ? "Update" :"Something or"))}}
+
+                    <td>
+                        <button type="submit"
+                                ui-sref="instGenInfo.instFinancialInfo.detail({id:instFinancialInfo.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit" ng-if="instFinancialInfo.edit"
+                                ui-sref="instGenInfo.instFinancialInfo.edit({id:instFinancialInfo.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit" ng-if="instFinancialInfo.approve"
+                                ui-sref="instGenInfo.instFinancialInfo.approve({id:instFinancialInfo.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.approve"> Approve</span>
+                        </button>
+                        <button type="submit" ng-if="instFinancialInfo.reject"
+                                ui-sref="instGenInfo.instFinancialInfo.delete({id:instFinancialInfo.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.reject"> Reject</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pagination">
+                <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                <li class="active"><a>{{page + 1}}</a></li>
+                <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>

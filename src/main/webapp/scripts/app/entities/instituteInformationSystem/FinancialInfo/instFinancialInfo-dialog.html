@@ -1,0 +1,178 @@
+
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" class="panel panel-primary" novalidate ng-submit="save()" show-validation>
+        <h4 ng-if="!instFinancialInfos.length > 0" class="header-margin" id="myInstFinancialInfoLabel"
+            translate="stepApp.instFinancialInfo.home.createOrEditLabel">Create or edit a InstFinancialInfo</h4>
+        <h4 ng-if="instFinancialInfos.length > 0" class="header-margin" id="myInstFinancialInfoLabel"
+            translate="stepApp.instFinancialInfo.home.EditLabel">Create or edit a InstFinancialInfo</h4>
+        <br>
+
+        <div class="panel-body no_padding" ng-repeat="instFinancialInfo in instFinancialInfos track by $index">
+            <div class="col-sm-12 admin-info no_padding">
+                <div class="col-sm-11 text-left no_padding" style="color: #ffffff;">
+                    <h3 translate="stepApp.instFinancialInfo.detail.title"></h3>
+                </div>
+                <div class="col-sm-1 text-right no_padding">
+                    <input type="button" ng-hide="instFinancialInfo.id !=null"
+                           class="btn btn-link pull-right cross-btn-color" ng-click="removeBankInfo(instFinancialInfo)"
+                           value="X"/>
+                </div>
+            </div>
+            <!--<div class="form-group col-md-6">
+                <label translate="stepApp.instFinancialInfo.bankName" for="field_bankName">Bank Name</label>
+                <input type="text" class="form-control" name="bankName" id="field_bankName"
+                        ng-model="instFinancialInfo.bankName"
+                        required />
+                <div ng-show="editForm.bankName.$invalid">
+                    <p class="help-block"
+                        ng-show="editForm.bankName.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>-->
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label translate="stepApp.instFinancialInfo.bankName" for="field_bankSetup">BankSetup</label>
+                    <select class="form-control" id="field_bankSetup" name="bankSetup"
+                            ng-model="instFinancialInfo.bankSetup"
+                            ng-options="bankSetup as bankSetup.name for bankSetup in bankSetups track by bankSetup.id"
+                            required>
+                        <option value="">{{instFinancialInfo.bankSetup.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group" >
+                    <!--{{instGenInfo}}-->
+                    <label translate="stepApp.instGenInfo.division" for="field_division">Division</label>
+                    <select  class="form-control" id="field_division" ng-init="selectedExistingValue()" ng-change="updatedDistrict(division)"  name="division" ng-model="division" ng-options="division as division.name for division in divisions track by division.id" required>
+                        <option value="">{{instFinancialInfo.bankBranch.upazila.district.division.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group" >
+                    <label translate="stepApp.instGenInfo.district" for="field_district">District</label>
+                    <select  class="form-control" id="field_district" ng-change="updatedUpazila(district)"  name="district" ng-model="district" ng-options="district as district.name for district in districts track by district.id" required>
+                        <option value="">{{instFinancialInfo.bankBranch.upazila.district.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group" >
+                    <label translate="stepApp.instGenInfo.upazila" for="field_upazila">Upazilla</label>
+                    <select  class="form-control" id="field_upazila" ng-change="updatedBankBranch(upazila, instFinancialInfo.bankSetup)"  name="upazila" ng-model="upazila" ng-options="upazila as upazila.name for upazila in upazilas track by upazila.id" required>
+                        <option value="">{{instFinancialInfo.bankBranch.upazila.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label translate="stepApp.instFinancialInfo.bankBranch" for="field_bankBranch">bankBranch</label>
+                    <select class="form-control" id="field_bankBranch" name="bankBranch"
+                            ng-model="instFinancialInfo.bankBranch"
+                            ng-options="bankBranch as bankBranch.brName for bankBranch in bankBranchs track by bankBranch.id"
+                            required>
+                        <option value="">{{instFinancialInfo.bankBranch.brName}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <!--<div class="form-group col-md-6">
+                <label translate="stepApp.instFinancialInfo.branchName" for="field_branchName">Branch Name</label>
+                <input type="text" class="form-control" name="branchName" id="field_branchName"
+                       ng-model="instFinancialInfo.branchName"
+                       required/>
+                <div ng-show="editForm.branchName.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.branchName.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>-->
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instFinancialInfo.accountType" for="field_accountType">Account Type</label>
+                <select class="form-control" name="accountType" ng-model="instFinancialInfo.accountType"
+                        id="field_accountType" required>
+                    <option value="General_Fund" translate="stepApp.accountType.General_Fund">General Fund</option>
+                    <option value="Preserved_Fund" translate="stepApp.accountType.Preserved_Fund">Preserved Fund
+                    </option>
+                </select>
+                <div ng-show="editForm.accountType.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.accountType.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instFinancialInfo.accountNo" for="field_accountNo">Account No</label>
+                <input type="text" class="form-control" name="accountNo" id="field_accountNo"
+                       ng-model="instFinancialInfo.accountNo"
+                       required/>
+                <div ng-show="editForm.accountNo.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.accountNo.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instFinancialInfo.issueDate" for="field_issueDate">Issue Date</label>
+                <input type="text" class="form-control" name="issueDate" id="field_issueDate"
+                       ng-model="instFinancialInfo.issueDate"
+                       datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened['issueDate'+$index]"
+                       datepicker-options="calendar.dateOptions" close-text="Close"
+                       ng-click="calendar.open($event, 'issueDate'+$index)"
+                />
+            </div>
+
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instFinancialInfo.expireDate" for="field_expireDate">Expire Date</label>
+                <input type="text" class="form-control" name="expireDate" id="field_expireDate"
+                       ng-model="instFinancialInfo.expireDate"
+                       datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened['expireDate'+$index]"
+                       datepicker-options="calendar.dateOptions" close-text="Close"
+                       ng-click="calendar.open($event, 'expireDate'+$index)"
+                       ng-change="deadlineValidation(instFinancialInfo.issueDate,instFinancialInfo.expireDate)"
+
+                />
+                <div ng-if="dateError" style="color: red">
+                    Invalid Date. Please select valid date..
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instFinancialInfo.amount" for="field_amount">Amount</label>
+                <input type="number" class="form-control" name="amount" id="field_amount" placeholder="BDT"
+                       ng-model="instFinancialInfo.amount"
+                       required/>
+                <div ng-show="editForm.amount.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.amount.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.amount.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer" >
+            <input ng-hide="hideAddMore" type="button" class="btn btn-success" ng-click="addMore()" ng-disabled="editForm.$invalid || isSaving"
+                   value="Add More"/>
+        </div>
+        <div class="modal-footer">
+            <a type="button" class="btn btn-default" class="btn pull-left" data-dismiss="modal"
+               onclick="window.history.back()">
+                <span class=" glyphicon glyphicon-arrow-left"></span>&nbsp;<span
+                translate="entity.action.back">Back</span>
+            </a>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="!instFinancialInfos.length > 0"  translate="entity.action.save">Save</span>
+                <span ng-show="instFinancialInfos.length > 0"  translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

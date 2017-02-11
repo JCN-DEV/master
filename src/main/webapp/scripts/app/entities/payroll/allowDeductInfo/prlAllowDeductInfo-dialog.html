@@ -1,0 +1,120 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myPrlAllowDeductInfoLabel" translate="stepApp.prlAllowDeductInfo.home.createOrEditLabel">Create or edit a PrlAllowDeductInfo</h4>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.prlAllowDeductInfo.allowDeducType" for="field_allowDeducType">AllowDeducType</label>
+                    <select class="form-control" name="allowDeducType" ng-model="prlAllowDeductInfo.allowDeducType" id="field_allowDeducType" required>
+                        <option value="Allowance" translate="stepApp.AllowanceDeductionType.Allowance">Allowance</option>
+                        <option value="Deduction" translate="stepApp.AllowanceDeductionType.Deduction">Deduction</option>
+                        <option value="OnetimeAllowance" translate="stepApp.AllowanceDeductionType.OnetimeAllowance">OnetimeAllowance</option>
+                    </select>
+                    <div ng-show="editForm.allowDeducType.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.allowDeducType.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.prlAllowDeductInfo.name" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                           ng-model="prlAllowDeductInfo.name"
+                           ng-blur="checkAllowDeduUniqByNameAndType()"
+                           required ng-minlength="3" />
+                    <span class="message" ng-show="editForm.name.$pending">validating...</span>
+                    <div ng-show="allowDeducAlreadyExist"  class="alert alert-danger">
+                        Allowance or Deduction already exists !!!
+                    </div>
+                    <div ng-show="editForm.name.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                        <p class="help-block"
+                           ng-show="editForm.name.$error.minlength" translate="entity.validation.minlength" translate-value-min="3">
+                            This field is required to be at least 3 characters.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.prlAllowDeductInfo.description" for="field_description">Description</label>
+                    <textarea class="form-control" name="description" id="field_description"
+                           ng-model="prlAllowDeductInfo.description"></textarea>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.prlAllowDeductInfo.activeStatus" for="field_activeStatus">ActiveStatus</label>
+                    <input type="checkbox" class="form-control" name="activeStatus" id="field_activeStatus"
+                           ng-model="prlAllowDeductInfo.activeStatus"/>
+                    <div ng-show="editForm.activeStatus.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" ng-hide="(prlAllowDeductInfo.allowDeducType=='OnetimeAllowance')">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.prlAllowDeductInfo.gradeInfo" for="field_gradeInfo">gradeInfo</label>
+                    <select class="form-control" id="field_gradeInfo" multiple name="gradeInfo" ng-model="prlAllowDeductInfo.gradeInfos" ng-options="HrGradeSetup as HrGradeSetup.gradeCode for HrGradeSetup in hrgradesetups track by HrGradeSetup.id"></select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.prlAllowDeductInfo.allowCategory" for="field_allowCategory">allowCategory</label>
+                    <select class="form-control" name="allowCategory" ng-model="prlAllowDeductInfo.allowCategory"
+                            ng-change="checkAllowDeduCategoryUniqueness()" id="field_allowCategory" required>
+                        <option value="AD" translate="stepApp.AllowanceDeductionCategory.AD">General</option>
+                        <option value="HR" translate="stepApp.AllowanceDeductionCategory.HR">House Rent</option>
+                        <option value="PF" translate="stepApp.AllowanceDeductionCategory.PF">Provident Fund</option>
+                        <option value="PFL" translate="stepApp.AllowanceDeductionCategory.PFL">Loan Installment (Provident Fund)</option>
+                        <option value="PG" translate="stepApp.AllowanceDeductionCategory.PG">Pension Gratuity</option>
+                    </select>
+                    <span class="message" ng-show="editForm.allowCategory.$pending">Checking...</span>
+                    <div ng-show="allowDeducCategoryAlreadyExist"  class="alert alert-danger">
+                        Allowance or Deduction with this category already exists !!!
+                    </div>
+                    <div ng-show="editForm.allowCategory.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.allowCategory.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="panel-footer">
+        <button type="button" class="btn btn-default" class="btn " data-dismiss="modal" onclick="window.history.back()">
+            <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;<span translate="entity.action.back">Back</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</div>
+</form>

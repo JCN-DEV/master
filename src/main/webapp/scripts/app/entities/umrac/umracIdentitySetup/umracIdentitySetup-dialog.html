@@ -1,0 +1,223 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="umracIdentitySetup.id == null" id="myUmracIdentitySetupLabel"
+            translate="stepApp.umracIdentitySetup.home.createOrEditLabel">Create or edit a UmracIdentitySetup</h4>
+        <h4 ng-show="umracIdentitySetup.id != null" id="myUmracIdentitySetupLabel"
+            translate="stepApp.umracIdentitySetup.home.EditLabel">Create or edit a UmracIdentitySetup</h4>
+        <div class="panel-body">
+            <!--<jh-alert-error></jh-alert-error>-->
+            <!--<div class="form-group">-->
+            <!--<label for="id" translate="global.field.id">ID</label>-->
+            <!--<input type="text" class="form-control" id="id" name="id"-->
+            <!--ng-model="umracIdentitySetup.id" readonly />-->
+            <!--</div>-->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.umracIdentitySetup.empId" for="field_empId">EmpId</label>
+                        <!--<input type="text" class="form-control" name="empId" id="field_empId"
+                               ng-model="umracIdentitySetup.empId"
+                               tooltip="{{'stepApp.umracIdentitySetup.empId' | translate}}"
+                               placeholder="{{'stepApp.umracIdentitySetup.empId' | translate}}"
+                        />-->
+                        <span style="color: red">*</span>
+                        <input type="text" class="form-control" name="empId" id="field_empId"
+                               ng-model="umracIdentitySetup.empId"
+                               ng-remote-validate="/api/umracIdentitySetups/employeeId/"
+                               ng-remote-method="GET"
+                               required/>
+                        <span class="message" ng-show="editForm.empId.$pending">validating...</span>
+                        <div ng-show="editForm.empId.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.empId.$error.required && editForm.empId.$dirty"
+                               translate="entity.validation.required">
+                                Employee Id is required.
+                            </p>
+                        </div>
+                        <div ng-show="editForm.empId.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.empId.$error.ngRemoteValidate">
+                                Same Employee Id Already Exists
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.umracIdentitySetup.userName" for="field_userName">UserName</label>
+                        <!--<input type="text" class="form-control" name="userName" id="field_userName"
+                               ng-model="umracIdentitySetup.userName"
+                               tooltip="{{'stepApp.umracIdentitySetup.userName' | translate}}"
+                               placeholder="{{'stepApp.umracIdentitySetup.userName' | translate}}"
+                               required/>
+                        <div ng-show="editForm.userName.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.userName.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>-->
+                        <span style="color: red">*</span>
+                        <input type="text" class="form-control" name="userName" id="field_userName"
+                               ng-model="umracIdentitySetup.userName"
+                               ng-remote-validate="/api/umracIdentitySetups/userName/"
+                               ng-remote-method="GET"
+                               required/>
+                        <span class="message" ng-show="editForm.userName.$pending">validating...</span>
+                        <div ng-show="editForm.empId.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.userName.$error.required && editForm.userName.$dirty"
+                               translate="entity.validation.required">
+                                User Name is required.
+                            </p>
+                        </div>
+                        <div ng-show="editForm.empId.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.empId.$error.ngRemoteValidate">
+                                Same User Name Already Exists
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.umracIdentitySetup.uPw" for="field_uPw">UPw</label>
+                        <input type="password" class="form-control" name="uPw" id="field_uPw"
+                               ng-model="umracIdentitySetup.uPw"
+                               tooltip="{{'stepApp.umracIdentitySetup.uPw' | translate}}"
+                               placeholder="{{'stepApp.umracIdentitySetup.uPw' | translate}}"
+                               required/>
+                        <div ng-show="editForm.uPw.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.uPw.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.umracIdentitySetup.confm_Pw" for="field_confm_Pw">Confm_Pw</label>
+                        <input type="password" class="form-control" name="confm_Pw" id="field_confm_Pw"
+                               ng-model="umracIdentitySetup.confm_Pw"
+                               tooltip="{{'stepApp.umracIdentitySetup.confm_Pw' | translate}}"
+                               placeholder="{{'stepApp.umracIdentitySetup.confm_Pw' | translate}}"
+                        />
+                        <div ng-if="umracIdentitySetup.confm_Pw == umracIdentitySetup.uPw">
+                            <p class="help-block" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <h6 class="control-label col-sm-12" translate="stepApp.umracIdentitySetup.status">Status</h6>
+                        <div class="col-sm-12" ng-init="checked=true">
+                            <input type="radio" name="status" value="true"
+                                   ng-checked="umracIdentitySetup.status == true"
+                                   tooltip="{{'stepApp.umracIdentitySetup.status' | translate}}"
+                                   ng-model="umracIdentitySetup.status"><span
+                            translate="entity.action.activate">Active</span>&nbsp;&nbsp;
+                            <input type="radio" name="status" value="false"
+                                   tooltip="{{'stepApp.umracIdentitySetup.status' | translate}}"
+                                   ng-checked="umracIdentitySetup.status == false" ng-model="umracIdentitySetup.status"><span
+                            translate="entity.action.deactivate">Deactive</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="field_email">Email</label>
+                        <!--<input type="text" class="form-control" name="userName" id="field_userName"
+                               ng-model="umracIdentitySetup.userName"
+                               tooltip="{{'stepApp.umracIdentitySetup.userName' | translate}}"
+                               placeholder="{{'stepApp.umracIdentitySetup.userName' | translate}}"
+                               required/>
+                        <div ng-show="editForm.userName.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.userName.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>-->
+                        <span style="color: red">*</span>
+                        <input type="text" class="form-control" name="email" id="field_email"
+                               ng-model="umracIdentitySetup.email"
+                               ng-remote-validate="/api/umracIdentitySetups/userEmail/"
+                               ng-remote-method="GET"
+                               required/>
+                        <span class="message" ng-show="editForm.email.$pending">validating...</span>
+                        <div ng-show="editForm.email.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.email.$error.required && editForm.email.$dirty"
+                               translate="entity.validation.required">
+                                Email is required.
+                            </p>
+                        </div>
+                        <div ng-show="editForm.email.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.email.$error.ngRemoteValidate">
+                                Same Email Already Exists
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="form-group">-->
+            <!--<label translate="stepApp.umracIdentitySetup.status" for="field_status">Status</label><br>-->
+
+            <!--<select name="status" ng-model="umracIdentitySetup.status" id="field_status">-->
+            <!--<option value="">-&#45;&#45;Please select-&#45;&#45;</option>-->
+            <!--<option value="true">Active</option>-->
+            <!--<option value="false">InActive</option>-->
+            <!--</select>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<label translate="stepApp.umracIdentitySetup.status" for="field_status">Status</label>-->
+            <!--<input type="checkbox" class="form-control" name="status" id="field_status"-->
+            <!--ng-model="umracIdentitySetup.status"-->
+            <!--/>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<label translate="stepApp.umracIdentitySetup.createDate" for="field_createDate">CreateDate</label>-->
+            <!--<input type="date" class="form-control" name="createDate" id="field_createDate"-->
+            <!--ng-model="umracIdentitySetup.createDate"-->
+            <!--/>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<label translate="stepApp.umracIdentitySetup.createBy" for="field_createBy">CreateBy</label>-->
+            <!--<input type="number" class="form-control" name="createBy" id="field_createBy"-->
+            <!--ng-model="umracIdentitySetup.createBy"-->
+            <!--/>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<label translate="stepApp.umracIdentitySetup.updatedBy" for="field_updatedBy">UpdatedBy</label>-->
+            <!--<input type="number" class="form-control" name="updatedBy" id="field_updatedBy"-->
+            <!--ng-model="umracIdentitySetup.updatedBy"-->
+            <!--/>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<label translate="stepApp.umracIdentitySetup.updatedTime" for="field_updatedTime">UpdatedTime</label>-->
+            <!--<input type="date" class="form-control" name="updatedTime" id="field_updatedTime"-->
+            <!--ng-model="umracIdentitySetup.updatedTime"-->
+            <!--/>-->
+            <!--</div>-->
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="umracIdentitySetup.id == null" translate="entity.action.save">Save</span>
+                <span ng-show="umracIdentitySetup.id != null" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,110 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="instCategory.id == null" class="modal-title" id="myInstCategoryLabel"
+            translate="stepApp.instCategory.home.createOrEditLabel">Create or edit a InstCategory</h4>
+        <h4 ng-show="instCategory.id != null" class="modal-title" id="myInstCategoryLabel"
+            translate="stepApp.instCategory.home.EditLabel">Create or edit a InstCategory</h4>
+        <div class="col-md-12 modal-body">
+
+            <div class="col-md-12 no_padding">
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.instCategory.code" for="field_code">Code</label>
+                    <input type="text" class="form-control" name="code" id="field_code"
+                           ng-model="instCategory.code"
+                           ng-remote-validate="api/instCategory/code/"
+                           ng-remote-method="GET"
+                           ng-remote-throttle="500"
+                           title="{{'stepApp.instCategory.code' | translate}}"
+                           placeholder="{{'stepApp.instCategory.code' | translate}}"
+                           required/>
+                    <span class="message" ng-show="editForm.code.$pending">validating...</span>
+
+                    <div ng-show="editForm.code.$invalid">
+                        <p style="color:red"
+                           ng-show="editForm.code.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                    <div ng-show="editForm.code.$invalid">
+                        <p style="color:red"
+                           ng-show="editForm.code.$error.ngRemoteValidate">
+                            This Name is already exist
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.instCategory.name" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                           ng-model="instCategory.name"
+                           ng-remote-validate="api/instCategory/name/"
+                           ng-remote-method="GET"
+                           ng-remote-throttle="500"
+                           title="{{'stepApp.instCategory.name' | translate}}"
+                           placeholder="{{'stepApp.instCategory.name' | translate}}"
+                           required/>
+                    <span class="message" ng-show="editForm.name.$pending">validating...</span>
+
+                    <div ng-show="editForm.name.$invalid">
+                        <p style="color:red"
+                           ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                    <div ng-show="editForm.name.$invalid">
+                        <p style="color:red"
+                           ng-show="editForm.name.$error.ngRemoteValidate">
+                            This Name is already exist
+                        </p>
+                    </div>
+                </div>
+                </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instCategory.description" for="field_description">Description</label>
+                <textarea type="text" class="form-control" name="description" id="field_description"
+                          ng-model="instCategory.description"
+                          cols="30" rows="3"
+                          title="{{'stepApp.instCategory.description' | translate}}"
+                          placeholder="{{'stepApp.instCategory.description' | translate}}"
+                ></textarea>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instCategory.pStatus" for="field_pStatus">PStatus</label>
+                <!--<input type="checkbox" class="form-control" name="pStatus" id="field_pStatus"
+                        ng-model="instCategory.pStatus"
+                         />-->
+                <div id="field_pStatus">
+                    <label class="radio-inline">
+                        <input type="radio" name="pStatus" value="true"
+                               ng-checked="(instCategory.pStatus == true || instCategory.pStatus == null)"
+                               ng-model="instCategory.pStatus"><span
+                        translate="entity.action.activate" title="{{'stepApp.instCategory.pStatus' | translate}}"
+                    >
+                        Active</span>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="pStatus" value="false"
+                               ng-checked="(instCategory.pStatus == false && instCategory.pStatus != null)"
+                               ng-model="instCategory.pStatus"><span
+                        translate="entity.action.deactivate" title="{{'stepApp.instCategory.pStatus' | translate}}">
+                        Deactive</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12 modal-footer">
+
+
+            <button type="button"
+                    onclick="window.history.back()" class="btn btn-default" data-dismiss="modal">
+                <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span
+                translate="entity.action.back">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="instCategory.id == null" translate="entity.action.save">Save</span>
+                <span ng-show="instCategory.id != null" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

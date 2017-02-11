@@ -1,0 +1,181 @@
+<div class="col-sm-12 common-table">
+    <h2 translate="stepApp.instEmployee.home.instEmployeeEducationalInfo">Educational Information</span></h2>
+    <div class="col-sm-12 text-right padding-tb no-print" ng-if="EducationalQualifications[0].id == null">
+        <button class="btn btn-primary btn-sm"
+                ui-sref="employeeInfo.educationalHistory.new({instEmpEduQuali:EducationalQualifications})"
+                ng-show="hideAddButton">
+            <span class="glyphicon glyphicon-plus"></span> <span
+            translate="stepApp.instEmpEduQuali.home.createOrEditLabel">Create a new InstFinancialInfo</span>
+        </button>
+    </div>
+    <div class="col-sm-12 padding-tb text-right no-print"
+         ng-if="EducationalQualifications.length == null || EducationalQualifications[0].instEmployee.mpoAppStatus < 3">
+        <button class="btn btn-primary btn-sm"
+                ui-sref="employeeInfo.educationalHistory.edit({id:instEmpEduQuali.id,instEmpEduQuali:EducationalQualifications,edit:true})">
+            <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.instEmpEduQuali.edit">Edit</span>
+        </button>
+    </div>
+    <br>
+    <div class="col-md-12 no_padding table-responsive ">
+        <table class="table table-striped" ng-repeat="instEmpEduQuali in EducationalQualifications">
+            <thead>
+            <tr>
+                <th colspan="2" class="edu-history"><span translate="stepApp.instEmpEduQuali.eduqualification">Education Qualification Number</span><span> {{$index + 1}}</span>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmpEduQuali.certificateName">CertificateName</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmpEduQuali.eduLevel.name}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmpEduQuali.uniBoard">Board</span>
+                </td>
+                <td>
+                    <span ng-if="!instEmpEduQuali.fromUniversity" class="form-control-static">{{instEmpEduQuali.eduBoard.name}}</span>
+                    <span class="form-control-static" ng-if="instEmpEduQuali.fromUniversity">{{instEmpEduQuali.universityName}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmpEduQuali.session">Session</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmpEduQuali.session}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmpEduQuali.institute">institute</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmpEduQuali.instEmployee.institute.name}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmpEduQuali.gpaScale">gpaScale</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmpEduQuali.gpaScale}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmpEduQuali.groupSubject">groupSubject</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmpEduQuali.groupSubject}}</span>
+                </td>
+            </tr>
+            <tr ng-if="instEmpEduQuali.duration != null">
+                <td>
+                    <span translate="stepApp.instEmpEduQuali.duration">duration</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmpEduQuali.duration}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmpEduQuali.semester">Semester</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmpEduQuali.semester}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmpEduQuali.rollNo">RollNo</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmpEduQuali.rollNo}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmpEduQuali.passingYear">PassingYear</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmpEduQuali.passingYear}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmpEduQuali.result">Cgpa</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{instEmpEduQuali.cgpa}}</span> <span
+                    ng-if="instEmpEduQuali.isGpaResult" class="form-control-static"> In Scale Of {{instEmpEduQuali.gpaScale}}</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <span translate="stepApp.instEmpEduQuali.certificateCopy">appoinmentLtr</span>
+                </td>
+
+
+                <td>
+                    <a href="javascript:void(0)"
+                       ng-click="previewCertificate(instEmpEduQuali.certificateCopy, instEmpEduQuali.certificateCopyContentType,('stepApp.instEmpEduQuali.certificateCopy' | translate)+' Image')"><span
+                        class="form-control-static">{{instEmpEduQuali.certificateCopyName}}</span></a>
+                </td>
+            </tr>
+            <!--<tr>
+                <td>
+                    <span translate="stepApp.instEmpEduQuali.certificateCopy">CertificateCopy</span>
+                </td>
+                <td>
+                    <span translate="stepApp.instEmpEduQuali.certificateCopy">CertificateCopy</span>
+                    <span class="form-control-static">{{instEmpEduQuali.certificateCopy.fileName}}</span>
+                    <div>{{instEmpEduQuali.certificateCopyContentType}}  {{byteSize(instEmpEduQuali.certificateCopy)}}</div>
+                    <div>{{instEmpEduQuali.certificateCopyContentType}}  {{byteSize(instEmpEduQuali.certificateCopy)}}</div>
+                </td>
+            </tr>-->
+            <!--<tr data-parent="#accordion" ng-click="displayAttachment(instEmpEduQuali.certificateCopy,instEmpEduQuali.certificateCopyContentType)" data-toggle="collapse" data-target="#{{instEmpEduQuali.id}}" aria-expanded="false" aria-controls="{{instEmpEduQuali.id}}">
+                <td><a ng-show="instEmpEduQuali.certificateCopyContentType" translate="stepApp.instEmpEduQuali.vieWcertificateCopy">View Certificate Copy</a></td>
+                <td class="text-right">
+                    &lt;!&ndash;<button ng-show="instEmpEduQuali.certificateCopyContentType"&ndash;&gt;
+                             &lt;!&ndash;class="btn btn-default btn-sm" >&ndash;&gt;
+                        &lt;!&ndash;<span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>&ndash;&gt;
+                    &lt;!&ndash;</button>&ndash;&gt;
+                    <a alt="{{attachment.name}}" class="example-image-link img-thumbnail" ng-href="{{url}}" data-lightbox="example-1">
+
+                        <button class="btn btn-primary"> View </button>
+                        &lt;!&ndash;<input type="button" name="image" value="view" />&ndash;&gt;
+                        &lt;!&ndash;<img height="150px" width="150px" class="img-thumbnail" ng-src="{{url}}" alt="{{attachment.name}}">&ndash;&gt;
+
+                    </a>
+                </td>
+            </tr>-->
+            <tr id="{{instEmpEduQuali.id}}" class="collapse">
+                <td colspan="6">
+                    <img ng-src="{{url}}" class="img-thumbnail" alt="{{attachment.name}}">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info no-print">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+    <div class="col-md-12 no-print text-right">
+        <button type="submit" class="btn btn-sm btn-primary no-print" onclick="window.print()" >
+            <i class="fa fa-print"></i>&nbsp;
+            <span translate="entity.action.print" >Print</span>
+        </button>
+    </div>
+    <div style="color:#fff" ng-if="currentPageNumber" class="col-md-12 text-center">
+        {{currentPageNumber}}
+    </div>
+</div>
+

@@ -1,0 +1,323 @@
+
+<!---===HRM SPOUSE INFO DIALOG===--->
+<div class="service-form-area">
+    <div class="panel panel-default">
+        <div class="panel-heading" >
+            <h4 ng-show="hrSpouseInfo.id == null" class="modal-title" translate="stepApp.hrSpouseInfo.home.createOrEditLabel">Create or edit a HrSpouseInfo</h4>
+            <h4 ng-show="hrSpouseInfo.id != null" class="modal-title" translate="stepApp.hrSpouseInfo.home.EditLabel">Create or edit a HrSpouseInfo</h4>
+        </div>
+        <div class="panel-body bg-panel">
+            <form  class="form-horizontal " name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+                <div class="row">
+                    <div class="col-md-6 ">
+                        <div class="form-group">
+                            <label class="control-label" for="field_workArea" translate="stepApp.hrSpouseInfo.workarea">Work Area</label>
+                            <div class="input-margin">
+                                <select class="form-control" id="field_workArea" name="workArea" ng-model="workArea" ng-change="loadModelByWorkArea(workArea)"
+                                        ng-options="MiscTypeSetup as MiscTypeSetup.typeName for MiscTypeSetup in workAreaList track by MiscTypeSetup.id">
+                                    <option value="">Select Work Area</option>
+                                </select>
+                                <span class="help">No of Employee: {{hremployeeinfos.length}}</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-6 ">
+                        <div class="form-group ">
+                            <label class="control-label" translate="stepApp.hrSpouseInfo.employeeInfo" for="field_employeeInfo">employeeInfo</label>
+                            <div class="input-margin">
+                                <input type="text" class="form-control autocomplete" autocomplete="off" ng-model="hrSpouseInfo.employeeInfo" typeahead='HrEmployeeInfo as (HrEmployeeInfo.fullName + " " + HrEmployeeInfo.employeeId) for HrEmployeeInfo in hremployeeinfos | filter:$viewValue' id="field_employeeInfo" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 " ng-hide="hrSpouseInfo.employeeInfo.fullName ==null">
+                        <table class="table table-bordered table-responsive">
+                            <tbody class="hrm-info-table">
+                            <tr>
+                                <td><strong>Name: </strong></td>
+                                <td>{{hrSpouseInfo.employeeInfo.fullName}}</td>
+                                <td><strong>Employee ID:</strong></td>
+                                <td>{{hrSpouseInfo.employeeInfo.employeeId}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Contact No:</strong></td>
+                                <td>{{hrSpouseInfo.employeeInfo.mobileNumber}}</td>
+                                <td><strong>Email:</strong></td>
+                                <td>{{hrSpouseInfo.employeeInfo.emailAddress}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Section:</strong></td>
+                                <td>{{hrSpouseInfo.employeeInfo.departmentInfo.departmentName}}</td>
+                                <td><strong>Designation:</strong></td>
+                                <td>{{hrSpouseInfo.employeeInfo.designationInfo.designationName}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Organization:</strong></td>
+                                <td>{{hrSpouseInfo.employeeInfo.workAreaDtl.name}}</td>
+                                <td><strong>Grade: </strong></td>
+                                <td>{{hrSpouseInfo.employeeInfo.gradeInfo.gradeCode}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!--Name: {{hrSpouseInfo.employeeInfo.fullName}},
+                        Employee ID: {{hrSpouseInfo.employeeInfo.employeeId}},
+                        Contact No: {{hrSpouseInfo.employeeInfo.mobileNumber}},
+                        Email: {{hrSpouseInfo.employeeInfo.emailAddress}},
+                        Section: {{hrSpouseInfo.employeeInfo.departmentInfo.departmentName}},
+                        Designation: {{hrSpouseInfo.employeeInfo.designationInfo.designationName}},
+                        Organization: {{hrSpouseInfo.employeeInfo.workAreaDtl.name}},
+                        Grade: {{hrSpouseInfo.employeeInfo.gradeInfo.gradeCode}}-->
+                    </div>
+                <div class="col-md-6 ">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrSpouseInfo.spouseName" for="field_spouseName">SpouseName</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="spouseName" id="field_spouseName"
+                                   ng-model="hrSpouseInfo.spouseName"
+                                   required ng-maxlength="100"  required/>
+                            <div ng-show="editForm.spouseName.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.spouseName.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.spouseName.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="100">
+                                    This field cannot be longer than 100 characters.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 ">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrSpouseInfo.spouseNameBn" for="field_spouseNameBn">SpouseNameBn</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="spouseNameBn" id="field_spouseNameBn"
+                                   ng-model="hrSpouseInfo.spouseNameBn" required/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 ">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrSpouseInfo.birthDate" for="field_birthDate">BirthDate</label>
+                        <div class="input-margin">
+                            <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.birthDate"
+                                   datepicker-options="calendar.dateOptions" close-text="Close"
+                                   ng-click="calendar.open($event, 'birthDate')" class="form-control" name="birthDate" id="field_birthDate"
+                                   ng-model="hrSpouseInfo.birthDate" required />
+                            <div ng-show="editForm.birthDate.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.birthDate.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 ">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrSpouseInfo.gender" for="field_gender"></label>
+                        <div class="input-margin">
+                            <select class="form-control" name="gender" ng-model="hrSpouseInfo.gender" id="field_gender" required>
+                                <option value="">Select Gender</option>
+                                <option value="Male" translate="global.gender.Male">Male</option>
+                                <option value="Female" translate="global.gender.Female">Female</option>
+                                <option value="Other" translate="global.gender.Other">Other</option>
+                            </select>
+                            <div ng-show="editForm.gender.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.gender.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrSpouseInfo.relationship" for="field_relationship">Relationship</label>
+                        <div class="input-margin">
+
+                            <input type="text" class="form-control" name="relationship" id="field_relationship"
+                                   ng-model="hrSpouseInfo.relationship" required />
+                            <div ng-show="editForm.relationship.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.relationship.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 ">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrSpouseInfo.isNominee">IsNominee</label>
+                        <div class="input-margin">
+                            <label class="radio-inline">
+                                <input type="radio"  data-ng-model="hrSpouseInfo.isNominee" name="isNominee" data-ng-value="true" required>&nbsp;<span translate="stepApp.hrSpouseInfo.yes"></span>&nbsp;&nbsp;
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" data-ng-model="hrSpouseInfo.isNominee" name="isNominee" data-ng-value="false">&nbsp;<span translate="stepApp.hrSpouseInfo.no"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 ">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrSpouseInfo.occupation" for="field_occupation">Occupation</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="occupation" id="field_occupation"
+                                   ng-model="hrSpouseInfo.occupation"  required/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 ">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrSpouseInfo.organization" for="field_organization">Organization</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="organization" id="field_organization"
+                                   ng-model="hrSpouseInfo.organization"  required/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 ">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrSpouseInfo.designation" for="field_designation">Designation</label>
+                        <div class="input-margin">
+
+                            <input type="text" class="form-control" name="designation" id="field_designation"
+                                   ng-model="hrSpouseInfo.designation" required/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 ">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrSpouseInfo.nationalId" for="field_nationalId">NationalId</label>
+                        <div class="input-margin">
+
+                            <input type="text" class="form-control" name="nationalId" id="field_nationalId"
+                                   ng-model="hrSpouseInfo.nationalId"
+                                   ng-remote-validate="/api/hrSpouseInfos/checknid/"
+                                   ng-remote-method="GET"
+                                   ng-remote-throttle="500"
+                                   ng-minlength="17"
+                                   ng-maxlength="17"
+                                   required/>
+                            <div ng-show="editForm.nationalId.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.nationalId.$error.ngRemoteValidate">
+                                    National ID already exists
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.nationalId.$error.minlength" translate="entity.validation.minlength" translate-value-min="17">
+                                    This field is required to be at least 17 characters.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.nationalId.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="17">
+                                    This field cannot be longer than 17 characters.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrSpouseInfo.emailAddress" for="field_emailAddress">EmailAddress</label>
+                        <div class="input-margin">
+                            <input type="email" class="form-control" name="emailAddress" id="field_emailAddress"
+                                   ng-model="hrSpouseInfo.emailAddress" />
+                            <div ng-show="editForm.emailAddress.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.emailAddress.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrSpouseInfo.contactNumber" for="field_contactNumber">ContactNumber</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="contactNumber" id="field_contactNumber"
+                                   ng-model="hrSpouseInfo.contactNumber"
+                                   ng-minlength="11" ng-maxlength="18" required numeric-only-mobile />
+                            <div ng-show="editForm.contactNumber.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.contactNumber.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.contactNumber.$error.minlength" translate="entity.validation.minlength" translate-value-min="11">
+                                    This field is required to be at least 11 characters.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.contactNumber.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="18">
+                                    This field cannot be longer than 18 characters.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrSpouseInfo.activeStatus">ActiveStatus</label>
+                        <div class="input-margin">
+                            <label class="radio-inline">
+                                    <input type="radio" data-ng-model="hrSpouseInfo.activeStatus" name="activeStatus" data-ng-value="true" required>&nbsp;<spnan translate="stepApp.hrSpouseInfo.active" ></spnan>&nbsp;&nbsp;
+                            </label>
+                            <label class="radio-inline">
+                                    <input type="radio" data-ng-model="hrSpouseInfo.activeStatus" name="activeStatus" data-ng-value="false" >&nbsp;<span translate="stepApp.hrSpouseInfo.inactive"></span>
+                            </label>
+                            <div ng-show="editForm.activeStatus.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrSpouseInfo.address" for="field_address">Address</label>
+                        <div class="input-margin">
+                        <textarea class="form-control" name="address" id="field_address"
+                                  ng-model="hrSpouseInfo.address"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 text-right">
+                    <div class="form-group">
+                        <div class="">
+                       <!--     <button type="button" class="btn btn-primary"  data-dismiss="modal" onclick="window.history.back()">
+                               <span translate="entity.action.back">Back</span>
+                            </button>
+
+                            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                               <span translate="entity.action.save">Save</span>
+                            </button>-->
+                            <button class="btn btn-default" data-dismiss="modal" onclick="window.history.back()">
+                                <span class="glyphicon  glyphicon-chevron-left"></span>
+                                <span class="ng-scope" translate="entity.action.back" >Back</span>
+                            </button>
+
+                            <button  ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary btn-sm">
+                                <span class=" glyphicon glyphicon-save"></span>
+                                <span class="ng-scope" translate="entity.action.save" >Save</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,74 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myQrcodeGenLogLabel" translate="stepApp.qrcodeGenLog.home.createOrEditLabel">Create or edit a QrcodeGenLog</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="qrcodeGenLog.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.qrcodeGenLog.refId" for="field_refId">RefId</label>
+            <input type="number" class="form-control" name="refId" id="field_refId"
+                    ng-model="qrcodeGenLog.refId"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.qrcodeGenLog.urlLink" for="field_urlLink">UrlLink</label>
+            <input type="text" class="form-control" name="urlLink" id="field_urlLink"
+                    ng-model="qrcodeGenLog.urlLink"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.qrcodeGenLog.qrCodeType" for="field_qrCodeType">QrCodeType</label>
+            <input type="text" class="form-control" name="qrCodeType" id="field_qrCodeType"
+                    ng-model="qrcodeGenLog.qrCodeType"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.qrcodeGenLog.dataDesc" for="field_dataDesc">DataDesc</label>
+            <input type="text" class="form-control" name="dataDesc" id="field_dataDesc"
+                    ng-model="qrcodeGenLog.dataDesc"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.qrcodeGenLog.genCode" for="field_genCode">GenCode</label>
+            <input type="text" class="form-control" name="genCode" id="field_genCode"
+                    ng-model="qrcodeGenLog.genCode"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.qrcodeGenLog.createBy" for="field_createBy">CreateBy</label>
+            <input type="text" class="form-control" name="createBy" id="field_createBy"
+                    ng-model="qrcodeGenLog.createBy"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.qrcodeGenLog.updateBy" for="field_updateBy">UpdateBy</label>
+            <input type="text" class="form-control" name="updateBy" id="field_updateBy"
+                    ng-model="qrcodeGenLog.updateBy"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.qrcodeGenLog.appName" for="field_appName">AppName</label>
+            <input type="text" class="form-control" name="appName" id="field_appName"
+                    ng-model="qrcodeGenLog.appName"
+                     />
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

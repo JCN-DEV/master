@@ -1,0 +1,86 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myInstEmpAddressTempLabel" translate="stepApp.instEmpAddressTemp.home.createOrEditLabel">Create or edit a InstEmpAddressTemp</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="instEmpAddressTemp.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmpAddressTemp.villageOrHouse" for="field_villageOrHouse">VillageOrHouse</label>
+            <input type="text" class="form-control" name="villageOrHouse" id="field_villageOrHouse"
+                    ng-model="instEmpAddressTemp.villageOrHouse"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmpAddressTemp.roadBlockSector" for="field_roadBlockSector">RoadBlockSector</label>
+            <input type="text" class="form-control" name="roadBlockSector" id="field_roadBlockSector"
+                    ng-model="instEmpAddressTemp.roadBlockSector"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmpAddressTemp.post" for="field_post">Post</label>
+            <input type="text" class="form-control" name="post" id="field_post"
+                    ng-model="instEmpAddressTemp.post"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmpAddressTemp.prevVillageOrHouse" for="field_prevVillageOrHouse">PrevVillageOrHouse</label>
+            <input type="text" class="form-control" name="prevVillageOrHouse" id="field_prevVillageOrHouse"
+                    ng-model="instEmpAddressTemp.prevVillageOrHouse"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmpAddressTemp.prevRoadBlockSector" for="field_prevRoadBlockSector">PrevRoadBlockSector</label>
+            <input type="text" class="form-control" name="prevRoadBlockSector" id="field_prevRoadBlockSector"
+                    ng-model="instEmpAddressTemp.prevRoadBlockSector"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmpAddressTemp.prevPost" for="field_prevPost">PrevPost</label>
+            <input type="text" class="form-control" name="prevPost" id="field_prevPost"
+                    ng-model="instEmpAddressTemp.prevPost"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmpAddressTemp.status" for="field_status">Status</label>
+            <input type="checkbox" class="form-control" name="status" id="field_status"
+                    ng-model="instEmpAddressTemp.status"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.instEmpAddressTemp.instEmployee" for="field_instEmployee">instEmployee</label>
+            <select class="form-control" id="field_instEmployee" name="instEmployee" ng-model="instEmpAddressTemp.instEmployee" ng-options="instEmployee as instEmployee.name for instEmployee in instemployees track by instEmployee.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmpAddressTemp.upazila" for="field_upazila">upazila</label>
+            <select class="form-control" id="field_upazila" name="upazila" ng-model="instEmpAddressTemp.upazila" ng-options="upazila as upazila.name for upazila in upazilas track by upazila.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmpAddressTemp.prevUpazila" for="field_prevUpazila">prevUpazila</label>
+            <select class="form-control" id="field_prevUpazila" name="prevUpazila" ng-model="instEmpAddressTemp.prevUpazila" ng-options="upazila as upazila.name for upazila in upazilas track by upazila.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

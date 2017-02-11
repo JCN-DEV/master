@@ -1,0 +1,96 @@
+<div class="col-md-12 common-list">
+        <h2 class="panel-heading" translate="stepApp.pgmsElpc.home.title">PgmsElpcs</h2>
+    <div class="col-md-12 padding-tb">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+        <div class="col-xs-4 no_padding text-right ">
+            <button class="btn btn-primary" ui-sref="pgmsElpc.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.pgmsElpc.home.createLabel">Create a new PgmsElpc</span>
+            </button>
+        </div>
+    </div>
+        <div class="modal fade" id="deletePgmsElpcConfirmation">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form name="deleteForm" ng-submit="confirmDelete(pgmsElpc.id)">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                    ng-click="clear()">&times;</button>
+                            <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p translate="stepApp.pgmsElpc.delete.question" translate-values="{id: '{{pgmsElpc.id}}'}">Are you sure you want to delete this PgmsElpc?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                            </button>
+                            <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                                <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12 table-responsive no_padding">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-center" translate="global.form.serial">serial</th>
+                        <th translate="global.field.id">ID</th>
+                        <th translate="stepApp.pgmsElpc.instEmpId">instEmpId</th>
+                        <th translate="stepApp.pgmsElpc.empName">EmpName</th>
+                        <th translate="stepApp.pgmsElpc.instName">InstName</th>
+                        <th translate="stepApp.pgmsElpc.designation">Designation</th>
+                        <th translate="stepApp.pgmsElpc.joinDate">JoinDate</th>
+                        <th translate="stepApp.pgmsElpc.retirementDate">RetirementDate</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--<tr ng-repeat="pgmsElpc in pgmsElpcs track by pgmsElpc.id">-->
+                    <tr dir-paginate="pgmsElpc in pgmsElpcs | filter:q | itemsPerPage: pageSize track by pgmsElpc.id"
+                        current-page="currentPage">
+                        <td class="text-center">{{pageSize*(currentPage-1)+$index+1}}</td>
+                        <td><a ui-sref="pgmsElpc.detail({id:pgmsElpc.id})">{{pgmsElpc.id}}</a></td>
+                        <td>
+                            <a ui-sref="HrEmployeeInfo.detail({id:pgmsElpc.instEmpId.id})">{{pgmsElpc.instEmpId.employeeId}}</a>
+                        </td>
+                        <td>{{pgmsElpc.empName}}</td>
+                        <td>{{pgmsElpc.instName}}</td>
+                        <td>{{pgmsElpc.designation}}</td>
+                        <td>{{pgmsElpc.joinDate | date:'mediumDate'}}</td>
+                        <td>{{pgmsElpc.retirementDate | date:'mediumDate'}}</td>
+                        <td class="text-right">
+                            <button type="submit"
+                                    ui-sref="pgmsElpc.detail({id:pgmsElpc.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="pgmsElpc.edit({id:pgmsElpc.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                            </button>
+                            <button type="submit"
+                                    ng-click="delete(pgmsElpc.id)"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <nav class="no-print">
+                <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                         template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+            </nav>
+        </div>
+    </div>
+</div>

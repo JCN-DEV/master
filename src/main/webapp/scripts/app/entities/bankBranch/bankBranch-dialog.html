@@ -1,0 +1,98 @@
+<div class="col-md-12 lbl-dash">
+    <div class="col-md-12 common-dialogue">
+        <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+            <h4 ng-if="bankBranch.id == null" class="modal-title" id="myBankBranchLabel" translate="stepApp.bankBranch.home.createLabel">Create a bankBranch</h4>
+            <h4 ng-if="bankBranch.id != null" class="modal-title" id="myBankBranchLabel" translate="stepApp.bankBranch.home.editLabel">Edit a bankBranch</h4>
+
+            <div class="modal-body">
+            <!--<jh-alert-error></jh-alert-error>-->
+                <!--<div class="form-group">
+                    <label for="id" translate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                            ng-model="bankBranch.id" readonly />
+                    </div>-->
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.bankBranch.bankSetup" for="field_bankSetup">bankSetup</label>
+                    <select class="form-control" id="field_bankSetup" name="bankSetup" ng-model="bankBranch.bankSetup"
+                            ng-options="bankSetup as bankSetup.name for bankSetup in banksetups track by bankSetup.id">
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.bankBranch.division" for="field_division">Division</label>
+                    <select class="form-control" id="field_division"
+                            ng-change="updatedDistrict(bankBranch.division)" name="division"
+                            ng-model="bankBranch.division"
+                            ng-options="division as division.name for division in divisions track by division.id"
+                        >
+                        <option value=""> {{division}}</option>
+                    </select>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.bankBranch.district" for="field_district">District</label>
+                    <select class="form-control" id="field_district" ng-disabled="!(bankBranch.division)"
+                            ng-change="updatedUpazila(bankBranch.district)" name="district"
+                            ng-model="bankBranch.district"
+                            ng-options="district as district.name for district in districts track by district.id"
+                        >
+                        <option value=""> {{district}}</option>
+                    </select>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.bankBranch.upazila" for="field_upazila">upazila</label>
+                    <select class="form-control" id="field_upazila" ng-disabled="!(bankBranch.district)"
+                            name="upazila" ng-model="bankBranch.upazila"
+                            ng-options="upazila as upazila.name for upazila in upazilas track by upazila.id"
+                            required>
+                        <option value=""> {{upazila}}</option>
+                    </select>
+                </div>
+                <div ng-repeat="branch in branches track by $index">
+                    <div class="form-group col-sm-6">
+                        <label class="control-label" translate="stepApp.bankBranch.brName" for="field_brName">BrName</label>
+                        <input type="text" class="form-control" name="brName" id="field_brName"
+                               ng-model="branch.name"
+                               required/>
+                        <div ng-show="editForm.brName.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.brName.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label class="control-label" translate="stepApp.bankBranch.address" for="field_address">Address</label>
+                        <input type="text" class="form-control" name="address" id="field_address"
+                               ng-model="branch.address"
+                            />
+                    </div>
+                    <a ng-show="branches.length > 1 && $index > 0" ng-click="branches.splice($index, 1)"> - Remove</a>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.bankBranch.status" for="field_status">Status</label>
+                    <input type="checkbox" class="form-control" name="status" id="field_status"
+                           ng-model="bankBranch.status"
+                        />
+                </div>
+                <div class="form-group col-md-12">
+                    <a class="btn btn-primary" ng-click="addMoreBranch()">Add More</a>
+                </div>
+                <!-- <div class="form-group">
+                    <label translate="stepApp.bankBranch.upazila" for="field_upazila">upazila</label>
+                    <select class="form-control" id="field_upazila" name="upazila" ng-model="bankBranch.upazila" ng-options="upazila as upazila.name for upazila in upazilas track by upazila.id">
+                        <option value=""></option>
+                    </select>
+                    </div>-->
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.history.back()">
+                        <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                        translate="entity.action.cancel">Cancel</span>
+                    </button>
+                    <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                    </button>
+                </div>
+            </div>
+        </form>

@@ -1,0 +1,836 @@
+<div class="service-form-area">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="modal-title" id="myPgmsElpcLabel" translate="stepApp.pgmsElpc.home.createOrEditLabel">Create or edit a PgmsElpc</h4>
+        </div>
+        <div class="panel-body bg-panel">
+            <jh-alert-error></jh-alert-error>
+            <form class="form-horizontal" name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.instEmpId" for="field_instEmpId">instEmpId</label>
+                        <div class="input-margin">
+                            <select class="form-control" id="field_instEmpId" name="instEmpId" ng-model="pgmsElpc.instEmpId" ng-options="HrEmployeeInfo as HrEmployeeInfo.employeeId for HrEmployeeInfo in hremployeeinfos track by HrEmployeeInfo.id">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <!--
+                            <span ng-if="iisAgencyInfo.id == null">
+                            ng-click="agencyInformation(iisAgencyInfo.reqtmntAgntLicnsNo)"
+                         -->
+                        <span>
+                            <input type="button" ng-click="employeeInfo(pgmsElpc.instEmpId)" value="Search" style="margin-top: 20px" class="btn btn-info"/>
+                        </span>
+
+                    </div>
+
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.appType">AppType</label>
+                        <div class="input-margin">
+                            <label class="radio-inline">
+                                <input type="radio" data-ng-model="pgmsElpc.appType" name="appType" value="retirement">&nbsp;Retirement&nbsp;&nbsp;
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" data-ng-model="pgmsElpc.appType" name="appType" value="family">&nbsp;Family
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" data-ng-model="pgmsElpc.appType" name="appType" value="other">&nbsp;Other
+                            </label>
+
+                            <div ng-show="editForm.appType.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.appType.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.empName" for="field_empName">EmpName</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="empName" id="field_empName"
+                                   ng-model="pgmsElpc.empName"
+                                   required />
+                            <div ng-show="editForm.empName.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.empName.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.instName" for="field_instName">InstName</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="instName" id="field_instName"
+                                   ng-model="pgmsElpc.instName"
+                                   required />
+                            <div ng-show="editForm.instName.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.instName.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.designation" for="field_designation">Designation</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="designation" id="field_designation"
+                                   ng-model="pgmsElpc.designation"
+                                   required />
+                            <div ng-show="editForm.designation.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.designation.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.dateOfBirth" for="field_dateOfBirth">DateOfBirth</label>
+                        <div class="input-margin">
+                            <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.dateOfBirth"
+                                   datepicker-options="calendar.dateOptions" close-text="Close"
+                                   ng-click="calendar.open($event, 'dateOfBirth')" class="form-control" name="dateOfBirth" id="field_dateOfBirth"
+                                   ng-model="pgmsElpc.dateOfBirth"
+                                   required />
+                            <div ng-show="editForm.dateOfBirth.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.dateOfBirth.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.joinDate" for="field_joinDate">JoinDate</label>
+                        <div class="input-margin">
+                            <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.joinDate"
+                                   datepicker-options="calendar.dateOptions" close-text="Close"
+                                   ng-click="calendar.open($event, 'joinDate')" class="form-control" name="joinDate" id="field_joinDate"
+                                   ng-model="pgmsElpc.joinDate"
+                                   required />
+                            <div ng-show="editForm.joinDate.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.joinDate.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.beginDateOfRetiremnt" for="field_beginDateOfRetiremnt">BeginDateOfRetiremnt</label>
+                        <div class="input-margin">
+                            <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.beginDateOfRetiremnt"
+                                   datepicker-options="calendar.dateOptions" close-text="Close"
+                                   ng-click="calendar.open($event, 'beginDateOfRetiremnt')" class="form-control" name="beginDateOfRetiremnt" id="field_beginDateOfRetiremnt"
+                                   ng-model="pgmsElpc.beginDateOfRetiremnt"
+                                   required />
+                            <div ng-show="editForm.beginDateOfRetiremnt.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.beginDateOfRetirmnt.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.retirementDate" for="field_retirementDate">RetirementDate</label>
+                        <div class="input-margin">
+                            <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.retirementDate"
+                                   datepicker-options="calendar.dateOptions" close-text="Close"
+                                   ng-click="calendar.open($event, 'retirementDate')" class="form-control" name="retirementDate" id="field_retirementDate"
+                                   ng-model="pgmsElpc.retirementDate"
+                                   required />
+                            <div ng-show="editForm.retirementDate.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.retirementDate.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.lastRcvPayscale" for="field_lastRcvPayscale">LastRcvPayscale</label>
+                        <div class="input-margin">
+                            <input type="number" class="form-control" name="lastRcvPayscale" id="field_lastRcvPayscale"
+                                   ng-model="pgmsElpc.lastRcvPayscale"
+                                   required />
+                            <div ng-show="editForm.lastRcvPayscale.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.lastRcvPayscale.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.lastRcvPayscale.$error.number" translate="entity.validation.number">
+                                    This field should be a number.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.incrsDtOfYrlyPayment" for="field_incrsDtOfYrlyPayment">IncrsDtOfYrlyPayment</label>
+                        <div class="input-margin">
+                            <input type="number" class="form-control" name="incrsDtOfYrlyPayment" id="field_incrsDtOfYrlyPayment"
+                                   ng-model="pgmsElpc.incrsDtOfYrlyPayment"
+                                   required />
+                            <div ng-show="editForm.incrsDtOfYrlyPayment.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.incrsDtOfYrlyPayment.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.incrsDtOfYrlyPayment.$error.number" translate="entity.validation.number">
+                                    This field should be a number.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.gainingLeave" for="field_gainingLeave">GainingLeave</label>
+                        <div class="input-margin">
+                            <input type="number" class="form-control" name="gainingLeave" id="field_gainingLeave"
+                                   ng-model="pgmsElpc.gainingLeave"
+                                   required />
+                            <div ng-show="editForm.gainingLeave.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.gainingLeave.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.gainingLeave.$error.number" translate="entity.validation.number">
+                                    This field should be a number.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.leaveType" for="field_leaveType">LeaveType</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="leaveType" id="field_leaveType"
+                                   ng-model="pgmsElpc.leaveType"
+                                   required />
+                            <div ng-show="editForm.leaveType.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.leaveType.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.leaveTotal" for="field_leaveTotal">LeaveTotal</label>
+                        <div class="input-margin">
+                            <input type="number" class="form-control" name="leaveTotal" id="field_leaveTotal"
+                                   ng-model="pgmsElpc.leaveTotal"
+                                   required />
+                            <div ng-show="editForm.leaveTotal.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.leaveTotal.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.leaveTotal.$error.number" translate="entity.validation.number">
+                                    This field should be a number.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.mainPayment" for="field_mainPayment">MainPayment</label>
+                        <div class="input-margin">
+                            <input type="number" class="form-control" name="mainPayment" id="field_mainPayment"
+                                   ng-model="pgmsElpc.mainPayment"
+                                   required />
+                            <div ng-show="editForm.mainPayment.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.mainPayment.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.mainPayment.$error.number" translate="entity.validation.number">
+                                    This field should be a number.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.incrMonRateLeaving" for="field_incrMonRateLeaving">IncrMonRateLeaving</label>
+                        <div class="input-margin">
+                            <input type="number" class="form-control" name="incrMonRateLeaving" id="field_incrMonRateLeaving"
+                                   ng-model="pgmsElpc.incrMonRateLeaving"
+                                   required />
+                            <div ng-show="editForm.incrMonRateLeaving.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.incrMonRateLeaving.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.incrMonRateLeaving.$error.number" translate="entity.validation.number">
+                                    This field should be a number.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.specialPayment" for="field_specialPayment">SpecialPayment</label>
+                        <div class="input-margin">
+                            <input type="number" class="form-control" name="specialPayment" id="field_specialPayment"
+                                   ng-model="pgmsElpc.specialPayment"
+                                   required />
+                            <div ng-show="editForm.specialPayment.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.specialPayment.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.specialPayment.$error.number" translate="entity.validation.number">
+                                    This field should be a number.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.specialAllowance" for="field_specialAllowance">SpecialAllowance</label>
+                        <div class="input-margin">
+                            <input type="number" class="form-control" name="specialAllowance" id="field_specialAllowance"
+                                   ng-model="pgmsElpc.specialAllowance"
+                                   required />
+                            <div ng-show="editForm.specialAllowance.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.specialAllowance.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.specialAllowance.$error.number" translate="entity.validation.number">
+                                    This field should be a number.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.houserentAl" for="field_houserentAl">HouserentAl</label>
+                        <div class="input-margin">
+                            <input type="number" class="form-control" name="houserentAl" id="field_houserentAl"
+                                   ng-model="pgmsElpc.houserentAl"
+                                   required />
+                            <div ng-show="editForm.houserentAl.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.houserentAl.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.houserentAl.$error.number" translate="entity.validation.number">
+                                    This field should be a number.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.treatmentAl" for="field_treatmentAl">TreatmentAl</label>
+                        <div class="input-margin">
+                            <input type="number" class="form-control" name="treatmentAl" id="field_treatmentAl"
+                                   ng-model="pgmsElpc.treatmentAl"
+                                   required />
+                            <div ng-show="editForm.treatmentAl.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.treatmentAl.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.treatmentAl.$error.number" translate="entity.validation.number">
+                                    This field should be a number.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.dearnessAl" for="field_dearnessAl">DearnessAl</label>
+                        <div class="input-margin">
+                            <input type="number" class="form-control" name="dearnessAl" id="field_dearnessAl"
+                                   ng-model="pgmsElpc.dearnessAl"
+                                   required />
+                            <div ng-show="editForm.dearnessAl.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.dearnessAl.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.dearnessAl.$error.number" translate="entity.validation.number">
+                                    This field should be a number.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.travellingAl" for="field_travellingAl">TravellingAl</label>
+                        <div class="input-margin">
+                            <input type="number" class="form-control" name="travellingAl" id="field_travellingAl"
+                                   ng-model="pgmsElpc.travellingAl"
+                                   required />
+                            <div ng-show="editForm.travellingAl.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.travellingAl.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.travellingAl.$error.number" translate="entity.validation.number">
+                                    This field should be a number.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.laundryAl" for="field_laundryAl">LaundryAl</label>
+                        <div class="input-margin">
+                            <input type="number" class="form-control" name="laundryAl" id="field_laundryAl"
+                                   ng-model="pgmsElpc.laundryAl"
+                                   required />
+                            <div ng-show="editForm.laundryAl.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.laundryAl.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.laundryAl.$error.number" translate="entity.validation.number">
+                                    This field should be a number.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.personalAl" for="field_personalAl">PersonalAl</label>
+                        <div class="input-margin">
+                            <input type="number" class="form-control" name="personalAl" id="field_personalAl"
+                                   ng-model="pgmsElpc.personalAl"
+                                   required />
+                            <div ng-show="editForm.personalAl.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.personalAl.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.personalAl.$error.number" translate="entity.validation.number">
+                                    This field should be a number.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.technicalAl" for="field_technicalAl">TechnicalAl</label>
+                        <div class="input-margin">
+                            <input type="number" class="form-control" name="technicalAl" id="field_technicalAl"
+                                   ng-model="pgmsElpc.technicalAl"
+                                   required />
+                            <div ng-show="editForm.technicalAl.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.technicalAl.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.technicalAl.$error.number" translate="entity.validation.number">
+                                    This field should be a number.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.hospitalityAl" for="field_hospitalityAl">HospitalityAl</label>
+                        <div class="input-margin">
+                            <input type="number" class="form-control" name="hospitalityAl" id="field_hospitalityAl"
+                                   ng-model="pgmsElpc.hospitalityAl"
+                                   required />
+                            <div ng-show="editForm.hospitalityAl.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.hospitalityAl.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.hospitalityAl.$error.number" translate="entity.validation.number">
+                                    This field should be a number.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.tiffinAl" for="field_tiffinAl">TiffinAl</label>
+                        <div class="input-margin">
+                            <input type="number" class="form-control" name="tiffinAl" id="field_tiffinAl"
+                                   ng-model="pgmsElpc.tiffinAl"
+                                   required />
+                            <div ng-show="editForm.tiffinAl.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.tiffinAl.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.tiffinAl.$error.number" translate="entity.validation.number">
+                                    This field should be a number.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.advOfMakingHouse" for="field_advOfMakingHouse">AdvOfMakingHouse</label>
+                        <div class="input-margin">
+                            <input type="number" class="form-control" name="advOfMakingHouse" id="field_advOfMakingHouse"
+                                   ng-model="pgmsElpc.advOfMakingHouse"
+                                   required />
+                            <div ng-show="editForm.advOfMakingHouse.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.advOfMakingHouse.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.advOfMakingHouse.$error.number" translate="entity.validation.number">
+                                    This field should be a number.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.vechileStatus" for="field_vechileStatus">VechileStatus</label>
+                        <div class="input-margin">
+                            <input type="number" class="form-control" name="vechileStatus" id="field_vechileStatus"
+                                   ng-model="pgmsElpc.vechileStatus"
+                                   required />
+                            <div ng-show="editForm.vechileStatus.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.vechileStatus.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.vechileStatus.$error.number" translate="entity.validation.number">
+                                    This field should be a number.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.advTravAl" for="field_advTravAl">AdvTravAl</label>
+                        <div class="input-margin">
+                            <input type="number" class="form-control" name="advTravAl" id="field_advTravAl"
+                                   ng-model="pgmsElpc.advTravAl"
+                                   required />
+                            <div ng-show="editForm.advTravAl.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.advTravAl.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.advTravAl.$error.number" translate="entity.validation.number">
+                                    This field should be a number.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.advSalary" for="field_advSalary">AdvSalary</label>
+                        <div class="input-margin">
+                            <input type="number" class="form-control" name="advSalary" id="field_advSalary"
+                                   ng-model="pgmsElpc.advSalary"
+                                   required />
+                            <div ng-show="editForm.advSalary.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.advSalary.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.advSalary.$error.number" translate="entity.validation.number">
+                                    This field should be a number.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.houseRent" for="field_houseRent">HouseRent</label>
+                        <div class="input-margin">
+                            <input type="number" class="form-control" name="houseRent" id="field_houseRent"
+                                   ng-model="pgmsElpc.houseRent"
+                                   required />
+                            <div ng-show="editForm.houseRent.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.houseRent.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.houseRent.$error.number" translate="entity.validation.number">
+                                    This field should be a number.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.carRent" for="field_carRent">CarRent</label>
+                        <div class="input-margin">
+                            <input type="number" class="form-control" name="carRent" id="field_carRent"
+                                   ng-model="pgmsElpc.carRent"
+                                   required />
+                            <div ng-show="editForm.carRent.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.carRent.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.carRent.$error.number" translate="entity.validation.number">
+                                    This field should be a number.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.gasBill" for="field_gasBill">GasBill</label>
+                        <div class="input-margin">
+                            <input type="number" class="form-control" name="gasBill" id="field_gasBill"
+                                   ng-model="pgmsElpc.gasBill"
+                                   required />
+                            <div ng-show="editForm.gasBill.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.gasBill.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.gasBill.$error.number" translate="entity.validation.number">
+                                    This field should be a number.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.santryWaterTax" for="field_santryWaterTax">SantryWaterTax</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="santryWaterTax" id="field_santryWaterTax"
+                                   ng-model="pgmsElpc.santryWaterTax"
+                                   required />
+                            <div ng-show="editForm.santryWaterTax.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.santryWaterTax.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.bankAcc" for="field_bankAcc">BankAcc</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="bankAcc" id="field_bankAcc"
+                                   ng-model="pgmsElpc.bankAcc"
+                                   required />
+                            <div ng-show="editForm.bankAcc.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.bankAcc.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.accBookNo" for="field_accBookNo">AccBookNo</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="accBookNo" id="field_accBookNo"
+                                   ng-model="pgmsElpc.accBookNo"
+                                   required />
+                            <div ng-show="editForm.accBookNo.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.accBookNo.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.bookPageNo" for="field_bookPageNo">BookPageNo</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="bookPageNo" id="field_bookPageNo"
+                                   ng-model="pgmsElpc.bookPageNo"
+                                   required />
+                            <div ng-show="editForm.bookPageNo.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.bookPageNo.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.bankInterest" for="field_bankInterest">BankInterest</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="bankInterest" id="field_bankInterest"
+                                   ng-model="pgmsElpc.bankInterest"
+                                   required />
+                            <div ng-show="editForm.bankInterest.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.bankInterest.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.monlyDepRateFrSalary" for="field_monlyDepRateFrSalary">MonlyDepRateFrSalary</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="monlyDepRateFrSalary" id="field_monlyDepRateFrSalary"
+                                   ng-model="pgmsElpc.monlyDepRateFrSalary"
+                                   required />
+                            <div ng-show="editForm.monlyDepRateFrSalary.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.monlyDepRateFrSalary.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.expectedDeposition" for="field_expectedDeposition">ExpectedDeposition</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="expectedDeposition" id="field_expectedDeposition"
+                                   ng-model="pgmsElpc.expectedDeposition"
+                                   required />
+                            <div ng-show="editForm.expectedDeposition.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.expectedDeposition.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.accDate" for="field_accDate">AccDate</label>
+                        <div class="input-margin">
+                            <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.accDate"
+                                   datepicker-options="calendar.dateOptions" close-text="Close"
+                                   ng-click="calendar.open($event, 'accDate')" class="form-control" name="accDate" id="field_accDate"
+                                   ng-model="pgmsElpc.accDate"
+                                   required />
+                            <div ng-show="editForm.accDate.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.accDate.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.appNo" for="field_appNo">AppNo</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="appNo" id="field_appNo"
+                                   ng-model="pgmsElpc.appNo"
+                                   required />
+                            <div ng-show="editForm.appNo.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.appNo.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.appDate" for="field_appDate">AppDate</label>
+                        <div class="input-margin">
+                            <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.appDate"
+                                   datepicker-options="calendar.dateOptions" close-text="Close"
+                                   ng-click="calendar.open($event, 'appDate')" class="form-control" name="appDate" id="field_appDate"
+                                   ng-model="pgmsElpc.appDate"
+                                   required />
+                            <div ng-show="editForm.appDate.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.appDate.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsElpc.appRetirementDate" for="field_appRetirementDate">RetirementDate</label>
+                        <div class="input-margin">
+                            <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.appRetirementDate"
+                                   datepicker-options="calendar.dateOptions" close-text="Close"
+                                   ng-click="calendar.open($event, 'appRetirementDate')" class="form-control" name="appRetirementDate" id="field_appRetirementDate"
+                                   ng-model="pgmsElpc.appRetirementDate"
+                                   required />
+                            <div ng-show="editForm.appRetirementDate.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.appRetirementDate.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12  col-sm-12 col-xs-12">
+                        <label class="control-label" translate="stepApp.pgmsElpc.appComments" for="field_appComments">AppComments</label>
+                        <div class="input-margin">
+                            <textarea class="form-control" name="appComments" id="field_appComments" cols="40" rows="5" ng-maxlength="250"
+                                      ng-model="pgmsElpc.appComments">
+                            </textarea>
+                            <div ng-show="editForm.appComments.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.appComments.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" class="btn " data-dismiss="modal" onclick="window.history.back()">
+                        <i class="fa fa-angle-double-left"></i>&nbsp;<span translate="entity.action.back">Back</span>
+                    </button>
+                    <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,930 @@
+<!--<div class="row">
+	<div class="col-md-3">
+        <ng-include src="'scripts/components/navbar/left-menu.html'"></ng-include>
+	</div>
+
+	<div class="col-md-9">-->
+		<jh-alert></jh-alert>
+		<h2 class="page-header" translate="global.menu.account.mpo">MPO</h2>
+
+		<div class="dte-glyphicons">
+			<ul class="dte-glyphicons-list">
+				<li class="whiteframe-glow-z1"><span
+					class="glyphicon glyphicon-user" aria-hidden="true"></span> <span
+					class="glyphicon-class"
+					translate="mpo.home.total_male_applications">total male
+						applicants {{12}}</span></li>
+				<li class="whiteframe-glow-z1"><span
+					class="glyphicon glyphicon-record" aria-hidden="true"></span> <span
+					class="glyphicon-class"
+					translate="mpo.home.total_female_applications">total female
+						applicants {{28}}</span></li>
+				<li class="whiteframe-glow-z1"><span
+					class="glyphicon glyphicon-dashboard" aria-hidden="true"></span> <span
+					class="glyphicon-class"
+					translate="mpo.home.total_male_applications">total male
+						applicants {{12}}</span></li>
+				<li class="whiteframe-glow-z1"><span
+					class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> <span
+					class="glyphicon-class"
+					translate="mpo.home.total_male_applications">total male
+						applicants {{12}}</span></li>
+			</ul>
+		</div>
+
+		<tabset> <tab
+			heading="{{'stepApp.mpo.home.institute' | translate}}"
+			select="institute()">
+		<form name="editForm" class="form form-horizontal" role="form"
+			novalidate ng-submit="saveInstitute()" show-validation>
+			<div class="modal-body">
+				<jh-alert-error></jh-alert-error>
+				<div class="form-group" has-authority="ROLE_ADMIN">
+					<label class="col-sm-4 control-label" for="id"
+						translate="global.field.id">ID</label>
+
+					<div class="col-sm-8">
+						<input type="text" class="form-control" id="id" name="id"
+							ng-model="institute.id" readonly />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label" for="status"
+						translate="global.field.status">status</label>
+					<div class="col-sm-8">
+						<select class="form-control" name="status"
+							ng-model="institute.status" id="field_status" required readonly>
+							<option value="draft" translate="stepApp.Status.draft">draft</option>
+							<option value="published" translate="stepApp.Status.published">published</option>
+							<option value="featured" translate="stepApp.Status.featured">published</option>
+							<option value="deleted" translate="stepApp.Status.deleted">published</option>
+						</select>
+
+						<div ng-show="editForm.status.$invalid">
+							<p class="help-block" ng-show="editForm.status.$error.required"
+								translate="entity.validation.required">This field is
+								required.</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.name" for="field_name">Name</label>
+
+					<div class="col-sm-8">
+						<input type="text" class="form-control" name="name"
+							id="field_name" ng-model="institute.name" required />
+
+						<div ng-show="editForm.name.$invalid">
+							<p class="help-block" ng-show="editForm.name.$error.required"
+								translate="entity.validation.required">This field is
+								required.</p>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.dateOfEstablishment"
+						for="field_dateOfEstablishment">DateOfEstablishment</label>
+
+					<div class="col-sm-8">
+						<input type="date" class="form-control" name="dateOfEstablishment"
+							id="field_dateOfEstablishment"
+							ng-model="institute.dateOfEstablishment" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.mpoCode" for="field_mpoCode">MpoCode</label>
+
+					<div class="col-sm-8">
+						<input type="text" class="form-control" name="mpoCode"
+							id="field_mpoCode" ng-model="institute.mpoCode" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.postOffice" for="field_postOffice">PostOffice</label>
+
+					<div class="col-sm-8">
+						<input type="text" class="form-control" name="postOffice"
+							id="field_postOffice" ng-model="institute.postOffice" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.location" for="field_location">Location</label>
+
+					<div class="col-sm-8">
+						<select class="form-control" name="location"
+							ng-model="institute.location" id="field_location">
+							<option value="City Corporation"
+								translate="stepApp.Location.CityCorporation">
+								CityCorporation</option>
+							<option value="Municipality"
+								translate="stepApp.Location.Municipality">Municipality
+							</option>
+							<option value="Other" translate="stepApp.Location.Other">Other</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.isJoint" for="field_isJoint">IsJoint</label>
+
+					<div class="col-sm-8">
+						<input type="checkbox" class="form-control" name="isJoint"
+							id="field_isJoint" ng-model="institute.isJoint" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.multiEducational"
+						for="field_multiEducational">MultiEducational</label>
+
+					<div class="col-sm-8">
+						<input type="text" class="form-control" name="multiEducational"
+							id="field_multiEducational" ng-model="institute.multiEducational" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.firstApprovedEducationalYear"
+						for="field_firstApprovedEducationalYear">FirstApprovedEducationalYear</label>
+
+					<div class="col-sm-8">
+						<input type="date" class="form-control"
+							name="firstApprovedEducationalYear"
+							id="field_firstApprovedEducationalYear"
+							ng-model="institute.firstApprovedEducationalYear" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.lastApprovedEducationalYear"
+						for="field_lastApprovedEducationalYear">LastApprovedEducationalYear</label>
+
+					<div class="col-sm-8">
+						<input type="date" class="form-control"
+							name="lastApprovedEducationalYear"
+							id="field_lastApprovedEducationalYear"
+							ng-model="institute.lastApprovedEducationalYear" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.firstMpoIncludeDate"
+						for="field_firstMpoIncludeDate">FirstMpoIncludeDate</label>
+
+					<div class="col-sm-8">
+						<input type="date" class="form-control" name="firstMpoIncludeDate"
+							id="field_firstMpoIncludeDate"
+							ng-model="institute.firstMpoIncludeDate" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.lastMpoExpireDate"
+						for="field_lastMpoExpireDate">LastMpoExpireDate</label>
+
+					<div class="col-sm-8">
+						<input type="date" class="form-control" name="lastMpoExpireDate"
+							id="field_lastMpoExpireDate"
+							ng-model="institute.lastMpoExpireDate" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.nameOfTradeSubject"
+						for="field_nameOfTradeSubject">NameOfTradeSubject</label>
+
+					<div class="col-sm-8">
+						<input type="date" class="form-control" name="nameOfTradeSubject"
+							id="field_nameOfTradeSubject"
+							ng-model="institute.nameOfTradeSubject" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.lastApprovedSignatureDate"
+						for="field_lastApprovedSignatureDate">LastApprovedSignatureDate</label>
+
+					<div class="col-sm-8">
+						<input type="date" class="form-control"
+							name="lastApprovedSignatureDate"
+							id="field_lastApprovedSignatureDate"
+							ng-model="institute.lastApprovedSignatureDate" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.lastCommitteeApprovedDate"
+						for="field_lastCommitteeApprovedDate">LastCommitteeApprovedDate</label>
+
+					<div class="col-sm-8">
+						<input type="date" class="form-control"
+							name="lastCommitteeApprovedDate"
+							id="field_lastCommitteeApprovedDate"
+							ng-model="institute.lastCommitteeApprovedDate" />
+					</div>
+				</div>
+				<div class="form-group" ngf-drop
+					ngf-change="setLastCommitteeApprovedFile($file, institute)">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.lastCommitteeApprovedFile"
+						for="field_lastCommitteeApprovedFile">LastCommitteeApprovedFile</label>
+
+					<div class="col-sm-8">
+						<div>
+							<div class="help-block clearfix">
+								<span class="pull-left">{{institute.lastCommitteeApprovedFileContentType}}
+									{{byteSize(institute.lastCommitteeApprovedFile)}}</span>
+								<button
+									ng-click="institute.lastCommitteeApprovedFile=null;institute.lastCommitteeApprovedFileContentType=null;"
+									ng-if="institute.lastCommitteeApprovedFile"
+									class="btn btn-default btn-xs pull-right">
+									<span class="glyphicon glyphicon-remove"></span>
+								</button>
+							</div>
+							<button type="file" ngf-select class="btn btn-default btn-block"
+								ngf-change="setLastCommitteeApprovedFile($file, institute)"
+								translate="entity.action.addblob">Add blob</button>
+						</div>
+						<input type="hidden" class="form-control"
+							name="lastCommitteeApprovedFile"
+							id="field_lastCommitteeApprovedFile"
+							ng-model="institute.lastCommitteeApprovedFile" />
+						<input type="hidden" class="form-control"
+							name="lastCommitteeApprovedFileContentType"
+							id="field_lastCommitteeApprovedFileContentType"
+							ng-model="institute.lastCommitteeApprovedFileContentType" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.lastCommitteeExpDate"
+						for="field_lastCommitteeExpDate">LastCommitteeExpDate</label>
+
+					<div class="col-sm-8">
+						<input type="date" class="form-control"
+							name="lastCommitteeExpDate" id="field_lastCommitteeExpDate"
+							ng-model="institute.lastCommitteeExpDate" />
+					</div>
+				</div>
+				<div class="form-group" ngf-drop
+					ngf-change="setLastCommittee1stMeetingFile($file, institute)">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.lastCommittee1stMeetingFile"
+						for="field_lastCommittee1stMeetingFile">LastCommittee1stMeetingFile</label>
+
+					<div class="col-sm-8">
+						<div>
+							<div class="help-block clearfix">
+								<span class="pull-left">{{institute.lastCommittee1stMeetingFileContentType}}
+									{{byteSize(institute.lastCommittee1stMeetingFile)}}</span>
+								<button
+									ng-click="institute.lastCommittee1stMeetingFile=null;institute.lastCommittee1stMeetingFileContentType=null;"
+									ng-if="institute.lastCommittee1stMeetingFile"
+									class="btn btn-default btn-xs pull-right">
+									<span class="glyphicon glyphicon-remove"></span>
+								</button>
+							</div>
+							<button type="file" ngf-select class="btn btn-default btn-block"
+								ngf-change="setLastCommittee1stMeetingFile($file, institute)"
+								translate="entity.action.addblob">Add blob</button>
+						</div>
+						<input type="hidden" class="form-control"
+							name="lastCommittee1stMeetingFile"
+							id="field_lastCommittee1stMeetingFile"
+							ng-model="institute.lastCommittee1stMeetingFile" />
+						<input type="hidden" class="form-control"
+							name="lastCommittee1stMeetingFileContentType"
+							id="field_lastCommittee1stMeetingFileContentType"
+							ng-model="institute.lastCommittee1stMeetingFileContentType" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.lastCommitteeExpireDate"
+						for="field_lastCommitteeExpireDate">LastCommitteeExpireDate</label>
+
+					<div class="col-sm-8">
+						<input type="date" class="form-control"
+							name="lastCommitteeExpireDate" id="field_lastCommitteeExpireDate"
+							ng-model="institute.lastCommitteeExpireDate" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.lastMpoMemorialDate"
+						for="field_lastMpoMemorialDate">LastMpoMemorialDate</label>
+
+					<div class="col-sm-8">
+						<input type="date" class="form-control" name="lastMpoMemorialDate"
+							id="field_lastMpoMemorialDate"
+							ng-model="institute.lastMpoMemorialDate" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.totalStudent"
+						for="field_totalStudent">TotalStudent</label>
+
+					<div class="col-sm-8">
+						<input type="number" class="form-control" name="totalStudent"
+							id="field_totalStudent" ng-model="institute.totalStudent" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.lengthOfLibrary"
+						for="field_lengthOfLibrary">LengthOfLibrary</label>
+
+					<div class="col-sm-8">
+						<input type="number" class="form-control" name="lengthOfLibrary"
+							id="field_lengthOfLibrary" ng-model="institute.lengthOfLibrary" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.widthOfLibrary"
+						for="field_widthOfLibrary">WidthOfLibrary</label>
+
+					<div class="col-sm-8">
+						<input type="number" class="form-control" name="widthOfLibrary"
+							id="field_widthOfLibrary" ng-model="institute.widthOfLibrary" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.numberOfBook"
+						for="field_numberOfBook">NumberOfBook</label>
+
+					<div class="col-sm-8">
+						<input type="number" class="form-control" name="numberOfBook"
+							id="field_numberOfBook" ng-model="institute.numberOfBook" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.lastMpoIncludeExpireDate"
+						for="field_lastMpoIncludeExpireDate">LastMpoIncludeExpireDate</label>
+
+					<div class="col-sm-8">
+						<input type="date" class="form-control"
+							name="lastMpoIncludeExpireDate"
+							id="field_lastMpoIncludeExpireDate"
+							ng-model="institute.lastMpoIncludeExpireDate" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.numberOfLab" for="field_numberOfLab">NumberOfLab</label>
+
+					<div class="col-sm-8">
+						<input type="number" class="form-control" name="numberOfLab"
+							id="field_numberOfLab" ng-model="institute.numberOfLab" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.labArea" for="field_labArea">LabArea</label>
+
+					<div class="col-sm-8">
+						<input type="text" class="form-control" name="labArea"
+							id="field_labArea" ng-model="institute.labArea" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.code" for="field_code">Code</label>
+
+					<div class="col-sm-8">
+						<input type="text" class="form-control" name="code"
+							id="field_code" ng-model="institute.code" required />
+
+						<div ng-show="editForm.code.$invalid">
+							<p class="help-block" ng-show="editForm.code.$error.required"
+								translate="entity.validation.required">This field is
+								required.</p>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.landPhone" for="field_landPhone">LandPhone</label>
+
+					<div class="col-sm-8">
+						<input type="text" class="form-control" name="landPhone"
+							id="field_landPhone" ng-model="institute.landPhone" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.mobile" for="field_mobile">Mobile</label>
+
+					<div class="col-sm-8">
+						<input type="text" class="form-control" name="mobile"
+							id="field_mobile" ng-model="institute.mobile" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.email" for="field_email">Email</label>
+
+					<div class="col-sm-8">
+						<input type="text" class="form-control" name="email"
+							id="field_email" ng-model="institute.email" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.constituencyArea"
+						for="field_constituencyArea">ConstituencyArea</label>
+
+					<div class="col-sm-8">
+						<input type="text" class="form-control" name="constituencyArea"
+							id="field_constituencyArea" ng-model="institute.constituencyArea" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.adminCounselorName"
+						for="field_adminCounselorName">AdminCounselorName</label>
+
+					<div class="col-sm-8">
+						<input type="text" class="form-control" name="adminCounselorName"
+							id="field_adminCounselorName"
+							ng-model="institute.adminCounselorName" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.counselorMobileNo"
+						for="field_counselorMobileNo">CounselorMobileNo</label>
+
+					<div class="col-sm-8">
+						<input type="text" class="form-control" name="counselorMobileNo"
+							id="field_counselorMobileNo"
+							ng-model="institute.counselorMobileNo" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.insHeadName" for="field_insHeadName">InsHeadName</label>
+
+					<div class="col-sm-8">
+						<input type="text" class="form-control" name="insHeadName"
+							id="field_insHeadName" ng-model="institute.insHeadName" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.insHeadMobileNo"
+						for="field_insHeadMobileNo">InsHeadMobileNo</label>
+
+					<div class="col-sm-8">
+						<input type="text" class="form-control" name="insHeadMobileNo"
+							id="field_insHeadMobileNo" ng-model="institute.insHeadMobileNo" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.deoName" for="field_deoName">DeoName</label>
+
+					<div class="col-sm-8">
+						<input type="text" class="form-control" name="deoName"
+							id="field_deoName" ng-model="institute.deoName" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.deoMobileNo" for="field_deoMobileNo">DeoMobileNo</label>
+
+					<div class="col-sm-8">
+						<input type="text" class="form-control" name="deoMobileNo"
+							id="field_deoMobileNo" ng-model="institute.deoMobileNo" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.type" for="field_type">Type</label>
+
+					<div class="col-sm-8">
+						<select class="form-control" name="type" ng-model="institute.type"
+							id="field_type" required>
+							<option value="Government"
+								translate="stepApp.InstituteType.Government">Government
+							</option>
+							<option value="NonGovernment"
+								translate="stepApp.InstituteType.NonGovernment">
+								NonGovernment</option>
+						</select>
+
+						<div ng-show="editForm.type.$invalid">
+							<p class="help-block" ng-show="editForm.type.$error.required"
+								translate="entity.validation.required">This field is
+								required.</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group" has-authority="ROLE_ADMIN">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.user" for="field_user">user</label>
+
+					<div class="col-sm-8">
+						<select class="form-control" id="field_user" name="user"
+							ng-model="institute.user"
+							ng-options="user as user.login for user in users track by user.id">
+							<option value=""></option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.upazila" for="field_upazila">upazila</label>
+
+					<div class="col-sm-8">
+						<select class="form-control" id="field_upazila" name="upazila"
+							ng-model="institute.upazila"
+							ng-options="upazila as upazila.name for upazila in upazilas track by upazila.id">
+							<option value=""></option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label"
+						translate="stepApp.institute.course" for="field_course">course</label>
+
+					<div class="col-sm-8">
+						<select class="form-control" id="field_course" multiple
+							name="course" ng-model="institute.courses"
+							ng-options="course as course.course for course in courses track by course.id"></select>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<div class="form-group">
+					<div class="col-md-offset-4 col-md-8">
+						<button type="button" class="btn btn-default" data-dismiss="modal"
+							ng-click="clear()">
+							<span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+								translate="entity.action.cancel">Cancel</span>
+						</button>
+						<button type="submit" ng-disabled="editForm.$invalid || isSaving"
+							class="btn btn-primary">
+							<span class="glyphicon glyphicon-save"></span>&nbsp;<span
+								translate="entity.action.save">Save</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</form>
+		</tab> <tab heading="{{'stepApp.mpo.home.employees' | translate}}"
+			select="employees()">
+		<div class="row">
+			<div class="col-md-6">
+				<button class="btn btn-primary" ui-sref="employee.new">
+					<span class="glyphicon glyphicon-flash"></span> <span
+						translate="stepApp.employee.home.createLabel">Create a new
+						Employee</span>
+				</button>
+				<button class="btn btn-info" ui-sref="employee">
+					<span class="glyphicon glyphicon-list"></span> <span
+						translate="entity.action.view_all">view all</span>
+				</button>
+			</div>
+			<div class="col-md-6">
+				<p class="caption notice text-center">
+					<span translate="entity.action.found"
+						translate-values="{found: '{{employees.length}}', total: '{{total}}'}">{{employees.length}}
+						employees retrieved from total of {{total}} employees </span>
+				</p>
+			</div>
+		</div>
+		<table class="table table-hover table-striped">
+			<thead>
+				<tr>
+					<th translate="stepApp.employee.name">Name</th>
+					<th translate="stepApp.employee.designation">Designation</th>
+					<th translate="stepApp.employee.institute">institute</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="employee in employees track by employee.id">
+					<td>{{employee.name}}</td>
+					<td>{{employee.designation}}</td>
+					<td><a ui-sref="institute.detail({id:employee.institute.id})">{{employee.institute.name}}</a>
+					</td>
+					<td>
+						<div class="btn-group btn-group-sm">
+							<button type="submit" ui-sref="employee.detail({id:employee.id})"
+								class="btn btn-info btn-sm">
+								<span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span
+									translate="entity.action.view"> View</span>
+							</button>
+							<button type="submit" ui-sref="employee.edit({id:employee.id})"
+								class="btn btn-primary btn-sm">
+								<span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+									translate="entity.action.edit"> Edit</span>
+							</button>
+							<button type="submit" ui-sref="employee.delete({id:employee.id})"
+								class="btn btn-danger btn-sm">
+								<span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+									translate="entity.action.delete"> Delete</span>
+							</button>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		</tab> <tab heading="{{'stepApp.mpo.home.educations' | translate}}"
+			select="educations()">
+		<div class="row">
+			<div class="col-sm-6">
+				<button class="btn btn-primary" ui-sref="applicantEducation.new">
+					<span class="glyphicon glyphicon-flash"></span> <span
+						translate="stepApp.applicantEducation.home.createLabel">Create
+						a new ApplicantEducation</span>
+				</button>
+				<button class="btn btn-info" ui-sref="applicantEducation">
+					<span class="glyphicon glyphicon-list"></span> <span
+						translate="entity.action.view_all">view all</span>
+				</button>
+			</div>
+			<div class="col-sm-6">
+				<p class="notice text-center" translate="entity.action.found"
+					translate-values="{found: '{{applicantEducations.length}}', total: '{{total}}'}">
+					{{applicantEducations.length}} applicantEducations retrieved from
+					total of {{total}} applicantEducations</p>
+			</div>
+		</div>
+		<div class="table-responsive">
+			<table class="table table-hover table-striped">
+				<thead>
+					<tr>
+						<th translate="stepApp.applicantEducation.name">Name</th>
+						<th translate="stepApp.applicantEducation.gpa">Gpa</th>
+						<th translate="stepApp.applicantEducation.examYear">ExamYear
+						</th>
+						<th translate="stepApp.applicantEducation.employee">employee</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr
+						ng-repeat="applicantEducation in applicantEducations track by applicantEducation.id">
+						<td>{{applicantEducation.name}}</td>
+						<td>{{applicantEducation.gpa}}</td>
+						<td>{{applicantEducation.examYear | date:'mediumDate'}}</td>
+						<td><a
+							ui-sref="employee.detail({id:applicantEducation.employee.id})">{{applicantEducation.employee.name}}</a>
+						</td>
+						<td>
+							<div class="btn-group btn-group-sm">
+								<button type="submit"
+									ui-sref="applicantEducation.detail({id:applicantEducation.id})"
+									class="btn btn-info btn-sm">
+									<span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span
+										translate="entity.action.view"> View</span>
+								</button>
+								<button type="submit"
+									ui-sref="applicantEducation.edit({id:applicantEducation.id})"
+									class="btn btn-primary btn-sm">
+									<span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+										translate="entity.action.edit"> Edit</span>
+								</button>
+								<button type="submit"
+									ui-sref="applicantEducation.delete({id:applicantEducation.id})"
+									class="btn btn-danger btn-sm">
+									<span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+										translate="entity.action.delete"> Delete</span>
+								</button>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		</tab> <tab heading="{{'stepApp.mpo.home.trainings' | translate}}"
+			select="trainings()">
+		<div class="row">
+			<div class="col-md-6">
+				<button class="btn btn-primary" ui-sref="training.new">
+					<span class="glyphicon glyphicon-flash"></span> <span
+						translate="stepApp.training.home.createLabel">Create a new
+						Training</span>
+				</button>
+				<button class="btn btn-info" ui-sref="training">
+					<span class="glyphicon glyphicon-list"></span> <span
+						translate="entity.action.view_all">view all</span>
+				</button>
+			</div>
+			<div class="col-md-6">
+				<p class="notice text-center">
+					<span translate="entity.action.found"
+						translate-values="{found: '{{trainings.length}}', total: '{{total}}'}">{{trainings.length}}
+						trainings retrieved from total of {{total}} trainings </span>
+				</p>
+			</div>
+		</div>
+
+		<table class="table table-hover table-striped">
+			<thead>
+				<tr>
+					<th translate="stepApp.training.name">Name</th>
+					<th translate="stepApp.training.endedDate">EndedDate</th>
+					<th translate="stepApp.training.gpa">Gpa</th>
+					<th translate="stepApp.training.employee">employee</th>
+					<th translate="stepApp.training.district">district</th>
+					<th translate="stepApp.training.employee">employee</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="training in trainings track by training.id">
+					<td>{{training.name}}</td>
+					<td>{{training.endedDate | date:'mediumDate'}}</td>
+					<td>{{training.gpa}}</td>
+					<td><a ui-sref="employee.detail({id:training.employee.id})">{{training.employee.name}}</a>
+					</td>
+					<td><a ui-sref="district.detail({id:training.district.id})">{{training.district.name}}</a>
+					</td>
+					<td><a ui-sref="employee.detail({id:training.employee.id})">{{training.employee.name}}</a>
+					</td>
+					<td>
+						<div class="btn-group btn-group-sm">
+							<button type="submit" ui-sref="training.detail({id:training.id})"
+								class="btn btn-info btn-sm">
+								<span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span
+									translate="entity.action.view"> View</span>
+							</button>
+							<button type="submit" ui-sref="training.edit({id:training.id})"
+								class="btn btn-primary btn-sm">
+								<span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+									translate="entity.action.edit"> Edit</span>
+							</button>
+							<button type="submit" ng-click="delete(training.id)"
+								class="btn btn-danger btn-sm">
+								<span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+									translate="entity.action.delete"> Delete</span>
+							</button>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		</tab> <tab heading="{{'stepApp.mpo.home.payScaleSetup' | translate}}"
+			select="payScales()">
+		<div class="row">
+			<div class="col-md-6">
+				<button class="btn btn-primary" ui-sref="payScale.new">
+					<span class="glyphicon glyphicon-flash"></span> <span
+						translate="stepApp.payScale.home.createLabel">Create a new
+						payScale</span>
+				</button>
+				<button class="btn btn-info" ui-sref="payScale">
+					<span class="glyphicon glyphicon-list"></span> <span
+						translate="entity.action.view_all">view all</span>
+				</button>
+			</div>
+			<div class="col-md-6">
+				<p class="notice text-center">
+					<span translate="entity.action.found"
+						translate-values="{found: '{{payScales.length}}', total: '{{total}}'}">{{payScales.length}}
+						payScales retrieved from total of {{total}} payScales </span>
+				</p>
+			</div>
+		</div>
+		<table class="table table-hover table-striped">
+			<thead>
+				<tr>
+					<th translate="stepApp.payScale.code">Code</th>
+					<th translate="stepApp.payScale.payScaleClass">PayScaleClass</th>
+					<th translate="stepApp.payScale.grade">Grade</th>
+					<th translate="stepApp.payScale.gradeName">GradeName</th>
+					<th translate="stepApp.payScale.amount">Amount</th>
+					<th translate="stepApp.payScale.date">PayScaleDate</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="payScale in payScales track by payScale.id">
+					<td>{{payScale.code}}</td>
+					<td>{{payScale.payScaleClass}}</td>
+					<td>{{payScale.grade}}</td>
+					<td>{{payScale.gradeName}}</td>
+					<td>{{payScale.amount}}</td>
+					<td>{{payScale.date | date:'mediumDate'}}</td>
+					<td>
+						<div class="btn-group btn-group-sm">
+							<button type="submit" ui-sref="payScale.detail({id:payScale.id})"
+								class="btn btn-info btn-sm">
+								<span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span
+									translate="entity.action.view"> View</span>
+							</button>
+							<button type="submit" ui-sref="payScale.edit({id:payScale.id})"
+								class="btn btn-primary btn-sm">
+								<span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+									translate="entity.action.edit"> Edit</span>
+							</button>
+							<button type="submit" ui-sref="payScale.delete({id:payScale.id})"
+								class="btn btn-danger btn-sm">
+								<span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+									translate="entity.action.delete"> Delete</span>
+							</button>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		</tab> <tab heading="{{'stepApp.mpo.home.staffCount' | translate}}"
+			select="staffCount()">
+		<div class="row">
+			<div class="col-md-6">
+				<button class="btn btn-primary" ui-sref="staffCount.new">
+					<span class="glyphicon glyphicon-flash"></span> <span
+						translate="stepApp.staffCount.home.createLabel">Create a
+						new staffCount</span>
+				</button>
+				<button class="btn btn-info" ui-sref="staffCount">
+					<span class="glyphicon glyphicon-list"></span> <span
+						translate="entity.action.view_all">view all</span>
+				</button>
+			</div>
+			<div class="col-md-6">
+				<p class="notice text-center">
+					<span translate="entity.action.found"
+						translate-values="{found: '{{staffCount.length}}', total: '{{total}}'}">{{staffCount.length}}
+						staffCount retrieved from total of {{total}} staffCount </span>
+				</p>
+			</div>
+		</div>
+
+		<div class="table-responsive">
+			<table class="table table-hover table-striped">
+				<thead>
+					<tr>
+						<th><input type="checkbox"
+							ng-model="areAllStaffCountsSelected"
+							ng-change="updateStaffCountsSelection(staffCounts, areAllStaffCountsSelected)">
+						</th>
+						<th ng-click="order('id', reverse=!reverse)"
+							translate="global.field.id">ID</th>
+						<th ng-click="order('type', reverse=!reverse)"
+							translate="stepApp.staffCount.type">Type</th>
+						<th ng-click="order('numberOfMaleTeacher', reverse=!reverse)"
+							translate="stepApp.staffCount.numberOfMaleTeacher">NumberOfMaleTeacher
+						</th>
+						<th ng-click="order('numberOfFemaleTeacher', reverse=!reverse)"
+							translate="stepApp.staffCount.numberOfFemaleTeacher">NumberOfFemaleTeacher
+						</th>
+						<th translate="stepApp.staffCount.institute">institute</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr
+						ng-repeat="staffCount in staffCounts  | filter:filter | orderBy:predicate:reverse track by staffCount.id">
+						<td><input type="checkbox" ng-model="staffCount.isSelected" /></td>
+						<td><a ui-sref="staffCount.detail({id:staffCount.id})">{{staffCount.id}}</a></td>
+						<td translate="{{'stepApp.EmployeeType.' + staffCount.type}}">{{staffCount.type}}</td>
+						<td>{{staffCount.numberOfMaleTeacher}}</td>
+						<td>{{staffCount.numberOfFemaleTeacher}}</td>
+						<td><a
+							ui-sref="institute.detail({id:staffCount.institute.id})">{{staffCount.institute.name}}</a>
+						</td>
+						<td>
+							<div class="btn-group btn-group-sm">
+								<button type="submit"
+									ui-sref="staffCount.detail({id:staffCount.id})"
+									class="btn btn-info btn-sm">
+									<span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span
+										translate="entity.action.view"> View</span>
+								</button>
+								<button type="submit"
+									ui-sref="staffCount.edit({id:staffCount.id})"
+									class="btn btn-primary btn-sm">
+									<span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+										translate="entity.action.edit"> Edit</span>
+								</button>
+								<button type="submit"
+									ui-sref="staffCount.delete({id:staffCount.id})"
+									class="btn btn-danger btn-sm">
+									<span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+										translate="entity.action.delete"> Delete</span>
+								</button>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		</tab> </tabset>
+<!--
+	</div>
+</div>
+-->

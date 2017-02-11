@@ -1,0 +1,134 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="miscTypeSetup.id == null" class="modal-title" id="myMiscTypeSetupLabel"
+            translate="stepApp.miscTypeSetup.home.createOrEditLabel">Create or edit a MiscTypeSetup</h4>
+        <h4 ng-show="miscTypeSetup.id != null" class="modal-title" id="myMiscTypeSetupLabel2"
+            translate="stepApp.miscTypeSetup.home.EditLabel">Create or edit a MiscTypeSetup</h4>
+        <div class="modal-body col-md-12 padding-tb">
+            <jh-alert-error></jh-alert-error>
+            <div class="form-group" ng-hide="true">
+                <label for="id" translate="global.field.id">ID</label>
+                <input type="text" class="form-control" id="id" name="id"
+                       ng-model="miscTypeSetup.id" readonly/>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.miscTypeSetup.typeCategory"
+                           for="field_typeCategory">TypeCategory</label>
+                    <select class="form-control" name="typeCategory" ng-model="miscTypeSetup.typeCategory"
+                            id="field_typeCategory" required>
+                        <option value="">Select Category</option>
+                        <option value="Employee" translate="stepApp.miscTypeCategory.Employee">Employee</option>
+                        <option value="Encadrement" translate="stepApp.miscTypeCategory.Encadrement">Encadrement</option>
+                        <option value="NomineeRelationship" translate="stepApp.miscTypeCategory.NomineeRelationship">NomineeRelationship</option>
+                        <option value="EducationBoard" translate="stepApp.miscTypeCategory.EducationBoard">EducationBoard</option>
+                        <option value="EducationLevel" translate="stepApp.miscTypeCategory.EducationLevel">EducationLevel</option>
+                        <option value="TrainingType" translate="stepApp.miscTypeCategory.TrainingType">TrainingType</option>
+                        <option value="TransferType" translate="stepApp.miscTypeCategory.TransferType">TransferType</option>
+                        <option value="JobCategory" translate="stepApp.miscTypeCategory.JobCategory">JobCategory</option>
+                        <option value="LoanType" translate="stepApp.miscTypeCategory.LoanType">LoanType</option>
+                        <option value="ObjectionType" translate="stepApp.miscTypeCategory.ObjectionType">ObjectionType</option>
+                        <option value="EmployeeWorkArea" translate="stepApp.miscTypeCategory.EmployeeWorkArea">EmployeeWork Area</option>
+                        <option value="BankName" translate="stepApp.miscTypeCategory.BankName">BankName</option>
+                        <option value="Teacher" translate="stepApp.miscTypeCategory.Teacher">Teacher</option>
+                        <option value="PunishmentType" translate="stepApp.miscTypeCategory.PunishmentType">PunishmentType</option>
+                        <option value="SourceOfFund" translate="stepApp.miscTypeCategory.SourceOfFund">SourceOfFund</option>
+                        <option value="CourseType" translate="stepApp.miscTypeCategory.CourseType">CourseType</option>
+                        <option value="PublicationType" translate="stepApp.miscTypeCategory.PublicationType">PublicationType</option>
+                        <option value="MembershipCategory" translate="stepApp.miscTypeCategory.MembershipCategory">MembershipCategory</option>
+                    </select>
+                    <div ng-show="editForm.typeCategory.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.typeCategory.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.miscTypeSetup.typeName" for="field_typeName">TypeName</label>
+                    <input type="text" class="form-control" name="typeName" id="field_typeName"
+                           ng-model="miscTypeSetup.typeName"
+                           ng-blur="checkCategoryWiseTypeName()" required/>
+                    <span class="message" ng-show="editForm.typeName.$pending">validating...</span>
+                    <div ng-show="typeNameAlreadyExist" class="alert alert-danger">
+                        Type name already exists !!!
+                    </div>
+                    <div ng-show="editForm.typeName.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.typeName.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.miscTypeSetup.typeTitle" for="field_typeTitle">TypeTitle</label>
+                    <input type="text" class="form-control" name="typeTitle" id="field_typeTitle"
+                           ng-model="miscTypeSetup.typeTitle"
+                           ng-blur="checkCategoryWiseTypeTitle()" required/>
+                    <span class="message" ng-show="editForm.typeTitle.$pending">validating...</span>
+                    <div ng-show="typeTitleAlreadyExist" class="alert alert-danger">
+                        Type title already exists !!!
+                    </div>
+                    <div ng-show="editForm.typeTitle.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.typeTitle.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.miscTypeSetup.typeTitleBn" for="field_typeTitleBn">TypeTitleBn</label>
+                    <input type="text" class="form-control" name="typeTitleBn" id="field_typeTitleBn"
+                           ng-model="miscTypeSetup.typeTitleBn"/>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.miscTypeSetup.typeCode" for="field_typeCode">TypeCode</label>
+                    <input type="text" class="form-control" name="typeCode" id="field_typeCode"
+                           ng-model="miscTypeSetup.typeCode"/>
+                </div>
+
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.miscTypeSetup.typeDesc" for="field_typeDesc">TypeDesc</label>
+                <textarea class="form-control" name="typeDesc" id="field_typeDesc"
+                          ng-model="miscTypeSetup.typeDesc"></textarea>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.miscTypeSetup.activeStatus">ActiveStatus</label>
+                <span class="form-control">
+                    <input type="radio" data-ng-model="miscTypeSetup.activeStatus" name="activeStatus"
+                           data-ng-value="true" required>&nbsp;Active&nbsp;|&nbsp;
+                    <input type="radio" data-ng-model="miscTypeSetup.activeStatus" name="activeStatus"
+                           data-ng-value="false" required>&nbsp;Inactive
+                </span>
+                </div>
+                <div class="form group col-sm-6">
+
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                <span class="glyphicon glyphicon-remove"></span>&nbsp;<span
+                translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="miscTypeSetup.id == null" translate="entity.action.save">Save</span>
+                <span ng-show="miscTypeSetup.id != null" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

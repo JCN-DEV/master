@@ -1,0 +1,654 @@
+<div class="panel-body">
+
+    <!--<div class="pull-right" has-any-authority="ROLE_ADMIN, ROLE_INSTITUTE">
+        <button class="btn btn-danger" ng-click="hideMpoForm()">Go to Application Home Page</button>
+    </div>
+    <div ng-class="currentSection=='personal' ? 'show' : 'hide'">
+        &lt;!&ndash;TABLE view&ndash;&gt;
+        <div id="personal-info" class="col-lg-12 col-md-12 education-div">
+            <h3 translate="{{'stepApp.employee.PersonalInformation'}}">Personal Information</h3>
+            <table class="table table-responsive table-bordered">
+                <tbody>
+                <tr>
+                    <td class="table-view-lebel" translate="{{'stepApp.employee.trackId'}}">Track ID</td>
+                    <td>{{employee.code}}</td>
+                    <td class="table-view-lebel">{{'stepApp.employee.nameEnglish' | translate}}</td>
+                    <td>{{employee.name}}</td>
+                </tr>
+
+                <tr>
+                <tr>
+                    <td class="table-view-lebel"> {{'stepApp.employee.fatherName' | translate}}</td>
+                    <td>{{employee.fatherName}}</td>
+                    <td class="table-view-lebel">{{'stepApp.employee.motherName' | translate}}</td>
+                    <td>{{employee.motherName}}</td>
+                </tr>
+
+                <tr>
+                    <td class="table-view-lebel">{{'stepApp.employee.email' | translate}}</td>
+                    <td>{{employee.email}}</td>
+                    <td class="table-view-lebel">{{'stepApp.employee.gender' | translate}}</td>
+                    <td>{{employee.gender}}</td>
+                </tr>
+
+                <tr>
+                    <td class="table-view-lebel">{{'stepApp.employee.dob' | translate}}</td>
+                    <td>{{employee.dob}}</td>
+                    <td class="table-view-lebel">{{'stepApp.employee.registrationCertificateSubject' | translate}}</td>
+                    <td>{{employee.registrationCertificateSubject}}</td>
+                </tr>
+
+                <tr>
+                    <td class="table-view-lebel">{{'stepApp.employee.registrationExamYear' | translate}}</td>
+                    <td>{{employee.registrationExamYear}}</td>
+                    <td class="table-view-lebel">{{'stepApp.employee.registrationCetificateNo' | translate}}</td>
+                    <td>{{employee.registrationCetificateNo}}</td>
+                </tr>
+
+                <tr>
+                    <td class="table-view-lebel">{{'stepApp.employee.indexNo' | translate}}</td>
+                    <td>{{employee.indexNo}}</td>
+                    <td class="table-view-lebel">{{'stepApp.employee.bankName' | translate}}</td>
+                    <td>{{instEmplBankInfo.bankName}}</td>
+                </tr>
+
+                <tr>
+                    <td class="table-view-lebel">{{'stepApp.employee.bankBranch' | translate}}</td>
+                    <td>{{instEmplBankInfo.bankBranch}}</td>
+                    <td class="table-view-lebel">{{'stepApp.employee.bankAccountNo' | translate}}</td>
+                    <td>{{instEmplBankInfo.bankAccountNo}}</td>
+                </tr>
+                <tr>
+                    <td class="table-view-lebel">{{'stepApp.employee.bloodGroup' | translate}}</td>
+                    <td>{{employee.bloodGroup}}</td>
+                    <td class="table-view-lebel">{{'stepApp.employee.conPerMobile' | translate}}</td>
+                    <td>{{employee.conPerMobile}}</td>
+                </tr>
+                <tr>
+                    <td class="table-view-lebel">{{'stepApp.employee.maritalStatus' | translate}}</td>
+                    <td>{{employee.maritalStatus}}</td>
+                    <td class="table-view-lebel">{{'stepApp.employee.contactNo' | translate}}</td>
+                    <td>{{employee.contactNo}}</td>
+
+                </tr>
+                <tr>
+                    <td class="table-view-lebel">{{'stepApp.employee.nationality' | translate}}</td>
+                    <td>{{employee.nationality}}</td>
+                    <td class="table-view-lebel">{{'stepApp.employee.nid' | translate}}</td>
+                    <td>{{employee.nid}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="institute-info" class="col-lg-12 col-md-12 education-div">
+            <h3 translate="{{'stepApp.employee.InstitutionalInformation'}}">Institutional Information</h3>
+            <table class="table table-responsive table-bordered">
+                <tbody>
+                <tr>
+                    <td class="table-view-lebel">{{'stepApp.employee.instituteInfo.name' | translate}}</td>
+                    <td>{{employee.institute.name}}</td>
+                    <td class="table-view-lebel">{{'stepApp.employee.instituteInfo.code' | translate}}</td>
+                    <td>{{employee.institute.code}}</td>
+                </tr>
+                <tr>
+                    <td class="table-view-lebel">{{'stepApp.employee.instituteInfo.category' | translate}}</td>
+                    <td>{{employee.institute.category}}</td>
+                    <td class="table-view-lebel">{{'stepApp.employee.instituteInfo.dateOfEstablishment' | translate}}
+                    </td>
+                    <td>{{employee.institute.dateOfEstablishment}}</td>
+                </tr>
+                <tr>
+                    <td class="table-view-lebel">{{'stepApp.employee.instituteInfo.type' | translate}}</td>
+                    <td>{{employee.institute.type}}</td>
+                    <td class="table-view-lebel">{{'stepApp.employee.instituteInfo.mpoCode' | translate}}</td>
+                    <td>{{employee.institute.mpoCode}}</td>
+                </tr>
+                <tr>
+                    <td class="table-view-lebel">{{'stepApp.employee.instituteInfo.location' | translate}}</td>
+                    <td>{{employee.institute.location}}</td>
+                    <td class="table-view-lebel">{{'stepApp.employee.instituteInfo.postOffice' | translate}}</td>
+                    <td>{{employee.institute.postOffice}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="education-div" class="col-lg-12 col-md-12 education-div">
+            <h3 translate="{{'stepApp.employee.EducationalInformation'}}">Educational Information</h3>
+            <table class="table table-responsive table-stripped">
+                <thead class="">
+                <tr>
+                    <th translate="{{'stepApp.employee.ExamName'}}">Exam Name</th>
+                    <th translate="{{'stepApp.employee.Group'}}">Group</th>
+                    <th translate="{{'stepApp.employee.GPA'}}">GPA/Grade</th>
+                    <th translate="{{'stepApp.employee.ExamYear'}}">Exam Year</th>
+                    <th translate="{{'stepApp.employee.ExamResult'}}">Exam Result Date</th>
+                    <th translate="{{'stepApp.employee.Remarks'}}">Remarks</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="appEducation in applicantEducation">
+                    <td>{{appEducation.certificateName}}</td>
+                    <td>Group</td>
+                    <td>{{appEducation.cgpa}}</td>
+                    <td>{{appEducation.passingYear}}</td>
+                    <td>01-01-1997</td>
+                    <td>Good</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <hr/>
+        <div id="training-info" class="col-lg-12 col-md-12 education-div">
+            <h3 translate="{{'stepApp.employee.TrainingInformation'}}">Training Information</h3>
+
+            <div id="applicantTraining">
+                <table class="table table-responsive table-stripped">
+                    <thead>
+                    <tr>
+                        <th translate="{{'stepApp.employee.TrainingName'}}">Training Name</th>
+                        <th translate="{{'stepApp.employee.Subject'}}">Subject</th>
+                        <th translate="{{'stepApp.employee.Result'}}">Result</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="appTraining in applicantTraining">
+                        <td>{{appTraining.name}}</td>
+                        <td>{{appTraining.subjectsCoverd}}</td>
+                        <td>{{appTraining.result}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div></div>
+        <div id="employee-address" class="col-lg-12 col-md-12 education-div">
+            <h3 translate="{{'stepApp.employee.EmployeeAddress'}}">Employee Address</h3>
+        </div>
+        <div id="address-div1" class="col-md-6">
+            &lt;!&ndash; <h3> Employee Address</h3>&ndash;&gt;
+            <table class="table">
+                <thead>
+                <tr>
+                    <th colspan="2" translate="{{'stepApp.employee.PresentAddress'}}"> Present Address</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="app_re_info" translate="{{'stepApp.employee.VillageHouse'}}">Village/House</td>
+                    <td>{{address.villageOrHouse}}</td>
+                </tr>
+                <tr>
+                    <td class="app_re_info" translate="{{'stepApp.employee.RoadBlock'}}">Road/Block</td>
+                    <td>{{address.roadBlockSector}}</td>
+                </tr>
+                <tr>
+                    <td class="app_re_info" translate="{{'stepApp.employee.Upazilla'}}">Upazilla</td>
+                    <td>{{address.upazila.name}}</td>
+                </tr>
+                <tr>
+                    <td class="app_re_info" translate="{{'stepApp.employee.District'}}">District</td>
+                    <td>{{address.upazila.district.name}}</td>
+                </tr>
+                <tr>
+                    <td class="app_re_info" translate="{{'stepApp.employee.Division'}}">Division</td>
+                    <td>{{address.upazila.district.division.name}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="address-div2" class="col-md-6 ">
+            &lt;!&ndash;<h3>Permanent Address</h3>&ndash;&gt;
+            <table class="table">
+                <thead>
+                <tr>
+                    <th colspan="2" translate="{{'stepApp.employee.PermanentAddress'}}"> Permanent Address</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="app_re_info" translate="{{'stepApp.employee.VillageHouse'}}">Village/House</td>
+                    <td>{{address.prevVillageOrHouse}}</td>
+                </tr>
+                <tr>
+                    <td class="app_re_info" translate="{{'stepApp.employee.RoadBlock'}}">Road/Block</td>
+                    <td>{{address.prevRoadBlockSector}}</td>
+                </tr>
+                <tr>
+                    <td class="app_re_info" translate="{{'stepApp.employee.Upazilla'}}">Upazilla</td>
+                    <td>{{address.prevUpazila.name}}</td>
+                </tr>
+                <tr>
+                    <td class="app_re_info" translate="{{'stepApp.employee.District'}}">District</td>
+                    <td>{{address.prevUpazila.district.name}}</td>
+                </tr>
+                <tr>
+                    <td class="app_re_info" translate="{{'stepApp.employee.Division'}}">Division</td>
+                    <td>{{address.prevUpazila.district.division.name}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="pull-right" style="margin-right:15px;">
+            <span class="btn btn-primary" ng-click="timescaleNext('personal','education')"
+                  translate="{{'stepApp.employee.Next'}}" >Next</span>
+        </div>
+        <span class="btn "></span>
+    </div>
+
+
+    <div ng-class="currentSection=='education' ? 'show' : 'hide'">
+        <div id="applicant-info" class="col-lg-12">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th colspan="4" translate="{{'stepApp.employee.appEnrInfo'}}">Applicant Enrolment Information</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="app_re_info">{{'stepApp.employee.presentDesignation' | translate}}</td>
+                    <td>{{employee.instEmplDesignation.name}}</td>
+                    <td class="app_re_info">{{'stepApp.employee.payScale' | translate}}</td>
+                    <td>{{instEmplRecruitInfo.salaryScale}}</td>
+                </tr>
+                <tr>
+                    <td class="app_re_info">{{'stepApp.employee.payScaleCode' | translate}}</td>
+                    <td>{{instEmplRecruitInfo.salaryCode}}</td>
+
+                    <td class="app_re_info">{{'stepApp.employee.month' | translate}}</td>
+                    <td>{{instEmplRecruitInfo.month}}</td>
+                </tr>
+                <tr>
+                    <td class="app_re_info">{{'stepApp.employee.monthlySalaryGovtProvided' | translate}}</td>
+                    <td>{{instEmplRecruitInfo.monthlySalaryGovtProvided}}</td>
+                    <td class="app_re_info">{{'stepApp.employee.monthlySalaryInstituteProvided' | translate}}</td>
+                    <td>{{instEmplRecruitInfo.monthlySalaryInstituteProvided}}</td>
+                </tr>
+                <tr>
+                    <td class="app_re_info">{{'stepApp.employee.gbResolutionReceiveDate' | translate}}</td>
+                    <td>{{instEmplRecruitInfo.gbResolutionReceiveDate}}</td>
+                    <td class="app_re_info">{{'stepApp.employee.gbResolutionAgendaNo' | translate}}</td>
+                    <td>{{instEmplRecruitInfo.gbResolutionAgendaNo}}</td>
+                </tr>
+                <tr>
+                    <td class="app_re_info">{{'stepApp.employee.circularPaperName' | translate}}</td>
+                    <td>{{instEmplRecruitInfo.circularPaperName}}</td>
+                    <td class="app_re_info">{{'stepApp.employee.circularPublishedDate' | translate}}</td>
+                    <td>{{instEmplRecruitInfo.circularPublishedDate}}</td>
+                </tr>
+                <tr>
+                    <td class="app_re_info">{{'stepApp.employee.recruitExamDate' | translate}}</td>
+                    <td>{{instEmplRecruitInfo.recruitExamDate}}</td>
+                    <td class="app_re_info">{{'stepApp.employee.recruitApproveGBResolutionDate' | translate}}</td>
+                    <td>{{instEmplRecruitInfo.recruitApproveGBResolutionDate}}</td>
+                </tr>
+                <tr>
+                    <td class="app_re_info">{{'stepApp.employee.recruitPermitAgendaNo' | translate}}</td>
+                    <td>{{instEmplRecruitInfo.recruitPermitAgendaNo}}</td>
+                    <td class="app_re_info">{{'stepApp.employee.recruitmentDate' | translate}}</td>
+                    <td>{{instEmplRecruitInfo.recruitmentDate}}</td>
+                </tr>
+                <tr>
+                    <td class="app_re_info">{{'stepApp.employee.presentInstituteJoinDate' | translate}}</td>
+                    <td>{{instEmplRecruitInfo.presentInstituteJoinDate}}</td>
+                    <td class="app_re_info">{{'stepApp.employee.presentPostJoinDate' | translate}}</td>
+                    <td>{{instEmplRecruitInfo.presentPostJoinDate}}</td>
+                </tr>
+                <tr>
+                    <td class="app_re_info">{{'stepApp.employee.dgRepresentativeType' | translate}}</td>
+                    <td>{{instEmplRecruitInfo.dgRepresentativeType}}</td>
+                    <td class="app_re_info">{{'stepApp.employee.dgRepresentativeName' | translate}}</td>
+                    <td>{{instEmplRecruitInfo.dgRepresentativeName}}</td>
+                </tr>
+                <tr>
+                    <td class="app_re_info">{{'stepApp.employee.dgRepresentativeDesignation' | translate}}</td>
+                    <td>{{instEmplRecruitInfo.dgRepresentativeDesignation}}</td>
+                    <td class="app_re_info">{{'stepApp.employee.dgRepresentativeAddress' | translate}}</td>
+                    <td>{{instEmplRecruitInfo.dgRepresentativeAddress}}</td>
+                </tr>
+                <tr>
+                    <td class="app_re_info">{{'stepApp.employee.representativeType' | translate}}</td>
+                    <td>{{instEmplRecruitInfo.representativeType}}</td>
+                    <td class="app_re_info">{{'stepApp.employee.boardRepresentativeName' | translate}}</td>
+                    <td>{{instEmplRecruitInfo.boardRepresentativeName}}</td>
+                </tr>
+                <tr>
+                    <td class="app_re_info">{{'stepApp.employee.boardRepresentativeDesignation' | translate}}</td>
+                    <td>{{instEmplRecruitInfo.boardRepresentativeDesignation}}</td>
+                    <td class="app_re_info">{{'stepApp.employee.boardRepresentativeAddress' | translate}}</td>
+                    <td>{{instEmplRecruitInfo.boardRepresentativeAddress}}</td>
+                </tr>
+                <tr>
+                    <td class="app_re_info">{{'stepApp.employee.timeScaleGBResolutionDate' | translate}}</td>
+                    <td>{{instEmplRecruitInfo.timeScaleGBResolutionDate}}</td>
+                    <td class="app_re_info">{{'stepApp.employee.salaryScale' | translate}}</td>
+                    <td>{{instEmplRecruitInfo.salaryScale}}</td>
+                </tr>
+                <tr>
+                    <td class="app_re_info">{{'stepApp.employee.salaryCode' | translate}}</td>
+                    <td>{{instEmplRecruitInfo.salaryCode}}</td>
+                    <td class="app_re_info">{{'stepApp.employee.recruitExamReceiveDate' | translate}}</td>
+                    <td>{{instEmplRecruitInfo.recruitExamReceiveDate}}</td>
+                </tr>
+                <tr>
+                    <td class="app_re_info">{{'stepApp.employee.totalJobDuration' | translate}}</td>
+                    <td>{{instEmplRecruitInfo.totalJobDuration}}</td>
+                    <td class="app_re_info">{{'stepApp.employee.currentPositionJobDuration' | translate}}</td>
+                    <td>{{instEmplRecruitInfo.currentPositionJobDuration}}</td>
+                </tr>
+                <tr has-authority="ROLE_ADMIN">
+                    <td>{{'stepApp.employee.manager' | translate}}</td>
+                    <td>{{instEmplRecruitInfo.manager}}</td>
+                    <td>{{'stepApp.employee.institute' | translate}}</td>
+                    <td>{{instEmplRecruitInfo.institute}}</td>
+                </tr>
+                <tr has-authority="ROLE_ADMIN">
+                    <td colspan="2">{{'stepApp.employee.user ' | translate}}</td>
+                    <td colspan="2">{{instEmplRecruitInfo.user}}</td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        &lt;!&ndash;=========================================================================================&ndash;&gt;
+        <div class="form-group">
+            <div class="col-sm-12 pull-right text-right prev-next">
+                <span class="btn btn-primary pull-left text-left"
+                      ng-click="timescalePrev('education', 'personal')" translate="{{'stepApp.employee.Previous'}}">Previous</span>
+                <span class="btn btn-primary" ng-click="timescaleNext('education','attachment')" translate="{{'stepApp.employee.Next'}}">Next</span>
+            </div>
+        </div>
+    </div>
+-->
+    <!--<div ng-class="currentSection=='attachment' ? 'show' : 'hide'" class="attachment_info">-->
+    <div class="attachment_info" >
+
+
+        <div class="col-sm-12 timescale-apply">
+            <form name="editForm" class="form form-horizontal col-sm-12" role="form" novalidate ng-submit="save()"
+                  show-validation>
+
+                <h3 translate="{{'stepApp.timeScaleApplication.Information'}}">Information</h3>
+
+                <div class="col-sm-12">
+                    <!--<div class="col-sm-6">
+                        <div class="form-group">
+                            <label translate="stepApp.timeScaleApplication.disciplinaryAction"
+                                   for="field_disciplinaryAction">DisciplinaryAction</label>
+                            <input type="checkbox" class="form-control" name="disciplinaryAction"
+                                   id="field_disciplinaryAction"
+                                   ng-model="timeScaleApplication.disciplinaryAction"
+                                />
+                        </div>
+                    </div>-->
+                    <div class="col-md-6">
+                        <div class="form-group" >
+                            <!--<label class="control-label" translate="stepApp.instGenInfo.mpoEnlisted" for="field_mpoEnlisted">MPO Enlisted</label>-->
+                            <label translate="stepApp.timeScaleApplication.disciplinaryAction" for="field_disciplinaryAction">DisciplinaryAction</label>
+                            <div id="field_disciplinaryAction" >
+                                <!--<label  class="radio-inline btn btn-default"><input ng-disabled="timeScaleApplication.disciplinaryAction" type="radio" name="optradio" ng-model="instGenInfo.mpoEnlisted"  ng-value="true">Yes</label>
+                                <label class="radio-inline btn btn-default"><input ng-disabled="timeScaleApplication.disciplinaryAction" type="radio" name="optradio" ng-model="instGenInfo.mpoEnlisted"  ng-value="false">No</label>-->
+                                <label  class="radio-inline btn btn-default"><input type="radio" name="disciplinaryActionRadio" ng-model="timeScaleApplication.disciplinaryAction"  ng-value="true" ng-click="disciplinaryActionClick(timeScaleApplication.disciplinaryAction)">Yes</label>
+                                <label class="radio-inline btn btn-default"><input type="radio" name="disciplinaryActionRadio" ng-model="timeScaleApplication.disciplinaryAction"  ng-value="false" ng-click="disciplinaryActionClick(timeScaleApplication.disciplinaryAction)" >No</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label translate="stepApp.timeScaleApplication.disActionCaseNo" for="field_disActionCaseNo">DisActionCaseNo</label>
+                            <input ng-disabled="noDisciplinaryAction" type="text" class="form-control" name="disActionCaseNo" id="field_disActionCaseNo"
+                                   ng-model="timeScaleApplication.disActionCaseNo"
+                                />
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group ">
+                            <label translate="stepApp.timeScaleApplication.disActionFileName"
+                                   for="field_disActionFile">DisActionFileName</label>
+
+                            <input ng-disabled="noDisciplinaryAction" type="file" ngf-select class="btn btn-default btn-sm"
+                                    ngf-change="changeActionFile($file)" translate="entity.action.addblob" id="field_disActionFile"/>
+
+
+                        </div>
+                    </div>
+
+                    <!-- <div class="form-group col-sm-6">
+                         <label translate="stepApp.jpEmployee.dobRecom" for="field_resulationdate">Dob</label>
+                         <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.dob" required=""
+                                datepicker-options="calendar.dateOptions" close-text="Close"
+                                ng-click="calendar.open($event, 'dob')" class="form-control" name="dob" id="field_resulationdate"
+                                ng-model="jpEmployee.dob"/>
+                     </div>-->
+                    <div class="col-sm-6" ng-show="!noDisciplinaryAction">
+                        <div class="form-group">
+                            <label translate="stepApp.timeScaleApplication.resulationDate" for="field_resulationDate">ResulationDate</label>
+                            <!--<input type="date" class="form-control" name="resulationDate" id="field_resulationDate"
+                                   ng-model="timeScaleApplication.resulationDate"
+                                />-->
+
+                            <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.resulationDate"
+                                   required
+                                   datepicker-options="calendar.dateOptions" close-text="Close"
+                                   ng-click="calendar.open($event, 'resulationDate')" class="form-control"
+                                   name="resulationDate" id="field_resulationdate"
+                                   ng-model="timeScaleApplication.resulationDate"/>
+                        </div>
+                    </div>
+                    <div class="col-sm-6" ng-show="noDisciplinaryAction">
+                        <div class="form-group">
+                            <label translate="stepApp.timeScaleApplication.resulationDate" for="field_resulationDate">ResulationDate</label>
+                            <!--<input type="date" class="form-control" name="resulationDate" id="field_resulationDate"
+                                   ng-model="timeScaleApplication.resulationDate"
+                                />-->
+
+                            <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.resulationDate"
+                                   datepicker-options="calendar.dateOptions" close-text="Close"
+                                   ng-click="calendar.open($event, 'resulationDate')" class="form-control"
+                                   name="resulationDate" id="field_resulationdate"
+                                   ng-model="timeScaleApplication.resulationDate"/>
+                        </div>
+                    </div>
+                    <div class="col-sm-6" ng-show="!noDisciplinaryAction">
+                        <div class="form-group">
+                            <label translate="stepApp.timeScaleApplication.agendaNumber" for="field_agendaNumber">AgendaNumber</label>
+                            <input type="number" class="form-control" name="agendaNumber" id="field_agendaNumber"
+                                   ng-model="timeScaleApplication.agendaNumber" required
+                                />
+                        </div>
+                    </div>
+                    <div class="col-sm-6" ng-show="noDisciplinaryAction">
+                        <div class="form-group">
+                            <label translate="stepApp.timeScaleApplication.agendaNumber" for="field_agendaNumber">AgendaNumber</label>
+                            <input type="number" class="form-control" name="agendaNumber" id="field_agendaNumber"
+                                   ng-model="timeScaleApplication.agendaNumber"
+                                />
+                        </div>
+                    </div>
+                    <!--<div class="col-sm-6">
+                        <div class="form-group">
+                            <label translate="stepApp.timeScaleApplication.workingBreak" for="field_workingBreak">WorkingBreak</label>
+                            <input type="checkbox" class="form-control" name="workingBreak" id="field_workingBreak"
+                                   ng-model="timeScaleApplication.workingBreak" required
+                                />
+                        </div>
+                    </div>-->
+
+                    <div class="col-md-6">
+                        <div class="form-group" >
+                            <!--<label class="control-label" translate="stepApp.instGenInfo.mpoEnlisted" for="field_mpoEnlisted">MPO Enlisted</label>-->
+                            <label translate="stepApp.timeScaleApplication.workingBreak" for="field_workingBreak">WorkingBreak</label>
+                            <div id="field_workingBreak" >
+                                <label  class="radio-inline btn btn-default"><input  type="radio" name="workingBreakRadio" ng-model="timeScaleApplication.workingBreak"  ng-click="workingBreakClick(timeScaleApplication.workingBreak)" ng-value="true">Yes</label>
+                                <label class="radio-inline btn btn-default"><input  type="radio" name="workingBreakRadio" ng-model="timeScaleApplication.workingBreak"  ng-click="workingBreakClick(timeScaleApplication.workingBreak)" ng-value="false">No</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 no_padding"  ng-show="!noWorkingBreakClick">
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label translate="stepApp.timeScaleApplication.workingBreakStart"
+                                   for="field_workingBreakStart">WorkingBreakStart</label>
+                            <!--<input type="date" class="form-control" name="workingBreakStart"
+                                   id="field_workingBreakStart"
+                                   ng-model="timeScaleApplication.workingBreakStart"
+                                />-->
+                            <input datepicker-popup="{{calendar.dateFormat}}" ng-disabled="noWorkingBreakClick" required
+                                   is-open="calendar.opened.workingBreakStart"
+                                   datepicker-options="calendar.dateOptions" close-text="Close"
+                                   ng-click="calendar.open($event, 'workingBreakStart')" class="form-control"
+                                   name="workingBreakStart" id="field_workingBreakStart"
+                                   ng-model="timeScaleApplication.workingBreakStart"/>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label translate="stepApp.timeScaleApplication.workingBreakEnd" for="field_workingBreakEnd">WorkingBreakEnd</label>
+                            <!--<input type="date" class="form-control" name="workingBreakEnd" id="field_workingBreakEnd"
+                                   ng-model="timeScaleApplication.workingBreakEnd"
+                                />-->
+                            <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.workingBreakEnd" ng-disabled="noWorkingBreakClick" required
+                                   datepicker-options="calendar.dateOptions" close-text="Close"
+                                   ng-click="calendar.open($event, 'workingBreakEnd')" class="form-control"
+                                   name="workingBreakStart" id="field_workingBreakEnd"
+                                   ng-model="timeScaleApplication.workingBreakEnd"/>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-sm-12 no_padding" ng-show="noWorkingBreakClick">
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label translate="stepApp.timeScaleApplication.workingBreakStart"
+                                       for="field_workingBreakStart">WorkingBreakStart</label>
+                                <!--<input type="date" class="form-control" name="workingBreakStart"
+                                       id="field_workingBreakStart"
+                                       ng-model="timeScaleApplication.workingBreakStart"
+                                    />-->
+                                <input datepicker-popup="{{calendar.dateFormat}}" ng-disabled="noWorkingBreakClick"
+                                       is-open="calendar.opened.workingBreakStart"
+                                       datepicker-options="calendar.dateOptions" close-text="Close"
+                                       ng-click="calendar.open($event, 'workingBreakStart')" class="form-control"
+                                       name="workingBreakStart" id="field_workingBreakStart"
+                                       ng-model="timeScaleApplication.workingBreakStart"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label translate="stepApp.timeScaleApplication.workingBreakEnd" for="field_workingBreakEnd">WorkingBreakEnd</label>
+                                <!--<input type="date" class="form-control" name="workingBreakEnd" id="field_workingBreakEnd"
+                                       ng-model="timeScaleApplication.workingBreakEnd"
+                                    />-->
+                                <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.workingBreakEnd" ng-disabled="noWorkingBreakClick"
+                                       datepicker-options="calendar.dateOptions" close-text="Close"
+                                       ng-click="calendar.open($event, 'workingBreakEnd')" class="form-control"
+                                       name="workingBreakStart" id="field_workingBreakEnd"
+                                       ng-model="timeScaleApplication.workingBreakEnd"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+               <div class="col-sm-12">
+                   <h3 translate="{{'stepApp.employee.AttachmentInformation'}}">Attachment Information</h3>
+
+                <div class="attachmentDiv" ng-repeat="attachmentCount in applicantAttachmentCount track by $index">
+                    <div class="col-sm-12">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <select class="form-control" id="field_attachment" name="attachment"
+                                        ng-model="applicantAttachment[attachmentCount].attachment"
+                                        ng-change="setAttachment($index, applicantAttachment[attachmentCount],applicantAttachment[attachmentCount].noAttachment)">
+                                    <option value="" selected="selected" translate="{{'stepApp.employee.AttachmentName'}}">Attachment Name</option>
+                                    <option
+                                        ng-repeat="mpoAttachment in attachmentCategoryList "
+                                        value="{{mpoAttachment}}">
+                                        {{mpoAttachment.attachmentName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" ng-hide="applicantAttachment[attachmentCount].noAttachment">
+                            <div class="form-group" ngf-drop ngf-change="setFile($file, attachment)">
+                                <div>
+                                    <div class="help-block clearfix">
+                                        <span class="pull-left">{{applicantAttachment[attachmentCount].fileContentType}} {{byteSize(applicantAttachment[attachmentCount].file)}}</span>
+                                        <button
+                                            ng-click="applicantAttachment[attachmentCount].file=null;applicantAttachment[attachmentCount].fileContentType=null;"
+                                            ng-if="applicantAttachment[attachmentCount].file"
+                                            class="btn btn-default btn-xs pull-right">
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                        </button>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <input type="file" ngf-select class="btn btn-default btn-sm col-sm-6"
+                                               ngf-change="setFile($file, applicantAttachment[attachmentCount])"
+                                               translate="entity.action.addblob">
+                                        </input>
+                                        <div class="col-sm-6" ng-hide="attachmentCount=='0'">
+                                        <span class="col-sm-6 minus-btn"
+                                              ng-click="removeAttachment(attachmentCount)"><span
+                                            class="glyphicon glyphicon-minus"></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" class="form-control" name="file" id="field_file"
+                                       ng-model="applicantAttachment[attachmentCount].file"
+                                    />
+                                <input type="hidden" class="form-control" name="fileContentType" id="field_fileContentType"
+                                       ng-model="applicantAttachment[attachmentCount].fileContentType"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" ng-show="applicantAttachment[attachmentCount].noAttachment">
+                            <div class="col-sm-12">
+                                <div class="col-sm-6">
+                                    <input class="form-control" type="text" ng-change="remarksChange(applicantAttachment[attachmentCount].noAttachment,applicantAttachment[attachmentCount].remarks)"
+                                           ng-model="applicantAttachment[attachmentCount].remarks" placeholder="Remarks"/>
+                                </div>
+                                <div class="col-sm-6" ng-hide="attachmentCount=='0'">
+                                <span class="col-sm-6 minus-btn" ng-click="removeAttachment(attachmentCount)"><span
+                                    class="glyphicon glyphicon-minus"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 attachment_file">
+                        <div class="control-lebel">
+                            <div class="col-sm-12">
+                                <input ng-click='selectNoAttachment(applicantAttachment[attachmentCount].noAttachment,applicantAttachment[attachmentCount].attachment,applicantAttachment[attachmentCount].file,applicantAttachment[attachmentCount].remarks)' type="checkbox" id="noAttachment"
+                                       ng-model="applicantAttachment[attachmentCount].noAttachment">
+                                <label class="control-label my_control_lebel"
+                                       for="field_noAttachment" translate="{{'stepApp.employee.dontHave'}}">I don't have this attachment</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="col-sm-12">
+                <span ng-show="showAddMoreButton" class="btn btn-sm btn-primary pull-right"
+                      ng-click="addMoreAttachment()"><span
+                    class="glyphicon glyphicon-plus"></span>Add More Attachment</span>
+                </div>
+                <div class="col-sm-12" ng-show="duplicateError">
+                    <span style="color:red;margin-top:30px;font-size:14px;">You have selected duplicate attachment, please check the selection.</span>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group my_form_group">
+                        <br/>
+
+                        <div class="col-lg-12 pull-right text-right">
+                            <span class="btn btn-primary pull-left text-left" ng-click="mpoPrev('attachment', 'education')" translate="{{'stepApp.employee.Previous'}}">Previous</span>
+
+                            <button ng-disabled="mpoFormHasError" type="submit" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-ok-sign"></span>&nbsp;<span
+                                translate="global.menu.apply">Apply</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

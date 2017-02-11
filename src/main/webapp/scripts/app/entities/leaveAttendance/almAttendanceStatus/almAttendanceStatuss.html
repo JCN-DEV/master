@@ -1,0 +1,115 @@
+<div class="col-sm-12 common-list">
+    <h2 translate="stepApp.almAttendanceStatus.home.title">AlmAttendanceStatuss</h2>
+    <!--<jh-alert></jh-alert>-->
+    <div class="col-sm-12 padding-tb ">
+        <div class="col-md-4  no_padding">
+            <b>{{ (almAttendanceStatuss|filter:q).length }} results found</b>
+            <div class="input-group">
+                <span class="input-group-addon dlbtn" id="basic-addon1"><i class="fa fa-search"></i></span>
+                <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+            </div>
+        </div>
+        <div class="col-md-4 no_padding"> <b>Items per page:</b>
+            <div class="input-group">
+                <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+            </div>
+        </div>
+        <div class="col-md-4 text-right no_padding">
+            <button class="btn btn-primary dlbtn dlbtn-top" ui-sref="almAttendanceStatus.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.almAttendanceStatus.home.createLabel">Create a new AlmAttendanceStatus</span>
+            </button>
+        </div>
+    </div>
+    <!--<div class="col-sm-12 no_padding paddingbt">
+            <div class="col-md-8 no_padding">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control su_sea_btn" ng-model="searchQuery" id="searchQuery" placeholder="">
+
+                        <button class="btn btn-info btn_su_left" ng-click="search()"><span class="glyphicon glyphicon-search"></span></button>
+                    </div>
+
+                </form>
+            </div>
+        <div class="col-md-4 no_padding text-right">
+            <button class="btn btn-primary" ui-sref="almAttendanceStatus.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.almAttendanceStatus.home.createLabel">Create a new AlmAttendanceStatus</span>
+            </button>
+        </div>
+    </div>-->
+
+    <div class="modal animated bounceInUp" id="deleteAlmAttendanceStatusConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(almAttendanceStatus.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p translate="stepApp.almAttendanceStatus.delete.question" translate-values="{id: '{{almAttendanceStatus.id}}'}">Are you sure you want to delete this AlmAttendanceStatus?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 no_padding table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="global.field.serial">Serial</th>
+                <th translate="global.field.id">ID</th>
+                <th translate="stepApp.almAttendanceStatus.attendanceStatusName">AttendanceStatusName</th>
+                <th translate="stepApp.almAttendanceStatus.description">Description</th>
+                <th translate="stepApp.almAttendanceStatus.attendanceCode">AttendanceCode</th>
+                <th translate="stepApp.almAttendanceStatus.shortCode">ShortCode</th>
+                <th translate="stepApp.almAttendanceStatus.activeStatus">ActiveStatus</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--<tr dir-paginate="almAttendanceStatus in almAttendanceStatuss  | filter:q | itemsPerPage: pageSize">-->
+            <tr dir-paginate="almAttendanceStatus in almAttendanceStatuss | filter:q | itemsPerPage: pageSize track by almAttendanceStatus.id"
+                current-page="currentPage">
+                <td>{{pageSize*(currentPage-1)+$index+1}}</td>
+                <td><a ui-sref="almAttendanceStatus.detail({id:almAttendanceStatus.id})">{{almAttendanceStatus.id}}</a></td>
+                <td>{{almAttendanceStatus.attendanceStatusName}}</td>
+                <td>{{almAttendanceStatus.description}}</td>
+                <td>{{almAttendanceStatus.attendanceCode}}</td>
+                <td>{{almAttendanceStatus.shortCode}}</td>
+                <td>{{almAttendanceStatus.activeStatus  ? 'Active' : 'Inactive'}}</td>
+                <td class="text-right">
+                    <button type="submit"
+                            ui-sref="almAttendanceStatus.detail({id:almAttendanceStatus.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="almAttendanceStatus.edit({id:almAttendanceStatus.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit"
+                            ng-click="delete(almAttendanceStatus.id)"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+</div>

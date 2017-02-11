@@ -1,0 +1,148 @@
+<style>
+    #content form .panel-heading {
+        background: #95d097 none repeat scroll 0% 0% !important;
+        border: 0px;
+        border-radius: 0px;
+        color: #444;
+        padding: 5px;
+    }
+
+    #content form .panel {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .trainerinfo {
+        border-bottom: 1px solid #95d097;
+        padding: 5px 20px;
+        font-size: 12px;
+        position: relative;
+        z-index: 1;
+        color: #444;
+    }
+
+    .trainerinfo:before {
+        position: absolute;
+        content: "";
+        top: 0;
+        left: 0;
+        height: 24px;
+        width: 300px;
+        background: #95d097;
+        z-index: -1;
+        border-radius: 0px 100px 0px 0px;
+    }
+</style>
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+        <h4 class="modal-title" id="myTrainerEvaluationInfoLabel" translate="stepApp.trainerEvaluationInfo.home.createOrEditLabel">Create or edit a TrainerEvaluationInfo</h4>
+        <div class="modal-body col-md-12 padding-tb">
+            <div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.trainerEvaluationInfo.trainingCode" for="field_trainingCode">Training Code</label>
+                    <input type="text" class="form-control" name="trainingCode" id="field_trainingCode"
+                           ng-model="trainerEvaluationInfo.trainingCode" ng-blur="TrainerListByTrainingCode(trainerEvaluationInfo.trainingCode)"
+                        placeholder="{{'stepApp.trainerEvaluationInfo.trainingCode' | translate}}"
+                        />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.trainerEvaluationInfo.evaluationDate" for="field_evaluationDate">EvaluationDate</label>
+                    <!--<input type="date" class="form-control" name="evaluationDate" id="field_evaluationDate"-->
+                    <!--ng-model="trainerEvaluationInfo.evaluationDate"/>-->
+                    <input datepicker-popup="{{calendar.dateFormat}}"
+                           is-open="calendar.opened.evaluationDate"
+                           datepicker-options="calendar.dateOptions" close-text="Close"
+                           ng-click="calendar.open($event, 'evaluationDate')" class="form-control"
+                           name="evaluationDate"
+                           id="field_evaluationDate"
+                           tooltip="{{'stepApp.trainerEvaluationInfo.evaluationDate' | translate}}"
+                           placeholder="yyyy-mm-dd"
+                           ng-model="trainerEvaluationInfo.evaluationDate" required/>
+                    <div ng-show="editForm.evaluationDate.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.evaluationDate.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 no_padding" ng-repeat="trainerEvaluationInfo in trainerLists track by $index">
+                <div class="panel panel-default">
+                    <div class="panel-heading" translate="stepApp.trainerEvaluationInfo.trainerinfo">Trainer Information</div>
+                    <div class="panel-body">
+                        <h2 class="trainerinfo" translate="stepApp.trainerEvaluationInfo.trainerinfo">Trainer
+                            Information</h2>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label translate="stepApp.trainerEvaluationInfo.trainerId" for="field_trainerId">trainerId</label>
+                                <input type="text" class="form-control" name="mark" id="field_trainerId"
+                                       ng-model="trainerEvaluationInfo.trainerId"
+                                       readonly placeholder="{{'stepApp.trainerEvaluationInfo.trainerId' | translate}}" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label translate="stepApp.trainerEvaluationInfo.trainerName" for="field_trainerName">Trainer Name</label>
+                                <input type="text" class="form-control" name="trainerName" id="field_trainerName"
+                                       ng-model="trainerEvaluationInfo.trainerName"
+                                       placeholder="{{'stepApp.trainerEvaluationInfo.trainerName' | translate}}"
+                                    />
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label translate="stepApp.trainerEvaluationInfo.performance"
+                                       for="field_performance">Performance</label>
+                                <select class="form-control" id="field_performance" name="performance"
+                                        ng-model="trainerEvaluationInfo.performance" required>
+                                    <option disabled selected value="">{{'global.home.select' |translate}}</option>
+                                    <option value="Good">Good</option>
+                                    <option value="Better">Better</option>
+                                    <option value="Best">Best</option>
+                                    <option value="Bad">Bad</option>
+                                </select>
+
+                                <div ng-show="editForm.performance.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.performance.$error.required" translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+                                    <p class="help-block"
+                                       ng-show="editForm.performance.$error.maxlength" translate="entity.validation.maxlength"
+                                       translate-value-max="50">
+                                        This field cannot be longer than 50 characters.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label translate="stepApp.trainerEvaluationInfo.remarks" for="field_remarks">Remarks</label>
+                                <input type="text" class="form-control" name="remarks" id="field_remarks"
+                                       ng-model="trainerEvaluationInfo.remarks"
+                                       placeholder="{{'stepApp.trainerEvaluationInfo.remarks' | translate}}"
+                                    />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div cclass="modal-footer col-md-12 no_padding">
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

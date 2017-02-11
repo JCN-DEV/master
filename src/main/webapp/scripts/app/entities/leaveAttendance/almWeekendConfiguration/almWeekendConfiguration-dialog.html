@@ -1,0 +1,106 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="almWeekendConfiguration.id == null" class="modal-title" id="myAlmWeekendConfigurationLabel"
+            translate="stepApp.almWeekendConfiguration.home.createOrEditLabel">Create or edit a
+            AlmWeekendConfiguration</h4>
+        <h4 ng-show="almWeekendConfiguration.id != null" class="modal-title" id="myAlmWeekendConfigurationLabel"
+            translate="stepApp.almWeekendConfiguration.home.EditLabel">Create or edit a AlmWeekendConfiguration</h4>
+        <div class="modal-body">
+            <div class="row">
+                <div class="form-group col-sm-12">
+                    <label translate="stepApp.almWeekendConfiguration.dayName" for="field_dayName">DayName</label>
+                <span class="form-control">
+                    <input tooltip="{{'stepApp.almWeekendConfiguration.dayName' | translate}}" type="radio" data-ng-model="almWeekendConfiguration.dayName"
+                           ng-change="duplicateCheckByDayName()" name="dayName" value="Sunday" required>      &nbsp;  Sunday      &nbsp;|&nbsp;
+                    <input tooltip="{{'stepApp.almWeekendConfiguration.dayName' | translate}}" type="radio" data-ng-model="almWeekendConfiguration.dayName"
+                           ng-change="duplicateCheckByDayName()" name="dayName" value="Monday">      &nbsp;  Monday      &nbsp;|&nbsp;
+                    <input tooltip="{{'stepApp.almWeekendConfiguration.dayName' | translate}}" type="radio" data-ng-model="almWeekendConfiguration.dayName"
+                           ng-change="duplicateCheckByDayName()" name="dayName" value="Tuesday">     &nbsp;  Tuesday     &nbsp;|&nbsp;
+                    <input tooltip="{{'stepApp.almWeekendConfiguration.dayName' | translate}}" type="radio" data-ng-model="almWeekendConfiguration.dayName"
+                           ng-change="duplicateCheckByDayName()" name="dayName" value="Wednesday">   &nbsp;  Wednesday   &nbsp;|&nbsp;
+                    <input tooltip="{{'stepApp.almWeekendConfiguration.dayName' | translate}}" type="radio" data-ng-model="almWeekendConfiguration.dayName"
+                           ng-change="duplicateCheckByDayName()" name="dayName" value="Thursday">    &nbsp;  Thursday    &nbsp;|&nbsp;
+                    <input tooltip="{{'stepApp.almWeekendConfiguration.dayName' | translate}}" type="radio" data-ng-model="almWeekendConfiguration.dayName"
+                           ng-change="duplicateCheckByDayName()" name="dayName" value="Friday">      &nbsp;  Friday      &nbsp;|&nbsp;
+                    <input tooltip="{{'stepApp.almWeekendConfiguration.dayName' | translate}}" type="radio" data-ng-model="almWeekendConfiguration.dayName"
+                           ng-change="duplicateCheckByDayName()" name="dayName" value="Saturday">    &nbsp;  Saturday    &nbsp;
+                </span>
+                    <div ng-show="!isExitsData">
+                        <p style="color: red">Day is already exists</p>
+                    </div>
+                    <div ng-show="editForm.dayName.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.dayName.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.almWeekendConfiguration.isHalfDay"
+                               for="field_isHalfDay">IsHalfDay</label>
+                <span class="form-control">
+                    <input type="radio" data-ng-model="almWeekendConfiguration.isHalfDay" name="isHalfDay"
+                           tooltip="{{'stepApp.almWeekendConfiguration.isHalfDay' | translate}}"
+                           data-ng-value="true">&nbsp;Yes&nbsp;|&nbsp;
+
+                    <input type="radio" data-ng-model="almWeekendConfiguration.isHalfDay" name="isHalfDay"
+                           tooltip="{{'stepApp.almWeekendConfiguration.isHalfDay' | translate}}"
+                           data-ng-value="false">&nbsp;No
+                </span>
+                    </div>
+                </div>
+                <div class="col-md-6" ng-show="almWeekendConfiguration.isHalfDay">
+                    <div class="form-group ">
+                        <label translate="stepApp.almWeekendConfiguration.halfDay">HalfDay</label>
+                 <span class="form-control">
+                    <input tooltip="{{'stepApp.almWeekendConfiguration.halfDay' | translate}}"type="radio" data-ng-model="almWeekendConfiguration.halfDay" name="halfDay" value="First">&nbsp;First Half&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input tooltip="{{'stepApp.almWeekendConfiguration.halfDay' | translate}}"type="radio" data-ng-model="almWeekendConfiguration.halfDay" name="halfDay" value="Second">&nbsp;Second Half
+                </span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.almWeekendConfiguration.activeStatus">ActiveStatus</label>
+                <span class="form-control">
+                    <input tooltip="{{'stepApp.almWeekendConfiguration.activeStatus' | translate}}" type="radio" data-ng-model="almWeekendConfiguration.activeStatus" name="activeStatus"
+                           data-ng-value="true">&nbsp;Active&nbsp;|&nbsp;
+                    <input tooltip="{{'stepApp.almWeekendConfiguration.activeStatus' | translate}}" type="radio" data-ng-model="almWeekendConfiguration.activeStatus" name="activeStatus"
+                           data-ng-value="false">&nbsp;Inactive
+                </span>
+                        <div ng-show="editForm.activeStatus.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group ">
+                        <label translate="stepApp.almWeekendConfiguration.description" for="field_description">Description</label>
+                        <textarea class="form-control" name="description" id="field_description"
+                                  tooltip="{{'stepApp.almWeekendConfiguration.description' | translate}}"
+                                  placeholder="{{'stepApp.almWeekendConfiguration.description' | translate}}"
+                                  cols="30"
+                                  rows="3"
+                                  ng-model="almWeekendConfiguration.description"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.history.back()">
+                <i class="fa fa-angle-double-left"></i>&nbsp;<span translate="entity.action.back">Back</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted || !isExitsData"
+                    class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="almWeekendConfiguration.id == null" translate="entity.action.save">Save</span>
+                <span ng-show="almWeekendConfiguration.id != null" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

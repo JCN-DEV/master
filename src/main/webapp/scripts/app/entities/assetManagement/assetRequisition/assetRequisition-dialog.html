@@ -1,0 +1,242 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="assetRequisition.id == null" id="myAssetRequisitionLabel"
+            translate="stepApp.assetRequisition.home.createOrEditLabel">Create or edit a AssetRequisition</h4>
+        <h4 ng-show="assetRequisition.id != null" id="myAssetRequisitionLabel"
+            translate="stepApp.assetRequisition.home.EditLabel">Create or edit a AssetRequisition</h4>
+        <div class="modal-body col-md-12 padding-tb">
+            <jh-alert-error></jh-alert-error>
+            <!--<div class="col-md-6">
+                <div class="form-group">
+                    <label for="id" translate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                           ng-model="assetRequisition.id" readonly/>
+                </div>
+            </div>-->
+            <!--<div class="form-group">
+                <label translate="stepApp.assetRequisition.empId" for="field_empId">EmpId</label>
+                <input type="number" class="form-control" name="empId" id="field_empId"
+                        ng-model="assetRequisition.empId"
+                        required />
+                <div ng-show="editForm.empId.$invalid">
+                    <p class="help-block"
+                        ng-show="editForm.empId.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                        ng-show="editForm.empId.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>-->
+            <!-- EMPLOYEE AUTO INSERT -->
+            <!--<div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.assetRequisition.empId" for="field_empId">EmpId</label>
+                    <div class="input-group">
+                        <input name="empId" id="field_empId" type="text" placeholder="Enter a Employee Id" ng-model="assetRequisition.empId" typeahead="hrmEmployee for hrmEmployee in hrmEmployees | filter:$viewValue | limitTo:100" class="form-control">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="getEmployee(assetRequisition.empId)">
+                                <span class="glyphicon glyphicon-search"></span>&nbsp;<span>Search</span>
+                            </button>
+                        </span>
+                    </div>
+                    &lt;!&ndash;<div ng-show="editForm.empId.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.empId.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                        <p class="help-block"
+                           ng-show="editForm.empId.$error.number" translate="entity.validation.number">
+                            This field should be a number.
+                        </p>
+                    </div>&ndash;&gt;
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label translate="stepApp.assetRequisition.empName" for="field_empName">EmpName</label>
+                <input type="text" class="form-control" name="empName" id="field_empName"
+                        ng-model="assetRequisition.empName"
+                         />
+            </div>
+            <div class="form-group">
+                <label translate="stepApp.assetRequisition.designation" for="field_designation">Designation</label>
+                <input type="text" class="form-control" name="designation" id="field_designation"
+                        ng-model="assetRequisition.designation"
+                         />
+            </div>
+            <div class="form-group">
+                <label translate="stepApp.assetRequisition.department" for="field_department">Department</label>
+                <input type="text" class="form-control" name="department" id="field_department"
+                        ng-model="assetRequisition.department"
+                         />
+            </div>-->
+            <!--<div class="form-group">
+                <label translate="stepApp.assetRequisition.requisitionId" for="field_requisitionId">RequisitionId</label>
+                <input type="text" class="form-control" name="requisitionId" id="field_requisitionId"
+                        ng-model="assetRequisition.requisitionId"
+                         />
+            </div>
+            <div class="form-group">
+                <label translate="stepApp.assetRequisition.requisitionDate" for="field_requisitionDate">RequisitionDate</label>
+                <input type="date" class="form-control" name="requisitionDate" id="field_requisitionDate"
+                        ng-model="assetRequisition.requisitionDate"
+                         />
+            </div>-->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.assetRequisition.requisitionType"
+                           for="field_requisitionType">assetType</label>
+                    <select class="form-control" id="field_requisitionType" name="requisitionType"
+                            ng-model="assetRequisition.requisitionType">
+                        <option value="">Select Requisition Type</option>
+                        <option value="Requisition">Requisition</option>
+                        <option value="Repair">Repair</option>
+                        <option value="Disposal">Disposal</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6" ng-if="assetRequisition.requisitionType == 'Requisition'">
+                <div class="form-group">
+                    <label translate="stepApp.assetRequisition.assetType" for="field_assetType">assetType</label>
+                    <select class="form-control" id="field_assetType" name="assetType"
+                            ng-model="assetRequisition.assetType"
+                            ng-options="AssetTypeSetup as AssetTypeSetup.typeName for AssetTypeSetup in assettypesetups track by AssetTypeSetup.id"
+                            ng-click="getAssetCategories(assetRequisition.assetType.id)">
+                        <option value=""></option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-6" ng-if="assetRequisition.requisitionType == 'Requisition'">
+                <div class="form-group">
+                    <label translate="stepApp.assetRequisition.assetCategory"
+                           for="field_assetCategory">assetCategory</label>
+                    <select class="form-control" id="field_assetCategory" name="assetCategory"
+                            ng-model="assetRequisition.assetCategory"
+                            ng-options="AssetCategorySetup as AssetCategorySetup.categoryName for AssetCategorySetup in assetcategorysetups track by AssetCategorySetup.id"
+                            ng-click="getAssetRecords(assetRequisition.assetCategory.id, assetRequisition.assetTypeSetup.id)">
+                        <option value=""></option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-6" ng-if="assetRequisition.requisitionType == 'Requisition'">
+                <div class="form-group">
+                    <label translate="stepApp.assetRequisition.assetRecord" for="field_assetRecord">assetRecord</label>
+                    <select class="form-control" id="field_assetRecord" name="assetRecord"
+                            ng-model="assetRequisition.assetRecord"
+                            ng-options="AssetRecord as AssetRecord.assetName for AssetRecord in assetrecords track by AssetRecord.id"
+                            ng-click="getAssetDetails(assetRequisition.assetRecord.id)" required>
+                        <option value=""></option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.assetRequisition.quantity" for="field_quantity">Quantity</label>
+                    <input type="number" class="form-control" name="quantity" id="field_quantity"
+                           ng-model="assetRequisition.quantity"
+                    />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.assetRequisition.assetCode" for="field_assetCode">assetCode</label>
+                    <input type="text" class="form-control" name="assetCode" id="field_assetCode"
+                           ng-model="assetRequisition.assetCode"/>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.assetRequisition.available" for="field_available">available</label>
+                    <input type="text" class="form-control" name="available" id="field_available"
+                           ng-model="assetRequisition.available"/>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.assetRequisition.assetStatus" for="field_assetStatus">assetStatus</label>
+                    <input type="text" class="form-control" name="assetStatus" id="field_assetStatus"
+                           ng-model="assetRequisition.assetStatus"/>
+                </div>
+            </div>
+
+            <!--<div class="form-group">
+                <label translate="stepApp.assetRequisition.reqStatus" for="field_reqStatus">ReqStatus</label>
+                <input type="text" class="form-control" name="reqStatus" id="field_reqStatus"
+                        ng-model="assetRequisition.reqStatus"
+                         />
+            </div>
+            <div class="form-group">
+                <label translate="stepApp.assetRequisition.status" for="field_status">Status</label>
+                <input type="checkbox" class="form-control" name="status" id="field_status"
+                        ng-model="assetRequisition.status"
+                         />
+            </div>-->
+            <!--<div class="form-group">-->
+            <!--<label translate="stepApp.assetRequisition.createDate" for="field_createDate">CreateDate</label>-->
+            <!--<input type="date" class="form-control" name="createDate" id="field_createDate"-->
+            <!--ng-model="assetRequisition.createDate"-->
+            <!--/>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<label translate="stepApp.assetRequisition.createBy" for="field_createBy">CreateBy</label>-->
+            <!--<input type="number" class="form-control" name="createBy" id="field_createBy"-->
+            <!--ng-model="assetRequisition.createBy"-->
+            <!--/>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<label translate="stepApp.assetRequisition.updateDate" for="field_updateDate">UpdateDate</label>-->
+            <!--<input type="date" class="form-control" name="updateDate" id="field_updateDate"-->
+            <!--ng-model="assetRequisition.updateDate"-->
+            <!--/>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<label translate="stepApp.assetRequisition.updateBy" for="field_updateBy">UpdateBy</label>-->
+            <!--<input type="number" class="form-control" name="updateBy" id="field_updateBy"-->
+            <!--ng-model="assetRequisition.updateBy"-->
+            <!--/>-->
+            <!--</div>-->
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.assetRequisition.remarks" for="field_remarks">Remarks</label>
+                    <input type="text" class="form-control" name="remarks" id="field_remarks"
+                           ng-model="assetRequisition.remarks"
+                    />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.assetRequisition.reasonOfReq" for="field_reasonOfReq">ReasonOfReq</label>
+                    <textarea type="text" class="form-control" name="reasonOfReq" id="field_reasonOfReq"
+                              ng-model="assetRequisition.reasonOfReq" required
+                        />
+                    <div ng-show="editForm.empId.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.empId.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                        <p class="help-block"
+                           ng-show="editForm.empId.$error.number" translate="entity.validation.number">
+                            This field should be a number.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer col-md-12 no_padding">
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="assetRequisition.id == null" translate="stepApp.assetRequisition.request">request</span>
+                <span ng-show="assetRequisition.id != null" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,171 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 class="modal-title" id="myPfmsEmpMonthlyAdjLabel"
+            translate="stepApp.pfmsEmpMonthlyAdj.home.createOrEditLabel">Create or edit a PfmsEmpMonthlyAdj</h4>
+        <div class="panel-body">
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMonthlyAdj.employeeInfo" for="field_employeeInfo">employeeInfo</label>
+                <!--<select class="form-control" id="field_employeeInfo" name="employeeInfo" ng-model="pfmsEmpMonthlyAdj.employeeInfo" ng-options="HrEmployeeInfo as HrEmployeeInfo.fullName for HrEmployeeInfo in hremployeeinfos track by HrEmployeeInfo.id">-->
+                <!--<option value=""></option>-->
+                <!--</select>-->
+                <div class="input-group">
+                    <input type="text" class="form-control" autocomplete="off" ng-model="pfmsEmpMonthlyAdj.employeeInfo"
+                           typeahead='HrEmployeeInfo as (HrEmployeeInfo.fullName + " - " + HrEmployeeInfo.employeeId) for HrEmployeeInfo in hremployeeinfos | filter:$viewValue'
+                           id="field_employeeInfo" required
+                           placeholder="{{'stepApp.pfmsEmpMonthlyAdj.employeeInfo' | translate}}">
+                    <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="loadEmployeeInfo()">
+                    <span class="glyphicon"></span>&nbsp;<span
+                        translate="stepApp.pfmsEmpMonthlyAdj.search">Search</span>
+                    </button>
+                </span>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMonthlyAdj.departmentName" for="field_almLeaveType">Department</label>
+                <span class="form-control">{{departmentName}}</span>
+            </div>
+
+            <div class="form-group col-md-6 ">
+                <label translate="stepApp.pfmsEmpMonthlyAdj.designationName" for="field_Designation">Designation</label>
+                <span class="form-control">{{designationName}}</span>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMonthlyAdj.nationality" for="field_nationality">nationality</label>
+                <span class="form-control">{{nationality}}</span>
+            </div>
+
+            <div class="form-group col-md-6 ">
+                <label translate="stepApp.pfmsEmpMonthlyAdj.fatherName" for="field_fatherName">fatherName</label>
+                <span class="form-control">{{fatherName}}</span>
+            </div>
+
+            <div class="form-group col-md-6 ">
+                <label translate="stepApp.pfmsEmpMonthlyAdj.dutySide" for="field_dutySide">dutySide</label>
+                <span class="form-control">{{dutySide}}</span>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMonthlyAdj.pfmsLoanApp"
+                       for="field_pfmsLoanApp">pfmsLoanApplication</label>
+                <select class="form-control" id="field_pfmsLoanApp" name="pfmsLoanApp"
+                        ng-model="pfmsEmpMonthlyAdj.pfmsLoanApp"
+                        ng-options="PfmsLoanApplication as PfmsLoanApplication.id for PfmsLoanApplication in pfmsloanapplications track by PfmsLoanApplication.id">
+                    <option value=""></option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMonthlyAdj.adjYear" for="field_adjYear">AdjYear</label>
+                <input type="number" class="form-control" name="adjYear" id="field_adjYear"
+                       ng-model="pfmsEmpMonthlyAdj.adjYear" ng-change="loadDeductedAmount()"
+                       required/>
+                <div ng-show="editForm.adjYear.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.adjYear.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.adjYear.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMonthlyAdj.adjMonth" for="field_adjMonth">AdjMonth</label>
+                <select class="form-control" name="adjMonth"
+                        ng-change="loadDeductedAmount()"
+                        ng-model="pfmsEmpMonthlyAdj.adjMonth"
+                        ng-options="MonthOpt as MonthOpt for MonthOpt in monthList.monthOptions track by MonthOpt"
+                        id="field_adjMonth" required>
+                </select>
+
+                <div ng-show="editForm.adjMonth.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.adjMonth.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMonthlyAdj.deductedAmount"
+                       for="field_deductedAmount">DeductedAmount</label>
+                <input type="number" class="form-control" name="deductedAmount" id="field_deductedAmount"
+                       readonly="readonly"
+                       ng-model="pfmsEmpMonthlyAdj.deductedAmount"
+                       required/>
+                <div ng-show="editForm.deductedAmount.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.deductedAmount.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.deductedAmount.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+                <div ng-show="!isDeductedAmountPaid">
+                    <p style="color: red">{{deductedAmountPaidMsg}}</p>
+                </div>
+                <div ng-show="!isDeductedAmount">
+                    <p style="color: red">{{deductedAmountMsg}}</p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMonthlyAdj.modifiedAmount"
+                       for="field_modifiedAmount">ModifiedAmount</label>
+                <input type="number" class="form-control" name="modifiedAmount" id="field_modifiedAmount"
+                       ng-model="pfmsEmpMonthlyAdj.modifiedAmount"
+                       required/>
+                <div ng-show="editForm.modifiedAmount.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.modifiedAmount.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.modifiedAmount.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMonthlyAdj.reason" for="field_reason">Reason</label>
+                <input type="text" class="form-control" name="reason" id="field_reason"
+                       ng-model="pfmsEmpMonthlyAdj.reason"
+                       required/>
+                <div ng-show="editForm.reason.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.reason.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsEmpMonthlyAdj.activeStatus" for="field_activeStatus">ActiveStatus</label>
+                <input type="radio" data-ng-model="pfmsEmpMonthlyAdj.activeStatus" name="activeStatus"
+                       data-ng-value="true">&nbsp;Active&nbsp;|&nbsp;
+                <input type="radio" data-ng-model="pfmsEmpMonthlyAdj.activeStatus" name="activeStatus"
+                       data-ng-value="false">&nbsp;Inactive
+                <div ng-show="editForm.activeStatus.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <button type="button"
+                    onclick="window.history.back()"
+                    class="btn btn-info"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span
+                translate="entity.action.back"> Back</span>
+            </button>
+            <button type="submit"
+                    ng-disabled="editForm.$invalid || editForm.$submitted || !isDeductedAmount|| !isDeductedAmountPaid"
+                    class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

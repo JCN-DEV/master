@@ -1,0 +1,108 @@
+<div>
+    <h2 translate="stepApp.iisCourseInfoTemp.home.title">IisCourseInfoTemps</h2>
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" ui-sref="iisCourseInfoTemp.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="stepApp.iisCourseInfoTemp.home.createLabel">Create a new IisCourseInfoTemp</span>
+                </button>
+            </div>
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a IisCourseInfoTemp</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="global.field.id">ID</th>
+                    <th translate="stepApp.iisCourseInfoTemp.perDateEdu">PerDateEdu</th>
+                    <th translate="stepApp.iisCourseInfoTemp.perDateBteb">PerDateBteb</th>
+                    <th translate="stepApp.iisCourseInfoTemp.mpoEnlisted">MpoEnlisted</th>
+                    <th translate="stepApp.iisCourseInfoTemp.dateMpo">DateMpo</th>
+                    <th translate="stepApp.iisCourseInfoTemp.seatNo">SeatNo</th>
+                    <th translate="stepApp.iisCourseInfoTemp.shift">Shift</th>
+                    <th translate="stepApp.iisCourseInfoTemp.createDate">CreateDate</th>
+                    <th translate="stepApp.iisCourseInfoTemp.updateDate">UpdateDate</th>
+                    <th translate="stepApp.iisCourseInfoTemp.iisCurriculumInfo">iisCurriculumInfo</th>
+                    <th translate="stepApp.iisCourseInfoTemp.cmsTrade">cmsTrade</th>
+                    <th translate="stepApp.iisCourseInfoTemp.cmsSubject">cmsSubject</th>
+                    <th translate="stepApp.iisCourseInfoTemp.institute">institute</th>
+                    <th translate="stepApp.iisCourseInfoTemp.createBy">createBy</th>
+                    <th translate="stepApp.iisCourseInfoTemp.updateBy">updateBy</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="iisCourseInfoTemp in iisCourseInfoTemps track by iisCourseInfoTemp.id">
+                    <td><a ui-sref="iisCourseInfoTemp.detail({id:iisCourseInfoTemp.id})">{{iisCourseInfoTemp.id}}</a></td>
+                        <td>{{iisCourseInfoTemp.perDateEdu | date:'mediumDate'}}</td>
+                        <td>{{iisCourseInfoTemp.perDateBteb | date:'mediumDate'}}</td>
+                    <td>{{iisCourseInfoTemp.mpoEnlisted}}</td>
+                    <td>{{iisCourseInfoTemp.dateMpo}}</td>
+                    <td>{{iisCourseInfoTemp.seatNo}}</td>
+                    <td>{{iisCourseInfoTemp.shift}}</td>
+                        <td>{{iisCourseInfoTemp.createDate | date:'mediumDate'}}</td>
+                        <td>{{iisCourseInfoTemp.updateDate | date:'mediumDate'}}</td>
+                    <td>
+                        <a ui-sref="iisCurriculumInfo.detail({id:iisCourseInfoTemp.iisCurriculumInfo.id})">{{iisCourseInfoTemp.iisCurriculumInfo.recNo}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="cmsTrade.detail({id:iisCourseInfoTemp.cmsTrade.id})">{{iisCourseInfoTemp.cmsTrade.code}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="cmsSubject.detail({id:iisCourseInfoTemp.cmsSubject.id})">{{iisCourseInfoTemp.cmsSubject.code}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="institute.detail({id:iisCourseInfoTemp.institute.id})">{{iisCourseInfoTemp.institute.name}}</a>
+                    </td>
+                    <td>
+                        {{iisCourseInfoTemp.createBy.login}}
+                    </td>
+                    <td>
+                        {{iisCourseInfoTemp.updateBy.login}}
+                    </td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="iisCourseInfoTemp.detail({id:iisCourseInfoTemp.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="iisCourseInfoTemp.edit({id:iisCourseInfoTemp.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="iisCourseInfoTemp.delete({id:iisCourseInfoTemp.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pagination">
+                <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                <li class="active"><a>{{page + 1}}</a></li>
+                <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>

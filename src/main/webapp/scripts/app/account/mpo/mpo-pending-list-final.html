@@ -1,0 +1,72 @@
+<!--<div class="row">
+<div class="col-md-3">
+    <ng-include src="'scripts/app/account/mpo/mpo-left-menu.html'"></ng-include>
+</div>
+
+<div class="col-md-9" >-->
+<div class="col-sm-12 col-head no_padding">
+    <!--<div class="col-sm-6 col-head-heading">
+        <h3 class="header-margin" >Mpo Pending  List</h3>
+    </div>-->
+    <div class="col-sm-6 col-head-heading">
+        <h3 class="header-margin">Mpo Application Pending List</h3>
+    </div>
+
+</div>
+<!--<div class="mpo_submenu" style="margin-bottom: 15px">
+    <ul>
+        <li>
+            <a href=""><span class="glyphicon glyphicon-education"> </span>  SSC (VOC)</a>
+        </li>
+        <li>
+            <a href=""><span class="glyphicon glyphicon-education"> </span>  HSC (BM)</a>
+        </li>
+        <li>
+            <a href=""><span class="glyphicon glyphicon-education"> </span>  Madrasha (VOC)</a>
+        </li>
+        <li>
+            <a href=""><span class="glyphicon glyphicon-education"> </span>  Madrasha (BM)</a>
+        </li>
+    </ul>
+</div>-->
+<div class="education_q">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th translate="stepApp.mpo.thead.institutename"> Institute Name</th>
+            <th translate="stepApp.mpo.thead.applicantname"> Applicant Name</th>
+            <!--<th translate="stepApp.mpo.thead.id"> ID  </th>-->
+            <th translate="stepApp.mpo.thead.district"> District</th>
+            <th translate="stepApp.mpo.thead.applicationDate"> Application Date</th>
+            <th translate="stepApp.mpo.thead.status"> Status</th>
+            <th translate="stepApp.mpo.thead.action"> Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="mpoAppliedList in mpoApplications | orderBy:'$index':true">
+
+            <td>{{mpoAppliedList.INST_NAME}}</td>
+            <td>{{mpoAppliedList.CODE}}</td>
+            <td>{{mpoAppliedList.UPZILA_NAME}}</td>
+            <td>{{mpoAppliedList.APP_DATE | date}}</td>
+            <td>{{mpoAppliedLists.pending}}</td>
+
+
+            <td class="text-right no-print">
+                <div class="btn-group">
+                    <button class="btn btn-default" ui-sref="mpo.details({id:mpoAppliedList.MPO_ID})">
+                        View & approve
+                    </button>
+                    <button has-any-authority="ROLE_DG" class="btn btn-default pull-right"
+                            ui-sref="mpo.checklist({code:mpoAppliedList.CODE})">
+                        Check List
+                    </button>
+                </div>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+<!--</div>
+</div>-->

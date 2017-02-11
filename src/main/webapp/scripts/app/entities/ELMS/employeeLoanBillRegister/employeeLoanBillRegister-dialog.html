@@ -1,0 +1,257 @@
+<div class="col-md-12 common-dialogue">
+    <h4 id="myEmployeeLoanBillRegisterLabel"
+        translate="stepApp.employeeLoanBillRegister.home.createOrEditLabel">Create EmployeeLoanBillRegister</h4>
+
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label translate="stepApp.employeeLoanBillRegister.applicationType" for="field_applicationType">ApplicationType</label>
+            <select class="form-control" name="applicationType" id="field_applicationType"
+                    ng-model="employeeLoanRegister.applicationType" required>
+                <option value="Provident Fund Application">Provident Fund Application</option>
+                <option value="Employee Loan Application">Employee Loan Application</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <div class="form-group">
+            <input type="radio" name="register" value="billRegister" ng-model="employeeLoanBillRegister.register"
+                   ng-click="registerShow('billRegister')">Bill Register
+            <input type="radio" name="register" value="checkRegister" ng-model="employeeLoanBillRegister.register"
+                   ng-click="registerShow('checkRegister')">Check Register<br>
+        </div>
+    </div>
+
+    <div class="col-sm-12 " ng-show="billRegisterShow">
+        <form name="billRegisterForm" role="form" novalidate ng-submit="save()" show-validation>
+            <h4 id="employeeLoanBillRegisterLabel"
+                translate="stepApp.employeeLoanBillRegister.home.billRegister">Bill Register</h4>
+            <div class="col-sm-12 padding-tb">
+                <div class="col-sm-12 no_padding">
+                    <div class="col-sm-6">
+                        <label translate="stepApp.employeeLoanBillRegister.instEmployee" for="field_employeeID">Employee
+                            ID</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control"
+                                   ng-model="employeeLoanRegister.employeeId"
+                                   required name="billNo" id="field_employeeID"
+                                   placeholder="Search for...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" ng-click="searchEmployee()">Search
+                                    </button>
+                                </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 table-responsive no_padding" ng-hide="empInfoDiv">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Employee Name</th>
+                            <th> Designation</th>
+                            <th>Department</th>
+                            <th>Loan Requisition Code</th>
+                            <th>Apply Date</th>
+                        </tr>
+                        </thead>
+                        <tboady>
+                            <tr>
+                                <td>{{employeeName}}</td>
+                                <td>{{employeeDesignation}}</td>
+                                <td>{{employeeDept}}</td>
+                                <td>{{loanRequisitionCode}}</td>
+                                <td>{{applyDate}}</td>
+                            </tr>
+                        </tboady>
+                    </table>
+                </div>
+               <div ng-hide="formDiv">
+                    <div class="form-group col-sm-6">
+                        <label translate="stepApp.employeeLoanBillRegister.billNo" for="field_billNo">Bill No</label>
+                        <input type="text" class="form-control" name="billNo" id="field_billNo"
+                               ng-model="employeeLoanBillRegister.billNo"
+                               required/>
+                        <div ng-show="billRegisterForm.billNo.$invalid">
+                            <p class="help-block"
+                               ng-show="billRegisterForm.billNo.$error.required" translate="entity.validation.required">
+                                This field is required
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-6">
+                        <label translate="stepApp.employeeLoanBillRegister.issueDate"
+                               for="field_issueDate">IssueDate</label>
+                        <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.createDate"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               ng-click="calendar.open($event, 'createDate')"
+                               class="form-control" name="issueDate" id="field_issueDate"
+                               ng-model="employeeLoanBillRegister.issueDate" required/>
+                        <div ng-show="billRegisterForm.issueDate.$invalid">
+                            <p class="help-block"
+                               ng-show="billRegisterForm.issueDate.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-6">
+                        <label translate="stepApp.employeeLoanBillRegister.receiverName" for="field_receiverName">Receiver
+                            Name</label>
+                        <input type="text" class="form-control" name="receiverName" id="field_receiverName"
+                               ng-model="employeeLoanBillRegister.receiverName"
+                               required/>
+                        <div ng-show="billRegisterForm.receiverName.$invalid">
+                            <p class="help-block"
+                               ng-show="billRegisterForm.receiverName.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-6">
+                        <label translate="stepApp.employeeLoanBillRegister.place" for="field_place">Place</label>
+                        <input type="text" class="form-control" name="place" id="field_place"
+                               ng-model="employeeLoanBillRegister.place"
+                               required/>
+                        <div ng-show="billRegisterForm.place.$invalid">
+                            <p class="help-block"
+                               ng-show="billRegisterForm.place.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class=" col-sm-12 modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" ng-disabled="billRegisterForm.$invalid || billRegisterForm.$submitted" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="col-sm-12 " ng-show="checkRegisterShow">
+        <form name="checkRegisterForm" role="form" novalidate ng-submit="saveEmployeeCheckRegister()" show-validation>
+            <h4 id="employeeLoanCheckRegisterLabel"
+                translate="stepApp.employeeLoanBillRegister.home.checkRegister">Check Register</h4>
+            <div class=" col-sm-12 padding-tb">
+                <div class="col-sm-12 no_padding">
+                    <div class="col-sm-6">
+                        <label translate="stepApp.employeeLoanBillRegister.instEmployee" for="field_employeeIDForCR">Employee
+                            ID</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="billNo" id="field_employeeIDForCR"
+                                   ng-model="employeeLoanRegister.employeeId"
+                                   required
+                                   placeholder="Search for...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" ng-click="searchEmployee()">Search
+                                    </button>
+                                </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 table-responsive no_padding" ng-hide="empInfoDiv">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Employee Name</th>
+                            <th> Designation</th>
+                            <th>Department</th>>
+                            <th>Loan Requisition Code</th>
+                            <th>Apply Date</th>
+                        </tr>
+                        </thead>
+                        <tboady>
+                            <tr>
+                                <td>{{employeeName}}</td>
+                                <td>{{employeeDesignation}}</td>
+                                <td>{{employeeDept}}</td>
+                                <td>{{loanRequisitionCode}}</td>
+                                <td>{{applyDate}}</td>
+                            </tr>
+                        </tboady>
+
+
+                    </table>
+                </div>
+                <div ng-hide="checkFormDiv">
+                    <div class="form-group col-sm-6">
+                        <label translate="stepApp.employeeLoanBillRegister.numberOfWithdrawal"
+                               for="field_numberOfWithdrawal">NumberOfWithdrawal</label>
+                        <input type="number" class="form-control" name="numberOfWithdrawal" id="field_numberOfWithdrawal"
+                               ng-model="employeeLoanCheckRegister.numberOfWithdrawal"
+                               required/>
+                        <div ng-show="checkRegisterForm.numberOfWithdrawal.$invalid">
+                            <p class="help-block"
+                               ng-show="checkRegisterForm.numberOfWithdrawal.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                            <p class="help-block"
+                               ng-show="checkRegisterForm.numberOfWithdrawal.$error.number" translate="entity.validation.number">
+                                This field should be a number.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label translate="stepApp.employeeLoanBillRegister.checkNumber"
+                               for="field_checkNumber">CheckNumber</label>
+                        <input type="text" class="form-control" name="checkNumber" id="field_checkNumber"
+                               ng-model="employeeLoanCheckRegister.checkNumber"
+                               required/>
+                        <div ng-show="checkRegisterForm.checkNumber.$invalid">
+                            <p class="help-block"
+                               ng-show="checkRegisterForm.checkNumber.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label translate="stepApp.employeeLoanBillRegister.tokenNumber"
+                               for="field_tokenNumber">TokenNumber</label>
+                        <input type="text" class="form-control" name="tokenNumber" id="field_tokenNumber"
+                               ng-model="employeeLoanCheckRegister.tokenNumber"
+                               required/>
+                        <div ng-show="checkRegisterForm.tokenNumber.$invalid">
+                            <p class="help-block"
+                               ng-show="checkRegisterForm.tokenNumber.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label translate="stepApp.employeeLoanBillRegister.issueDate"
+                               for="field_createDateCR">Issue Date</label>
+                        <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.createDate"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               ng-click="calendar.open($event, 'createDate')"
+                               class="form-control" name="createDate" id="field_createDateCR"
+                               ng-model="employeeLoanCheckRegister.issueDate" ng-change="issueDateCheck()"/>
+                        <div class="col-sm-12" ng-if="issueDateError">
+                            <span style="color:red;margin-top:30px;font-size:14px;">Issue Date is invalid .</span>
+                        </div>
+                    </div>
+                </div>
+
+                    <div class=" col-sm-12 modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="checkRegisterForm.$invalid || checkRegisterForm.$submitted || issueDateInvalid" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                        </button>
+                    </div>
+
+           </div>
+        </form>
+    </div>
+</div>
+
+

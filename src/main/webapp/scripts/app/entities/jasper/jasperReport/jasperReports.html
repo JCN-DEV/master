@@ -1,0 +1,119 @@
+<div>
+    <h2 translate="stepApp.jasperReport.home.title">Jasper Reports</h2>
+    <jh-alert></jh-alert>
+    <div class="">
+        <div class="">
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group btn_input_left" style="margin: 10px 0px">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery"
+                               placeholder="">
+                        <button class="btn btn-info btn_res_margin" ng-click="search()"><span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="col-md-4 btn_res_margin text-right" style="margin: 10px 0px">
+                <button class="btn btn-primary " ui-sref="jasperReport.new">
+                    <span class="glyphicon glyphicon-plus"></span> <span
+                    translate="stepApp.jasperReport.home.createLabel">Create a new JasperReport</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteJasperReportConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(jasperReport.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p translate="stepApp.jasperReport.delete.question"
+                           translate-values="{id: '{{jasperReport.id}}'}">Are you sure you want to delete this
+                            JasperReport?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                            translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                            translate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th >Serial</th>
+                <th translate="global.field.id">ID</th>
+                <th translate="stepApp.jasperReport.name">Name</th>
+                <!--<th translate="stepApp.jasperReport.path">Path</th>-->
+                <th translate="stepApp.jasperReport.module">Module</th>
+                <th translate="stepApp.jasperReport.role">Role</th>
+                <th translate="stepApp.jasperReport.storeprocedurestatus">Status</th>
+                <th translate="stepApp.jasperReport.listtablestatus">Listtablestatus</th>
+                <th translate="stepApp.jasperReport.status">Status</th>
+                <th translate="stepApp.jasperReport.createdDate">Createdate</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="jasperReport in jasperReports | filter:searchQuery ">
+                <td>{{$index}}</td>
+                <td><a ui-sref="jasperReport.detail({id:jasperReport.id})">{{jasperReport.id}}</a></td>
+                <td>{{jasperReport.name}}</td>
+                <!--<td>{{jasperReport.path}}</td>-->
+                <td>{{jasperReport.module}}</td>
+                <td>{{jasperReport.role}}</td>
+                <td>{{jasperReport.storeprocedurestatus}}</td>
+                <td>{{jasperReport.listtablestatus}}</td>
+                <td>{{jasperReport.status}}</td>
+                <td>{{jasperReport.createdDate | date:'mediumDate'}}</td>
+                <td class="text-right">
+                    <button type="submit" ui-sref="jasperReport.detail({id:jasperReport.id})" class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view">View</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="jasperReport.edit({id:jasperReport.id})" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-pencil">
+
+                            </span>&nbsp;<span
+                        translate="entity.action.edit">Edit</span>
+                    </button>
+                    <button type="submit" ng-click="delete(jasperReport.id)" class="btn btn-danger btn-sm"> <span class="glyphicon glyphicon-remove-circle">
+                    </span>&nbsp;<span
+                        translate="entity.action.delete">Delete</span>
+                    </button>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pagination">
+                <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                <li class="active"><a>{{page + 1}}</a></li>
+                <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>

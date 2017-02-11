@@ -1,0 +1,58 @@
+<div class="row">
+    <div class="col-md-3">
+        <ng-include src="'scripts/app/account/mpo/mpo-left-menu.html'"></ng-include>
+    </div>
+    <div class="col-md-9 lbl-dash">
+        <div class="col-md-12 common-dialogue">
+            <form class="col-sm-12 no_padding" name="editForm" role="form" novalidate ng-submit="save()">
+                <h4 ng-if="bankSetup.id == null" class="modal-title" id="myBankSetupLabel" translate="stepApp.bankSetup.home.createLabel">Create a bankSetup</h4>
+                <h4 ng-if="bankSetup.id != null" class="modal-title" id="myBankSetupLabel" translate="stepApp.bankSetup.home.editLabel">Edit a bankSetup</h4>
+
+                <div class="modal-body col-sm-12">
+                    <!-- <div class="form-group">
+                        <label for="id" translate="global.field.id">ID</label>
+                        <input type="text" class="form-control" id="id" name="id"
+                                ng-model="bankSetup.id" readonly />
+                        </div>-->
+                    <div class="form-group col-md-6">
+                        <label translate="stepApp.bankSetup.code" for="field_code">Code</label>
+                        <input type="text" class="form-control" name="code" id="field_code"
+                               ng-model="bankSetup.code"
+                            />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label translate="stepApp.bankSetup.name" for="field_name">Name</label>
+                        <input type="text" class="form-control" name="name" id="field_name"
+                               ng-model="bankSetup.name"
+                            />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label translate="stepApp.bankSetup.branchName" for="field_branchName">BranchName</label>
+                        <input type="text" class="form-control" name="branchName" id="field_branchName"
+                               ng-model="bankSetup.branchName"
+                            />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label translate="stepApp.bankSetup.remarks" for="field_remarks">Remarks</label>
+                        <input type="text" class="form-control" name="branchName" id="field_remarks"
+                               ng-model="bankSetup.remarks"
+                            />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label translate="stepApp.bankSetup.upazila" for="field_upazila">upazila</label>
+                        <select class="form-control" id="field_upazila" name="upazila" ng-model="bankSetup.upazila" ng-options="upazila as upazila.name for upazila in upazilas track by upazila.id">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer col-sm-12">
+                    <button type="button" class="btn btn-default" ui-sref="bankSetup">
+                        <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="stepApp.bankSetup.cancel">Cancel</span>
+                    </button>
+                    <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>

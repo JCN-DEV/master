@@ -1,0 +1,97 @@
+<div ng-show="isAdmin">
+    <ng-include src="'scripts/app/account/mpo/mpo-search-form.html'"></ng-include>
+</div>
+<div class="col-md-12 common-list">
+    <h2 translate="stepApp.mpoTrade.home.title">MpoTrades</h2>
+    <div class="col-md-12 padding-tb no-print">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+        <div class="col-xs-4 no_padding text-right ">
+            <button class="btn btn-primary" ui-sref="mpoTrade.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.mpoTrade.home.createLabel">Create a new MpoTrade</span>
+            </button>
+        </div>
+    </div>
+    <!--<jh-alert></jh-alert>
+    <div class="col-sm-12 padding-tb no-print">
+        <div class="col-md-8 col-xs-12 no_padding">
+            <div class="col-md-4 no_padding">
+                <b>{{ (instCategorys|filter:q).length }} results found</b>
+                <div class="input-group">
+                    <span class="input-group-addon dlbtn" id="basic-addon1"><i class="fa fa-search"></i></span>
+                    <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+                </div>
+            </div>
+            <div class="col-md-4"> <b>Items per page:</b>
+                <div class="input-group">
+                    <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 text-right no_padding btn-top">
+            <button class="btn btn-primary" ui-sref="mpoTrade.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.mpoTrade.home.createLabel">Create a new MpoTrade</span>
+            </button>
+        </div>
+    </div>-->
+
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="global.form.serial">Serial</th>
+                <th translate="global.field.id">ID</th>
+                <th translate="stepApp.mpoTrade.cmsCurriculum">cmsCurriculum</th>
+                <th translate="stepApp.mpoTrade.cmsTrade">cmsTrade</th>
+                <th translate="stepApp.mpoTrade.cratedDate">CratedDate</th>
+                <th translate="stepApp.mpoTrade.updateDate">UpdateDate</th>
+                <th translate="stepApp.mpoTrade.status">Status</th>
+                <th class="no-print text-center" translate="entity.action.action"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--<tr ng-repeat="mpoTrade in mpoTrades track by mpoTrade.id">-->
+            <tr dir-paginate="mpoTrade in mpoTrades  | filter:q | itemsPerPage: pageSize track by mpoTrade.id" current-page="currentPage">
+                <td>{{pageSize * (currentPage-1) + $index+1}}</td>
+                <td><a ui-sref="mpoTrade.detail({id:mpoTrade.id})">{{mpoTrade.id}}</a></td>
+                <td>
+                   {{mpoTrade.cmsTrade.cmsCurriculum.name}}
+                </td>
+                <td>
+                    <a ui-sref="cmsTrade.detail({id:mpoTrade.cmsTrade.id})">{{mpoTrade.cmsTrade.name}}</a>
+                </td>
+                <td>{{mpoTrade.cratedDate | date:'mediumDate'}}</td>
+                <td>{{mpoTrade.updateDate | date:'mediumDate'}}</td>
+                <td>{{mpoTrade.status == 1? 'Active':'Inactive'}}</td>
+
+                <td class="text-right no-print">
+                    <button type="submit"
+                            ui-sref="mpoTrade.detail({id:mpoTrade.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="mpoTrade.edit({id:mpoTrade.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                        translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="mpoTrade.delete({id:mpoTrade.id})"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                        translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav class="no-print">
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+</div>

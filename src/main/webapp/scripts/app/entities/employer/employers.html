@@ -1,0 +1,138 @@
+<div>
+    <h2 translate="stepApp.employer.home.title">Employers</h2>
+    <jh-alert></jh-alert>
+    <div class="row">
+        <div class="col-md-3">
+            <button class="btn btn-primary" ui-sref="employer.new">
+                <span class="glyphicon glyphicon-flash"></span> <span translate="stepApp.employer.home.createLabel">Create a new Employer</span>
+            </button>
+        </div>
+        <div class="col-md-9">
+            <div class="pull-right">
+                <form name="searchForm" class="form-inline" ng-submit="search()" novalidate show-validation>
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="search for..." required>
+                    </div>
+                    <button ng-disabled="searchForm.$invalid" class="btn btn-info" type="submit"><span class="glyphicon glyphicon-search"></span> <span translate="entity.action.search">Search a Employer</span>
+                    </button>
+                </form>
+                <button ng-disabled="!areAllEmployersSelected" class="btn btn-default" ng-click="sync()">
+                    <i class="glyphicon glyphicon-refresh" aria-label="sync"></i>
+                    <span translate="entity.action.sync">sync</span>
+                </button>
+                <button ng-disabled="!areAllEmployersSelected" class="btn btn-default" ng-click="export()">
+                    <i class="glyphicon glyphicon-export" aria-label="export"></i>
+                    <span translate="entity.action.export">export</span>
+                </button>
+
+                <button ng-disabled="!areAllEmployersSelected" class="btn btn-default" ng-click="import()">
+                    <i class="glyphicon glyphicon-import" aria-label="import"></i>
+                    <span translate="entity.action.import">import</span>
+                </button>
+
+                <button ng-disabled="!areAllEmployersSelected" class="btn btn-default btn-danger" ng-click="deleteSelected()">
+                    <i class="glyphicon glyphicon-trash" aria-label="delete"></i>
+                    <span translate="entity.action.delete">delete</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-striped">
+	        <caption class="notice text-center" translate="entity.action.found"
+	                 translate-values="{found: '{{employers.length}}', total: '{{total}}'}">{{employers.length}} employers retrieved from total of {{total}} employers
+	        </caption>
+
+            <thead>
+                <tr>
+                    <th translate="global.form.serial">Serial</th>
+	                <th><input type="checkbox" ng-model="areAllEmployersSelected" ng-change="updateEmployersSelection(employers, areAllEmployersSelected)"></th>
+                    <th ng-click="order('id', reverse=!reverse)" translate="global.field.id">ID</th>
+                    <th ng-click="order('name', reverse=!reverse)" translate="stepApp.employer.companyName">Name</th>
+                    <th ng-click="order('alternativeCompanyName', reverse=!reverse)" translate="stepApp.tempEmployer.alternativeCompanyName">AlternativeCompanyName</th>
+                    <th ng-click="order('contactPersonName', reverse=!reverse)" translate="stepApp.employer.contactPersonName">ContactPersonName</th>
+                    <th ng-click="order('personDesignation', reverse=!reverse)" translate="stepApp.employer.personDesignation">PersonDesignation</th>
+                    <th ng-click="order('contactNumber', reverse=!reverse)" translate="stepApp.employer.contactNumber">ContactNumber</th>
+                    <!--<th ng-click="order('companyInformation', reverse=!reverse)" translate="stepApp.employer.companyInformation">CompanyInformation</th>-->
+                    <th ng-click="order('address', reverse=!reverse)" translate="stepApp.employer.address">Address</th>
+                    <th ng-click="order('city', reverse=!reverse)" translate="stepApp.employer.city">City</th>
+                    <th ng-click="order('zipCode', reverse=!reverse)" translate="stepApp.employer.zipCode">ZipCode</th>
+                    <th ng-click="order('companyWebsite', reverse=!reverse)" translate="stepApp.employer.companyWebsite">CompanyWebsite</th>
+                    <th ng-click="order('industryType', reverse=!reverse)" translate="stepApp.employer.industryType">IndustryType</th>
+                    <!--<th ng-click="order('businessDescription', reverse=!reverse)" translate="stepApp.employer.businessDescription">BusinessDescription</th>-->
+                    <th ng-click="order('companyLogo', reverse=!reverse)" translate="stepApp.employer.companyLogo">CompanyLogo</th>
+                    <th translate="stepApp.employer.user">user</th>
+                    <th translate="stepApp.employer.country">country</th>
+                    <th translate="stepApp.employer.manager">manager</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="employer in employers  | filter:filter | orderBy:predicate:reverse track by employer.id">
+                    <td>{{pageSize * (currentPage-1)+$index+1}}</td>
+				    <td><input type="checkbox" ng-model="employer.isSelected"/></td>
+                    <td><a ui-sref="employer.detail({id:employer.id})">{{employer.id}}</a></td>
+                    <td>{{employer.name}}</td>
+                    <td>{{employer.alternativeCompanyName}}</td>
+                    <td>{{employer.contactPersonName}}</td>
+                    <td>{{employer.personDesignation}}</td>
+                    <td>{{employer.contactNumber}}</td>
+                    <!--<td>{{employer.companyInformation}}</td>-->
+                    <td>{{employer.address}}</td>
+                    <td>{{employer.city}}</td>
+                    <td>{{employer.zipCode}}</td>
+                    <td>{{employer.companyWebsite}}</td>
+                    <td>{{employer.industryType}}</td>
+                    <!--<td>{{employer.businessDescription}}</td>-->
+                    <td>
+                        <img data-ng-src="{{'data:' + employer.companyLogoContentType + ';base64,' + employer.companyLogo}}" style="max-height: 50px;" ng-if="employer.companyLogo"/>
+                        {{employer.companyLogoContentType}} {{byteSize(employer.companyLogo)}}
+                    </td>
+                    <td>
+
+
+                        <!--{{employer.user.login}}-->
+                    </td>
+                    <td>
+                        <a ui-sref="country.detail({id:employer.country.id})">{{employer.country.name}}</a>
+                    </td>
+                    <td>
+                        {{employer.manager.login}}
+
+                    </td>
+                    <td class="btn-group">
+                        <button type="submit"
+                                ui-sref="employer.detail({id:employer.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="employer.edit({id:employer.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="employer.delete({id:employer.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pagination">
+                <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                <li class="active"><a>{{page + 1}}</a></li>
+                <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>

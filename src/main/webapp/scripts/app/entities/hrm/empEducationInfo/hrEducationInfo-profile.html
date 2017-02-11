@@ -1,0 +1,336 @@
+<!---====hrm education info===--->
+
+<div class="service-form-area">
+    <div class="panel panel-default">
+        <div class="panel-heading" >
+             <h4 class="modal-title"  id="myHrEducationInfoLabel"><span translate="stepApp.hrEducationInfo.home.profileViewEditTitle"></span> : {{hrEmployeeInfo.fullName}}</h4>
+        </div>
+
+        <div class="panel-body bg-panel hr_label">
+            <!--=========notice=========-->
+
+            <div class="form-group alert-notice">
+                <span ng-show="addMode">
+                      <span ng-show="noEmployeeFound" class="alert alert-danger"><i class="fa fa-exclamation-triangle  glow"></i>&nbsp;&nbsp;&nbsp;Employee is not created yet.</span>
+                </span>
+            </div>
+            <!--=========End notice=========-->
+
+                <div class="panel-group">
+                        <div class=" bg-panel" ng-repeat="hrEducationInfo in hrEducationInfoList">
+                            <form  class="form-horizontal " name="editForm" role="form" novalidate show-validation>
+                            <div class="row panel-heading no_padding">
+                                <div class="col-sm-7 no_padding">
+                                    <strong>{{hrEducationInfo.educationLevel.typeName}} : {{hrEducationInfo.examTitle}}</strong>
+                                </div>
+                                <div class="col-sm-5 no_padding text-right">
+                                    <button ng-hide="noEmployeeFound || hrEducationInfo.isLocked || hrEducationInfo.logStatus==6" type="button" ng-click="changeProfileMode(hrEducationInfo)"
+                                            class="btn btn-primary btn-sm">{{hrEducationInfo.viewModeText}}
+                                    </button>
+                                    <span ng-show="hrEducationInfo.isLocked" class="alert alert-warning approve-alert"><span translate="stepApp.hrmHome.recordLocked">Pending</span></span>
+                                    <span ng-if="hrEducationInfo.logStatus == 3">
+                                        <span class="alert alert-warning approve-alert" translate="stepApp.hrmHome.requestRejected">Rejected</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row hrm-view">
+                                <div class="col-sm-12 text-right">
+                                    <span class="alert-warning" ng-if="hrEducationInfo.logStatus == 3">
+                                        <span class="control-label" translate="stepApp.hrmHome.rejectionReason">Reason</span>:&nbsp; : &nbsp; {{hrEducationInfo.logComments}}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="row hrm-view">
+                                <div class="form-group col-sm-6">
+                                    <div ng-show="!hrEducationInfo.viewMode" class="input-margin">
+                                        <label class="control-label" translate="stepApp.hrEducationInfo.educationLevel" for="field_educationLevel">educationLevel</label>
+                                        <select class="form-control" id="field_educationLevel" name="educationLevel" ng-model="hrEducationInfo.educationLevel" ng-options="MiscTypeSetup as MiscTypeSetup.typeName for MiscTypeSetup in educationLevelNames track by MiscTypeSetup.id" required>
+                                            <option value=""></option>
+                                        </select>
+                                    </div>
+                                    <div ng-show="hrEducationInfo.viewMode">
+                                        <label class="control-label" translate="stepApp.hrEducationInfo.educationLevel" for="field_educationLevel">educationLevel</label>
+                                        <span class="form-control-static">&nbsp; : &nbsp;{{hrEducationInfo.educationLevel.typeName}}</span>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group col-sm-6">
+                                    <div ng-show="!hrEducationInfo.viewMode" class="input-margin">
+                                        <label class="control-label" translate="stepApp.hrEducationInfo.educationBoard" for="field_educationBoard">educationBoard</label>
+                                        <select class="form-control" id="field_educationBoard" name="educationBoard" ng-model="hrEducationInfo.educationBoard" ng-options="MiscTypeSetup as MiscTypeSetup.typeTitle for MiscTypeSetup in educationBoardNames track by MiscTypeSetup.id" required>
+                                            <option value=""></option>
+                                        </select>
+                                    </div>
+                                    <div ng-show="hrEducationInfo.viewMode">
+                                        <label class="control-label" translate="stepApp.hrEducationInfo.educationBoard" for="field_educationBoard">educationBoard</label>
+                                        <span class="form-control-static">&nbsp; : &nbsp;{{hrEducationInfo.educationBoard.typeName}}</span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row hrm-view">
+                                <div class="form-group col-sm-6">
+                                    <div ng-show="!hrEducationInfo.viewMode" class="input-margin">
+                                        <label class="control-label" translate="stepApp.hrEducationInfo.examTitle" for="field_examTitle">ExamTitle</label>
+                                        <input type="text" class="form-control" name="examTitle" id="field_examTitle"
+                                               ng-model="hrEducationInfo.examTitle" required />
+                                        <div ng-show="editForm.examTitle.$invalid">
+                                            <p class="help-block"
+                                               ng-show="editForm.examTitle.$error.required" translate="entity.validation.required">
+                                                This field is required.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div ng-show="hrEducationInfo.viewMode">
+                                        <label class="control-label" translate="stepApp.hrEducationInfo.examTitle" for="field_examTitle">ExamTitle</label>
+                                        <span class="form-control-static">&nbsp; : &nbsp;{{hrEducationInfo.examTitle}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-sm-6">
+                                    <div ng-show="!hrEducationInfo.viewMode" class="input-margin">
+                                        <label class="control-label" translate="stepApp.hrEducationInfo.majorSubject" for="field_majorSubject">MajorSubject</label>
+                                        <input type="text" class="form-control" name="majorSubject" id="field_majorSubject"
+                                               ng-model="hrEducationInfo.majorSubject" required />
+                                        <div ng-show="editForm.majorSubject.$invalid">
+                                            <p class="help-block"
+                                               ng-show="editForm.majorSubject.$error.required" translate="entity.validation.required">
+                                                This field is required.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div ng-show="hrEducationInfo.viewMode">
+                                        <label class="control-label" translate="stepApp.hrEducationInfo.majorSubject" for="field_majorSubject">MajorSubject</label>
+                                        <span class="form-control-static">&nbsp; : &nbsp;{{hrEducationInfo.majorSubject}}</span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row hrm-view">
+                                <div class="form-group col-sm-6">
+                                    <div ng-show="!hrEducationInfo.viewMode" class="input-margin">
+                                        <label class="control-label" translate="stepApp.hrEducationInfo.certSlNumber" for="field_certSlNumber">CertSlNumber</label>
+                                        <input type="text" class="form-control" name="certSlNumber" id="field_certSlNumber"
+                                               ng-model="hrEducationInfo.certSlNumber" />
+                                        <div ng-show="editForm.certSlNumber.$invalid">
+                                            <p class="help-block"
+                                               ng-show="editForm.certSlNumber.$error.required" translate="entity.validation.required">
+                                                This field is required.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div ng-show="hrEducationInfo.viewMode">
+                                        <label class="control-label" translate="stepApp.hrEducationInfo.certSlNumber" for="field_certSlNumber">CertSlNumber</label>
+                                        <span class="form-control-static">&nbsp; : &nbsp;{{hrEducationInfo.certSlNumber}}</span>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group col-sm-6">
+                                    <div ng-show="!hrEducationInfo.viewMode" class="input-margin">
+                                        <label class="control-label" translate="stepApp.hrEducationInfo.sessionYear" for="field_sessionYear">SessionYear</label>
+                                        <input type="text" class="form-control" name="sessionYear" id="field_sessionYear"
+                                               ng-model="hrEducationInfo.sessionYear" required />
+                                        <div ng-show="editForm.sessionYear.$invalid">
+                                            <p class="help-block"
+                                               ng-show="editForm.sessionYear.$error.required" translate="entity.validation.required">
+                                                This field is required.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div ng-show="hrEducationInfo.viewMode">
+                                        <label class="control-label" translate="stepApp.hrEducationInfo.sessionYear" for="field_sessionYear">SessionYear</label>
+                                        <span class="form-control-static">&nbsp; : &nbsp;{{hrEducationInfo.sessionYear}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row hrm-view">
+                                <div class="form-group col-sm-6">
+                                    <div ng-show="!hrEducationInfo.viewMode" class="input-margin">
+                                        <label class="control-label" translate="stepApp.hrEducationInfo.rollNumber" for="field_rollNumber">RollNumber</label>
+                                        <input type="text" class="form-control" name="rollNumber" id="field_rollNumber"
+                                               ng-model="hrEducationInfo.rollNumber" />
+                                        <div ng-show="editForm.rollNumber.$invalid">
+                                            <p class="help-block"
+                                               ng-show="editForm.rollNumber.$error.required" translate="entity.validation.required">
+                                                This field is required.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div ng-show="hrEducationInfo.viewMode">
+                                        <label class="control-label" translate="stepApp.hrEducationInfo.rollNumber" for="field_rollNumber">RollNumber</label>
+                                        <span class="form-control-static">&nbsp; : &nbsp;{{hrEducationInfo.rollNumber}}</span>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group col-sm-6">
+                                    <div ng-show="!hrEducationInfo.viewMode" class="input-margin">
+                                        <label class="control-label" translate="stepApp.hrEducationInfo.instituteName" for="field_instituteName">InstituteName</label>
+                                        <input type="text" class="form-control" name="instituteName" id="field_instituteName"
+                                               ng-model="hrEducationInfo.instituteName" />
+                                        <div ng-show="editForm.instituteName.$invalid">
+                                            <p class="help-block"
+                                               ng-show="editForm.instituteName.$error.required" translate="entity.validation.required">
+                                                This field is required.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div ng-show="hrEducationInfo.viewMode">
+                                        <label class="control-label" translate="stepApp.hrEducationInfo.instituteName" for="field_instituteName">InstituteName</label>
+                                        <span class="form-control-static">&nbsp; : &nbsp;{{hrEducationInfo.instituteName}}</span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row hrm-view">
+                                <div class="form-group col-sm-6">
+                                    <div ng-show="!hrEducationInfo.viewMode" class="input-margin">
+                                        <label class="control-label" translate="stepApp.hrEducationInfo.gpaOrCgpa" for="field_gpaOrCgpa">GpaOrCgpa</label>
+                                        <select class="form-control" id="field_gpaOrCgpa" name="gpaOrCgpa" ng-model="hrEducationInfo.gpaOrCgpa" required>
+                                            <option value="CGPA">CGPA</option>
+                                            <option value="GPA">GPA</option>
+                                            <option value="Division">Division</option>
+                                        </select>
+                                        <div ng-show="editForm.gpaOrCgpa.$invalid">
+                                            <p class="help-block"
+                                               ng-show="editForm.gpaOrCgpa.$error.required" translate="entity.validation.required">
+                                                This field is required.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div ng-show="hrEducationInfo.viewMode">
+                                        <label class="control-label" translate="stepApp.hrEducationInfo.gpaOrCgpa" for="field_gpaOrCgpa">GpaOrCgpa</label>
+                                        <span class="form-control-static">&nbsp; : &nbsp;{{hrEducationInfo.gpaOrCgpa}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-sm-6">
+                                    <label class="control-label" translate="stepApp.hrEducationInfo.gpaScale" for="field_gpaScale">GpaScale</label>
+                                    <div ng-show="!hrEducationInfo.viewMode" class="input-margin">
+                                        <input type="text" class="form-control" name="gpaScale" id="field_gpaScale"
+                                               ng-model="hrEducationInfo.gpaScale" />
+                                    </div>
+                                    <span ng-show="hrEducationInfo.viewMode" class="form-control-static">&nbsp; : &nbsp;{{hrEducationInfo.gpaScale}}</span>
+                                </div>
+
+                            </div>
+
+                            <div class="row hrm-view">
+                                <div class="form-group col-sm-6">
+                                    <div ng-show="!hrEducationInfo.viewMode" class="input-margin">
+                                        <label class="control-label" translate="stepApp.hrEducationInfo.passingYear" for="field_passingYear">PassingYear</label>
+                                        <input type="number" class="form-control" name="passingYear" id="field_passingYear"
+                                               ng-model="hrEducationInfo.passingYear" required />
+                                        <div ng-show="editForm.passingYear.$invalid">
+                                            <p class="help-block"
+                                               ng-show="editForm.passingYear.$error.required" translate="entity.validation.required">
+                                                This field is required.
+                                            </p>
+                                            <p class="help-block"
+                                               ng-show="editForm.passingYear.$error.number" translate="entity.validation.number">
+                                                This field should be a number.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div ng-show="hrEducationInfo.viewMode">
+                                        <label class="control-label" translate="stepApp.hrEducationInfo.passingYear" for="field_passingYear">PassingYear</label>
+                                        <span class="form-control-static">&nbsp; : &nbsp;{{hrEducationInfo.passingYear}}</span>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-6">&nbsp;</div>
+                            </div>
+
+                            <div class="row hrm-view">
+                                <div class="form-group col-sm-6">
+                                    <label class="control-label" translate="stepApp.hrEducationInfo.certificateDoc" for="field_certificateDoc">CertificateDoc</label>
+                                    <div ng-show="!hrEducationInfo.viewMode" class="input-margin">
+                                        <div>
+                                            <div class="help-block clearfix">
+                                                <span class="pull-left">&nbsp; : &nbsp;{{hrEducationInfo.certificateDocContentType}} {{byteSize(hrEducationInfo.certificateDoc)}}</span>
+                                                <button ng-click="hrEducationInfo.certificateDoc=null;hrEducationInfo.certificateDocContentType=null;"
+                                                        ng-if="hrEducationInfo.certificateDoc"
+                                                        class="btn btn-default btn-xs pull-right">
+                                                    <span class="glyphicon glyphicon-remove"></span>
+                                                </button>
+                                            </div>
+                                            <button type="file" ngf-select class="btn btn-default btn-block"
+                                                    ngf-change="setCertificateDoc($file, hrEducationInfo)" translate="entity.action.addblob">
+                                                Add blob
+                                            </button>
+                                        </div>
+                                        <input type="hidden" class="form-control" name="certificateDoc" id="field_certificateDoc"
+                                               ng-model="hrEducationInfo.certificateDoc"
+                                            />
+                                        <input type="hidden" class="form-control" name="certificateDocContentType" id="field_certificateDocContentType"
+                                               ng-model="hrEducationInfo.certificateDocContentType" />
+
+                                    </div>
+                                    <a ng-if="hrEducationInfo.certificateDocContentType" class="btn btn-link" ng-click="previewCertDoc(hrEducationInfo)">View</a>
+                                </div>
+
+                                <div class="form-group  col-sm-6">
+                                    <label class="control-label" translate="stepApp.hrEducationInfo.transcriptDoc" for="field_transcriptDoc">TranscriptDoc</label>
+                                    <div ng-show="!hrEducationInfo.viewMode" class="input-margin">
+                                        <div>
+                                            <div class="help-block clearfix">
+                                                <span class="pull-left">&nbsp; : &nbsp;{{hrEducationInfo.transcriptDocContentType}} {{byteSize(hrEducationInfo.transcriptDoc)}}</span>
+                                                <button ng-click="hrEducationInfo.transcriptDoc=null;hrEducationInfo.transcriptDocContentType=null;"
+                                                        ng-if="hrEducationInfo.transcriptDoc"
+                                                        class="btn btn-default btn-xs pull-right">
+                                                    <span class="glyphicon glyphicon-remove"></span>
+                                                </button>
+                                            </div>
+                                            <button type="file" ngf-select class="btn btn-default btn-block"
+                                                    ngf-change="setTranscriptDoc($file, hrEducationInfo)" translate="entity.action.addblob">
+                                                Add blob
+                                            </button>
+                                        </div>
+                                        <input type="hidden" class="form-control" name="transcriptDoc" id="field_transcriptDoc"
+                                               ng-model="hrEducationInfo.transcriptDoc"
+                                            />
+                                        <input type="hidden" class="form-control" name="transcriptDocContentType" id="field_transcriptDocContentType"
+                                               ng-model="hrEducationInfo.transcriptDocContentType" />
+                                    </div>
+                                    <a ng-if="hrEducationInfo.transcriptDocContentType" class="btn btn-link" ng-click="previewTransDoc(hrEducationInfo)">View</a>
+                                </div>
+                            </div>
+
+                            <div class="row hrm-view">
+                                <div class="form-group col-sm-6">
+                                    <div class="input-margin">&nbsp;</div>
+                                </div>
+                                <div class="form-group col-sm-6 text-right">
+                                    <div class="input-margin">
+                                        <button ng-show="!hrEducationInfo.viewMode" type="button"
+                                                ng-click="changeProfileMode(hrEducationInfo)" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-remove"></span>&nbsp;{{hrEducationInfo.viewModeText}}
+                                        </button>
+                                        <button ng-show="!hrEducationInfo.viewMode" ng-click="updateProfile(hrEducationInfo, $index)"
+                                                type="button" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary btn-sm">
+                                            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            </form>
+                        </div>
+
+                        <div class="col-sm-12 no_padding text-right">
+                            <button type="submit" class="btn btn-primary" ng-show="!addMode" ng-disabled="editForm.$invalid || isSaving" ng-click="addMore()"><i class="fa fa-plus-square"></i>
+                                <span translate="global.menu.account.addmore">Add More</span>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+        </div>
+    </div>
+
+

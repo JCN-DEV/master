@@ -1,0 +1,99 @@
+<div class="col-md-3">
+    <ng-include src="'scripts/app/account/mpo/mpo-left-menu.html'"></ng-include>
+</div>
+
+
+<div class="col-md-9 lbl-dash">
+    <div class="col-md-12 common-list no_padding">
+        <h2 class="heading_center" translate="stepApp.gazetteSetup.home.title">GazetteSetups</h2>
+        <div class="col-sm-12  padding-tb">
+            <div class="col-md-4 no_padding">
+                <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+            </div>
+            <div class="col-md-4">
+                <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+            </div>
+            <div class="col-md-4 no_padding text-right">
+                <button class="btn btn-primary" ui-sref="gazetteSetup.new">
+                    <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.gazetteSetup.home.createLabel">Create a new Gazette Setup</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="modal fade" id="deleteGazetteSetupConfirmation">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form name="deleteForm" ng-submit="confirmDelete(gazetteSetup.id)">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                    ng-click="clear()">&times;</button>
+                            <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p translate="stepApp.gazetteSetup.delete.question" translate-values="{id: '{{gazetteSetup.id}}'}">Are you sure you want to delete this Gazette Setup?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                            </button>
+                            <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                                <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 no_padding table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th translate="global.form.serial">serial</th>
+                    <th translate="global.field.id">ID</th>
+                    <th translate="stepApp.gazetteSetup.name">Name</th>
+                    <th translate="stepApp.gazetteSetup.status">Status</th>
+                    <!--<th translate="stepApp.gazetteSetup.createBy">CreateBy</th>-->
+                    <!--<th translate="stepApp.gazetteSetup.createDate">CreateDate</th>-->
+                    <!--<th translate="stepApp.gazetteSetup.updateBy">UpdateBy</th>-->
+                    <!--<th translate="stepApp.gazetteSetup.updateDate">UpdateDate</th>-->
+                    <!--<th translate="stepApp.gazetteSetup.remarks">Remarks</th>-->
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr dir-paginate="gazetteSetup in gazetteSetups | filter:q | itemsPerPage: pageSize track by gazetteSetup.id" current-page="currentPage">
+                    <td>{{$index+1}}</td>
+                    <td><a ui-sref="gazetteSetup.detail({id:gazetteSetup.id})">{{gazetteSetup.id}}</a></td>
+                    <td>{{gazetteSetup.name}}</td>
+                    <td>{{gazetteSetup.status ? 'Active' : 'Inactive'}}</td>
+                    <!--<td>{{gazetteSetup.createBy}}</td>-->
+                    <!--<td>{{gazetteSetup.createDate | date:'mediumDate'}}</td>-->
+                    <!--<td>{{gazetteSetup.updateBy}}</td>-->
+                    <!--<td>{{gazetteSetup.updateDate | date:'mediumDate'}}</td>-->
+                    <!--<td>{{gazetteSetup.remarks}}</td>-->
+                    <td class="text-right">
+                        <button type="submit"
+                                ui-sref="gazetteSetup.detail({id:gazetteSetup.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="gazetteSetup.edit({id:gazetteSetup.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="delete(gazetteSetup.id)"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <nav>
+                <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+            </nav>
+        </div>
+    </div>
+</div>

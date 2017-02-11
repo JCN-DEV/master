@@ -1,0 +1,83 @@
+<div class="row">
+    <div class="col-md-3">
+        <ng-include src="'scripts/app/account/mpo/mpo-left-menu.html'"></ng-include>
+    </div>
+
+
+    <div class="col-md-9 lbl-dash">
+        <div class="col-md-12 common-dialogue">
+        <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+            <h4 ng-if="gazetteSetup.id == null" class="modal-title" id="myGazetteSetupLabel" translate="stepApp.gazetteSetup.home.createLabel">Create a GazetteSetup</h4>
+            <h4 ng-if="gazetteSetup.id != null" class="modal-title" id="myGazetteSetupLabel" translate="stepApp.gazetteSetup.home.editLabel">Edit a GazetteSetup</h4>
+            <div class="modal-body">
+                <!--<div class="form-group">-->
+                    <!--<label for="id" translate="global.field.id">ID</label>-->
+                    <!--<input type="text" class="form-control" id="id" name="id"-->
+                           <!--ng-model="gazetteSetup.id" readonly/>-->
+                <!--</div>-->
+                <div class="form-group">
+                    <label translate="stepApp.gazetteSetup.name" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                           ng-model="gazetteSetup.name"
+                           required/>
+
+                    <div ng-show="editForm.name.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label translate="stepApp.gazetteSetup.status" for="field_status">Status</label>
+                    <!--<input type="checkbox" class="form-control" name="status" id="field_status"-->
+                           <!--ng-model="gazetteSetup.status"-->
+                        <!--/>-->
+                    <div>
+                        <label  class="radio-inline"><input type="radio"  name="status" value="true" checked="true" ng-checked="gazetteSetup.status == true" ng-model="gazetteSetup.status"><span translate="entity.action.activate">Active</span></label>
+                        <label class="radio-inline"><input type="radio" name="status"  value="false"  ng-checked="gazetteSetup.status == false" ng-model="gazetteSetup.status"><span translate="entity.action.deactivate">Deactive</span></label>
+                    </div>
+                </div>
+                <!--<div class="form-group">-->
+                    <!--<label translate="stepApp.gazetteSetup.createBy" for="field_createBy">CreateBy</label>-->
+                    <!--<input type="number" class="form-control" name="createBy" id="field_createBy"-->
+                           <!--ng-model="gazetteSetup.createBy"-->
+                        <!--/>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label translate="stepApp.gazetteSetup.createDate" for="field_createDate">CreateDate</label>-->
+                    <!--<input type="date" class="form-control" name="createDate" id="field_createDate"-->
+                           <!--ng-model="gazetteSetup.createDate"-->
+                        <!--/>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label translate="stepApp.gazetteSetup.updateBy" for="field_updateBy">UpdateBy</label>-->
+                    <!--<input type="number" class="form-control" name="updateBy" id="field_updateBy"-->
+                           <!--ng-model="gazetteSetup.updateBy"-->
+                        <!--/>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label translate="stepApp.gazetteSetup.updateDate" for="field_updateDate">UpdateDate</label>-->
+                    <!--<input type="date" class="form-control" name="updateDate" id="field_updateDate"-->
+                           <!--ng-model="gazetteSetup.updateDate"-->
+                        <!--/>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label translate="stepApp.gazetteSetup.remarks" for="field_remarks">Remarks</label>-->
+                    <!--<input type="text" class="form-control" name="remarks" id="field_remarks"-->
+                           <!--ng-model="gazetteSetup.remarks"-->
+                        <!--/>-->
+                <!--</div>-->
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

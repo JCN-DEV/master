@@ -1,0 +1,263 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="hrEmpTrainingInfo.id == null" class="modal-title"
+            translate="stepApp.hrEmpTrainingInfo.home.createOrEditLabel">Create or edit a HrEmpTrainingInfo</h4>
+        <h4 ng-show="hrEmpTrainingInfo.id != null" class="modal-title"
+            translate="stepApp.hrEmpTrainingInfo.home.EditLabel">Create or edit a HrEmpTrainingInfo</h4>
+
+        <div class="modal-body col-md-12 paddding-tb">
+            <jh-alert-error></jh-alert-error>
+
+            <div class="row">
+                <div class="col-md-6  col-sm-6 col-xs-6">
+                    <div class="form-group ">
+                        <label class="control-label" for="field_workArea"
+                               translate="stepApp.hrEmpTrainingInfo.workarea">Work Area</label>
+                        <select class="form-control" id="field_workArea" name="workArea" ng-model="workArea"
+                                ng-change="loadModelByWorkArea(workArea)"
+                                ng-options="MiscTypeSetup as MiscTypeSetup.typeName for MiscTypeSetup in workAreaList track by MiscTypeSetup.id">
+                            <option value="">Select Work Area</option>
+                        </select>
+                        <span class="help">No of Employee: {{hremployeeinfos.length}}</span>
+                    </div>
+                </div>
+                <div class="col-md-6  col-sm-6 col-xs-6">
+                    <div class="form-group ">
+                        <label class="control-label" translate="stepApp.hrEmpTrainingInfo.employeeInfo"
+                               for="field_employeeInfo">employeeInfo</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control autocomplete" autocomplete="off"
+                                   ng-model="hrEmpTrainingInfo.employeeInfo"
+                                   typeahead='HrEmployeeInfo as (HrEmployeeInfo.fullName + " " + HrEmployeeInfo.employeeId) for HrEmployeeInfo in hremployeeinfos | filter:$viewValue'
+                                   id="field_employeeInfo" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6  col-sm-6 col-xs-6">
+                    <div class="form-group ">
+                        <label translate="stepApp.hrEmpTrainingInfo.trainingType"
+                               for="field_trainingType">trainingType</label>
+                        <select class="form-control" id="field_trainingType" name="trainingType"
+                                ng-model="hrEmpTrainingInfo.trainingType"
+                                ng-options="MiscTypeSetup as MiscTypeSetup.typeName for MiscTypeSetup in trainingTypes track by MiscTypeSetup.id">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6  col-sm-6 col-xs-6">
+                    <div class="form-group ">
+                        <label class="control-label" translate="stepApp.hrEmpTrainingInfo.instituteName"
+                               for="field_instituteName">InstituteName</label>
+                        <input type="text" class="form-control" name="instituteName" id="field_instituteName"
+                               ng-model="hrEmpTrainingInfo.instituteName" required/>
+                        <div ng-show="editForm.instituteName.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.instituteName.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6  col-sm-6 col-xs-6">
+                    <div class="form-group ">
+                        <label class="control-label" translate="stepApp.hrEmpTrainingInfo.courseTitle"
+                               for="field_courseTitle">CourseTitle</label>
+                        <input type="text" class="form-control" name="courseTitle" id="field_courseTitle"
+                               ng-model="hrEmpTrainingInfo.courseTitle" required/>
+                        <div ng-show="editForm.courseTitle.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.courseTitle.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-6  col-sm-6 col-xs-6">
+                    <div class="form-group ">
+                        <label class="control-label" translate="stepApp.hrEmpTrainingInfo.durationFrom"
+                               for="field_durationFrom">DurationFrom</label>
+                        <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.durationFrom"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               ng-click="calendar.open($event, 'durationFrom')" class="form-control" name="durationFrom"
+                               id="field_durationFrom"
+                               ng-model="hrEmpTrainingInfo.durationFrom" required/>
+                        <div ng-show="editForm.durationFrom.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.durationFrom.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6  col-sm-6 col-xs-6">
+                    <div class="form-group ">
+                        <label class="control-label" translate="stepApp.hrEmpTrainingInfo.durationTo"
+                               for="field_durationTo">DurationTo</label>
+                        <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.durationTo"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               ng-click="calendar.open($event, 'durationTo')" class="form-control" name="durationTo"
+                               id="field_durationTo"
+                               ng-model="hrEmpTrainingInfo.durationTo" required/>
+                        <div ng-show="editForm.durationTo.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.durationTo.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-6  col-sm-6 col-xs-6">
+                    <div class="form-group ">
+                        <label class="control-label" translate="stepApp.hrEmpTrainingInfo.result" for="field_result">Result</label>
+                        <input type="text" class="form-control" name="result" id="field_result"
+                               ng-model="hrEmpTrainingInfo.result" required/>
+                        <div ng-show="editForm.result.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.result.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6  col-sm-6 col-xs-6">
+                    <div class="form-group ">
+                        <label class="control-label" translate="stepApp.hrEmpTrainingInfo.officeOrderNo"
+                               for="field_officeOrderNo">OfficeOrderNo</label>
+                        <input type="text" class="form-control" name="officeOrderNo" id="field_officeOrderNo"
+                               ng-model="hrEmpTrainingInfo.officeOrderNo" required/>
+                        <div ng-show="editForm.officeOrderNo.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.officeOrderNo.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-6  col-sm-6 col-xs-6">
+                    <div class="form-group ">
+                        <label class="control-label" translate="stepApp.hrEmpTrainingInfo.jobCategory"
+                               for="field_jobCategory">JobCategory</label>
+                        <input type="text" class="form-control" name="jobCategory" id="field_jobCategory"
+                               ng-model="hrEmpTrainingInfo.jobCategory"/>
+                    </div>
+                </div>
+
+                <div class="col-md-6  col-sm-6 col-xs-6">
+                    <div class="form-group ">
+                        <label class="control-label" translate="stepApp.hrEmpTrainingInfo.country" for="field_country">Country</label>
+                        <input type="text" class="form-control" name="country" id="field_country"
+                               ng-model="hrEmpTrainingInfo.country"/>
+                    </div>
+                </div>
+
+                <div class="col-md-6  col-sm-6 col-xs-6">
+                    <div ngf-drop ngf-change="setGoOrderDoc($file, hrEmpTrainingInfo)">
+                        <label class="control-label" translate="stepApp.hrEmpTrainingInfo.goOrderDoc"
+                               for="field_goOrderDoc">GoOrderDoc</label>
+                        <div>
+                            <div class="help-block clearfix">
+                                <span class="pull-left">{{hrEmpTrainingInfo.goOrderDocContentType}} {{byteSize(hrEmpTrainingInfo.goOrderDoc)}}</span>
+                                <button
+                                    ng-click="hrEmpTrainingInfo.goOrderDoc=null;hrEmpTrainingInfo.goOrderDocContentType=null;"
+                                    ng-if="hrEmpTrainingInfo.goOrderDoc"
+                                    class="btn btn-default btn-xs pull-right">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                            </div>
+                            <button type="file" ngf-select class="btn btn-default btn-block"
+                                    ngf-change="setGoOrderDoc($file, hrEmpTrainingInfo)"
+                                    translate="entity.action.addblob">
+                                Add blob
+                            </button>
+                        </div>
+                        <input type="hidden" class="form-control" name="goOrderDoc" id="field_goOrderDoc"
+                               ng-model="hrEmpTrainingInfo.goOrderDoc"/>
+                        <input type="hidden" class="form-control" name="goOrderDocContentType"
+                               id="field_goOrderDocContentType"
+                               ng-model="hrEmpTrainingInfo.goOrderDocContentType"/>
+                        <a ng-if="hrEmpTrainingInfo.goOrderDocContentType" class="btn btn-link"
+                           ng-click="previewGODoc(hrEmpTrainingInfo)">View</a>
+                    </div>
+                </div>
+
+
+                <div class="col-md-6  col-sm-6 col-xs-6">
+                    <div ngf-drop ngf-change="setCertDoc($file, hrEmpTrainingInfo)">
+                        <label class="control-label" translate="stepApp.hrEmpTrainingInfo.certDoc" for="field_certDoc">CertDoc</label>
+                        <div>
+                            <div class="help-block clearfix">
+                                <span class="pull-left">{{hrEmpTrainingInfo.certDocContentType}} {{byteSize(hrEmpTrainingInfo.certDoc)}}</span>
+                                <button
+                                    ng-click="hrEmpTrainingInfo.certDoc=null;hrEmpTrainingInfo.certDocContentType=null;"
+                                    ng-if="hrEmpTrainingInfo.certDoc"
+                                    class="btn btn-default btn-xs pull-right">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                            </div>
+                            <button type="file" ngf-select class="btn btn-default btn-block"
+                                    ngf-change="setCertDoc($file, hrEmpTrainingInfo)" translate="entity.action.addblob">
+                                Add blob
+                            </button>
+                        </div>
+                        <input type="hidden" class="form-control" name="certDoc" id="field_certDoc"
+                               ng-model="hrEmpTrainingInfo.certDoc"/>
+                        <input type="hidden" class="form-control" name="certDocContentType"
+                               id="field_certDocContentType"
+                               ng-model="hrEmpTrainingInfo.certDocContentType"/>
+                        <a ng-if="hrEmpTrainingInfo.certDocContentType" class="btn btn-link"
+                           ng-click="previewCertDoc(hrEmpTrainingInfo)">View</a>
+                    </div>
+                </div>
+
+
+                <div class="col-md-6  col-sm-6 col-xs-6">
+                    <div class="form-group ">
+                        <label class="control-label"
+                               translate="stepApp.hrEmpTrainingInfo.activeStatus">ActiveStatus</label>
+                        <div>
+                            <input type="radio" data-ng-model="hrEmpTrainingInfo.activeStatus" name="activeStatus"
+                                   data-ng-value="true">&nbsp; <span
+                            translate="stepApp.hrEmpTrainingInfo.active"></span>&nbsp;|&nbsp;
+                            <input type="radio" data-ng-model="hrEmpTrainingInfo.activeStatus" name="activeStatus"
+                                   data-ng-value="false">&nbsp; <span
+                            translate="stepApp.hrEmpTrainingInfo.inactive"></span>
+                        </div>
+                        <div ng-show="editForm.activeStatus.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="modal-footer">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-default" class="btn " data-dismiss="modal"
+                                onclick="window.history.back()">
+                            <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;<span
+                            translate="entity.action.back">Back</span>
+                        </button>
+                        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-save"></span>&nbsp;
+                            <span ng-show="hrEmpTrainingInfo.id == null" translate="entity.action.save">Save</span>
+                            <span ng-show="hrEmpTrainingInfo.id != null" translate="entity.action.update">Save</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+    </form>
+</div>

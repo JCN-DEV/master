@@ -1,0 +1,171 @@
+<div class="col-md-12 common-list">
+    <h2 translate="stepApp.risNewAppForm.appIssue">appointMents</h2>
+    <div class="col-sm-12 padding-tb no-print">
+        <div class="col-sm-12">
+            <label class="control-label" translate="stepApp.risNewAppForm.RegistrationNo">Registration No</label>
+            <div class="input-group">
+                <input type="number" class="form-control" name="regNo" placeholder="Search for..."
+                       ng-model="appointMents.regNo"
+                >
+            <span class="input-group-btn">
+                <button ng-click="appointMent(appointMents.regNo)" class="btn btn-success" type="button">
+                    <span class="glyphicon glyphicon-eye-open"> </span> View
+                </button>
+            </span>
+            </div>
+            <div ng-show="showError">
+                <p class="ris-messErr">{{showError}}</p>
+            </div>
+            <div ng-if="appointMents == null">
+                <p class="ris-messErr">{{notFound}}</p>
+            </div>
+        </div>
+
+        <!--<div class="form-group col-sm-6">
+            <label>Registration No</label>
+            <input type="text" class="form-control" name="experience" id="field_regNo"
+                   ng-model="appointMents.regNo"
+            />
+
+        </div>-->
+        <!--<div class="form-group col-sm-6">
+            <label>&nbsp;</label>
+            <button type="submit" ng-click="appointMent(appointMents.regNo)"
+                    class="btn btn-info btn-sm">
+                <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> Search Applicant </span>
+            </button>
+        </div>-->
+
+        <div class="col-sm-12">
+            <br>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label class="control-label" translate="stepApp.risNewAppForm.CandidateName">Candidate Name</label>
+            <input type="text" class="form-control" name="experience" id="field_name" readonly
+                   ng-model="appointMents.APPLICANTS_NAME_EN"
+            />
+        </div>
+
+
+        <div class="form-group col-sm-6">
+            <label class="control-label" translate="stepApp.risNewAppForm.DateOfBirth">Date Of Birth</label>
+            <input type="text" class="form-control" name="experience" id="field_dob" readonly
+                   ng-model="appointMents.BIRTH_DATE"
+            />
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label class="control-label" translate="stepApp.risNewAppForm.PostName">Post Name</label>
+            <input type="text" class="form-control" name="experience" id="field_postName" readonly
+                   ng-model="appointMents.PO_EN_PRESENT"
+            />
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label class="control-label" translate="stepApp.risNewAppForm.Nationality">Nationality</label>
+            <input type="text" class="form-control" name="experience" id="field_nationality" readonly
+                   ng-model="appointMents.NATIONALITY"
+            />
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label class="control-label" translate="stepApp.risNewAppForm.NationalID ">National ID</label>
+            <input type="text" class="form-control" name="experience" id="field_nationalId" readonly
+                   ng-model="appointMents.NATIONAL_ID"
+            />
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label class="control-label" translate="stepApp.risNewAppForm.Email ">Email </label>
+            <input type="text" class="form-control" name="experience" id="field_email" readonly
+                   ng-model="appointMents.EMAIL"
+            />
+        </div>
+        <div class="form-group col-sm-6">
+            <label class="control-label" translate="stepApp.risNewAppForm.ContactNumber ">Contact Number</label>
+            <input type="text" class="form-control" name="experience" id="field_contact" readonly
+                   ng-model="appointMents.CONTACT_PHONE"
+            />
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label class="control-label" translate="stepApp.risNewAppForm.CircularNo">Circular No</label>
+            <input type="text" class="form-control" name="experience" id="field_contact" readonly
+                   ng-model="appointMents.CIRCULAR_NO"
+            />
+        </div>
+
+        <div class="col-sm-12">
+            <br>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label class="control-label" translate="stepApp.risNewAppForm.AppointmentLetter">Appointment Letter</label>
+            <input type="file" class="form-control" name="experience" id="field_appointmentLetter" readonly
+                   ng-model="appointMents.appointmentLetter"
+            />
+        </div>
+        <div class="form-group col-sm-6">
+            <label class="control-label" translate="stepApp.risNewAppForm.Message">Message</label>
+        <textarea type="text" class="form-control" name="experience" id="field_smsMessage"
+                  ng-model="appointMents.smsMessage" ng-trim="false"
+                  cols="20" rows="2" maxlength="100"> </textarea>
+        <span
+            ng-hide="appointMents.smsMessage.length > 99">{{100 - appointMents.smsMessage.length}} Character Left</span>
+            <div ng-show="appointMents.smsMessage.length > 0">
+                <span ng-if="appointMents.smsMessage.length > 99"
+                      class="ris-messErr">Please Write in 100 character</span>
+            </div>
+            <div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <br>
+        </div>
+
+        <!--<div class="form-group col-sm-6">
+            <button type="submit"
+                    class="btn btn-info btn-sm">
+                <span class="glyphicon glyphicon-eye-open"></span>&nbsp;
+                <span>
+                Send Appointment Letter Via Email
+                </span>
+            </button>
+        </div>-->
+
+        <div class="col-sm-12">
+            <br>
+        </div>
+
+        <!--<div class="form-group col-sm-6">
+            <label class="control-label" translate="stepApp.risNewAppForm.Message">Message</label>
+            <textarea type="text" class="form-control" name="experience" id="field_smsMessage"
+                      ng-model="appointMents.smsMessage" ng-trim="false"
+                      cols="20" rows="4" maxlength="100"> </textarea>
+            <span
+                ng-hide="appointMents.smsMessage.length > 99">{{100 - appointMents.smsMessage.length}} Character Left</span>
+            <div ng-show="appointMents.smsMessage.length > 0">
+                <span ng-if="appointMents.smsMessage.length > 99" class="ris-messErr">Please Write in 100 character</span>
+            </div>
+            <div>
+            </div>
+        </div>-->
+        <div class="col-sm-12">
+            <br>
+        </div>
+        <div class="form-group col-sm-6">
+            <button type="submit"
+                    class="btn btn-info btn-sm" ng-click="appointMentSMS(appointMents.regNo,appointMents.smsMessage)">
+                <span class="glyphicon glyphicon-eye-open"></span>&nbsp;
+            <span>
+            Send Appointment Letter Via Email and Notify Via SMS
+            </span>
+            </button>
+        </div>
+        <div class="form-group col-sm-12">
+            <h6>Email Formatting is still to be furnished</h6>
+        </div>
+
+    </div>
+</div>

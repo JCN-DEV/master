@@ -1,0 +1,102 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-if="pfmsDeductionFinalize.id == null" class="modal-title" id="myPfmsDeductionFinalizeLabel"
+            translate="stepApp.pfmsDeductionFinalize.home.createOrEditLabel">Create or edit a PfmsDeductionFinalize</h4>
+        <h4 ng-if="pfmsDeductionFinalize.id != null" class="modal-title" id="myPfmsDeductionFinalizeLabel"
+            translate="stepApp.pfmsDeductionFinalize.home.EditLabel">Create or edit a PfmsDeductionFinalize</h4>
+        <div class="panel-body">
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsDeductionFinalize.employeeInfo"
+                       for="field_employeeInfo">employeeInfo</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" autocomplete="off"
+                           ng-model="pfmsDeductionFinalize.employeeInfo"
+                           typeahead='HrEmployeeInfo as (HrEmployeeInfo.fullName + " - " + HrEmployeeInfo.employeeId) for HrEmployeeInfo in hremployeeinfos | filter:$viewValue'
+                           id="field_employeeInfo" required
+                           placeholder="{{'stepApp.pfmsDeductionFinalize.employeeInfo' | translate}}">
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="loadEmployeeInfo()">
+                            <span class="glyphicon"></span>&nbsp;<span translate="stepApp.pfmsDeductionFinalize.search">Search</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsDeductionFinalize.departmentName"
+                       for="field_almLeaveType">Department</label>
+                <span class="form-control">{{departmentName}}</span>
+            </div>
+
+            <div class="form-group col-md-6 ">
+                <label translate="stepApp.pfmsDeductionFinalize.designationName"
+                       for="field_Designation">Designation</label>
+                <span class="form-control">{{designationName}}</span>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label translate="stepApp.pfmsDeductionFinalize.nationality" for="field_nationality">nationality</label>
+                <span class="form-control">{{nationality}}</span>
+            </div>
+
+            <div class="form-group col-md-6 ">
+                <label translate="stepApp.pfmsDeductionFinalize.fatherName" for="field_fatherName">fatherName</label>
+                <span class="form-control">{{fatherName}}</span>
+            </div>
+
+            <div class="form-group col-md-6 ">
+                <label translate="stepApp.pfmsDeductionFinalize.dutySide" for="field_dutySide">dutySide</label>
+                <span class="form-control">{{dutySide}}</span>
+            </div>
+            <div class="form-group col-md-6 ">
+                <label translate="stepApp.pfmsDeductionFinalize.retirementDate" for="field_retirementDate">retirementDate</label>
+                <span class="form-control">{{retirementDate}}</span>
+            </div>
+
+            <div class="form-group col-md-6 ">
+                <label translate="stepApp.pfmsDeductionFinalize.accountNo" for="field_accountNo">accountNo</label>
+                <span class="form-control">{{accountNo}}</span>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.pfmsDeductionFinalize.finalizeYear"
+                       for="field_finalizeYear">FinalizeYear</label>
+                <input type="number" class="form-control" name="finalizeYear" id="field_finalizeYear"
+                       ng-model="pfmsDeductionFinalize.finalizeYear"
+                       required/>
+                <div ng-show="editForm.finalizeYear.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.finalizeYear.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.finalizeYear.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.pfmsDeductionFinalize.finalizeMonth"
+                       for="field_finalizeMonth">FinalizeMonth</label>
+                <input type="text" class="form-control" name="finalizeMonth" id="field_finalizeMonth"
+                       ng-model="pfmsDeductionFinalize.finalizeMonth"
+                       required/>
+                <div ng-show="editForm.finalizeMonth.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.finalizeMonth.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.history.back()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+                <span ng-hide="pfmsDeductionFinalize.id" translate="entity.action.save"></span>
+                <span ng-show="pfmsDeductionFinalize.id" translate="entity.action.update"></span>
+            </button>
+        </div>
+    </form>
+</div>
+

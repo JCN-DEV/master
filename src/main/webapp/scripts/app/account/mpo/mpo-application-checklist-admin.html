@@ -1,0 +1,229 @@
+<!--<div class="row">
+    <div class="col-md-3">
+        <ng-include src="'scripts/app/account/mpo/mpo-left-menu.html'"></ng-include>
+    </div>-->
+<div class="col-md-12">
+    <div ng-show="isAdmin">
+        <ng-include src="'scripts/app/account/mpo/mpo-search-form.html'"></ng-include>
+    </div>
+</div>
+<div class="col-md-12 common-table">
+    <!--<ng-include ng-show="showSearchForm " src="'scripts/app/account/mpo/mpo-search-form.html'"></ng-include>-->
+
+    <!-- <div ng-show="!showSearchForm" class="application_information resume_main_ ">-->
+    <h2 class="panel-title"><span translate="stepApp.employee.appStatus"></span><b>{{mpoApplicationlogs[0].mpoApplicationId.instEmployee.code}}</b>
+    </h2>
+    <br>
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="stepApp.employee.name">Name</span>
+                </td>
+                <td>
+                    <span
+                        class="form-control-static">{{mpoApplicationlogs[0].mpoApplicationId.instEmployee.name}}</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <span translate="stepApp.employee.institute">Institute</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{mpoApplicationlogs[0].mpoApplicationId.instEmployee.institute.name}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.institute.code">Institute Code</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{mpoApplicationlogs[0].mpoApplicationId.instEmployee.institute.code}}</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <span translate="stepApp.institute.district">District</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{mpoApplicationlogs[0].mpoApplicationId.instEmployee.institute.upazila.district.name}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.institute.upazila">Upazilla</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{mpoApplicationlogs[0].mpoApplicationId.instEmployee.institute.upazila.name}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.employee.dob">Date Of Birth</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{mpoApplicationlogs[0].mpoApplicationId.instEmployee.dob  | date}}</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <span translate="stepApp.employee.indexNo">IndexNo</span>
+                </td>
+                <td>
+                    <span
+                        class="form-control-static">{{mpoApplicationlogs[0].mpoApplicationId.instEmployee.indexNo}}</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <span translate="stepApp.employee.registrationCetificateNo">Registered No</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{mpoApplicationlogs[0].mpoApplicationId.instEmployee.registeredCertificateNo}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.employee.designation">Designation</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{mpoApplicationlogs[0].mpoApplicationId.instEmployee.instEmplDesignation.name}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.employee.subject">Subject</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{mpoApplicationlogs[0].mpoApplicationId.instEmployee.cmsSubAssign.cmsSubject.name}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>{{'stepApp.employee.bankName' | translate}}</td>
+                <td>{{instEmplBankInfo.bankSetup.name}}</td>
+            </tr>
+
+            <tr>
+                <td>{{'stepApp.employee.bankAccountNo' | translate}}</td>
+                <td>{{instEmplBankInfo.bankAccountNo}}</td>
+            </tr>
+            <!--<tr>
+
+                    <td>
+                        <td>Examination Information</td>
+
+                    </td>-->
+
+
+            <tr ng-repeat="appEducation in applicantEducation">
+                <td>{{appEducation.eduLevel.name}}</td>
+                <td>result - {{appEducation.cgpa}}, year - {{appEducation.passingYear}}
+
+            </tr>
+
+
+            <!--</tr>-->
+            <tr>
+                <td class="app_re_info">{{'stepApp.employee.recruitmentDate' | translate}}</td>
+                <td>{{instEmplRecruitInfo.recruitmentDate | date}}</td>
+            </tr>
+
+            <tr>
+                <td class="app_re_info">{{'stepApp.employee.presentInstituteJoinDate' | translate}}</td>
+                <td>{{instEmplRecruitInfo.presentInstituteJoinDate | date}}</td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="stepApp.employee.status">
+                    Status
+                </th>
+                <th translate="stepApp.employee.ActionDate">
+                    Action Date
+                </th>
+
+                <th translate="stepApp.employee.Remarks">
+                    Remarks
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="mpoApplicationlog in mpoApplicationlogs">
+                <td>{{mpoApplicationlog.remarks}}</td>
+                <td>{{mpoApplicationlog.fromDate | date}}</td>
+                <td>
+                    <span class="">{{mpoApplicationlog.cause}}</span>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <!--<div has-any-authority="ROLE_DG" class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <span>MPO committee's Action</span></h3>
+        </div>
+        <div class="resume_main_">
+            <table class="table table-striped ">
+                <thead>
+                <tr>
+                    <th>
+                        member
+                    </th>
+                    <th>
+                        comment
+                    </th>
+                    <th>
+                        action
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="comment in mpoCommitteeComments">
+                    <td>{{comment.user.firstName}}</td>
+                    <td>{{comment.comments}}</td>
+                    <td>{{comment.status == 1 ? 'approved':'declined'}}</td>
+
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>-->
+    <div class="no-print">
+        <div ng-if="showApproveDecline">
+            <button class="btn btn-primary alignright" ui-sref="mpoApprove({id: mpoApplication.id})"
+                    ng-show="!showApprove">Forward
+            </button>
+            <button class="btn btn-primary alignright" ui-sref="mpoApprove({id: mpoApplication.id})"
+                    ng-show="showApprove">Approve
+            </button>
+            <button class="btn btn-primary alignright" ui-sref="mpoDeny({id: mpoApplication.id})">Decline</button>
+        </div>
+        <div class="pull-left">
+            <span class="btn btn-primary no-print" onclick="window.history.back()"
+                  translate="{{'stepApp.employee.back'}}">back</span>
+        </div>
+    </div>
+</div>
+<!--</div>-->

@@ -1,0 +1,199 @@
+<div class="row">
+    <div class="col-md-3">
+        <ng-include src="'scripts/app/entities/jobPortal/jp-admin-menu.html'"></ng-include>
+    </div>
+    <div class="col-md-9 lbl-dash">
+        <div class="col-md-12 common-dialogue">
+            <!--<h2 ng-hide="{{cat.id}}" class="page-header" translate="stepApp.cat.home.createLabel">createLabel</h2>-->
+            <!--<h2 ng-show="{{cat.id}}"  class="page-header" translate="stepApp.cat.home.editLabel">editLabel</h2>-->
+            <h4 ng-show="cat.id == null"><span translate="stepApp.cat.home.createLabel">Cats</span></h4>
+            <h4 ng-show="cat.id != null"><span translate="stepApp.cat.home.EditLabel">Cats</span></h4>
+            <form name="editForm" class=" form-horizontal" role="form" novalidate ng-submit="save()" show-validation>
+                <div class="panel-body">
+                    <jh-alert-error></jh-alert-error>
+                    <div class="form-group">
+                        <div class="col-sm-8">
+                            <input type="hidden" class="form-control" id="id" name="id" ng-model="cat.id" readonly/>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label translate="stepApp.cat.cat" for="field_cat">Cat</label>
+                        <input type="text" class="form-control" id="field_cat" name="cat"
+                               ng-model="cat.cat"
+                               ng-remote-validate="/api/cat/checkCategoryByName/"
+                               ng-remote-method="GET"
+                               ng-remote-throttle="500"
+                               ng-minlength=3 ng-maxlength=50
+                               placeholder="{{'stepApp.cat.cat' | translate}}"
+                               tooltip="{{'stepApp.cat.cat' | translate}}"
+                               required>
+                        <span class="message validating" ng-show="editForm.cat.$pending">validating...</span>
+                        <div ng-show="editForm.cat.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.cat.$error.ngRemoteValidate">
+                                Category already exists!
+                            </p>
+
+                            <p class="help-block"
+                               ng-show="editForm.cat.$error.required && editForm.cat.$dirty"
+                               translate="entity.validation.required">
+                                This field is required.
+                            </p>
+
+                            <p class="help-block"
+                               ng-show="editForm.cat.$error.minlength" translate="entity.validation.minlength"
+                               translate-value-min="3">
+                                This field is required to be at least 3 characters.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label translate="stepApp.cat.description" for="field_description">Description</label>
+                    <textarea type="text" class="form-control" name="description" id="field_description"
+                              ng-model="cat.description"
+                              placeholder="{{'stepApp.cat.description' | translate}}"
+                              tooltip="{{'stepApp.cat.description' | translate}}"
+                              ng-maxlength="200">
+                    </textarea>
+                        <div ng-show="editForm.description.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.description.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+
+                            <p class="help-block"
+                               ng-show="editForm.description.$error.maxlength" translate="entity.validation.maxlength"
+                               translate-value-man="200">
+                                This field is required to be at maximum 200 characters.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label translate="stepApp.cat.organizationCategory"
+                               for="field_organizationCategory">Category</label>
+
+                        <select class="form-control" id="field_organizationCategory" name="organizationCategory"
+                                tooltip="{{'stepApp.cat.organizationCategory' | translate}}"
+                                ng-model="cat.organizationCategory"
+                                ng-options="category as category.name for category in categorys track by category.id">
+                            <!--<option value="">Select Organization Category</option>-->
+                            <option value="" translate="stepApp.cat.organizationCategory">All Categories</option>
+                        </select>
+                        <div ng-show="editForm.organizationCategory.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.organizationCategory.$error.required"
+                               translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="col-sm-4 control-label" translate="stepApp.cat.status">Status</label>
+                        <div class="col-sm-8">
+                            <input type="radio" name="status" ng-checked="cat.status == true" ng-model="cat.status"
+                                   tooltip="{{'stepApp.cat.status' | translate}}"
+                                   value="true"><span translate="entity.action.activate" >Active</span>
+                            <input type="radio" name="status" ng-checked="cat.status == false" ng-model="cat.status"
+                                   tooltip="{{'stepApp.cat.status' | translate}}"
+                                   value="false"><span translate="entity.action.deactivate" >Inactive</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12 text-right">
+                            <button type="button" class="btn btn-default" ui-sref="cat">
+                                <span class="glyphicon glyphicon-remove"></span>&nbsp;<span
+                                translate="entity.action.cancel">Cancel</span>
+                            </button>
+                            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-save"></span>
+                                <!--&nbsp;<span translate="entity.action.save">Save</span>-->
+                                <span ng-show="cat.id == null" translate="entity.action.save">Save</span><span
+                                ng-show="cat.id != null" translate="entity.action.update">Update</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </form>
+
+            <!--<form name="editForm" class="form form-horizontal padding10" role="form" novalidate ng-submit="save()" show-validation>-->
+
+            <!--<div>-->
+            <!--<jh-alert-error></jh-alert-error>-->
+            <!--<div class="form-group">-->
+            <!--<div class="col-sm-8">-->
+            <!--<input type="hidden" class="form-control" id="id" name="id" ng-model="cat.id" readonly/>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<label class="col-sm-4 control-label" translate="stepApp.cat.cat" for="field_cat">Cat</label>-->
+
+            <!--<div class="col-sm-8">-->
+            <!--<input type="text" class="form-control" name="cat" id="field_cat"-->
+            <!--ng-model="cat.cat"-->
+            <!--required ng-minlength="3"/>-->
+
+            <!--<div ng-show="editForm.cat.$invalid">-->
+            <!--<p class="help-block"-->
+            <!--ng-show="editForm.cat.$error.required" translate="entity.validation.required">-->
+            <!--This field is required.-->
+            <!--</p>-->
+
+            <!--<p class="help-block"-->
+            <!--ng-show="editForm.cat.$error.minlength" translate="entity.validation.minlength"-->
+            <!--translate-value-min="3">-->
+            <!--This field is required to be at least 3 characters.-->
+            <!--</p>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<label class="col-sm-4 control-label" translate="stepApp.cat.description" for="field_description">Description</label>-->
+
+            <!--<div class="col-sm-8">-->
+            <!--<textarea type="text" class="form-control" name="description" id="field_description"-->
+            <!--ng-model="cat.description"-->
+            <!--required ng-minlength="10">-->
+            <!--</textarea>-->
+
+            <!--<div ng-show="editForm.description.$invalid">-->
+            <!--<p class="help-block"-->
+            <!--ng-show="editForm.description.$error.required" translate="entity.validation.required">-->
+            <!--This field is required.-->
+            <!--</p>-->
+
+            <!--<p class="help-block"-->
+            <!--ng-show="editForm.description.$error.minlength" translate="entity.validation.minlength"-->
+            <!--translate-value-min="10">-->
+            <!--This field is required to be at least 10 characters.-->
+            <!--</p>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="form-group">-->
+            <!--<label class="col-sm-4 control-label" translate="stepApp.cat.status" >Status</label>-->
+            <!--<div class="col-sm-8">-->
+            <!--<input type="radio" name="status" ng-checked="cat.status == true || defaultChecked" ng-model="cat.status" value="true">Active-->
+            <!--<input type="radio" name="status" ng-checked="cat.status == false" ng-model="cat.status" value="false">Inactive-->
+            <!--</div>-->
+            <!--</div>-->
+
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<div class="col-md-offset-4 col-md-8">-->
+            <!--<button type="button" class="btn btn-default" ui-sref="cat">-->
+            <!--<span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span-->
+            <!--translate="entity.action.cancel">Cancel</span>-->
+            <!--</button>-->
+            <!--<button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">-->
+            <!--<span class="glyphicon glyphicon-save"></span>&nbsp;<span-->
+            <!--translate="entity.action.save">Save</span>-->
+            <!--</button>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</form>-->
+        </div>
+    </div>
+</div>

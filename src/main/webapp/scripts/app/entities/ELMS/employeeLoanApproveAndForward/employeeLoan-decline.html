@@ -1,0 +1,23 @@
+<form name="approveForm" ng-submit="decline()">
+    <div class="modal-header bg-primary">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" translate="entity.deny.title">Confirm deny operation</h4>
+    </div>
+    <div class="modal-body">
+        <p translate="stepApp.employeeLoanApproveAndForward.decline.question">Cause of Denying</p>
+        <div class="form-group">
+            <textarea class="form-control"  placeholder="{{'Cause  Of  Decline' | translate}}" required
+                      ng-model="employeeLoanApproveAndForward.comments"></textarea>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-success">
+            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.deny">deny</span>
+        </button>
+    </div>
+</form>

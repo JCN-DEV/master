@@ -1,0 +1,228 @@
+<div>
+    <div class="col-sm-12 col-head">
+        <div class="col-sm-12 col-head-heading">
+            <h3 ng-hide="{{jasperReport.id}}" class="page-header"
+                translate="stepApp.jasperReport.home.createOrEditLabel">Create or edit a JasperReportParameter</h3>
+        </div>
+    </div>
+
+    <form style="background:#F2F2F2;" name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                    ng-click="clear()">&times;</button>
+            <h4 class="modal-title" id="myJasperReportLabel" translate="stepApp.jasperReport.home.createOrEditLabel">
+                Create or edit a JasperReport</h4>
+        </div>
+        <div class="panel-body pnl-border">
+            <div class="form-group">
+                <div class="col-sm-8">
+                    <input type="hidden" class="form-control" id="id" name="id" ng-model="jasperReport.id" readonly/>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.jasperReport.name" for="field_name">Name</label>
+                <input type="text" class="form-control" name="name" id="field_name"
+                       ng-model="jasperReport.name"
+                       required ng-maxlength="100"/>
+                <div ng-show="editForm.name.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.name.$error.maxlength" translate="entity.validation.maxlength"
+                       translate-value-max="100">
+                        This field cannot be longer than 100 characters.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.jasperReport.path" for="field_path">Path</label>
+                <input type="text" class="form-control" name="path" id="field_path"
+                       ng-model="jasperReport.path"
+                       required ng-maxlength="250"/>
+                <div ng-show="editForm.path.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.path.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.path.$error.maxlength" translate="entity.validation.maxlength"
+                       translate-value-max="250">
+                        This field cannot be longer than 250 characters.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.jasperReport.module" for="field_module">Module</label>
+                <input type="text" class="form-control" name="module" id="field_module"
+                       ng-model="jasperReport.module"
+                       ng-maxlength="100"/>
+                <div ng-show="editForm.module.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.module.$error.maxlength" translate="entity.validation.maxlength"
+                       translate-value-max="100">
+                        This field cannot be longer than 100 characters.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.jasperReport.role" for="field_role">Role</label>
+                <input type="text" class="form-control" name="role" id="field_role"
+                       ng-model="jasperReport.role"
+                       ng-maxlength="30"/>
+                <div ng-show="editForm.role.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.role.$error.maxlength" translate="entity.validation.maxlength"
+                       translate-value-max="30">
+                        This field cannot be longer than 30 characters.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group" >
+                    <label class="control-label" translate="stepApp.jasperReport.storeprocedurestatus" for="field_storeprocedurestatus">storeprocedurestatus</label>
+                    <div id="field_storeprocedurestatus" >
+                        <label  class="radio-inline btn btn-default">
+                            <input  type="radio" name="status"
+                                    ng-model="jasperReport.storeprocedurestatus"
+                                    ng-change=storeProcedureClasssSelection(true)
+                                    ng-checked="(jasperReport.storeprocedurestatus == true)"
+                                    value="true">Yes
+                        </label>
+                        <label class="radio-inline btn btn-default">
+                            <input   type="radio" name="status"
+                                     ng-model="jasperReport.storeprocedurestatus"
+                                     ng-change=storeProcedureClasssSelection(false)
+                                     ng-checked="jasperReport.storeprocedurestatus == false || jasperReport.storeprocedurestatus == null"
+                                     ng-value="false">No
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!--<div class="form-group col-md-6">-->
+                <!--<div class="form-group">-->
+                    <!--<label class="control-label" translate="stepApp.jasperReport.storeprocedurestatus">storeprocedurestatus</label>-->
+                    <!--<div class="input-margin">-->
+                        <!--<label class="radio-inline">-->
+                            <!--<input type="radio" name="status" value="true"-->
+                                   <!--ng-change=storeProcedureClasssSelection(true)-->
+                                   <!--ng-checked="(jasperReport.storeprocedurestatus == true)"-->
+                                   <!--ng-model="jasperReport.storeprocedurestatus"><span-->
+                            <!--translate="entity.action.activate">Active</span></label>-->
+                        <!--<label class="radio-inline">-->
+                            <!--<input type="radio" name="status" value="false"-->
+                                   <!--ng-change=storeProcedureClasssSelection(false)-->
+                                   <!--ng-checked="jasperReport.storeprocedurestatus == false || jasperReport.storeprocedurestatus == null"-->
+                                   <!--ng-model="jasperReport.storeprocedurestatus"><span-->
+                            <!--translate="entity.action.deactivate">Deactive</span></label>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <div class="form-group col-md-6">
+                <label translate="stepApp.jasperReport.procedurename" for="field_procedurename">procedurename</label>
+                <input type="text" class="form-control" name="procedurename" id="field_procedurename"
+                       ng-model="jasperReport.procedurename"
+                       ng-disabled="!jasperReport.storeprocedurestatus"
+                />
+                <div ng-show="editForm.procedurename.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.procedurename.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group" >
+                    <label class="control-label" translate="stepApp.jasperReport.status" for="field_status">Status</label>
+                    <div id="field_status" >
+                        <label  class="radio-inline btn btn-default">
+                            <input  type="radio" name="status"
+                                    ng-model="jasperReport.status"
+                                    ng-checked="jasperReport.status == true || jasperReport.status == null"
+                                    ng-value="true">Active</label>
+                        <label class="radio-inline btn btn-default">
+                            <input   type="radio" name="status"
+                                     ng-model="jasperReport.status"  ng-value="false">Deactive</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group" >
+                    <label class="control-label" translate="stepApp.jasperReport.listtablestatus" for="field_listtablestatus">Listtablestatu</label>
+                    <div id="field_listtablestatus" >
+                        <label  class="radio-inline btn btn-default">
+                            <input  type="radio" name="listtablestatus"
+                                    ng-model="jasperReport.listtablestatus"
+                                    ng-value="true">Yes</label>
+                        <label class="radio-inline btn btn-default">
+                            <input   type="radio" name="listtablestatus"
+                                     ng-model="jasperReport.listtablestatus"
+                                     ng-checked="jasperReport.listtablestatus == false || jasperReport.listtablestatus == null"
+                                     ng-value="false">No</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label translate="stepApp.jasperReport.paramtable" for="field_paramtable">Paramtable</label>
+                <input type="text" class="form-control" name="paramtable" id="field_paramtable"
+                       ng-model="jasperReport.paramtable"
+                       ng-disabled="!jasperReport.listtablestatus"
+                />
+            </div>
+
+            <div class="form-group col-md-6">
+                <label translate="stepApp.jasperReport.fieldname" for="field_fieldname">Fieldname</label>
+                <input type="text" class="form-control" name="fieldname" id="field_fieldname"
+                       ng-model="jasperReport.fieldname"
+                       ng-disabled="!jasperReport.listtablestatus"
+                />
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.jasperReport.displayfieldname" for="field_displayfieldname">Displayfieldname</label>
+                <input type="text" class="form-control" name="displayfieldname" id="field_displayfieldname"
+                       ng-model="jasperReport.displayfieldname"
+                       ng-disabled="!jasperReport.listtablestatus"
+                />
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.jasperReport.fieldtype" for="field_fieldtype">Fieldtype</label>
+                <input type="text" class="form-control" name="fieldtype" id="field_fieldtype"
+                       ng-model="jasperReport.fieldtype"
+                       ng-disabled="!jasperReport.listtablestatus"
+                />
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.jasperReport.wherecouse" for="field_wherecouse">Wherecouse</label>
+                <input type="text" class="form-control" name="wherecouse" id="field_wherecouse"
+                       ng-model="jasperReport.wherecouse"
+                       ng-disabled="!jasperReport.listtablestatus"
+                />
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.jasperReport.orderbyfield" for="field_orderbyfield">Orderbyfield</label>
+                <input type="text" class="form-control" name="orderbyfield" id="field_orderbyfield"
+                       ng-model="jasperReport.orderbyfield"
+                       ng-disabled="!jasperReport.listtablestatus"
+                />
+            </div>
+
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

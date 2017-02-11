@@ -1,0 +1,72 @@
+<div class="col-sm-12 common-dialogue">
+<form name="editForm" role="form" novalidate ng-submit="save()">
+        <h4 ng-show="dlSourceSetUp.id == null" class="modal-title" id="myDlSourceSetUpLabel" translate="stepApp.dlSourceSetUp.home.createOrEditLabel">Create or edit a DlSourceSetUp</h4>
+        <h4 ng-show="dlSourceSetUp.id != null" class="modal-title" id="myDlSourceSetUpLabel" translate="stepApp.dlSourceSetUp.home.EditLabel">Create or edit a DlSourceSetUp</h4>
+
+    <div class="modal-body">
+       <!-- <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="dlSourceSetUp.id" readonly />
+        </div>-->
+        <div class="form-group col-sm-6">
+            <label class="control-label" translate="stepApp.dlSourceSetUp.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                    ng-model="dlSourceSetUp.name"
+                    required placeholder="{{'stepApp.dlSourceSetUp.name' | translate}}"
+                     />
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label class="control-label" translate="stepApp.dlSourceSetUp.status" for="field_status">Status</label>
+
+
+            <div id="field_status">
+                <label  class="radio-inline btn btn-default"><input type="radio" name="status" value="true" ng-checked="(dlSourceSetUp.status == true || dlSourceSetUp.status == null)" ng-model="dlSourceSetUp.status"><span translate="entity.action.activate">Active</span></label>
+                <label class="radio-inline btn btn-default"><input type="radio" name="status"  value="false" ng-checked="(dlSourceSetUp.status == false && dlSourceSetUp.status!= null)"  ng-model="dlSourceSetUp.status"><span translate="entity.action.deactivate">Deactive</span></label>
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label class="control-label" translate="stepApp.dlSourceSetUp.description" for="field_name">description</label>
+            <textarea type="text" class="form-control" name="name" id="field_name"
+                   ng-model="dlSourceSetUp.description"
+                   required placeholder="{{'stepApp.dlSourceSetUp.description' | translate}}">
+                </textarea>
+        </div>
+        <!--<div class="form-group">
+            <label class="control-label" translate="stepApp.dlSourceSetUp.createDate" for="field_createDate">CreateDate</label>
+            <input type="date" class="form-control" name="createDate" id="field_createDate"
+                    ng-model="dlSourceSetUp.createDate"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.dlSourceSetUp.createBy" for="field_createBy">CreateBy</label>
+            <input type="number" class="form-control" name="createBy" id="field_createBy"
+                    ng-model="dlSourceSetUp.createBy"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.dlSourceSetUp.updateDate" for="field_updateDate">UpdateDate</label>
+            <input type="date" class="form-control" name="updateDate" id="field_updateDate"
+                    ng-model="dlSourceSetUp.updateDate"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.dlSourceSetUp.updateBy" for="field_updateBy">UpdateBy</label>
+            <input type="number" class="form-control" name="updateBy" id="field_updateBy"
+                    ng-model="dlSourceSetUp.updateBy"
+                     />
+        </div>-->
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ui-sref="libraryInfo.dlSourceSetUp">
+            <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span ng-hide="dlSourceSetUp.id" translate="entity.action.save"></span>
+            <span ng-show = "dlSourceSetUp.id" translate="entity.action.update"></span>
+        </button>
+    </div>
+</form>
+</div>

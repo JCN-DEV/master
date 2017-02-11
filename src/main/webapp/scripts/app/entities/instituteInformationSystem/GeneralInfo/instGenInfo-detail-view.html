@@ -1,0 +1,229 @@
+<div class="col-md-12 common-table">
+        <h2 ><span translate="stepApp.instGenInfo.detail.title">InstGenInfo</span></h2>
+    <div ng-hide="instGenInfo.status != 1" class="col-md-12 padding-tb text-right">
+        <button type="submit"
+                ui-sref="instituteInfo.generalInfo.edit({id:instGenInfo.id})"
+                class="btn btn-primary">
+            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit">Edit</span>
+        </button>
+    </div>
+    <div class="table-responsive panel-body">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>
+                    <span translate="stepApp.instGenInfo.code">Code</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.code}}</span>
+                </td>
+                <th>
+                    <span translate="stepApp.instGenInfo.name">Name</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.name}}</span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <span translate="stepApp.instGenInfo.publicationDate">PublicationDate</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.publicationDate | date:'mediumDate'}}</span>
+                </td>
+                <th>
+                    <span translate="stepApp.instGenInfo.eiin">Type</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.eiin}}</span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <span translate="stepApp.instGenInfo.centerCode">Type</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.centerCode}}</span>
+                </td>
+                <th>
+                    <span translate="stepApp.instGenInfo.type">Type</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.type}}</span>
+                </td>
+            </tr>
+            <tr ng-if="instGenInfo.mpoEnlisted && instGenInfo.type === 'NonGovernment'">
+                <th>
+                    <span translate="stepApp.instGenInfo.mpoEnlisted">Type</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.mpoEnlisted ? 'Yes' : 'No'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <span translate="stepApp.instGenInfo.firstAffiliationDate">First Affiliation Date</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.firstAffiliationDate | date:format:timezone}}</span>
+                </td>
+                <th ng-if="instGenInfo.mpoEnlisted && instGenInfo.type === 'NonGovernment' && instGenInfo.dateOfMpo != null">
+                    <span translate="stepApp.instGenInfo.dateOfMpo">Date of Mpo</span>
+                </th>
+                <td ng-if="instGenInfo.mpoEnlisted && instGenInfo.type === 'NonGovernment' && instGenInfo.dateOfMpo != null">
+                    <span class="form-control-static">{{instGenInfo.dateOfMpo | date:format:timezone}}</span>
+                </td>
+                <th ng-if="instGenInfo.type != 'NonGovernment'">
+                    <span translate="stepApp.instGenInfo.instLevel">Type</span>
+                </th>
+                <td ng-if="instGenInfo.type != 'NonGovernment'">
+                    <span class="form-control-static">{{instGenInfo.instLevel.name}}</span>
+                </td>
+            </tr>
+            <tr ng-if="instGenInfo.type == 'NonGovernment'">
+                <th>
+                    <span translate="stepApp.instGenInfo.instCategory">Type</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.instCategory.name}}</span>
+                </td><th>
+                    <span translate="stepApp.instGenInfo.instLevel">Type</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.instLevel.name}}</span>
+                </td>
+            </tr>
+            <tr ng-if="instGenInfo.type == 'Government'">
+                <th></th><td></td>
+                <th>
+                    <span translate="stepApp.instGenInfo.instCategory">Type</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.instCategory.name}}</span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <span translate="stepApp.instGenInfo.ownerType">Owner Type</span>
+                </th>
+                <td ng-if="instGenInfo.ownerType">
+                    <span class="form-control-static">Individual</span>
+                </td>
+                <td ng-if="!instGenInfo.ownerType">
+                    <span class="form-control-static">Associated</span>
+                </td>
+                <th>
+                    <span translate="stepApp.instGenInfo.village">Village</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.village}}</span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <span translate="stepApp.instGenInfo.postOffice">PostOffice</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.postOffice}}</span>
+                </td>
+                <th>
+                    <span translate="stepApp.instGenInfo.postCode">PostCode</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.postCode}}</span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <span translate="stepApp.instGenInfo.landPhone">LandPhone</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.landPhone}}</span>
+                </td>
+                <th>
+                    <span translate="stepApp.instGenInfo.mobileNo">MobileNo</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.mobileNo}}</span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <span translate="stepApp.instGenInfo.altMobileNo">altMobileNo</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.altMobileNo}}</span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <span translate="stepApp.instGenInfo.email">Email</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.email}}</span>
+                </td>
+                <th>
+                    <span translate="stepApp.instGenInfo.consArea">ConsArea</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.consArea}}</span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <span translate="stepApp.instGenInfo.division">Division</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.upazila.district.division.name}}</span>
+                </td>
+                <th>
+                    <span translate="stepApp.instGenInfo.district">District</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.upazila.district.name}}</span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <span translate="stepApp.instGenInfo.upazila">District</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.upazila.name}}</span>
+                </td>
+                <th>
+                    <span translate="stepApp.instGenInfo.faxNum">Fax</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.faxNum}}</span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <span translate="stepApp.instGenInfo.website">Web Site</span>
+                </th>
+                <td>
+                    <span class="form-control-static">{{instGenInfo.website}}</span>
+                </td>
+                <th>Locality</th>
+                <td>{{instGenInfo.locality == 1 ? "Citycorporation" : (instGenInfo.locality==2 ? "Municipilaty":"others") }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button type="button"
+                ng-click="showPreview(false)"
+                class="btn btn-default">
+            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit">Edit</span>
+        </button>
+        <button type="button" ng-click="save()" ng-disabled="editForm.$error.required || isSaving " class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;
+            <span ng-show="instGenInfo.id == null" translate="entity.action.save">Save</span>
+            <span ng-show="instGenInfo.id != null" translate="entity.action.update">Save</span>
+        </button>
+    </div>
+</div>

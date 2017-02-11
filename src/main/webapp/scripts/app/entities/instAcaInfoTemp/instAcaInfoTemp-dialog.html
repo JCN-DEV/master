@@ -1,0 +1,66 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myInstAcaInfoTempLabel" translate="stepApp.instAcaInfoTemp.home.createOrEditLabel">Create or edit a InstAcaInfoTemp</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="instAcaInfoTemp.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instAcaInfoTemp.academicCounselorName" for="field_academicCounselorName">AcademicCounselorName</label>
+            <input type="text" class="form-control" name="academicCounselorName" id="field_academicCounselorName"
+                    ng-model="instAcaInfoTemp.academicCounselorName"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instAcaInfoTemp.Mobile" for="field_Mobile">Mobile</label>
+            <input type="text" class="form-control" name="Mobile" id="field_Mobile"
+                    ng-model="instAcaInfoTemp.Mobile"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instAcaInfoTemp.curriculum" for="field_curriculum">Curriculum</label>
+            <select class="form-control" name="curriculum" ng-model="instAcaInfoTemp.curriculum" id="field_curriculum">
+                <option value="SSC_VOC" translate="stepApp.Curriculum.SSC_VOC">SSC_VOC</option>
+                <option value="HSC_VOC" translate="stepApp.Curriculum.HSC_VOC">HSC_VOC</option>
+                <option value="HSC_BM" translate="stepApp.Curriculum.HSC_BM">HSC_BM</option>
+                <option value="MADDRASSA" translate="stepApp.Curriculum.MADDRASSA">MADDRASSA</option>
+                <option value="HONORS" translate="stepApp.Curriculum.HONORS">HONORS</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instAcaInfoTemp.totalTradeTechNo" for="field_totalTradeTechNo">TotalTradeTechNo</label>
+            <input type="number" class="form-control" name="totalTradeTechNo" id="field_totalTradeTechNo"
+                    ng-model="instAcaInfoTemp.totalTradeTechNo"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instAcaInfoTemp.tradeTechDetails" for="field_tradeTechDetails">TradeTechDetails</label>
+            <input type="text" class="form-control" name="tradeTechDetails" id="field_tradeTechDetails"
+                    ng-model="instAcaInfoTemp.tradeTechDetails"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.instAcaInfoTemp.institute" for="field_institute">institute</label>
+            <select class="form-control" id="field_institute" name="institute" ng-model="instAcaInfoTemp.institute" ng-options="institute as institute.code for institute in institutes | orderBy:'id' track by institute.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,123 @@
+<div class="col-sm-12 common-list">
+    <h2 translate="stepApp.hrDesignationSetup.home.title">HrDesignationSetups</h2>
+    <div class="col-md-12 padding-tb">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+        <div class="col-xs-4 no_padding text-right ">
+            <button class="btn btn-primary su_sea_pri" ui-sref="hrDesignationSetup.new">
+                <span class="glyphicon glyphicon-plus"></span> <span
+                translate="stepApp.hrDesignationSetup.home.createLabel">Create a new HrDesignationSetup</span>
+            </button>
+            <button class="btn btn-primary su_sea_pri" ui-sref="hrDesignationSetup.newmpo">
+                <span class="glyphicon glyphicon-plus"></span> <span
+                translate="stepApp.hrDesignationSetup.home.createLabelMpo">Create a new MPO Designation</span>
+            </button>
+        </div>
+    </div>
+    <!--<jh-alert></jh-alert>-->
+    <!--<div class="col-sm-12 padding-tb no-print">
+        <div class="col-md-8 col-xs-12 no_padding">
+            <div class="col-md-6 no_padding">
+                <b>&lt;!&ndash;{{ (hrDesignationSetups | filter:q).length }}&ndash;&gt; <span translate="global.home.searchhere">Search Here :</span></b>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-search"
+                                                                         aria-hidden="true"></i></span>
+                    <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <b><span translate="global.home.itemperpage">Items per page:</span></b>
+                <div class="input-group">
+                    <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-xs-12  text-right no_padding">
+            <button class="btn btn-primary su_sea_pri" ui-sref="hrDesignationSetup.new">
+                <span class="glyphicon glyphicon-plus"></span> <span
+                translate="stepApp.hrDesignationSetup.home.createLabel">Create a new HrDesignationSetup</span>
+            </button>
+        </div>
+    </div>-->
+
+    <div class="col-sm-12 table-responsive no_padding">
+        <table class="table table-striped table-responsive">
+            <thead>
+            <tr>
+                <th><span translate="global.form.serial">serial</span></th>
+                <th><span translate="stepApp.hrDesignationSetup.designationInfo">DesignationInfo</span></th>
+                <th><span translate="stepApp.hrDesignationSetup.organizationType">organizationType</span></th>
+                <th><span translate="stepApp.hrDesignationSetup.desigType">desigType</span></th>
+                <th><span translate="stepApp.hrDesignationSetup.categoryName">categoryName</span></th>
+                <th><span translate="stepApp.hrDesignationSetup.subCategoryName">subCategoryName</span></th>
+                <th><span translate="stepApp.hrDesignationSetup.gradeInfo">gradeInfo</span></th>
+                <th><span translate="stepApp.hrDesignationSetup.elocattedPosition">elocattedPosition</span></th>
+                <th><span translate="stepApp.hrDesignationSetup.activeStatus">ActiveStatus</span></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-animate="'animate'"
+                dir-paginate="hrDesignationSetup in hrDesignationSetups | filter:q | itemsPerPage: pageSize track by hrDesignationSetup.id"
+                current-page="currentPage">
+                <td>{{pageSize * (currentPage-1)+$index+1}}</td>
+                <td>{{hrDesignationSetup.designationInfo.designationName}}</td>
+                <td>{{hrDesignationSetup.organizationType}}</td>
+                <td>{{hrDesignationSetup.desigType}}</td>
+                <td>
+                    <span ng-show="(hrDesignationSetup.organizationType=='Organization')">
+                    {{hrDesignationSetup.organizationCategory.typeName}}
+                    </span>
+                    <span ng-show="(hrDesignationSetup.organizationType=='Institute')">
+                    {{hrDesignationSetup.instCategory.name}}
+                    </span>
+                </td>
+                <td>
+                    <span ng-show="(hrDesignationSetup.organizationType=='Organization')">
+                    {{hrDesignationSetup.organizationInfo.name}}
+                    </span>
+                    <span ng-show="(hrDesignationSetup.organizationType=='Institute')">
+                    {{hrDesignationSetup.institute.name}}
+                    </span>
+                </td>
+                <td>{{hrDesignationSetup.gradeInfo.gradeCode}}</td>
+                <td>{{hrDesignationSetup.elocattedPosition}}</td>
+                <td>{{hrDesignationSetup.activeStatus ? 'Active' : 'Inactive'}}</td>
+                <td class="hrm-button text-right no-print">
+                    <button type="submit"
+                            ui-sref="hrDesignationSetup.detail({id:hrDesignationSetup.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                    <button ng-if="hrDesignationSetup.desigType=='HRM'" type="submit"
+                            ui-sref="hrDesignationSetup.edit({id:hrDesignationSetup.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                        translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button ng-if="hrDesignationSetup.desigType!='HRM'" type="submit"
+                            ui-sref="hrDesignationSetup.editmpo({id:hrDesignationSetup.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                        translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit" ng-hide="true"
+                            ui-sref="hrDesignationSetup.delete({id:hrDesignationSetup.id})"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                        translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <nav class="no-print">
+        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                 template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+    </nav>
+</div>

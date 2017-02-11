@@ -1,0 +1,56 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myPrlEmpGenSalDetailInfoLabel" translate="stepApp.prlEmpGenSalDetailInfo.home.createOrEditLabel">Create or edit a PrlEmpGenSalDetailInfo</h4>
+    </div>
+    <div class="modal-body">
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.prlEmpGenSalDetailInfo.employeeSalaryInfo" for="field_employeeSalaryInfo">employeeSalaryInfo</label>
+                <select class="form-control" id="field_employeeSalaryInfo" name="employeeSalaryInfo" ng-model="prlEmpGenSalDetailInfo.employeeSalaryInfo" ng-options="PrlEmpGeneratedSalInfo as PrlEmpGeneratedSalInfo.id for PrlEmpGeneratedSalInfo in prlempgeneratedsalinfos track by PrlEmpGeneratedSalInfo.id">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" translate="stepApp.prlEmpGenSalDetailInfo.allowDeducType" for="field_allowDeducType">AllowDeducType</label>
+                <input type="text" class="form-control" name="allowDeducType" id="field_allowDeducType"
+                       ng-model="prlEmpGenSalDetailInfo.allowDeducType"/>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" translate="stepApp.prlEmpGenSalDetailInfo.allowDeducId" for="field_allowDeducId">AllowDeducId</label>
+                <input type="number" class="form-control" name="allowDeducId" id="field_allowDeducId"
+                       ng-model="prlEmpGenSalDetailInfo.allowDeducId"/>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" translate="stepApp.prlEmpGenSalDetailInfo.allowDeducName" for="field_allowDeducName">AllowDeducName</label>
+                <input type="text" class="form-control" name="allowDeducName" id="field_allowDeducName"
+                       ng-model="prlEmpGenSalDetailInfo.allowDeducName"/>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="control-label" translate="stepApp.prlEmpGenSalDetailInfo.allowDeducValue" for="field_allowDeducValue">AllowDeducValue</label>
+                <input type="number" class="form-control" name="allowDeducValue" id="field_allowDeducValue"
+                       ng-model="prlEmpGenSalDetailInfo.allowDeducValue"/>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-default" class="btn " data-dismiss="modal" onclick="window.history.back()">
+                <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;<span translate="entity.action.back">Back</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+            </button>
+        </div>
+    </div>
+</form>

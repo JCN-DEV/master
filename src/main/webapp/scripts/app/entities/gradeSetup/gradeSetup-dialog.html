@@ -1,0 +1,70 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myGradeSetupLabel" translate="stepApp.gradeSetup.home.createOrEditLabel">Create or edit a GradeSetup</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="gradeSetup.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.gradeSetup.no" for="field_no">No</label>
+            <input type="number" class="form-control" name="no" id="field_no"
+                    ng-model="gradeSetup.no"
+                    required />
+            <div ng-show="editForm.no.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.no.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.no.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.gradeSetup.details" for="field_details">Details</label>
+            <input type="text" class="form-control" name="details" id="field_details"
+                    ng-model="gradeSetup.details"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.gradeSetup.gradeClass" for="field_gradeClass">GradeClass</label>
+            <select class="form-control" name="gradeClass" ng-model="gradeSetup.gradeClass" id="field_gradeClass">
+                <option value="First_Class" translate="stepApp.gradeClass.First_Class">First_Class</option>
+                <option value="Second_Class" translate="stepApp.gradeClass.Second_Class">Second_Class</option>
+                <option value="Third_Class" translate="stepApp.gradeClass.Third_Class">Third_Class</option>
+                <option value="Forth_Class" translate="stepApp.gradeClass.Forth_Class">Forth_Class</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.gradeSetup.type" for="field_type">Type</label>
+            <select class="form-control" name="type" ng-model="gradeSetup.type" id="field_type">
+                <option value="Selection" translate="stepApp.gradeType.Selection">Selection</option>
+                <option value="Promotion" translate="stepApp.gradeType.Promotion">Promotion</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.gradeSetup.status" for="field_status">Status</label>
+            <input type="checkbox" class="form-control" name="status" id="field_status"
+                    ng-model="gradeSetup.status"
+                     />
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

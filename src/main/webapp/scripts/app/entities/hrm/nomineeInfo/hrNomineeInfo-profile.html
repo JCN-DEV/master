@@ -1,0 +1,241 @@
+<div>
+    <div>
+        <div>
+
+                <div class="panel-group hr_label">
+                    <div>
+                        <!-- For Loop Starts-->
+                        <div class="panel-body bg-panel" ng-repeat="hrNomineeInfo in hrNomineeInfoList">
+                            <form  class="form-horizontal " name="editForm" role="form"  ng-submit="save()" novalidate  show-validation>
+                            <div class="row panel-heading no_padding">
+                                <div class="col-sm-7 no_padding">
+                                    <strong>{{hrNomineeInfo.nomineeName}} => {{hrNomineeInfo.relationship}}</strong>
+                                </div>
+                                <div class="col-sm-5 no_padding text-right">
+                                    <button ng-hide="noEmployeeFound || hrNomineeInfo.isLocked || hrNomineeInfo.logStatus==6" type="button" ng-click="changeProfileMode(hrNomineeInfo)"
+                                            class="btn btn-primary btn-sm">{{hrNomineeInfo.viewModeText}}
+                                    </button>
+                                    <span ng-show="hrNomineeInfo.isLocked" class="alert alert-warning approve-alert"><span translate="stepApp.hrmHome.recordLocked">Pending</span></span>
+                                    <span ng-if="hrNomineeInfo.logStatus == 3">
+                                        <span class="alert alert-warning" translate="stepApp.hrmHome.requestRejected">Rejected</span>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12 text-right">
+                                    <span class="alert-warning" ng-if="hrNomineeInfo.logStatus == 3">
+                                        <span class="control-label" translate="stepApp.hrmHome.rejectionReason">Reason</span>: &nbsp; : &nbsp;{{hrNomineeInfo.logComments}}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="row hrm-view">
+                                <div class="form-group col-sm-6">
+                                    <div ng-show="!hrNomineeInfo.viewMode" class="input-margin">
+                                        <label class="control-label" translate="stepApp.hrNomineeInfo.nomineeName" for="field_nomineeName">NomineeName</label>
+                                        <input type="text" class="form-control" name="nomineeName" id="field_nomineeName"
+                                               ng-model="hrNomineeInfo.nomineeName"
+                                               required ng-maxlength="100" />
+                                        <div ng-show="editForm.nomineeName.$invalid">
+                                            <p class="help-block"
+                                               ng-show="editForm.nomineeName.$error.required" translate="entity.validation.required">
+                                                This field is required.
+                                            </p>
+                                            <p class="help-block"
+                                               ng-show="editForm.nomineeName.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="100">
+                                                This field cannot be longer than 100 characters.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div ng-show="hrNomineeInfo.viewMode" >
+                                        <label class="control-label" translate="stepApp.hrNomineeInfo.nomineeName">NomineeName</label>
+                                        <span class="form-control-static">&nbsp; : &nbsp;{{hrNomineeInfo.nomineeName}}</span>
+                                    </div>
+
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label class="control-label" translate="stepApp.hrNomineeInfo.nomineeNameBn" for="field_nomineeNameBn">NomineeNameBn</label>
+                                    <div ng-show="!hrNomineeInfo.viewMode" class="input-margin">
+                                        <input type="text" class="form-control" name="nomineeNameBn" id="field_nomineeNameBn"
+                                               ng-model="hrNomineeInfo.nomineeNameBn"/>
+                                    </div>
+                                    <span ng-show="hrNomineeInfo.viewMode" class="form-control-static">&nbsp; : &nbsp;{{hrNomineeInfo.nomineeNameBn}}</span>
+                                </div>
+                            </div>
+
+                            <div class="row hrm-view">
+                                <div class="form-group col-sm-6">
+                                    <div ng-show="!hrNomineeInfo.viewMode" class="input-margin">
+                                        <label class="control-label" translate="stepApp.hrNomineeInfo.birthDate" for="field_birthDate">BirthDate</label>
+                                        <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.birthDate"
+                                               datepicker-options="calendar.dateOptions" close-text="Close"
+                                               ng-click="calendar.open($event, 'birthDate')" class="form-control" name="birthDate" id="field_birthDate"
+                                               ng-model="hrNomineeInfo.birthDate"
+                                               required />
+                                        <div ng-show="editForm.birthDate.$invalid">
+                                            <p class="help-block"
+                                               ng-show="editForm.birthDate.$error.required" translate="entity.validation.required">
+                                                This field is required.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div ng-show="hrNomineeInfo.viewMode">
+                                        <label class="control-label" translate="stepApp.hrNomineeInfo.birthDate">BirthDate</label>
+                                        <span class="form-control-static">&nbsp; : &nbsp;{{hrNomineeInfo.birthDate | date:'mediumDate'}}</span>
+                                    </div>
+
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <div ng-show="!hrNomineeInfo.viewMode" class="input-margin">
+                                        <label class="control-label" translate="stepApp.hrNomineeInfo.gender" for="field_gender">Gender</label>
+                                        <select class="form-control" name="gender" ng-model="hrNomineeInfo.gender" id="field_gender" required>
+                                            <option value="Male" translate="stepApp.gender.Male">Male</option>
+                                            <option value="Female" translate="stepApp.gender.Female">Female</option>
+                                            <option value="Other" translate="stepApp.gender.Other">Other</option>
+                                        </select>
+                                        <div ng-show="editForm.gender.$invalid">
+                                            <p class="help-block"
+                                               ng-show="editForm.gender.$error.required" translate="entity.validation.required">
+                                                This field is required.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div ng-show="hrNomineeInfo.viewMode">
+                                        <label class="control-label" translate="stepApp.hrNomineeInfo.gender" for="field_gender">Gender</label>
+                                        <span class="form-control-static">&nbsp; : &nbsp;{{hrNomineeInfo.gender}}</span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row hrm-view">
+                                <div class="form-group col-sm-6">
+                                    <div ng-show="!hrNomineeInfo.viewMode" class="input-margin">
+                                        <label class="control-label" translate="stepApp.hrNomineeInfo.relationship" for="field_relationship">Relationship</label>
+                                        <select class="form-control" id="field_relationship" name="nomineeRelationship" ng-model="hrNomineeInfo.nomineeRelationship" ng-options="MiscTypeSetup as MiscTypeSetup.typeName for MiscTypeSetup in nomineeRelationships track by MiscTypeSetup.id" required>
+                                            <option value="">Select Relationship</option>
+                                        </select>
+                                        <div ng-show="editForm.relationship.$invalid">
+                                            <p class="help-block"
+                                               ng-show="editForm.relationship.$error.required" translate="entity.validation.required">
+                                                This field is required.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div ng-show="hrNomineeInfo.viewMode">
+                                        <label class="control-label" translate="stepApp.hrNomineeInfo.relationship" for="field_relationship">Relationship</label>
+                                        <span class="form-control-static">&nbsp; : &nbsp;{{hrNomineeInfo.nomineeRelationship.typeName}}</span>
+                                    </div>
+
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label class="control-label" translate="stepApp.hrNomineeInfo.occupation" for="field_occupation">Occupation</label>
+                                    <div ng-show="!hrNomineeInfo.viewMode" class="input-margin">
+                                        <input type="text" class="form-control" name="occupation" id="field_occupation"
+                                               ng-model="hrNomineeInfo.occupation"/>
+                                    </div>
+                                    <span ng-show="hrNomineeInfo.viewMode" class="form-control-static">&nbsp; : &nbsp;{{hrNomineeInfo.occupation}}</span>
+                                </div>
+                            </div>
+
+                            <div class="row hrm-view">
+                                <div class="form-group col-sm-6">
+                                    <label class="control-label" translate="stepApp.hrNomineeInfo.designation" for="field_designation">Designation</label>
+                                    <div ng-show="!hrNomineeInfo.viewMode" class="input-margin">
+                                        <input type="text" class="form-control" name="designation" id="field_designation"
+                                               ng-model="hrNomineeInfo.designation"/>
+                                    </div>
+                                    <span ng-show="hrNomineeInfo.viewMode" class="form-control-static">&nbsp; : &nbsp;{{hrNomineeInfo.designation}}</span>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <div ng-show="!hrNomineeInfo.viewMode" class="input-margin">
+                                        <label class="control-label" translate="stepApp.hrNomineeInfo.nationalId" for="field_nationalId">NationalId</label>
+                                        <input type="text" class="form-control" name="nationalId" id="field_nationalId"
+                                               ng-model="hrNomineeInfo.nationalId"
+                                               ng-minlength="17" ng-maxlength="17"
+                                            required/>
+                                        <div ng-show="editForm.nationalId.$invalid">
+                                            <p class="help-block"
+                                               ng-show="editForm.nationalId.$error.minlength" translate="entity.validation.minlength" translate-value-min="17">
+                                                This field is required to be at least 17 characters.
+                                            </p>
+                                            <p class="help-block"
+                                               ng-show="editForm.nationalId.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="17">
+                                                This field cannot be longer than 17 characters.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div ng-show="hrNomineeInfo.viewMode">
+                                        <label class="control-label" translate="stepApp.hrNomineeInfo.nationalId" for="field_nationalId">NationalId</label>
+                                        <span class="form-control-static">&nbsp; : &nbsp;{{hrNomineeInfo.nationalId}}</span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row hrm-view">
+                                <div class="form-group col-sm-6">
+                                    <div ng-show="!hrNomineeInfo.viewMode" class="input-margin">
+                                        <label class="control-label" translate="stepApp.hrNomineeInfo.mobileNumber" for="field_mobileNumber">MobileNumber</label>
+                                        <input type="text" class="form-control" name="mobileNumber" id="field_mobileNumber"
+                                               ng-model="hrNomineeInfo.mobileNumber"
+                                               ng-minlength="11" ng-maxlength="18" required numeric-only-mobile/>
+                                        <div ng-show="editForm.mobileNumber.$invalid">
+                                            <p class="help-block"
+                                               ng-show="editForm.mobileNumber.$error.required" translate="entity.validation.required">
+                                                This field is required.
+                                            </p>
+                                            <p class="help-block"
+                                               ng-show="editForm.mobileNumber.$error.minlength" translate="entity.validation.minlength" translate-value-min="11">
+                                                This field is required to be at least 11 characters.
+                                            </p>
+                                            <p class="help-block"
+                                               ng-show="editForm.mobileNumber.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="18">
+                                                This field cannot be longer than 18 characters.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div ng-show="hrNomineeInfo.viewMode">
+                                        <label class="control-label" translate="stepApp.hrNomineeInfo.mobileNumber" for="field_mobileNumber">MobileNumber</label>
+                                        <span class="form-control-static">&nbsp; : &nbsp;{{hrNomineeInfo.mobileNumber}}</span>
+                                    </div>
+
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label class="control-label" translate="stepApp.hrNomineeInfo.address" for="field_address">Address</label>
+                                    <div ng-show="!hrNomineeInfo.viewMode" class="input-margin">
+                                        <textarea class="form-control" name="address" id="field_address" ng-model="hrNomineeInfo.address"></textarea>
+                                    </div>
+                                    <span ng-show="hrNomineeInfo.viewMode" class="form-control-static">&nbsp; : &nbsp;{{hrNomineeInfo.address}}</span>
+                                </div>
+                            </div>
+
+                            <div class="row hrm-view">
+                                <div class="form-group col-sm-6">&nbsp;</div>
+                                <div class="form-group col-sm-6 text-right">
+                                    <button ng-show="!hrNomineeInfo.viewMode" type="button" ng-click="changeProfileMode(hrNomineeInfo)" class="btn btn-default btn-sm">
+                                        <span class="glyphicon glyphicon-remove"></span>&nbsp;{{hrNomineeInfo.viewModeText}}
+                                    </button>
+
+                                    <button ng-show="!hrNomineeInfo.viewMode" ng-click="updateProfile(hrNomineeInfo, $index)" type="button" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary btn-sm">
+                                        <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                                    </button>
+                                </div>
+                            </div>
+                            </form>
+                        </div>
+                        <!-- For Loop End -->
+
+                        <div class="col-sm-12 no_padding text-right">
+                            <button type="submit" class="btn btn-primary" ng-show="!addMode" ng-click="addMore()"><i class="fa fa-plus-square"></i>
+                                <span  translate="global.menu.account.addmore">Add More</span>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+        </div>
+    </div>
+</div>

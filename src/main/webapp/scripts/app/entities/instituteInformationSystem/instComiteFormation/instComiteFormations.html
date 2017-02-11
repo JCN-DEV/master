@@ -1,0 +1,111 @@
+<div class="col-md-12 common-list">
+    <h2 translate="stepApp.instComiteFormation.home.title">InstComiteFormations</h2>
+    <!--<div class="col-sm-12 padding-bt no-print">
+        <div class="col-md-6 no_padding">
+            <form name="searchForm" class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery">
+                </div>
+                <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span>
+                </button>
+            </form>
+        </div>
+        <div class="col-md-6 text-right">
+            <button class="btn btn-primary" ui-sref="instituteInfo.instComiteFormation.new">
+                <span class="glyphicon glyphicon-plus"></span> <span
+                translate="stepApp.instComiteFormation.home.createCommittee">Create a new InstComiteFormation</span>
+            </button>
+        </div>
+    </div>-->
+    <div class="col-md-12 padding-bt">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+        <div class="col-md-4 text-right  no_padding">
+            <button class="btn btn-primary" ui-sref="instituteInfo.instComiteFormation.new">
+                <span class="glyphicon glyphicon-plus"></span> <span
+                translate="stepApp.instComiteFormation.home.createCommittee">Create a new InstComiteFormation</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="col-sm-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="global.field.id">ID</th>
+                <th translate="stepApp.instComiteFormation.comiteName">ComiteName</th>
+                <th translate="stepApp.instComiteFormation.comiteType">ComiteType</th>
+                <th translate="stepApp.instComiteFormation.address">Address</th>
+                <th translate="stepApp.instComiteFormation.timeFrom">TimeFrom</th>
+                <th translate="stepApp.instComiteFormation.timeTo">TimeTo</th>
+                <th translate="stepApp.instComiteFormation.formationDate">FormationDate</th>
+                <!-- <th translate="stepApp.instComiteFormation.instMemShip">instMemShip</th>-->
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--<tr ng-repeat="instComiteFormation in instComiteFormations track by instComiteFormation.id">-->
+            <tr dir-paginate="instComiteFormation in instComiteFormations | filter:q | itemsPerPage: pageSize track by instComiteFormation.id" current-page="currentPage">
+
+            <td><a ui-sref="instComiteFormation.detail({id:instComiteFormation.id})">{{instComiteFormation.id}}</a>
+                </td>
+                <td>{{instComiteFormation.comiteName}}</td>
+                <td>{{instComiteFormation.comiteType}}</td>
+                <td>{{instComiteFormation.address}}</td>
+                <td>{{instComiteFormation.timeFrom}}</td>
+                <td>{{instComiteFormation.timeTo}}</td>
+                <td>{{instComiteFormation.formationDate | date:'mediumDate'}}</td>
+                <!--<td>
+                    <a ui-sref="instMemShip.detail({id:instComiteFormation.instMemShip.id})">{{instComiteFormation.instMemShip.email}}</a>
+                </td>-->
+                <td class="text-right no-print">
+                    <button type="submit"
+                            ui-sref="instituteInfo.instComiteFormation.detail({id:instComiteFormation.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="instituteInfo.instComiteFormation.edit({id:instComiteFormation.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                        translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <!--<button type="submit"
+                            ui-sref="instituteInfo.instComiteFormation.addMember({id:instComiteFormation.id})"
+                            class="btn btn-default btn-sm">
+                        <span class="glyphicon "></span>&nbsp;<span translate="entity.action.AddMembers"> Add Members</span>
+                    </button>--><!--<button type="submit"
+                                ui-sref="instituteInfo.instComiteFormation.delete({id:instComiteFormation.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>-->
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <nav>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+    <div class="no-print   text-right">
+        <button type="submit" name="submit" onclick="window.print()" class="btn btn-primary">
+            <span class="glyphicon glyphicon-print"></span>&nbsp;<span
+            translate="entity.action.print">Print</span>
+        </button>
+    </div>
+    <div class="col-sm-12 text-left no-print">
+        <button type="button" class="btn btn-default" class="btn pull-left" data-dismiss="modal"
+                ui-sref="instituteInfo.instComiteFormation">
+            <span class=" glyphicon glyphicon-arrow-left "></span>&nbsp;<span
+            translate="entity.action.back">Back</span>
+        </button>
+    </div>
+</div>
+<!--</div>
+    </div>-->
+

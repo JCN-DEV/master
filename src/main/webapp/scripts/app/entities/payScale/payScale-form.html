@@ -1,0 +1,248 @@
+
+<div class="col-md-3">
+    <ng-include src="'scripts/app/account/mpo/mpo-left-menu.html'"></ng-include>
+</div>
+
+<div class="col-md-9 lbl-dash">
+    <div class="col-md-12 common-dialogue no_padding">
+            <h4 class="panel-title"  ng-if="payScale.id == null"   translate="stepApp.payScale.home.createLabel">createLabel</h4>
+            <h4 class="panel-title" ng-if="payScale.id != null"  translate="stepApp.payScale.home.editLabel">editLabel</h4>
+
+        <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+        <div class="panel-body ">
+
+            <!--<div class="form-group col-md-6 hide">-->
+                <!--<input type="hidden" class="form-control" id="id" name="id"-->
+                       <!--ng-model="payScale.id" readonly/>-->
+            <!--</div>-->
+            <!--<div class="form-group col-md-6">
+                <label translate="stepApp.payScale.payScaleClass" for="field_payScaleClass">PayScaleClass</label>
+                <input type="text" class="form-control" name="payScaleClass" id="field_payScaleClass"
+                       ng-model="payScale.payScaleClass" ng-pattern="/^[0-9]*$/" required
+                    />
+                <div ng-show="editForm.payScaleClass.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.payScaleClass.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.payScaleClass.$error.pattern" translate="entity.validation.number">
+                        Only number is allow for pay scale code.
+                    </p>
+                </div>
+            </div>-->
+            <div class="col-md-12 form-group">
+                <label translate="stepApp.payScale.payScaleClass" for="field_payScaleClass">PayScaleClass</label>
+                <!--<select class="form-control" id="field_payScaleClass" name="payScaleClass" ng-model="payScale.payScaleClass" ng-options="GazetteSetup as GazetteSetup.name for GazetteSetup in gazettesetup track by GazetteSetup.id">
+                    <option value=""></option>
+                </select>-->
+                <select ng-model="payScale.payScaleClass" id="field_payScaleClass" class="form-control" >
+                    <option value="">Select Gazette</option>
+                    <option ng-repeat="gazette in gazettesetup" value="{{gazette.name}}" title="{{gazette.name}}"
+                            ng-selected="gazette.name == payScale.payScaleClass">{{gazette.name}}</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label translate="stepApp.payScale.code" for="field_code">Code</label>
+                <select ng-model="payScale.code" name="code" class="form-control" id="field_code" required>
+                    <option value="">Select Code</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                </select>
+                <!--<input type="text" class="form-control" name="code" id="field_code"
+                       ng-model="payScale.code"
+                       ng-pattern="/^[0-9]*$/" ng-maxlength="2"
+                       required/>-->
+
+                <div ng-show="editForm.code.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.code.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="2">
+                        This field cannot be longer than 2 characters.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.code.$error.pattern" translate="entity.validation.number">
+                        Only number is allow for pay scale code.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.code.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+          <!--  <div class="form-group col-md-6">
+                <label translate="stepApp.payScale.payScaleClass" for="field_payScaleClass">PayScaleClass</label>
+                <input type="text" class="form-control" name="payScaleClass" id="field_payScaleClass"
+                       ng-model="payScale.payScaleClass" required
+                />
+                <div ng-show="editForm.payScaleClass.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.payScaleClass.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>-->
+            <!--<div class="form-group col-md-6">
+                <label translate="stepApp.payScale.grade" for="field_grade">Grade</label>
+                    <input type="text" class="form-control" name="grade" id="field_grade"
+                           ng-model="payScale.grade"
+                        />
+            </div>-->
+            <div class="form-group col-md-6">
+                <label translate="stepApp.payScale.grade" for="field_gradeName">GradeName</label>
+                    <!--<input type="text" class="form-control" name="gradeName" id="field_gradeName"-->
+                           <!--ng-model="payScale.grade" required-->
+                        <!--/>-->
+                <select ng-model="payScale.grade" class="form-control" name="gradeName" id="field_gradeName" required>
+                    <option value="">Select Code</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                </select>
+                <div ng-show="editForm.gradeName.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.gradeName.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label   translate="stepApp.payScale.basicAmount" for="field_basicAmount">BasicAmount</label>
+                    <input type="number" class="form-control" name="basicAmount" id="field_basicAmount"
+                           ng-model="payScale.basicAmount" required
+                        />
+                <div ng-show="editForm.basicAmount.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.basicAmount.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.payScale.houseAllowance" for="field_houseAllowance">HouseAllowance</label>
+                    <input type="number" class="form-control" name="houseAllowance" id="field_houseAllowance"
+                           ng-model="payScale.houseAllowance" required
+                        />
+                <div ng-show="editForm.houseAllowance.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.houseAllowance.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label   translate="stepApp.payScale.medicalAllowance"
+                       for="field_medicalAllowance">MedicalAllowance</label>
+                    <input type="number" class="form-control" name="medicalAllowance" id="field_medicalAllowance"
+                           ng-model="payScale.medicalAllowance" required
+                        />
+                <div ng-show="editForm.medicalAllowance.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.medicalAllowance.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.payScale.welfareAmount" for="field_welfareAmount">WelfareAmount</label> (%)
+                    <input type="number" class="form-control" name="welfareAmount" id="field_welfareAmount"
+                           ng-model="payScale.welfareAmount" required
+                        />
+                <div ng-show="editForm.welfareAmount.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.welfareAmount.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label   translate="stepApp.payScale.retirementAmount"
+                       for="field_retirementAmount">RetirementAmount</label> (%)
+                    <input type="number" class="form-control" name="retirementAmount" id="field_retirementAmount"
+                           ng-model="payScale.retirementAmount" required
+                        />
+                <div ng-show="editForm.retirementAmount.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.retirementAmount.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+           <!-- <div class="form-group">
+                <label class="col-sm-4 control-label"  translate="stepApp.payScale.date" for="field_date">Date</label>
+
+                <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.date"
+                       datepicker-options="calendar.dateOptions" close-text="Close"
+                       ng-click="calendar.open($event, 'date')" class="form-control" name="date" id="field_date"
+                       ng-model="payScale.date"/>
+
+            </div>-->
+
+           <!-- <div class="form-group">
+                <label class="col-sm-4 control-label"  translate="stepApp.payScale.manager" for="field_manager">manager</label>
+                <select class="form-control" id="field_manager" name="manager" ng-model="payScale.manager"
+                        ng-options="user as user.login for user in users track by user.id">
+                    <option value=""></option>
+                </select>
+            </div>-->
+
+<div class="col-md-12 no_padding">
+        <div class="form-group col-md-6">
+            <button type="submit"
+                    onclick="window.history.back()"
+                    class="btn btn-info">
+                <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span
+                translate="entity.action.back"> Back</span>
+            </button>
+        </div>
+        <div class="form-group col-md-6 text-right">
+            <button type="button" class="btn btn-default" onclick="window.history.back()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+            </button>
+        </div>
+        </div>
+        </div>
+    </form>
+</div>
+</div>
+

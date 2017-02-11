@@ -1,0 +1,50 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()">
+        <h4 class="modal-title" id="myMpoTradeLabel" translate="stepApp.mpoTrade.home.createOrEditLabel">Create or
+            edit a MpoTrade</h4>
+        <div class="modal-body col-md-12 padding-tb">
+            <div class="form-group">
+                <label translate="stepApp.mpoTrade.cmsCurriculum" for="field_cmsCurriculum">Curriculum</label>
+                <select class="form-control" id="field_cmsCurriculum" ng-change="setTrades()" name="cmsTrade"
+                        ng-model="cmsCurriculum"
+                        ng-options="cmsCurriculum as cmsCurriculum.name for cmsCurriculum in cmsCurriculums track by cmsCurriculum.id">
+                    <option value="">{{initialCurriculum}}</option>
+                </select>
+            </div>
+
+            <div class="panel-body no_padding admin-info" ng-repeat="mpoTrade in mpoTrades">
+                <div class="form-group">
+                    <label translate="stepApp.mpoTrade.cmsTrade" for="field_cmsTrade">cmsTrade</label>
+                    <select class="form-control" id="field_cmsTrade" name="cmsTrade" ng-model="mpoTrade.cmsTrade"  ng-change="chageTrades()"
+                            ng-options="cmsTrade as cmsTrade.name for cmsTrade in cmstrades track by cmsTrade.id">
+                        <option value="">{{initialTrade}}</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="form-group" ng-if="mpoTrade.id == null">
+                <div class="panel-body no_padding admin-info" ng-repeat="mpoTrade in mpoTrades">
+                    {{mpoTrade.cmsTrade.id != null ? $index +1+'.'+mpoTrade.cmsTrade.name : ''}}
+                </div>
+            </div>
+
+            <div class="panel-footer" ng-if="mpoTrade.id == null">
+                <a class="btn btn-link" ng-disabled="editForm.$invalid || isSaving" ng-click="AddMoreMpoTrade()">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span
+                    translate="entity.action.addMore">Add More</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                translate="entity.action.back">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

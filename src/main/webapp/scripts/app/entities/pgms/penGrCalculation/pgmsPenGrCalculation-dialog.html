@@ -1,0 +1,105 @@
+<div class="service-form-area">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="modal-title" id="myPgmsPenGrCalculationLabel" translate="stepApp.pgmsPenGrCalculation.home.createOrEditLabel">Create or edit a PgmsPenGrCalculation</h4>
+        </div>
+        <div class="panel-body bg-panel">
+            <jh-alert-error></jh-alert-error>
+            <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsPenGrCalculation.withdrawnType" for="field_withdrawnType">WithdrawnType</label>
+                        <div class="input-margin">
+                            <select class="form-control" name="withdrawnType" ng-model="pgmsPenGrCalculation.withdrawnType" id="field_withdrawnType" ng-change="selCategory(pgmsPenGrCalculation.withdrawnType)">
+                                <option value="Contemporary" translate="stepApp.WithdrawnType.Contemporary">Contemporary</option>
+                                <option value="Regular" translate="stepApp.WithdrawnType.Regular">Regular</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsPenGrCalculation.categoryType">CategoryType</label>
+                        <div class="input-margin">
+                            <label class="radio-inline">
+                                <input type="radio" data-ng-model="pgmsPenGrCalculation.categoryType" name="categoryType" value="pension">&nbsp;Pension&nbsp;&nbsp;
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" data-ng-model="pgmsPenGrCalculation.categoryType" name="categoryType" value="gratuity">&nbsp;Gratuity
+                            </label>
+                            <div ng-show="editForm.categoryType.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.categoryType.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsPenGrCalculation.gradeInfo" for="field_gradeInfo">gradeInfo</label>
+                        <div class="input-margin">
+                            <select class="form-control" id="field_gradeInfo" name="gradeInfo" ng-model="pgmsPenGrCalculation.gradeInfo" ng-options="HrGradeSetup as HrGradeSetup.gradeDetail for HrGradeSetup in hrgradesetups track by HrGradeSetup.id">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsPenGrCalculation.salaryInfo" for="field_salaryInfo">salaryInfo</label>
+                        <div class="input-margin">
+                            <select class="form-control" id="field_salaryInfo" name="salaryInfo" ng-model="pgmsPenGrCalculation.salaryInfo" ng-options="HrPayScaleSetup as HrPayScaleSetup.basicPayScale for HrPayScaleSetup in hrpayscalesetups track by HrPayScaleSetup.id">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsPenGrCalculation.workingYear" for="field_workingYear">workingYear</label>
+                        <div class="input-margin">
+                            <!--<select class="form-control" id="field_workingYear" ng-change = "finndPenGrRate()" name="workingYear" ng-model="pgmsPenGrCalculation.workingYear" ng-options="PgmsPenGrRate as PgmsPenGrRate.workingYear for PgmsPenGrRate in pgmspengrrates track by PgmsPenGrRate.id">-->
+                            <select class="form-control" id="field_workingYear" name="workingYear" ng-model="pgmsPenGrCalculation.workingYear" ng-options="PgmsPenGrRate as PgmsPenGrRate.workingYear for PgmsPenGrRate in pgmspengrrates track by PgmsPenGrRate.id">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label" translate="stepApp.pgmsPenGrCalculation.activeStatus">ActiveStatus</label>
+                        <div class="input-margin">
+                            <label class="radio-inline">
+                                <input type="radio" data-ng-model="pgmsPenGrCalculation.activeStatus" name="activeStatus" data-ng-value="true">&nbsp;Active&nbsp;&nbsp;
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" data-ng-model="pgmsPenGrCalculation.activeStatus" name="activeStatus" data-ng-value="false">&nbsp;Inactive
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label"></label>
+                        <div class="input-margin">
+                            <button type="button" class="btn btn-primary" ng-click="pgTatal()"><i class="fa fa-plus-square"></i>
+                                <span translate="entity.action.calculationTotal">Total</span>
+
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label"></label>
+                        <div class="input-margin" class="control-label">
+                            Show Total : {{pgcTotal}}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" class="btn " data-dismiss="modal" onclick="window.history.back()">
+                        <i class="fa fa-angle-double-left"></i>&nbsp;<span translate="entity.action.back">Back</span>
+                    </button>
+                    <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header bg-primary">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myTimeScaleLabel" translate="stepApp.timeScale.home.createOrEditLabel">Create or edit a TimeScale</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="timeScale.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.timeScale.level" for="field_level">Level</label>
+            <select class="form-control" name="level" ng-model="timeScale.level" id="field_level" required>
+                <option value="School" translate="stepApp.TimeScaleLevel.School">School</option>
+                <option value="College" translate="stepApp.TimeScaleLevel.College">College</option>
+            </select>
+            <div ng-show="editForm.level.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.level.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.timeScale.classGrade" for="field_classGrade">ClassGrade</label>
+            <input type="number" class="form-control" name="classGrade" id="field_classGrade"
+                    ng-model="timeScale.classGrade"
+                    required />
+            <div ng-show="editForm.classGrade.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.classGrade.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.classGrade.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.timeScale.salaryAmount" for="field_salaryAmount">SalaryAmount</label>
+            <input type="number" class="form-control" name="salaryAmount" id="field_salaryAmount"
+                    ng-model="timeScale.salaryAmount"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.timeScale.payScale" for="field_payScale">payScale</label>
+            <select class="form-control" id="field_payScale" name="payScale" ng-model="timeScale.payScale" ng-options="payScale as payScale.id for payScale in payscales track by payScale.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

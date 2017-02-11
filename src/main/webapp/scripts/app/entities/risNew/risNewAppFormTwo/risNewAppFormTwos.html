@@ -1,0 +1,134 @@
+<div>
+    <h2 translate="stepApp.risNewAppFormTwo.home.title">RisNewAppFormTwos</h2>
+    <jh-alert></jh-alert>
+    <div class="panel-body bg-panel">
+        <div class="row">
+            <div class="col-md-6">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </form>
+            </div>
+            <div class="col-md-6 text-right">
+                <button class="btn btn-primary" ui-sref="risNew.risNewAppFormTwo.new">
+                    <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.risNewAppFormTwo.home.createLabel">Create a new RisNewAppFormTwo</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteRisNewAppFormTwoConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(risNewAppFormTwo.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p translate="stepApp.risNewAppFormTwo.delete.question" translate-values="{id: '{{risNewAppFormTwo.id}}'}">Are you sure you want to delete this RisNewAppFormTwo?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 no_padding table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="global.field.id">ID</th>
+                    <th translate="stepApp.risNewAppFormTwo.examName">ExamName</th>
+                    <th translate="stepApp.risNewAppFormTwo.subject">Subject</th>
+                    <th translate="stepApp.risNewAppFormTwo.educationalInstitute">EducationalInstitute</th>
+                    <th translate="stepApp.risNewAppFormTwo.passingYear">PassingYear</th>
+                    <th translate="stepApp.risNewAppFormTwo.boardUniversity">BoardUniversity</th>
+                    <th translate="stepApp.risNewAppFormTwo.additionalInformation">AdditionalInformation</th>
+                    <th translate="stepApp.risNewAppFormTwo.experience">Experience</th>
+                    <!--<th translate="stepApp.risNewAppFormTwo.qouta">Qouta</th>
+                    <th translate="stepApp.risNewAppFormTwo.bankDraftNo">BankDraftNo</th>
+                    <th translate="stepApp.risNewAppFormTwo.dateFinDocument">DateFinDocument</th>
+                    <th translate="stepApp.risNewAppFormTwo.bankName">BankName</th>
+                    <th translate="stepApp.risNewAppFormTwo.branchName">BranchName</th>
+                    <th translate="stepApp.risNewAppFormTwo.departmentalCandidate">DepartmentalCandidate</th>
+                    <th translate="stepApp.risNewAppFormTwo.bankInvoice">BankInvoice</th>
+                    <th translate="stepApp.risNewAppFormTwo.signature">Signature</th>
+                    <th translate="stepApp.risNewAppFormTwo.createdDate">CreatedDate</th>
+                    <th translate="stepApp.risNewAppFormTwo.updatedDate">UpdatedDate</th>
+                    <th translate="stepApp.risNewAppFormTwo.createdBy">CreatedBy</th>
+                    <th translate="stepApp.risNewAppFormTwo.updatedBy">UpdatedBy</th>
+                    <th translate="stepApp.risNewAppFormTwo.status">Status</th>-->
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="risNewAppFormTwo in risNewAppFormTwos track by risNewAppFormTwo.id">
+                    <td><a ui-sref="risNewAppFormTwo.detail({id:risNewAppFormTwo.id})">{{risNewAppFormTwo.id}}</a></td>
+
+                    <td>{{risNewAppFormTwo.examName}}</td>
+                    <td>{{risNewAppFormTwo.subject}}</td>
+                    <td>{{risNewAppFormTwo.educationalInstitute}}</td>
+                    <td>{{risNewAppFormTwo.passingYear}}</td>
+                    <td>{{risNewAppFormTwo.boardUniversity}}</td>
+                    <td>{{risNewAppFormTwo.additionalInformation}}</td>
+                    <td>{{risNewAppFormTwo.experience}}</td>
+                    <!--<td>{{risNewAppFormTwo.qouta}}</td>
+                    <td>{{risNewAppFormTwo.bankDraftNo}}</td>
+                    <td>{{risNewAppFormTwo.dateFinDocument}}</td>
+                    <td>{{risNewAppFormTwo.bankName}}</td>
+                    <td>{{risNewAppFormTwo.branchName}}</td>
+                    <td>{{risNewAppFormTwo.departmentalCandidate}}</td>
+                    <td>{{risNewAppFormTwo.bankInvoice}}</td>
+                    <td>{{risNewAppFormTwo.signature}}</td>
+                        <td>{{risNewAppFormTwo.createdDate | date:'mediumDate'}}</td>
+                        <td>{{risNewAppFormTwo.updatedDate | date:'mediumDate'}}</td>
+                    <td>{{risNewAppFormTwo.createdBy}}</td>
+                    <td>{{risNewAppFormTwo.updatedBy}}</td>
+                    <td>{{risNewAppFormTwo.status}}</td>-->
+                    <td class="text-right">
+                        <button type="submit"
+                                ui-sref="risNew.risNewAppFormTwo.detail({id:risNewAppFormTwo.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="risNew.risNewAppFormTwo.edit({id:risNewAppFormTwo.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="delete(risNewAppFormTwo.id)"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pagination">
+                <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                <li class="active"><a>{{page + 1}}</a></li>
+                <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>

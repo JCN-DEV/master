@@ -1,0 +1,206 @@
+<div class="col-md-12 common-dialogue">
+    <form  name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+              <h4 ng-show="cmsSubAssign.id==null" class="modal-title" translate="stepApp.cmsSubAssign.home.createOrEditLabel">Create or edit a CmsSubAssign</h4>
+            <h4 ng-hide="cmsSubAssign.id==null" class="modal-title" id="myCmsSubAssignLabel" translate="stepApp.cmsSubAssign.home.update">Create or edit a CmsSubAssign</h4>
+        <div class="panel-body">
+            <!--<div class="form-group">-->
+            <!--<label for="id" translate="global.field.id">ID</label>-->
+            <!--<input type="text" class="form-control" id="id" name="id"-->
+            <!--ng-model="cmsSubAssign.id" readonly />-->
+            <!--</div>-->
+            <div class="col-sm-6" ng-show="cmsSubAssign.id==null">
+                <div class="form-group">
+                    <label translate="stepApp.cmsSubAssign.cmsCurriculum" for="field_cmsCurriculum">cmsCurriculum</label>
+                    <select required ng-change="enableCodeAndName(cmsSubAssign.cmsCurriculum)" class="form-control" id="field_cmsCurriculum" name="cmsCurriculum" ng-model="cmsSubAssign.cmsCurriculum" ng-options="cmsCurriculum as cmsCurriculum.name for cmsCurriculum in cmscurriculums | filter:cmsCurriculum.status='true'">
+                        <option translate="stepApp.cmsSubAssign.cmsCurriculum" value="">Select Curriculum</option>
+
+                    </select>
+
+                </div>
+            </div>
+           <!-- <div class="col-sm-6" ng-hide="cmsSubAssign.id==null">
+                <div class="form-group">
+                    <label translate="stepApp.cmsSubAssign.cmsCurriculum" for="field_cmsCurriculum">cmsCurriculum</label>
+                    <select required ng-change="enableCodeAndName(cmsSubAssign.cmsCurriculum)" class="form-control" id="" name="cmsCurriculum" ng-model="cmsSubAssign.cmsCurriculum" ng-options="cmsCurriculum as cmsCurriculum.name for cmsCurriculum in cmscurriculums">
+                        <option value="">{{cmsSubAssign.cmsCurriculum.name}}</option>
+
+                    </select>
+
+                </div>
+            </div>-->
+            <!-- <div class="col-sm-6" ng-show="dSemester" ng-show="cmsSubAssign.id==null">
+                 <div class="form-group">
+                     <label translate="stepApp.cmsSubAssign.cmsTrade" for="field_cmsTrade">cmsTrade</label>
+                     <select class="form-control"  name="cmsTrade" ng-model="cmsSubAssign.cmsTrade" ng-options="cmsTrade as cmsTrade.name for cmsTrade in cmstrades | filter:filterActiveSyllabus() | filter:filterActiveSyllabus() | filter:$scope.cmsSubAssign.cmsCurriculum.duration_type='!semester'">
+                         <option translate="stepApp.cmsSubAssign.cmsTrade" value="">Select Trade/Specialization</option>
+                     </select>
+                 </div>
+             </div>-->
+            <div class="col-sm-6" ng-show="dSemester && cmsSubAssign.cmsCurriculum.duration_type != 'Semester'">
+                <div class="form-group">
+                    <label translate="stepApp.cmsSubAssign.cmsTrade" for="field_cmsTrade">cmsTrade</label>
+                    <select required class="form-control"  name="cmsTrade" ng-model="cmsSubAssign.cmsTrade" ng-options="cmsTrade as cmsTrade.name for cmsTrade in cmsTradesActive ">
+                        <option value="">{{cmsSubAssign.cmsTrade.name}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- <div class="col-sm-6" ng-show="!dSemester" ng-show="cmsSubAssign.id==null">
+                 <div class="form-group">
+                     <label translate="stepApp.cmsSubAssign.cmsTech" for="field_cmsTrade">cmsTrade</label>
+                     <select class="form-control"  name="cmsTrade" ng-model="cmsSubAssign.cmsTrade" ng-options="cmsTrade as cmsTrade.name for cmsTrade in cmstrades | filter:filterActiveSyllabus() | filter:$scope.cmsSubAssign.cmsCurriculum.duration_type='semester'">
+                         <option value="">Select Technology</option>
+                     </select>
+                 </div>
+             </div>-->
+            <div class="col-sm-6" ng-show="!dSemester || cmsSubAssign.cmsCurriculum.duration_type == 'Semester'">
+                <div class="form-group">
+                    <label translate="stepApp.cmsSubAssign.cmsTech" for="field_cmsTrade">cmsTrade</label>
+                    <select required class="form-control" id="field_cmsTrade" name="cmsTrade" ng-model="cmsSubAssign.cmsTrade" ng-options="cmsTrade as cmsTrade.name for cmsTrade in cmsTradesActive ">
+                        <option value="">{{cmsSubAssign.cmsTrade.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-6" ng-show="!dSemester || cmsSubAssign.cmsCurriculum.duration_type == 'Semester'">
+                <div class="form-group">
+                    <label translate="stepApp.cmsSubAssign.cmsSemester" for="">cmsSemester</label>
+                    <select class="form-control"  name="cmsSemester" ng-model="cmsSubAssign.cmsSemester" ng-options="cmsSemester as cmsSemester.name for cmsSemester in cmssemesters  | filter:$scope.cmsSubAssign.cmsCurriculum.duration_type='semester'">
+                        <option value="">{{cmsSubAssign.cmsSemester.name}}</option>
+
+                    </select>
+                </div>
+            </div>
+            <!--<div class="col-sm-6" ng-show="!dSemester">
+                <div class="form-group">
+                    <label translate="stepApp.cmsSubAssign.cmsSemester" for="field_cmsSemester">cmsSemester</label>
+<<<<<<< HEAD
+                    <select class="form-control" id="field_cmsSemester" name="cmsSemester" ng-model="cmsSubAssign.cmsSemester" ng-options="cmsSemester as cmsSemester.name for cmsSemester in cmssemesters | filter:filterActiveSyllabus() | filter:filterActiveSyllabus() | filter:$scope.cmsSubAssign.cmsCurriculum.duration_type='semester'">
+                        <option value="">Select</option>
+
+                    </select>
+                </div>
+            </div>-->
+            <!--<div class="col-sm-6" ng-show="dSemester" ng-show="cmsSubAssign.id==null">
+                <div class="form-group">
+                    <label translate="stepApp.cmsSubAssign.cmsYearorMonth" for="">cmsSemester</label>
+                    <select class="form-control" name="cmsSemester" ng-model="cmsSubAssign.cmsSemester" ng-options="cmsSemester as cmsSemester.year for cmsSemester in cmssemesters |  filter:filterActiveSyllabus() |  filter:$scope.cmsSubAssign.cmsCurriculum.duration_type='!semester'">
+                        <option translate="stepApp.cmsSubAssign.cmsYearorMonth" value="">Select Year</option>
+
+
+                    </select>
+                </div>
+            </div>-->
+
+            <div class="col-sm-6" ng-show="dSemester && cmsSubAssign.cmsCurriculum.duration_type != 'Semester'">
+                <div class="form-group">
+                    <label translate="stepApp.cmsSubAssign.cmsYearorMonth" for="">cmsSemester</label>
+                    <select class="form-control" name="cmsSemester" ng-model="cmsSubAssign.cmsSemester" ng-options="cmsSemester as cmsSemester.year for cmsSemester in cmssemesters |  filter:filterActiveSyllabus() | filter:$scope.cmsSubAssign.cmsCurriculum.duration_type='!semester'">
+                        <option value="">{{cmsSubAssign.cmsSemester.year}}</option>
+
+
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group" ng-show="cmsSubAssign.id==null">
+                    <label translate="stepApp.cmsSubAssign.cmsSyllabus" for="field_cmsSyllabus">cmsSyllabus</label>
+                    <select required class="form-control" name="cmsSyllabus" ng-model="cmsSubAssign.cmsSyllabus" ng-options="cmsSyllabus as cmsSyllabus.name for cmsSyllabus in cmssyllabuss | filter:filterActiveSyllabus()">
+                        <option translate="stepApp.cmsSubAssign.cmsSyllabus" value="">Select Probidhan</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-6" ng-hide="cmsSubAssign.id==null">
+                <div class="form-group">
+                    <label translate="stepApp.cmsSubAssign.cmsSyllabus" for="field_cmsSyllabus">cmsSyllabus</label>
+                    <select required class="form-control" id="field_cmsSyllabus" name="cmsSyllabus" ng-model="cmsSubAssign.cmsSyllabus" ng-options="cmsSyllabus as cmsSyllabus.name for cmsSyllabus in cmssyllabuss | filter:filterActiveSyllabus()">
+                        <option ranslate="stepApp.cmsSubAssign.cmsSyllabus" value="">{{cmsSubAssign.cmsSyllabus.name}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-sm-6" ng-show="cmsSubAssign.id==null">
+                <div class="form-group">
+                    <label translate="stepApp.cmsSubAssign.subject" for="field_cmsSubject">Subject</label>
+                    <select required class="form-control" name="cmsSubject" ng-model="cmsSubAssign.cmsSubject" ng-options="cmsSubject as cmsSubject.name for cmsSubject in cmssubjects | filter:filterActiveSyllabus()">
+                        <option translate="stepApp.cmsSubAssign.subject" value="">Select Subject</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-6" ng-hide="cmsSubAssign.id==null">
+                <div class="form-group">
+                    <label translate="stepApp.cmsSubAssign.subject" for="field_cmsSubject">Subject</label>
+                    <select required class="form-control" id="field_cmsSubject" name="cmsSubject" ng-model="cmsSubAssign.cmsSubject" ng-options="cmsSubject as cmsSubject.name for cmsSubject in cmssubjects | filter:filterActiveSyllabus()">
+                        <option value="">{{cmsSubAssign.cmsSubject.name}}</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.cmsSubAssign.description" for="field_description">Description</label>
+                    <textarea type="text" class="form-control" name="description" id="field_description"
+                              ng-model="cmsSubAssign.description"
+                        />
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.cmsSubAssign.examFee" for="field_examFee">ExamFee</label>
+                    <input type="number" class="form-control" name="examFee" id="field_examFee"
+                           ng-model="cmsSubAssign.examFee"
+                           required ng-min="0"/>
+                    <div ng-show="editForm.examFee.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.examFee.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                        <p class="help-block"
+                           ng-show="editForm.examFee.$error.number" translate="entity.validation.number">
+                            This field should be a number.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-sm-6">
+                 <div class="form-group">
+                     <label class="control-label" translate="stepApp.cmsSubAssign.status" for="field_status">Status</label>
+                     <input type="checkbox" class="form-control" name="status" id="field_status"
+                             ng-model="cmsSubAssign.status"
+                              />
+                 </div>
+             </div>-->
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.cmsSubAssign.status" >Status</label>
+
+                    <div class="input-margin">
+                        <label  class="radio-inline"><input type="radio" name="status" value="true" checked="true" ng-checked="cmsSubAssign.status == true" ng-model="cmsSubAssign.status"><span translate="entity.action.activate">Activate</span></label>
+                        <label class="radio-inline"><input type="radio" name="status"  value="false" ng-checked="cmsSubAssign.status == false" ng-model="cmsSubAssign.status"><span translate="entity.action.deactivate">Deactivate</span></label>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-sm-12 text-right">
+                <button type="submit"
+                        onclick="window.history.back()"
+                        class="btn btn-info">
+                    <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+                </button>
+                <button type="button" class="btn btn-default" ng-click="clear()">
+                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.clear">Clear</span>
+                </button>
+                <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                </button>
+                <!--<button type="submit" ng-hide="cmsSubAssign.id==null" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="stepApp.cmsSubAssign.home.updateButton">Save</span>
+                </button>-->
+
+            </div>
+        </div>
+
+    </form>
+</div>

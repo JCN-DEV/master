@@ -1,0 +1,214 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="hrEmpAwardInfo.id == null" class="modal-title"
+            translate="stepApp.hrEmpAwardInfo.home.createOrEditLabel">Create or edit a HrEmpAwardInfo</h4>
+        <h4 ng-show="hrEmpAwardInfo.id != null" class="modal-title" translate="stepApp.hrEmpAwardInfo.home.EditLabel">
+            Create or edit a HrEmpAwardInfo</h4>
+        <div class="modal-body col-md-12 padding-tb">
+            <!--<jh-alert-error></jh-alert-error>-->
+
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6">
+                    <div class="form-group ">
+                        <div class="input-margin">
+                            <label class="control-label" for="field_workArea"
+                                   translate="stepApp.hrEmpAwardInfo.workarea">Work Area</label>
+                            <select class="form-control" id="field_workArea" name="workArea" ng-model="workArea"
+                                    ng-change="loadModelByWorkArea(workArea)"
+                                    ng-options="MiscTypeSetup as MiscTypeSetup.typeName for MiscTypeSetup in workAreaList track by MiscTypeSetup.id">
+                                <option value="">Select Work Area</option>
+                            </select>
+                            <span class="help">No of Employee: {{hremployeeinfos.length}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6">
+                    <div class="form-group ">
+                        <label class="control-label" translate="stepApp.hrEmpAwardInfo.employeeInfo"
+                               for="field_employeeInfo">employeeInfo</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control autocomplete" autocomplete="off"
+                                   ng-model="hrEmpAwardInfo.employeeInfo"
+                                   typeahead='HrEmployeeInfo as (HrEmployeeInfo.fullName + " " + HrEmployeeInfo.employeeId) for HrEmployeeInfo in hremployeeinfos | filter:$viewValue'
+                                   id="field_employeeInfo" required>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6">
+                    <div class="form-group ">
+                        <label class="control-label" translate="stepApp.hrEmpAwardInfo.awardName" for="field_awardName">AwardName</label>
+                        <input type="text" class="form-control" name="awardName" id="field_awardName"
+                               ng-model="hrEmpAwardInfo.awardName"
+                               required/>
+                        <div ng-show="editForm.awardName.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.awardName.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6">
+                    <div class="form-group ">
+                        <label class="control-label" translate="stepApp.hrEmpAwardInfo.awardArea" for="field_awardArea">AwardArea</label>
+                        <input type="text" class="form-control" name="awardArea" id="field_awardArea"
+                               ng-model="hrEmpAwardInfo.awardArea"
+                               required/>
+                        <div ng-show="editForm.awardArea.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.awardArea.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6">
+                    <div class="form-group ">
+                        <label class="control-label" translate="stepApp.hrEmpAwardInfo.certNumber" for="field_certNumber">certNumber</label>
+                        <input type="text" class="form-control" name="awardArea" id="field_certNumber"
+                               ng-model="hrEmpAwardInfo.certNumber"
+                               required/>
+                        <div ng-show="editForm.awardArea.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.certNumber.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6">
+                    <div class="form-group ">
+                        <label class="control-label" translate="stepApp.hrEmpAwardInfo.awardDate" for="field_awardDate">AwardDate</label>
+                        <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.awardDate"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               ng-click="calendar.open($event, 'awardDate')" class="form-control" name="awardDate"
+                               id="field_awardDate"
+                               ng-model="hrEmpAwardInfo.awardDate"
+                               required/>
+                        <div ng-show="editForm.awardDate.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.awardDate.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6">
+                    <div class="form-group ">
+                        <label class="control-label" translate="stepApp.hrEmpAwardInfo.remarks" for="field_remarks">Remarks</label>
+                        <input type="text" class="form-control" name="remarks" id="field_remarks"
+                               ng-model="hrEmpAwardInfo.remarks"/>
+                    </div>
+                </div>
+
+                <div class="">
+
+                    <div class="col-md-6" ngf-change="setGoOrderDoc($file, hrEmpAwardInfo)">
+                        <label class="control-label" translate="stepApp.hrEmpAwardInfo.goOrderDoc"
+                               for="field_goOrderDoc">GoOrderDoc</label>
+                        <div class="input-margin">
+                            <div>
+                                <div class="help-block clearfix">
+                                    <span class="pull-left">{{hrEmpAwardInfo.goOrderDocContentType}} {{byteSize(hrEmpAwardInfo.goOrderDoc)}}</span>
+                                    <button
+                                        ng-click="hrEmpAwardInfo.goOrderDoc=null;hrEmpAwardInfo.goOrderDocContentType=null;"
+                                        ng-if="hrEmpAwardInfo.goOrderDoc"
+                                        class="btn btn-default btn-xs pull-right">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </button>
+                                </div>
+                                <button type="file" ngf-select class="btn btn-default btn-block"
+                                        ngf-change="setGoOrderDoc($file, hrEmpAwardInfo)"
+                                        translate="entity.action.addblob">
+                                    Add blob
+                                </button>
+                            </div>
+                        </div>
+                        <input type="hidden" class="form-control" name="goOrderDoc" id="field_goOrderDoc"
+                               ng-model="hrEmpAwardInfo.goOrderDoc"/>
+                        <input type="hidden" class="form-control" name="goOrderDocContentType"
+                               id="field_goOrderDocContentType"
+                               ng-model="hrEmpAwardInfo.goOrderDocContentType"/>
+                        <a ng-if="hrEmpAwardInfo.goOrderDocContentType" class="btn btn-link"
+                           ng-click="previewGODoc(hrEmpAwardInfo)">View</a>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6" ngf-drop
+                         ngf-change="setCertDoc($file, hrEmpAwardInfo)">
+                        <label class="control-label" translate="stepApp.hrEmpAwardInfo.certDoc" for="field_certDoc">CertDoc</label>
+                        <div class="input-margin">
+                            <div>
+                                <div class="help-block clearfix">
+                                    <span class="pull-left">{{hrEmpAwardInfo.certDocContentType}} {{byteSize(hrEmpAwardInfo.certDoc)}}</span>
+                                    <button
+                                        ng-click="hrEmpAwardInfo.certDoc=null;hrEmpAwardInfo.certDocContentType=null;"
+                                        ng-if="hrEmpAwardInfo.certDoc"
+                                        class="btn btn-default btn-xs pull-right">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </button>
+                                </div>
+                                <button type="file" ngf-select class="btn btn-default btn-block"
+                                        ngf-change="setCertDoc($file, hrEmpAwardInfo)"
+                                        translate="entity.action.addblob">
+                                    Add blob
+                                </button>
+                            </div>
+                        </div>
+                        <input type="hidden" class="form-control" name="certDoc" id="field_certDoc"
+                               ng-model="hrEmpAwardInfo.certDoc"/>
+                        <input type="hidden" class="form-control" name="certDocContentType"
+                               id="field_certDocContentType"
+                               ng-model="hrEmpAwardInfo.certDocContentType"/>
+                        <a ng-if="hrEmpAwardInfo.certDocContentType" class="btn btn-link"
+                           ng-click="previewCertDoc(hrEmpAwardInfo)">View</a>
+                    </div>
+
+                </div>
+
+                <div class="col-md-6 ">
+                    <div class="form-group ">
+                        <label class="control-label"
+                               translate="stepApp.hrEmpAwardInfo.activeStatus">ActiveStatus</label>
+                        <div>
+                            <input type="radio" data-ng-model="hrEmpAwardInfo.activeStatus" name="activeStatus"
+                                   data-ng-value="true">&nbsp;
+                            <spna translate="stepApp.hrEmpAwardInfo.active"></spna>
+                            &nbsp;|&nbsp;
+                            <input type="radio" data-ng-model="hrEmpAwardInfo.activeStatus" name="activeStatus"
+                                   data-ng-value="false">&nbsp;<span translate="stepApp.hrEmpAwardInfo.inactive"></span>
+                        </div>
+                        <div ng-show="editForm.activeStatus.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" class="btn " data-dismiss="modal"
+                                onclick="window.history.back()">
+                            <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;<span
+                            translate="entity.action.back">Back</span>
+                        </button>
+                        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-save"></span>&nbsp;
+                            <span  ng-show="hrEmpAwardInfo.id == null" translate="entity.action.save">Save</span>
+                            <span  ng-show="hrEmpAwardInfo.id != null" translate="entity.action.update">Save</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

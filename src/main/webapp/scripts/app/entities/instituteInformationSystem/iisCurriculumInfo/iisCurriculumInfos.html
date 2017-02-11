@@ -1,0 +1,106 @@
+<div class="col-md-12 common-list">
+    <h2 translate="stepApp.iisCurriculumInfo.home.title">IisCurriculumInfos</h2>
+    <!--<jh-alert></jh-alert>-->
+    <!--<div class="col-sm-12 padding-tb no-print">
+        <div class="col-md-6">
+            <form name="searchForm" class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="">
+                </div>
+                <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span>
+                </button>
+            </form>
+        </div>
+        <div class="col-md-6 text-right">
+            <button class="btn btn-primary" ui-sref="instituteInfo.iisCurriculumInfo.new">
+                <span class="glyphicon glyphicon-plus"></span> <span
+                translate="stepApp.iisCurriculumInfo.home.createLabel">Create a new IisCurriculumInfo</span>
+            </button>
+        </div>
+    </div>-->
+
+    <div class="col-md-12 padding-bt">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+        <div class="col-md-4 text-right  no_padding">
+            <button class="btn btn-primary" ui-sref="instituteInfo.iisCurriculumInfo.new">
+                <span class="glyphicon glyphicon-plus"></span> <span
+                translate="stepApp.iisCurriculumInfo.home.createLabel">Create a new IisCurriculumInfo</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="stepApp.iisCurriculumInfo.cmsCurriculum">cmsCurriculum</th>
+                <!--<th translate="global.field.id">ID</th>-->
+                <th translate="stepApp.iisCurriculumInfo.firstDate">FirstDate</th>
+                <th translate="stepApp.iisCurriculumInfo.lastDate">LastDate</th>
+                <th translate="stepApp.iisCurriculumInfo.mpoEnlisted">MpoEnlisted</th>
+                <!--<th translate="stepApp.iisCurriculumInfo.recNo">RecNo</th>
+                <th translate="stepApp.iisCurriculumInfo.mpoDate">MpoDate</th>-->
+                <th class="no-print text-center" translate="entity.action.action"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr dir-paginate="iisCurriculumInfo in findCurriculumByInstIds | filter:q | itemsPerPage: pageSize track by iisCurriculumInfo.ID" current-page="currentPage">
+
+            <!--<tr ng-repeat="iisCurriculumInfo in findCurriculumByInstIds track by iisCurriculumInfo.ID">-->
+                <td>
+                    <a ui-sref="cmsCurriculum.detail({id:iisCurriculumInfo.cmsCurriculum.id})">{{iisCurriculumInfo.NAME}}</a>
+                </td>
+                <!--<td><a ui-sref="iisCurriculumInfo.detail({id:iisCurriculumInfo.id})">{{iisCurriculumInfo.id}}</a></td>-->
+                <td>{{iisCurriculumInfo.FIRST_DATE | date:'mediumDate'}}</td>
+                <td>{{iisCurriculumInfo.LAST_DATE | date:'mediumDate'}}</td>
+                <td>
+                    <span style="color: #005f00" ng-show="iisCurriculumInfo.MPO_ENLISTED == true"
+                          class="form-control-static"><span translate="stepApp.iisCurriculumInfo.yes">yes</span></span>
+                    <span style="color: red" ng-show="iisCurriculumInfo.MPO_ENLISTED == false"
+                          class="form-control-static"><span translate="stepApp.iisCurriculumInfo.no">no</span></span>
+                </td>
+                <!-- <td>{{iisCurriculumInfo.recNo}}</td>
+                     <td>{{iisCurriculumInfo.MPO_DATE | date:'mediumDate'}}</td>-->
+                <td class="text-right no-print">
+                    <button type="submit"
+                            ui-sref="instituteInfo.iisCurriculumInfo.detail({id:iisCurriculumInfo.ID})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="instituteInfo.iisCurriculumInfo.edit({id:iisCurriculumInfo.ID})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                        translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="instituteInfo.iisCurriculumInfo.delete({id:iisCurriculumInfo.ID})"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                        translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info no-print">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+    <div class="col-md-12 no-print text-right">
+        <button type="submit" class="btn btn-sm btn-primary no-print" onclick="window.print()" >
+            <i class="fa fa-print"></i>&nbsp;
+            <span translate="entity.action.print" >Print</span>
+        </button>
+    </div>
+</div>

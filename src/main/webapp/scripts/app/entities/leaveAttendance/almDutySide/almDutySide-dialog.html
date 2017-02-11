@@ -1,0 +1,80 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="almDutySide.id == null" class="modal-title" id="myAlmDutySideLabel"
+            translate="stepApp.almDutySide.home.createOrEditLabel">Create or edit a AlmDutySide</h4>
+        <h4 ng-show="almDutySide.id != null" class="modal-title" id="myAlmDutySideLabel"
+            translate="stepApp.almDutySide.home.EditLabel">Create or edit a AlmDutySide</h4>
+        <div class="modal-body">
+            <jh-alert-error></jh-alert-error>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.almDutySide.sideName" for="field_sideName">SideName</label>
+
+                        <input type="text" class="form-control" name="sideName" id="field_sideName"
+                               ng-model="almDutySide.sideName"
+                               ng-remote-validate="/api/almDutySides/checkname/"
+                               ng-remote-method="GET"
+                               ng-remote-throttle="500"
+                               tooltip="{{'stepApp.almDutySide.sideName' | translate}}"
+                               placeholder="{{'stepApp.almDutySide.sideName' | translate}}"
+                               required/>
+                        <span class="message" ng-show="editForm.sideName.$pending">validating...</span>
+                        <div ng-show="editForm.sideName.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.sideName.$error.ngRemoteValidate">
+                                Duty Side already exists
+                            </p>
+                        </div>
+                        <div ng-show="editForm.sideName.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.sideName.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.almDutySide.activeStatus"
+                               for="field_activeStatus">ActiveStatus</label>
+            <span class="form-control">
+                    <input tooltip="{{'stepApp.almDutySide.activeStatus' | translate}}" type="radio" data-ng-model="almDutySide.activeStatus" name="activeStatus"
+                           data-ng-value="true">&nbsp;Active&nbsp;|&nbsp;
+                    <input tooltip="{{'stepApp.almDutySide.activeStatus' | translate}}"  type="radio" data-ng-model="almDutySide.activeStatus" name="activeStatus"
+                           data-ng-value="false">&nbsp;Inactive
+                </span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.almDutySide.description" for="field_description">Description</label>
+                    <textarea type="text" class="form-control" name="description" id="field_description"
+                              tooltip="{{'stepApp.almDutySide.description' | translate}}"
+                              placeholder="{{'stepApp.almDutySide.description' | translate}}"
+                              ng-model="almDutySide.description"
+                    rows="3" cols="30"
+                    ></textarea>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.history.back()">
+                <i class="fa fa-angle-double-left"></i>&nbsp;<span translate="entity.action.back">Back</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="almDutySide.id == null" translate="entity.action.save">Save</span>
+                <span ng-show="almDutySide.id != null" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

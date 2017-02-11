@@ -1,0 +1,135 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="hrEmpBankAccountInfo.id == null" class="modal-title" id="myHrEmpBankAccountInfoLabel"
+            translate="stepApp.hrEmpBankAccountInfo.home.createOrEditLabel">Create or edit a HrEmpBankAccountInfo</h4>
+        <h4 ng-show="hrEmpBankAccountInfo.id != null" class="modal-title" id="myHrEmpBankAccountInfoLabel"
+            translate="stepApp.hrEmpBankAccountInfo.home.EditLabel">Create or edit a HrEmpBankAccountInfo</h4>
+        <div class="modal-body col-md-12 padding-tb">
+            <jh-alert-error></jh-alert-error>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label for="field_workArea"><span translate="stepApp.hrEmpBankAccountInfo.workarea">Work Area</span></label>
+                    <select class="form-control" id="field_workArea" name="workArea"
+                            ng-model="workArea" ng-change="loadEmployeeByWorkArea(workArea)"
+                            ng-options="MiscTypeSetup as MiscTypeSetup.typeName for MiscTypeSetup in workAreaList track by MiscTypNeSetup.id">
+                        <option value="">Select Work Area</option>
+                    </select>
+                    <p class="help">
+                        No of Employee: {{hremployeeinfos.length}}
+                    </p>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.hrEmpBankAccountInfo.employeeInfo"
+                           for="field_employeeInfo">employeeInfo</label>
+                    <input type="text" class="form-control autocomplete" autocomplete="off"
+                           ng-model="hrEmpBankAccountInfo.employeeInfo"
+                           typeahead='HrEmployeeInfo as (HrEmployeeInfo.fullName + " " + HrEmployeeInfo.employeeId) for HrEmployeeInfo in hremployeeinfos | filter:$viewValue'
+                           id="field_employeeInfo" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.hrEmpBankAccountInfo.bankName" for="field_bankName">bankName</label>
+                    <select class="form-control" id="field_bankName" name="bankName"
+                            ng-model="hrEmpBankAccountInfo.bankName"
+                            ng-change="loadSalaryAccount(hrEmpBankAccountInfo.employeeInfo)"
+                            ng-options="MiscTypeSetup as MiscTypeSetup.typeTitle for MiscTypeSetup in misctypesetups track by MiscTypeSetup.id"
+                            required>
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEmpBankAccountInfo.branchName"
+                           for="field_branchName">BranchName</label>
+                    <input type="text" class="form-control" name="branchName" id="field_branchName"
+                           ng-model="hrEmpBankAccountInfo.branchName"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEmpBankAccountInfo.accountName"
+                           for="field_accountName">AccountName</label>
+                    <input type="text" class="form-control" name="accountName" id="field_accountName"
+                           ng-model="hrEmpBankAccountInfo.accountName"
+                           required/>
+                    <div ng-show="editForm.accountName.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.accountName.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEmpBankAccountInfo.accountNumber"
+                           for="field_accountNumber">AccountNumber</label>
+                    <input type="text" class="form-control" name="accountNumber" id="field_accountNumber"
+                           ng-model="hrEmpBankAccountInfo.accountNumber" required/>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEmpBankAccountInfo.description"
+                           for="field_description">Description</label>
+                <textarea class="form-control" name="description" id="field_description"
+                          ng-model="hrEmpBankAccountInfo.description"></textarea>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="control-label"
+                           translate="stepApp.hrEmpBankAccountInfo.salaryAccount">SalaryAccount</label>
+                <span>
+                    <input type="radio" data-ng-model="hrEmpBankAccountInfo.salaryAccount" name="salaryAccount"
+                           ng-disabled="salaryAccountCounter>0" data-ng-value="true" required>&nbsp;Salary Account&nbsp;|&nbsp;
+                    <input type="radio" data-ng-model="hrEmpBankAccountInfo.salaryAccount"
+                           ng-checked="salaryAccountCounter>0" name="salaryAccount" data-ng-value="false">&nbsp;General Account
+                </span>
+
+                    <div ng-show="editForm.salaryAccount.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.salaryAccount.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label class="control-label"
+                           translate="stepApp.hrEmpBankAccountInfo.activeStatus">ActiveStatus</label>
+                <span>
+                    <input type="radio" data-ng-model="hrEmpBankAccountInfo.activeStatus" name="activeStatus"
+                           data-ng-value="true" required>&nbsp;Active&nbsp;|&nbsp;
+                    <input type="radio" data-ng-model="hrEmpBankAccountInfo.activeStatus" name="activeStatus"
+                           data-ng-value="false">&nbsp;Inactive
+                </span>
+
+                    <div ng-show="editForm.activeStatus.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-6">
+
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" class="btn " data-dismiss="modal"
+                    onclick="window.history.back()">
+                <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;<span
+                translate="entity.action.back">Back</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="hrEmpBankAccountInfo.id == null" translate="entity.action.save">Save</span>
+                <span ng-show="hrEmpBankAccountInfo.id != null" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,110 @@
+<div>
+    <h2 translate="stepApp.vclRequisition.home.title">VclRequisitions</h2>
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" ui-sref="vclRequisition.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="stepApp.vclRequisition.home.createLabel">Create a new VclRequisition</span>
+                </button>
+            </div>
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a VclRequisition</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
+                    <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="requisitionType"><span translate="stepApp.vclRequisition.requisitionType">RequisitionType</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="vehicleType"><span translate="stepApp.vclRequisition.vehicleType">VehicleType</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="sourceLocation"><span translate="stepApp.vclRequisition.sourceLocation">SourceLocation</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="destinationLocation"><span translate="stepApp.vclRequisition.destinationLocation">DestinationLocation</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="expectedDate"><span translate="stepApp.vclRequisition.expectedDate">ExpectedDate</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="returnDate"><span translate="stepApp.vclRequisition.returnDate">ReturnDate</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="requisitionCause"><span translate="stepApp.vclRequisition.requisitionCause">RequisitionCause</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="requisitionStatus"><span translate="stepApp.vclRequisition.requisitionStatus">RequisitionStatus</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="meterReading"><span translate="stepApp.vclRequisition.meterReading">MeterReading</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="fuelReading"><span translate="stepApp.vclRequisition.fuelReading">FuelReading</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="billAmount"><span translate="stepApp.vclRequisition.billAmount">BillAmount</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="expectedArrivalDate"><span translate="stepApp.vclRequisition.expectedArrivalDate">ExpectedArrivalDate</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="comments"><span translate="stepApp.vclRequisition.comments">Comments</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="actionDate"><span translate="stepApp.vclRequisition.actionDate">ActionDate</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="actionBy"><span translate="stepApp.vclRequisition.actionBy">ActionBy</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="activeStatus"><span translate="stepApp.vclRequisition.activeStatus">ActiveStatus</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="createDate"><span translate="stepApp.vclRequisition.createDate">CreateDate</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="createBy"><span translate="stepApp.vclRequisition.createBy">CreateBy</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="updateDate"><span translate="stepApp.vclRequisition.updateDate">UpdateDate</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="updateBy"><span translate="stepApp.vclRequisition.updateBy">UpdateBy</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="user.login"><span translate="stepApp.vclRequisition.user">user</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="vehicle.vehicleName"><span translate="stepApp.vclRequisition.vehicle">vehicle</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="alterDriver.driverName"><span translate="stepApp.vclRequisition.alterDriver">alterDriver</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="vclRequisition in vclRequisitions track by vclRequisition.id">
+                    <td><a ui-sref="vclRequisition.detail({id:vclRequisition.id})">{{vclRequisition.id}}</a></td>
+                    <td translate="{{'stepApp.requisitionTypes.' + vclRequisition.requisitionType}}">{{vclRequisition.requisitionType}}</td>
+                    <td translate="{{'stepApp.vehicleTypes.' + vclRequisition.vehicleType}}">{{vclRequisition.vehicleType}}</td>
+                    <td>{{vclRequisition.sourceLocation}}</td>
+                    <td>{{vclRequisition.destinationLocation}}</td>
+                        <td>{{vclRequisition.expectedDate | date:'mediumDate'}}</td>
+                        <td>{{vclRequisition.returnDate | date:'mediumDate'}}</td>
+                    <td>{{vclRequisition.requisitionCause}}</td>
+                    <td translate="{{'stepApp.requisitionStatus.' + vclRequisition.requisitionStatus}}">{{vclRequisition.requisitionStatus}}</td>
+                    <td>{{vclRequisition.meterReading}}</td>
+                    <td>{{vclRequisition.fuelReading}}</td>
+                    <td>{{vclRequisition.billAmount}}</td>
+                        <td>{{vclRequisition.expectedArrivalDate | date:'mediumDate'}}</td>
+                    <td>{{vclRequisition.comments}}</td>
+                        <td>{{vclRequisition.actionDate | date:'mediumDate'}}</td>
+                    <td>{{vclRequisition.actionBy}}</td>
+                    <td>{{vclRequisition.activeStatus}}</td>
+                        <td>{{vclRequisition.createDate | date:'mediumDate'}}</td>
+                    <td>{{vclRequisition.createBy}}</td>
+                        <td>{{vclRequisition.updateDate | date:'mediumDate'}}</td>
+                    <td>{{vclRequisition.updateBy}}</td>
+                    <td>
+                        <a ui-sref="User.detail({id:vclRequisition.user.id})">{{vclRequisition.user.login}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="VclVehicle.detail({id:vclRequisition.vehicle.id})">{{vclRequisition.vehicle.vehicleName}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="VclDriver.detail({id:vclRequisition.alterDriver.id})">{{vclRequisition.alterDriver.driverName}}</a>
+                    </td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="vclRequisition.detail({id:vclRequisition.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="vclRequisition.edit({id:vclRequisition.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="vclRequisition.delete({id:vclRequisition.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <uib-pagination class="pagination-sm" total-items="totalItems" ng-model="page" ng-change="loadAll()"></uib-pagination>
+    </div>
+</div>

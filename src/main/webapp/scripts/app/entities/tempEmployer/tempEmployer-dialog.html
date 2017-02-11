@@ -1,0 +1,219 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myTempEmployerLabel" translate="stepApp.tempEmployer.home.createOrEditLabel">Create or edit a TempEmployer</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="tempEmployer.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.tempEmployer.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                    ng-model="tempEmployer.name"
+                    required ng-minlength="2" />
+            <div ng-show="editForm.name.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.name.$error.minlength" translate="entity.validation.minlength" translate-value-min="2">
+                    This field is required to be at least 2 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.tempEmployer.alternativeCompanyName" for="field_alternativeCompanyName">AlternativeCompanyName</label>
+            <input type="text" class="form-control" name="alternativeCompanyName" id="field_alternativeCompanyName"
+                    ng-model="tempEmployer.alternativeCompanyName"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.tempEmployer.contactPersonName" for="field_contactPersonName">ContactPersonName</label>
+            <input type="text" class="form-control" name="contactPersonName" id="field_contactPersonName"
+                    ng-model="tempEmployer.contactPersonName"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.tempEmployer.personDesignation" for="field_personDesignation">PersonDesignation</label>
+            <input type="text" class="form-control" name="personDesignation" id="field_personDesignation"
+                    ng-model="tempEmployer.personDesignation"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.tempEmployer.contactNumber" for="field_contactNumber">ContactNumber</label>
+            <input type="text" class="form-control" name="contactNumber" id="field_contactNumber"
+                    ng-model="tempEmployer.contactNumber"
+                    required ng-minlength="5" />
+            <div ng-show="editForm.contactNumber.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.contactNumber.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.contactNumber.$error.minlength" translate="entity.validation.minlength" translate-value-min="5">
+                    This field is required to be at least 5 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.tempEmployer.companyInformation" for="field_companyInformation">CompanyInformation</label>
+            <input type="text" class="form-control" name="companyInformation" id="field_companyInformation"
+                    ng-model="tempEmployer.companyInformation"
+                    required ng-minlength="10" />
+            <div ng-show="editForm.companyInformation.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.companyInformation.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.companyInformation.$error.minlength" translate="entity.validation.minlength" translate-value-min="10">
+                    This field is required to be at least 10 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.tempEmployer.address" for="field_address">Address</label>
+            <input type="text" class="form-control" name="address" id="field_address"
+                    ng-model="tempEmployer.address"
+                    required ng-minlength="10" />
+            <div ng-show="editForm.address.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.address.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.address.$error.minlength" translate="entity.validation.minlength" translate-value-min="10">
+                    This field is required to be at least 10 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.tempEmployer.city" for="field_city">City</label>
+            <input type="text" class="form-control" name="city" id="field_city"
+                    ng-model="tempEmployer.city"
+                    required />
+            <div ng-show="editForm.city.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.city.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.tempEmployer.zipCode" for="field_zipCode">ZipCode</label>
+            <input type="text" class="form-control" name="zipCode" id="field_zipCode"
+                    ng-model="tempEmployer.zipCode"
+                    required ng-minlength="4" />
+            <div ng-show="editForm.zipCode.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.zipCode.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.zipCode.$error.minlength" translate="entity.validation.minlength" translate-value-min="4">
+                    This field is required to be at least 4 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.tempEmployer.companyWebsite" for="field_companyWebsite">CompanyWebsite</label>
+            <input type="text" class="form-control" name="companyWebsite" id="field_companyWebsite"
+                    ng-model="tempEmployer.companyWebsite"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.tempEmployer.industryType" for="field_industryType">IndustryType</label>
+            <input type="text" class="form-control" name="industryType" id="field_industryType"
+                    ng-model="tempEmployer.industryType"
+                    required />
+            <div ng-show="editForm.industryType.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.industryType.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.tempEmployer.businessDescription" for="field_businessDescription">BusinessDescription</label>
+            <input type="text" class="form-control" name="businessDescription" id="field_businessDescription"
+                    ng-model="tempEmployer.businessDescription"
+                    required ng-minlength="10" />
+            <div ng-show="editForm.businessDescription.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.businessDescription.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.businessDescription.$error.minlength" translate="entity.validation.minlength" translate-value-min="10">
+                    This field is required to be at least 10 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group" ngf-drop ngf-change="setCompanyLogo($file, tempEmployer)" ngf-pattern="'image/*'">
+            <label translate="stepApp.tempEmployer.companyLogo" for="field_companyLogo">CompanyLogo</label>
+            <div>
+                <img data-ng-src="{{'data:' + tempEmployer.companyLogoContentType + ';base64,' + tempEmployer.companyLogo}}" style="max-height: 100px;" ng-if="tempEmployer.companyLogo"/>
+                <div class="help-block clearfix">
+                    <span class="pull-left">{{tempEmployer.companyLogoContentType}} {{byteSize(tempEmployer.companyLogo)}}</span>
+                    <button ng-click="tempEmployer.companyLogo=null;tempEmployer.companyLogoContentType=null;"
+                            ng-if="tempEmployer.companyLogo"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="file" ngf-select class="btn btn-default btn-block"
+                        ngf-change="setCompanyLogo($file, tempEmployer)" accept="image/*" translate="entity.action.addimage">
+                    Add image
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="companyLogo" id="field_companyLogo"
+                    ng-model="tempEmployer.companyLogo"
+                     />
+            <input type="hidden" class="form-control" name="companyLogoContentType" id="field_companyLogoContentType"
+                    ng-model="tempEmployer.companyLogoContentType" />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.tempEmployer.status" for="field_status">Status</label>
+            <select class="form-control" name="status" ng-model="tempEmployer.status" id="field_status">
+                <option value="pending" translate="stepApp.TempEmployerStatus.pending">pending</option>
+                <option value="rejected" translate="stepApp.TempEmployerStatus.rejected">rejected</option>
+                <option value="approved" translate="stepApp.TempEmployerStatus.approved">approved</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.tempEmployer.user" for="field_user">user</label>
+            <select class="form-control" id="field_user" name="user" ng-model="tempEmployer.user" ng-options="user as user.login for user in users track by user.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.tempEmployer.country" for="field_country">country</label>
+            <select class="form-control" id="field_country" name="country" ng-model="tempEmployer.country" ng-options="country as country.name for country in countrys track by country.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.tempEmployer.manager" for="field_manager">manager</label>
+            <select class="form-control" id="field_manager" name="manager" ng-model="tempEmployer.manager" ng-options="user as user.login for user in users track by user.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

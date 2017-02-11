@@ -1,0 +1,110 @@
+<div class="col-md-12 common-list">
+    <h2 translate="stepApp.hrProjectInfo.home.title">HrProjectInfos</h2>
+    <div class="col-md-12 padding-tb">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+        <div class="col-xs-4 no_padding text-right ">
+            <button class="btn btn-primary su_sea_pri" ui-sref="hrProjectInfo.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.hrProjectInfo.home.createLabel">Create a new HrProjectInfo</span>
+            </button>
+        </div>
+    </div>
+    <!--<jh-alert></jh-alert>-->
+    <!--<div class="col-sm-12 padding-tb no-print">
+        <div class="col-md-8 col-xs-12 no_padding">
+            <div class="col-md-6 no_padding">
+                <b>&lt;!&ndash;{{ (hrProjectInfos | filter:q).length }}&ndash;&gt; <span translate="global.home.searchhere">Search Here :</span></b>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-search"
+                                                                         aria-hidden="true"></i></span>
+                    <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <b><span translate="global.home.itemperpage">Items per page:</span></b>
+                <div class="input-group">
+                    <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-xs-12 text-right no_padding dlbtn-top">
+            <button class="btn btn-primary su_sea_pri" ui-sref="hrProjectInfo.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.hrProjectInfo.home.createLabel">Create a new HrProjectInfo</span>
+            </button>
+        </div>
+
+    </div>-->
+
+
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+            <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
+                <!--<th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>-->
+                <th><span translate="global.form.serial">serial</span></th>
+                <th jh-sort-by="projectName"><span translate="stepApp.hrProjectInfo.projectName">ProjectName</span>
+                    <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="directorName"><span translate="stepApp.hrProjectInfo.directorName">DirectorName</span>
+                    <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="startDate"><span translate="stepApp.hrProjectInfo.startDate">StartDate</span> <span
+                    class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="endDate"><span translate="stepApp.hrProjectInfo.endDate">EndDate</span> <span
+                    class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="projectValue"><span translate="stepApp.hrProjectInfo.projectValue">ProjectValue</span>
+                    <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="projectStatus"><span
+                    translate="stepApp.hrProjectInfo.projectStatus">ProjectStatus</span> <span
+                    class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="fundSource.typeName"><span
+                    translate="stepApp.hrProjectInfo.fundSource">fundSource</span> <span
+                    class="glyphicon glyphicon-sort"></span></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-animate="'animate'"
+                dir-paginate="hrProjectInfo in hrProjectInfos | filter:q | itemsPerPage: pageSize track by hrProjectInfo.id"
+                current-page="currentPage">
+                <td>{{pageSize * (currentPage-1)+$index+1}}</td>
+                <!--<td><a ui-sref="hrProjectInfo.detail({id:hrProjectInfo.id})">{{hrProjectInfo.id}}</a></td>-->
+                <td>{{hrProjectInfo.projectName}}</td>
+                <td>{{hrProjectInfo.directorName}}</td>
+                <td>{{hrProjectInfo.startDate | date:'mediumDate'}}</td>
+                <td>{{hrProjectInfo.endDate | date:'mediumDate'}}</td>
+                <td>{{hrProjectInfo.projectValue}}</td>
+                <td>{{hrProjectInfo.projectStatus}}</td>
+                <td>
+                    <a ui-sref="miscTypeSetup.detail({id:hrProjectInfo.fundSource.id})">{{hrProjectInfo.fundSource.typeName}}</a>
+                </td>
+                <td class="text-right no-print">
+                    <button type="submit"
+                            ui-sref="hrProjectInfo.detail({id:hrProjectInfo.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="hrProjectInfo.edit({id:hrProjectInfo.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                        translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="hrProjectInfo.delete({id:hrProjectInfo.id})"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                        translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <nav class="no-print">
+        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                 template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+    </nav>
+</div>

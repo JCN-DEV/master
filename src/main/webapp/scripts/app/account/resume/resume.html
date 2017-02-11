@@ -1,0 +1,589 @@
+<style>
+    .table tr td{
+        width: 50%;
+    }
+</style>
+<div class="row">
+    <div class="col-md-3">
+        <ng-include src="'scripts/app/entities/jobPortal/jp-user-menu.html'"></ng-include>
+    </div>
+    <div class="col-md-9 common-table">
+        <div class="user-resum">
+            <h2 class="page-header" translate="global.menu.account.resume">My resume</h2>
+        </div>
+        <tabset justified="true" class="sis-seven-tab">
+            <tab heading="{{'stepApp.jpEmployee.profile' | translate}}" select="profile()">
+                <div ng-show="viewProfileMode">
+                    <div class="alert alert-success" ng-show="success" translate="settings.messages.success">
+                        <strong>Settings saved!</strong>
+                    </div>
+                    <div class="alert alert-danger" ng-show="errorEmailExists"
+                         translate="settings.messages.error.emailexists">
+                        <strong>E-mail is already in use!</strong> Please choose another one.
+                    </div>
+                    <div class="alert alert-danger" ng-show="error" translate="settings.messages.error.fail">
+                        <strong>An error has occurred!</strong> Settings could not be saved.
+                    </div>
+                    <div class=" col-md-12 table-responsive education_repeat no_padding">
+                        <table class="table table-hover table-striped">
+                            <tbody>
+                            <tr class="education_repeat_head">
+                                <td></td>
+                                <td class="text-right">
+                                    <button ng-show="!jpEmployee.id" type="submit"
+                                            ng-click="changeProfileMode(false)"
+                                            class="btn btn-primary btn-sm">
+                                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                                        translate="entity.action.add">Add</span>
+                                    </button>
+                                    <button ng-show="jpEmployee.id" type="submit" ng-click="changeProfileMode(false)"
+                                            class="btn btn-primary btn-sm pull-right">
+                                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                                        translate="entity.action.edit"> Edit</span>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td translate="stepApp.jpEmployee.nameRecom">Name</td>
+                                <td>{{jpEmployee.name}}</td>
+                            </tr>
+                            <tr>
+                                <td translate="stepApp.jpEmployee.fatherName">Father name
+                                </td>
+                                <td>{{jpEmployee.fatherName}}</td>
+                            </tr>
+                            <tr>
+                                <td translate="stepApp.jpEmployee.motherName">Mother Name</td>
+                                <td>{{jpEmployee.motherName}}</td>
+                            </tr>
+                            <tr>
+                                <td translate="stepApp.jpEmployee.presentAddress">Present Address
+                                </td>
+                                <td>{{jpEmployee.presentAddress}}</td>
+                            </tr>
+                            <tr>
+                                <td translate="stepApp.jpEmployee.permanentAddress">Permanent Address
+                                </td>
+                                <td>{{jpEmployee.permanentAddress}}</td>
+                            </tr>
+                            <tr>
+                                <td translate="stepApp.jpEmployee.district"></td>
+                                <td>{{jpEmployee.district.name}}</td>
+                            </tr>
+                            <tr>
+                                <td translate="stepApp.jpEmployee.nidNo"></td>
+                                <td>{{jpEmployee.nidNo}}</td>
+                            </tr>
+                            <tr>
+                                <td translate="stepApp.jpEmployee.email"></td>
+                                <td>{{jpEmployee.email}}</td>
+                            </tr>
+                            <tr>
+                                <td translate="stepApp.jpEmployee.alternativeMail"></td>
+                                <td>{{jpEmployee.alternativeMail}}</td>
+                            </tr>
+                            <tr>
+                                <td translate="stepApp.jpEmployee.nationality"></td>
+                                <td>{{jpEmployee.nationality}}</td>
+                            </tr>
+                            <tr>
+                                <td translate="stepApp.jpEmployee.maritialStatus"></td>
+                                <td>{{jpEmployee.maritialStatus}}</td>
+                            </tr>
+                            <tr>
+                                <td translate="stepApp.jpEmployee.officePhone"></td>
+                                <td>{{jpEmployee.officePhone}}</td>
+                            </tr>
+                            <tr>
+                                <td translate="stepApp.jpEmployee.mobileNo"></td>
+                                <td>{{jpEmployee.mobileNo}}</td>
+                            </tr>
+                            <tr>
+                                <td translate="stepApp.jpEmployee.gender"></td>
+                                <td>{{jpEmployee.gender}}</td>
+                            </tr>
+                            <tr>
+                                <td translate="stepApp.jpEmployee.religion"></td>
+                                <td>{{jpEmployee.religion.name}}</td>
+                            </tr>
+                            <tr>
+                                <td translate="stepApp.jpEmployee.availibilityType"></td>
+                                <td>{{jpEmployee.availibilityType}}</td>
+                            </tr>
+                            <tr>
+                                <td translate="stepApp.jpEmployee.dob"></td>
+                                <td>{{jpEmployee.dob | date:'yyyy-MM-dd'}}</td>
+                            </tr>
+                            <tr>
+                                <td translate="stepApp.jpEmployee.objective"></td>
+                                <td>{{jpEmployee.objective}}</td>
+                            </tr>
+                            <tr>
+                                <td translate="stepApp.jpEmployee.profilepic"></td>
+                                <td><img width="200"
+                                         data-ng-src="{{'data:' + employer.pictureType + ';base64,' + jpEmployee.picture}}"/>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <ng-include ng-hide="viewProfileMode"
+                            src="'scripts/app/entities/jpEmployee/jpEmployee-form.html'"></ng-include>
+            </tab>
+            <tab heading="{{'stepApp.jpEmployee.Education' | translate}}" disabled="!hasProfile" select="educations()">
+                <div class="row" ng-show="viewEducationMode">
+                    <div class="col-md-12">
+                        <div class="col-sm-12 no_padding text-right dte-center padding-bt">
+                            <button class="btn btn-primary pull-right" ng-click="changeEducationMode(false)">
+                                <span class="glyphicon glyphicon-plus"></span>
+                     <span ng-if="jpAcademicQualifications.length == 0"
+                           translate="stepApp.educationalQualification.home.createLabel">Create a new Education</span>
+                     <span ng-if="jpAcademicQualifications.length > 0"
+                           translate="stepApp.educationalQualification.home.editLabel">Edit Education</span>
+                            </button>
+                        </div>
+                        <div class="panel-body no_padding">
+                            <table class="table table-hover table-striped"
+                                   ng-repeat="educationalQualification in jpAcademicQualifications  | filter:filter | orderBy:predicate:reverse track by educationalQualification.id">
+                                <tbody>
+                                <tr>
+                                    <th colspan="2" class="experience_repeat_head">
+                                        {{educationalQualification.eduLevel.name}}
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td ng-click="order('level', reverse=!reverse)"
+                                        translate="stepApp.educationalQualification.level">Level
+                                    </td>
+                                    <td>{{educationalQualification.eduLevel.name}}</td>
+                                </tr>
+                                <!--<tr>
+                                   <td ng-click="order('degree', reverse=!reverse)"
+                                       translate="stepApp.educationalQualification.degree">Degree
+                                   </td>
+                                   <td>{{educationalQualification.degreeTitle}}</td>
+                                   </tr>-->
+                                <tr ng-if="educationalQualification.major">
+                                    <td ng-click="order('major', reverse=!reverse)"
+                                        translate="stepApp.educationalQualification.major">Major
+                                    </td>
+                                    <td>{{educationalQualification.major}}</td>
+                                </tr>
+                                <!--<tr>
+                                   <td ng-click="order('institute', reverse=!reverse)"
+                                       translate="stepApp.educationalQualification.institute">Major
+                                   </td>
+                                   <td>{{educationalQualification.institute}}</td>
+                                   </tr>-->
+                                <tr>
+                                    <td ng-click="order('board', reverse=!reverse)"
+                                        translate="stepApp.educationalQualification.board">Board
+                                    </td>
+                                    <td>{{educationalQualification.eduBoard.name}}</td>
+                                </tr>
+                                <tr ng-if="educationalQualification.institute">
+                                    <td ng-click="order('board', reverse=!reverse)"
+                                        translate="stepApp.jpAcademicQualification.institute">Institute
+                                    </td>
+                                    <td>{{educationalQualification.institute}}</td>
+                                </tr>
+                                <!--<tr>-->
+                                    <!--<td ng-click="order('result', reverse=!reverse)"-->
+                                        <!--translate="stepApp.educationalQualification.resulttype">Result-->
+                                    <!--</td>-->
+                                    <!--<td>{{educationalQualification.resulttype}}</td>-->
+                                <!--</tr>-->
+                                <tr>
+                                    <td ng-click="order('result', reverse=!reverse)"
+                                        translate="stepApp.educationalQualification.result">Result
+                                    </td>
+                                    <td>
+                                        {{educationalQualification.result}}
+                                        <span ng-if="!educationalQualification.isGpaResult"> Division/Class</span>
+                                        <span ng-if="educationalQualification.isGpaResult">GPA</span>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td ng-click="order('passingYear', reverse=!reverse)"
+                                        translate="stepApp.educationalQualification.passingYear">PassingYear
+                                    </td>
+                                    <td>{{educationalQualification.passingyear}}</td>
+                                </tr>
+                                <tr>
+                                    <td ng-click="order('group', reverse=!reverse)"
+                                        translate="stepApp.educationalQualification.group">group
+                                    </td>
+                                    <td>{{educationalQualification.group}}</td>
+                                </tr>
+                                <tr ng-if="educationalQualification.eduLevel.levelFor == 'university'">
+                                    <td ng-click="order('duration', reverse=!reverse)"
+                                        translate="stepApp.educationalQualification.duration">Duration
+                                    </td>
+                                    <td>{{educationalQualification.duration}}</td>
+                                </tr>
+                                <tr  ng-if="educationalQualification.gpaScale">
+                                    <td ng-click="order('duration', reverse=!reverse)"
+                                        translate="stepApp.instEmpEduQuali.gpaScale">gpaScale
+                                    </td>
+                                    <td>{{educationalQualification.gpaScale}}</td>
+                                </tr>
+                                <tr>
+                                    <td ng-click="order('duration', reverse=!reverse)"
+                                        translate="stepApp.instEmpEduQuali.session">session
+                                    </td>
+                                    <td>{{educationalQualification.session}}</td>
+                                </tr>
+                                <!--<tr>
+                                   <td></td>
+                                   <td>{{educationalQualification.user.login}}</td>
+                                   </tr>-->
+                                <tr ng-if="educationalQualification.achivement">
+                                    <td ng-click="order('level', reverse=!reverse)"
+                                        translate="stepApp.educationalQualification.achivement">Level
+                                    </td>
+                                    <td>{{educationalQualification.achivement}}</td>
+                                </tr>
+                                <!--<tr>
+                                   <td ng-click="order('level', reverse=!reverse)"
+                                       translate="stepApp.educationalQualification.resulttype">resulttype
+                                   </td>
+                                   <td>{{educationalQualification.resulttype}}</td>
+                                   </tr>-->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <ng-include ng-hide="viewEducationMode"
+                            src="'scripts/app/entities/jpAcademicQualification/jpAcademicQualification-form.html'"></ng-include>
+            </tab>
+            <tab heading="{{'stepApp.jpEmployee.experience' | translate}}" disabled="!hasProfile" select="careerInfo()">
+                <div ng-show="viewEmploymentMode">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-sm-12 no_padding text-right dte-center padding-bt">
+                                <button class="btn btn-primary pull-right" ng-click="changeEmploymentMode(false)">
+                                    <span class="glyphicon glyphicon-plus"></span> <span
+                                    translate="stepApp.experience.home.createLabel">Add New Employment History</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 table-responsive padding-tb">
+                        <table class="table table-striped" ng-repeat="employment in employments">
+                            <thead>
+                            <tr>
+                                <th colspan="2">
+                                    <div class="col-md-12 no_padding">
+                                        {{employment.companyName}}
+                                        <button
+                                            ng-click="editEmploymentHistory(employment.id)"
+                                            class="btn btn-primary btn-sm pull-right">
+                                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                                            translate="entity.action.edit"> Edit</span>
+                                        </button>
+                                    </div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td
+                                    translate="stepApp.jpEmploymentHistory.companyName">
+                                    Company Name
+                                </td>
+                                <td>{{employment.companyName}}</td>
+                            </tr>
+                            <tr>
+                                <td
+                                    translate="stepApp.jpEmploymentHistory.companyBusiness">
+                                    Company Business
+                                </td>
+                                <td>{{employment.companyBusiness}}</td>
+                            </tr>
+                            <tr>
+                                <td translate="stepApp.jpEmploymentHistory.companyLocation">
+                                    Company Location
+                                </td>
+                                <td>{{employment.companyLocation}}</td>
+                            </tr>
+                            <tr>
+                                <td
+                                    translate="stepApp.jpEmploymentHistory.positionHeld">Position Held
+                                </td>
+                                <td>{{employment.positionHeld}}</td>
+                            </tr>
+                            <tr>
+                                <td
+                                    translate="stepApp.jpEmploymentHistory.departmentName">Department Name
+                                </td>
+                                <td>{{employment.departmentName}}</td>
+                            </tr>
+                            <tr>
+                                <td translate="stepApp.jpEmploymentHistory.responsibility">Responsibility</td>
+                                <td>
+                                    <a ui-sref="employee.detail({id:experience.employee.id})">{{employment.responsibility}}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td translate="stepApp.jpEmploymentHistory.startFrom">Employment Time</td>
+                                <td>
+                                    {{employment.startFrom}} <span ng-if="!employment.currentStatus"> to {{employment.endTo}}</span>
+                                </td>
+                            </tr>
+                            <tr ng-if="employment.currentStatus">
+                                <td translate="stepApp.jpEmploymentHistory.currentStatus">Current Company</td>
+                                <td>Yes</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <ng-include ng-hide="viewEmploymentMode"
+                            src="'scripts/app/entities/jpEmploymentHistory/jpEmploymentHistory-form.html'"></ng-include>
+            </tab>
+            <tab heading="{{'stepApp.jpEmployee.skills' | translate}}" disabled="!hasProfile" select="experienceTab()">
+                <div ng-show="viewSkillsMode">
+                    <div class="row">
+                        <div class="col-md-12 text-right dte-center padding-bt">
+                            <button class="btn btn-primary" ng-click="changeSkillsMode(false)">
+                                <span class="glyphicon glyphicon-plus"></span> <span
+                                translate="stepApp.skill.home.createLabel">Create a new Skill</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-12 table-responsive no_padding">
+                        <table class="table table-striped" ng-repeat="skill in skills">
+                            <thead>
+                            <th colspan="2">
+                                <div class="col-md-12 no_padding">
+                                    {{skill.jpSkill.name}}
+                                    <button
+                                        ng-click="editSkill(skill.id)"
+                                        class="btn btn-primary btn-sm pull-right">
+                                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                                        translate="entity.action.edit"> Edit</span>
+                                    </button>
+                                </div>
+                            </th>
+                            </thead>
+                            <tbody class="skills_tabel">
+                            <tr>
+                                <td ng-click="order('name', reverse=!reverse)" translate="stepApp.skill.name">name
+                                </td>
+                                <td>{{skill.jpSkill.name}}</td>
+                            </tr>
+                            <tr>
+                                <td ng-click="order('level', reverse=!reverse)"
+                                    translate="stepApp.jpEmployeeExperience.skillDescription">level
+                                </td>
+                                <td>{{skill.skillDescription}}</td>
+                            </tr>
+                            <tr>
+                                <td
+                                    translate="stepApp.jpEmployeeExperience.skillLevel">level
+                                </td>
+                                <td>{{skill.jpSkillLevel.name}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <ng-include ng-hide="viewSkillsMode"
+                            src="'scripts/app/entities/jpEmployeeExperience/jpEmployeeExperience-form.html'"></ng-include>
+            </tab>
+            <tab heading="{{'stepApp.jpEmployee.trainings' | translate}}" disabled="!hasProfile"
+                 select="trainingsTab()">
+                <div ng-show="viewTrainingsMode">
+                    <div class="row">
+                        <div class="col-md-12 text-right dte-center padding-bt">
+                            <button class="btn btn-primary" ng-click="changeTrainingsMode(false)">
+                                <span class="glyphicon glyphicon-plus"></span> <span
+                                translate="stepApp.training.home.createLabel">Create a new Training</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-12 table-responsive no_padding">
+                        <table class="table table-striped" ng-repeat="training in trainings">
+                            <thead>
+                            <tr>
+                                <th colspan="2">
+                                    <div class="col-md-12 no_padding">
+                                        {{training.trainingTitle}}
+                                        <button
+                                            ng-click="editTraining(training.id)"
+                                            class="btn btn-primary btn-sm pull-right">
+                                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                                            translate="entity.action.edit"> Edit</span>
+                                        </button>
+                                    </div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody class="skills_tabel">
+                            <tr>
+                                <td ng-click="order('name', reverse=!reverse)"
+                                    translate="stepApp.jpEmployeeTraining.trainingTitle"></td>
+                                <td>{{training.trainingTitle}}</td>
+                            </tr>
+                            <tr>
+                                <td ng-click="order('level', reverse=!reverse)"
+                                    translate="stepApp.jpEmployeeTraining.topicCovered"></td>
+                                <td>{{training.topicCovered}}</td>
+                            </tr>
+                            <tr>
+                                <td ng-click="order('level', reverse=!reverse)"
+                                    translate="stepApp.jpEmployeeTraining.institute"></td>
+                                <td>{{training.institute}}</td>
+                            </tr>
+                            <tr>
+                                <td ng-click="order('level', reverse=!reverse)"
+                                    translate="stepApp.jpEmployeeTraining.location"></td>
+                                <td>{{training.location}}</td>
+                            </tr>
+                            <tr>
+                                <td ng-click="order('level', reverse=!reverse)"
+                                    translate="stepApp.jpEmployeeTraining.country"></td>
+                                <td>{{training.country.name}}</td>
+                            </tr>
+                            <tr>
+                                <td ng-click="order('level', reverse=!reverse)"
+                                    translate="stepApp.jpEmployeeTraining.duration"></td>
+                                <td>{{training.duration}}</td>
+                            </tr>
+                            <tr>
+                                <td ng-click="order('level', reverse=!reverse)"
+                                    translate="stepApp.jpEmployeeTraining.completionDate"></td>
+                                <td>{{training.completionDate}}</td>
+                            </tr>
+                            <tr>
+                                <td ng-click="order('level', reverse=!reverse)"
+                                    translate="stepApp.jpEmployeeTraining.result"></td>
+                                <td>{{training.result}}</td>
+                            </tr>
+                            <!--<tr>
+                               <td ng-click="order('level', reverse=!reverse)"
+                                   translate="stepApp.jpEmployeeTraining.country"></td>
+                               <td>{{training.country}}</td>
+                               </tr>-->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <ng-include ng-hide="viewTrainingsMode"
+                            src="'scripts/app/entities/jpEmployeeTraining/jpEmployeeTraining-form.html'"></ng-include>
+            </tab>
+            <tab heading="{{'stepApp.jpEmployee.language' | translate}}" disabled="!hasProfile" select="languageTab()">
+                <div ng-show="viewLanguageMode" class="jpLanguage">
+                    <div class="row">
+                        <div class="col-md-12 text-right dte-center padding-bt">
+                            <button class="btn btn-primary" ng-click="changeLanguageMode(false)">
+                                <span class="glyphicon glyphicon-plus"></span> <span
+                                ng-if="jpLanguageProficiencys.length == 0"
+                                translate="stepApp.lang.home.createLabel">Create a new Language</span>
+                     <span ng-if="jpLanguageProficiencys.length > 0"
+                           translate="stepApp.lang.home.editLabel">Create a new Language</span>
+                            </button>
+                        </div>
+                    </div>
+                    <table ng-if="jpLanguageProficiencys.length > 0" class="table table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <th style="width: 20% !important;" translate="stepApp.lang.name">Name</th>
+                            <th translate="stepApp.lang.reading">Reading</th>
+                            <th translate="stepApp.lang.writing">Writing</th>
+                            <th translate="stepApp.lang.speaking">Speaking</th>
+                            <th translate="stepApp.lang.listening">Listening</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="lang in jpLanguageProficiencys">
+                            <td style="width: 20% !important;">{{lang.name}}</td>
+                            <td style="width: 20% !important;">{{lang.reading}}</td>
+                            <td style="width: 20% !important;">{{lang.writing}}</td>
+                            <td style="width: 20% !important;">{{lang.speaking}}</td>
+                            <td style="width: 20% !important;">{{lang.listening}}</td>
+                            <!--<td class="text-right">
+                               <div class="btn-group btn-group-sm">
+                                   <button
+                                       ng-click="editLanguage(lang.id)"
+                                       class="btn btn-primary btn-sm">
+                                       <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                                       translate="entity.action.edit">Edit</span>
+                                   </button>
+                               </div>
+                               </td>-->
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <ng-include ng-hide="viewLanguageMode"
+                            src="'scripts/app/entities/jpLanguageProficiency/jpLanguageProficiency-form.html'"></ng-include>
+            </tab>
+            <tab heading="{{'stepApp.jpEmployee.reference' | translate}}" disabled="!hasProfile"
+                 select="referenceTab()">
+                <div ng-show="viewReferenceMode">
+                    <div class="row">
+                        <div class="col-md-12 dte-center padding-bt">
+                            <button class="btn btn-primary pull-right" ng-click="changeReferenceMode(fase)">
+                                <span class="glyphicon glyphicon-plus"></span> <span
+                                translate="stepApp.reference.home.createLabel">Create a new Training</span>
+                            </button>
+                        </div>
+                    </div>
+                    <table class="table" ng-repeat="reference in references">
+                        <tbody>
+                        <tr class="reference_repeat">
+                            <td style="color:#fff">{{reference.name}}</td>
+                            <td class="pull-right">
+                                <button
+                                    ng-click="editReference(reference.id)"
+                                    class="btn btn-primary btn-sm">
+                                    <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                                    translate="entity.action.edit"> Edit</span>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td translate="stepApp.jpEmployeeReference.name">name</td>
+                            <td>{{reference.name}}</td>
+                        </tr>
+                        <tr>
+                            <td translate="stepApp.jpEmployeeReference.email">name</td>
+                            <td>{{reference.email}}</td>
+                        </tr>
+                        <tr>
+                            <td translate="stepApp.jpEmployeeReference.organisation">name</td>
+                            <td>{{reference.organisation}}</td>
+                        </tr>
+                        <tr>
+                            <td translate="stepApp.jpEmployeeReference.designation">Designation</td>
+                            <td>{{reference.designation}}</td>
+                        </tr>
+                        <tr>
+                            <td translate="stepApp.jpEmployeeReference.relation">Relation</td>
+                            <td>{{reference.relation}}</td>
+                        </tr>
+                        <tr>
+                            <td translate="stepApp.jpEmployeeReference.phone">Phone</td>
+                            <td>{{reference.phone}}</td>
+                        </tr>
+                        <tr>
+                            <td translate="stepApp.jpEmployeeReference.address">Phone</td>
+                            <td>{{reference.address}}</td>
+                        </tr>
+                        <tr>
+                            <td translate="stepApp.jpEmployeeReference.remarks">remarks</td>
+                            <td>{{reference.remarks}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <ng-include ng-hide="viewReferenceMode"
+                            src="'scripts/app/entities/jpEmployeeReference/jpEmployeeReference-form.html'"></ng-include>
+            </tab>
+        </tabset>
+    </div>
+</div>

@@ -1,0 +1,124 @@
+<!--
+the file was empty at the server. so that I commented all
+-->
+
+<!--
+<div class="">
+    <div class="col-md-3 bs-docs-sidebar responsive_padding">
+        <ng-include src="'scripts/app/entities/dlExistBookInfo/digitalLibrary-left-menu.html'"></ng-include>
+    </div>
+    <div class="col-md-9">
+
+    <div>
+        <h2 translate="stepApp.dlUllimConfig.home.title" style="margin: 10px 0px"></h2>
+    &lt;!&ndash;<h2 translate="stepApp.dlUllimConfig.home.title">DlUllimConfigs</h2>&ndash;&gt;
+    <jh-alert></jh-alert>
+    <div class="">
+        <div class="row">
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group btn_input_left">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="">
+                        <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="col-md-4 text-right btn_center">
+                <button class="btn btn-primary" ui-sref="dlUllimConfig.new">
+                    <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.dlUllimConfig.home.createLabel">Create a new DlUllimConfig</span>
+                </button>
+            </div>
+
+        </div>
+    </div><br>
+
+    <div class="modal fade" id="deleteDlUllimConfigConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(dlUllimConfig.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p translate="stepApp.dlUllimConfig.delete.question" translate-values="{id: '{{dlUllimConfig.id}}'}">Are you sure you want to delete this DlUllimConfig?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="global.field.id">ID</th>
+                    <th translate="stepApp.dlUllimConfig.fileType">FileType</th>
+                    <th translate="stepApp.dlUllimConfig.limitMb">LimitMb</th>
+                    &lt;!&ndash;<th translate="stepApp.dlUllimConfig.createdDate">CreatedDate</th>&ndash;&gt;
+                    &lt;!&ndash;<th translate="stepApp.dlUllimConfig.updatedDate">UpdatedDate</th>&ndash;&gt;
+                    &lt;!&ndash;<th translate="stepApp.dlUllimConfig.createdBy">CreatedBy</th>&ndash;&gt;
+                    &lt;!&ndash;<th translate="stepApp.dlUllimConfig.updatedBy">UpdatedBy</th>&ndash;&gt;
+                    &lt;!&ndash;<th translate="stepApp.dlUllimConfig.status">Status</th>&ndash;&gt;
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="dlUllimConfig in dlUllimConfigs track by dlUllimConfig.id">
+                    <td><a ui-sref="dlUllimConfig.detail({id:dlUllimConfig.id})">{{dlUllimConfig.id}}</a></td>
+                    <td>{{dlUllimConfig.fileType}}</td>
+                    <td>{{dlUllimConfig.limitMb}}</td>
+                        &lt;!&ndash;<td>{{dlUllimConfig.createdDate | date:'mediumDate'}}</td>&ndash;&gt;
+                        &lt;!&ndash;<td>{{dlUllimConfig.updatedDate | date:'mediumDate'}}</td>&ndash;&gt;
+                    &lt;!&ndash;<td>{{dlUllimConfig.createdBy}}</td>&ndash;&gt;
+                    &lt;!&ndash;<td>{{dlUllimConfig.updatedBy}}</td>&ndash;&gt;
+                    &lt;!&ndash;<td>{{dlUllimConfig.status}}</td>&ndash;&gt;
+                    <td>
+                        <button type="submit"
+                                ui-sref="dlUllimConfig.detail({id:dlUllimConfig.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="dlUllimConfig.edit({id:dlUllimConfig.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="delete(dlUllimConfig.id)"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        &lt;!&ndash;<nav>&ndash;&gt;
+            &lt;!&ndash;<ul class="pagination">&ndash;&gt;
+                &lt;!&ndash;<li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>&ndash;&gt;
+                &lt;!&ndash;<li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>&ndash;&gt;
+                &lt;!&ndash;<li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>&ndash;&gt;
+                &lt;!&ndash;<li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>&ndash;&gt;
+                &lt;!&ndash;<li class="active"><a>{{page + 1}}</a></li>&ndash;&gt;
+                &lt;!&ndash;<li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>&ndash;&gt;
+                &lt;!&ndash;<li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>&ndash;&gt;
+                &lt;!&ndash;<li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>&ndash;&gt;
+                &lt;!&ndash;<li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>&ndash;&gt;
+            &lt;!&ndash;</ul>&ndash;&gt;
+        &lt;!&ndash;</nav>&ndash;&gt;
+    </div>
+</div>
+</div></div>
+-->

@@ -1,0 +1,250 @@
+<div class="service-form-area">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="modal-title" id="myHrEmpAdvIncrementInfoLabel"><span
+                translate="stepApp.hrEmpAdvIncrementInfo.home.profileViewEditTitle"></span> :
+                {{hrEmployeeInfo.fullName}}</h4>
+        </div>
+        <div class="panel-body bg-panel hr_label">
+            <div class="row hrm-view">
+                <span ng-show="addMode">
+                    <span ng-show="noEmployeeFound" class="alert">Employee is not created yet.</span>
+                </span>
+            </div>
+            <form class="form-horizontal " name="editForm" role="form" ng-submit="save()" novalidate show-validation>
+                <div class="panel-group">
+                    <div class="bg-panel">
+                        <div class="row hrm-view panel-heading no_padding">
+                            <div class="col-sm-10 no_padding">
+
+                            </div>
+                            <div class="col-sm-2 no_padding text-right">
+                                <button ng-hide="noEmployeeFound" type="button"
+                                        ng-click="changeProfileMode(hrEmpAdvIncrementInfo)"
+                                        class="btn btn-primary btn-sm">{{hrEmpAdvIncrementInfo.viewModeText}}
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpAdvIncrementInfo.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEmpAdvIncrementInfo.jobCategory"
+                                           for="field_jobCategory">jobCategory</label>
+                                    <select class="form-control" id="field_jobCategory" name="jobCategory"
+                                            ng-model="hrEmpAdvIncrementInfo.jobCategory"
+                                            ng-options="MiscTypeSetup as MiscTypeSetup.typeName for MiscTypeSetup in misctypesetups track by MiscTypeSetup.id"
+                                            required>
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                                <div ng-show="hrEmpAdvIncrementInfo.viewMode">
+                                    <label class="control-label" translate="stepApp.hrEmpAdvIncrementInfo.jobCategory"
+                                           for="field_jobCategory">jobCategory</label>
+                                    <span class="form-control-static">&nbsp; : &nbsp;{{hrEmpAdvIncrementInfo.jobCategory.typeName}}</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-6">
+                            </div>
+                        </div>
+
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpAdvIncrementInfo.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEmpAdvIncrementInfo.postName"
+                                           for="field_postName">PostName</label>
+                                    <input type="text" class="form-control" name="postName" id="field_postName"
+                                           ng-model="hrEmpAdvIncrementInfo.postName" required/>
+                                    <div ng-show="editForm.postName.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.postName.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEmpAdvIncrementInfo.viewMode">
+                                    <label class="control-label" translate="stepApp.hrEmpAdvIncrementInfo.postName"
+                                           for="field_postName">PostName</label>
+                                    <span
+                                        class="form-control-static">&nbsp; : &nbsp;{{hrEmpAdvIncrementInfo.postName}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpAdvIncrementInfo.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEmpAdvIncrementInfo.purpose"
+                                           for="field_purpose">Purpose</label>
+                                    <input type="text" class="form-control" name="purpose" id="field_purpose"
+                                           ng-model="hrEmpAdvIncrementInfo.purpose" required/>
+                                    <div ng-show="editForm.purpose.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.purpose.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEmpAdvIncrementInfo.viewMode">
+                                    <label class="control-label" translate="stepApp.hrEmpAdvIncrementInfo.purpose"
+                                           for="field_purpose">Purpose</label>
+                                    <span
+                                        class="form-control-static">&nbsp; : &nbsp;{{hrEmpAdvIncrementInfo.purpose}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpAdvIncrementInfo.viewMode" class="input-margin">
+                                    <label class="control-label"
+                                           translate="stepApp.hrEmpAdvIncrementInfo.incrementAmount"
+                                           for="field_incrementAmount">IncrementAmount</label>
+                                    <input type="number" class="form-control" name="incrementAmount"
+                                           id="field_incrementAmount"
+                                           ng-model="hrEmpAdvIncrementInfo.incrementAmount" required/>
+                                    <div ng-show="editForm.incrementAmount.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.incrementAmount.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                        <p class="help-block"
+                                           ng-show="editForm.incrementAmount.$error.number"
+                                           translate="entity.validation.number">
+                                            This field should be a number.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEmpAdvIncrementInfo.viewMode">
+                                    <label class="control-label"
+                                           translate="stepApp.hrEmpAdvIncrementInfo.incrementAmount"
+                                           for="field_incrementAmount">IncrementAmount</label>
+                                    <span class="form-control-static">&nbsp; : &nbsp;{{hrEmpAdvIncrementInfo.incrementAmount}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpAdvIncrementInfo.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEmpAdvIncrementInfo.orderDate"
+                                           for="field_orderDate">OrderDate</label>
+                                    <input datepicker-popup="{{calendar.dateFormat}}"
+                                           is-open="calendar.opened.orderDate"
+                                           datepicker-options="calendar.dateOptions" close-text="Close"
+                                           ng-click="calendar.open($event, 'orderDate')" class="form-control"
+                                           name="orderDate" id="field_orderDate"
+                                           ng-model="hrEmpAdvIncrementInfo.orderDate" required/>
+                                    <div ng-show="editForm.orderDate.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.orderDate.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEmpAdvIncrementInfo.viewMode">
+                                    <label class="control-label" translate="stepApp.hrEmpAdvIncrementInfo.orderDate"
+                                           for="field_orderDate">OrderDate</label>
+                                    <span class="form-control-static">&nbsp; : &nbsp;{{hrEmpAdvIncrementInfo.orderDate | date:'mediumDate'}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpAdvIncrementInfo.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEmpAdvIncrementInfo.orderNumber"
+                                           for="field_orderNumber">OrderNumber</label>
+                                    <input type="text" class="form-control" name="orderNumber" id="field_orderNumber"
+                                           ng-model="hrEmpAdvIncrementInfo.orderNumber" required/>
+                                    <div ng-show="editForm.orderNumber.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.orderNumber.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEmpAdvIncrementInfo.viewMode">
+                                    <label class="control-label" translate="stepApp.hrEmpAdvIncrementInfo.orderNumber"
+                                           for="field_orderNumber">OrderNumber</label>
+                                    <span class="form-control-static">&nbsp; : &nbsp;{{hrEmpAdvIncrementInfo.orderNumber}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label class="control-label" translate="stepApp.hrEmpAdvIncrementInfo.remarks"
+                                       for="field_remarks">Remarks</label>
+                                <div ng-show="!hrEmpAdvIncrementInfo.viewMode" class="input-margin">
+                                    <textarea class="form-control" name="remarks" id="field_remarks"
+                                              ng-model="hrEmpAdvIncrementInfo.remarks"></textarea>
+                                </div>
+                                <span ng-show="hrEmpAdvIncrementInfo.viewMode" class="form-control-static">&nbsp; : &nbsp;{{hrEmpAdvIncrementInfo.remarks}}</span>
+                            </div>
+                        </div>
+
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">
+                                <label class="control-label" translate="stepApp.hrEmpAdvIncrementInfo.goDate"
+                                       for="field_goDate">GoDate</label>
+                                <div ng-show="!hrEmpAdvIncrementInfo.viewMode" class="input-margin">
+                                    <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.goDate"
+                                           datepicker-options="calendar.dateOptions" close-text="Close"
+                                           ng-click="calendar.open($event, 'goDate')" class="form-control" name="goDate"
+                                           id="field_goDate"
+                                           ng-model="hrEmpAdvIncrementInfo.goDate"/>
+                                </div>
+                                <span ng-show="hrEmpAdvIncrementInfo.viewMode" class="form-control-static">&nbsp; : &nbsp;{{hrEmpAdvIncrementInfo.goDate | date:'mediumDate'}}</span>
+                            </div>
+                            <div class="form-group col-sm-6" ngf-drop
+                                 ngf-change="setGoDoc($file, hrEmpAdvIncrementInfo)">
+
+                                <div ng-show="!hrEmpAdvIncrementInfo.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEmpAdvIncrementInfo.goDoc"
+                                           for="field_goDoc">GoDoc</label>
+                                    <div>
+                                        <div class="help-block clearfix">
+                                            <span class="pull-left">{{hrEmpAdvIncrementInfo.goDocContentType}} {{byteSize(hrEmpAdvIncrementInfo.goDoc)}}</span>
+                                            <button
+                                                ng-click="hrEmpAdvIncrementInfo.goDoc=null;hrEmpAdvIncrementInfo.goDocContentType=null;"
+                                                ng-if="hrEmpAdvIncrementInfo.goDoc"
+                                                class="btn btn-default btn-xs pull-right">
+                                                <span class="glyphicon glyphicon-remove"></span>
+                                            </button>
+                                        </div>
+                                        <button type="file" ngf-select class="btn btn-default btn-block"
+                                                ngf-change="setGoDoc($file, hrEmpAdvIncrementInfo)"
+                                                translate="entity.action.addblob">
+                                            Add blob
+                                        </button>
+                                    </div>
+                                    <input type="hidden" class="form-control" name="goDoc" id="field_goDoc"
+                                           ng-model="hrEmpAdvIncrementInfo.goDoc"
+                                    />
+                                    <input type="hidden" class="form-control" name="goDocContentType"
+                                           id="field_goDocContentType"
+                                           ng-model="hrEmpAdvIncrementInfo.goDocContentType"/>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">&nbsp;</div>
+                            <div class="form-group col-sm-6 text-right">
+                                <button ng-show="!hrEmpAdvIncrementInfo.viewMode" type="button"
+                                        ng-click="changeProfileMode(hrEmpAdvIncrementInfo)"
+                                        class="btn btn-default btn-sm"><span class="glyphicon glyphicon-remove"></span>&nbsp;{{hrEmpAdvIncrementInfo.viewModeText}}
+                                </button>
+                                <button ng-show="!hrEmpAdvIncrementInfo.viewMode"
+                                        ng-click="updateProfile(hrEmpAdvIncrementInfo)"
+                                        type="button" ng-disabled="editForm.$invalid || isSaving"
+                                        class="btn btn-primary btn-sm">
+                                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span
+                                    translate="entity.action.save">Save</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

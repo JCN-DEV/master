@@ -1,0 +1,129 @@
+<div class="col-sm-12 common-list">
+    <h2 class="page-header" translate="stepApp.district.home.title">Districts</h2>
+    <!--<jh-alert></jh-alert>-->
+    <div class="col-md-12 padding-tb">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+        <div class="col-xs-4 no_padding text-right ">
+            <button class="btn btn-primary pull-right" ui-sref="division.district.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.district.home.createLabel">Create a new District</span>
+            </button>
+        </div>
+    </div>
+    <!--<div class="col-md-12 padding-tb">
+        <div class="col-md-8 no_padding">
+            <div class="col-md-6 no_padding">
+                <b><span translate="global.home.searchhere">Search Here :</span></b>
+                <div class="input-group">
+                    <span class="input-group-addon dlbtn" id="basic-addon1"><i class="fa fa-search"></i></span>
+                    <input ng-model="q" id="search" type="text" class="form-control" placeholder="Search for...">
+                </div>
+            </div>
+            <div class="col-md-6 no_padding">
+                <b><span translate="global.home.itemperpage">Items per page:</span></b>
+                <div class="input-group">
+                    <input type="number" class="form-control" ng-model="pageSize" placeholder="Search for...">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 no_padding">
+            <button class="btn btn-primary dlbtn-top  pull-right" ui-sref="division.district.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.district.home.createLabel">Create a new District</span>
+            </button>
+        </div>
+        &lt;!&ndash;<form name="searchForm" class="form-inline" ng-submit="search()" novalidate show-validation>
+            <div class="form-group">
+                <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="search for..." required>
+            </div>
+            <button ng-disabled="searchForm.$invalid" class="btn btn-info btn-sm" type="submit"><span class="glyphicon glyphicon-search"></span> <span translate="entity.action.search">Search a District</span>
+            </button>
+        </form>&ndash;&gt;
+        &lt;!&ndash;<div class="col-md-4 dlbtn-top btn-group btn-group-sm">
+            <button ng-disabled="!areAllDistrictsSelected" class="btn btn-default" ng-click="sync()">
+                <i class="glyphicon glyphicon-refresh" aria-label="sync"></i>
+                <span translate="entity.action.sync">sync</span>
+            </button>
+            <button ng-disabled="!areAllDistrictsSelected" class="btn btn-default" ng-click="export()">
+                <i class="glyphicon glyphicon-export" aria-label="export"></i>
+                <span translate="entity.action.export">export</span>
+            </button>
+
+            <button ng-disabled="!areAllDistrictsSelected" class="btn btn-default" ng-click="import()">
+                <i class="glyphicon glyphicon-import" aria-label="import"></i>
+                <span translate="entity.action.import">import</span>
+            </button>
+
+            <button ng-disabled="!areAllDistrictsSelected" class="btn btn-default btn-danger" ng-click="deleteSelected()">
+                <i class="glyphicon glyphicon-trash" aria-label="delete"></i>
+                <span translate="entity.action.delete">delete</span>
+            </button>
+        </div>&ndash;&gt;
+
+    </div>-->
+
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-hover table-striped">
+            <caption class="notice text-center" translate="entity.action.found"
+                     translate-values="{found: '{{districts.length}}', total: '{{total}}'}">{{districts.length}}
+                districts retrieved from total of {{total}} districts
+            </caption>
+            <thead>
+            <tr>
+                <th class="text-center" translate="global.form.serial">serial</th>
+                <th><input type="checkbox" ng-model="areAllDistrictsSelected"
+                           ng-change="updateDistrictsSelection(districts, areAllDistrictsSelected)"></th>
+                <th ng-click="order('id', reverse=!reverse)" translate="global.field.id">ID</th>
+                <th ng-click="order('name', reverse=!reverse)" translate="stepApp.district.name">Name</th>
+                <th ng-click="order('bnName', reverse=!reverse)" translate="stepApp.district.bnName">BnName</th>
+                <th ng-click="order('lat', reverse=!reverse)" translate="stepApp.district.lat">Lat</th>
+                <th ng-click="order('lon', reverse=!reverse)" translate="stepApp.district.lon">Lon</th>
+                <th ng-click="order('website', reverse=!reverse)" translate="stepApp.district.website">Website</th>
+                <th translate="stepApp.district.division">division</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr dir-paginate="district in districts  | filter:q | itemsPerPage: pageSize" current-page="currentPage">
+                <td class="text-center">{{pageSize*(currentPage-1)+$index+1}}</td>
+                <td><input type="checkbox" ng-model="district.isSelected"/></td>
+                <td><a ui-sref="district.detail({id:district.id})">{{district.id}}</a></td>
+                <td>{{district.name}}</td>
+                <td>{{district.bnName}}</td>
+                <td>{{district.lat}}</td>
+                <td>{{district.lon}}</td>
+                <td>{{district.website}}</td>
+                <td>
+                    <a ui-sref="division.detail({id:district.division.id})">{{district.division.name}}</a>
+                </td>
+                <td class="text-right">
+                    <button type="submit"
+                            ui-sref="division.district.detail({id:district.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="division.district.edit({id:district.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                        translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="division.district.delete({id:district.id})"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                        translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                     template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+</div>

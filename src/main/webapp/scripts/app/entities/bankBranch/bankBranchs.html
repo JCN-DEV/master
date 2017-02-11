@@ -1,0 +1,91 @@
+<div class="col-md-12 lbl-dash">
+    <div class="col-md-12 common-list no_padding">
+    <h2 class="heading_center" translate="stepApp.bankBranch.home.title">BankBranchs</h2>
+        <!--<div class="col-sm-12  padding-tb no-print">
+            <div class="col-md-8 no_padding ">
+                <div class="col-md-6 no_padding">
+                    <b> <span translate="global.home.searchhere"></span>:</b>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1"><i class="fa fa-search" aria-hidden="true"></i></span>
+                        <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <b><span translate="global.home.itemperpage"></span>:</b>
+                    <div class="input-group">
+                        <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 no_padding text-right btn-top">
+                <button class="btn btn-primary" ui-sref="bankBranch.new">
+                    <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.bankBranch.home.createLabel">Create a new BankBranch</span>
+                </button>
+            </div>
+        </div>-->
+        <div class="col-md-12 padding-bt">
+            <div class="col-xs-4 no_padding">
+                <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+            </div>
+            <div class="col-xs-4">
+                <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+            </div>
+            <div class="col-xs-4 no_padding text-right ">
+                <button class="btn btn-primary" ui-sref="bankBranch.new">
+                    <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.bankBranch.home.createLabel">Create a new BankBranch</span>
+                </button>
+            </div>
+        </div>
+
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="global.form.serial">Serial</th>
+                    <th translate="global.field.id">ID</th>
+                    <th translate="stepApp.bankBranch.brName">BrName</th>
+                    <th translate="stepApp.bankBranch.address">Address</th>
+                    <th translate="stepApp.bankBranch.status">Status</th>
+                    <th translate="stepApp.bankBranch.bankSetup">bankSetup</th>
+                    <th translate="stepApp.bankBranch.upazila">upazila</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr dir-paginate="bankBranch in bankBranchs | filter:q | itemsPerPage: pageSize track by bankBranch.id" current-page="currentPage">
+                    <td>{{$index+1}}</td>
+                <td><a ui-sref="bankBranch.detail({id:bankBranch.id})">{{bankBranch.id}}</a></td>
+                    <td>{{bankBranch.brName}}</td>
+                    <td>{{bankBranch.address}}</td>
+                    <td>{{bankBranch.status}}</td>
+                    <td>
+                        <a ui-sref="bankSetup.detail({id:bankBranch.bankSetup.id})">{{bankBranch.bankSetup.name}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="upazila.detail({id:bankBranch.upazila.id})">{{bankBranch.upazila.name}}</a>
+                    </td>
+                    <td class="text-right no-print">
+                        <button type="submit"
+                                ui-sref="bankBranch.detail({id:bankBranch.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="bankBranch.edit({id:bankBranch.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="bankBranch.delete({id:bankBranch.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav class="no-print">
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+</div></div>

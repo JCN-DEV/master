@@ -1,0 +1,279 @@
+<style>
+    .dot-border{
+        border-bottom: 1px dotted #ccc;
+    }
+    .job-details h2{
+        font-size: 14px;
+        margin-top: 20px;
+        margin-bottom: 6px;
+        color:#5C5C5C;
+        font-weight: bold;
+    }
+    .job-details p{
+        margin: 0;
+        padding: 0px 0px 0px 20px;
+        line-height: 24px;
+        color: #5c5c5c;
+    }
+</style>
+
+<div class="row" id="job-location-nav">
+    <!--<div class="col-lg-12"> {{job}}</div>-->
+    <div class="col-md-3">
+
+        <div class="panel panel-default" style="padding: 20px; background:#fff2cc" >
+
+                    <h2 class="dot-border" style="font-size: 15px; margin: 0" ><span translate="stepApp.job.summary">JOB SUMMARY</span></h2><br>
+
+            <div class="panel-body job-summary no_padding">
+                <p class="dot-border" ><span translate="stepApp.job.vacancy">vacancy</span><b>&nbsp;:&nbsp;{{job.vacancy}}</b></p>
+
+
+                <p class="dot-border" ><spna translate="stepApp.job.type">Type</spna><b>&nbsp;:&nbsp;{{job.jobType.name}}</b></p>
+
+
+                <p class="dot-border" ><span translate="stepApp.job.location">Location</span><b>&nbsp;:&nbsp;{{job.location}}</b></p>
+
+
+                <p class="dot-border"> <span translate="stepApp.job.publishedAt">PublishedAt</span><b>&nbsp;:&nbsp;{{job.publishedAt | date:'mediumDate'}}</b></p>
+
+
+                <p class="dot-border" ><span translate="stepApp.job.applicationDeadline">Deadline</span><b>&nbsp;:&nbsp;{{job.applicationDeadline | date:'mediumDate'}}</b></p>
+
+            </div>
+        </div>
+
+        <div has-any-authority="ROLE_ADMIN">
+            <ng-include src="'scripts/app/entities/jobPortal/jp-admin-menu.html'"></ng-include>
+        </div>
+        <div has-any-authority="ROLE_EMPLOYER">
+            <ng-include src="'scripts/app/entities/jobPortal/jp-employer-menu.html'"></ng-include>
+        </div>
+
+        <!--<div has-any-authority="ROLE_JOBSEEKER" id="job-detail-left-info" class="panel " style="border: 1px solid #CCCCCC; background-color: #2DA859;">
+            <div class="panel-heading">
+                <h3 class="panel-title">JOB SUMMARY</h3>
+            </div>
+            <div class="panel-body job-summary no_padding">
+                <ul>
+                    <li>
+                        <span translate="stepApp.job.vacancy">Vacancy</span><br>
+                        <b><span class="jobs-dinfo">{{job.vacancy}}</span></b>
+                    </li>
+                    <li>
+                        <span translate="stepApp.job.type">Type</span>
+                        <br><b><span class="jobs-dinfo">{{job.type}}</span></b>
+                    </li>
+                    <li>
+                        <span translate="stepApp.job.location">Location</span>
+                        <span class="jobs-dinfo"><br><b>{{job.location}}</b></span>
+                    </li>
+                    <li>
+                        <span translate="stepApp.job.publishedAt">PublishedAt</span><br>
+                        <span class="jobs-dinfo"><b>{{job.publishedAt | date:'mediumDate'}}</b></span>
+                    </li>
+                    <li>
+                        <span translate="stepApp.job.applicationDeadline">Deadline</span><br>
+                        <span class="jobs-dinfo"><b>{{job.applicationDeadline | date:'mediumDate'}}</b></span>
+                    </li>
+                </ul>
+            </div>
+        </div>-->
+    </div>
+    <div class="col-md-9">
+        <div class="my-user-resum no-print">
+            <button class="btn btn-primary pull-right" onclick="window.print()">Print</button>
+        </div>
+        <div class="col-sm-12 job-list-detail">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2 style="margin: 0;padding: 7px 5px;font-weight: 700; font-size: 16px; color:#5C5C5C;"><span  translate="stepApp.job.jobtitle">Job Title:</span>: <span style="color:#0D9947">{{job.cat.cat}}</span></h2>
+                    </div>
+
+                    <div class="panel-body job-details">
+                        <div class="col-sm-12 job-detail-img no_padding" >
+                            <span><a sref="{{job.employer.companyWebsite}}">
+                                <img class="company-logo" data-ng-src="{{'data:' + job.employer.companyLogoContentType + ';base64,' + job.employer.companyLogo}}"
+                                     style="max-height: 100px;" ng-if="job.employer.companyLogo"/></a>
+                            </span>
+                        </div>
+
+                        <div class="col-sm-12 ">
+                            <h2 style="font-size: 18px"><span translate="stepApp.job.company"></span>&nbsp;&nbsp;: &nbsp;<span style="color:#0D9947">{{job.employer.name}}</span></h2>
+                        </div>
+
+                        <div class="col-md-12">
+                            <h2 translate="stepApp.job.description">Description</h2>
+                            <p>{{job.description}}</p>
+                        </div>
+
+                        <div class="col-md-12">
+                            <h2 translate="stepApp.job.vacancy">Vacancy</h2>
+                            <p>{{job.vacancy}}</p>
+                        </div>
+
+                        <div class="col-md-12">
+                            <h2 translate="stepApp.job.type">type</h2>
+                            <p>{{job.jobType.name}}</p>
+                        </div>
+
+                        <div class="col-md-12">
+                            <h2 translate="stepApp.job.educationRequirements">EducationRequirements</h2>
+                            <p>{{job.educationRequirements}}</p>
+                        </div>
+
+                        <div class="col-md-12">
+                            <h2 translate="stepApp.job.otherRequirements">OtherRequirements</h2>
+                            <p>{{job.otherRequirements}}</p>
+                        </div>
+
+                        <div class="col-md-12">
+                            <h2 translate="stepApp.job.experienceRequirements">experienceRequirements</h2>
+                            <p>{{job.experienceRequirements}}</p>
+                        </div>
+
+                        <div class="col-md-12">
+                            <h2 translate="stepApp.job.benefits">benefits</h2>
+                            <p>{{job.benefits}}</p>
+                        </div>
+
+                        <div class="col-md-12">
+                            <h2 translate="stepApp.job.range">Salary Range</h2>
+                            <p>{{job.minimumSalary}} - {{job.maximumSalary}}</p>
+                        </div>
+
+                        <div class="col-md-12">
+                            <h2 translate="stepApp.job.publishedAt">publishedAt</h2>
+                            <p>{{job.publishedAt | date:'mediumDate'}}</p>
+                        </div>
+
+                        <div class="col-md-12">
+                            <h2 translate="stepApp.job.applicationDeadline">applicationDeadline</h2>
+                            <p>{{job.applicationDeadline | date:'mediumDate'}}</p>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+
+            <!--=========================-->
+
+
+
+
+            <!--<div class="col-sm-12 description">
+                <h3 translate="stepApp.job.vacancy">Vacancy</h3>
+                <p>{{job.vacancy}}</p>
+            </div>-->
+            <!--<div class="col-sm-12 description">
+                <h3 translate="stepApp.job.type">type</h3>
+                <p>{{job.jobType.name}}</p>
+
+            </div>-->
+            <!--<div class="col-sm-12 description">
+                <h3 translate="stepApp.job.educationRequirements">EducationRequirements</h3>
+                <p>{{job.educationRequirements}}</p>
+            </div>-->
+            <!--<div class="col-sm-12 description">
+                <h3 translate="stepApp.job.otherRequirements">OtherRequirements</h3>
+                <p>{{job.otherRequirements}}</p>
+            </div>-->
+
+
+
+            <!--<div class="col-sm-12 description">
+                <h3 translate="stepApp.job.experienceRequirements">experienceRequirements</h3>
+                <p>{{job.experienceRequirements}}</p>
+            </div>-->
+            <!--<div class="col-sm-12 description">
+                <h3 translate="stepApp.job.benefits">benefits</h3>
+                <p>{{job.benefits}}</p>
+            </div>-->
+
+            <!--<div class="col-sm-12 description">
+                <h3 translate="stepApp.job.range">Salary Range</h3>
+                <p>{{job.minimumSalary}} - {{job.maximumSalary}}</p>
+            </div>-->
+
+            <!--<div class="col-sm-12 description">
+                <h3 translate="stepApp.job.publishedAt">publishedAt</h3>
+                <p>{{job.publishedAt | date:'mediumDate'}}</p>
+
+            </div>-->
+
+            <!--<div class="col-sm-12 description">
+                <h3 translate="stepApp.job.applicationDeadline">applicationDeadline</h3>
+                <p>{{job.applicationDeadline | date:'mediumDate'}}</p>
+            </div>-->
+            <div class="col-sm-12 description">
+                <div class="panel panel-default job-panel">
+                    <div class="panel-heading job-panel-head ">
+                        <h2 translate="stepApp.employer.companyInfo">Company Information</h2>
+                    </div>
+                    <div class="panel-body job-panel-body">
+                        <table class="table">
+                            <tr>
+                                <td translate="stepApp.employer.companyName">Company Name :</td>
+                                <td>{{job.employer.name}}</td>
+                            </tr>
+                            <tr>
+                                <td translate="stepApp.employer.address">Country :</td>
+                                <td >{{job.employer.address}}</td>
+                            </tr>
+                            <!--<tr>
+                                <td translate="stepApp.job.Type">Type :</td>
+                                <td >{{job.employer.organizationType.name}}</td>
+                            </tr>-->
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!--<div class="col-sm-12 description">
+                <h3 translate="stepApp.employer.companyInfo">Company Information</h3>
+                <table class="table">
+                    <tr>
+                        <td translate="stepApp.employer.companyName">Company Name :</td>
+                        <td>{{job.employer.name}}</td>
+                    </tr>
+                    <tr>
+                        <td translate="stepApp.job.location">Country :</td>
+                        <td >{{job.employer.country.name}}</td>
+                    </tr>
+                    <tr>
+                        <td translate="stepApp.job.Type">Type :</td>
+                        <td >{{job.employer.organizationType.name}}</td>
+                    </tr>
+                </table>
+            </div>-->
+            <div class="col-sm-12 text-right">
+                <button
+                    onclick="window.history.back()"
+                    class="btn btn-info">
+                    <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+                </button>
+                <a ng-show="canApply"  ui-sref="mainApply({id:job.id})"
+                   class="btn btn-primary" role="button"
+                   translate="global.home.applyLabel">apply</a>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .job-panel{
+        box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2);
+    }
+    .job-panel-head h2{
+        margin: 0;
+        padding: 0;
+        font-size: 13px;
+        color: #555;
+    }
+    .job-panel-body p{
+        border: none;
+    }
+
+</style>

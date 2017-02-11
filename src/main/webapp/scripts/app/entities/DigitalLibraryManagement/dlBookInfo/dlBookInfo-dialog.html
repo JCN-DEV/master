@@ -1,0 +1,470 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()">
+        <h4 class="modal-title" id="myDlBookInfoLabel" translate="stepApp.dlBookInfo.home.createOrEditLabel">Create
+            or edit a DlBookInfo</h4>
+        <div class="modal-body col-sm-12 no_padding">
+            <!--<div class="form-group col-sm-6">
+                <label for="id" translate="global.field.id">ID</label>
+                <input type="text" class="form-control" id="id" name="id"
+                        ng-model="dlBookInfo.id" readonly />
+            </div>-->
+            <!-- <div class="form-group col-sm-6">
+                 <label translate="stepApp.dlBookInfo.dlContTypeSet" for="field_dlContTypeSet">dlContTypeSet</label>
+                 <select class="form-control" id="field_dlContTypeSet" name="dlContTypeSet" ng-model="dlBookInfo.dlContTypeSet" ng-options="dlContTypeSet as dlContTypeSet.name for dlContTypeSet in dlconttypesets track by dlContTypeSet.id">
+                     <option value=""></option>
+                 </select>
+             </div>
+             <div class="form-group col-sm-6">
+                 <label translate="stepApp.dlBookInfo.dlContCatSet" for="field_dlContCatSet">dlContCatSet</label>
+                 <select class="form-control" id="field_dlContCatSet" name="dlContCatSet" ng-model="dlBookInfo.dlContCatSet" ng-options="dlContCatSet as dlContCatSet.name for dlContCatSet in dlcontcatsets track by dlContCatSet.id">
+                     <option value=""></option>
+                 </select>
+             </div>
+             <div class="form-group col-sm-6">
+                 <label translate="stepApp.dlBookInfo.dlContSCatSet" for="field_dlContSCatSet">dlContSCatSet</label>
+                 <select class="form-control" id="field_dlContSCatSet" name="dlContSCatSet" ng-model="dlBookInfo.dlContSCatSet" ng-options="dlContSCatSet as dlContSCatSet.name for dlContSCatSet in dlcontscatsets track by dlContSCatSet.id">
+                     <option value=""></option>
+                 </select>
+             </div>-->
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dlBookInfo.dlContTypeSet" for="field_division">Content Types</label>
+                <select class="form-control" id="field_division"
+                        ng-change="updatedDlContCatSet(dlBookInfo.dlContTypeSet)" name="dlContTypeSet"
+                        ng-model="dlBookInfo.dlContTypeSet"
+
+                        ng-options="dlContTypeSet as dlContTypeSet.name for dlContTypeSet in dlContTypeSets |filter:dlContTypeSets.Pstatus='true'"
+                >
+                    <option value=""> {{dlContTypeSet}}</option>
+                </select>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dlBookInfo.dlContCatSet" for="field_district">District</label>
+                <select class="form-control" id="field_district" ng-disabled="!(dlBookInfo.dlContTypeSet)"
+                        ng-change="updatedDlContSCatSet(dlBookInfo.dlContCatSet)" name="dlContCatSet"
+                        ng-model="dlBookInfo.dlContCatSet"
+                        ng-options="dlContCatSet as dlContCatSet.name for dlContCatSet in dlContCatSets track by dlContCatSet.id"
+                >
+                    <option value=""> {{dlContCatSet}}</option>
+                </select>
+            </div>
+
+            <div class="form-group col-sm-6">
+
+                <label translate="stepApp.dlBookInfo.dlContSCatSet" for="field_upazila">upazila</label>
+                <select class="form-control" id="field_upazila" ng-disabled="!(dlBookInfo.dlContCatSet)"
+                        name="dlContSCatSet" ng-model="dlBookInfo.dlContSCatSet"
+                        ng-change="getSubCategoryCode(dlBookInfo.dlContSCatSet)"
+                        ng-options="dlContSCatSet as dlContSCatSet.name for dlContSCatSet in dlContSCatSets"
+                        required>
+                    <option value=""> {{dlContSCatSet}}</option>
+                </select>
+            </div>
+
+            <div class="form-group col-sm-6">
+
+                <label translate="stepApp.dlBookInfo.dlSource" for="field_upazila">upazila</label>
+                <select class="form-control" id=""
+                        name="dlSourceSetUp" ng-model="dlBookInfo.dlSourceSetUp"
+                        ng-options="dlSourceSetUp as dlSourceSetUp.name for dlSourceSetUp in dlSourceSetUps | filter:dlSourceSetUp.status='true'"
+                        required>
+                    <option value=""> {{dlSourceSetUp.name}}</option>
+                </select>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dlBookInfo.title" for="field_title">Title</label>
+                <input type="text" class="form-control" name="title" id="field_title"
+                       ng-model="dlBookInfo.title"
+                       required/>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dlBookInfo.bookId" for="field_title">bookId</label>
+                <input type="text" class="form-control" name="bookId" id="field_title"
+                       ng-model="dlBookInfo.bookId"
+                       ng-remote-validate="api/dlBookInfo/dlBookInfoBookIdValidation/"
+                       ng-remote-method="GET"
+                       required/>
+                <span class="message" ng-show="editForm.bookId.$pending">validating...</span>
+                <div ng-show="editForm.bookId.$invalid">
+                    <p style="color:red"
+                       ng-show="editForm.bookId.$error.ngRemoteValidate">
+                        This Book-ID is already exist
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dlBookInfo.isbnNo" for="field_isbnNo">IsbnNo</label>
+                <input type="text" class="form-control" name="isbnNo" id="field_isbnNo"
+                       ng-model="dlBookInfo.isbnNo"
+                       ng-remote-validate="/api/dlBookInfo/dlBookInfoisbnvalidation/"
+                       ng-remote-method="GET"
+                       />
+                <span class="message" ng-show="editForm.isbnNo.$pending">validating...</span>
+                <div ng-show="editForm.isbnNo.$invalid">
+                    <p style="color:red"
+                       ng-show="editForm.isbnNo.$error.ngRemoteValidate">
+                        This ISBN is already exist
+                    </p>
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dlBookInfo.authorName" for="field_authorName">AuthorName</label>
+                <textarea type="text" class="form-control" name="authorName" id="field_authorName"
+                       ng-model="dlBookInfo.authorName"
+                          required></textarea>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dlBookInfo.copyright" for="field_copyright">Copyright</label>
+                <input type="text" class="form-control" name="copyright" id="field_copyright"
+                       ng-model="dlBookInfo.copyright"
+                />
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dlBookInfo.publisherName" for="field_publisherName">PublisherName</label>
+                <input type="text" class="form-control" name="publisherName" id="field_publisherName"
+                       ng-model="dlBookInfo.publisherName"
+                       required/>
+            </div>
+            <!--<div class="form-group col-sm-6">-->
+                <!--<label translate="stepApp.dlBookInfo.libraryName" for="field_libraryName">LibraryName</label>-->
+                <!--<input type="text" class="form-control" name="libraryName" id="field_libraryName"-->
+                       <!--ng-model="dlBookInfo.libraryName"-->
+                <!--/>-->
+            <!--</div>-->
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dlBookInfo.callNo" for="field_callNo">CallNo</label>
+                <input type="text" class="form-control" name="callNo" id="field_callNo"
+                       ng-model="dlBookInfo.callNo"
+                       required/>
+            </div>
+
+
+
+
+
+
+            <div class="form-group col-sm-12">
+                <label translate="stepApp.dlBookInfo.reqForDrposit" for="field_copyright">Copyright</label>
+                <label  class="radio-inline"><input type="radio" name="debitCredit" ng-model="Copyright" value="true" ng-checked="Copyright == true || Copyright == null"><span translate="stepApp.dlBookInfo.yes">Activate</span></label>
+                <label class="radio-inline"><input type="radio" name="debitCredit"  ng-model="Copyright" value="false"><span translate="stepApp.dlBookInfo.no">Deactivate</span></label>
+
+                <div class="col-md-12" ng-show="Copyright == 'true'"
+                     ng-hide="Copyright == 'false'">
+                    <table class="table table-striped" >
+                        <thead>
+                        <tr>
+                            <th translate="global.field.id">ID</th>
+                            <th translate="stepApp.dlBookRequisition.title">Title</th>
+                            <th translate="stepApp.dlBookRequisition.edition">Edition</th>
+                            <th translate="stepApp.dlBookRequisition.authorName">AuthorName</th>
+
+                            <th translate="stepApp.dlBookRequisition.status">Status</th>
+                            <th translate="stepApp.dlBookRequisition.dlContTypeSet">dlContTypeSet</th>
+                            <th translate="stepApp.dlBookRequisition.dlContCatSet">dlContCatSet</th>
+                            <th translate="stepApp.dlBookRequisition.dlContSCatSet">dlContSCatSet</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr ng-repeat="dlBookRequisition in dlBookRequisitions">
+                            <td><a ui-sref="dlBookRequisition.detail({id:dlBookRequisition.id})">{{dlBookRequisition.id}}</a></td>
+                            <td>{{dlBookRequisition.title}}</td>
+                            <td>{{dlBookRequisition.edition}}</td>
+                            <td>{{dlBookRequisition.authorName}}</td>
+
+                            <td>
+                                <span style="color: red" ng-show="dlBookRequisition.status==true">Pending</span>
+                                <span style="color: #008000" ng-show="dlBookRequisition.status==false">Approved</span></td>
+                            <td>
+                                <a ui-sref="dlContTypeSet.detail({id:dlBookRequisition.dlContTypeSet.id})">{{dlBookRequisition.dlContTypeSet.name}}</a>
+                            </td>
+                            <td>
+                                <a ui-sref="dlContCatSet.detail({id:dlBookRequisition.dlContCatSet.id})">{{dlBookRequisition.dlContCatSet.name}}</a>
+                            </td>
+                            <td>
+                                <a ui-sref="dlContSCatSet.detail({id:dlBookRequisition.dlContSCatSet.id})">{{dlBookRequisition.dlContSCatSet.name}}</a>
+                            </td>
+                            <td>
+                                <button type="submit"
+                                        ui-sref="dlBookRequisition.detail({id:dlBookRequisition.id})"
+                                        class="btn btn-info btn-sm">
+                                    <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                                </button>
+
+                                <span >
+                    <label class="radio-inline btn btn-default"><input type="radio" name="select"
+                                                                       ng-click="approve(dlBookRequisition)">
+                        <span translate="entity.action.approve">approve</span>
+                    </label>
+                </span>
+
+
+                                <!--<label translate="entity.action.approve"></label>
+                                <input type="radio" class="btn btn-primary" ng-click="approve(dlBookRequisition.id)"><span translate="entity.action.approve"> approve</span>-->
+
+                                <!--<button type="submit"
+
+                                        class="btn btn-success btn-sm">
+                                    <span class="glyphicon glyphicon-ok"></span>&nbsp;
+                                </button>-->
+
+
+
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+
+
+
+
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dlBookInfo.purchaseDate" for="field_purchaseDate">PurchaseDate</label>
+                <input type="date" class="form-control" name="purchaseDate" id="field_purchaseDate"
+                       ng-model="dlBookInfo.purchaseDate"
+                       datepicker-popup="{{calendar.purchaseDate}}" is-open="calendar.opened.purchaseDate"
+                       datepicker-options="calendar.purchaseDate" close-text="Close"
+                       ng-click="calendar.open($event, 'purchaseDate')"
+                       placeholder="yyyy-mm-dd"
+                />
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.dlBookInfo.pStatus" for="field_pStatus">PStatus</label>
+                <div id="field_pStatus">
+                    <label class="radio-inline btn btn-default"><input type="radio" name="pStatus" value="true"
+                               ng-checked="(dlBookInfo.pStatus == true || dlBookInfo.pStatus == null)"
+                               ng-model="dlBookInfo.pStatus"><span
+                        translate="entity.action.activate">Active</span></label>
+                    <label class="radio-inline btn btn-default"><input type="radio" name="pStatus" value="false"
+                               ng-checked="(dlBookInfo.pStatus == false && dlBookInfo.pStatus != null)"
+                               ng-model="dlBookInfo.pStatus"><span
+                        translate="entity.action.deactivate">Deactive</span></label>
+                </div>
+            </div>
+
+
+            <div class="form-group col-md-6 no_padding" ngf-drop ngf-change="setBookImg($file, dlBookInfo)">
+                <div class="col-sm-12">
+                    <label class="control-label" translate="stepApp.dlBookInfo.fileImg">Content Upload</label>
+                    <div>
+                        <div class="help-block clearfix">
+                            <span
+                                class="pull-left">{{dlBookInfo.bookImgContentType}} {{byteSize(dlBookInfo.bookImg)}}</span>
+                            <button ng-click="dlBookInfo.bookImg=null; dlBookInfo.bookImgContentType=null;"
+                                    ng-if="dlBookInfo.bookImg"
+                                    class="btn btn-default btn-xs pull-right">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </div>
+
+                        <div class="col-md-9">
+                            <input type="text" readonly class="form-control" name="fileImgName"
+                                   ng-model="dlBookInfo.bookImgName"/>
+
+                        </div>
+                        <div class="col-md-3 no_padding">
+                            <button type="file"
+                                    ngf-select class="btn btn-default btn-block"
+                                    ngf-change="setBookImg($file, dlBookInfo)"
+                                    accept=".jpeg,.png,.jpg"
+                                    ng-show="!fileUploadFinished"
+                                    translate="entity.action.addblob">
+                            </button>
+                        </div>
+
+                        <div class="col-md-2" ng-show="dlBookInfo.bookImgName!=null && dlBookInfo.bookImg.id!=null">
+
+                            <a class="download-afl btn btn-primary" href="/assets/dl/{{dlFileType.fileImgName}}"
+                               class="btn btn-primary" download>Download
+                            </a>
+
+                        </div>
+
+                        <input type="hidden" class="form-control" name="content" id="field_content_image"
+                               ng-model="dlBookInfo.bookImg"
+                        />
+                        <input type="hidden" class="form-control" name="contentContentType"
+                               id="field_contentImageContentType"
+                               ng-model="dlBookInfo.bookImgContentType"
+                        />
+
+                    </div>
+
+
+                </div>
+                <!-- <div class="form-group col-sm-6">
+                     <label translate="stepApp.dlBookInfo.createdDate" for="field_createdDate">CreatedDate</label>
+                     <input type="date" class="form-control" name="createdDate" id="field_createdDate"
+                             ng-model="dlBookInfo.createdDate"
+                              />
+                 </div>
+                 <div class="form-group col-sm-6">
+                     <label translate="stepApp.dlBookInfo.updatedDate" for="field_updatedDate">UpdatedDate</label>
+                     <input type="date" class="form-control" name="updatedDate" id="field_updatedDate"
+                             ng-model="dlBookInfo.updatedDate"
+                              />
+                 </div>
+                 <div class="form-group col-sm-6">
+                     <label translate="stepApp.dlBookInfo.createdBy" for="field_createdBy">CreatedBy</label>
+                     <input type="number" class="form-control" name="createdBy" id="field_createdBy"
+                             ng-model="dlBookInfo.createdBy"
+                              />
+                 </div>
+                 <div class="form-group col-sm-6">
+                     <label translate="stepApp.dlBookInfo.updatedBy" for="field_updatedBy">UpdatedBy</label>
+                     <input type="number" class="form-control" name="updatedBy" id="field_updatedBy"
+                             ng-model="dlBookInfo.updatedBy"
+                              />
+                 </div>
+                 <div class="form-group col-sm-6">
+                     <label translate="stepApp.dlBookInfo.status" for="field_status">Status</label>
+                     <input type="number" class="form-control" name="status" id="field_status"
+                             ng-model="dlBookInfo.status"
+                              />
+                 </div>-->
+
+
+            </div>
+
+<!--edit porton-->
+
+            <!--<div ng-repeat="editData in dlBookEditionsss">
+
+
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.dlBookInfo.totalCopies" for="field_totalCopies">TotalCopies</label>
+
+                    <input type="text" class="form-control" name="totalCopies" id="field_totalCopies3"
+                           ng-model="editData.totalCopies"
+                            readonly
+                        />
+                </div>
+
+                <div ng-if="editData.id != null"  class="form-group col-sm-6">
+                    <label translate="stepApp.dlBookInfo.totalBookCopies" for="field_totalCopies3">totalBookCopies</label>
+                    <input type="text" class="form-control" name="totalCopies" id="field_totalCopies3"
+                           ng-model="editData.totalBookCopies"
+                            readonly
+                        />
+                </div>
+
+                <div class="form-group col-sm-12">
+                    <label translate="stepApp.dlBookInfo.addBook" for="field_totalCopies">Compensation</label>
+                    <input type="text" class="form-control" name="Compensation" id="field_totalCopies"
+                           ng-model="editData.newBook"
+
+                        />
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.dlBookInfo.Compensation" for="field_totalCopies">Compensation</label>
+                    <input type="text" class="form-control" name="Compensation" id="field_totalCopies"
+                           ng-model="editData.compensation"
+                        />
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.dlBookInfo.edition" for="field_edition">Edition</label>
+                    <input type="text" class="form-control" name="edition" id="field_edition"
+                           ng-model="editData.edition"
+                        />
+                </div>
+            </div>-->
+
+
+            <!--///add more portion-->
+
+            <div ng-repeat="DlBookEdition in addMoreEdition" class="form-group col-sm-12" style="padding:0">
+                <!--<h4 class="modal-title" id="myDlBookInfoLabel" translate="stepApp.dlBookInfo.addMoreEditions">addMoreEditions</h4>-->
+
+                    <div ng-if="DlBookEdition.id == null" class="form-group col-sm-6">
+                        <label translate="stepApp.dlBookInfo.totalCopies" for="field_totalCopies">TotalCopies</label>
+                        <input type="text" class="form-control" name="totalCopies" id="field_totalCopies"
+                               ng-model="DlBookEdition.totalCopies"
+                               required
+
+                            />
+                    </div>
+
+                <div class="form-group col-sm-6" ng-if="DlBookEdition.id == null">
+                        <label translate="stepApp.dlBookInfo.totalBookCopies" for="field_totalCopies1">totalBookCopies</label>
+                        <label class="form-control" name="totalCopies" id="field_totalCopies1"
+                            >{{DlBookEdition.totalCopies}}</label>
+
+                    </div>
+
+
+
+                <div class="form-group col-sm-6" ng-if="DlBookEdition.id !== null">
+                    <label translate="stepApp.dlBookInfo.totalCopies" for="field_totalCopies1">totalBookCopies</label>
+                    <label class="form-control" name="totalCopies" id="field_totalCopies1"
+                        >{{DlBookEdition.totalCopies}}</label>
+
+                </div>
+
+                <div ng-if="DlBookEdition.id != null"  class="form-group col-sm-6">
+                    <label translate="stepApp.dlBookInfo.totalBookCopies" for="field_totalCopies2">totalBookCopies</label>
+                    <input type="text" class="form-control" name="totalCopies" id="field_totalCopies2"
+                           ng-model="DlBookEdition.totalBookCopies"
+                        readonly
+                        />
+                </div>
+                <div class="form-group col-sm-12" ng-if="DlBookEdition.id != null">
+                    <label translate="stepApp.dlBookInfo.addBook" for="field_totalCopies">addBook</label>
+                    <input type="text" class="form-control" name="Compensation" id="field_totalCopies" value="0"
+                           ng-model="DlBookEdition.newBook"
+
+                        />
+                </div>
+
+                    <div class="form-group col-sm-6">
+                        <label translate="stepApp.dlBookInfo.Compensation" for="field_totalCopies">Compensation</label>
+                        <input type="text" class="form-control" name="Compensation" id="field_totalCopies"
+                               ng-model="DlBookEdition.compensation"
+                               required/>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label translate="stepApp.dlBookInfo.edition" for="field_edition">Edition</label>
+                        <input type="text" class="form-control" name="edition" id="field_edition"
+                               ng-model="DlBookEdition.edition"
+                               required/>
+                    </div>
+
+                <div class="col-sm-12 text-right no-padding"
+                     ng-show="addMoreEdition.length > 1 && $index > 0" ng-click="addMoreEdition.splice($index, 1)">
+                    <button type="button" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-minus"></span>&nbsp;<span translate="entity.action.remove">Remove</span>
+                    </button>
+                </div>
+
+                </div><hr>
+
+
+<!--carefully think about it before Delete IT -->
+            <!--<div class="form-group col-sm-6">-->
+                <!--<a class="btn btn-success" ng-click="addMore()">Add More Edition</a>-->
+            <!--</div>-->
+<!--carefully think about it before Delete IT -->
+
+
+
+            <div class="modal-footer col-sm-12">
+                <button type="button" class="btn btn-default" ui-sref="libraryInfo.libraryBookInfos">
+                    <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span
+                    translate="entity.action.back">Back</span>
+                </button>
+                <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

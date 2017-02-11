@@ -1,0 +1,83 @@
+<div class="service-form-area">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="modal-title" id="myPgmsRetirmntAttachInfoLabel" translate="stepApp.pgmsRetirmntAttachInfo.home.createOrEditLabel">Create or edit a PgmsRetirmntAttachInfo</h4>
+        </div>
+        <div class="panel-body bg-panel">
+           <!-- <jh-alert-error></jh-alert-error>-->
+            <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label input-margin" translate="stepApp.pgmsRetirmntAttachInfo.attachName" for="field_attachName">AttachName</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="attachName" id="field_attachName"
+                                   ng-model="pgmsRetirmntAttachInfo.attachName"
+                                   required />
+                            <div ng-show="editForm.attachName.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.attachName.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label input-margin" translate="stepApp.pgmsRetirmntAttachInfo.priority" for="field_Priority">Priority</label>
+                        <div class="input-margin">
+                            <input type="number" class="form-control" name="priority" id="field_Priority"
+                                   ng-model="pgmsRetirmntAttachInfo.priority" required />
+                            <div ng-show="editForm.priority.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.priority.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.priority.$error.number" translate="entity.validation.number">
+                                    This field should be a number.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label input-margin" translate="stepApp.pgmsRetirmntAttachInfo.attachType">AttachType</label>
+                        <div class="input-margin">
+                            <label class="radio-inline">
+                                <input type="radio" data-ng-model="pgmsRetirmntAttachInfo.attachType" name="attachType" value="retirement">&nbsp;Retirement Application&nbsp;&nbsp;
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" data-ng-model="pgmsRetirmntAttachInfo.attachType" name="attachType" value="family">&nbsp;Family Application
+                            </label>
+                            <div ng-show="editForm.attachType.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.attachType.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6  col-sm-6 col-xs-6">
+                        <label class="control-label input-margin" translate="stepApp.pgmsRetirmntAttachInfo.activeStatus">ActiveStatus</label>
+                        <div class="input-margin">
+                            <label class="radio-inline">
+                                <input type="radio" data-ng-model="pgmsRetirmntAttachInfo.activeStatus" name="activeStatus" data-ng-value="true">&nbsp;Active&nbsp;&nbsp;
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" data-ng-model="pgmsRetirmntAttachInfo.activeStatus" name="activeStatus" data-ng-value="false">&nbsp;Inactive
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" class="btn " data-dismiss="modal" onclick="window.history.back()">
+                        <i class="fa fa-angle-double-left"></i>&nbsp;<span translate="entity.action.back">Back</span>
+                    </button>
+                    <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

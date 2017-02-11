@@ -1,0 +1,76 @@
+<div>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>
+                    <input type="checkbox" ng-model="areAllcatsSelected"
+                           ng-change="updateCatsSelection(cats, areAllcatsSelected)" />
+                </th>
+                <th ng-click="order('Category', reverse=!reverse)"
+                    translate="stepApp.jobPostingInfo.Category">Cat
+                </th>
+                <!--<th ng-click="order('Description', reverse=!reverse)"
+                   translate="stepApp.jobPostingInfo.Description">Description</th>
+                   <th ng-click="order('Organization', reverse=!reverse)"
+                   translate="stepApp.jobPostingInfo.Organization">Organization Category</th>-->
+                <!--<th ng-click="order('Status', reverse=!reverse)"
+                   translate="stepApp.jobPostingInfo.CategoryStatus">Category Status</th>-->
+                <th>
+
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="cats in cats | filter:filter | orderBy:predicate:reverse track by cats.id">
+                <td>
+                    <input type="checkbox" ng-model="cats.isSelected" />
+                </td>
+                <td>
+                    <span class="form-control-static">{{cats.cat}}</span>
+                </td>
+                <td>
+
+                </td>
+                <!--<td>
+                   <span class="form-control-static">{{cats.description}}</span>
+                   </td>
+                   <td>
+                   <span class="form-control-static">{{cats.organizationCategory.name}}</span>
+                   </td>-->
+                <!--<td>
+                   <span ng-if="cat.status" class="form-control-static">Active</span>
+                   <span ng-if="!cat.status" class="form-control-static">Inactive</span>
+                   </td>-->
+                <!--<td>
+                   <button type="submit"
+                           ui-sref="category.edit({id:category.id})"
+                           class="btn btn-info">
+                       <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.save"> Save</span>
+                   </button>
+                   </td>-->
+            </tr>
+            </tbody>
+        </table>
+        <div class="col-sm-12 padding-bt">
+            <button type="submit"
+                    ng-click="JobsShow(cats);closeModal()"
+                    class="btn btn-success pull-right   " tooltip="Save">
+                <span class="glyphicon glyphicon-save">Save</span>
+            </button>
+        </div>
+        <!--<nav>
+           <ul class="pagination">
+               <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+               <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+               <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+               <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+               <li class="active"><a>{{page + 1}}</a></li>
+               <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+               <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+               <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+               <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+           </ul>
+           </nav>-->
+    </div>
+</div>

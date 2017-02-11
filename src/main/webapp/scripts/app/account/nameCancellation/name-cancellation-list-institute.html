@@ -1,0 +1,44 @@
+<div class="col-md-12 common-list">
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="stepApp.mpo.thead.id"> ID</th>
+                <th translate="stepApp.mpo.thead.institutename"> Institute Name</th>
+                <th translate="stepApp.mpo.thead.applicantname"> Applicant Name</th>
+
+                <th translate="stepApp.mpo.thead.district"> District</th>
+                <th translate="stepApp.mpo.thead.status"> Status</th>
+                <th translate="stepApp.mpo.thead.action"> Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="nameCnclApplication in nameCnclAppliedLists">
+                <!--<td>{{mpoAppliedList.instEmployee.code}}</td>
+                <td>{{mpoAppliedList.instEmployee.institute.name}}</td>
+                <td>{{mpoAppliedList.instEmployee.institute.upazila.name}}</td>
+                <td>{{mpoAppliedLists.pending}}</td>-->
+                <td>{{$index+1}}</td>
+                <td>{{nameCnclApplication.instEmployee.institute.name}}</td>
+                <td>{{nameCnclApplication.instEmployee.name}}</td>
+                <td>{{nameCnclApplication.instEmployee.institute.upazila.district.name}}</td>
+                <td>{{nameCnclApplication.status < 10 ? 'Pending' : 'Approved'}}</td>
+                <td class="text-right no-print">
+                    <div class="btn-group">
+                        <!--<button class="btn btn-default" ui-sref="mpo.details({id:mpoAppliedList.MPO_ID})">
+                                 View & Approve
+                        </button>-->
+                        <button class="btn btn-default"
+                                ui-sref="nameCncl-statusLog({code:nameCnclApplication.instEmployee.code})">
+                            View
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+</div>
+

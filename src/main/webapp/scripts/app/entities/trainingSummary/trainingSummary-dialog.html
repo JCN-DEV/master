@@ -1,0 +1,104 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header bg-primary">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myTrainingSummaryLabel" translate="stepApp.trainingSummary.home.createOrEditLabel">Create or edit a TrainingSummary</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="trainingSummary.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.trainingSummary.title" for="field_title">Title</label>
+            <input type="text" class="form-control" name="title" id="field_title"
+                    ng-model="trainingSummary.title"
+                    required />
+            <div ng-show="editForm.title.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.title.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.trainingSummary.topicsCovered" for="field_topicsCovered">TopicsCovered</label>
+            <input type="text" class="form-control" name="topicsCovered" id="field_topicsCovered"
+                    ng-model="trainingSummary.topicsCovered"
+                    required />
+            <div ng-show="editForm.topicsCovered.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.topicsCovered.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.trainingSummary.institute" for="field_institute">Institute</label>
+            <input type="text" class="form-control" name="institute" id="field_institute"
+                    ng-model="trainingSummary.institute"
+                    required />
+            <div ng-show="editForm.institute.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.institute.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.trainingSummary.country" for="field_country">Country</label>
+            <input type="text" class="form-control" name="country" id="field_country"
+                    ng-model="trainingSummary.country"
+                    required />
+            <div ng-show="editForm.country.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.country.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.trainingSummary.location" for="field_location">Location</label>
+            <input type="text" class="form-control" name="location" id="field_location"
+                    ng-model="trainingSummary.location"
+                    required />
+            <div ng-show="editForm.location.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.location.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.trainingSummary.startedDate" for="field_startedDate">StartedDate</label>
+            <input type="datetime-local" class="form-control" name="startedDate" id="field_startedDate"
+                    ng-model="trainingSummary.startedDate"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.trainingSummary.endedDate" for="field_endedDate">EndedDate</label>
+            <input type="datetime-local" class="form-control" name="endedDate" id="field_endedDate"
+                    ng-model="trainingSummary.endedDate"
+                     />
+        </div>
+
+        <div class="form-group" has-authority="ROLE_ADMIN">
+            <label translate="stepApp.trainingSummary.user" for="field_user">user</label>
+            <select class="form-control" id="field_user" name="user" ng-model="trainingSummary.user" ng-options="user as user.login for user in users track by user.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

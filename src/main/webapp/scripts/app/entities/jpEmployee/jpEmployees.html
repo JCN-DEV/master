@@ -1,0 +1,143 @@
+<div>
+     <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" ui-sref="jpEmployee.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="stepApp.jpEmployee.home.createLabel">Create a new JpEmployee</span>
+                </button>
+            </div>
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteJpEmployeeConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(jpEmployee.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p translate="stepApp.jpEmployee.delete.question" translate-values="{id: '{{jpEmployee.id}}'}">Are you sure you want to delete this JpEmployee?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="global.field.id">ID</th>
+                    <th translate="stepApp.jpEmployee.name">Name</th>
+                    <th translate="stepApp.jpEmployee.fatherName">FatherName</th>
+                    <th translate="stepApp.jpEmployee.motherName">MotherName</th>
+                    <th translate="stepApp.jpEmployee.presentAddress">PresentAddress</th>
+                    <th translate="stepApp.jpEmployee.permanentAddress">PermanentAddress</th>
+                    <th translate="stepApp.jpEmployee.gender">Gender</th>
+                    <th translate="stepApp.jpEmployee.dob">Dob</th>
+                    <th translate="stepApp.jpEmployee.maritialStatus">MaritialStatus</th>
+                    <th translate="stepApp.jpEmployee.nidNo">NidNo</th>
+                    <th translate="stepApp.jpEmployee.nationality">Nationality</th>
+                    <th translate="stepApp.jpEmployee.currentLocation">CurrentLocation</th>
+                    <th translate="stepApp.jpEmployee.mailingAddress">MailingAddress</th>
+                    <th translate="stepApp.jpEmployee.homePhone">HomePhone</th>
+                    <th translate="stepApp.jpEmployee.mobileNo">MobileNo</th>
+                    <th translate="stepApp.jpEmployee.officePhone">OfficePhone</th>
+                    <th translate="stepApp.jpEmployee.email">Email</th>
+                    <th translate="stepApp.jpEmployee.alternativeMail">AlternativeMail</th>
+                    <th translate="stepApp.jpEmployee.cv">Cv</th>
+                    <th translate="stepApp.jpEmployee.objective">Objective</th>
+                    <th translate="stepApp.jpEmployee.presentSalary">PresentSalary</th>
+                    <th translate="stepApp.jpEmployee.expectedSalary">ExpectedSalary</th>
+                    <th translate="stepApp.jpEmployee.availibilityType">AvailibilityType</th>
+                    <th translate="stepApp.jpEmployee.user">user</th>
+                    <th translate="stepApp.jpEmployee.religion">religion</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="jpEmployee in jpEmployees track by jpEmployee.id">
+                    <td><a ui-sref="jpEmployee.detail({id:jpEmployee.id})">{{jpEmployee.id}}</a></td>
+                    <td>{{jpEmployee.name}}</td>
+                    <td>{{jpEmployee.fatherName}}</td>
+                    <td>{{jpEmployee.motherName}}</td>
+                    <td>{{jpEmployee.presentAddress}}</td>
+                    <td>{{jpEmployee.permanentAddress}}</td>
+                    <td translate="{{'stepApp.EmployeeGender.' + jpEmployee.gender}}">{{jpEmployee.gender}}</td>
+                        <td>{{jpEmployee.dob | date:'mediumDate'}}</td>
+                    <td translate="{{'stepApp.maritialStatus.' + jpEmployee.maritialStatus}}">{{jpEmployee.maritialStatus}}</td>
+                    <td>{{jpEmployee.nidNo}}</td>
+                    <td translate="{{'stepApp.Nationality.' + jpEmployee.nationality}}">{{jpEmployee.nationality}}</td>
+                    <td>{{jpEmployee.currentLocation}}</td>
+                    <td>{{jpEmployee.mailingAddress}}</td>
+                    <td>{{jpEmployee.homePhone}}</td>
+                    <td>{{jpEmployee.mobileNo}}</td>
+                    <td>{{jpEmployee.officePhone}}</td>
+                    <td>{{jpEmployee.email}}</td>
+                    <td>{{jpEmployee.alternativeMail}}</td>
+                    <td>{{jpEmployee.cv}}</td>
+                    <td>{{jpEmployee.objective}}</td>
+                    <td>{{jpEmployee.presentSalary}}</td>
+                    <td>{{jpEmployee.expectedSalary}}</td>
+                    <td translate="{{'stepApp.EmployeeAvailability.' + jpEmployee.availibilityType}}">{{jpEmployee.availibilityType}}</td>
+                    <td>
+                        {{jpEmployee.user.login}}
+                    </td>
+                    <td>
+                        <a ui-sref="religion.detail({id:jpEmployee.religion.id})">{{jpEmployee.religion.name}}</a>
+                    </td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="jpEmployee.detail({id:jpEmployee.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="jpEmployee.edit({id:jpEmployee.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="delete(jpEmployee.id)"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pagination">
+                <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                <li class="active"><a>{{page + 1}}</a></li>
+                <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>

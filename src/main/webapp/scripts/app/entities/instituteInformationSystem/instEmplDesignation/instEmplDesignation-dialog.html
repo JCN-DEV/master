@@ -1,0 +1,175 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="instEmplDesignation.id==null" id="myInstEmplDesignationLabel"
+            translate="stepApp.instEmplDesignation.home.createOrEditLabel">Create or edit a InstEmplDesignation</h4>
+        <h4 ng-hide="instEmplDesignation.id==null" id="myInstEmplDesignationLabel1"
+            translate="stepApp.instEmplDesignation.home.EditLabel">Create or edit a InstEmplDesignation</h4>
+        <div class="col-md-12 modal-body">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.instEmplDesignation.type" for="field_type">Type</label>
+                    <select class="form-control" name="type" ng-model="instEmplDesignation.type" id="field_type"
+                            required="required" title="{{'stepApp.instEmplDesignation.type' | translate}}">
+                        <option value="">Select Employee Type</option>
+                        <option value="Teacher" translate="stepApp.designationType.Teacher">Teacher</option>
+                        <option value="Employee" translate="stepApp.designationType.Employee">Staff</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.instEmplDesignation.code" for="field_code">Code</label>
+                <input type="text" class="form-control" name="code" id="field_code"
+                       ng-model="instEmplDesignation.code"
+                       ng-remote-validate="api/instEmplDesignations/instCodeUnique/"
+                       ng-remote-method="GET"
+                       ng-remote-throttle="500"
+                       placeholder="{{'stepApp.instEmplDesignation.code' | translate}}"
+                       title="{{'stepApp.instEmplDesignation.code' | translate}}"
+                       required/>
+                <span class="message" ng-show="editForm.code.$pending">validating...</span>
+
+                <div ng-show="editForm.code.$invalid">
+                    <p style="color:red"
+                       ng-show="editForm.code.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+                <div ng-show="editForm.code.$invalid">
+                    <p style="color:red"
+                       ng-show="editForm.code.$error.ngRemoteValidate">
+                        This Name is already exist
+                    </p>
+                </div>
+            </div>
+
+
+
+
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.instEmplDesignation.name" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                           ng-model="instEmplDesignation.name"
+                           ng-remote-validate="/api/instEmplDesignations/instNameUnique/"
+                           ng-remote-method="GET"
+                           placeholder="{{'stepApp.instEmplDesignation.name' | translate}}"
+                           title="{{'stepApp.instEmplDesignation.name' | translate}}"
+                           required/>
+                    <span class="message" ng-show="editForm.name.$pending">validating...</span>
+                    <div ng-show="editForm.name.$invalid">
+                        <p style="color:red"
+                           ng-show="editForm.name.$error.ngRemoteValidate">
+                            This Name is already exist
+                        </p>
+                    </div>
+                    <div ng-show="editForm.name.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.instEmplDesignation.description"
+                           for="field_description">Description</label>
+                    <input type="text" class="form-control" name="description" id="field_description"
+                           ng-model="instEmplDesignation.description"
+                           placeholder="{{'stepApp.instEmplDesignation.description' | translate}}"
+                           title="{{'stepApp.instEmplDesignation.description' | translate}}"
+                    />
+                </div>
+            </div>
+            <!--<div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.instGenInfo.instLevel" for="field_type">Category</label>
+
+                    <select class="form-control" id="" name="instLevel" ng-model="instEmplDesignation.instLevel"
+                            ng-options="instLevel as instLevel.name for instLevel in instLevels  | filter:instLevel.pStatus='true'"
+                            required
+                            title="{{'stepApp.instGenInfo.instLevel' | translate}}"
+                    >
+                        <option value="">{{instEmplDesignation.instLevel.name}}</option>
+                    </select>
+
+                    <div ng-show="editForm.instLevel.$invalid">
+                        <p class="help-block" ng-show="editForm.instLevel.$error.required"
+                           translate="entity.validation.required">This field is required.
+                        </p>
+                    </div>
+
+                </div>
+            </div>-->
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.instGenInfo.instLevel" for="field_type">field_type</label>
+                <select class="form-control" id="field_type" name="almShiftSetup"
+                        ng-model="instEmplDesignation.instLevel"
+                        ng-options="instLevel as instLevel.name for instLevel in instLevels  | filter:instLevel.pStatus='true'"
+                        required required="required"
+                        title="{{'stepApp.instGenInfo.instLevel' | translate}}"
+                >
+                    <option value="" translate="stepApp.instGenInfo.instLevel"></option>
+                </select>
+            </div>
+
+
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.instGenInfo.instCategory" for="field_cmsCurriculum">cmsCurriculum</label>
+                    <select class="form-control" id="field_cmsCurriculum" name="instCategory"
+                            ng-model="instEmplDesignation.instCategory"
+                            ng-options="instCategory as instCategory.name for instCategory in instCategories | filter:instCategory.pStatus='true' "
+                            title="{{'stepApp.instGenInfo.instCategory' | translate}}"
+                    required required="required">
+                        <option value="" translate="stepApp.instGenInfo.instCategory">instCategory</option>
+                    </select>
+                </div>
+            </div>
+
+            <!--<div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.instEmplDesignation.status" for="field_status">Status</label>
+                    <input type="checkbox" class="form-control" name="status" id="field_status"
+                           ng-model="instEmplDesignation.status"
+                    />
+                </div>
+            </div>-->
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instEmplDesignation.status" for="field_status">status</label>
+                <div id="field_status">
+                    <label class="radio-inline">
+                        <input type="radio" name="status" value="true"
+                               ng-checked="(instEmplDesignation.status == true || instEmplDesignation.status == null)"
+                               ng-model="instEmplDesignation.status"><span
+                        translate="entity.action.activate" title="{{'stepApp.instEmplDesignation.status' | translate}}">
+                        Active</span></label>
+                    <label class="radio-inline">
+                        <input type="radio" name="status" value="false"
+                               ng-checked="(instEmplDesignation.status == false && instEmplDesignation.status != null)"
+                               ng-model="instEmplDesignation.status"><span
+                        translate="entity.action.deactivate" title="{{'stepApp.instEmplDesignation.status' | translate}}">
+                        Deactive</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12 modal-footer">
+            <button type="button"
+                    onclick="window.history.back()"
+                    class="btn btn-info no-print">
+                <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="instEmplDesignation.id == null" translate="entity.action.save">Save</span>
+                <span ng-show="instEmplDesignation.id != null" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

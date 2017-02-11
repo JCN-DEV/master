@@ -1,0 +1,53 @@
+<div class="col-md-12 common-list">
+    <h2 ng-show="timescaleAppliedLists.pending == 'pending'" translate="global.menu.account.nameCnclPendingList">Name
+        Cancellation Application Pending List</h2>
+    <h2 ng-show="timescaleAppliedLists.pending == 'approved'" translate="global.menu.account.nameCnclApprovedList">Name
+        Cancellation Application Approved List</h2>
+    <br>
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="stepApp.mpo.thead.institutename"> Institute Name</th>
+                <th translate="stepApp.mpo.thead.applicantname"> Applicant Name</th>
+                <th translate="stepApp.mpo.thead.id"> ID</th>
+                <th translate="stepApp.mpo.thead.district"> District</th>
+                <th translate="stepApp.mpo.thead.status"> Status</th>
+                <th translate="stepApp.mpo.thead.action"> Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="timescaleAppliedList in timescaleAppliedLists">
+                <!--<td>{{mpoAppliedList.instEmployee.code}}</td>
+                <td>{{mpoAppliedList.instEmployee.institute.name}}</td>
+                <td>{{mpoAppliedList.instEmployee.institute.upazila.name}}</td>
+                <td>{{mpoAppliedLists.pending}}</td>-->
+                <td>{{timescaleAppliedList.CODE}}</td>
+                <td>{{timescaleAppliedList.INST_NAME}}</td>
+                <td>{{timescaleAppliedList.UPZILA_NAME}}</td>
+                <td></td>
+                <td>{{timescaleAppliedLists.pending}}</td>
+                <td class="text-right no-print">
+                    <div class="btn-group">
+                        <!--<button class="btn btn-default" ui-sref="mpo.details({id:mpoAppliedList.MPO_ID})">
+                                 View & Approve
+                        </button>-->
+                        <button class="btn btn-default"
+                                ui-sref="nameCnclApplicationDetails({id:timescaleAppliedList.NAMECNCL_ID})">
+                            <span translate="stepApp.mpo.view&approve">View & Approve</span>
+
+                        </button>
+                        <button has-any-authority="ROLE_ADMIN,ROLE_FRONTDESK,ROLE_AD,ROLE_DIRECTOR,ROLE_DG"
+                                class="btn btn-default pull-right"
+                                ui-sref="nameCncl-checklist({code:timescaleAppliedList.CODE})">
+                            <span translate="stepApp.mpo.checklist">Check List</span>
+
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+

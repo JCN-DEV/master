@@ -1,0 +1,174 @@
+<div class="common-list col-md-12 no_padding">
+    <div class="col-md-12"><h2 translate="stepApp.sisStudentInfo.home.title">SisStudentInfos</h2></div>
+    <!--<jh-alert></jh-alert>-->
+    <div class="col-md-12 padding-bt">
+        <div class="col-md-4 no_padding">
+            <b>{{ (employeeLoanRequisitionForm|filter:q).length }} results found</b>
+            <div class="input-group">
+                <span class="input-group-addon elmsbtn" id="basic-addon1"><i class="fa fa-search"></i></span>
+                <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+            </div>
+        </div>
+        <div class="col-md-4 no_padding"> <b>Items per page:</b>
+            <div class="input-group">
+                <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+            </div>
+        </div>
+            <!--<div has-any-authority="ROLE_GOVT_STUDENT" class="col-md-4 text-right dlbtn-top">
+                <button class="btn btn-primary" ui-sref="sisStudentInfo.new2">
+                    <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.sisStudentInfo.home.createLabel">Create a new SisStudentInfo</span>
+                </button>
+            </div>-->
+            <div has-any-authority="ROLE_INSTITUTE,ROLE_ADMIN" class="col-md-4 text-right dlbtn-top no_padding">
+                <button class="btn btn-primary" ui-sref="sisStudentInfo.new2">
+                    <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.sisStudentInfo.home.createLabel">Create a new SisStudentInfo</span>
+                </button>
+            </div>
+    </div>
+
+    <div class="modal fade" id="deleteSisStudentInfoConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(sisStudentInfo.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p translate="stepApp.sisStudentInfo.delete.question" translate-values="{id: '{{sisStudentInfo.id}}'}">Are you sure you want to delete this SisStudentInfo?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="global.field.serial">Serial</th>
+                <th translate="global.field.id">ID</th>
+                <th translate="stepApp.sisStudentInfo.name">Name</th>
+                <!--<th translate="stepApp.sisStudentInfo.stuPicture">StuPicture</th>-->
+                <th translate="stepApp.sisStudentInfo.instituteName">InstituteName</th>
+                <th translate="stepApp.sisStudentInfo.TradeTechnology">TradeTechnology</th>
+                <th translate="stepApp.sisStudentInfo.studentName">StudentName</th>
+                <th translate="stepApp.sisStudentInfo.fatherName">FatherName</th>
+                <th translate="stepApp.sisStudentInfo.motherName">MotherName</th>
+                <!--<th translate="stepApp.sisStudentInfo.dateOfBirth">DateOfBirth</th>
+                <th translate="stepApp.sisStudentInfo.presentAddress">PresentAddress</th>
+                <th translate="stepApp.sisStudentInfo.permanentAddress">PermanentAddress</th>
+                <th translate="stepApp.sisStudentInfo.nationality">Nationality</th>
+                <th translate="stepApp.sisStudentInfo.nationalIdNo">NationalIdNo</th>
+                <th translate="stepApp.sisStudentInfo.birthCertificateNo">BirthCertificateNo</th>
+                <th translate="stepApp.sisStudentInfo.mobileNo">MobileNo</th>
+                <th translate="stepApp.sisStudentInfo.contactNoHome">ContactNoHome</th>
+                <th translate="stepApp.sisStudentInfo.emailAddress">EmailAddress</th>
+                <th translate="stepApp.sisStudentInfo.gender">Gender</th>-->
+                <!--<th translate="stepApp.sisStudentInfo.maritalStatus">MaritalStatus</th>
+                <th translate="stepApp.sisStudentInfo.bloodGroup">BloodGroup</th>
+                <th translate="stepApp.sisStudentInfo.religion">Religion</th>
+                <th translate="stepApp.sisStudentInfo.activeStatus">ActiveStatus</th>
+                <th translate="stepApp.sisStudentInfo.createDate">CreateDate</th>
+                <th translate="stepApp.sisStudentInfo.createBy">CreateBy</th>
+                <th translate="stepApp.sisStudentInfo.updateDate">UpdateDate</th>
+                <th translate="stepApp.sisStudentInfo.updateBy">UpdateBy</th>
+                <th translate="stepApp.sisStudentInfo.curriculum">Curriculum</th>-->
+                <!--<th translate="stepApp.sisStudentInfo.applicationId">ApplicationId</th>-->
+                <!--<th translate="stepApp.sisStudentInfo.divisionPresent">divisionPresent</th>
+                <th translate="stepApp.sisStudentInfo.divisionPermanent">divisionPermanent</th>
+                <th translate="stepApp.sisStudentInfo.districtPresent">districtPresent</th>
+                <th translate="stepApp.sisStudentInfo.districtPermanent">districtPermanent</th>
+                <th translate="stepApp.sisStudentInfo.countryPresent">countryPresent</th>
+                <th translate="stepApp.sisStudentInfo.countryPermanent">countryPermanent</th>
+                <th translate="stepApp.sisStudentInfo.quota">quota</th>-->
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr dir-paginate="sisStudentInfo in sisStudentInfos | filter:q | itemsPerPage: pageSize track by sisStudentInfo.id" current-page="currentPage">
+                <td>{{pageSize * (currentPage-1) + $index+1}}</td>
+                <td><a ui-sref="sisStudentInfo.detail({id:sisStudentInfo.id})">{{sisStudentInfo.id}}</a></td>
+                <td>{{sisStudentInfo.name}}</td>
+                <!--<td>{{sisStudentInfo.stuPicture}}</td>-->
+                <td>{{sisStudentInfo.instituteName}}</td>
+                <td>{{sisStudentInfo.TradeTechnology}}</td>
+                <td>{{sisStudentInfo.studentName}}</td>
+                <td>{{sisStudentInfo.fatherName}}</td>
+                <td>{{sisStudentInfo.motherName}}</td>
+                <!--<td>{{sisStudentInfo.dateOfBirth}}</td>
+                <td>{{sisStudentInfo.presentAddress}}</td>
+                <td>{{sisStudentInfo.permanentAddress}}</td>
+                <td>{{sisStudentInfo.nationality}}</td>
+                <td>{{sisStudentInfo.nationalIdNo}}</td>
+                <td>{{sisStudentInfo.birthCertificateNo}}</td>
+                <td>{{sisStudentInfo.mobileNo}}</td>
+                <td>{{sisStudentInfo.contactNoHome}}</td>
+                <td>{{sisStudentInfo.emailAddress}}</td>
+                <td>{{sisStudentInfo.gender}}</td>-->
+                <!--<td>{{sisStudentInfo.maritalStatus}}</td>
+                <td>{{sisStudentInfo.bloodGroup}}</td>
+                <td>{{sisStudentInfo.religion}}</td>
+                <td>{{sisStudentInfo.activeStatus}}</td>
+                <td>{{sisStudentInfo.createDate | date:'mediumDate'}}</td>
+                <td>{{sisStudentInfo.createBy}}</td>
+                <td>{{sisStudentInfo.updateDate | date:'mediumDate'}}</td>
+                <td>{{sisStudentInfo.updateBy}}</td>
+                <td>{{sisStudentInfo.curriculum}}</td>-->
+               <!-- <td>{{sisStudentInfo.applicationId}}</td>-->
+                <!--<td>
+                    <a ui-sref="Division.detail({id:sisStudentInfo.divisionPresent.id})">{{sisStudentInfo.divisionPresent.name}}</a>
+                </td>
+                <td>
+                    <a ui-sref="Division.detail({id:sisStudentInfo.divisionPermanent.id})">{{sisStudentInfo.divisionPermanent.name}}</a>
+                </td>
+                <td>
+                    <a ui-sref="District.detail({id:sisStudentInfo.districtPresent.id})">{{sisStudentInfo.districtPresent.name}}</a>
+                </td>
+                <td>
+                    <a ui-sref="District.detail({id:sisStudentInfo.districtPermanent.id})">{{sisStudentInfo.districtPermanent.name}}</a>
+                </td>
+                <td>
+                    <a ui-sref="Country.detail({id:sisStudentInfo.countryPresent.id})">{{sisStudentInfo.countryPresent.name}}</a>
+                </td>
+                <td>
+                    <a ui-sref="Country.detail({id:sisStudentInfo.countryPermanent.id})">{{sisStudentInfo.countryPermanent.name}}</a>
+                </td>
+                <td>
+                    <a ui-sref="SisQuota.detail({id:sisStudentInfo.quota.id})">{{sisStudentInfo.quota.name}}</a>
+                </td>-->
+                <td class="text-right">
+                    <button type="submit"
+                            ui-sref="sisStudentInfo.detail({id:sisStudentInfo.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="sisStudentInfo.edit({id:sisStudentInfo.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit"
+                            ng-click="delete(sisStudentInfo.id)"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+</div>
+</div>

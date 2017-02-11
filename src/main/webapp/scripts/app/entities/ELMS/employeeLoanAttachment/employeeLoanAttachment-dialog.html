@@ -1,0 +1,126 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myEmployeeLoanAttachmentLabel" translate="stepApp.employeeLoanAttachment.home.createOrEditLabel">Create or edit a EmployeeLoanAttachment</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="employeeLoanAttachment.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.employeeLoanAttachment.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                    ng-model="employeeLoanAttachment.name"
+                    required />
+            <div ng-show="editForm.name.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.employeeLoanAttachment.fileName" for="field_fileName">FileName</label>
+            <input type="text" class="form-control" name="fileName" id="field_fileName"
+                    ng-model="employeeLoanAttachment.fileName"
+                     />
+        </div>
+        <div class="form-group" ngf-drop ngf-change="setFile($file, employeeLoanAttachment)">
+            <label translate="stepApp.employeeLoanAttachment.file" for="field_file">File</label>
+            <div>
+                <div class="help-block clearfix">
+                    <span class="pull-left">{{employeeLoanAttachment.fileContentType}} {{byteSize(employeeLoanAttachment.file)}}</span>
+                    <button ng-click="employeeLoanAttachment.file=null;employeeLoanAttachment.fileContentType=null;"
+                            ng-if="employeeLoanAttachment.file"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="file" ngf-select class="btn btn-default btn-block"
+                        ngf-change="setFile($file, employeeLoanAttachment)" translate="entity.action.addblob">
+                    Add blob
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="file" id="field_file"
+                    ng-model="employeeLoanAttachment.file"
+                     />
+            <input type="hidden" class="form-control" name="fileContentType" id="field_fileContentType"
+                    ng-model="employeeLoanAttachment.fileContentType" />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.employeeLoanAttachment.fileContentName" for="field_fileContentName">FileContentName</label>
+            <input type="text" class="form-control" name="fileContentName" id="field_fileContentName"
+                    ng-model="employeeLoanAttachment.fileContentName"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.employeeLoanAttachment.fileContentType" for="field_fileContentType">FileContentType</label>
+            <input type="text" class="form-control" name="fileContentType" id="field_fileContentType"
+                    ng-model="employeeLoanAttachment.fileContentType"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.employeeLoanAttachment.remarks" for="field_remarks">Remarks</label>
+            <input type="text" class="form-control" name="remarks" id="field_remarks"
+                    ng-model="employeeLoanAttachment.remarks"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.employeeLoanAttachment.status" for="field_status">Status</label>
+            <input type="number" class="form-control" name="status" id="field_status"
+                    ng-model="employeeLoanAttachment.status"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.employeeLoanAttachment.createBy" for="field_createBy">CreateBy</label>
+            <input type="number" class="form-control" name="createBy" id="field_createBy"
+                    ng-model="employeeLoanAttachment.createBy"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.employeeLoanAttachment.createDate" for="field_createDate">CreateDate</label>
+            <input type="date" class="form-control" name="createDate" id="field_createDate"
+                    ng-model="employeeLoanAttachment.createDate"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.employeeLoanAttachment.updateBy" for="field_updateBy">UpdateBy</label>
+            <input type="number" class="form-control" name="updateBy" id="field_updateBy"
+                    ng-model="employeeLoanAttachment.updateBy"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.employeeLoanAttachment.updateDate" for="field_updateDate">UpdateDate</label>
+            <input type="date" class="form-control" name="updateDate" id="field_updateDate"
+                    ng-model="employeeLoanAttachment.updateDate"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.employeeLoanAttachment.hrEmployeeInfo" for="field_hrEmployeeInfo">hrEmployeeInfo</label>
+            <select class="form-control" id="field_hrEmployeeInfo" name="hrEmployeeInfo" ng-model="employeeLoanAttachment.hrEmployeeInfo" ng-options="hrEmployeeInfo as hrEmployeeInfo.employeeId for hrEmployeeInfo in hremployeeinfos track by hrEmployeeInfo.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.employeeLoanAttachment.attachmentCategory" for="field_attachmentCategory">attachmentCategory</label>
+            <select class="form-control" id="field_attachmentCategory" name="attachmentCategory" ng-model="employeeLoanAttachment.attachmentCategory" ng-options="attachmentCategory as attachmentCategory.name for attachmentCategory in attachmentcategorys track by attachmentCategory.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,106 @@
+<div class="col-md-12 common-list">
+    <h2 translate="stepApp.mpoVacancyRole.home.title">MpoVacancyRoles</h2>
+    <div class="col-md-12 padding-tb">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+        <div class="col-xs-4 no_padding text-right ">
+            <button class="btn btn-primary" ui-sref="mpoVacancyRole.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.mpoVacancyRole.home.createLabel">Create a new MpoVacancyRole</span>
+            </button>
+        </div>
+    </div>
+    <!--<div class="col-sm-12 padding-tb no-print">
+        <div class="col-md-8 col-xs-12 no_padding">
+            <div class="col-md-4 no_padding">
+                <b>{{ (instCategorys|filter:q).length }} results found</b>
+                <div class="input-group">
+                    <span class="input-group-addon dlbtn" id="basic-addon1"><i class="fa fa-search"></i></span>
+                    <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+                </div>
+            </div>
+            <div class="col-md-4"><b>Items per page:</b>
+                <div class="input-group">
+                    <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 text-right no_padding btn-top">
+            <button class="btn btn-primary" ui-sref="mpoVacancyRole.new">
+                <span class="glyphicon glyphicon-plus"></span> <span
+                translate="stepApp.mpoVacancyRole.home.createLabel">Create a new MpoVacancyRole</span>
+            </button>
+        </div>
+    </div>-->
+
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="global.form.serial">serial</th>
+                <th translate="global.field.id">ID</th>
+                <th translate="stepApp.mpoVacancyRole.vacancyRoleType">VacancyRoleType</th>
+                <th translate="stepApp.mpoVacancyRole.cmsCurriculum">cmsCurriculum</th>
+                <th translate="stepApp.mpoVacancyRole.status">Status</th>
+                <th translate="stepApp.mpoVacancyRole.totalTrade">TotalTrade</th>
+                <!--<th translate="stepApp.mpoVacancyRole.totalVacancy">TotalVacancy</th>
+                <th translate="stepApp.mpoVacancyRole.crateDate">CrateDate</th>
+                <th translate="stepApp.mpoVacancyRole.updateDate">UpdateDate</th>
+                <th translate="stepApp.mpoVacancyRole.createBy">createBy</th>
+                <th translate="stepApp.mpoVacancyRole.updateBy">updateBy</th>-->
+                <th class="text-center no-print" translate="entity.action.action"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr dir-paginate="mpoVacancyRole in mpoVacancyRoles  | filter:q | itemsPerPage: pageSize track by mpoVacancyRole.id"
+                current-page="currentPage">
+                <td>{{pageSize * (currentPage-1) + $index+1}}</td>
+                <td><a ui-sref="mpoVacancyRole.detail({id:mpoVacancyRole.id})">{{mpoVacancyRole.id}}</a></td>
+                <td translate="{{'stepApp.VacancyRoleType.' + mpoVacancyRole.vacancyRoleType}}">
+                    {{mpoVacancyRole.vacancyRoleType}}
+                </td>
+                <td>
+                    <a ui-sref="cmsCurriculum.detail({id:mpoVacancyRole.cmsCurriculum.id})">{{mpoVacancyRole.cmsCurriculum.name}}</a>
+                </td>
+                <td>{{mpoVacancyRole.status}}</td>
+                <td>{{mpoVacancyRole.totalTrade}}</td>
+                <!--<td>{{mpoVacancyRole.totalVacancy}}</td>
+                <td>{{mpoVacancyRole.crateDate | date:'mediumDate'}}</td>
+                <td>{{mpoVacancyRole.updateDate | date:'mediumDate'}}</td>
+                <td>
+                    {{mpoVacancyRole.createBy.login}}
+                </td>
+                <td>
+                    {{mpoVacancyRole.updateBy.login}}
+                </td>-->
+                <td class="text-right no-print">
+                    <button type="submit"
+                            ui-sref="mpoVacancyRole.detail({id:mpoVacancyRole.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="mpoVacancyRole.edit({id:mpoVacancyRole.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                        translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="mpoVacancyRole.delete({id:mpoVacancyRole.id})"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                        translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav class="no-print">
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                     template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+</div>

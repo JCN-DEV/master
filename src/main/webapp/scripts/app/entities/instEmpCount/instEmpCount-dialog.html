@@ -1,0 +1,75 @@
+
+<form id="notEmptyForm" name="editForm" role="form"  class="form-vertical panel panel-primary" novalidate ng-submit="save()">
+
+    <div class="panel-heading">
+               <h4   translate="stepApp.instEmpCount.home.createOrEditLabel">Create or edit a InstEmpCount</h4>
+    </div>
+    <div class="panel-body">
+        <!--<jh-alert-error></jh-alert-error>-->
+        <!--<div class="form-group">-->
+            <!--<label for="id" translate="global.field.id">ID</label>-->
+            <!--<input type="text" class="form-control" id="id" name="id"-->
+                    <!--ng-model="instEmpCount.id" readonly />-->
+        <!--</div>-->
+        <div>
+        <div class="panel-body">
+        <div class="form-group col-md-6" >
+            <label translate="stepApp.instEmpCount.totalMaleTeacher" for="field_totalMaleTeacher">TotalMaleTeacher</label>
+            <input type="number" class="form-control" name="totalMaleTeacher" id="field_totalMaleTeacher"
+                    ng-model="instEmpCount.totalMaleTeacher" min="0"
+                     />
+        </div>
+
+        <div class="form-group col-md-6">
+            <label translate="stepApp.instEmpCount.totalFemaleTeacher" for="field_totalFemaleTeacher">TotalFemaleTeacher</label>
+            <input type="number" class="form-control" name="totalFemaleTeacher" id="field_totalFemaleTeacher"
+                    ng-model="instEmpCount.totalFemaleTeacher" min="0"
+                     />
+        </div>
+
+
+        <div class="form-group col-md-6">
+            <label translate="stepApp.instEmpCount.totalMaleEmployee" for="field_totalMaleEmployee">TotalMaleEmployee</label>
+            <input type="number" class="form-control" name="totalMaleEmployee" id="field_totalMaleEmployee"
+                    ng-model="instEmpCount.totalMaleEmployee" min="0"
+                     />
+        </div>
+        <div class="form-group col-md-6">
+            <label translate="stepApp.instEmpCount.totalFemaleEmployee" for="field_totalFemaleEmployee">TotalFemaleEmployee</label>
+            <input type="number" class="form-control" name="totalFemaleEmployee" id="field_totalFemaleEmployee"
+                    ng-model="instEmpCount.totalFemaleEmployee" min="0"
+                     />
+        </div>
+        <div class="form-group col-md-6">
+            <label translate="stepApp.instEmpCount.totalGranted" for="field_totalGranted">TotalGranted</label>
+            <input type="number" class="form-control" name="totalGranted" id="field_totalGranted"
+                    ng-model="instEmpCount.totalGranted" min="0"
+                     />
+        </div>
+        <div class="form-group col-md-6">
+            <label translate="stepApp.instEmpCount.totalEngaged" for="field_totalEngaged">TotalEngaged</label>
+            <input type="number" class="form-control" name="totalEngaged"  id="field_totalEngaged"
+                    ng-model="instEmpCount.totalEngaged" min="0"
+                     required/>
+        </div>
+
+
+        <!--<div class="form-group">-->
+            <!--<label translate="stepApp.instEmpCount.institute" for="field_institute">institute</label>-->
+            <!--<select class="form-control" id="field_institute" name="institute" ng-model="instEmpCount.institute" ng-options="institute as institute.name for institute in institutes | orderBy:'id' track by institute.id">-->
+                <!--<option value=""></option>-->
+            <!--</select>-->
+        <!--</div>-->
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" class="btn pull-left"  data-dismiss="modal" onclick="window.history.back()">
+            <span class=" glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back">Back</span>
+        </button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

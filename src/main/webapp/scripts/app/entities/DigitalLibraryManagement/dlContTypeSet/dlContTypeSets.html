@@ -1,0 +1,81 @@
+<div class="col-sm-12 no_padding lbl-content common-list">
+    <h2 translate="stepApp.dlContTypeSet.home.title">DlContTypeSets</h2>
+    <div class="col-sm-12 padding-tb ">
+        <div class="col-md-4 no_padding">
+                <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+
+        </div>
+        <div class="col-md-4 ">
+                <input type="number" min="1" max="100" class="form-control" ng-model="pageSize" placeholder="{{'global.home.itemperpage' | translate}}">
+
+        </div>
+        <div class="col-md-4 text-right no_padding">
+            <button class="btn btn-primary" ui-sref="libraryInfo.dlContTypeSet.new">
+                <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.dlContTypeSet.home.createLabel">Create a new DlContTypeSet</span>
+            </button>
+        </div>
+    </div>
+    <br>
+    <div class="col-sm-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <!--<th translate="global.field.id">ID</th>-->
+                <th translate="global.field.serial">Serial</th>
+                <th translate="stepApp.dlContTypeSet.code">Code</th>
+                <th translate="stepApp.dlContTypeSet.name">Name</th>
+                <th translate="stepApp.dlContTypeSet.description">Description</th>
+                <th translate="stepApp.dlContTypeSet.pStatus">PStatus</th>
+                <!-- <th translate="stepApp.dlContTypeSet.createdDate">CreatedDate</th>
+                 <th translate="stepApp.dlContTypeSet.updatedDate">UpdatedDate</th>
+                 <th translate="stepApp.dlContTypeSet.createdBy">CreatedBy</th>
+                 <th translate="stepApp.dlContTypeSet.updatedBy">UpdatedBy</th>
+                 <th translate="stepApp.dlContTypeSet.status">Status</th>-->
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr dir-paginate="dlContTypeSet in dlContTypeSets | filter:q | itemsPerPage: pageSize"
+                current-page="currentPage">
+                <!--<td><a ui-sref="dlContTypeSet.detail({id:dlContTypeSet.id})">{{dlContTypeSet.id}}</a></td>-->
+                <td>{{pageSize * (currentPage-1)+$index+1}}</td>
+                <td>{{dlContTypeSet.code}}</td>
+                <td>{{dlContTypeSet.name}}</td>
+                <td>{{dlContTypeSet.description}}</td>
+                <td>
+                    <span ng-show="dlContTypeSet.pStatus==true">Active</span>
+                    <span ng-show="dlContTypeSet.pStatus==false">Inactive</span></td>
+                <!--{{dlContTypeSet.pStatus}}</td>-->
+                <!--<td>{{dlContTypeSet.createdDate | date:'mediumDate'}}</td>
+                <td>{{dlContTypeSet.updatedDate | date:'mediumDate'}}</td>
+            <td>{{dlContTypeSet.createdBy}}</td>
+            <td>{{dlContTypeSet.updatedBy}}</td>
+            <td>{{dlContTypeSet.status}}</td>-->
+                <td class="text-right">
+                    <button type="submit"
+                            ui-sref="libraryInfo.dlContTypeSet.detail({id:dlContTypeSet.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="libraryInfo.dlContTypeSet.edit({id:dlContTypeSet.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                        translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="libraryInfo.dlContTypeSet.delete({id:dlContTypeSet.id})"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                        translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                     template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+</div>

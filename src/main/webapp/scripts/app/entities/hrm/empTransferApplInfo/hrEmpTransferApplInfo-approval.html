@@ -1,0 +1,224 @@
+<style>
+    .row-striped:nth-of-type(odd){
+        background-color: #efefef;
+    }
+
+    .row-striped:nth-of-type(even){
+        background-color: #ffffff;
+    }
+</style>
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myHrEmpTransferApplInfoLabel" translate="stepApp.hrEmpTransferApplInfo.home.transferApprovalTitle">Transfer Application Approval</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+
+        <div class="row row-striped">
+            <div class="form-group col-sm-6">
+                <span translate="stepApp.hrEmpTransferApplInfo.employeeInfo">employeeInfo</span>
+                <span class="form-control-static">{{hrEmpTransferApplInfo.employeeInfo.fullName}}</span>
+            </div>
+            <div class="form-group col-sm-6">
+                <span translate="stepApp.hrEmpTransferApplInfo.transferReason">TransferReason</span>
+                <span class="form-control-static">{{hrEmpTransferApplInfo.transferReason}}</span>
+            </div>
+        </div>
+
+        <div class="row row-striped">
+            <div class="form-group col-sm-6">
+                <span translate="stepApp.hrEmpTransferApplInfo.officeOrderNumber">OfficeOrderNumber</span>
+                <span class="form-control-static">{{hrEmpTransferApplInfo.officeOrderNumber}}</span>
+            </div>
+            <div class="form-group col-sm-6">
+                <span translate="stepApp.hrEmpTransferApplInfo.officeOrderDate">OfficeOrderDate</span>
+                <span class="form-control-static">{{hrEmpTransferApplInfo.officeOrderDate | date:'mediumDate'}}</span>
+            </div>
+        </div>
+
+        <div class="row row-striped">
+            <div class="col-md-1">
+                <span translate="stepApp.hrEmpTransferApplInfo.selectedOption">selectedOption</span>
+                <input type="radio" data-ng-model="hrEmpTransferApplInfo.selectedOption" name="selectedOption" data-ng-value="1">
+            </div>
+            <div class="col-md-4">
+                <label translate="stepApp.hrEmpTransferApplInfo.organizationCategory">organizationCategory</label>
+                <!--<select ng-show="hrEmpTransferApplInfo.selectedOption==1" class="form-control" id="field_organizationCategory" name="organizationCategory"
+                        ng-model="hrEmpTransferApplInfo.organizationCategory"
+                        ng-change="loadOrganizationNameByCategoryOne(hrEmpTransferApplInfo.organizationCategory)"
+                        ng-options="MiscTypeSetup as MiscTypeSetup.typeName for MiscTypeSetup in workAreaList track by MiscTypeSetup.id">
+                    <option value=""></option>
+                </select>-->
+                <div>
+                    <span class="form-control-static">{{hrEmpTransferApplInfo.organizationCategory.typeName}}</span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label translate="stepApp.hrEmpTransferApplInfo.orgOptionOne">orgOptionOne</label>
+                <!--<select ng-show="hrEmpTransferApplInfo.selectedOption==1" class="form-control" id="field_orgOptionOne" name="orgOptionOne"
+                        ng-model="hrEmpTransferApplInfo.orgOptionOne"
+                        ng-options="HrEmpWorkAreaDtlInfo as HrEmpWorkAreaDtlInfo.name for HrEmpWorkAreaDtlInfo in orgNameFilterListOne track by HrEmpWorkAreaDtlInfo.id">
+                    <option value=""></option>
+                </select>-->
+                <div>
+                    <span class="form-control-static">{{hrEmpTransferApplInfo.orgOptionOne.name}}</span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label translate="stepApp.hrEmpTransferApplInfo.desigOptionOne">desigOptionOne</label>
+                <!--<select ng-show="hrEmpTransferApplInfo.selectedOption==1" class="form-control" id="field_desigOptionOne" name="desigOptionOne"
+                        ng-model="hrEmpTransferApplInfo.desigOptionOne"
+                        ng-options="HrDesignationSetup as HrDesignationSetup.designationName for HrDesignationSetup in hrdesignationsetups track by HrDesignationSetup.id">
+                    <option value=""></option>
+                </select>-->
+                <div>
+                    <span class="form-control-static">{{hrEmpTransferApplInfo.desigOptionOne.designationInfo.designationName}}</span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row row-striped">
+            <div class="col-md-1">
+                <span translate="stepApp.hrEmpTransferApplInfo.selectedOption">selectedOption</span>
+                <input type="radio" data-ng-model="hrEmpTransferApplInfo.selectedOption" name="selectedOption" data-ng-value="2">
+            </div>
+            <div class="col-sm-4">
+                <label translate="stepApp.hrEmpTransferApplInfo.organizationCategory">organizationCategory</label>
+                <!--<select ng-show="hrEmpTransferApplInfo.selectedOption==2" class="form-control" id="field_organizationCategory2" name="organizationCategory"
+                        ng-model="hrEmpTransferApplInfo.organizationCategory2"
+                        ng-change="loadOrganizationNameByCategoryTwo(hrEmpTransferApplInfo.organizationCategory2)"
+                        ng-options="MiscTypeSetup as MiscTypeSetup.typeName for MiscTypeSetup in workAreaList track by MiscTypeSetup.id">
+                    <option value=""></option>
+                </select>-->
+                <div>
+                    <span class="form-control-static">{{hrEmpTransferApplInfo.organizationCategory2.typeName}}</span>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <label translate="stepApp.hrEmpTransferApplInfo.orgOptionTwo">orgOptionTwo</label>
+                <!--<select ng-show="hrEmpTransferApplInfo.selectedOption==2" class="form-control" id="field_orgOptionTwo" name="orgOptionTwo"
+                        ng-model="hrEmpTransferApplInfo.orgOptionTwo"
+                        ng-options="HrEmpWorkAreaDtlInfo as HrEmpWorkAreaDtlInfo.name for HrEmpWorkAreaDtlInfo in orgNameFilterListTwo track by HrEmpWorkAreaDtlInfo.id">
+                    <option value=""></option>
+                </select> ng-show="hrEmpTransferApplInfo.selectedOption !=2 "
+                -->
+                <div>
+                    <span class="form-control-static">{{hrEmpTransferApplInfo.orgOptionTwo.name}}</span>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label translate="stepApp.hrEmpTransferApplInfo.desigOptionTwo">desigOptionTwo</label>
+                <!--<select ng-show="hrEmpTransferApplInfo.selectedOption==2" class="form-control" id="field_desigOptionTwo" name="desigOptionTwo"
+                        ng-model="hrEmpTransferApplInfo.desigOptionTwo"
+                        ng-options="HrDesignationSetup as HrDesignationSetup.designationName for HrDesignationSetup in hrdesignationsetups track by HrDesignationSetup.id">
+                    <option value=""></option>
+                </select>-->
+                <div>
+                    <span class="form-control-static">{{hrEmpTransferApplInfo.desigOptionTwo.designationInfo.designationName}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-striped">
+            <div class="col-md-1">
+                <span translate="stepApp.hrEmpTransferApplInfo.selectedOption">selectedOption</span>
+                <input type="radio" data-ng-model="hrEmpTransferApplInfo.selectedOption" name="selectedOption" data-ng-value="3">
+            </div>
+            <div class="col-sm-4">
+                <label translate="stepApp.hrEmpTransferApplInfo.organizationCategory">organizationCategory</label>
+                <!--<select ng-show="hrEmpTransferApplInfo.selectedOption==3" class="form-control" id="field_organizationCategory3" name="organizationCategory"
+                        ng-model="hrEmpTransferApplInfo.organizationCategory3"
+                        ng-change="loadOrganizationNameByCategoryThree(hrEmpTransferApplInfo.organizationCategory3)"
+                        ng-options="MiscTypeSetup as MiscTypeSetup.typeName for MiscTypeSetup in workAreaList track by MiscTypeSetup.id">
+                    <option value=""></option>
+                </select>-->
+                <div>
+                    <span class="form-control-static">{{hrEmpTransferApplInfo.organizationCategory3.typeName}}</span>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <label translate="stepApp.hrEmpTransferApplInfo.orgOptionThree">orgOptionThree</label>
+                <!--<select ng-show="hrEmpTransferApplInfo.selectedOption==3" class="form-control" id="field_orgOptionThree" name="orgOptionThree"
+                        ng-model="hrEmpTransferApplInfo.orgOptionThree"
+                        ng-options="HrEmpWorkAreaDtlInfo as HrEmpWorkAreaDtlInfo.name for HrEmpWorkAreaDtlInfo in orgNameFilterListThree track by HrEmpWorkAreaDtlInfo.id">
+                    <option value=""></option>
+                </select>-->
+                <div ng-show="hrEmpTransferApplInfo.selectedOption !=3 ">
+                    <span class="form-control-static">{{hrEmpTransferApplInfo.orgOptionThree.name}}</span>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label translate="stepApp.hrEmpTransferApplInfo.desigOptionThree">desigOptionThree</label>
+                <!--<select ng-show="hrEmpTransferApplInfo.selectedOption==3" class="form-control" id="field_desigOptionThree" name="desigOptionThree"
+                        ng-model="hrEmpTransferApplInfo.desigOptionThree"
+                        ng-options="HrDesignationSetup as HrDesignationSetup.designationName for HrDesignationSetup in hrdesignationsetups track by HrDesignationSetup.id">
+                    <option value=""></option>
+                </select>-->
+                <div>
+                    <span class="form-control-static">{{hrEmpTransferApplInfo.desigOptionThree.designationInfo.designationName}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 table-responsive no_padding">
+            <table class="table table-striped table-responsive">
+                <thead>
+                <tr>
+                    <th><span translate="stepApp.hrEmpServiceHistory.serviceDate">ServiceDate</span></th>
+                    <th><span translate="stepApp.hrEmpServiceHistory.gazettedDate">GazettedDate</span></th>
+                    <th><span translate="stepApp.hrEmpServiceHistory.encadrementDate">EncadrementDate</span></th>
+                    <th><span translate="stepApp.hrEmpServiceHistory.nationalSeniority">NationalSeniority</span></th>
+                    <th><span translate="stepApp.hrEmpServiceHistory.cadreNumber">CadreNumber</span></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="hrEmpServiceHistory in empServiceHistoryList track by hrEmpServiceHistory.id">
+                    <td>{{hrEmpServiceHistory.serviceDate | date:'mediumDate'}}</td>
+                    <td>{{hrEmpServiceHistory.gazettedDate | date:'mediumDate'}}</td>
+                    <td>{{hrEmpServiceHistory.encadrementDate | date:'mediumDate'}}</td>
+                    <td>{{hrEmpServiceHistory.nationalSeniority}}</td>
+                    <td>{{hrEmpServiceHistory.cadreNumber}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row row-striped">
+
+            <div class="col-md-5">
+                <label class="control-label" translate="stepApp.hrmHome.approve.approvalChoice">Approval Choice</label>
+                <span>
+                    <input type="radio" data-ng-model="hrEmpTransferApplInfo.isApproved" name="isApproved" data-ng-value="true" >&nbsp;<span translate="stepApp.hrmHome.buttonTextApprove">Approve</span>&nbsp;|&nbsp;
+                    <input type="radio" data-ng-model="hrEmpTransferApplInfo.isApproved" name="isApproved" data-ng-value="false">&nbsp;<span translate="stepApp.hrmHome.buttonTextReject"> Reject</span>
+                </span>
+            </div>
+            <div class="col-md-7">
+                <div ng-hide="hrEmpTransferApplInfo.isApproved">
+                    <label class="control-label" translate="stepApp.hrEmpTransferApplInfo.logComments">LogComments</label>
+                    <textarea class="form-control" name="logComments" ng-model="hrEmpTransferApplInfo.logComments"></textarea>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.close">Close</span>
+        </button>
+
+        <span ng-show="hrEmpTransferApplInfo.isApproved">
+            <button type="submit" class="btn btn-primary btn-sm">
+                <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="stepApp.hrmHome.buttonTextApprove">Approve</span>
+            </button>
+        </span>
+        <span ng-hide="hrEmpTransferApplInfo.isApproved">
+            <button type="submit" class="btn btn-danger">
+                <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="stepApp.hrmHome.buttonTextReject"> Reject</span>
+            </button>
+        </span>
+    </div>
+</form>

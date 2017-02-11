@@ -1,0 +1,185 @@
+<div class="education-add">
+    <h3>Add Employment</h3>
+</div>
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="saveEmplymentHistory()" show-validation>
+        <!-- <div class="modal-header">
+             <h4 class="modal-title" id="myJpEmploymentHistoryLabel" translate="stepApp.jpEmploymentHistory.home.createOrEditLabel">Create or edit a JpEmploymentHistory</h4>
+         </div>-->
+        <div>
+            <!-- <jh-alert-error></jh-alert-error>-->
+            <div class="panel-body padding-tb">
+                <div class="form-group col-sm-6 hide">
+                    <input type="hidden" class="form-control " id="id" name="id"
+                           ng-model="jpEmploymentHistory.id" readonly/>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.jpEmploymentHistory.companyName"
+                           for="field_companyName">CompanyName</label>
+                    <input type="text" class="form-control" name="companyName" id="field_companyName"
+                           ng-model="jpEmploymentHistory.companyName"
+                           required ng-maxlength="100"/>
+
+                    <div ng-show="editForm.companyName.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.companyName.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+
+                        <p class="help-block"
+                           ng-show="editForm.companyName.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="100">
+                            This field cannot be longer than 100 characters.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.jpEmploymentHistory.companyBusiness" for="field_companyBusiness">CompanyBusiness</label>
+                    <input type="text" class="form-control" name="companyBusiness" id="field_companyBusiness"
+                           ng-model="jpEmploymentHistory.companyBusiness"
+                           ng-maxlength="200"/>
+
+                    <div ng-show="editForm.companyBusiness.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.companyBusiness.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="200">
+                            This field cannot be longer than 200 characters.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.jpEmploymentHistory.companyLocation" for="field_companyLocation">CompanyLocation</label>
+                    <input type="text" class="form-control" name="companyLocation" id="field_companyLocation"
+                           ng-model="jpEmploymentHistory.companyLocation"
+                           ng-maxlength="200"/>
+
+                    <div ng-show="editForm.companyLocation.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.companyLocation.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="200">
+                            This field cannot be longer than 200 characters.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.jpEmploymentHistory.positionHeld"
+                           for="field_positionHeld">PositionHeld</label>
+                    <input type="text" class="form-control" name="positionHeld" id="field_positionHeld"
+                           ng-model="jpEmploymentHistory.positionHeld"
+                           required ng-maxlength="100"/>
+
+                    <div ng-show="editForm.positionHeld.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.positionHeld.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+
+                        <p class="help-block"
+                           ng-show="editForm.positionHeld.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="100">
+                            This field cannot be longer than 100 characters.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.jpEmploymentHistory.departmentName"
+                           for="field_departmentName">DepartmentName</label>
+                    <input type="text" class="form-control" name="departmentName" id="field_departmentName"
+                           ng-model="jpEmploymentHistory.departmentName"
+                           required ng-maxlength="100"/>
+
+                    <div ng-show="editForm.departmentName.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.departmentName.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+
+                        <p class="help-block"
+                           ng-show="editForm.departmentName.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="100">
+                            This field cannot be longer than 100 characters.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.jpEmploymentHistory.responsibility"
+                           for="field_responsibility">Responsibility</label>
+                    <!--<input type="text" class="form-control" name="responsibility" id="field_responsibility"
+                           ng-model="jpEmploymentHistory.responsibility"
+                           required ng-maxlength="200"/>-->
+                <textarea class="form-control" name="responsibility" id="field_responsibility"
+                          ng-model="jpEmploymentHistory.responsibility"
+                          required ng-maxlength="200"></textarea>
+
+                    <div ng-show="editForm.responsibility.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.responsibility.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+
+                        <p class="help-block"
+                           ng-show="editForm.responsibility.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="200">
+                            This field cannot be longer than 200 characters.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.jpEmploymentHistory.startFrom" for="field_startFrom">StartFrom</label>
+                    <!-- <input type="date" class="form-control" name="startFrom" id="field_startFrom"
+                             ng-model="jpEmploymentHistory.startFrom"
+                             required />-->
+                    <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.startFrom"
+                           datepicker-options="calendar.dateOptions" close-text="Close"
+                           ng-click="calendar.open($event, 'startFrom')" class="form-control" name="startFrom"
+                           id="field_startFrom"
+                           ng-model="jpEmploymentHistory.startFrom" required/>
+
+                    <div ng-show="editForm.startFrom.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.startFrom.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.jpEmploymentHistory.currentStatus"
+                           for="field_currentStatus">CurrentStatus</label>
+                    <input type="checkbox" class="form-control" name="currentStatus" id="field_currentStatus" checked
+                           ng-model="jpEmploymentHistory.currentStatus"
+                    />
+                </div>
+                <div class="form-group col-sm-6" ng-if="!jpEmploymentHistory.currentStatus">
+                    <label translate="stepApp.jpEmploymentHistory.endTo" for="field_endTo">EndTo</label>
+                    <!--<input type="date" class="form-control" name="endTo" id="field_endTo"
+                            ng-model="jpEmploymentHistory.endTo"
+                            required />-->
+                    <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.endTo"
+                           datepicker-options="calendar.dateOptions" close-text="Close" required=""
+                           ng-click="calendar.open($event, 'endTo')" class="form-control" name="endTo" id="field_endTo"
+                           ng-model="jpEmploymentHistory.endTo"/>
+                    <!--<div ng-show="editForm.endTo.$invalid">
+                        <p class="help-block"
+                            ng-show="editForm.endTo.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>-->
+                </div>
+
+
+                <div class="col-sm-12 no_padding text-right">
+                    <button type="button" class="btn btn-default" ng-click="changeEmploymentMode(true)">
+                        <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.back"
+                    >Back</span>
+                    </button>
+                    <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                        <!--<span class="glyphicon glyphicon-save"></span>&nbsp;--><span translate="entity.action.save">Save</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+</div>

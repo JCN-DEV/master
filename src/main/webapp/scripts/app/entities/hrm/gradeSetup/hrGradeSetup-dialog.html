@@ -1,0 +1,99 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="hrGradeSetup.id == null" class="modal-title" id="myHrGradeSetupLabel"
+            translate="stepApp.hrGradeSetup.home.createOrEditLabel">Create or edit a HrGradeSetup</h4>
+        <h4 ng-show="hrGradeSetup.id != null" class="modal-title" id="myHrGradeSetupLabel2"
+            translate="stepApp.hrGradeSetup.home.EditLabel">Create or edit a HrGradeSetup</h4>
+        <div class="modal-body col-md-12 padding-tb">
+            <jh-alert-error></jh-alert-error>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.hrGradeSetup.classInfo" for="field_classInfo">classInfo</label>
+                        <select class="form-control" id="field_classInfo" name="classInfo"
+                                ng-model="hrGradeSetup.classInfo"
+                                ng-options="HrClassInfo as HrClassInfo.className for HrClassInfo in hrclassinfos track by HrClassInfo.id"
+                                required>
+                            <option value="">Select Class Information</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrGradeSetup.gradeCode" for="field_gradeCode">GradeCode</label>
+                        <input type="text" class="form-control" name="gradeCode" id="field_gradeCode"
+                               ng-model="hrGradeSetup.gradeCode"
+                               ng-remote-validate="/api/hrGradeSetups/checkcode/"
+                               ng-remote-method="GET"
+                               ng-remote-throttle="500"
+                               required/>
+                        <span class="message" ng-show="editForm.gradeCode.$pending">validating...</span>
+                        <div ng-show="editForm.gradeCode.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.gradeCode.$error.ngRemoteValidate">
+                                Grade code already exists
+                            </p>
+                        </div>
+                        <div ng-show="editForm.gradeCode.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.gradeCode.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrGradeSetup.gradeDetail"
+                               for="field_gradeDetail">GradeDetail</label>
+                    <textarea type="text" class="form-control" name="gradeDetail" id="field_gradeDetail"
+                              ng-model="hrGradeSetup.gradeDetail" ng-maxlength="200"></textarea>
+                        <div ng-show="editForm.gradeDetail.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.gradeDetail.$error.maxlength" translate="entity.validation.maxlength"
+                               translate-value-max="200">
+                                This field cannot be longer than 200 characters.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrGradeSetup.activeStatus">ActiveStatus</label>
+                <span class="form-control">
+                    <input type="radio" data-ng-model="hrGradeSetup.activeStatus" name="activeStatus"
+                           data-ng-value="true">&nbsp;Active&nbsp;|&nbsp;
+                    <input type="radio" data-ng-model="hrGradeSetup.activeStatus" name="activeStatus"
+                           data-ng-value="false">&nbsp;Inactive
+                </span>
+                        <div ng-show="editForm.activeStatus.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" class="btn " data-dismiss="modal"
+                    onclick="window.history.back()">
+                <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;<span
+                translate="entity.action.back">Back</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="hrGradeSetup.id == null" translate="entity.action.save">Save</span>
+                <span ng-show="hrGradeSetup.id != null" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

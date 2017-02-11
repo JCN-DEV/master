@@ -1,0 +1,179 @@
+<form class="col-sm-12 no_padding" name="editForm" role="form" novalidate ng-submit="save()">
+    <div class="modal-header">
+        <h4 ng-show="risNewVacancy.id == null" class="modal-title" id="myRisNewVacancyLabel" translate="stepApp.risNewVacancy.home.createOrEditLabel">Create or edit a RisNewVacancy</h4>
+        <h4 ng-show="risNewVacancy.id != null" class="modal-title" id="myRisNewVacancyLabel" translate="stepApp.risNewVacancy.home.EditLabel">Create or edit a RisNewVacancy</h4>
+    </div>
+    <div  class="modal-body col-sm-12 no_padding">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group col-sm-6">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="risNewVacancy.id" readonly />
+        </div>
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.risNewVacancy.vacancyNo" for="field_vacancyNo">VacancyNo</label>
+            <input type="number" class="form-control" name="vacancyNo" id="field_vacancyNo"
+                    ng-model="risNewVacancy.vacancyNo"
+                   ng-minlength="1" min="1"/>
+        </div>
+        <div class="col-sm-12">
+            <br>
+        </div>
+        <div class="form-group col-sm-12">
+            <label translate="stepApp.risNewVacancy.educationalQualification" for="field_educationalQualification">EducationalQualification</label>
+             <textarea type="text" class="form-control" name="educationalQualification" id="field_educationalQualification"
+                       ng-model="risNewVacancy.educationalQualification" ng-trim = "false"
+                       cols="20" rows="4" maxlength="100"> </textarea>
+        </div>
+        <div class="form-group col-sm-12">
+            <label translate="stepApp.risNewVacancy.otherQualification" for="field_otherQualification">OtherQualification</label>
+            <textarea type="text" class="form-control" name="otherQualification" id="field_otherQualification"
+                    ng-model="risNewVacancy.otherQualification"
+                      cols="20" rows="4" maxlength="100"> </textarea>
+        </div>
+        <div class="form-group col-sm-12">
+            <label translate="stepApp.risNewVacancy.remarks" for="field_remarks">Remarks</label>
+            <textarea type="text" class="form-control" name="remarks" id="field_remarks"
+                    ng-model="risNewVacancy.remarks"  cols="20" rows="4" maxlength="100">
+                   </textarea>
+        </div>
+    <div class="col-sm-12">
+        <br>
+    </div>
+
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.risNewVacancy.publishDate" for="field_publishDate">PublishDate</label>
+            <div class="input-margin">
+                <input type="text" datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.publishDate"
+                       datepicker-options="calendar.dateOptions" close-text="Close"
+                       ng-click="calendar.open($event, 'publishDate')" class="form-control" name="publishDate" id="field_publishDate"
+                       ng-model="risNewVacancy.publishDate"
+                       required
+                       placeholder="Published Date"
+                />
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.risNewVacancy.applicationDate" for="field_applicationDate">ApplicationDate</label>
+            <input type="text" datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.applicationDate"
+                   datepicker-options="calendar.dateOptions" close-text="Close"
+                   ng-click="calendar.open($event, 'applicationDate')" class="form-control" name="applicationDate" id="field_applicationDate"
+                   ng-model="risNewVacancy.applicationDate"
+                   required
+                   placeholder="Published Date"
+            />
+        </div>
+
+
+
+        <!--<div class="form-group col-sm-6" ngf-drop ngf-change="setAttachment($file, risNewVacancy)">
+            <label translate="stepApp.risNewVacancy.attachment" for="field_attachment">Attachment</label>
+            <div>
+                <div class="help-block clearfix">
+                    <span class="pull-left">{{risNewVacancy.attachmentContentType}} {{byteSize(risNewVacancy.attachment)}}</span>
+                    <button ng-click="risNewVacancy.attachment=null;risNewVacancy.attachmentContentType=null;"
+                            ng-if="risNewVacancy.attachment"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="file" ngf-select class="btn btn-default btn-block"
+                        ngf-change="setAttachment($file, risNewVacancy)" translate="entity.action.addblob">
+                    Add Attachment
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="attachment" id="field_attachment"
+                    ng-model="risNewVacancy.attachment"
+                     />
+            <input type="hidden" class="form-control" name="attachmentContentType" id="field_attachmentContentType"
+                    ng-model="risNewVacancy.attachmentContentType" />
+        </div>-->
+
+        <div class="col-md-6">
+            <div class="form-group" ngf-drop ngf-change="setAttachment($file, risNewVacancy)">
+                <div class="col-sm-12 no_padding">
+                    <label translate="stepApp.risNewVacancy.attachment" for="field_attachment">Attachment</label>
+                    <div>
+                        <div class="help-block clearfix">
+                            <span class="pull-left">{{risNewVacancy.attachmentContentType}} {{byteSize(risNewVacancy.attachment)}}</span>
+                            <button ng-click="risNewVacancy.attachment=null;risNewVacancy.attachmentContentType=null;"
+                                    ng-if="risNewVacancy.attachment"
+                                    class="btn btn-default btn-xs pull-right">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" readonly name="attachmentImgName" ng-model="risNewVacancy.attachmentImgName" class="form-control" placeholder="Search for...">
+                              <span class="input-group-btn">
+                                <button ngf-select ngf-change="setAttachment($file, risNewVacancy)" accept=".jpeg,.png,.jpg"
+                                        ng-show="!fileUploadFinished"
+                                        translate="entity.action.addblob" class="btn btn-default" type="button">Go!</button>
+                              </span>
+                        </div>
+                        <div class="col-md-2" ng-show="risNewVacancy.attachmentImgName!=null && risNewVacancy.attachment.id!=null">
+                            <a class="download-afl btn btn-primary" href="/assets/uploadedContents/digiSignature/{{risNewVacancy.attachmentImgName}}"  class="btn btn-primary" download>Download
+                            </a>
+                        </div>
+                        <input type="hidden" class="form-control" name="attachment" id="field_attachment"
+                               ng-model="risNewVacancy.attachment"
+                        />
+                        <input type="hidden" class="form-control" name="attachmentContentType" id="field_attachmentContentType"
+                               ng-model="risNewVacancy.attachmentContentType" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.risNewVacancy.createdDate" for="field_createdDate">CreatedDate</label>
+            <input type="date" class="form-control" name="createdDate" id="field_createdDate"
+                    ng-model="risNewVacancy.createdDate"
+                     />
+
+        </div>
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.risNewVacancy.updatedDate" for="field_updatedDate">UpdatedDate</label>
+            <input type="date" class="form-control" name="updatedDate" id="field_updatedDate"
+                    ng-model="risNewVacancy.updatedDate"
+                     />
+        </div>
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.risNewVacancy.createdBy" for="field_createdBy">CreatedBy</label>
+            <input type="number" class="form-control" name="createdBy" id="field_createdBy"
+                    ng-model="risNewVacancy.createdBy"
+                     />
+        </div>
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.risNewVacancy.updatedBy" for="field_updatedBy">UpdatedBy</label>
+            <input type="number" class="form-control" name="updatedBy" id="field_updatedBy"
+                    ng-model="risNewVacancy.updatedBy"
+                     />
+        </div>
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.risNewVacancy.status" for="field_status">Status</label>
+            <input type="number" class="form-control" name="status" id="field_status"
+                    ng-model="risNewVacancy.status"
+                     />
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.risNewVacancy.department" for="field_department">department</label>
+            <select class="form-control" id="field_department" name="department" ng-model="risNewVacancy.department" ng-options="HrDepartmentSetup as HrDepartmentSetup.departmentName for HrDepartmentSetup in hrdepartmentsetups track by HrDepartmentSetup.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer col-sm-12 no_padding">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

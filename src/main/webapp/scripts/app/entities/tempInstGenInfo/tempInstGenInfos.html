@@ -1,0 +1,96 @@
+<div>
+    <h2 translate="stepApp.tempInstGenInfo.home.title">TempInstGenInfos</h2>
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" ui-sref="tempInstGenInfo.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="stepApp.tempInstGenInfo.home.createLabel">Create a new TempInstGenInfo</span>
+                </button>
+            </div>
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a TempInstGenInfo</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="global.field.id">ID</th>
+                    <th translate="stepApp.tempInstGenInfo.name">Name</th>
+                    <th translate="stepApp.tempInstGenInfo.type">Type</th>
+                    <th translate="stepApp.tempInstGenInfo.village">Village</th>
+                    <th translate="stepApp.tempInstGenInfo.postOffice">PostOffice</th>
+                    <th translate="stepApp.tempInstGenInfo.postCode">PostCode</th>
+                    <th translate="stepApp.tempInstGenInfo.landPhone">LandPhone</th>
+                    <th translate="stepApp.tempInstGenInfo.mobileNo">MobileNo</th>
+                    <th translate="stepApp.tempInstGenInfo.email">Email</th>
+                    <th translate="stepApp.tempInstGenInfo.consArea">ConsArea</th>
+                    <th translate="stepApp.tempInstGenInfo.update">Update</th>
+                    <th translate="stepApp.tempInstGenInfo.instituteInfo">instituteInfo</th>
+                    <th translate="stepApp.tempInstGenInfo.upazila">upazila</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="tempInstGenInfo in tempInstGenInfos track by tempInstGenInfo.id">
+                    <td><a ui-sref="tempInstGenInfo.detail({id:tempInstGenInfo.id})">{{tempInstGenInfo.id}}</a></td>
+                    <td>{{tempInstGenInfo.name}}</td>
+                    <td translate="{{'stepApp.instType.' + tempInstGenInfo.type}}">{{tempInstGenInfo.type}}</td>
+                    <td>{{tempInstGenInfo.village}}</td>
+                    <td>{{tempInstGenInfo.postOffice}}</td>
+                    <td>{{tempInstGenInfo.postCode}}</td>
+                    <td>{{tempInstGenInfo.landPhone}}</td>
+                    <td>{{tempInstGenInfo.mobileNo}}</td>
+                    <td>{{tempInstGenInfo.email}}</td>
+                    <td>{{tempInstGenInfo.consArea}}</td>
+                    <td>{{tempInstGenInfo.update}}</td>
+                    <td>
+                        <a ui-sref="instituteInfo.detail({id:tempInstGenInfo.instituteInfo.id})">{{tempInstGenInfo.instituteInfo.code}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="upazila.detail({id:tempInstGenInfo.upazila.id})">{{tempInstGenInfo.upazila.name}}</a>
+                    </td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="tempInstGenInfo.detail({id:tempInstGenInfo.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="tempInstGenInfo.edit({id:tempInstGenInfo.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="tempInstGenInfo.delete({id:tempInstGenInfo.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pagination">
+                <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                <li class="active"><a>{{page + 1}}</a></li>
+                <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>

@@ -1,0 +1,83 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="trainingHeadSetup.id == null" class="modal-title" id="myTrainingHeadSetupLabel"
+            translate="stepApp.trainingHeadSetup.home.createOrEditLabel">Create a TrainingHeadSetup</h4>
+        <h4 ng-show="trainingHeadSetup.id != null" class="modal-title" id="myTrainingHeadSetupLabel"
+            translate="stepApp.trainingHeadSetup.home.EditLabel">Edit a TrainingHeadSetup</h4>
+        <div class="modal-body col-md-12 padding-tb">
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.trainingHeadSetup.headName" for="field_headName">HeadName</label>
+                    <input type="text" class="form-control" name="headName" id="field_headName"
+                           ng-model="trainingHeadSetup.headName"
+                           ng-remote-validate = "/api/trainingHeadSetups/isHeadNameUnique/"
+                           ng-remote-method="GET"
+                           required ng-maxlength="100" placeholder="{{'stepApp.trainingHeadSetup.headName' | translate}}"/>
+                    <div ng-show="editForm.headName.$invalid">
+                        <p style="color:red"
+                           ng-show="editForm.headName.$error.ngRemoteValidate">
+                            This Training Name is already exist
+                        </p>
+                        <p class="help-block"
+                           ng-show="editForm.headName.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                        <p class="help-block"
+                           ng-show="editForm.headName.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="100">
+                            This field cannot be longer than 100 characters.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.trainingHeadSetup.status">ActiveStatus</label>
+                <span class="form-control">
+                    <input type="radio" data-ng-model="trainingHeadSetup.status" name="status"
+                           data-ng-value="true" ng-checked="true">&nbsp;<span translate="stepApp.trainingHeadSetup.active"></span>&nbsp;|&nbsp;
+                    <input type="radio" data-ng-model="trainingHeadSetup.status" name="status"
+                           data-ng-value="false">&nbsp;<span translate="stepApp.trainingHeadSetup.inactive"></span>
+                </span>
+                    <div ng-show="editForm.status.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.status.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.trainingHeadSetup.description"
+                           for="field_description">Description</label>
+                    <textarea type="text" class="form-control" name="description" id="field_description"
+                              ng-model="trainingHeadSetup.description"
+                              ng-maxlength="100" rows="2" cols="30" placeholder="{{'stepApp.trainingHeadSetup.description' | translate}}"></textarea>
+                    <div ng-show="editForm.description.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.description.$error.maxlength" translate="entity.validation.maxlength"
+                           translate-value-max="250">
+                            This field cannot be longer than 250 characters.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer col-md-12 padding-tb">
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="trainingHeadSetup.id == null" translate="entity.action.save">Save</span>
+                <span ng-show="trainingHeadSetup.id != null" translate="entity.action.update">Update</span>
+            </button>
+        </div>
+    </form>
+</div>

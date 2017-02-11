@@ -1,0 +1,161 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation xmlns="http://www.w3.org/1999/html">
+        <h4 ng-show="almEmpLeaveTypeMap.id == null" class="modal-title" id="myAlmEmpLeaveTypeMapLabel"
+            translate="stepApp.almEmpLeaveTypeMap.home.createOrEditLabel">Create or edit a AlmEmpLeaveTypeMap</h4>
+        <h4 ng-show="almEmpLeaveTypeMap.id != null" class="modal-title" id="myAlmEmpLeaveTypeMapLabel"
+            translate="stepApp.almEmpLeaveTypeMap.home.EditLabel">Create or edit a AlmEmpLeaveTypeMap</h4>
+        <div class="modal-body">
+            <jh-alert-error></jh-alert-error>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" for="field_workArea" translate="stepApp.almEmpLeaveTypeMap.workarea">Work Area</label>
+                    <select class="form-control" id="field_workArea" name="workArea" ng-model="workArea" ng-change="loadModelByWorkArea(workArea)"
+                            ng-options="MiscTypeSetup as MiscTypeSetup.typeName for MiscTypeSetup in workAreaList track by MiscTypeSetup.id">
+                        <option value="">Select Work Area</option>
+                    </select>
+                    <span class="help">No of Employee: {{hremployeeinfos.length}}</span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.almEmpLeaveTypeMap.employeeInfo"
+                           for="field_employeeInfo">employeeInfo</label>
+                    <input type="text" class="form-control autocomplete" autocomplete="off"
+                           tooltip="{{'stepApp.almEmpLeaveTypeMap.employeeInfo' | translate}}"
+                           placeholder="{{'stepApp.almEmpLeaveTypeMap.employeeInfo' | translate}}"
+                           ng-model="almEmpLeaveTypeMap.employeeInfo"
+                           typeahead='HrEmployeeInfo as (HrEmployeeInfo.fullName + " - " + HrEmployeeInfo.employeeId) for HrEmployeeInfo in hremployeeinfos | filter:$viewValue'
+                           id="field_employeeInfo" required>
+
+                </div>
+            </div>
+
+            <!--<div class="col-md-6">-->
+            <!--<div class="form-group ">-->
+            <!--<label translate="stepApp.almEmpLeaveTypeMap.departmentName" for="field_almLeaveType">Department</label>-->
+            <!--<span class="form-control">{{departmentName}}</span>-->
+
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="col-md-6">-->
+            <!--<div class="form-group ">-->
+            <!--<label translate="stepApp.almEmpLeaveTypeMap.designationName" for="field_almLeaveType">Designation</label>-->
+            <!--<span class="form-control">{{designationName}}</span>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!-- <div class="form-group">
+                 <label translate="stepApp.almEmpLeaveTypeMap.almLeaveGroup" for="field_almLeaveGroup">almLeaveGroup</label>
+                 <span class="form-control">{{almLeaveGroup.leaveGroupName}}</span>
+                 <input type="hidden" class="form-control" name="almLeaveGroup" id="field_almLeaveGroup"
+                        ng-model="almEmpLeaveTypeMap.almLeaveGroup"
+                     />
+             </div>-->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.almEmpLeaveTypeMap.almLeaveType"
+                           for="field_almLeaveType">almLeaveType</label>
+                    <select class="form-control" id="field_almLeaveType" ng-change="getEmpLeaveBalanceInfoByType()"
+                            tooltip="{{'stepApp.almEmpLeaveTypeMap.almLeaveType' | translate}}"
+                            name="almLeaveType" ng-model="almEmpLeaveTypeMap.almLeaveType"
+                            ng-options="AlmLeaveType as AlmLeaveType.leaveTypeName for AlmLeaveType in almleavetypes track by AlmLeaveType.id"
+                            required>
+                        <option value="" translate="stepApp.almEmpLeaveTypeMap.almLeaveType"> Select Leave Type</option>
+                    </select>
+                    <div ng-show="!isGenderCheck">
+                        <p style="color: red">{{genderErrorMessage}}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!--<div class="form-group">-->
+            <!--<label translate="stepApp.almEmpLeaveTypeMap.effectiveDate" for="field_effectiveDate">EffectiveDate</label>-->
+            <!--<input type="date" class="form-control" name="effectiveDate" id="field_effectiveDate"-->
+            <!--ng-model="almEmpLeaveTypeMap.effectiveDate"-->
+            <!--/>-->
+            <!--</div>-->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.almEmpLeaveTypeMap.currentBalance" for="field_currentBalance">CurrentBalance</label>
+                    <input type="number" class="form-control" readonly="readonly" name="currentBalance"
+                           id="field_currentBalance"
+                           ng-model="almEmpLeaveTypeMap.currentBalance"
+                           tooltip="{{'stepApp.almEmpLeaveTypeMap.currentBalance' | translate}}"
+                           placeholder="{{'stepApp.almEmpLeaveTypeMap.currentBalance' | translate}}"
+                    />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.almEmpLeaveTypeMap.newBalance" for="field_newBalance">NewBalance</label>
+                    <input type="number" class="form-control" name="newBalance" id="field_newBalance"
+                           ng-model="almEmpLeaveTypeMap.newBalance" required
+                           tooltip="{{'stepApp.almEmpLeaveTypeMap.newBalance' | translate}}"
+                           placeholder="{{'stepApp.almEmpLeaveTypeMap.newBalance' | translate}}"
+                    />
+                    <div ng-show="editForm.newBalance.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.newBalance.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.almEmpLeaveTypeMap.isAddition" for="field_isAddition">IsAddition</label>
+            <span class="form-control">
+                    <input tooltip="{{'stepApp.almEmpLeaveTypeMap.isAddition' | translate}}" type="radio"
+                           data-ng-model="almEmpLeaveTypeMap.isAddition" name="isAddition"
+                           data-ng-value="true">&nbsp;Addition&nbsp;|&nbsp;
+                    <input tooltip="{{'stepApp.almEmpLeaveTypeMap.isAddition' | translate}}" type="radio"
+                           data-ng-model="almEmpLeaveTypeMap.isAddition" name="isAddition"
+                           data-ng-value="false">&nbsp;Subtraction
+                </span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.almEmpLeaveTypeMap.reason" for="field_reason">Reason</label>
+                <textarea type="text" class="form-control" name="reason" id="field_reason"
+                          ng-model="almEmpLeaveTypeMap.reason"
+                          tooltip="{{'stepApp.almEmpLeaveTypeMap.reason' | translate}}"
+                          placeholder="{{'stepApp.almEmpLeaveTypeMap.reason' | translate}}"
+                          cols="30" rows="3"
+                ></textarea>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.almEmpLeaveTypeMap.activeStatus"
+                           for="field_activeStatus">ActiveStatus</label>
+            <span class="form-control">
+                    <input tooltip="{{'stepApp.almEmpLeaveTypeMap.activeStatus' | translate}}" type="radio"
+                           data-ng-model="almEmpLeaveTypeMap.activeStatus" name="activeStatus"
+                           data-ng-value="true">&nbsp;Active&nbsp;|&nbsp;
+                    <input tooltip="{{'stepApp.almEmpLeaveTypeMap.activeStatus' | translate}}" type="radio"
+                           data-ng-model="almEmpLeaveTypeMap.activeStatus" name="activeStatus"
+                           data-ng-value="false">&nbsp;Inactive
+                </span>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-md-12">
+            <div class="modal-footer">
+                <button type="button" onclick="window.history.back()" class="btn btn-info">
+                    <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span
+                    translate="entity.action.back"> Back</span>
+                </button>
+                <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted || !isGenderCheck"
+                        class="btn btn-primary">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;
+                    <span ng-show="almEmpLeaveTypeMap.id == null" translate="entity.action.save">Save</span>
+                    <span ng-show="almEmpLeaveTypeMap.id != null" translate="entity.action.update">Save</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,109 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="hrEmplTypeInfo.id == null" class="modal-title" id="myHrEmplTypeInfoLabel"
+            translate="stepApp.hrEmplTypeInfo.home.createOrEditLabel">Create or edit a HrEmplTypeInfo</h4>
+        <h4 ng-show="hrEmplTypeInfo.id != null" class="modal-title" id="myHrEmplTypeInfoLabel"
+            translate="stepApp.hrEmplTypeInfo.home.EditLabel">Add HrEmplTypeInfo</h4>
+        <div class="modal-body col-md-12 padding-tb">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group ">
+                        <label class="control-label" translate="stepApp.hrEmplTypeInfo.typeCode" for="field_typeCode">TypeCode</label>
+                        <input type="text" class="form-control" name="typeCode" id="field_typeCode"
+                               ng-model="hrEmplTypeInfo.typeCode"
+                               ng-remote-validate="/api/hrEmplTypeInfos/checkcode/"
+                               ng-remote-method="GET"
+                               ng-remote-throttle="500"
+                               required/>
+                        <span class="message" ng-show="editForm.typeCode.$pending">validating...</span>
+                        <div ng-show="editForm.typeCode.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.typeCode.$error.ngRemoteValidate">
+                                Type code already exists
+                            </p>
+                        </div>
+                        <div ng-show="editForm.typeCode.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.typeCode.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmplTypeInfo.typeName" for="field_typeName">TypeName</label>
+                        <input type="text" class="form-control" name="typeName" id="field_typeName"
+                               ng-model="hrEmplTypeInfo.typeName"
+                               ng-remote-validate="/api/hrEmplTypeInfos/checkname/"
+                               ng-remote-method="GET"
+                               ng-remote-throttle="500"
+                               required/>
+                        <span class="message" ng-show="editForm.typeName.$pending">validating...</span>
+                        <div ng-show="editForm.typeName.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.typeName.$error.ngRemoteValidate">
+                                Type name already exists !!!
+                            </p>
+                        </div>
+                        <div ng-show="editForm.typeName.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.typeName.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmplTypeInfo.typeDetail"
+                               for="field_typeDetail">TypeDetail</label>
+                    <textarea class="form-control" name="typeDetail" id="field_typeDetail"
+                              ng-model="hrEmplTypeInfo.typeDetail" ng-maxlength="200"></textarea>
+                        <div ng-show="editForm.typeDetail.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.typeDetail.$error.maxlength" translate="entity.validation.maxlength"
+                               translate-value-max="200">
+                                This field cannot be longer than 200 characters.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label"
+                               translate="stepApp.hrEmplTypeInfo.activeStatus">ActiveStatus</label>
+                <span class="form-control">
+                    <input type="radio" data-ng-model="hrEmplTypeInfo.activeStatus" name="activeStatus"
+                           data-ng-value="true">&nbsp;<span translate="stepApp.hrEmplTypeInfo.active"></span>&nbsp;|&nbsp;
+                    <input type="radio" data-ng-model="hrEmplTypeInfo.activeStatus" name="activeStatus"
+                           data-ng-value="false">&nbsp;<span translate="stepApp.hrEmplTypeInfo.inactive"></span>
+                </span>
+                        <div ng-show="editForm.activeStatus.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>z
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" class="btn " data-dismiss="modal"
+                    onclick="window.history.back()">
+                <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;<span
+                translate="entity.action.back">Back</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="hrEmplTypeInfo.id == null" translate="entity.action.save">Save</span>
+                <span ng-show="hrEmplTypeInfo.id != null" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

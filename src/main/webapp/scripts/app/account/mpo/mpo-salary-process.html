@@ -1,0 +1,131 @@
+<!--
+
+    <div class="col-md-3">
+        <ng-include src="'scripts/app/account/mpo/mpo-left-menu.html'"></ng-include>
+    </div>
+-->
+
+    <div class="modal fade" id="confirmationProcess">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title">Process Confirmation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Process Executed</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+           <div class="col-sm-12 common-list no_padding">
+                        <h2 class="heading_center" translate="stepApp.employee.ProcessSalary">Process Salary</h2>
+
+
+                <div class="panel-body">
+                    <form name="search-form" class="form-horizontal form col-sm-12">
+
+                        <div class="form-group my_form_group">
+                            <label class="col-sm-3 control-label my_control_lebel" translate="stepApp.employee.salaryMonth"
+                                   for="field_code">Teacher Code</label>
+
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <!--<input type="text" class="form-control my_form_control" name="name" id="field_code"
+                                           ng-model="search.code"
+                                           required ng-minlength="2"
+                                           placeholder="{{'stepApp.employee.year' | translate}}"
+                                            />-->
+                                    <select class="form-control" id="field_attachment" name="attachment"
+                                            ng-model="month"
+                                            >yearList
+                                        <option value="" selected="selected" >Select Month</option>
+                                        <option ng-repeat="month in monthList"  value="{{month}}"> {{month}} </option>
+                                        <!--<option value="" selected="selected" >Select Month</option>
+                                        <option value="" selected="selected" >January</option>
+                                        <option value="" selected="selected" >February</option>
+                                        <option value="" selected="selected" >March</option>
+                                        <option value="" selected="selected" >April</option>
+                                        <option value="" selected="selected" >May</option>
+                                        <option value="" selected="selected" >June</option>
+                                        <option value="" selected="selected" >July</option>
+                                        <option value="" selected="selected" >August</option>
+                                        <option value="" selected="selected" >September</option>
+                                        <option value="" selected="selected" >October</option>
+                                        <option value="" selected="selected" >November</option>
+                                        <option value="" selected="selected" >December</option>-->
+                                    </select>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group my_form_group">
+                            <label class="col-sm-3 control-label my_control_lebel" translate="stepApp.employee.year"
+                                   for="field_code">year</label>
+
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <select class="form-control" id="field_year" name="attachment"
+                                            ng-model="year"
+                                           >
+
+                                        <option value="" selected="selected" >Select Year</option>
+                                        <option ng-repeat="year in yearList"  value="{{year}}"> {{year}} </option>
+
+                                    </select>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group my_form_group">
+
+                            <label class="col-sm-3 control-label my_control_lebel" >&nbsp;</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <!--<span class="btn btn-primary pull-left text-left" ng-click="timescalePrev('attachment', 'education')" translate="{{'stepApp.employee.Previous'}}">Previous</span>-->
+
+                                    <button ng-disabled="mpoFormHasError" ng-click="checkMonthAndSalary(year,month)" type="submit" class="btn btn-primary">
+                                        <span class="glyphicon glyphicon-ok-sign"></span>&nbsp;<span
+                                            translate="global.menu.processSalary">Process Salary</span>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!--<div class="col-sm-12">
+                            <div class="form-group my_form_group">
+                                <br/>
+
+                                <div class="col-lg-12 pull-right text-right">
+                                    &lt;!&ndash;<span class="btn btn-primary pull-left text-left" ng-click="timescalePrev('attachment', 'education')" translate="{{'stepApp.employee.Previous'}}">Previous</span>&ndash;&gt;
+
+                                    <button ng-disabled="mpoFormHasError" type="submit" class="btn btn-primary">
+                                        <span class="glyphicon glyphicon-ok-sign"></span>&nbsp;<span
+                                            translate="global.menu.processSalary">Process Salary</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>-->
+
+                    </form>
+
+                </div>
+            </div>
+
+
+            </div>
+        </div>

@@ -1,0 +1,151 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="hrEntertainmentBenefit.id == null" class="modal-title"
+            translate="stepApp.hrEntertainmentBenefit.home.createOrEditLabel">Create or edit a
+            HrEntertainmentBenefit</h4>
+        <h4 ng-show="hrEntertainmentBenefit.id != null" class="modal-title"
+            translate="stepApp.hrEntertainmentBenefit.home.EditLabel">Create or edit a HrEntertainmentBenefit</h4>
+        <div class="modal-body col-md-12 padding-tb">
+            <jh-alert-error></jh-alert-error>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label class="control-label" for="field_workArea"><span
+                        translate="stepApp.hrEntertainmentBenefit.workarea"> Work Area</span></label>
+                    <select class="form-control" id="field_workArea" name="workArea" ng-model="workArea"
+                            ng-change="loadModelByWorkArea(workArea)"
+                            ng-options="MiscTypeSetup as MiscTypeSetup.typeName for MiscTypeSetup in workAreaList track by MiscTypeSetup.id">
+                        <option value="">Select Work Area</option>
+                    </select>
+                    <span class="help">No of Employee: {{hremployeeinfos.length}}</span>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEntertainmentBenefit.employeeInfo"
+                           for="field_employeeInfo">employeeInfo</label>
+                    <div class="input-margin">
+                        <input type="text" class="form-control autocomplete" autocomplete="off"
+                               ng-model="hrEntertainmentBenefit.employeeInfo"
+                               typeahead='HrEmployeeInfo as (HrEmployeeInfo.fullName + " " + HrEmployeeInfo.employeeId) for HrEmployeeInfo in hremployeeinfos | filter:$viewValue'
+                               id="field_employeeInfo" required>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEntertainmentBenefit.jobCategory"
+                           for="field_jobCategory">jobCategory</label>
+                    <div class="input-margin">
+                        <select class="form-control" id="field_jobCategory" name="jobCategory"
+                                ng-model="hrEntertainmentBenefit.jobCategory"
+                                ng-options="MiscTypeSetup as MiscTypeSetup.typeName for MiscTypeSetup in misctypesetups track by MiscTypeSetup.id">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEntertainmentBenefit.eligibilityDate"
+                           for="field_eligibilityDate">EligibilityDate</label>
+                    <div class="input-margin">
+                        <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.eligibilityDate"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               ng-click="calendar.open($event, 'eligibilityDate')" class="form-control"
+                               name="eligibilityDate" id="field_eligibilityDate"
+                               ng-model="hrEntertainmentBenefit.eligibilityDate" required/>
+                        <div ng-show="editForm.eligibilityDate.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.eligibilityDate.$error.required"
+                               translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEntertainmentBenefit.amount" for="field_amount">Amount</label>
+                    <div class="input-margin">
+                        <input type="number" class="form-control" name="amount" id="field_amount"
+                               ng-model="hrEntertainmentBenefit.amount" required/>
+                        <div ng-show="editForm.amount.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.amount.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                            <p class="help-block"
+                               ng-show="editForm.amount.$error.number" translate="entity.validation.number">
+                                This field should be a number.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEntertainmentBenefit.totalDays"
+                           for="field_totalDays">TotalDays</label>
+                    <div class="input-margin">
+                        <input type="number" class="form-control" name="totalDays" id="field_totalDays"
+                               ng-model="hrEntertainmentBenefit.totalDays" required/>
+                        <div ng-show="editForm.totalDays.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.totalDays.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                            <p class="help-block"
+                               ng-show="editForm.totalDays.$error.number" translate="entity.validation.number">
+                                This field should be a number.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="form-group col-sm-6">
+                    <label class="control-label" translate="stepApp.hrEntertainmentBenefit.notTakenReason"
+                           for="field_notTakenReason">NotTakenReason</label>
+                    <div class="input-margin">
+                        <input type="text" class="form-control" name="notTakenReason" id="field_notTakenReason"
+                               ng-model="hrEntertainmentBenefit.notTakenReason"/>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-6">
+                    <label class="control-label"
+                           translate="stepApp.hrEntertainmentBenefit.activeStatus">ActiveStatus</label>
+                    <div class="input-margin">
+                    <span>
+                        <input type="radio" data-ng-model="hrEntertainmentBenefit.activeStatus" name="activeStatus"
+                               data-ng-value="true">&nbsp;Active&nbsp;|&nbsp;
+                        <input type="radio" data-ng-model="hrEntertainmentBenefit.activeStatus" name="activeStatus"
+                               data-ng-value="false">&nbsp;Inactive
+                    </span>
+                        <div ng-show="editForm.activeStatus.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" class="btn " data-dismiss="modal"
+                    onclick="window.history.back()">
+                <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;<span
+                translate="entity.action.back">Back</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="hrEntertainmentBenefit.id == null" translate="entity.action.save">Save</span>
+                <span ng-show="hrEntertainmentBenefit.id != null" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

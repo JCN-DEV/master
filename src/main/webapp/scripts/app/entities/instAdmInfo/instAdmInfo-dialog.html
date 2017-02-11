@@ -1,0 +1,88 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" class="panel panel-primary" novalidate ng-submit="save()" show-validation>
+        <h4 translate="stepApp.instAdmInfo.home.createOrEditLabel">Add InstAdmInfo</h4>
+        <div class="panel-body col-md-12 no_padding">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instAdmInfo.adminCounselorName" for="field_adminCounselorName">AdminCounselorName</label>
+                    <input type="text" class="form-control" name="adminCounselorName" id="field_adminCounselorName"
+                           ng-model="instAdmInfo.adminCounselorName"
+                           required/>
+                    <div ng-show="editForm.adminCounselorName.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.adminCounselorName.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instAdmInfo.counselorMobileNo" for="field_counselorMobileNo">CounselorMobileNo</label>
+                    <input type="text" class="form-control" name="counselorMobileNo" id="field_counselorMobileNo"
+                           ng-model="instAdmInfo.counselorMobileNo"
+                    />
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instAdmInfo.insHeadName" for="field_insHeadName">InsHeadName</label>
+                    <input type="text" class="form-control" name="insHeadName" id="field_insHeadName"
+                           ng-model="instAdmInfo.insHeadName"
+                           required/>
+                    <div ng-show="editForm.insHeadName.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.insHeadName.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instAdmInfo.insHeadMobileNo"
+                           for="field_insHeadMobileNo">InsHeadMobileNo</label>
+                    <input type="text" class="form-control" name="insHeadMobileNo" id="field_insHeadMobileNo"
+                           ng-model="instAdmInfo.insHeadMobileNo"
+                           required/>
+                    <div ng-show="editForm.insHeadMobileNo.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.insHeadMobileNo.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instAdmInfo.deoName" for="field_deoName">DeoName</label>
+                    <input type="text" class="form-control" name="deoName" id="field_deoName"
+                           ng-model="instAdmInfo.deoName"
+                           required/>
+                    <div ng-show="editForm.deoName.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.deoName.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instAdmInfo.deoMobileNo" for="field_deoMobileNo">DeoMobileNo</label>
+                    <input type="text" class="form-control" name="deoMobileNo" id="field_deoMobileNo"
+                           ng-model="instAdmInfo.deoMobileNo"
+                    />
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" class="btn pull-left" data-dismiss="modal"
+                    onclick="window.history.back()">
+                <span class=" glyphicon glyphicon-arrow-left"></span>&nbsp;<span
+                translate="entity.action.back">Back</span>
+            </button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

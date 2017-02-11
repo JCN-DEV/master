@@ -1,0 +1,100 @@
+<div class="col-md-12 common-list">
+    <h2 translate="stepApp.hrEmpAdvIncrementInfo.home.title">HrEmpAdvIncrementInfos</h2>
+    <div class="col-md-12 padding-tb">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+        <div class="col-xs-4 no_padding text-right ">
+            <button class="btn btn-primary su_sea_pri" ui-sref="hrEmpAdvIncrementInfo.new">
+                <span class="glyphicon glyphicon-plus"></span> <span
+                translate="stepApp.hrEmpAdvIncrementInfo.home.createLabel">Create a new HrEmpAdvIncrementInfo</span>
+            </button>
+        </div>
+    </div>
+    <!--<jh-alert></jh-alert>-->
+    <!--<div class="col-sm-12 padding-tb no-print">
+        <div class="col-md-8 col-xs-12 no_padding">
+            <div class="col-md-6 no_padding">
+                <b>&lt;!&ndash;{{ (hrEmpAdvIncrementInfos | filter:q).length }}&ndash;&gt; <span translate="global.home.searchhere">Search Here :</span></b>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-search"
+                                                                         aria-hidden="true"></i></span>
+                    <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <b><span translate="global.home.itemperpage">Items per page:</span></b>
+                <div class="input-group">
+                    <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-xs-12 text-right no_padding dlbtn-top">
+            <button class="btn btn-primary su_sea_pri" ui-sref="hrEmpAdvIncrementInfo.new">
+                <span class="glyphicon glyphicon-plus"></span> <span
+                translate="stepApp.hrEmpAdvIncrementInfo.home.createLabel">Create a new HrEmpAdvIncrementInfo</span>
+            </button>
+        </div>
+    </div>-->
+
+    <div class="col-sm-12 table-responsive no_padding">
+        <table class="table table-striped table-responsive">
+            <thead>
+            <tr>
+                <th><span translate="global.form.serial">serial</span></th>
+                <th><span translate="global.field.id">ID</span></th>
+                <th><span translate="stepApp.hrEmpAdvIncrementInfo.employeeInfo">employeeInfo</span></th>
+                <th><span translate="stepApp.hrEmpAdvIncrementInfo.postName">PostName</span></th>
+                <th><span translate="stepApp.hrEmpAdvIncrementInfo.purpose">Purpose</span></th>
+                <th><span translate="stepApp.hrEmpAdvIncrementInfo.incrementAmount">IncrementAmount</span></th>
+                <th><span translate="stepApp.hrEmpAdvIncrementInfo.orderDate">OrderDate</span></th>
+                <th><span translate="stepApp.hrEmpAdvIncrementInfo.orderNumber">OrderNumber</span></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-animate="'animate'"
+                dir-paginate="hrEmpAdvIncrementInfo in hrEmpAdvIncrementInfos | filter:q | itemsPerPage: pageSize track by hrEmpAdvIncrementInfo.id"
+                current-page="currentPage">
+                <td>{{pageSize * (currentPage-1)+$index+1}}</td>
+                <td><a ui-sref="hrEmpAdvIncrementInfo.detail({id:hrEmpAdvIncrementInfo.id})">{{hrEmpAdvIncrementInfo.id}}</a>
+                </td>
+                <td>
+                    <a ui-sref="hrEmployeeInfo.detail({id:hrEmpAdvIncrementInfo.employeeInfo.id})">{{hrEmpAdvIncrementInfo.employeeInfo.fullName}}</a>
+                </td>
+                <td>{{hrEmpAdvIncrementInfo.postName}}</td>
+                <td>{{hrEmpAdvIncrementInfo.purpose}}</td>
+                <td>{{hrEmpAdvIncrementInfo.incrementAmount}}</td>
+                <td>{{hrEmpAdvIncrementInfo.orderDate | date:'mediumDate'}}</td>
+                <td>{{hrEmpAdvIncrementInfo.orderNumber}}</td>
+                <td class="text-right no-print">
+                    <button type="submit"
+                            ui-sref="hrEmpAdvIncrementInfo.detail({id:hrEmpAdvIncrementInfo.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit" ng-hide="true"
+                            ui-sref="hrEmpAdvIncrementInfo.edit({id:hrEmpAdvIncrementInfo.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                        translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit" ng-hide="true"
+                            ui-sref="hrEmpAdvIncrementInfo.delete({id:hrEmpAdvIncrementInfo.id})"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                        translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <nav class="no-print">
+        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                 template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+    </nav>
+</div>

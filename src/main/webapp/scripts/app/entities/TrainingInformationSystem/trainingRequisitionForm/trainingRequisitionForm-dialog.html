@@ -1,0 +1,245 @@
+<style>
+    #content form .panel-heading {
+        background: #95d097 none repeat scroll 0% 0% !important;
+        border: 0px;
+        border-radius: 0px;
+        color: #444;
+        padding: 5px;
+    }
+    #content form .panel{
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    }
+
+
+    .trainerinfo {
+        border-bottom: 1px solid #95d097;
+        padding: 5px 20px;
+        font-size: 12px;
+        position: relative;
+        z-index: 1;
+        color: #444;
+    }
+
+    .trainerinfo:before {
+        position: absolute;
+        content: "";
+        top: 0;
+        left: 0;
+        height: 24px;
+        width: 300px;
+        background: #95d097;
+        z-index: -1;
+        border-radius: 0px 100px 0px 0px;
+    }
+</style>
+
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+            <h4 ng-show="trainingRequisitionForm.id == null" class="modal-title" id="myTrainingRequisitionFormLabel" translate="stepApp.trainingRequisitionForm.home.createLabel">Create  TrainingRequisitionForm</h4>
+            <h4 ng-show="trainingRequisitionForm.id != null" class="modal-title" id="myTrainingRequisitionFormLabel" translate="stepApp.trainingRequisitionForm.home.EditLabel">Edit TrainingRequisitionForm</h4>
+        <div class="col-md-12 padding-tb">
+            <div class="panel panel-default">
+                <div class="panel-heading " translate="stepApp.trainingRequisitionForm.traininginfo">Training Information</div>
+                <div class="panel-body">
+                    <div class="form-group col-sm-6">
+                        <label translate="stepApp.trainingRequisitionForm.trainingCategorySetup" for="field_trainingCategorySetup">trainingCategorySetup</label>
+                        <select class="form-control" id="field_trainingCategorySetup" name="trainingCategorySetup" ng-model="trainingRequisitionForm.trainingCategorySetup" ng-options="trainingCategorySetup as trainingCategorySetup.categoryName for trainingCategorySetup in trainingcategorysetups track by trainingCategorySetup.id">
+                            <option disabled selected value="">{{'global.home.select' |translate}}</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-sm-6">
+                        <label translate="stepApp.trainingRequisitionForm.trainingHeadSetup" for="field_trainingHeadSetup">trainingHeadSetup</label>
+                        <select class="form-control" id="field_trainingHeadSetup" name="trainingHeadSetup" ng-model="trainingRequisitionForm.trainingHeadSetup" ng-options="trainingHeadSetup as trainingHeadSetup.headName for trainingHeadSetup in trainingheadsetups track by trainingHeadSetup.id">
+                            <option disabled selected value="">{{'global.home.select' |translate}}</option>
+                        </select>
+                    </div>
+
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label translate="stepApp.trainingRequisitionForm.trainingType" for="field_trainingType">Training Type</label>
+                            <div id="field_trainingType">
+                                <label class="radio-inline">
+                                    <input type="radio" name="trainingType" value="Local" ng-click="country=true"
+                                           ng-model="trainingRequisitionForm.trainingType" ng-checked="true">
+                                    <span translate="stepApp.trainingRequisitionForm.trainingTypeLocal">Local</span>
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="trainingType" value="Foreign" ng-click="country=false"
+                                           ng-model="trainingRequisitionForm.trainingType">
+                                    <span translate="stepApp.trainingRequisitionForm.trainingTypeForeign">Foreign</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-6" ng-hide="country">
+                        <label translate="stepApp.trainingRequisitionForm.country" for="field_country">Country</label>
+                        <select class="form-control" id="field_country" name="country" ng-model="trainingRequisitionForm.country" ng-options="country as country.name for country in countrys track by country.id">
+                            <option disabled selected value="">{{'global.home.selectcountry' |translate}}</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-sm-6">
+                        <label translate="stepApp.trainingRequisitionForm.session" for="field_session">Session</label>
+                        <input type="text" class="form-control" name="session" id="field_session"
+                               ng-model="trainingRequisitionForm.session" placeholder="{{'stepApp.trainingRequisitionForm.session' | translate}}"
+                            />
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading" translate="stepApp.trainingRequisitionForm.home.traineeInformation">Trainee Information</div>
+                <div class="panel-body " ng-repeat="traineeInformation in traineeInfos">
+                    <h2 class="trainerinfo" translate=" stepApp.trainingRequisitionForm.traineeinfo">Trainee Information</h2>
+                    <div ng-if="applyTypeDTE">
+                        <div class="form-group col-sm-6 ">
+                            <label translate="stepApp.trainingRequisitionForm.employeeId" for="field_employeeId">Employee ID</label>
+                            <input type="text" class="form-control autocomplete" name="employeeId" id="field_employeeId" ng-model="traineeInformation.hrEmployeeInfo"
+                                 autocomplete="off" typeahead='hrEmployeeInfo as (hrEmployeeInfo.fullName + " " + hrEmployeeInfo.employeeId) for hrEmployeeInfo in hremployeeinfos | filter:$viewValue'  required placeholder="{{'stepApp.trainingRequisitionForm.employeeId' | translate}}"/>
+                        </div>
+                        <div class="col-md-12">
+                            <table class="table">
+                                <tr>
+                                    <td translate="global.home.name">Name:</td>
+                                    <td>{{traineeInformation.hrEmployeeInfo.fullName}}</td>
+                                    <td translate="global.home.email"> Email:</td>
+                                    <td>{{traineeInformation.hrEmployeeInfo.emailAddress}}</td>
+                                </tr>
+                                <tr>
+                                    <td translate="global.home.section">Section: </td>
+                                    <td>{{traineeInformation.hrEmployeeInfo.departmentInfo.departmentInfo.departmentName}}</td>
+                                    <td translate="global.home.designation">Designation:</td>
+                                    <td>{{traineeInformation.hrEmployeeInfo.designationInfo.designationInfo.designationName}}</td>
+                                </tr>
+                                <tr>
+                                    <td translate="global.home.organization">Organization:</td>
+                                    <td>{{traineeInformation.hrEmployeeInfo.workAreaDtl.name}}</td>
+                                    <td translate="global.home.joiningdate">Joining Date: </td>
+                                    <td>{{traineeInformation.hrEmployeeInfo.apointmentGoDate}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                     </div>
+                    <div ng-if="applyTypeInstitute">
+                        <div class="form-group col-sm-6 ">
+                            <label translate="stepApp.trainingRequisitionForm.teacherId" for="field_employeeId">Teacher ID</label>
+                            <input type="text" class="form-control autocomplete" name="teacherId" id="field_teacherId" ng-model="traineeInformation.instEmployee"
+                                   autocomplete="off" typeahead='instEmployee as (instEmployee.name + " " + instEmployee.code) for instEmployee in instEmployeeinfos | filter:$viewValue'  required placeholder="{{'stepApp.trainingRequisitionForm.teacherId' | translate}}"/>
+                        </div>
+                        <div class="col-md-12">
+                            <table class="table">
+                                <tr>
+                                    <td translate="global.home.name">Name:</td>
+                                    <td>{{traineeInformation.instEmployee.name}}</td>
+                                    <td translate="global.home.email"> Email:</td>
+                                    <td>{{traineeInformation.instEmployee.email}}</td>
+                                </tr>
+                                <tr>
+                                    <td translate="global.home.section">Section: </td>
+                                    <td>{{traineeInformation.instEmployee.departmentInfo.departmentInfo.departmentName}}</td>
+                                    <td translate="global.home.designation">Designation:</td>
+                                    <td>{{traineeInformation.instEmployee.instEmplDesignation.name}}</td>
+                                </tr>
+                                <tr>
+                                    <td translate="global.home.organization">Organization:</td>
+                                    <td>{{traineeInformation.instEmployee.institute.name}}</td>
+                                    <td translate="global.home.joiningdate">Joining Date: </td>
+                                    <td>{{traineeInformation.instEmployee.applyDate}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+                <div style="margin-bottom: 15px" class="btn btn-primary" ng-click="AddMoreEmployee()">
+                <span class="glyphicon glyphicon-plus-sign"></span>&nbsp;<span translate="entity.action.addMore">Add More</span>
+                </div>
+
+<div class="panel panel-default">
+    <div class="panel-heading" translate="stepApp.trainingRequisitionForm.othersinfo">
+            Others Information
+    </div>
+    <div class="panel-body">
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.trainingRequisitionForm.applyDate" for="field_applyDate">ApplyDate</label>
+            <div class="input-margin">
+                <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.applyDate"
+                       datepicker-options="calendar.dateOptions" close-text="Close"
+                       ng-click="calendar.open($event, 'applyDate')" class="form-control" name="applyDate"
+                       id="field_applyDate"
+                       tooltip="{{'stepApp.trainingRequisitionForm.applyDate' | translate}}"
+                       placeholder="yyyy-mm-dd"
+                       ng-model="trainingRequisitionForm.applyDate" required/>
+                <div ng-show="editForm.applyDate.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.applyDate.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6" ngf-change="setGoOrderDoc($file, trainingRequisitionForm)">
+            <label class="control-label" translate="stepApp.trainingRequisitionForm.file"
+                   for="field_file">GoOrderDoc</label>
+            <div class="input-margin">
+                <div>
+                    <div class="help-block clearfix">
+                        <span class="pull-left">{{trainingRequisitionForm.fileContentType}} {{byteSize(trainingRequisitionForm.file)}}</span>
+                        <button
+                            ng-click="trainingRequisitionForm.file=null;trainingRequisitionForm.fileContentType=null;"
+                            ng-if="trainingRequisitionForm.file"
+                            class="btn btn-default btn-xs pull-right">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </div>
+                    <button type="file" ngf-select class="btn btn-default btn-block"
+                            ngf-change="setFile($file, trainingRequisitionForm)"
+                            translate="entity.action.addblob">
+                        Add blob
+                    </button>
+                </div>
+            </div>
+            <input type="hidden" class="form-control" name="file" id="field_file"
+                   ng-model="trainingRequisitionForm.file"/>
+            <input type="hidden" class="form-control" name="fileContentType"
+                   id="field_fileContentType"
+                   ng-model="trainingRequisitionForm.fileContentType"/>
+            <a ng-if="trainingRequisitionForm.fileContentType" class="btn btn-link"
+               ng-click="previewFile(trainingRequisitionForm)">View</a>
+        </div>
+
+
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.trainingRequisitionForm.reason" for="field_reason">Reason</label>
+            <textarea type="text" class="form-control" name="reason" id="field_reason"
+                      ng-model="trainingRequisitionForm.reason"
+                      ng-maxlength="50" rows="3" cols="30" placeholder="{{'stepApp.trainingRequisitionForm.reason' | translate}}"></textarea>
+            <div ng-show="editForm.reason.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.reason.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="50">
+                    This field cannot be longer than 50 characters.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+        </div>
+        <div class="col-md-12 padding-tb text-right">
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="trainingRequisitionForm.id == null" translate="entity.action.requisition">Requisition</span>
+                <span ng-show="trainingRequisitionForm.id != null" translate="entity.action.requisitionUpdate">Update</span>
+            </button>
+        </div>
+    </form>
+</div>

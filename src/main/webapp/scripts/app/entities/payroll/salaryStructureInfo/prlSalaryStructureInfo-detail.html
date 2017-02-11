@@ -1,0 +1,153 @@
+
+<div>
+    <h2><span translate="stepApp.prlSalaryStructureInfo.detail.title">PrlSalaryStructureInfo</span> {{prlSalaryStructureInfo.employeeInfo.fullName}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="stepApp.prlSalaryStructureInfo.employeeInfo">employeeInfo</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="hrEmployeeInfo.detail({id:prlSalaryStructureInfo.employeeInfo.id})">{{prlSalaryStructureInfo.employeeInfo.fullName}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.prlSalaryStructureInfo.payscaleInfo">payscaleInfo</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="prlPayscaleInfo.detail({id:prlSalaryStructureInfo.payscaleInfo.id})">{{prlSalaryStructureInfo.payscaleInfo.name}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.prlSalaryStructureInfo.payscaleBasicInfo">payscaleBasicInfo</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="prlPayscaleBasicInfo.detail({id:prlSalaryStructureInfo.payscaleBasicInfo.id})">{{prlSalaryStructureInfo.payscaleBasicInfo.basicAmount}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.prlSalaryStructureInfo.gazetteInfo">gazetteInfo</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="hrGazetteSetup.detail({id:prlSalaryStructureInfo.gazetteInfo.id})">{{prlSalaryStructureInfo.gazetteInfo.gazetteCode}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.prlSalaryStructureInfo.effectiveDate">EffectiveDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{prlSalaryStructureInfo.effectiveDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.prlSalaryStructureInfo.basicAmount">BasicAmount</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{prlSalaryStructureInfo.basicAmount}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <p class="bg-info">Allowance Information</p>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th width="30%"><label class="control-label">Allowance Title</label></th>
+                            <th><label class="control-label">Allowance Value</label></th>
+                            <th><label class="control-label" translate="stepApp.prlSalaryAllowDeducInfo.basicMinimum">BasicMinimum</label></th>
+                            <th><label class="control-label" translate="stepApp.prlSalaryAllowDeducInfo.basicMaximum">BasicMaximum</label></th>
+                        </tr>
+                        <tr ng-repeat="prlSalaryAllowDeducDto in prlSalAllowDeductList | filter: { allowDeducType: 'Allowance' }">
+                            <td>
+                                <div class="form-control-static">
+                                    {{prlSalaryAllowDeducDto.salaryAllowDeducInfo.allowDeducInfo.name}}&nbsp;
+                                    [{{prlSalaryAllowDeducDto.fixedBasic ? 'Fixed' : '%'}}]
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-control-static">
+                                    {{prlSalaryAllowDeducDto.salaryAllowDeducInfo.allowDeducValue}}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-control-static">
+                                    {{prlSalaryAllowDeducDto.basicMinimum}}
+                                    {{prlSalaryAllowDeducDto.fixedBasic ? '' : '['+prlSalaryAllowDeducDto.basicMinimumTmp+'%]'}}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-control-static">
+                                    {{prlSalaryAllowDeducDto.basicMaximum}}
+                                    {{prlSalaryAllowDeducDto.fixedBasic ? '' : '['+prlSalaryAllowDeducDto.basicMaximumTmp+'%]'}}</div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <p class="bg-info">Deduction Information</p>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th width="30%"><label class="control-label">Deduction Title</label></th>
+                            <th align="left"><label class="control-label">Deduction Value</label></th>
+                        </tr>
+                        <tr ng-repeat="prlSalaryAllowDeducDto in prlSalAllowDeductList | filter: { allowDeducType: 'Deduction' }">
+
+                            <td><span class="form-control-static">{{prlSalaryAllowDeducDto.salaryAllowDeducInfo.allowDeducInfo.name}}</span></td>
+                            <td>
+                                <div class="form-control-static">
+                                    {{prlSalaryAllowDeducDto.salaryAllowDeducInfo.allowDeducValue}}
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.prlSalaryStructureInfo.activeStatus">ActiveStatus</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{prlSalaryStructureInfo.activeStatus ? 'Active' : 'Inactive'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.prlSalaryStructureInfo.createDate">CreateDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{prlSalaryStructureInfo.createDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.prlSalaryStructureInfo.updateDate">UpdateDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{prlSalaryStructureInfo.updateDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

@@ -1,0 +1,100 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myVclRequisitionLabel" translate="stepApp.vclRequisition.home.createOrEditLabel">Create or edit a VclRequisition</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group" ng-hide="true">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vclRequisition.id" readonly />
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclRequisition.requisitionType">RequisitionType</label>
+            <a class="form-control-static" ui-sref="User.detail({id:vclRequisition.user.id})">{{vclRequisition.user.login}}</a>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclRequisition.requisitionType">RequisitionType</label>
+            {{vclRequisition.requisitionType}}
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclRequisition.vehicleType">VehicleType</label>
+            {{vclRequisition.vehicleType}}
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclRequisition.sourceLocation">SourceLocation</label>
+            {{vclRequisition.sourceLocation}}
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclRequisition.destinationLocation" >DestinationLocation</label>
+            {{vclRequisition.destinationLocation}}
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclRequisition.expectedDate">ExpectedDate</label>
+            <span class="form-control-static">{{vclRequisition.expectedDate | date:'mediumDate'}}</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclRequisition.returnDate">ReturnDate</label>
+            <span class="form-control-static">{{vclRequisition.returnDate | date:'mediumDate'}}</span>
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.vclRequisition.vehicle" for="field_vehicle">vehicle</label>
+            <select class="form-control" id="field_vehicle" name="vehicle" ng-model="vclRequisition.vehicle" ng-options="VclVehicle as VclVehicle.vehicleName for VclVehicle in vclvehicles track by VclVehicle.id">
+                <option value=""></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.vclRequisition.alterDriver" for="field_alterDriver">alterDriver</label>
+            <select class="form-control" id="field_alterDriver" name="alterDriver" ng-model="vclRequisition.alterDriver" ng-options="VclDriver as VclDriver.driverName for VclDriver in vcldrivers track by VclDriver.id">
+                <option value=""></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclRequisition.meterReading" for="field_meterReading">MeterReading</label>
+            <input type="text" class="form-control" name="meterReading" id="field_meterReading"
+                   ng-model="vclRequisition.meterReading"
+                />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclRequisition.fuelReading" for="field_fuelReading">FuelReading</label>
+            <input type="text" class="form-control" name="fuelReading" id="field_fuelReading"
+                   ng-model="vclRequisition.fuelReading"
+                />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclRequisition.billAmount" for="field_billAmount">BillAmount</label>
+            <input type="number" class="form-control" name="billAmount" id="field_billAmount"
+                   ng-model="vclRequisition.billAmount"
+                />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclRequisition.expectedArrivalDate" for="field_expectedArrivalDate">ExpectedArrivalDate</label>
+            <input type="date" class="form-control" name="expectedArrivalDate" id="field_expectedArrivalDate"
+                   ng-model="vclRequisition.expectedArrivalDate"
+                />
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" translate="stepApp.vclRequisition.comments" for="field_comments">comments</label>
+            <textarea class="form-control" name="comments" id="field_comments"
+                    ng-model="vclRequisition.comments"></textarea>
+        </div>
+
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" class="btn " data-dismiss="modal" onclick="window.history.back()">
+            <i class="fa fa-angle-double-left"></i>&nbsp;<span translate="entity.action.back">Back</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

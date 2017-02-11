@@ -1,0 +1,68 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myMpoVacancyRoleTradeLabel" translate="stepApp.mpoVacancyRoleTrade.home.createOrEditLabel">Create or edit a MpoVacancyRoleTrade</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="mpoVacancyRoleTrade.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.mpoVacancyRoleTrade.crateDate" for="field_crateDate">CrateDate</label>
+            <input type="date" class="form-control" name="crateDate" id="field_crateDate"
+                    ng-model="mpoVacancyRoleTrade.crateDate"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.mpoVacancyRoleTrade.updateDate" for="field_updateDate">UpdateDate</label>
+            <input type="date" class="form-control" name="updateDate" id="field_updateDate"
+                    ng-model="mpoVacancyRoleTrade.updateDate"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.mpoVacancyRoleTrade.status" for="field_status">Status</label>
+            <input type="checkbox" class="form-control" name="status" id="field_status"
+                    ng-model="mpoVacancyRoleTrade.status"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.mpoVacancyRoleTrade.mpoVacancyRole" for="field_mpoVacancyRole">mpoVacancyRole</label>
+            <select class="form-control" id="field_mpoVacancyRole" name="mpoVacancyRole" ng-model="mpoVacancyRoleTrade.mpoVacancyRole" ng-options="mpoVacancyRole as mpoVacancyRole.id for mpoVacancyRole in mpovacancyroles track by mpoVacancyRole.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.mpoVacancyRoleTrade.createBy" for="field_createBy">createBy</label>
+            <select class="form-control" id="field_createBy" name="createBy" ng-model="mpoVacancyRoleTrade.createBy" ng-options="user as user.login for user in users track by user.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.mpoVacancyRoleTrade.updateBy" for="field_updateBy">updateBy</label>
+            <select class="form-control" id="field_updateBy" name="updateBy" ng-model="mpoVacancyRoleTrade.updateBy" ng-options="user as user.login for user in users track by user.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.mpoVacancyRoleTrade.cmsTrade" for="field_cmsTrade">cmsTrade</label>
+            <select class="form-control" id="field_cmsTrade" name="cmsTrade" ng-model="mpoVacancyRoleTrade.cmsTrade" ng-options="cmsTrade as cmsTrade.name for cmsTrade in cmstrades track by cmsTrade.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

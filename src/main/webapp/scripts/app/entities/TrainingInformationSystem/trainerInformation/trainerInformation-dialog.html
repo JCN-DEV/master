@@ -1,0 +1,136 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 class="modal-title" id="myTrainerInformationLabel" translate="stepApp.trainerInformation.home.createOrEditLabel">Create or edit a TrainerInformation</h4>
+
+        <div class="modal-body">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.trainerInformation.trainerName" for="field_trainerName">TrainerName</label>
+                    <input type="text" class="form-control" name="trainerName" id="field_trainerName"
+                            ng-model="trainerInformation.trainerName"
+                             />
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.trainerInformation.trainerType" for="field_trainerType">TrainerType</label>
+                    <input type="text" class="form-control" name="trainerType" id="field_trainerType"
+                            ng-model="trainerInformation.trainerType"
+                            required />
+                    <div ng-show="editForm.trainerType.$invalid">
+                        <p class="help-block"
+                            ng-show="editForm.trainerType.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.trainerInformation.address" for="field_address">Address</label>
+                    <input type="text" class="form-control" name="address" id="field_address"
+                            ng-model="trainerInformation.address"
+                             />
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.trainerInformation.designation" for="field_designation">Designation</label>
+                    <input type="text" class="form-control" name="designation" id="field_designation"
+                            ng-model="trainerInformation.designation"
+                             />
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.trainerInformation.department" for="field_department">Department</label>
+                    <input type="text" class="form-control" name="department" id="field_department"
+                            ng-model="trainerInformation.department"
+                             />
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.trainerInformation.organization" for="field_organization">Organization</label>
+                    <input type="text" class="form-control" name="organization" id="field_organization"
+                            ng-model="trainerInformation.organization" />
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.trainerInformation.mobileNumber" for="field_mobileNumber">MobileNumber</label>
+                    <input type="number" class="form-control" name="mobileNumber" id="field_mobileNumber"
+                            ng-model="trainerInformation.mobileNumber"/>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.trainerInformation.emailId" for="field_emailId">EmailId</label>
+                    <input type="text" class="form-control" name="emailId" id="field_emailId"
+                            ng-model="trainerInformation.emailId"/>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.trainerInformation.specialSkills" for="field_specialSkills">SpecialSkills</label>
+                    <input type="text" class="form-control" name="specialSkills" id="field_specialSkills"
+                            ng-model="trainerInformation.specialSkills"/>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.trainerInformation.trainingAssignStatus" for="field_trainingAssignStatus">Training Assign Status</label>
+                    <input type="checkbox" class="form-control" name="trainingAssignStatus" id="field_trainingAssignStatus"
+                            ng-model="trainerInformation.trainingAssignStatus"
+                             />
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.trainerInformation.status" for="field_status">Status</label>
+                    <input type="checkbox" class="form-control" name="status" id="field_status"
+                            ng-model="trainerInformation.status"/>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.trainerInformation.trainingInitializationInfo" for="field_trainingInitializationInfo">trainingInitializationInfo</label>
+                    <select class="form-control" id="field_trainingInitializationInfo" name="trainingInitializationInfo" ng-model="trainerInformation.trainingInitializationInfo" ng-options="trainingInitializationInfo as trainingInitializationInfo.trainingCode for trainingInitializationInfo in traininginitializationinfos track by trainingInitializationInfo.id">
+                        <option value=""></option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.trainerInformation.hrEmployeeInfo" for="field_hrEmployeeInfo">hrEmployeeInfo</label>
+                    <select class="form-control" id="field_hrEmployeeInfo" name="hrEmployeeInfo" ng-model="trainerInformation.hrEmployeeInfo" ng-options="hrEmployeeInfo as hrEmployeeInfo.employeeId for hrEmployeeInfo in hremployeeinfos track by hrEmployeeInfo.id">
+                        <option value=""></option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+            </button>
+        </div>
+
+    </form>
+
+   </div>

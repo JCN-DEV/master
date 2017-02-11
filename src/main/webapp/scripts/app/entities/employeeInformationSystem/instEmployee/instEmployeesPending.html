@@ -1,0 +1,77 @@
+<div class="col-sm-12 common-list">
+    <h2 ng-if="listType === 'pending'" translate="stepApp.instEmployee.home.pendingTitle">InstEmployees</h2>
+    <h2 ng-if="listType === 'declined'" translate="stepApp.instEmployee.home.declinedList">InstEmployees</h2>
+    <div class="col-md-12 padding-bt">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-4">
+
+        </div>
+        <div class="col-md-8">
+            <!--<form name="searchForm" class="form-inline">-->
+            <!--<div class="form-group">-->
+            <!--<input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">-->
+            <!--</div>-->
+            <!--<button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a InstEmployee</span>-->
+            <!--</button>-->
+            <!--</form>-->
+        </div>
+    </div>
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="stepApp.instEmployee.home.serial">serial</th>
+                <th translate="stepApp.instEmployee.home.id">ID</th>
+                <th translate="stepApp.instEmployee.name">Name</th>
+                <th translate="stepApp.instEmployee.designation">Designation</th>
+                <th class="text-right no-print" translate="stepApp.instEmployee.action">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--<tr ng-repeat="instEmployee in instEmployees track by instEmployee.id">-->
+            <tr dir-paginate="instEmployee in instEmployees | filter:q | itemsPerPage: pageSize track by instEmployee.id" current-page="currentPage">
+                <td>{{$index+1}}</td>
+                <td>
+                    <a ui-sref="instEmployee.detail({id:instEmployee.id})">{{instEmployee.code}}</a>
+                </td>
+                <td>{{instEmployee.name}}</td>
+                <td>{{instEmployee.instEmplDesignation.name}}</td>
+                <td class="text-right no-print">
+                    <button type="submit" ng-show="instEmployee.status !=1"
+                            ui-sref="employeeInfo.approve({code:instEmployee.code})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="stepApp.instEmployee.view&app"> View</span>
+                    </button>
+                    <button type="submit" ng-hide="instEmployee.status !=1"
+                            ui-sref="employeeInfo.approve({code:instEmployee.code})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="stepApp.instEmployee.view&app"> View</span>
+                    </button>
+                    <!-- <button type="submit" ng-if="instEmployee.approved"
+
+                          ui-sref="instEmployee.approve({id:instEmployee.id})"
+                          class="btn btn-primary btn-sm">
+                      <span class="glyphicon glyphicon-check"></span>&nbsp;<span translate="entity.action.approve"> Approve</span>
+                      </button>-->
+                    <!--<button type="submit"
+                            ui-sref="instEmployee.delete({id:instEmployee.id})"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                    </button>-->
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+</div>

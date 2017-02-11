@@ -1,0 +1,46 @@
+<div class="col-sm-12 no_padding">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+    <div class="modal-header col-sm-12">
+        <h4 class="modal-title" id="myReligionLabel" translate="stepApp.religion.home.createOrEditLabel">Create or edit a Religion</h4>
+    </div>
+    <div class="modal-body col-sm-12">
+        <jh-alert-error></jh-alert-error>
+        <!--<div class="form-group col-sm-6">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="religion.id" readonly />
+        </div>-->
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.religion.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                    ng-model="religion.name"
+                    required ng-maxlength="50" />
+            <div ng-show="editForm.name.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.name.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="50">
+                    This field cannot be longer than 50 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.religion.description" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description"
+                    ng-model="religion.description"
+                     />
+        </div>
+
+    </div>
+    <div class="modal-footer col-sm-12">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>
+</div>

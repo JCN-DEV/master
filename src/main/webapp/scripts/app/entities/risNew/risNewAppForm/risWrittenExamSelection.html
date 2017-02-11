@@ -1,0 +1,158 @@
+<div class="col-md-12 common-list">
+    <h2 translate="stepApp.risNewAppForm.ritExam">RisNewAppForms</h2>
+    <div class="col-sm-12 padding-tb no-print">
+
+        <div class="form-group col-sm-6">
+            <label class="control-label" translate="stepApp.risNewAppForm.examid">Exam ID</label>
+            <input type="text" class="form-control" name="experience" id="field_examId"
+                   ng-model="risNewAppForm.examId"
+            />
+        </div>
+        <div class="form-group col-sm-6">
+            <label class="control-label" translate="stepApp.risNewAppForm.VenueName">Venue Name</label>
+            <input type="text" class="form-control" name="experience" id="field_venueName"
+                   ng-model="risNewAppForm.venueName"
+            />
+        </div>
+
+        <div class="col-sm-12">
+            <br>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label translate="stepApp.risNewAppForm.circularNo" for="field_circularNo">CircularNo</label>
+            <select class="form-control" id="field_circularNo" name="circularNo"
+                    ng-model="risNewAppForm.circularNo"
+                    ng-options="circular as circular.CIRCULARNO for circular in circulars"
+            >
+                <option value="">{{'stepApp.risNewAppForm.circular' | translate}}</option>
+            </select>
+        </div>
+        <div class="form-group col-sm-6">
+            <label class="control-label" translate="stepApp.risNewAppForm.numberOfSeat">Number of Seats</label>
+
+            <div class="input-group">
+                <input type="text" class="form-control" name="experience" id="field_numberOfSeats"
+                       ng-model="risNewAppForm.numberOfSeats"
+                />
+            <span class="input-group-btn">
+                    <button ng-click="sendSms(risNewAppForm.circularNo, risNewAppForm.numberOfSeats)"
+                            class="btn btn-success" type="button"><span
+                        class="glyphicon glyphicon-eye-open"></span><span translate="entity.action.view"> Search Applicant </span>
+                    </button>
+            </span>
+            </div>
+        </div>
+        <div ng-if="emptyError" class="col-sm-12">
+            <p class="ris-messErr">{{emptyError}}</p>
+        </div>
+
+        <div class="form-group col-sm-6">
+            <label class="control-label" translate="stepApp.risNewAppForm.examDate"> Date</label>
+
+            <div class="input-margin">
+                <input type="text" datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.examDate"
+                       datepicker-options="calendar.dateOptions" close-text="Close"
+                       ng-click="calendar.open($event, 'examDate')" class="form-control" name="examDate"
+                       id="field_examDate"
+                       ng-model="risNewAppForm.examDate"
+                       required/>
+            </div>
+        </div>
+
+
+        <div class="form-group col-sm-6">
+            <label class="control-label" translate="stepApp.risNewAppForm.examTime">Exam Time</label>
+            <input type="time" class="form-control" name="createDate" id="field_examTime"
+                   ng-model="risNewAppForm.examTime"
+            />
+        </div>
+        <div class="form-group col-sm-6">
+            <label class="control-label" translate="stepApp.risNewAppForm.message">Message</label>
+        <textarea type="text" class="form-control" name="experience" id="field_smsMessage"
+                  ng-model="risNewAppForm.smsMessage" ng-trim="false"
+                  cols="20" rows="4" maxlength="100"> </textarea>
+        <span
+            ng-hide="risNewAppForm.smsMessage.length > 99">{{100 - risNewAppForm.smsMessage.length}} Character Left</span>
+
+            <div ng-show="risNewAppForm.smsMessage.length > 0">
+                <span ng-if="risNewAppForm.smsMessage.length > 99"
+                      class="ris-messErr">Please Write in 100 character</span>
+            </div>
+            <div>
+            </div>
+        </div>
+
+
+        <div class="col-sm-12 text-right ris-btn">
+            <div class="form-group">
+                <button type="submit" ng-click="sendWriten()"
+                        class="btn btn-info btn-sm">
+                    <span class="glyphicon glyphicon-envelope"></span>&nbsp;<span
+                    translate="entity.action.send"> Send</span>
+                </button>
+            </div>
+        </div>
+        <!--<div class="col-sm-12 text-right ris-btn">
+            <div class="form-group">
+                <button type="submit" ng-click="test()"
+                        class="btn btn-info btn-sm">
+                    <span class="glyphicon glyphicon-envelope"></span>&nbsp;<span> test</span>
+                </button>
+            </div>
+        </div>-->
+
+        <div class="col-sm-12 table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th translate="stepApp.risNewAppForm.serial">serial</th>
+                    <th translate="stepApp.risNewAppForm.applicantsNameBn">applicantsNameBn</th>
+                    <th translate="stepApp.risNewAppForm.applicantsNameEn">applicantsNameEn</th>
+                    <th translate="stepApp.risNewAppForm.phone">Phone</th>
+                    <th translate="entity.action.action">
+
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="snedSmsResult in snedSmsResults">
+                    <td>{{$index + 1}}</td>
+                    <td>{{snedSmsResult.APPLICANTS_NAME_BN}}</td>
+                    <td>{{snedSmsResult.APPLICANTS_NAME_EN}}</td>
+                    <td>{{snedSmsResult.CONTACT_PHONE}}</td>
+                    <td><input class="selectedNumbers" id="phoneNumber[{{snedSmsResults.REG_NO}}]" type="checkbox"
+                               value="{{snedSmsResult.REG_NO}}" checked="checked"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal fade" id="sendWriten">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="processSending()">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" translate="entity.action.confirmSendtitle">Confirm delete operation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to send confirm message</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                            translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                            translate="entity.action.confirmSend">Confirm Send</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

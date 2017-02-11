@@ -1,0 +1,212 @@
+<div class="service-form-area">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="modal-title" id="myHrEmpPublicationInfoLabel"><span
+                translate="stepApp.hrEmpPublicationInfo.home.profileViewEditTitle"></span> : {{hrEmployeeInfo.fullName}}
+            </h4>
+        </div>
+        <div class="panel-body bg-panel">
+            <div class="row hrm-view">
+                <span ng-show="addMode">
+                    <span ng-show="noEmployeeFound" class="alert">Employee is not created yet.</span>
+                </span>
+            </div>
+            <div class="panel-group hr_label">
+                <!-- For Loop Start From Here-->
+                <div class=" bg-panel" ng-repeat="hrEmpPublicationInfo in hrEmpPublicationInfoList">
+                    <form class="form-horizontal " name="editForm" role="form" ng-submit="save()" novalidate
+                          show-validation>
+                        <div class="row hrm-view panel-heading no_padding">
+                            <div class="col-sm-7 no_padding">
+                                <strong>{{hrEmpPublicationInfo.publicationTitle}} :
+                                    {{hrEmpPublicationInfo.publicationDate | date:'mediumDate'}}</strong>
+                            </div>
+                            <div class="col-sm-5 no_padding text-right">
+                                <button
+                                    ng-hide="noEmployeeFound || hrEmpPublicationInfo.isLocked || hrEmpPublicationInfo.logStatus==6"
+                                    type="button" ng-click="changeProfileMode(hrEmpPublicationInfo)"
+                                    class="btn btn-primary btn-sm">{{hrEmpPublicationInfo.viewModeText}}
+                                </button>
+                                <span ng-show="hrEmpPublicationInfo.isLocked" class="alert alert-warning"><span
+                                    translate="stepApp.hrmHome.recordLocked">Pending</span></span>
+                                    <span ng-if="hrEmpPublicationInfo.logStatus == 3">
+                                        <span class="alert alert-warning" translate="stepApp.hrmHome.requestRejected">Rejected</span>
+                                    </span>
+                            </div>
+                        </div>
+                        <div class="row hrm-view">
+                            <div class="col-sm-12 text-right">
+                                    <span class="alert-warning" ng-if="hrEmpPublicationInfo.logStatus == 3">
+                                        <span class="control-label"
+                                              translate="stepApp.hrmHome.rejectionReason">Reason</span>: &nbsp; : &nbsp;{{hrEmpPublicationInfo.logComments}}
+                                    </span>
+                            </div>
+                        </div>
+
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpPublicationInfo.viewMode" class="input-margin">
+                                    <label class="control-label"
+                                           translate="stepApp.hrEmpPublicationInfo.publicationTitle"
+                                           for="field_publicationTitle">PublicationTitle</label>
+                                    <input type="text" class="form-control" name="publicationTitle"
+                                           id="field_publicationTitle"
+                                           ng-model="hrEmpPublicationInfo.publicationTitle" required/>
+                                    <div ng-show="editForm.publicationTitle.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.publicationTitle.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEmpPublicationInfo.viewMode">
+                                    <label class="control-label"
+                                           translate="stepApp.hrEmpPublicationInfo.publicationTitle"
+                                           for="field_publicationTitle">PublicationTitle</label>
+                                    <span class="form-control-static">&nbsp; : &nbsp;{{hrEmpPublicationInfo.publicationTitle}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpPublicationInfo.viewMode" class="input-margin">
+                                    <label class="control-label"
+                                           translate="stepApp.hrEmpPublicationInfo.publicationDate"
+                                           for="field_publicationDate">PublicationDate</label>
+                                    <input datepicker-popup="{{calendar.dateFormat}}"
+                                           is-open="calendar.opened['publicationDate'+$index]"
+                                           datepicker-options="calendar.dateOptions" close-text="Close"
+                                           ng-click="calendar.open($event, 'publicationDate'+$index)"
+                                           class="form-control" name="publicationDate" id="field_publicationDate"
+                                           ng-model="hrEmpPublicationInfo.publicationDate" required/>
+                                    <div ng-show="editForm.publicationDate.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.publicationDate.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEmpPublicationInfo.viewMode">
+                                    <label class="control-label"
+                                           translate="stepApp.hrEmpPublicationInfo.publicationDate"
+                                           for="field_publicationDate">PublicationDate</label>
+                                    <span class="form-control-static">&nbsp; : &nbsp;{{hrEmpPublicationInfo.publicationDate | date:'mediumDate'}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpPublicationInfo.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEmpPublicationInfo.publicationType" for="field_publicationType">publicationType</label>
+                                    <select class="form-control" id="field_publicationType" name="publicationType"
+                                            ng-model="hrEmpPublicationInfo.publicationType"
+                                            ng-options="MiscTypeSetup as MiscTypeSetup.typeName for MiscTypeSetup in publicationTypeList track by MiscTypeSetup.id">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                                <div ng-show="hrEmpPublicationInfo.viewMode">
+                                    <label class="control-label"
+                                           translate="stepApp.hrEmpPublicationInfo.publicationType"
+                                           for="field_publicationType">publicationType</label>
+                                    <span class="form-control-static">&nbsp; : &nbsp;{{hrEmpPublicationInfo.publicationType.typeName}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpPublicationInfo.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEmpPublicationInfo.publicationLink" for="field_publicationLink">publicationLink</label>
+                                    <input type="text" class="form-control" name="publicationLink" ng-model="hrEmpPublicationInfo.publicationLink"  id="field_publicationLink" required>
+                                    <div ng-show="editForm.publicationLink.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.publicationLink.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEmpPublicationInfo.viewMode">
+                                    <label class="control-label"
+                                           translate="stepApp.hrEmpPublicationInfo.publicationLink"
+                                           for="field_publicationLink">publicationLink</label>
+                                    <span class="form-control-static">&nbsp; : &nbsp;{{hrEmpPublicationInfo.publicationLink}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">
+                                <label class="control-label" translate="stepApp.hrEmpPublicationInfo.remarks"
+                                       for="field_remarks">Remarks</label>
+                                <div ng-show="!hrEmpPublicationInfo.viewMode" class="input-margin">
+                                        <textarea ng-show="!hrEmpPublicationInfo.viewMode" class="form-control"
+                                                  name="remarks" id="field_remarks"
+                                                  ng-model="hrEmpPublicationInfo.remarks"></textarea>
+                                </div>
+                                <span ng-show="hrEmpPublicationInfo.viewMode" class="form-control-static">&nbsp; : &nbsp;{{hrEmpPublicationInfo.remarks}}</span>
+                            </div>
+                            <div class="form-group col-sm-6" ngf-drop
+                                 ngf-change="setPublicationDoc($file, hrEmpPublicationInfo)">
+                                <label class="control-label" translate="stepApp.hrEmpPublicationInfo.publicationDoc"
+                                       for="field_publicationDoc">PublicationDoc</label>
+                                <div ng-show="!hrEmpPublicationInfo.viewMode" class="input-margin">
+                                    <div class="help-block clearfix">
+                                        <span class="pull-left">{{hrEmpPublicationInfo.publicationDocContentType}} {{byteSize(hrEmpPublicationInfo.publicationDoc)}}</span>
+                                        <button
+                                            ng-click="hrEmpPublicationInfo.publicationDoc=null;hrEmpPublicationInfo.publicationDocContentType=null;"
+                                            ng-if="hrEmpPublicationInfo.publicationDoc"
+                                            class="btn btn-default btn-xs pull-right">
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                        </button>
+                                    </div>
+                                    <button type="file" ngf-select class="btn btn-default btn-block"
+                                            ngf-change="setPublicationDoc($file, hrEmpPublicationInfo)"
+                                            translate="entity.action.addblob">
+                                        Add blob
+                                    </button>
+                                </div>
+                                <input type="hidden" class="form-control" name="publicationDoc"
+                                       id="field_publicationDoc"
+                                       ng-model="hrEmpPublicationInfo.publicationDoc"
+                                />
+                                <input type="hidden" class="form-control" name="publicationDocContentType"
+                                       id="field_publicationDocContentType"
+                                       ng-model="hrEmpPublicationInfo.publicationDocContentType"/>
+                                <a ng-if="hrEmpPublicationInfo.publicationDocContentType" class="btn btn-link"
+                                   ng-click="previewImage(hrEmpPublicationInfo)">View</a>
+                            </div>
+                        </div>
+
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">&nbsp;</div>
+                            <div class="form-group col-sm-6 text-right">
+                                <button ng-show="!hrEmpPublicationInfo.viewMode" type="button"
+                                        ng-click="changeProfileMode(hrEmpPublicationInfo)"
+                                        class="btn btn-default btn-sm"><span class="glyphicon glyphicon-remove"></span>&nbsp;{{hrEmpPublicationInfo.viewModeText}}
+                                </button>
+                                <button ng-show="!hrEmpPublicationInfo.viewMode"
+                                        ng-click="updateProfile(hrEmpPublicationInfo, $index)"
+                                        type="button" ng-disabled="editForm.$invalid || isSaving"
+                                        class="btn btn-primary btn-sm">
+                                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span
+                                    translate="entity.action.save">Save</span>
+                                </button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+                <!-- End of Loop -->
+
+                <div class="col-sm-12 text-right no_padding">
+                    <button type="submit" class="btn btn-primary" ng-show="!addMode"
+                            ng-disabled="editForm.$invalid || isSaving" ng-click="addMore()"><i
+                        class="fa fa-plus-square"></i>
+                        <span translate="global.menu.account.addmore">Add More</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

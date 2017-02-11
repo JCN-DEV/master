@@ -1,0 +1,87 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myInstVacancyTempLabel" translate="stepApp.instVacancyTemp.home.createOrEditLabel">Create or edit a InstVacancyTemp</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="instVacancyTemp.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instVacancyTemp.dateCreated" for="field_dateCreated">DateCreated</label>
+            <input type="date" class="form-control" name="dateCreated" id="field_dateCreated"
+                    ng-model="instVacancyTemp.dateCreated"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instVacancyTemp.dateModified" for="field_dateModified">DateModified</label>
+            <input type="date" class="form-control" name="dateModified" id="field_dateModified"
+                    ng-model="instVacancyTemp.dateModified"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instVacancyTemp.status" for="field_status">Status</label>
+            <input type="checkbox" class="form-control" name="status" id="field_status"
+                    ng-model="instVacancyTemp.status"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instVacancyTemp.empType" for="field_empType">EmpType</label>
+            <select class="form-control" name="empType" ng-model="instVacancyTemp.empType" id="field_empType">
+                <option value="Teacher" translate="stepApp.EmpTypes.Teacher">Teacher</option>
+                <option value="Staff" translate="stepApp.EmpTypes.Staff">Staff</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instVacancyTemp.totalVacancy" for="field_totalVacancy">TotalVacancy</label>
+            <input type="number" class="form-control" name="totalVacancy" id="field_totalVacancy"
+                    ng-model="instVacancyTemp.totalVacancy"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instVacancyTemp.filledUpVacancy" for="field_filledUpVacancy">FilledUpVacancy</label>
+            <input type="text" class="form-control" name="filledUpVacancy" id="field_filledUpVacancy"
+                    ng-model="instVacancyTemp.filledUpVacancy"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.instVacancyTemp.institute" for="field_institute">institute</label>
+            <select class="form-control" id="field_institute" name="institute" ng-model="instVacancyTemp.institute" ng-options="institute as institute.code for institute in institutes track by institute.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instVacancyTemp.cmsTrade" for="field_cmsTrade">cmsTrade</label>
+            <select class="form-control" id="field_cmsTrade" name="cmsTrade" ng-model="instVacancyTemp.cmsTrade" ng-options="cmsTrade as cmsTrade.code for cmsTrade in cmstrades track by cmsTrade.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instVacancyTemp.cmsSubject" for="field_cmsSubject">cmsSubject</label>
+            <select class="form-control" id="field_cmsSubject" name="cmsSubject" ng-model="instVacancyTemp.cmsSubject" ng-options="cmsSubject as cmsSubject.code for cmsSubject in cmssubjects track by cmsSubject.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instVacancyTemp.instEmplDesignation" for="field_instEmplDesignation">instEmplDesignation</label>
+            <select class="form-control" id="field_instEmplDesignation" name="instEmplDesignation" ng-model="instVacancyTemp.instEmplDesignation" ng-options="instEmplDesignation as instEmplDesignation.id for instEmplDesignation in instempldesignations track by instEmplDesignation.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

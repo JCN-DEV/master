@@ -1,0 +1,336 @@
+<!--<div class="row">
+    <div class="col-md-3">
+        <ng-include src="'scripts/app/account/mpo/mpo-left-menu.html'"></ng-include>
+    </div>&ndash;&gt;-->
+
+
+<div class="col-md-12 common-table " ng-show="!showApplicationButtion">
+
+    <h2 class="header-margin" translate="stepApp.mpo.timescaleDetails">Timescale Details </h2><br>
+
+
+    <div class="col-sm-12 no_padding mpo-detail">
+        <tabset justified="true">
+            <tab heading="{{'stepApp.mpo.Profile' | translate}}" select="profile()">
+                <div>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+
+                            <tr>
+                                <td class=""> {{'stepApp.employee.TrackID' | translate}}</td>
+                                <td>{{employee.code}}</td>
+                                <td class="">{{'stepApp.employee.nameEnglish' | translate}}</td>
+                                <td>{{employee.name}}</td>
+                            </tr>
+
+                            <tr>
+                                <td class=""> {{'stepApp.employee.fatherName' | translate}}</td>
+                                <td>{{employee.fatherName}}</td>
+                                <td class="">{{'stepApp.employee.motherName' | translate}}</td>
+                                <td>{{employee.motherName}}</td>
+                            </tr>
+
+                            <tr>
+                                <td class="">{{'stepApp.employee.email' | translate}}</td>
+                                <td>{{employee.email}}</td>
+                                <td class="">{{'stepApp.employee.gender' | translate}}</td>
+                                <td>{{employee.gender}}</td>
+                            </tr>
+
+                            <tr>
+                                <td class="">{{'stepApp.employee.dob' | translate}}</td>
+                                <td>{{employee.dob}}</td>
+                                <td class="">{{'stepApp.employee.registrationCertificateSubject' | translate}}</td>
+                                <td>{{employee.registeredCertificateSubject}}</td>
+                            </tr>
+
+                            <tr>
+                                <td class="">{{'stepApp.employee.registrationExamYear' | translate}}</td>
+                                <td>{{employee.registrationExamYear}}</td>
+                                <td class="">{{'stepApp.employee.registrationCetificateNo' | translate}}</td>
+                                <td>{{employee.registeredCertificateNo}}</td>
+                            </tr>
+
+                            <tr>
+                                <td class="">{{'stepApp.employee.indexNo' | translate}}</td>
+                                <td>{{employee.indexNo}}</td>
+                                <td class="">{{'stepApp.employee.bankName' | translate}}</td>
+                                <td>{{instEmplBankInfo.bankSetup.name}}</td>
+                            </tr>
+
+                            <tr>
+                                <td class="">{{'stepApp.employee.bankBranch' | translate}}</td>
+                                <td>{{instEmplBankInfo.bankSetup.branchName}}</td>
+                                <td class="">{{'stepApp.employee.bankAccountNo' | translate}}</td>
+                                <td>{{instEmplBankInfo.bankAccountNo}}</td>
+                            </tr>
+                            <tr>
+                                <td class="">{{'stepApp.employee.bloodGroup' | translate}}</td>
+                                <td ng-if="employee.bloodGroup == 'A_NEGATIVE'">A(-)</td>
+                                <td ng-if="employee.bloodGroup == 'A_POSITIVE'">A(+)</td>
+                                <td ng-if="employee.bloodGroup == 'B_POSITIVE'">B(+)</td>
+                                <td ng-if="employee.bloodGroup == 'B_NEGATIVE'">B(-)</td>
+                                <td ng-if="employee.bloodGroup == 'O_POSITIVE'">O(+)</td>
+                                <td ng-if="employee.bloodGroup == 'O_NEGATIVE'">O(-)</td>
+                                <td ng-if="employee.bloodGroup == 'AB_POSITIVE'">AB(+)</td>
+                                <td ng-if="employee.bloodGroup == 'AB_NEGATIVE'">AB(-)</td>
+
+                                <td class="">{{'stepApp.employee.conPerMobile' | translate}}</td>
+                                <td>{{employee.conPerMobile}}</td>
+                            </tr>
+                            <tr>
+                                <td class="">{{'stepApp.employee.maritalStatus' | translate}}</td>
+                                <td>{{employee.maritalStatus}}</td>
+                                <td class="">{{'stepApp.employee.contactNo' | translate}}</td>
+                                <td>{{employee.contactNo}}</td>
+
+                            </tr>
+                            <tr>
+                                <td class="">{{'stepApp.employee.nationality' | translate}}</td>
+                                <td>{{employee.nationality}}</td>
+                                <td class="">{{'stepApp.employee.nid' | translate}}</td>
+                                <td>{{employee.nid}}</td>
+                            </tr>
+                            <tr>
+                                <td class="">{{'stepApp.employee.nidImage' | translate}}</td>
+                                <td class="">
+                                    <a href="javascript:void(0)"
+                                       ng-click="previewImage(employee.nidImage, employee.nidImageContentType,'National Id image of '+employee.name)">{{employee.nidImageName}}</a>
+                                </td>
+                                <td class="">{{'stepApp.employee.birthCertNoImage' | translate}}</td>
+                                <td class="">
+                                    <a href="javascript:void(0)"
+                                       ng-click="previewImage(employee.birthCertImage, employee.birthCertImageContentType,'Birth Certificate image of '+employee.name)"><span
+                                        class="form-control-static">{{employee.birthCertNoName}}</span></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </tab>
+            <tab heading="{{'stepApp.mpo.Education' | translate}}" select="educations()">
+
+                <table class="table table-hover table-striped">
+
+                    <thead class="">
+                    <tr>
+                        <th translate="stepApp.mpo.mpoEducation.name">Name</th>
+                        <th translate="stepApp.mpo.mpoEducation.applicantGrp">Applicant Group</th>
+                        <th translate="stepApp.mpo.mpoEducation.gpa">Gpa</th>
+                        <th translate="stepApp.mpo.mpoEducation.passingYear">Exam Year</th>
+                        <th translate="stepApp.mpo.mpoEducation.examResult">Exam Result Date</th>
+                        <th class="text-center" translate="stepApp.mpo.mpoEducation.attachment"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="appEducation in applicantEducation">
+                        <td>{{appEducation.eduLevel.name}}</td>
+                        <td>{{appEducation.groupSubject}}</td>
+                        <td>{{appEducation.cgpa}}</td>
+                        <td>{{appEducation.passingYear}}</td>
+                        <td>Result Date</td>
+                        <td><a href="javascript:void(0)"
+                               ng-click="previewImage(appEducation.certificateCopy, appEducation.certificateCopyContentType,appEducation.certificateName+' Certificate image of '+employee.name)"><span
+                            class="form-control-static">View Certificate</span></a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </tab>
+            <tab heading="{{'stepApp.timeScaleApplication.home.title' | translate}}" select="timescale()">
+
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th translate="entity.detail.field">Field</th>
+                        <th translate="entity.detail.value">Value</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <span translate="stepApp.timeScaleApplication.date">Date</span>
+                        </td>
+                        <td>
+                            <span class="form-control-static">{{timeScaleApplication.date | date:'mediumDate'}}</span>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>
+                            <span translate="stepApp.timeScaleApplication.resulationDate">ResulationDate</span>
+                        </td>
+                        <td>
+                            <span class="form-control-static">{{timeScaleApplication.resulationDate | date:'mediumDate'}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span translate="stepApp.timeScaleApplication.agendaNumber">AgendaNumber</span>
+                        </td>
+                        <td>
+                            <span class="form-control-static">{{timeScaleApplication.agendaNumber}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span translate="stepApp.timeScaleApplication.workingBreak">WorkingBreak</span>
+                        </td>
+                        <td>
+                            <span class="form-control-static">{{timeScaleApplication.workingBreak? 'Yes':'No'}}</span>
+                        </td>
+                    </tr>
+                    <tr ng-if="timeScaleApplication.workingBreak">
+                        <td>
+                            <span translate="stepApp.timeScaleApplication.workingBreakStart">WorkingBreakStart</span>
+                        </td>
+                        <td>
+                            <span class="form-control-static">{{timeScaleApplication.workingBreakStart | date:'mediumDate'}}</span>
+                        </td>
+                    </tr>
+                    <tr ng-if="timeScaleApplication.workingBreak">
+                        <td>
+                            <span translate="stepApp.timeScaleApplication.workingBreakEnd">WorkingBreakEnd</span>
+                        </td>
+                        <td>
+                            <span class="form-control-static">{{timeScaleApplication.workingBreakEnd | date:'mediumDate'}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span translate="stepApp.timeScaleApplication.disciplinaryAction">DisciplinaryAction</span>
+                        </td>
+                        <td>
+                            <span
+                                class="form-control-static">{{timeScaleApplication.disciplinaryAction?'Yes':'No'}}</span>
+                        </td>
+                    </tr>
+                    <tr ng-if="timeScaleApplication.disciplinaryAction">
+                        <td>
+                            <span translate="stepApp.timeScaleApplication.disActionCaseNo">DisActionCaseNo</span>
+                        </td>
+                        <td>
+                            <span class="form-control-static">{{timeScaleApplication.disActionCaseNo}}</span>
+                        </td>
+                    </tr>
+                    <tr ng-if="timeScaleApplication.disciplinaryAction">
+                        <td>
+                            <span translate="stepApp.timeScaleApplication.disActionFileName">DisActionFileName</span>
+                        </td>
+                        <td><a href="javascript:void(0)"
+                               ng-click="previewImage(timeScaleApplication.disActionFile, ,'Image of '+timeScaleApplication.disActionFileName)"><span
+                            translate="entity.action.view"> View</span></a></td>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+            </tab>
+            <tab heading="{{'stepApp.mpo.Training' | translate}}" select="training()">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th translate="stepApp.mpo.mpoEducation.trainingName">Traing Name</th>
+                        <th translate="stepApp.mpo.mpoEducation.subject">Subject</th>
+                        <th translate="stepApp.mpo.mpoEducation.result">Result</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="appTraining in applicantTraining">
+                        <td>{{appTraining.name}}</td>
+                        <td>{{appTraining.subjectsCoverd}}</td>
+                        <td>{{appTraining.result}}</td>
+                        <td><a href="javascript:void(0)"
+                               ng-click="previewImage(appTraining.attachment, appTraining.attachmentContentType,appTraining.name+' Certificate image of '+employee.name)"><span
+                            class="form-control-static">View Certificate</span></a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </tab>
+            <tab heading="{{'stepApp.mpo.Attachment' | translate}}" select="attachment()">
+                <table class="table table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th ng-click="order('name', reverse=!reverse)" translate="stepApp.attachment.name">Name</th>
+                        <th ng-click="order('remarks', reverse=!reverse)" translate="stepApp.attachment.remarks">
+                            Remarks
+                        </th>
+                        <th translate="stepApp.attachment.action">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody id="accordion"
+                           ng-repeat="attachment in attachments  | filter:filter | orderBy:predicate:reverse track by attachment.id">
+                    <tr data-parent="#accordion" ng-click="displayAttachment(attachment)" data-toggle="collapse"
+                        data-target="#{{attachment.id}}" aria-expanded="false" aria-controls="{{attachment.id}}">
+                        <td><a ng-show="attachment.fileContentType">{{attachment.name}}</a>
+                        </td>
+                        <td><a href="javascript:void(0)"
+                               ng-click="previewImage(attachment.file, attachment.fileContentType,'Image of '+attachment.name)">{{attachment.name}}</a>
+                        </td>
+
+                        <td>{{attachment.remarks}}</td>
+
+                        <td><a href="javascript:void(0)"
+                               ng-click="previewImage(attachment.file, attachment.fileContentType,'Image of '+attachment.name)"><span
+                            translate="entity.action.view"> View</span></a>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </tab>
+            <tab ng-show="searchByTrackID" heading="Status">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><span
+                            translate="stepApp.attachment.appStatus">Application Status of </span><b>
+                            {{mpoApplicationlogs[0].mpoApplicationId.instEmployee.code}}</b></h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped resume_main_">
+                                <thead>
+                                <tr>
+                                    <th translate="stepApp.attachment.Status">Status</th>
+                                    <th translate="stepApp.attachment.ActionDate">Action Date</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="mpoApplicationlog in mpoApplicationlogs">
+                                    <td>{{mpoApplicationlog.remarks}}</td>
+                                    <td>{{mpoApplicationlog.fromDate}}</td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+
+
+            <div class="col-sm-12 padding-bt no-print">
+                <tr>
+                    <button class="btn btn-primary alignright" ui-sref="timescaleApprove({id: timescaleId})"
+                            ng-show="showApproveButton">Approve
+                    </button>
+                </tr>
+                <tr>
+                    <button class="btn btn-primary alignright" ui-sref="timescaleDeny({id: timescaleId})"
+                            ng-show="showApproveButton">Decline
+                    </button>
+                </tr>
+            </div>
+        </tabset>
+        <div class="pull-left no-print">
+            <span class="btn btn-primary" onclick="window.history.back()"
+                  translate="{{'stepApp.employee.back'}}">back</span>
+        </div>
+    </div>
+</div>
+
+<!--</div>-->

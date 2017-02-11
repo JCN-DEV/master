@@ -1,0 +1,211 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="hrDepartmentSetup.id == null" class="modal-title" id="myHrDepartmentSetupLabel"
+            translate="stepApp.hrDepartmentSetup.home.createOrEditLabel">Create or edit a HrDepartmentSetup</h4>
+        <h4 ng-show="hrDepartmentSetup.id != null" class="modal-title" id="myHrDepartmentSetupLabel2"
+            translate="stepApp.hrDepartmentSetup.home.EditLabel">Create or edit a HrDepartmentSetup</h4>
+        <div class="modal-body col-md-12 padding-tb">
+            <div class="col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.hrDepartmentSetup.organizationType"
+                           for="field_organizationType">organizationType</label>
+                    <div class="input-margin">
+                        <select class="form-control" id="field_organizationType" name="organizationType"
+                                ng-model="hrDepartmentSetup.organizationType" required>
+                            <option value="">Select Organization Type</option>
+                            <option value="Organization">Organization</option>
+                            <option value="Institute">Institute</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" ng-show="(hrDepartmentSetup.organizationType=='Organization')">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrDepartmentSetup.organizationCategory"
+                               for="field_organizationCategory">organizationCategory</label>
+                        <div class="input-margin">
+                            <select class="form-control" id="field_organizationCategory" name="organizationCategory"
+                                    ng-model="hrDepartmentSetup.organizationCategory"
+                                    ng-change="loadOrganizationInfoByCategory(hrDepartmentSetup.organizationCategory)"
+                                    ng-options="MiscTypeSetup as MiscTypeSetup.typeName for MiscTypeSetup in orgCategoryList track by MiscTypeSetup.id">
+                                <option value="">Select Organization Category</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrDepartmentSetup.organizationInfo"
+                               for="field_organizationInfo">organizationInfo</label>
+                        <div class="input-margin">
+                            <select class="form-control" id="field_organizationInfo" name="organizationInfo"
+                                    ng-model="hrDepartmentSetup.organizationInfo"
+                                    ng-change="checkDepartmentUniqByCategory()"
+                                    ng-options="HrEmpWorkAreaDtlInfo as HrEmpWorkAreaDtlInfo.name for HrEmpWorkAreaDtlInfo in orgInfoListFltr track by HrEmpWorkAreaDtlInfo.id">
+                                <option value="">Select Organization Name</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" ng-show="(hrDepartmentSetup.organizationType=='Institute')">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrDepartmentSetup.instCategory"
+                               for="field_instCategory">instCategory</label>
+                        <div class="input-margin">
+                            <select class="form-control" id="field_instCategory" name="instCategory"
+                                    ng-model="hrDepartmentSetup.instCategory"
+                                    ng-change="loadInstituteByCategory(hrDepartmentSetup.instCategory)"
+                                    ng-options="InstCategory as InstCategory.name for InstCategory in instCategoryList track by InstCategory.id">
+                                <option value="">Select Institute Category</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrDepartmentSetup.institute"
+                               for="field_institute">institute</label>
+                        <div class="input-margin">
+                            <select class="form-control" id="field_institute" name="institute"
+                                    ng-model="hrDepartmentSetup.institute"
+                                    ng-change="checkDepartmentUniqByCategory()"
+                                    ng-options="Institute as Institute.name for Institute in instituteList track by Institute.id">
+                                <option value="">Select Institute</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrDepartmentSetup.departmentInfo"
+                               for="field_departmentInfo">departmentInfo</label>
+                        <div class="input-margin">
+                            <select class="form-control" id="field_departmentInfo" name="departmentInfo"
+                                    ng-model="hrDepartmentSetup.departmentInfo"
+                                    ng-change="checkDepartmentUniqByCategory()"
+                                    ng-options="HrDepartmentHeadSetup as HrDepartmentHeadSetup.departmentName for HrDepartmentHeadSetup in hrDepartmentHeadList track by HrDepartmentHeadSetup.id"
+                                    required>
+                                <option value="">Select Section</option>
+                            </select>
+                            <span class="message" ng-show="editForm.departmentInfo.$pending">validating...</span>
+                            <div ng-show="departmentAlreadyExist" class="alert alert-danger">
+                                Section already exists !!!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label"
+                               translate="stepApp.hrDepartmentSetup.activeStatus">ActiveStatus</label>
+                <span class="form-control">
+                    <input type="radio" data-ng-model="hrDepartmentSetup.activeStatus" name="activeStatus"
+                           data-ng-value="true">&nbsp;Active&nbsp;|&nbsp;
+                    <input type="radio" data-ng-model="hrDepartmentSetup.activeStatus" name="activeStatus"
+                           data-ng-value="false">&nbsp;Inactive
+                </span>
+                        <div ng-show="editForm.activeStatus.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrDepartmentSetup.wingInfo" for="field_wingInfo">wingInfo</label>
+                        <div class="input-margin">
+                            <select class="form-control" id="field_wingInfo" name="wingInfo" ng-model="hrDepartmentSetup.wingInfo"
+                                    ng-options="HrWingSetup as HrWingSetup.wingName for HrWingSetup in hrWingSetups track by HrWingSetup.id"
+                                    required>
+                                <option value="">{{'stepApp.hrDepartmentSetup.wingInfo' | translate}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" class="btn" ui-sref="hrDepartmentSetup">
+                <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;<span translate="entity.action.back">Back</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="hrDepartmentSetup.id == null" translate="entity.action.save">Save</span>
+                <span ng-show="hrDepartmentSetup.id != null" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+
+    <div class="panel-body">
+        <button  ng-if="parentDeptId>0" class="btn btn-primary" ui-sref="hrDepartmentHeadInfo.newdept({deptid:parentDeptId})">
+            <span class="glyphicon glyphicon-flash"></span> <span translate="stepApp.hrDepartmentHeadInfo.home.createLabel">Create a new HrDepartmentHeadInfo</span>
+        </button>
+        <table class="table table-striped" ng-if="parentDeptId>0">
+            <thead>
+            <tr>
+                <th translate="global.field.id">ID</th>
+                <th translate="stepApp.hrDepartmentHeadInfo.departmentInfo">departmentInfo</th>
+                <th translate="stepApp.hrDepartmentHeadInfo.headInfo">headInfo</th>
+                <th translate="stepApp.hrDepartmentHeadInfo.joinDate">JoinDate</th>
+                <th translate="stepApp.hrDepartmentHeadInfo.endDate">EndDate</th>
+                <th translate="stepApp.hrDepartmentHeadInfo.activeHead">ActiveHead</th>
+                <th translate="stepApp.hrDepartmentHeadInfo.activeStatus">ActiveStatus</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="hrDepartmentHeadInfo in hrDepartmentHeadInfos track by hrDepartmentHeadInfo.id">
+                <td><a ui-sref="hrDepartmentHeadInfo.detail({id:hrDepartmentHeadInfo.id})">{{hrDepartmentHeadInfo.id}}</a></td>
+                <td>
+                    <a ui-sref="hrDepartmentSetup.detail({id:hrDepartmentHeadInfo.departmentInfo.id})">{{hrDepartmentHeadInfo.departmentInfo.id}}</a>
+                </td>
+                <td>
+                    <a ui-sref="hrEmployeeInfo.detail({id:hrDepartmentHeadInfo.headInfo.id})">{{hrDepartmentHeadInfo.headInfo.fullName}}</a>
+                </td>
+                <td>{{hrDepartmentHeadInfo.joinDate | date:'mediumDate'}}</td>
+                <td>{{hrDepartmentHeadInfo.endDate | date:'mediumDate'}}</td>
+                <td>{{hrDepartmentHeadInfo.activeHead}}</td>
+                <td>{{hrDepartmentHeadInfo.activeStatus}}</td>
+                <td>
+                    <button type="submit"
+                            ui-sref="hrDepartmentHeadInfo.detail({id:hrDepartmentHeadInfo.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="hrDepartmentHeadInfo.edit({id:hrDepartmentHeadInfo.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit" ng-hide="true"
+                            ng-click="delete(hrDepartmentHeadInfo.id)"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</div>

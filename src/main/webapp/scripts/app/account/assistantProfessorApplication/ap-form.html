@@ -1,0 +1,268 @@
+<div class="panel-body">
+
+    <!--<div ng-class="currentSection=='attachment' ? 'show' : 'hide'" class="attachment_info">-->
+    <div class="attachment_info" >
+
+
+        <div class="col-sm-12 timescale-apply">
+            <form name="editForm" class="form form-horizontal col-sm-12" role="form" novalidate ng-submit="save()"
+                  show-validation>
+
+                <h3 translate="{{'stepApp.timeScaleApplication.Information'}}">Information</h3>
+
+                <div class="col-sm-12">
+
+                    <div class="col-md-6">
+                        <div class="form-group" >
+                            <!--<label class="control-label" translate="stepApp.instGenInfo.mpoEnlisted" for="field_mpoEnlisted">MPO Enlisted</label>-->
+                            <label translate="stepApp.timeScaleApplication.disciplinaryAction" for="field_disciplinaryAction">DisciplinaryAction</label>
+                            <div id="field_disciplinaryAction" >
+                                <!--<label  class="radio-inline btn btn-default"><input ng-disabled="timeScaleApplication.disciplinaryAction" type="radio" name="optradio" ng-model="instGenInfo.mpoEnlisted"  ng-value="true">Yes</label>
+                                <label class="radio-inline btn btn-default"><input ng-disabled="timeScaleApplication.disciplinaryAction" type="radio" name="optradio" ng-model="instGenInfo.mpoEnlisted"  ng-value="false">No</label>-->
+                                <label  class="radio-inline btn btn-default"><input type="radio" name="disciplinaryActionRadio" ng-model="timeScaleApplication.disciplinaryAction"  ng-value="true" ng-click="disciplinaryActionClick(timeScaleApplication.disciplinaryAction)">Yes</label>
+                                <label class="radio-inline btn btn-default"><input type="radio" name="disciplinaryActionRadio" ng-model="timeScaleApplication.disciplinaryAction"  ng-value="false" ng-click="disciplinaryActionClick(timeScaleApplication.disciplinaryAction)" >No</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label translate="stepApp.timeScaleApplication.disActionCaseNo" for="field_disActionCaseNo">DisActionCaseNo</label>
+                            <input ng-disabled="noDisciplinaryAction" type="text" class="form-control" name="disActionCaseNo" id="field_disActionCaseNo"
+                                   ng-model="timeScaleApplication.disActionCaseNo"
+                                />
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group ">
+                            <label translate="stepApp.timeScaleApplication.disActionFileName"
+                                   for="field_disActionFile">DisActionFileName</label>
+
+                            <input ng-disabled="noDisciplinaryAction" type="file" ngf-select class="btn btn-default btn-sm"
+                                    ngf-change="changeActionFile($file)" translate="entity.action.addblob" id="field_disActionFile"/>
+
+
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-6" ng-show="!noDisciplinaryAction">
+                        <div class="form-group">
+                            <label translate="stepApp.timeScaleApplication.resulationDate" for="field_resulationDate">ResulationDate</label>
+
+                            <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.resulationDate"
+                                   required
+                                   datepicker-options="calendar.dateOptions" close-text="Close"
+                                   ng-click="calendar.open($event, 'resulationDate')" class="form-control"
+                                   name="resulationDate" id="field_resulationdate"
+                                   ng-model="timeScaleApplication.resulationDate"/>
+                        </div>
+                    </div>
+                    <div class="col-sm-6" ng-show="noDisciplinaryAction">
+                        <div class="form-group">
+                            <label translate="stepApp.timeScaleApplication.resulationDate" for="field_resulationDate">ResulationDate</label>
+                            <!--<input type="date" class="form-control" name="resulationDate" id="field_resulationDate"
+                                   ng-model="timeScaleApplication.resulationDate"
+                                />-->
+
+                            <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.resulationDate"
+                                   datepicker-options="calendar.dateOptions" close-text="Close"
+                                   ng-click="calendar.open($event, 'resulationDate')" class="form-control"
+                                   name="resulationDate" id="field_resulationdate"
+                                   ng-model="timeScaleApplication.resulationDate"/>
+                        </div>
+                    </div>
+                    <div class="col-sm-6" ng-show="!noDisciplinaryAction">
+                        <div class="form-group">
+                            <label translate="stepApp.timeScaleApplication.agendaNumber" for="field_agendaNumber">AgendaNumber</label>
+                            <input type="number" class="form-control" name="agendaNumber" id="field_agendaNumber"
+                                   ng-model="timeScaleApplication.agendaNumber" required
+                                />
+                        </div>
+                    </div>
+                    <div class="col-sm-6" ng-show="noDisciplinaryAction">
+                        <div class="form-group">
+                            <label translate="stepApp.timeScaleApplication.agendaNumber" for="field_agendaNumber">AgendaNumber</label>
+                            <input type="number" class="form-control" name="agendaNumber" id="field_agendaNumber"
+                                   ng-model="timeScaleApplication.agendaNumber"
+                                />
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6">
+                        <div class="form-group" >
+                            <!--<label class="control-label" translate="stepApp.instGenInfo.mpoEnlisted" for="field_mpoEnlisted">MPO Enlisted</label>-->
+                            <label translate="stepApp.timeScaleApplication.workingBreak" for="field_workingBreak">WorkingBreak</label>
+                            <div id="field_workingBreak" >
+                                <label  class="radio-inline btn btn-default"><input  type="radio" name="workingBreakRadio" ng-model="timeScaleApplication.workingBreak"  ng-click="workingBreakClick(timeScaleApplication.workingBreak)" ng-value="true">Yes</label>
+                                <label class="radio-inline btn btn-default"><input  type="radio" name="workingBreakRadio" ng-model="timeScaleApplication.workingBreak"  ng-click="workingBreakClick(timeScaleApplication.workingBreak)" ng-value="false">No</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 no_padding"  ng-show="!noWorkingBreakClick">
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label translate="stepApp.timeScaleApplication.workingBreakStart"
+                                   for="field_workingBreakStart">WorkingBreakStart</label>
+                            <!--<input type="date" class="form-control" name="workingBreakStart"
+                                   id="field_workingBreakStart"
+                                   ng-model="timeScaleApplication.workingBreakStart"
+                                />-->
+                            <input datepicker-popup="{{calendar.dateFormat}}" ng-disabled="noWorkingBreakClick" required
+                                   is-open="calendar.opened.workingBreakStart"
+                                   datepicker-options="calendar.dateOptions" close-text="Close"
+                                   ng-click="calendar.open($event, 'workingBreakStart')" class="form-control"
+                                   name="workingBreakStart" id="field_workingBreakStart"
+                                   ng-model="timeScaleApplication.workingBreakStart"/>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label translate="stepApp.timeScaleApplication.workingBreakEnd" for="field_workingBreakEnd">WorkingBreakEnd</label>
+                            <!--<input type="date" class="form-control" name="workingBreakEnd" id="field_workingBreakEnd"
+                                   ng-model="timeScaleApplication.workingBreakEnd"
+                                />-->
+                            <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.workingBreakEnd" ng-disabled="noWorkingBreakClick" required
+                                   datepicker-options="calendar.dateOptions" close-text="Close"
+                                   ng-click="calendar.open($event, 'workingBreakEnd')" class="form-control"
+                                   name="workingBreakStart" id="field_workingBreakEnd"
+                                   ng-model="timeScaleApplication.workingBreakEnd"/>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-sm-12 no_padding" ng-show="noWorkingBreakClick">
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label translate="stepApp.timeScaleApplication.workingBreakStart"
+                                       for="field_workingBreakStart">WorkingBreakStart</label>
+                                <!--<input type="date" class="form-control" name="workingBreakStart"
+                                       id="field_workingBreakStart"
+                                       ng-model="timeScaleApplication.workingBreakStart"
+                                    />-->
+                                <input datepicker-popup="{{calendar.dateFormat}}" ng-disabled="noWorkingBreakClick"
+                                       is-open="calendar.opened.workingBreakStart"
+                                       datepicker-options="calendar.dateOptions" close-text="Close"
+                                       ng-click="calendar.open($event, 'workingBreakStart')" class="form-control"
+                                       name="workingBreakStart" id="field_workingBreakStart"
+                                       ng-model="timeScaleApplication.workingBreakStart"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label translate="stepApp.timeScaleApplication.workingBreakEnd" for="field_workingBreakEnd">WorkingBreakEnd</label>
+                                <!--<input type="date" class="form-control" name="workingBreakEnd" id="field_workingBreakEnd"
+                                       ng-model="timeScaleApplication.workingBreakEnd"
+                                    />-->
+                                <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.workingBreakEnd" ng-disabled="noWorkingBreakClick"
+                                       datepicker-options="calendar.dateOptions" close-text="Close"
+                                       ng-click="calendar.open($event, 'workingBreakEnd')" class="form-control"
+                                       name="workingBreakStart" id="field_workingBreakEnd"
+                                       ng-model="timeScaleApplication.workingBreakEnd"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+               <div class="col-sm-12">
+                   <h3 translate="{{'stepApp.employee.AttachmentInformation'}}">Attachment Information</h3>
+
+                <div class="attachmentDiv" ng-repeat="attachmentCount in applicantAttachmentCount track by $index">
+                    <div class="col-sm-12">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <select class="form-control" id="field_attachment" name="attachment"
+                                        ng-model="applicantAttachment[attachmentCount].attachment"
+                                        ng-change="setAttachment($index, applicantAttachment[attachmentCount],applicantAttachment[attachmentCount].noAttachment)">
+                                    <option value="" selected="selected" translate="{{'stepApp.employee.AttachmentName'}}">Attachment Name</option>
+                                    <option
+                                        ng-repeat="mpoAttachment in attachmentCategoryList "
+                                        value="{{mpoAttachment}}">
+                                        {{mpoAttachment.attachmentName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" ng-hide="applicantAttachment[attachmentCount].noAttachment">
+                            <div class="form-group" ngf-drop ngf-change="setFile($file, attachment)">
+                                <div>
+                                    <div class="help-block clearfix">
+                                        <span class="pull-left">{{applicantAttachment[attachmentCount].fileContentType}} {{byteSize(applicantAttachment[attachmentCount].file)}}</span>
+                                        <button
+                                            ng-click="applicantAttachment[attachmentCount].file=null;applicantAttachment[attachmentCount].fileContentType=null;"
+                                            ng-if="applicantAttachment[attachmentCount].file"
+                                            class="btn btn-default btn-xs pull-right">
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                        </button>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <input type="file" ngf-select class="btn btn-default btn-sm col-sm-6"
+                                               ngf-change="setFile($file, applicantAttachment[attachmentCount])"
+                                               translate="entity.action.addblob">
+                                        </input>
+                                        <div class="col-sm-6" ng-hide="attachmentCount=='0'">
+                                        <span class="col-sm-6 minus-btn"
+                                              ng-click="removeAttachment(attachmentCount)"><span
+                                            class="glyphicon glyphicon-minus"></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" class="form-control" name="file" id="field_file"
+                                       ng-model="applicantAttachment[attachmentCount].file"
+                                    />
+                                <input type="hidden" class="form-control" name="fileContentType" id="field_fileContentType"
+                                       ng-model="applicantAttachment[attachmentCount].fileContentType"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" ng-show="applicantAttachment[attachmentCount].noAttachment">
+                            <div class="col-sm-12">
+                                <div class="col-sm-6">
+                                    <input class="form-control" type="text" ng-change="remarksChange(applicantAttachment[attachmentCount].noAttachment,applicantAttachment[attachmentCount].remarks)"
+                                           ng-model="applicantAttachment[attachmentCount].remarks" placeholder="Remarks"/>
+                                </div>
+                                <div class="col-sm-6" ng-hide="attachmentCount=='0'">
+                                <span class="col-sm-6 minus-btn" ng-click="removeAttachment(attachmentCount)"><span
+                                    class="glyphicon glyphicon-minus"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 attachment_file">
+                        <div class="control-lebel">
+                            <div class="col-sm-12">
+                                <input ng-click='selectNoAttachment(applicantAttachment[attachmentCount].noAttachment,applicantAttachment[attachmentCount].attachment,applicantAttachment[attachmentCount].file,applicantAttachment[attachmentCount].remarks)' type="checkbox" id="noAttachment"
+                                       ng-model="applicantAttachment[attachmentCount].noAttachment">
+                                <label class="control-label my_control_lebel"
+                                       for="field_noAttachment" translate="{{'stepApp.employee.dontHave'}}">I don't have this attachment</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="col-sm-12">
+                <span ng-show="showAddMoreButton" class="btn btn-sm btn-primary pull-right"
+                      ng-click="addMoreAttachment()"><span
+                    class="glyphicon glyphicon-plus"></span>Add More Attachment</span>
+                </div>
+                <div class="col-sm-12" ng-show="duplicateError">
+                    <span style="color:red;margin-top:30px;font-size:14px;">You have selected duplicate attachment, please check the selection.</span>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group my_form_group">
+                        <br/>
+
+                        <div class="col-lg-12 pull-right text-right">
+                            <span class="btn btn-primary pull-left text-left" ng-click="timescalePrev('attachment', 'education')" translate="{{'stepApp.employee.Previous'}}">Previous</span>
+
+                            <button ng-disabled="mpoFormHasError" type="submit" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-ok-sign"></span>&nbsp;<span
+                                translate="global.menu.apply">Apply</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,142 @@
+<!--<div class="cmscurriculam">
+    <div class="panel-heading cmsheading">
+        <h3 class="panel-title" translate="stepApp.cmsSyllabus.home.title">CmsSyllabuss</h3>
+    </div>
+        <div class="row cmsCnew su_btn_center">
+            <div class="col-md-8 col-sm-12 col-xs-12">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control su_searchbox" ng-model="searchQuery" id="searchQuery" placeholder="{{'global.home.searchLabel' | translate}}">
+
+                        <button class="btn btn-primary su_searchbtn" ng-click="search()"><i class="fa fa-search-plus"></i>
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+            <div class="col-md-4 col-sm-12 col-xs-12 su_btn_center text-right">
+                <button class="btn btn-primary" ui-sref="courseInfo.cmsSyllabus.new">
+                    <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.cmsSyllabus.home.createLabel">Create a new CmsSyllabus</span>
+                </button>
+            </div>
+
+        </div>-->
+
+
+    <div class="col-sm-12 common-list">
+        <h2 class="panel-title" translate="stepApp.cmsSyllabus.home.title">CmsSyllabuss</h2>
+        <div class="col-md-12 col-sm-12 col-xs-12 padding-tb">
+            <div class="col-md-4 no_padding">
+                <b><span translate="global.home.searchhere">Search Here :</span></b>
+                <input ng-model="q" id="search" type="text" class="form-control"  placeholder="Search for...">
+            </div>
+            <div class="col-md-2">
+                <b><span translate="global.home.itemperpage">Items per page:</span></b>
+                <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+            </div>
+            <div class="col-md-6 btn-top text-right no_padding">
+                <button class="btn btn-primary" ui-sref="courseInfo.cmsSyllabus.new">
+                    <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.cmsSyllabus.home.createLabel">Create a new CmsSyllabus</span>
+                </button>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+    <div class="modal fade" id="viewQRCode">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="qrviewForm">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+
+                    </div>
+                    <div class="modal-body">
+                        <!--<img src="/assets/qr_code_files/{{qrCodeGateway.qrCodeImageLink}}">-->
+                        <!--<img ng-src="/assets/qrcodefiles/{{qrCodeGateway.qrCodeImageLink}}" class="img-thumbnail" /> {{cmsSyllabus.syllabusContentType}}-->
+                        <img ng-src="/assets/qrcodefiles/{{cmsSyllabuss.syllabusContent}}" class="img-thumbnail" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                            translate="entity.action.cancel">Cancel</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="global.field.id">ID</th>
+                    <th translate="stepApp.cmsSyllabus.version">Version</th>
+                    <th translate="stepApp.cmsSyllabus.name">Name</th>
+                   <!-- <th translate="stepApp.cmsSyllabus.description">Description</th>-->
+<!--
+                    <th translate="stepApp.cmsSyllabus.status">Status</th>
+-->
+<!--
+                    <th translate="stepApp.cmsSyllabus.cmsCurriculum">cmsCurriculum</th>
+-->
+<!--
+                    <th translate="stepApp.cmsSyllabus.syllabusContentType">syllabusContentType</th>
+-->
+                    <th translate="entity.action.action" class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="cmsSyllabus in cmsSyllabuss">
+                <tr class=" book-info wow animated zoomIn" data-wow-duration="1s" data-wow-delay="0s" dir-paginate="cmsSyllabus in cmsSyllabuss  | filter:q | itemsPerPage: pageSize " >
+
+                <td><a ui-sref="cmsSyllabus.detail({id:cmsSyllabus.id})">{{cmsSyllabus.ID}}</a></td>
+                    <td>{{cmsSyllabus.version}}</td>
+                    <td>{{cmsSyllabus.NAME}}</td>
+                   <!-- <td>{{cmsSyllabus.description}}</td>-->
+                   <!-- <td>
+                        <span style="color: #005f00"  ng-show="cmsSyllabus.status == true" class="form-control-static"><span translate="entity.action.activate">Active</span></span>
+                        <span style="color: red" ng-show="cmsSyllabus.status == false" class="form-control-static"><span translate="entity.action.deactivate">Deactive</span></span></td>
+                    <td>-->
+                        <a ui-sref="cmsCurriculum.detail({id:cmsSyllabus.cmsCurriculum.id})">{{cmsSyllabus.cmsCurriculum.name}}</a>
+                    </td>
+                    <!--<td>&lt;!&ndash;{{qrCodeGateway.qrCodeImageLink}}&ndash;&gt;
+                        <button type="submit"
+                                ng-click="viewQrCode(cmsSyllabus.id)"
+                                class="btn btn-warning btn-sm" tooltip="VIEW Probidhan">
+                            <span class="glyphicon glyphicon-picture"></span>
+                        </button>
+                    </td>-->
+                    <td class="text-right">
+                        <button type="submit"
+                                ui-sref="courseInfo.cmsSyllabus.detail({id:cmsSyllabus.ID})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="courseInfo.cmsSyllabus.edit({id:cmsSyllabus.ID})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <!--<button type="submit"
+                                ui-sref="cmsSyllabus.delete({id:cmsSyllabus.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>-->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+
+        </nav>
+    </div>
+</div>

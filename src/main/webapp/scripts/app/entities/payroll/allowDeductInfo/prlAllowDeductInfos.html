@@ -1,0 +1,82 @@
+<div class="col-md-12 common-list">
+    <h2 class="panel-heading" translate="stepApp.prlAllowDeductInfo.home.title">PrlAllowDeductInfos</h2>
+    <div class="col-md-12 padding-tb">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control"
+                   placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control"
+                   placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+        <div class="col-xs-4 no_padding text-right ">
+            <button class="btn btn-primary pull-right" ui-sref="prlAllowDeductInfo.new">
+                <span class="glyphicon glyphicon-plus"></span> <span
+                translate="stepApp.prlAllowDeductInfo.home.createLabel">Create a new PrlAllowDeductInfo</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+            <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
+                <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span
+                    class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="name"><span translate="stepApp.prlAllowDeductInfo.name">Name</span> <span
+                    class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="allowDeducType"><span translate="stepApp.prlAllowDeductInfo.allowDeducType">AllowDeducType</span>
+                    <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="description"><span translate="stepApp.prlAllowDeductInfo.allowCategory">allowCategory</span> <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="activeStatus"><span
+                    translate="stepApp.prlAllowDeductInfo.activeStatus">ActiveStatus</span>
+                    <span class="glyphicon glyphicon-sort"></span></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--
+                option:1=> filterWithOr:{allowDeducType:['Allowance','Deduction']}
+                option:2=> filter: allowDedFilter
+            -->
+            <!--<tr ng-animate="'animate'" dir-paginate="prlAllowDeductInfo in prlAllowDeductInfos | filter:q | itemsPerPage: pageSize track by prlAllowDeductInfo.id" current-page="currentPage">-->
+            <tr dir-paginate="prlAllowDeductInfo in prlAllowDeductInfos | filter:q | itemsPerPage: pageSize track by prlAllowDeductInfo.id"
+                current-page="currentPage">
+                <td><a
+                    ui-sref="prlAllowDeductInfo.detail({id:prlAllowDeductInfo.id})">{{prlAllowDeductInfo.id}}</a>
+                </td>
+                <td>{{prlAllowDeductInfo.name}}</td>
+                <td translate="{{'stepApp.AllowanceDeductionType.' + prlAllowDeductInfo.allowDeducType}}">
+                    {{prlAllowDeductInfo.allowDeducType}}
+                </td>
+                <td translate="{{'stepApp.AllowanceDeductionCategory.' + prlAllowDeductInfo.allowCategory}}">{{prlAllowDeductInfo.allowCategory}}</td>
+                <td>{{prlAllowDeductInfo.activeStatus ? 'Active' : 'Inactive'}}</td>
+                <td class="text-right">
+                    <button type="submit"
+                            ui-sref="prlAllowDeductInfo.detail({id:prlAllowDeductInfo.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span
+                        translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="prlAllowDeductInfo.edit({id:prlAllowDeductInfo.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                        translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit" ng-hide="true"
+                            ui-sref="prlAllowDeductInfo.delete({id:prlAllowDeductInfo.id})"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                        translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <nav class="no-print">
+        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                 template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+    </nav>
+</div>

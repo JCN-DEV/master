@@ -1,0 +1,74 @@
+<div class="col-sm-12 common-list">
+        <h2 class="panel-title"  translate="stepApp.cmsTrade.home.title">CmsTrades</h2>
+
+        <div class="col-md-12 col-sm-12 col-xs-12 padding-tb">
+            <div class="col-md-4 no_padding">
+                <b><span translate="global.home.searchhere">Search Here :</span></b>
+                <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+            </div>
+            <div class="col-md-2">
+                <b><span translate="global.home.itemperpage">Items per page:</span></b>
+                <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+            </div>
+            <div class="col-md-6 btn-top no_padding text-right">
+                <button class="btn btn-primary " ui-sref="courseInfo.cmsTrade.new">
+                    <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.cmsTrade.home.createLabel">Create a new CmsTrade</span>
+                </button>
+            </div>
+        </div>
+    <br>
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <!--<th translate="global.field.id">ID</th>-->
+                    <th translate="stepApp.cmsTrade.code">Code</th>
+                    <th translate="stepApp.cmsTrade.name">Name</th>
+<!--
+                    <th translate="stepApp.cmsTrade.description">Description</th>
+-->
+                    <th translate="stepApp.cmsTrade.status">Status</th>
+                    <th translate="stepApp.cmsTrade.cmsCurriculum">cmsCurriculum</th>
+                    <th translate="entity.action.action" class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--<tr ng-repeat="cmsTrade in cmsTrades track by cmsTrade.id">-->
+                <tr class="wow animated zoomIn" dir-paginate="cmsTrade in cmsTrades | filter:q | itemsPerPage: pageSize track by cmsTrade.id" current-page="currentPage">
+                   <!-- <td><a ui-sref="cmsTrade.detail({id:cmsTrade.id})">{{cmsTrade.id}}</a></td>-->
+                    <td>{{cmsTrade.code}}</td>
+                    <td>{{cmsTrade.name}}</td>
+                   <!-- <td>{{cmsTrade.description}}</td>-->
+                    <td>
+                        <span style="color: #005f00"  ng-show="cmsTrade.status == true" class="form-control-static"><span translate="entity.action.activate">Active</span></span>
+                        <span style="color: red" ng-show="cmsTrade.status == false" class="form-control-static"><span translate="entity.action.deactivate">Deactive</span></span>
+                    </td>
+                    <td>
+                        <a ui-sref="cmsCurriculum.detail({id:cmsTrade.cmsCurriculum.id})">{{cmsTrade.cmsCurriculum.name}}</a>
+                    </td>
+                    <td class="text-right">
+                        <button type="submit"
+                                ui-sref="courseInfo.cmsTrade.detail({id:cmsTrade.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="courseInfo.cmsTrade.edit({id:cmsTrade.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                       <!-- <button type="submit"
+                                ui-sref="cmsTrade.delete({id:cmsTrade.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>-->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!--for pagination and real time search add bellow nav tab -->
+        <nav>
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+</div>

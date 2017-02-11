@@ -1,0 +1,189 @@
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="clear()">&times;</button>
+    <h4 class="modal-title"> {{hrEmploymentInfo.employeeInfo.fullName}} - {{hrEmploymentInfo.presentInstitute}}</h4>
+</div>
+<div class="modal-body">
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th><span translate="stepApp.hrmHome.approve.fieldName">Field</span></th>
+                <th><span translate="stepApp.hrmHome.approve.fieldNewData">New Value</span></th>
+                <th><span ng-if="hrEmploymentInfoLog.id">
+                        <span translate="stepApp.hrmHome.approve.fieldOldData">Old Value</span>
+                        </span>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="stepApp.hrEmploymentInfo.employeeInfo">employeeInfo</span>
+                </td>
+                <td>
+                   <span class="form-control-static">{{hrEmploymentInfo.employeeInfo.fullName}}</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{hrEmploymentInfoLog.employeeInfo.fullName}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.hrEmploymentInfo.employeeType">employeeType</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{hrEmploymentInfo.employeeType.typeName}}</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{hrEmploymentInfoLog.employeeType.typeName}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.hrEmploymentInfo.presentPayScale">presentPayScale</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{hrEmploymentInfo.presentPayScale.payScaleCode}}</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{hrEmploymentInfoLog.presentPayScale.payScaleCode}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.hrEmploymentInfo.presentInstitute">PresentInstitute</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{hrEmploymentInfo.presentInstitute}}</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{hrEmploymentInfoLog.presentInstitute}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.hrEmploymentInfo.joiningDate">JoiningDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{hrEmploymentInfo.joiningDate | date:'mediumDate'}}</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{hrEmploymentInfoLog.joiningDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.hrEmploymentInfo.regularizationDate">RegularizationDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{hrEmploymentInfo.regularizationDate | date:'mediumDate'}}</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{hrEmploymentInfoLog.regularizationDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.hrEmploymentInfo.jobConfNoticeNo">JobConfNoticeNo</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{hrEmploymentInfo.jobConfNoticeNo}}</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{hrEmploymentInfoLog.jobConfNoticeNo}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.hrEmploymentInfo.confirmationDate">ConfirmationDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{hrEmploymentInfo.confirmationDate | date:'mediumDate'}}</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{hrEmploymentInfoLog.confirmationDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.hrEmploymentInfo.officeOrderNo">OfficeOrderNo</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{hrEmploymentInfo.officeOrderNo}}</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{hrEmploymentInfoLog.officeOrderNo}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.hrEmploymentInfo.officeOrderDate">OfficeOrderDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{hrEmploymentInfo.officeOrderDate | date:'mediumDate'}}</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{hrEmploymentInfoLog.officeOrderDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.hrEmploymentInfo.updateDate">UpdateDate</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{hrEmploymentInfo.updateDate | date:'mediumDate'}}</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{hrEmploymentInfoLog.createDate | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.hrEmploymentInfo.activeStatus">ActiveStatus</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{hrEmploymentInfo.activeStatus ? 'Active' : 'Inactive'}}</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{hrEmploymentInfoLog.activeStatus ? 'Active' : hrEmploymentInfoLog.activeStatus==false ? 'Inactive' : ''}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <label class="control-label" translate="stepApp.hrmHome.approve.approvalChoice">Approval Choice</label>
+                    <span>
+                        <input type="radio" data-ng-model="isApproved" name="isApproved" data-ng-value="true" >&nbsp;<span translate="stepApp.hrmHome.buttonTextApprove">Approve</span>&nbsp;|&nbsp;
+                        <input type="radio" data-ng-model="isApproved" name="isApproved" data-ng-value="false">&nbsp;<span translate="stepApp.hrmHome.buttonTextReject"> Reject</span>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <div ng-hide="isApproved">
+                        <label class="control-label" translate="stepApp.hrmHome.approve.logComments" for="field_logComments">LogComments</label>
+                        <textarea class="form-control" name="logComments" id="field_logComments" ng-model="logComments"></textarea>
+                    </div>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.close">Close</span>
+        </button>
+        <span ng-show="isApproved">
+            <button type="submit" ng-click="applyApproval('accept')" class="btn btn-primary btn-sm">
+                <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="stepApp.hrmHome.buttonTextApprove"> Approve</span>
+            </button>
+        </span>
+        <span ng-hide="isApproved">
+            <button type="submit" ng-click="applyApproval('reject')" class="btn btn-danger">
+                <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="stepApp.hrmHome.buttonTextReject"> Reject</span>
+            </button>
+        </span>
+    </div>
+</div>

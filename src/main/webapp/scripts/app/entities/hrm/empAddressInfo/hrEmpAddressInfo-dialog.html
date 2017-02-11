@@ -1,0 +1,334 @@
+<!---===address info dialog===--->
+<div class="service-form-area">
+    <div class="panel panel-default">
+        <div class="panel-heading" >
+            <h4 ng-show="hrEmpAddressInfo.id != null" class="modal-title" translate="stepApp.hrEmpAddressInfo.home.EditLabel">Create or edit a HrEmpAddressInfo</h4>
+        </div>
+        <div class="panel-body no_padding">
+            <form  class="form-horizontal " name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+                <div class="row">
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="form-group ">
+                            <label class="control-label" for="field_workArea" translate="stepApp.hrEmpAddressInfo.workarea">Work Area</label>
+                            <div class="input-margin">
+                                <select class="form-control" id="field_workArea" name="workArea" ng-model="workArea" ng-change="loadModelByWorkArea(workArea)"
+                                        ng-options="MiscTypeSetup as MiscTypeSetup.typeName for MiscTypeSetup in workAreaList track by MiscTypeSetup.id">
+                                    <option value="">Select Work Area</option>
+                                </select>
+                                <span class="help">No of Employee: {{hremployeeinfos.length}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="form-group ">
+                            <label class="control-label" translate="stepApp.hrEmpAddressInfo.employeeInfo" for="field_employeeInfo">employeeInfo</label>
+                            <div class="input-margin">
+                                <input type="text" class="form-control autocomplete" autocomplete="off" ng-model="hrEmpAddressInfo.employeeInfo" typeahead='HrEmployeeInfo as (HrEmployeeInfo.fullName + " " + HrEmployeeInfo.employeeId) for HrEmployeeInfo in hremployeeinfos | filter:$viewValue' id="field_employeeInfo" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmpAddressInfo.addressType" for="field_addressType">AddressType</label>
+                        <div class="input-margin">
+
+                            <select class="form-control" name="addressType" ng-model="hrEmpAddressInfo.addressType" id="field_addressType" required>
+                                <option value="Permanent" translate="stepApp.addressTypes.Permanent">Permanent</option>
+                                <option value="Present" translate="stepApp.addressTypes.Present">Present</option>
+                                <option value="Emergency" translate="stepApp.addressTypes.Emergency">Emergency</option>
+                            </select>
+                            <div ng-show="editForm.addressType.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.addressType.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmpAddressInfo.houseNumber" for="field_houseNumber">HouseNumber</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="houseNumber" id="field_houseNumber" ng-model="hrEmpAddressInfo.houseNumber"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmpAddressInfo.houseNumberBn" for="field_houseNumberBn">HouseNumberBn</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="houseNumberBn" id="field_houseNumberBn" ng-model="hrEmpAddressInfo.houseNumberBn"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmpAddressInfo.roadNumber" for="field_roadNumber">RoadNumber</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="roadNumber" id="field_roadNumber" ng-model="hrEmpAddressInfo.roadNumber"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmpAddressInfo.roadNumberBn" for="field_roadNumberBn">RoadNumberBn</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="roadNumberBn" id="field_roadNumberBn" ng-model="hrEmpAddressInfo.roadNumberBn"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmpAddressInfo.villageName" for="field_villageName">VillageName</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="villageName" id="field_villageName" ng-model="hrEmpAddressInfo.villageName"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmpAddressInfo.postOffice" for="field_postOffice">PostOffice</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="postOffice" id="field_postOffice" ng-model="hrEmpAddressInfo.postOffice"/>
+                          </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmpAddressInfo.postOfficeBn" for="field_postOfficeBn">PostOfficeBn</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="postOfficeBn" id="field_postOfficeBn" ng-model="hrEmpAddressInfo.postOfficeBn"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label translate="stepApp.hrEmpAddressInfo.division" for="field_division">division</label>
+                        <select class="form-control" id="field_division" name="division"
+                                ng-model="hrEmpAddressInfo.division"
+                                ng-change="loadDistrictByDivision(hrEmpAddressInfo.division)"
+                                ng-options="Division as Division.name for Division in divisions track by Division.id">
+                            <option value="">Select Division</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmpAddressInfo.district" for="field_district">District</label>
+                        <div class="input-margin">
+                            <select class="form-control" id="field_district" name="district" ng-model="hrEmpAddressInfo.district"
+                                    ng-change="loadUpazilaByDistrict(hrEmpAddressInfo.district)"
+                                    ng-options="District as District.name for District in districtListFilter track by District.id" required>
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmpAddressInfo.upazila" for="field_upazila">upazila</label>
+                        <div class="input-margin">
+                            <select class="form-control" id="field_upazila" name="upazila" ng-model="hrEmpAddressInfo.upazila"
+                                    ng-options="Upazila as Upazila.name for Upazila in upazilaListFilter track by Upazila.id" required>
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmpAddressInfo.contactNumber" for="field_contactNumber">ContactNumber</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="contactNumber" id="field_contactNumber"
+                                   ng-model="hrEmpAddressInfo.contactNumber"
+                                   ng-minlength="11" ng-maxlength="18" required numeric-only-mobile/>
+                            <div ng-show="editForm.contactNumber.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.contactNumber.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.contactNumber.$error.minlength" translate="entity.validation.minlength" translate-value-min="11">
+                                    This field is required to be at least 11 characters.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.contactNumber.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="18">
+                                    This field cannot be longer than 18 characters.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmpAddressInfo.activeStatus">ActiveStatus</label>
+                        <div class="input-margin">
+                            <label class="radio-inline">
+                                <input type="radio" data-ng-model="hrEmpAddressInfo.activeStatus" name="activeStatus" data-ng-value="true">&nbsp;<span translate="stepApp.hrEmpAddressInfo.active"></span>&nbsp;&nbsp;
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" data-ng-model="hrEmpAddressInfo.activeStatus" name="activeStatus" data-ng-value="false">&nbsp;<span translate="stepApp.hrEmpAddressInfo.inactive"></span>
+                            </label>
+                            <div ng-show="editForm.activeStatus.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="text-right">
+                            <button type="button" class="btn btn-default"  data-dismiss="modal" onclick="window.history.back()">
+                                <span class="glyphicon  glyphicon-chevron-left"></span>&nbsp;<span translate="entity.action.back">Back</span>
+                            </button>
+
+                            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                               <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<!---===End address info dialog===--->
+<!---===End address info dialog===--->
+<!---===End address info dialog===--->
+<!--
+
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myHrEmpAddressInfoLabel" translate="stepApp.hrEmpAddressInfo.home.createOrEditLabel">Create or edit a HrEmpAddressInfo</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.hrEmpAddressInfo.employeeInfo" for="field_employeeInfo">employeeInfo</label>
+                <select class="form-control" id="field_employeeInfo" name="employeeInfo" ng-model="hrEmpAddressInfo.employeeInfo" ng-options="HrEmployeeInfo as HrEmployeeInfo.fullName for HrEmployeeInfo in hremployeeinfos track by HrEmployeeInfo.id">
+                    <option value=""></option>
+                </select>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label class="control-label" translate="stepApp.hrEmpAddressInfo.addressType" for="field_addressType">AddressType</label>
+                <select class="form-control" name="addressType" ng-model="hrEmpAddressInfo.addressType" id="field_addressType" required>
+                    <option value="Permanent" translate="stepApp.addressTypes.Permanent">Permanent</option>
+                    <option value="Present" translate="stepApp.addressTypes.Present">Present</option>
+                    <option value="Emergency" translate="stepApp.addressTypes.Emergency">Emergency</option>
+                </select>
+                <div ng-show="editForm.addressType.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.addressType.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <label class="control-label" translate="stepApp.hrEmpAddressInfo.houseNumber" for="field_houseNumber">HouseNumber</label>
+                <input type="text" class="form-control" name="houseNumber" id="field_houseNumber"
+                       ng-model="hrEmpAddressInfo.houseNumber"/>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label class="control-label" translate="stepApp.hrEmpAddressInfo.roadNumber" for="field_roadNumber">RoadNumber</label>
+                <input type="text" class="form-control" name="roadNumber" id="field_roadNumber"
+                       ng-model="hrEmpAddressInfo.roadNumber"/>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <label class="control-label" translate="stepApp.hrEmpAddressInfo.villageName" for="field_villageName">VillageName</label>
+                <input type="text" class="form-control" name="villageName" id="field_villageName"
+                       ng-model="hrEmpAddressInfo.villageName"/>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label class="control-label" translate="stepApp.hrEmpAddressInfo.postOffice" for="field_postOffice">PostOffice</label>
+                <input type="text" class="form-control" name="postOffice" id="field_postOffice"
+                       ng-model="hrEmpAddressInfo.postOffice"/>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <label class="control-label" translate="stepApp.hrEmpAddressInfo.policeStation" for="field_policeStation">PoliceStation</label>
+                <input type="text" class="form-control" name="policeStation" id="field_policeStation"
+                       ng-model="hrEmpAddressInfo.policeStation"/>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label class="control-label" translate="stepApp.hrEmpAddressInfo.district" for="field_district">District</label>
+                <input type="text" class="form-control" name="district" id="field_district"
+                       ng-model="hrEmpAddressInfo.district"/>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="form-group col-sm-6">
+                <label class="control-label" translate="stepApp.hrEmpAddressInfo.contactNumber" for="field_contactNumber">ContactNumber</label>
+                <input type="text" class="form-control" name="contactNumber" id="field_contactNumber"
+                       ng-model="hrEmpAddressInfo.contactNumber"/>
+            </div>
+
+            <div class="form-group col-sm-6">
+                <label class="control-label" translate="stepApp.hrEmpAddressInfo.activeStatus">ActiveStatus</label>
+                <span class="form-control">
+                    <input type="radio" data-ng-model="hrEmpAddressInfo.activeStatus" name="activeStatus" data-ng-value="true">&nbsp;Active&nbsp;|&nbsp;
+                    <input type="radio" data-ng-model="hrEmpAddressInfo.activeStatus" name="activeStatus" data-ng-value="false">&nbsp;Inactive
+                </span>
+                <div ng-show="editForm.activeStatus.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" class="btn " data-dismiss="modal" onclick="window.history.back()">
+            <i class="fa fa-angle-double-left"></i>&nbsp;<span translate="entity.action.back">Back</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>
+-->

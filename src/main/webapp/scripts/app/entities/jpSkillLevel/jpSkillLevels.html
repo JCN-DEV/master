@@ -1,0 +1,97 @@
+<div class="col-md-3 responsive_padding no-print">
+    <ng-include src="'scripts/app/entities/jobPortal/jp-admin-menu.html'"></ng-include>
+</div>
+<div class="col-md-9 lbl-dash">
+    <div class="col-md-12 common-list">
+        <h2 class="heading_center" translate="stepApp.jpSkillLevel.home.title">JpSkillLevels</h2>
+        <div class="col-md-12 padding-tb">
+            <div class="col-xs-4 no_padding">
+                <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+            </div>
+            <div class="col-xs-4">
+                <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+            </div>
+            <div class="col-xs-4 no_padding text-right ">
+                <button class="btn btn-primary" ui-sref="jpSkillLevel.new">
+                    <span class="glyphicon glyphicon-plus"></span> <span translate="stepApp.jpSkillLevel.home.createLabel">Create a new JpSkillLevel</span>
+                </button>
+            </div>
+        </div>
+        <!--<div class="col-sm-12 padding-tb no-print">
+            <div class="col-md-8 no_padding ">
+                <div class="col-md-6 no_padding">
+                    <b>&lt;!&ndash;{{ (hrDesignationSetups | filter:q).length }}&ndash;&gt; <span
+                        translate="global.home.searchhere"></span>:</b>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1"><i class="fa fa-search"
+                                                                             aria-hidden="true"></i></span>
+                        <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <b><span translate="global.home.itemperpage"></span>:</b>
+                    <div class="input-group">
+                        <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 no_padding text-right btn-top">
+                <button class="btn btn-primary" ui-sref="jpSkillLevel.new">
+                    <span class="glyphicon glyphicon-plus"></span> <span
+                    translate="stepApp.jpSkillLevel.home.createLabel">Create a new JpSkillLevel</span>
+                </button>
+            </div>
+        </div>-->
+        <div class="col-sm-12 table-responsive no_padding">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th translate="global.field.serial">Serial No</th>
+                    <th translate="stepApp.jpSkillLevel.name">Name</th>
+                    <th translate="stepApp.jpSkillLevel.description">Description</th>
+                    <th translate="stepApp.jpSkillLevel.status">Status</th>
+                    <th class="text-center no-print" translate="entity.action.action"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr dir-paginate="jpSkillLevel in jpSkillLevels | filter:q | itemsPerPage: pageSize track by jpSkillLevel.id"
+                    current-page="currentPage">
+                    <td><a ui-sref="jpSkillLevel.detail({id:jpSkillLevel.id})">{{pageSize*(currentPage-1)+$index + 1}}</a></td>
+                    <td>{{jpSkillLevel.name}}</td>
+                    <td>{{jpSkillLevel.description}}</td>
+                    <td>{{jpSkillLevel.status != null && jpSkillLevel.status ? 'Active':'Inactive'}}</td>
+                    <td class="text-right no-print">
+                        <button type="submit"
+                                ui-sref="jpSkillLevel.detail({id:jpSkillLevel.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span
+                            translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="jpSkillLevel.edit({id:jpSkillLevel.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="jpSkillLevel.delete({id:jpSkillLevel.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                            translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <nav class="no-print">
+                <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                         template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+            </nav>
+        </div>
+        <div class="no-print   text-right">
+            <button type="submit" name="submit" onclick="window.print()" class="btn btn-primary">
+                <span class="glyphicon glyphicon-print"></span>&nbsp;<span
+                translate="entity.action.print">Print</span>
+            </button>
+        </div>
+    </div>
+</div>

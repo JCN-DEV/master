@@ -1,0 +1,398 @@
+<div class="col-sm-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()">
+        <h4 class="modal-title" id="myDlBookReturnLabel" translate="stepApp.dlBookReturn.home.createOrEditLabel">Create
+            or edit a DlBookReturn</h4>
+
+        <div class="modal-body col-sm-12 no_padding padding-bt">
+            <!--<div class="col-md-6 col-lg-offset-3">-->
+            <!--<div class=" form-group">-->
+            <!--<label translate="stepApp.dlBookReturn.issueId" for="field_issueId">IssueId</label>-->
+            <!--<input type="number" class="form-control" name="issueId" id="field_issueId"-->
+            <!--ng-model="dlBookReturn.issueId" min="0" ng-blur="showDetail(dlBookReturn.issueId)"-->
+            <!--placeholder="Enter your book issue ID"-->
+            <!--/>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="col-md-12 wow  zoomIn animated" ng-if="dlBookReturn.issueId" data-wow-duration="1.5s"-->
+            <!--data-wow-delay=".5s">-->
+            <!--<table class="table dl-table">-->
+            <!--<tbody>-->
+            <!--<tr>-->
+            <!--<th><strong>Student Name :</strong></th>-->
+            <!--<th><strong>Shift :</strong></th>-->
+            <!--<th><strong>Contact No :</strong></th>-->
+            <!--<th><strong>Email :</strong></th>-->
+            <!--<th><strong>Book Name :</strong></th>-->
+            <!--<th><strong>Author Name :</strong></th>-->
+            <!--<th><strong>Total Copies :</strong></th>-->
+            <!--<th><strong>Edition :</strong></th>-->
+            <!--<th><strong>ISBN NO :</strong></th>-->
+            <!--<th><strong>Return Date :</strong></th>-->
+            <!--<th><strong>Issue Date :</strong></th>-->
+
+            <!--</tr>-->
+            <!--<tr>-->
+            <!--<td>{{shuvo.SNAME}}</td>-->
+            <!--<td>{{shuvo.SSHIFT}}</td>-->
+            <!--<td>{{shuvo.SMNO}}</td>-->
+            <!--<td>{{shuvo.SEMAIL}}</td>-->
+            <!--<td>{{shuvo.BNAME}}</td>-->
+            <!--<td>{{shuvo.ANAME}}</td>-->
+            <!--<td>{{shuvo.NO_OF_COPIES}}</td>-->
+            <!--<td>{{shuvo.EDITION}}</td>-->
+            <!--<td>{{shuvo.ISBN_NO}}</td>-->
+            <!--<td>{{shuvo.RETURN_DATE | date:'mediumDate'}}</td>-->
+            <!--<td>{{shuvo.ISSUE_DATE | date:'mediumDate'}}</td>-->
+
+            <!--</tr>-->
+            <!--</tbody>-->
+            <!--</table>-->
+            <!--</div>-->
+            <!--<div ng-if="dateError" class="form-group col-sm-6">-->
+            <!--<div class="col-sm-12">-->
+            <!--<p style="font-size: 0.9em; color:#ff2432;">{{dateError}}</p>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div ng-if="notIssueFound" class="form-group col-sm-6">-->
+            <!--<div class="col-sm-12">-->
+            <!--<p style="font-size: 0.9em; color:#ff2432;">{{notIssueFound}}</p>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div ng-if="error" class="form-group col-sm-6">-->
+            <!--<div class="col-sm-12">-->
+            <!--<p style="font-size: 0.9em; color:#ff2432;">{{error}}</p>-->
+            <!--</div>-->
+            <!--</div>-->
+
+            <div class="col-sm-12 padding-tb no-print">
+                <div class="col-md-6 col-lg-offset-3"
+                     style="background:rgba(167, 165, 165, 0.22); padding: 5px; box-shadow: 0 2px 8px 0 rgba(0,0,0,0.2);margin-bottom: 10px">
+                    <div class=" form-group">
+                        <label translate="stepApp.dlBookReturn.studentId" for="field_issueId">IssueId</label>
+                        <input type="number" class="form-control" name="issueId" id="field_issueId"
+                               ng-model="stuId" min="0" ng-blur="showIssueDetail(stuId)"
+                               placeholder="Enter Student ID"
+                            />
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-sm-12 table-responsive no_padding">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th translate="stepApp.dlBookReturn.issueId">IssueId</th>
+                        <th translate="stepApp.dlBookReturn.sisStudentInfoId">Status</th>
+                        <th translate="stepApp.dlBookReturn.sisStudentInfoName">Status</th>
+                        <th translate="stepApp.dlBookReturn.issueDate">issueDate</th>
+                        <th translate="stepApp.dlBookReturn.returnDate">returnDate</th>
+                        <th translate="stepApp.dlBookReturn.bookId">bookId</th>
+                        <th translate="stepApp.dlBookReturn.title">title</th>
+                        <th translate="stepApp.dlBookReturn.authorName">authorName</th>
+                        <th translate="stepApp.dlBookReturn.selfNo">selfNo</th>
+                        <th translate="stepApp.dlBookReturn.compensation">compensation</th>
+                        <th translate="stepApp.dlBookReturn.edition">edition</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="dlBookReturnss in dlBookIssueList">
+
+                        <td>{{dlBookReturnss.id}}</td>
+                        <td><a>{{dlBookReturnss.sisStudentInfo.id}}</a></td>
+                        <td><a>{{dlBookReturnss.sisStudentInfo.name}}</a></td>
+                        <td><a>{{dlBookReturnss.issueDate}}</a></td>
+                        <td><a>{{dlBookReturnss.returnDate}}</a></td>
+                        <td><a>{{dlBookReturnss.dlBookEdition.dlBookInfo.bookId}}</a></td>
+                        <td><a>{{dlBookReturnss.dlBookEdition.dlBookInfo.title}}</a></td>
+                        <td><a>{{dlBookReturnss.dlBookEdition.dlBookInfo.authorName}}</a></td>
+                        <td><a>{{dlBookReturnss.dlBookEdition.dlBookInfo.callNo}}</a></td>
+                        <td><a>{{dlBookReturnss.dlBookEdition.compensation}}</a></td>
+                        <td><a>{{dlBookReturnss.dlBookEdition.edition}}</a></td>
+                        <td class="text-right">
+                            <button type="button" class="btn btn-info btn-sm">
+
+                                <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span
+                                translate="stepApp.dlBookReturn.return"
+                                ng-click="showFormForReturnBook(dlBookReturnss.id)"> return</span>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+
+            <div class="form-group col-sm-12 no-padding" ng-show="ShoWholeForm">
+                <h4 class="modal-title" id="myDlBookInfoLabel" translate="stepApp.dlBookReturn.ReturnProcess">
+                    addMoreEditions</h4>
+
+
+                <div class="form-group col-sm-4">
+                    <label translate="stepApp.dlBookReturn.bookTitle" for="field_isbnNo">bookTitle</label>
+                    <input ng-change="instituteStudentInfos(dlBookIssue.sisStudentInfo.id)" type="text"
+                           class="form-control" name="isbnNo" id="field_isbnNo"
+                           ng-model="dlBookReturn.title"
+                           readonly
+                        />
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label translate="stepApp.dlBookReturn.author" for="field_isbnNo">author</label>
+                    <input type="text"
+                           class="form-control" name="isbnNo" id="field_isbnNo"
+                           ng-model="dlBookReturn.authorName"
+                           readonly
+                        />
+
+                </div>
+
+                <div class="form-group col-sm-4">
+
+                    <label translate="stepApp.dlBookReturn.edition" for="field_isbnNo">edition</label>
+                    <input type="text"
+                           class="form-control" name="isbnNo" id="field_isbnNo"
+                           ng-model="dlBookReturn.edition"
+                           readonly
+                        />
+
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.dlBookReturn.issueDate" for="field_isbnNo">issueDate</label>
+                    <input type="text"
+                           class="form-control" name="isbnNo" id="field_isbnNo"
+                           ng-model="dlBookReturn.issueDate | date:'mediumDate'"
+                           readonly
+                        />
+
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.dlBookReturn.requisitionDate" for="field_isbnNo">requisitionDate</label>
+                    <input type="text"
+                           class="form-control" name="isbnNo" id="field_isbnNo"
+                           ng-model=""
+                           readonly
+                        />
+
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.dlBookReturn.expectedReturnDate"
+                           for="field_isbnNo">expectedReturnDate</label>
+                    <input type="text"
+                           class="form-control" name="isbnNo" id="field_isbnNo"
+                           ng-model="dlBookReturn.returnDate | date:'mediumDate'"
+                           readonly
+                        />
+
+                </div>
+                <div class="form-group col-sm-6">
+                    <label translate="stepApp.dlBookReturn.actualReturnDate" for="field_isbnNo">actualReturnDate</label>
+                    <input type="text"
+                           class="form-control" name="isbnNo" id="field_isbnNo"
+                           ng-model="dlBookReturn.actualReturnDate | date:'mediumDate'"
+                           readonly
+                        />
+                </div>
+                <div class="form-group col-sm-12">
+                    <label translate="stepApp.dlBookReturn.receivedStatus" for="field_pStatus">receivedStatus</label>
+
+                    <div id="field_pStatus">
+                        <label class="radio-inline"><input type="radio" name="receivedStatus" value="received"
+                                                           ng-checked="(dlBookReturn.receivedStatus == received || dlBookReturn.receivedStatus == null)"
+                                                           ng-model="dlBookReturn.receivedStatus"><span
+                            translate="stepApp.dlBookReturn.received"></span></label>
+                        <label class="radio-inline"><input type="radio" name="receivedStatus" value="receivedWithFine"
+                                                           ng-checked="" ng-model="dlBookReturn.receivedStatus"><span
+                            translate="stepApp.dlBookReturn.receivedWithFine"></span></label>
+                        <label class="radio-inline"><input type="radio" name="receivedStatus"
+                                                           value="receivedWithCompensation" ng-checked=""
+                                                           ng-model="dlBookReturn.receivedStatus"><span
+                            translate="stepApp.dlBookReturn.receivedWithCompensation"></span></label>
+                        <label class="radio-inline"><input type="radio" name="receivedStatus"
+                                                           value="receivedWithCompensationFine" ng-checked=""
+                                                           ng-model="dlBookReturn.receivedStatus"><span
+                            translate="stepApp.dlBookReturn.receivedWithCompensationFine"></span></label>
+                        <label class="radio-inline"><input type="radio" name="receivedStatus" value="notReceived"
+                                                           ng-checked="" ng-model="dlBookReturn.receivedStatus"><span
+                            translate="stepApp.dlBookReturn.notReceived"></span></label>
+
+                    </div>
+                </div>
+
+
+                <div class="form-group col-sm-12 no-padding" ng-if="dlBookReturn.receivedStatus=='receivedWithFine'">
+
+                    <div class="form-group col-sm-6">
+                        <label translate="stepApp.dlBookReturn.totalFine" for="field_isbnNo">totalFine</label>
+                        <input type="text"
+                               class="form-control" name="isbnNo" id="field_isbnNo"
+                               ng-model="dlBookReturn.totalFine"
+                               readonly
+
+                            />
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label translate="stepApp.dlBookReturn.remissionFine" for="field_pStatus">remissionFine</label>
+
+                        <div id="field_pStatus">
+                            <label class="radio-inline btn btn-default"><input type="radio" name="remissionStatus" value="true"
+                                                               ng-checked="(dlBookReturn.remissionStatus == true || dlBookReturn.remissionStatus !== null)"
+                                                               ng-model="dlBookReturn.remissionStatus"><span
+                                translate="entity.action.yes">yes</span></label>
+                            <label class="radio-inline btn btn-default"><input type="radio" name="remissionStatus" value="false"
+                                                               ng-checked="(dlBookReturn.remissionStatus == false || dlBookReturn.remissionStatus == null)"
+                                                               ng-model="dlBookReturn.remissionStatus"><span
+                                translate="entity.action.no">no</span></label>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6" ng-show="dlBookReturn.remissionStatus == 'false'"
+                         ng-hide="dlBookReturn.remissionStatus == 'true'">
+                        <label translate="stepApp.dlBookReturn.fineDeposit" for="field_isbnNo">fineDeposit</label>
+                        <input type="text"
+                               class="form-control" name="isbnNo" id="field_isbnNo"
+                               ng-change="fineChecking(dlBookReturn.fineDeposit)"
+                               ng-model="dlBookReturn.fineDeposit"
+
+
+                            />
+                    </div>
+
+
+                </div>
+
+
+                <div class="form-group col-sm-12 no-padding"
+                     ng-if="dlBookReturn.receivedStatus=='receivedWithCompensation'">
+
+                    <div class="form-group col-sm-6">
+                        <label translate="stepApp.dlBookReturn.compensation" for="field_isbnNo">compensation</label>
+                        <input type="text"
+                               class="form-control" name="isbnNo" id="field_isbnNo"
+                               ng-model="dlBookReturn.compensation"
+                               readonly
+                            />
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label translate="stepApp.dlBookReturn.remissionCompensation" for="field_pStatus">remissionCompensationStatus</label>
+
+                        <div id="field_pStatus">
+                            <label class="radio-inline btn btn-default"><input type="radio" name="remissionCompensationStatus"
+                                                               value="true"
+                                                               ng-checked="(dlBookReturn.remissionCompensationStatus == true || dlBookReturn.remissionCompensationStatus !== null)"
+                                                               ng-model="dlBookReturn.remissionCompensationStatus"><span
+                                translate="entity.action.yes">yes</span></label>
+                            <label class="radio-inline btn btn-default"><input type="radio" name="remissionCompensationStatus"
+                                                               value="false"
+                                                               ng-checked="(dlBookReturn.remissionCompensationStatus == false || dlBookReturn.remissionCompensationStatus == null)"
+                                                               ng-model="dlBookReturn.remissionCompensationStatus"><span
+                                translate="entity.action.no">no</span></label>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6" ng-show="dlBookReturn.remissionCompensationStatus == 'false'"
+                         ng-hide="dlBookReturn.remissionCompensationStatus == 'true'">
+                        <label translate="stepApp.dlBookReturn.compensationDeposit" for="field_isbnNo">compensationDeposit</label>
+                        <input type="text"
+                               class="form-control" name="isbnNo" id="field_isbnNo"
+                               ng-model="dlBookReturn.compensationDeposit"
+                               ng-change="compensation(dlBookReturn.compensationDeposit)"
+                            />
+                    </div>
+
+
+                </div>
+
+
+                <div class="form-group col-sm-12 no-padding"
+                     ng-if="dlBookReturn.receivedStatus=='receivedWithCompensationFine'">
+                    <div class="form-group col-sm-6">
+                        <label translate="stepApp.dlBookReturn.remissionFine" for="field_pStatus">remissionFine</label>
+
+                        <div id="field_pStatus">
+                            <label class="radio-inline btn btn-default"><input type="radio" name="cfFineStatus" value="true"
+                                                               ng-checked="(dlBookReturn.cfFineStatus == true || dlBookReturn.cfFineStatus !== null)"
+                                                               ng-model="dlBookReturn.cfFineStatus"
+                                                               ng-change="fineRemission(dlBookReturn.cfFineStatus)"><span
+                                translate="entity.action.yes">yes</span></label>
+                            <label class="radio-inline btn btn-default"><input type="radio" name="cfFineStatus" value="false"
+                                                               ng-checked="(dlBookReturn.cfFineStatus == false || dlBookReturn.cfFineStatus == null)"
+                                                               ng-model="dlBookReturn.cfFineStatus"
+                                                               ng-change="fineRemission(dlBookReturn.cfFineStatus)"><span
+                                translate="entity.action.no">no</span></label>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label translate="stepApp.dlBookReturn.remissionCompensation" for="field_pStatus">remissionCompensationStatus</label>
+
+                        <div id="field_pStatus">
+                            <label class="radio-inline btn btn-default"><input type="radio" name="cfCompensationStatus" value="true"
+                                                               ng-checked="(dlBookReturn.cfCompensationStatus == true || dlBookReturn.cfCompensationStatus !== null)"
+                                                               ng-model="dlBookReturn.cfCompensationStatus"
+                                                               ng-change="fineCompensation(dlBookReturn.cfCompensationStatus)"><span
+                                translate="entity.action.yes">yes</span></label>
+                            <label class="radio-inline btn btn-default"><input type="radio" name="cfCompensationStatus" value="false"
+                                                               ng-checked="(dlBookReturn.cfCompensationStatus == false || dlBookReturn.cfCompensationStatus == null)"
+                                                               ng-model="dlBookReturn.cfCompensationStatus"
+                                                               ng-change="fineCompensation(dlBookReturn.cfCompensationStatus)"><span
+                                translate="entity.action.no">no</span></label>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label translate="stepApp.dlBookReturn.totalFine" for="field_isbnNo">totalFine</label>
+                        <input type="text"
+                               class="form-control" name="isbnNo" id="field_isbnNo"
+                               ng-model="dlBookReturn.totalFine"
+                               readonly
+                            />
+                    </div>
+
+                    <div class="form-group col-sm-6">
+                        <label translate="stepApp.dlBookReturn.compensation" for="field_isbnNo">compensation</label>
+                        <input type="text"
+                               class="form-control" name="isbnNo" id="field_isbnNo"
+                               ng-model="dlBookReturn.compensation"
+                               readonly
+                            />
+                    </div>
+
+                    <div class="form-group col-sm-6">
+                        <label translate="stepApp.dlBookReturn.compensationFineDeposit" for="field_isbnNo">compensationFineDeposit</label>
+                        <input type="text"
+                               class="form-control" name="isbnNo" id="field_isbnNo"
+                               ng-model="dlBookReturn.totalFineCompensation"
+                               readonly
+                            />
+                    </div>
+
+                    <div class="form-group col-sm-6">
+                        <label translate="stepApp.dlBookReturn.compensationFineDeposit" for="field_isbnNo">compensationFineDeposit</label>
+                        <input type="text"
+                               class="form-control" name="isbnNo" id="field_isbnNo"
+                               ng-model="dlBookReturn.compensationFineDeposit"
+
+                            />
+                    </div>
+
+                </div>
+                <div class="modal-footer col-sm-12">
+                    <button type="button" class="btn btn-default" ui-sref="libraryInfo.dlBookReturn.new">
+                        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span
+                        translate="entity.action.back">Back</span>
+                    </button>
+                    <button type="submit" ng-disabled="editForm.$invalid || isSaving || fineDisable"
+                            class="btn btn-primary">
+                        <span class="glyphicon glyphicon-save"></span>&nbsp;<span
+                        translate="entity.action.save">Save</span>
+                    </button>
+                </div>
+            </div>
+
+
+        </div>
+    </form>
+</div>
+
+
+
+

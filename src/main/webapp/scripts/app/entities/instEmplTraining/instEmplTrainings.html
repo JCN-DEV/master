@@ -1,0 +1,84 @@
+<div>
+    <h2 translate="stepApp.instEmplTraining.home.title">InstEmplTrainings</h2>
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" ui-sref="instEmplTraining.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="stepApp.instEmplTraining.home.createLabel">Create a new InstEmplTraining</span>
+                </button>
+            </div>
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a InstEmplTraining</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="global.field.id">ID</th>
+                    <th translate="stepApp.instEmplTraining.name">Name</th>
+                    <th translate="stepApp.instEmplTraining.subjectsCoverd">SubjectsCoverd</th>
+                    <th translate="stepApp.instEmplTraining.location">Location</th>
+                    <th translate="stepApp.instEmplTraining.startedDate">StartedDate</th>
+                    <th translate="stepApp.instEmplTraining.endedDate">EndedDate</th>
+                    <th translate="stepApp.instEmplTraining.result">Result</th>
+                    <th translate="stepApp.instEmplTraining.instEmployee">instEmployee</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="instEmplTraining in instEmplTrainings track by instEmplTraining.id">
+                    <td><a ui-sref="instEmplTraining.detail({id:instEmplTraining.id})">{{instEmplTraining.id}}</a></td>
+                    <td>{{instEmplTraining.name}}</td>
+                    <td>{{instEmplTraining.subjectsCoverd}}</td>
+                    <td>{{instEmplTraining.location}}</td>
+                        <td>{{instEmplTraining.startedDate | date:'mediumDate'}}</td>
+                        <td>{{instEmplTraining.endedDate | date:'mediumDate'}}</td>
+                    <td>{{instEmplTraining.result}}</td>
+                    <td>
+                        <a ui-sref="instEmployee.detail({id:instEmplTraining.instEmployee.id})">{{instEmplTraining.instEmployee.name}}</a>
+                    </td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="instEmplTraining.detail({id:instEmplTraining.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="instEmplTraining.edit({id:instEmplTraining.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="instEmplTraining.delete({id:instEmplTraining.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pagination">
+                <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                <li class="active"><a>{{page + 1}}</a></li>
+                <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>

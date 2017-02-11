@@ -1,0 +1,71 @@
+
+<div>
+    <h2><span translate="stepApp.attachment.detail.title">Attachment</span> {{attachment.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="stepApp.attachment.name">Name</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{attachment.name}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.attachment.fileName">FileName</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{attachment.fileName}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.attachment.file">File</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{attachment.file}}</span>
+                    <div>{{attachment.fileContentType}}  {{byteSize(attachment.file)}}</div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.attachment.remarks">Remarks</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{attachment.remarks}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.attachment.instEmployee">instEmployee</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="instEmployee.detail({id:attachment.instEmployee.id})">{{attachment.instEmployee.name}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="stepApp.attachment.attachmentCategory">attachmentCategory</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="attachmentCategory.detail({id:attachment.attachmentCategory.id})">{{attachment.attachmentCategory.name}}</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

@@ -1,0 +1,99 @@
+<div class="col-sm-12 common-list">
+    <h2 translate="stepApp.iisCourseInfo.home.title">IisCourseInfos</h2>
+    <div class="col-md-12 padding-tb no-print">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+        <div class="col-xs-4 no_padding text-right ">
+
+        </div>
+    </div>
+    <!--<div class="col-sm-12 padding-tb no-print">
+        <div class="col-md-4 no_padding">
+            <b><span translate="global.home.searchhere">Search Here :</span></b>
+            <div class="input-group">
+                <span class="input-group-addon dlbtn" id="basic-addon1"><i class="fa fa-search"></i></span>
+                <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+            </div>
+        </div>
+        <div class="col-md-4 no_padding"><b><span translate="global.home.itemperpage">Items per page:</span></b>
+            <div class="input-group">
+                <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+            </div>
+        </div>
+    </div>-->
+    <div class="col-sm-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="global.form.serial">serial</th>
+                <th translate="stepApp.iisCourseInfo.institute">institute</th>
+                <th translate="stepApp.iisCourseInfo.cmsTrade">cmsTrade</th>
+                <th translate="stepApp.iisCourseInfo.perDateEdu">PerDateEdu</th>
+                <th translate="stepApp.iisCourseInfo.perDateBteb">PerDateBteb</th>
+                <!--<th translate="stepApp.iisCourseInfo.mpoEnlisted">MpoEnlisted</th>-->
+                <th translate="stepApp.iisCourseInfo.dateMpo">DateMpo</th>
+                <!--<th translate="stepApp.iisCourseInfo.seatNo">SeatNo</th>-->
+                <!--<th translate="stepApp.iisCourseInfo.shift">Shift</th>-->
+                <!--<th translate="stepApp.iisCourseInfo.iisCurriculumInfo">iisCurriculumInfo</th>-->
+
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--<tr ng-repeat="iisCourseInfo in iisCourseInfos track by iisCourseInfo.id">-->
+            <tr dir-paginate="iisCourseInfo in iisCourseInfos | filter:q | itemsPerPage: pageSize track by iisCourseInfo.id"
+                current-page="currentPage">
+                <td class="text-center">{{pageSize*(currentPage-1)+$index+1}}</td>
+                <td>{{iisCourseInfo.institute.name}}</td>
+                <td>
+                    {{iisCourseInfo.cmsTrade.name}}
+                </td>
+                <td>{{iisCourseInfo.perDateEdu | date:'mediumDate'}}</td>
+                <td>{{iisCourseInfo.perDateBteb | date:'mediumDate'}}</td>
+               <!-- <td>{{iisCourseInfo.mpoEnlisted}}</td>-->
+                <td>{{iisCourseInfo.dateMpo}}</td>
+                <!--<td>{{iisCourseInfo.seatNo}}</td>
+                <td>{{iisCourseInfo.shift}}</td>
+                <td>
+                    <a ui-sref="iisCurriculumInfo.detail({id:iisCourseInfo.iisCurriculumInfo.id})">{{iisCourseInfo.iisCurriculumInfo.recNo}}</a>
+                </td>-->
+
+
+                <td class="text-right no-print">
+
+                    <button type="submit"
+                            has-any-authority="ROLE_ADMIN"
+                            ui-sref="instituteInfo.editCourseMpoDate({id: iisCourseInfo.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-check"></span>&nbsp;<span
+                        translate="entity.action.editMpoDate" ui-sref-active="active">Edit</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="instituteInfo.iisCourseInfo.detail({id:iisCourseInfo.id})"
+                            class="btn btn-success btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> view</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <!--for pagination and real time search add bellow nav tab -->
+        <nav class="no-print">
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                     template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+    <div class="col-md-12 no-print text-right">
+        <button type="submit" class="btn btn-sm btn-primary no-print" onclick="window.print()" >
+            <i class="fa fa-print"></i>&nbsp;
+            <span translate="entity.action.print" >Print</span>
+        </button>
+    </div>
+    <div style="color:#fff" ng-if="currentPageNumber" class="col-md-12 text-center">
+        {{currentPageNumber}}
+    </div>
+</div>

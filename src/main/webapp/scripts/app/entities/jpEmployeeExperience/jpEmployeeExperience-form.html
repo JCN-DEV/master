@@ -1,0 +1,139 @@
+<div class="education-add">
+    <h3>Add Skills</h3>
+</div>
+<form name="jpSkillForm" role="form" novalidate ng-submit="saveSkill()" show-validation>
+    <div>
+        <!--<jh-alert-error></jh-alert-error>-->
+        <div class="panel-body pnl-border">
+
+        <div class="form-group col-sm-6 hide">
+
+            <input type="hidden" class="form-control" id="id" name="id"
+                    ng-model="jpEmployeeExperience.id" readonly />
+        </div>
+        <!--<div class="form-group col-sm-6">
+            <label translate="stepApp.jpEmployeeExperience.skill" for="field_skill">Skill</label>
+            <input type="text" class="form-control" name="skill" id="field_skill"
+                    ng-model="jpEmployeeExperience.skill"
+                    ng-maxlength="50" required />
+            <div ng-show="jpSkillForm.skill.$invalid">
+                <p class="help-block"
+                   ng-show="jpSkillForm.skill.$error.required" translate="entity.validation.required" translate-value-max="50">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="jpSkillForm.skill.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="50">
+                    This field cannot be longer than 50 characters.
+                </p>
+            </div>
+        </div>-->
+            <div class="form-group col-sm-6">
+            <label translate="stepApp.jpEmployeeExperience.skill" for="field_jpSkill">Skill</label>
+                <select class="form-control" required="" id="field_jpSkill"  name="jpSkill" ng-model="jpEmployeeExperience.jpSkill" ng-options="jpSkill as jpSkill.name for jpSkill in jpSkills track by jpSkill.id" ng-change="changeJpSkill()">
+                    <option value="">--Select Skill--</option>
+                </select>
+            <div ng-show="jpSkillForm.jpSkill.$invalid">
+                <p class="help-block"
+                   ng-show="jpSkillForm.jpSkill.$error.required" translate="entity.validation.required" translate-value-max="50">
+                    This field is required.
+                </p>
+
+            </div>
+        </div>
+
+            <div class="form-group col-md-6" ng-if="addNewSkill">
+                <label class=" control-label"
+                       translate="stepApp.jpSkill.addTitle"
+                       for="jpSkillName">Skill Name</label>
+                <!--<select class="form-control" id="field_cat"n name="cat" ng-change="changeCat()"
+                        ng-model="job.cat" required=""
+                        ng-options="cat as cat.cat for cat in cats track by cat.id">
+                </select>-->
+
+                <input type="text" class="form-control" id="jpSkillName" name="jpSkillName"
+                       ng-model="jpSkill.name"
+                       ng-remote-validate="/api/jpSkill/checkByName/"
+                       ng-remote-method="GET"
+                       ng-remote-throttle="500"
+                       placeholder="Write skill name here ....."
+                       ng-minlength=3 ng-maxlength=50 required>
+                <span class="message validating" ng-show="jpSkillForm.jpSkillName.$pending">validating...</span>
+                <div ng-show="jpSkillForm.jpSkillName.$invalid">
+                    <p style="color:red; font-size:0.8em;"
+                       ng-show="jpSkillForm.jpSkillName.$error.ngRemoteValidate">
+                        Skill already exists!
+                    </p>
+
+                    <p style="color:red; font-size:0.8em;"
+                       ng-show="jpSkillForm.jpSkillName.$error.required && jpSkillForm.jpSkillName.$dirty" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+
+                    <p style="color:red; font-size:0.8em;"
+                       ng-show="jpSkillForm.jpSkillName.$error.minlength" translate="entity.validation.minlength"
+                       translate-value-min="3">
+                        This field is required to be at least 3 characters.
+                    </p>
+                </div>
+
+                <!-- <input type="text" id="field_cat2" class="form-control"  ng-model="category.cat" required="" placeholder="Write job title here ....."/>
+-->
+            </div>
+        <!--<div class="form-group col-sm-6">
+            <label translate="stepApp.jpEmployeeExperience.skillLevel" for="field_skillLevel">Skill Level</label>
+            <select required class="form-control" name="skillLevel" ng-model="jpEmployeeExperience.skillLevel"
+                    id="field_skillLevel">
+                <option value="Average" >Average</option>
+                <option value="Good" >Good</option>
+                <option value="Excellent" >Excellent</option>
+            </select>
+            <div ng-show="jpSkillForm.skillLevel.$invalid">
+                <p class="help-block"
+                   ng-show="jpSkillForm.skillLevel.$error.required" translate="entity.validation.skillLevel">
+                    This field is required.
+                </p>
+            </div>
+        </div>-->
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.jpEmployeeExperience.skillLevel" for="field_jpSkillLevel">Skill Level</label>
+                <select class="form-control" required="" id="field_jpSkillLevel"  name="jpSkillLevel" ng-model="jpEmployeeExperience.jpSkillLevel" ng-options="jpSkillLevel as jpSkillLevel.name for jpSkillLevel in jpSkillLevels track by jpSkillLevel.id">
+                    <option value="">--Select Skill Level--</option>
+                </select>
+                <div ng-show="jpSkillForm.jpSkillLevel.$invalid">
+                    <p class="help-block"
+                       ng-show="jpSkillForm.jpSkillLevel.$error.required" translate="entity.validation.required" translate-value-max="50">
+                        This field is required.
+                    </p>
+
+                </div>
+            </div>
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.jpEmployeeExperience.skillDescription" for="field_skillDescription">SkillDescription</label>
+                <textarea type="text" class="form-control" name="skillDescription" id="field_skillDescription"
+                          ng-model="jpEmployeeExperience.skillDescription"
+                          ng-maxlength="200" ></textarea>
+                <div ng-show="jpSkillForm.skillDescription.$invalid">
+                    <p class="help-block"
+                       ng-show="jpSkillForm.skillDescription.$error.required" translate="entity.validation.skillDescription">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="jpSkillForm.skillDescription.$error.maxlength" translate="entity.validation.maxlength">
+                        This field cannot be longer than 200 characters.
+                    </p>
+                </div>
+            </div>
+            <div class="col-sm-12 text-right">
+                <button type="button" class="btn btn-default" ng-click="changeSkillsMode(true)">
+                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.back">Back</span>
+                </button>
+                <button type="submit" ng-disabled="jpSkillForm.$invalid || isSaving" class="btn btn-primary">
+                   <!-- <span class="glyphicon glyphicon-save"></span>&nbsp;--><span translate="entity.action.save">Save</span>
+                </button>
+            </div>
+    </div>
+    </div>
+
+</form>
+

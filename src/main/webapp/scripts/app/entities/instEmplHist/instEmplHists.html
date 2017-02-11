@@ -1,0 +1,96 @@
+<div>
+    <h2 translate="stepApp.instEmplHist.home.title">InstEmplHists</h2>
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" ui-sref="instEmplHist.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="stepApp.instEmplHist.home.createLabel">Create a new InstEmplHist</span>
+                </button>
+            </div>
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a InstEmplHist</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="global.field.id">ID</th>
+                    <th translate="stepApp.instEmplHist.name">Name</th>
+                    <th translate="stepApp.instEmplHist.designation">Designation</th>
+                    <th translate="stepApp.instEmplHist.jobArea">JobArea</th>
+                    <th translate="stepApp.instEmplHist.start">Start</th>
+                    <th translate="stepApp.instEmplHist.end">End</th>
+                    <th translate="stepApp.instEmplHist.onTrack">OnTrack</th>
+                    <th translate="stepApp.instEmplHist.telephone">Telephone</th>
+                    <th translate="stepApp.instEmplHist.ext">Ext</th>
+                    <th translate="stepApp.instEmplHist.email">Email</th>
+                    <th translate="stepApp.instEmplHist.mobile">Mobile</th>
+                    <th translate="stepApp.instEmplHist.website">Website</th>
+                    <th translate="stepApp.instEmplHist.certificateCopy">CertificateCopy</th>
+                    <th translate="stepApp.instEmplHist.instEmployee">instEmployee</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="instEmplHist in instEmplHists track by instEmplHist.id">
+                    <td><a ui-sref="instEmplHist.detail({id:instEmplHist.id})">{{instEmplHist.id}}</a></td>
+                    <td>{{instEmplHist.name}}</td>
+                    <td>{{instEmplHist.designation}}</td>
+                    <td>{{instEmplHist.jobArea}}</td>
+                        <td>{{instEmplHist.start | date:'mediumDate'}}</td>
+                        <td>{{instEmplHist.end | date:'mediumDate'}}</td>
+                    <td>{{instEmplHist.onTrack}}</td>
+                    <td>{{instEmplHist.telephone}}</td>
+                    <td>{{instEmplHist.ext}}</td>
+                    <td>{{instEmplHist.email}}</td>
+                    <td>{{instEmplHist.mobile}}</td>
+                    <td>{{instEmplHist.website}}</td>
+                    <td>{{instEmplHist.certificateCopy}}</td>
+                    <td>
+                        <a ui-sref="instEmployee.detail({id:instEmplHist.instEmployee.id})">{{instEmplHist.instEmployee.name}}</a>
+                    </td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="instEmplHist.detail({id:instEmplHist.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="instEmplHist.edit({id:instEmplHist.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="instEmplHist.delete({id:instEmplHist.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pagination">
+                <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                <li class="active"><a>{{page + 1}}</a></li>
+                <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>

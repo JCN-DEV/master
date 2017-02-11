@@ -1,0 +1,68 @@
+<div class="row">
+    <div class="col-md-3">
+        <!--<ng-include src="'scripts/components/navbar/left-menu.html'"></ng-include>-->
+        <ng-include src="'scripts/app/entities/jobPortal/jp-employer-menu.html'"></ng-include>
+    </div>
+
+    <div class="col-sm-8 col-md-9 my_job_app">
+
+        <div id="industry-header"><h4>{{applications[0].job.cat.cat}}</h4></div><br>
+
+        <div class="col-sm-12 no_padding applicants">
+            <h5 >{{applicantList}} <span translate="stepApp.JobApplicationStatus.candidates">Candidates</span></h5>
+            <div class="col-sm-12 candidates-list no_padding" ng-repeat="applicant in applications">
+                <div class="col-sm-6">
+                    <!--<div class="col-sm-5">
+                        <h3 translate="stepApp.JobApplicationStatus.applicantName">Applicant Name : </h3>
+
+                        <h3 translate="stepApp.JobApplicationStatus.applicationDate">Application Date :</h3>
+
+                        <h3 translate="stepApp.JobApplicationStatus.expectedSalary">Expected Salary :</h3>
+                    </div>-->
+                    <div class="col-sm-4 cv_short_image ">
+
+                        <img width="200" data-ng-src="{{'data:' + employer.pictureType + ';base64,' + applicant.jpEmployee.picture}}" />
+                    </div>
+                    <div class="col-sm-8 no_padding">
+                        <!--<h3>{{applicant.jpEmployee.name}}</h3>
+
+                        <h3>{{applicant.appliedDate}}</h3>
+
+                        <h3>{{applicant.expectedSalary}} Taka</h3>-->
+                        <h3 style="font-size: 17px; text-transform: capitalize; font-weight: 700; color:#426686;padding-bottom: 0; " >
+                            <a  ui-sref="employer.viewResume({id:applicant.id})"href="">{{applicant.jpEmployee.name}}</a> </h3>
+                        <h3 style="margin-bottom: 2px"><span class="badge " style="margin-bottom: 2px">Age: {{calculateAge(applicant.jpEmployee.dob)}} years</span></br>
+                            <span class="badge "style="margin-bottom: 2px" >Experience: {{applicant.jpEmployee.totalExperience}} {{applicant.jpEmployee.totalExperience != null ? 'years':''}} </span>
+                            </br><span class="badge "style="margin-bottom: 2px" >Expected Salary: {{applicant.expectedSalary}}</span>
+                            </br><span class="badge "style="margin-bottom: 2px" >Contact No: {{applicant.jpEmployee.mobileNo}}</span>
+                            </br><span class="badge " style="margin-bottom: 2px">Date of Application: {{applicant.appliedDate | date}}</span></h3>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <!--<div class="col-sm-6 applicant-view">
+                        <p>
+                            <a ui-sref="employer.viewResume({id:applicant.id})" class="btn btn-success"><span
+                                class="glyphicon glyphicon-download"></span>View</a>
+                        </p>
+                    </div>-->
+                    <div class="col-sm-6" style="margin-top: 20px">
+                        <h3 translate="stepApp.jobapplication.actions">Move To</h3>
+                        <select ng-change="updateStatus(jobapplication.applicantStatus, applicant.id )" class="form-control" name="applicantStatus" ng-model="jobapplication.applicantStatus" id="field_applicantStatus">
+                            <option value="">Select</option>
+                            <option value="shortlisted" translate="stepApp.JobApplicationStatus.shortlisted">shortlisted</option>
+                            <option value="interviewed" translate="stepApp.JobApplicationStatus.interviewed">interviewed</option>
+                            <option value="rejected" translate="stepApp.JobApplicationStatus.rejected">rejected</option>
+                            <option value="selected" translate="stepApp.JobApplicationStatus.selected">selected</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit"
+                onclick="window.history.back()"
+                class="btn btn-info">
+            <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+        </button>
+    </div>
+</div>

@@ -1,0 +1,441 @@
+<div class="col-md-12 common-dialogue">
+    <h4 ng-show="assetTransfer.id == null" translate="stepApp.assetTransfer.home.createOrEditLabel">Asset Category
+        Setup</h4>
+    <h4 ng-show="assetTransfer.id != null" translate="stepApp.assetTransfer.home.EditLabel">Asset Category Setup</h4>
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <div class="col-md-12 padding-tb">
+            <div class=" col-md-6 ">
+                <div class="form-group">
+                    <label class=" control-label" translate="stepApp.assetTransfer.transferCode"
+                           for="field_transferCode">Asset Category Code</label>
+
+                    <div class="input-margin">
+                        <input type="text" class="form-control" name="transferCode" id="field_transferCode"
+                               ng-model="assetTransfer.transferCode"
+                               required>
+                        <div ng-show="editForm.description.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.description.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--<div class=" col-md-6 ">-->
+            <!--<div class="form-group">-->
+            <!--<label class=" control-label" translate="stepApp.assetTransfer.date" for="field_date">Date</label>-->
+
+            <!--<div class="input-margin">-->
+            <!--<input type="date" class="form-control"  name="date" id="field_date"-->
+            <!--ng-model="assetTransfer.date" >-->
+
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+
+
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.assetTransfer.date"
+                           for="field_expectedDate">date</label>
+                    <div class="input-margin">
+                        <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.expectedDate"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               ng-click="calendar.open($event, 'expectedDate')" class="form-control" name="expectedDate"
+                               id="field_expectedDate"
+                               ng-model="assetTransfer.date"
+                               required/>
+                        <div ng-show="editForm.expectedDate.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.expectedDate.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class=" col-md-6 ">
+                <div class="form-group">
+                    <label class=" control-label" translate="stepApp.assetTransfer.employeeIdFrom" for="field_empId">transfer
+                        from (employee id)</label>
+                    <span style="color:red;">*</span>
+                    <div class="input-group">
+                        <input name="empId" id="field_empId" type="text" placeholder="Enter a Employee Id"
+                               ng-model="assetTransfer.empId"
+                               typeahead="hrmEmployee for hrmEmployee in hrmEmployees | filter:$viewValue | limitTo:100"
+                               class="form-control">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"
+                                    ng-click="getEmployee(assetTransfer.empId)">
+                                <span class="glyphicon glyphicon-search"></span>&nbsp;<span>Search</span>
+                            </button>
+                        </span>
+                        <div ng-show="editForm.empId.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.empId.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="form-group">
+                    <label class=" control-label" translate="stepApp.assetTransfer.employeeIdFrom" for="field_empId">transfer
+                        from (employee id)</label>
+
+                    <div class="input-margin">
+                        <input ng-change="ValueChange(assetDistribution.emp)" type="text" class="form-control"
+                               name="employee" id="field_empId"
+                               ng-model="assetDistribution.emp"
+                               required>
+                        <div ng-show="editForm.description.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.description.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>-->
+            </div>
+
+            <div class=" col-md-6 ">
+                <div class="form-group">
+                    <label class=" control-label" translate="stepApp.assetTransfer.deptName" for="field_deptName">department</label>
+
+                    <div class="input-margin">
+                        <input readonly disabled="disabled" ng-change="ValueChange(assetDistribution.emp)" type="text"
+                               class="form-control" name="employee" id="field_deptName"
+                               ng-model="assetDistribution.name"
+                               required>
+                        <div ng-show="editForm.description.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.description.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--employee information is retrive by employeee id-->
+
+            <div class=" col-md-6 ">
+                <div class="form-group">
+                    <label class=" control-label" translate="stepApp.assetTransfer.employeeIdTwo"
+                           for="field_employeeIdFrom">transfer To (employee id)</label>
+                    <span style="color:red;">*</span>
+                    <div class="input-group">
+                        <input name="empId" id="field_employeeIdFrom" type="text" placeholder="Enter a Employee Id"
+                               ng-model="assetTransfer.empId"
+                               typeahead="hrmEmployee for hrmEmployee in hrmEmployees | filter:$viewValue | limitTo:100"
+                               class="form-control">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"
+                                    ng-click="getEmployee(assetTransfer.empId)">
+                                <span class="glyphicon glyphicon-search"></span>&nbsp;<span>Search</span>
+                            </button>
+                        </span>
+                        <div ng-show="editForm.empId.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.empId.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="form-group">
+                    <label class=" control-label" translate="stepApp.assetTransfer.employeeIdTwo"
+                           for="field_employeeIdFrom">transfer To (employee id)</label>
+
+                    <div class="input-margin">
+                        <input ng-change="ValueChangeTwo(assetTransfer.employee.id)" type="text" class="form-control"
+                               name="employee" id="field_employeeIdFrom"
+                               ng-model="assetTransfer.employee.id"
+                               required>
+                        <div ng-show="editForm.description.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.description.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>-->
+            </div>
+            <div class=" col-md-6 ">
+                <div class="form-group">
+                    <label class=" control-label" translate="stepApp.assetTransfer.deptName" for="field_toDept">department</label>
+                    <div class="input-margin">
+                        <input readonly disabled="disabled" ng-change="ValueChangeTwo(assetTransfer.employee.id)"
+                               type="text" class="form-control" name="employee" id="field_toDept"
+                               ng-model="assetDistribution.empTo"
+                               required>
+                        <div ng-show="editForm.description.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.description.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--===start asset record information retrive by asset code===-->
+
+            <div class=" col-md-6 ">
+                <div class="form-group">
+                    <label class=" control-label" translate="stepApp.assetTransfer.assetCode" for="field_assetCode">asset
+                        code</label>
+                    <div class="input-margin">
+                        <input ng-change="AssetValueChange(assetTransfer.assetRecord.id)" type="text"
+                               class="form-control" name="employee" id="field_assetCode"
+                               ng-model="assetTransfer.assetRecord.id"
+                               required>
+                        <div ng-show="editForm.description.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.description.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class=" col-md-6 ">
+                <div class="form-group">
+                    <label class=" control-label" translate="stepApp.assetTransfer.assetName" for="field_assetName">asset
+                        Name</label>
+                    <div class="input-margin">
+                        <input readonly disabled="disabled" ng-change="AssetValueChange(assetRecord.assetCode)"
+                               type="text" class="form-control" name="employee" id="field_assetName"
+                               ng-model="assetrecords.assetName"
+                               required>
+                        <div ng-show="editForm.description.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.description.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--===End asset record information retrive by asset code===-->
+
+            <!--<div class="col-md-6 col-sm-12 col-xs-12">-->
+            <!--<div class="form-group">-->
+            <!--<label class=" control-label" translate="stepApp.assetTransfer.employee" for="field_employee">employee</label>-->
+
+            <!--<div class="input-margin">-->
+            <!--<select class="form-control" id="field_employee" name="employee" ng-model="assetTransfer.employee" ng-options="employee as employee.name for employee in employees track by employee.id">-->
+            <!--<option value=""></option>-->
+
+            <!--</select>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="col-md-6 col-sm-12 col-xs-12">-->
+            <!--<div class="form-group">-->
+            <!--<label class=" control-label" translate="stepApp.assetTransfer.assetRecord" for="field_assetRecord">assetRecord</label>-->
+
+            <!--<div class="input-margin">-->
+            <!--<select class="form-control" id="field_assetRecord" name="assetRecord" ng-model="assetTransfer.assetRecord" ng-options="assetRecord as assetRecord.assetName for assetRecord in assetrecords track by assetRecord.id">-->
+            <!--<option value=""></option>-->
+
+            <!--</select>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+
+
+            <div class="col-md-12 text-right">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary"
+                            ng-disabled="editForm.$invalid || editForm.$submitted">
+                        <i class="fa fa-hdd-o"></i>
+                        <span ng-show="assetTransfer.id == null" translate="entity.action.save">Save</span>
+                        <span ng-show="assetTransfer.id != null" translate="entity.action.update">Save</span>
+                    </button>
+                    <button type="button" class="btn btn-info" onclick="window.history.back()">
+                        <i class="fa fa-angle-double-left"></i><span translate="entity.action.back">Back</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<!--===End asset transfer dialog===-->
+
+
+<!--<div  class="panel panel-primary">
+
+    <div class="panel-heading">
+        <h4 class="modal-title" id="myAssetTransferLabel" translate="stepApp.assetTransfer.home.createOrEditLabel">Create or edit a AssetTransfer</h4>
+        </div>
+
+    <form name="editForm" role="form" novalidate ng-submit="save()">
+
+
+        <div class="modal-body">
+            <jh-alert-error></jh-alert-error>
+
+
+
+            <div class="form-group">
+                <label translate="stepApp.assetTransfer.transferCode" for="field_transferCode">transfer code</label>
+                <input type="text" class="form-control" name="transferCode" id="field_transferCode"
+                       ng-model="assetTransfer.transferCode"
+                       required />
+                <div ng-show="editForm.description.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.description.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+             <div class="form-group">
+                <label translate="stepApp.assetTransfer.date" for="field_date">Date</label>
+                <input type="date" class="form-control" name="date" id="field_date"
+                       ng-model="assetTransfer.date"
+                />
+            </div
+
+                <>
+
+
+            <!--Emplyee from and to, with auto detect dept Name-->
+<!--      <div class="form-group">
+          <label translate="stepApp.assetTransfer.employeeIdFrom" for="field_empId">transfer from (employee id)</label>
+          <input ng-change="ValueChange(assetDistribution.emp)" type="text" class="form-control" name="employee" id="field_empId"
+                 ng-model="assetDistribution.emp"
+                 required />
+          <div ng-show="editForm.description.$invalid">
+              <p class="help-block"
+                 ng-show="editForm.description.$error.required" translate="entity.validation.required">
+                  This field is required.
+              </p>
+          </div>
+      </div>
+
+      <>
+
+      <div class="form-group">
+          <label translate="stepApp.assetTransfer.deptName" for="field_deptName">department</label>
+          <input ng-change="ValueChange(assetDistribution.emp)" type="text" class="form-control" name="employee" id="field_deptName"
+                 ng-model="assetDistribution.name"
+                 required />
+          <div ng-show="editForm.description.$invalid">
+              <p class="help-block"
+                 ng-show="editForm.description.$error.required" translate="entity.validation.required">
+                  This field is required.
+              </p>
+          </div>
+      </div>
+<>
+
+      <div class="form-group">
+          <label translate="stepApp.assetTransfer.employeeIdTwo" for="field_employeeIdFrom">transfer To (employee id)</label>
+          <input ng-change="ValueChangeTwo(assetDistribution.empTo)" type="text" class="form-control" name="employee" id="field_employeeIdFrom"
+                 ng-model="assetDistribution.empTo"
+                 required />
+          <div ng-show="editForm.description.$invalid">
+              <p class="help-block"
+                 ng-show="editForm.description.$error.required" translate="entity.validation.required">
+                  This field is required.
+              </p>
+          </div>
+      </div>
+      <>
+
+
+      <div class="form-group">
+          <label translate="stepApp.assetTransfer.deptName" for="field_toDept">department</label>
+          <input ng-change="ValueChangeTwo(assetDistribution.empTo)" type="text" class="form-control" name="employee" id="field_toDept"
+                 ng-model="assetDistribution.na"
+                 required />
+          <div ng-show="editForm.description.$invalid">
+              <p class="help-block"
+                 ng-show="editForm.description.$error.required" translate="entity.validation.required">
+                  This field is required.
+              </p>
+          </div>
+      </div>
+      <>
+
+
+      <!--End of employeee-->
+
+
+<!--asset information track by asset No-->
+
+<!--   <div class="form-group">
+       <label translate="stepApp.assetTransfer.assetCode" for="field_assetCode">asset code</label>
+       <input ng-change="AssetValueChange(assetRecord.assetCode)" type="text" class="form-control" name="employee" id="field_assetCode"
+              ng-model="assetRecord.assetCode"
+              required />
+       <div ng-show="editForm.description.$invalid">
+           <p class="help-block"
+              ng-show="editForm.description.$error.required" translate="entity.validation.required">
+               This field is required.
+           </p>
+       </div>
+   </div>
+   <>
+
+   <div class="form-group">
+       <label translate="stepApp.assetTransfer.assetName" for="field_assetName">asset Name</label>
+       <input ng-change="AssetValueChange(assetRecord.assetCode)" type="text" class="form-control" name="employee" id="field_assetName"
+              ng-model="assetrecords.assetName"
+              required />
+       <div ng-show="editForm.description.$invalid">
+           <p class="help-block"
+              ng-show="editForm.description.$error.required" translate="entity.validation.required">
+               This field is required.
+           </p>
+       </div>
+   </div>
+   <>
+
+   <!--End of asset information track by asset No-->
+
+<!--    <div class="form-group">
+        <label translate="stepApp.assetTransfer.employee" for="field_employee">employee</label>
+        <select class="form-control" id="field_employee" name="employee" ng-model="assetTransfer.employee" ng-options="employee as employee.name for employee in employees track by employee.id">
+            <option value=""></option>
+        </select>
+    </div>
+  <!--  <>
+
+    <div class="form-group">
+        <label translate="stepApp.assetTransfer.assetRecord" for="field_assetRecord">assetRecord</label>
+        <select class="form-control" id="field_assetRecord" name="assetRecord" ng-model="assetTransfer.assetRecord" ng-options="assetRecord as assetRecord.assetName for assetRecord in assetrecords track by assetRecord.id">
+            <option value=""></option>
+        </select>
+    </div>
+    <>
+
+
+
+</div>
+<div class="modal-footer">
+
+    <button type="button"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+
+
+    <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+        <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+    </button>
+</div>
+</form>
+
+</div>
+
+

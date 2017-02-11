@@ -1,0 +1,183 @@
+<div class="col-md-12 common-list">
+    <div ng-show="isAdmin">
+        <ng-include src="'scripts/app/account/mpo/mpo-search-form.html'"></ng-include>
+    </div>
+    <div class="col-sm-12 no_padding">
+        <div class="col-md-4">
+            <div google-chart chart="myChartObject1" id="t" style="height:230px; width:100%;text-align: center"></div>
+            <h5 class="mpochart"><a ui-sref="mpoPendingList"><i class="fa fa-circle" aria-hidden="true"></i>{{pendingMPOCount}}&nbsp;Pending</a>
+            </h5>
+            <h5 class="mpochart2"><a ui-sref="mpoApprovedList"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;Approve</a>
+            </h5>
+        </div>
+        <div class="col-md-4">
+            <div google-chart chart="myChartObject2" style="height:230px; width:100%;"></div>
+            <h5 class="mpochart"><a ui-sref="bEdPendingList"><i class="fa fa-circle" aria-hidden="true"></i>{{pendingBedCount}}&nbsp;
+                Pending</a></h5>
+            <h5 class="mpochart2"><a ui-sref="bEdApprovedList"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;Approve</a>
+            </h5>
+        </div>
+        <div class="col-md-4">
+            <div google-chart chart="myChartObject3" style="height:230px; width:100%;"></div>
+            <h5 class="mpochart"><a ui-sref="timescalePendingList"><i class="fa fa-circle" aria-hidden="true"></i>{{pendingTimeScaleCount}}&nbsp;
+                Pending</a></h5>
+            <h5 class="mpochart2"><a ui-sref="timescaleApprovedList"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;Approve</a>
+            </h5>
+        </div>
+        <div class="col-md-4" ng-if="showBmMenu">
+            <div google-chart chart="myChartObject4" style="height:230px; width:100%;"></div>
+            <h5 class="mpochart"><a ui-sref="apPendingList"><i class="fa fa-circle" aria-hidden="true"></i>{{pendingApCount}}&nbsp;
+                Pending</a></h5>
+            <h5 class="mpochart2"><a ui-sref="apApprovedList"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp;Approve</a>
+            </h5>
+        </div>
+        <div class="col-md-4" ng-if="showBmMenu">
+            <div google-chart chart="myChartObject5" style="height:230px; width:100%;"></div>
+            <h5 class="mpochart"><a ui-sref="principalPendingList"><i class="fa fa-circle" aria-hidden="true"></i>{{pendingPrincipalCount}}&nbsp;
+                Pending</a></h5>
+            <h5 class="mpochart2"><a href="#/mpo/principal-payscale-approved-list"><i class="fa fa-circle"
+                                                                                      aria-hidden="true"></i>&nbsp;Approve</a>
+            </h5>
+        </div>
+        <div class="col-md-4">
+            <div google-chart chart="myChartObject6" style="height:230px; width:100%;"></div>
+            <h5 class="mpochart"><a ui-sref="nameCancelPendingList"><i class="fa fa-circle" aria-hidden="true"></i>{{pendingPrincipalCount}}&nbsp;
+                Pending</a></h5>
+            <h5 class="mpochart2"><a href="#/mpo/principal-payscale-approved-list"><i class="fa fa-circle"
+                                                                                      aria-hidden="true"></i>&nbsp;Approve</a>
+            </h5>
+        </div>
+    </div>
+</div>
+
+
+<!--
+        <div class="col-md-10 col-lg-offset-1" ng-show="!showApplicationButtion && !isAdmin">
+            <div class="col-sm-12 col-head dte_col-head">
+                <div class="col-sm-12 col-head-heading">
+                    <h3 ng-show="pendingMPOCount == 0">You have no pending mpo Applications</h3>
+                    <h3 ng-show="pendingMPOCount == 1">You have <a class="su_badge badge" style="color:red;font-style: italic" ui-sref="mpoPendingList">{{pendingMPOCount}}</a> pending mpo Application</h3>
+                    <h3 ng-show="pendingMPOCount > 1">You have <a class="su_badge badge" style="color:red;font-style: italic" ui-sref="mpoPendingList">{{pendingMPOCount}}</a> pending mpo Applications</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-10 col-lg-offset-1" ng-show="!showApplicationButtion && !isAdmin">
+            <div class="col-sm-12 col-head dte_col-head">
+                <div class="col-sm-12 col-head-heading">
+                    <h3 ng-show="pendingTimeScaleCount == 0">You have no pending TimeScale Applications</h3>
+                    <h3  ng-show="pendingTimeScaleCount == 1">You have <a class="su_badge badge" style="color:red;font-style: italic" ui-sref="timescalePendingList">{{pendingTimeScaleCount}}</a> pending TimeScale Application</h3>
+                    <h3 ng-show="pendingTimeScaleCount > 1">You have <a class="su_badge badge" style="color:red;font-style: italic" ui-sref="timescalePendingList">{{pendingTimeScaleCount}}</a> pending TimeScale Applications</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10 col-lg-offset-1" ng-show="!showApplicationButtion && !isAdmin">
+            <div class="col-sm-12 col-head dte_col-head">
+                <div class="col-sm-12 col-head-heading">
+                    <h3 ng-show="pendingBedCount == 0">You have no pending B.Ed Applications</h3>
+                    <h3 ng-show="pendingBedCount == 1">You have <a class="su_badge badge" style="color:red;font-style: italic" ui-sref="bEdPendingList">{{pendingBedCount}}</a> pending B.Ed Application</h3>
+                    <h3 ng-show="pendingBedCount > 1">You have <a class="su_badge badge" style="color:red;font-style: italic" ui-sref="bEdPendingList">{{pendingBedCount}}</a> pending B.Ed Applications</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10 col-lg-offset-1" >
+            <div class="col-sm-12 col-head dte_col-head">
+                <div class="col-sm-12 col-head-heading">
+                    <h3 ng-show="pendingApCount == 0">You have no pending Assistant Professor Applications</h3>
+                    <h3 ng-show="pendingApCount == 1">You have <a class="su_badge badge" style="color:red;font-style: italic" ui-sref="apPendingList">{{pendingApCount}}</a> pending Assistant Professor Application</h3>
+                    <h3 ng-show="pendingApCount > 1">You have <a class="su_badge badge" style="color:red;font-style: italic" ui-sref="apPendingList">{{pendingApCount}}</a> pending Assistant Professor Application</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10 col-lg-offset-1" ng-show="!showApplicationButtion && !isAdmin">
+            <div class="col-sm-12 col-head dte_col-head">
+                <div class="col-sm-12 col-head-heading">
+                    <h3 ng-show="pendingPrincipalCount == 0">You have no pending Principal Applications</h3>
+                    <h3 ng-show="pendingPrincipalCount == 1">You have <a class="su_badge badge" style="color:red;font-style: italic" ui-sref="principalPendingList">{{pendingPrincipalCount}}</a> pending Principal Application</h3>
+                    <h3 ng-show="pendingPrincipalCount > 1">You have <a class="su_badge badge" style="color:red;font-style: italic" ui-sref="principalPendingList">{{pendingPrincipalCount}}</a> pending Principal Application</h3>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-12" >
+                <div class="row">
+                    <div class="col-md-4" >
+                        <canvas  class="chart chart-pie"
+                                 chart-data="data1" chart-labels="labels1"chart-legend="true" options="{animateRotate: false}">
+                        </canvas>
+                        <div class="datacount">
+                            <a class="su_badge badge" style="color:red;font-style: italic" ui-sref="mpoPendingList">{{pendingMPOCount}}</a>
+                        </div>
+                        <div class="chart_title">
+                            <h3 ng-show="pendingMPOCount == 0">MPO Applications</h3>
+                            <h3 ng-show="pendingMPOCount == 1"> MPO Application</h3>
+                            <h3 ng-show="pendingMPOCount > 1"> MPO Applications</h3>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4" >
+                        <canvas  class="chart chart-pie"
+                                 chart-data="data3" chart-labels="labels3" >
+                        </canvas>
+                        <div class="datacount" style="text-align: center">
+                            <a class="su_badge badge" style="color:red;font-style: italic" ui-sref="timescalePendingList">{{pendingTimeScaleCount}}</a> Pending
+                        </div>
+
+
+                        <div class="chart_title">
+                            <h3 ng-show="pendingTimeScaleCount == 0">TimeScale Applications</h3>
+                            <h3  ng-show="pendingTimeScaleCount == 1"> TimeScale Application</h3>
+                            <h3 ng-show="pendingTimeScaleCount > 1"> TimeScale Applications</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-4" >
+                        <canvas  class="chart chart-pie"
+                                 chart-data="data2" chart-labels="labels2">
+                        </canvas>
+                        <div class="chart_title">
+                            <h3 ng-show="pendingBedCount == 0"> B.Ed Applications</h3>
+                            <h3 ng-show="pendingBedCount == 1"> B.Ed Application</h3>
+                            <h3 ng-show="pendingBedCount > 1">  B.Ed Applications</h3>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4" >
+                        <canvas  class="chart chart-pie"
+                                 chart-data="data4" chart-labels="labels4">
+                        </canvas>
+                        <div class="chart_title">
+                            <h3 ng-show="pendingApCount == 0"> Assistant Professor Applications</h3>
+                            <h3 ng-show="pendingApCount == 1"> Assistant Professor Application</h3>
+                            <h3 ng-show="pendingApCount > 1"> Assistant Professor Application</h3>
+
+                        </div>
+                    </div>
+                    <div class="col-md-4" >
+                        <canvas  class="chart chart-pie"
+                                 chart-data="data5" chart-labels="labels5">
+                        </canvas>
+                        <div class="chart_title">
+                            <h3 ng-show="pendingPrincipalCount == 0">Principal Applications</h3>
+                            <h3 ng-show="pendingPrincipalCount == 1">Principal Application</h3>
+                            <h3 ng-show="pendingPrincipalCount > 1">Principal Application</h3>
+
+                        </div>
+                    </div>
+                    <div class="col-md-4" >
+                        <canvas  class="chart chart-pie"
+                                 chart-data="data2" chart-labels="labels2">
+                        </canvas>
+                        <div class="chart_title">
+                            <h3>Name Cancellation</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+-->
+

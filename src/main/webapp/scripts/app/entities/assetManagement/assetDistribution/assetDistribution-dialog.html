@@ -1,0 +1,468 @@
+<div class="col-md-12 common-dialogue">
+    <h4 ng-show="assetDistribution.id == null" id="myAssetDistributionLabel"
+        translate="stepApp.assetDistribution.home.createOrEditLabel">Asset Assign/Distribution</h4>
+    <h4 ng-show="assetDistribution.id != null" id="myAssetDistributionLabel"
+        translate="stepApp.assetDistribution.home.EditLabel">Asset Assign/Distribution</h4>
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <!-- <jh-alert-error></jh-alert-error>-->
+        <div class=" col-md-6 ">
+            <div class="form-group">
+                <label class=" control-label" translate="stepApp.assetDistribution.transferRef"
+                       for="field_transferRef">TransferRef</label>
+                <div class="">
+                    <input type="text" class="form-control" name="transferRef" id="field_transferRef"
+                           ng-model="assetDistribution.transferRef"
+                           required readonly/>
+                    <div ng-show="editForm.transferRef.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.transferRef.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--<div class="col-md-6 col-sm-12 col-xs-12">-->
+        <!--<div class="form-group">-->
+        <!--<label  class="control-label" translate="stepApp.assetDistribution.assignedDdate" for="field_assignedDdate">AssignedDdate</label>-->
+
+        <!--<div class="input-margin">-->
+        <!--<input type="date" class="form-control" name="assignedDdate" id="field_assignedDdate"-->
+        <!--ng-model="assetDistribution.assignedDdate">-->
+
+        <!--</div>-->
+
+
+        <!--</div>-->
+        <!--</div>-->
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <label class="control-label" translate="stepApp.assetDistribution.assignedDdate"
+                       for="field_expectedDate">assigned date</label>
+                <div class="">
+                    <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.expectedDate"
+                           datepicker-options="calendar.dateOptions" close-text="Close"
+                           ng-click="calendar.open($event, 'expectedDate')" class="form-control" name="expectedDate"
+                           id="field_expectedDate"
+                           ng-model="assetDistribution.assignedDdate"
+                           required/>
+                    <div ng-show="editForm.expectedDate.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.expectedDate.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--== start employeee id==-->
+
+        <!--<div class=" col-md-6 col-sm-12 col-xs-12 ">
+            <div class="form-group">
+                <label  class=" control-label" for="field_employeeeID" translate="stepApp.assetDistribution.employeeid">Asset Employee ID</label>
+
+                <div class="input-margin">
+                    <input  type="text" class="form-control" name="remartks" id="field_employeeeID"
+                            ng-model="assetDistribution.hrEmployeeInfo.id"
+                             />
+
+
+                </div>
+            </div>
+        </div>-->
+        <!-- EMPLOYEE AUTO INSERT -->
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class=" control-label" for="field_employeeeID"
+                       translate="stepApp.assetDistribution.employeeid">Asset Employee ID</label>
+                <span style="color:red;">*</span>
+                <div class="input-group">
+                    <input name="empId" id="field_employeeeID" type="text" placeholder="Enter a Employee Id"
+                           ng-model="assetDistribution.empId"
+                           typeahead="hrmEmployee for hrmEmployee in hrmEmployees | filter:$viewValue | limitTo:100"
+                           class="form-control">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"
+                                    ng-click="getEmployee(assetDistribution.empId)">
+                                <span class="glyphicon glyphicon-search"></span>&nbsp;<span>Search</span>
+                            </button>
+                        </span>
+                    <div ng-show="editForm.empId.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.empId.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+                <!--<div ng-show="editForm.empId.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.empId.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.empId.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>-->
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.assetDistribution.empName" for="field_empName">EmpName</label>
+                <input type="text" class="form-control" name="empName" id="field_empName"
+                       ng-model="assetDistribution.empName"
+                />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.assetDistribution.designation" for="field_designation">Designation</label>
+                <input type="text" class="form-control" name="designation" id="field_designation"
+                       ng-model="assetDistribution.designation"
+                />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label translate="stepApp.assetDistribution.department" for="field_department">Department</label>
+                <input type="text" class="form-control" name="department" id="field_department"
+                       ng-model="assetDistribution.department"
+                />
+            </div>
+        </div>
+
+        <!--== end employeee id==-->
+
+        <!-- start retrieve asset no by asset information -->
+
+        <!--<div class=" col-md-6 ">
+              <div class="form-group">
+                  <label  class=" control-label"  for="fieldD_assetCode" translate="stepApp.assetDistribution.assetcode">Asset code</label>
+                  <div class="">
+                      <input type="text" class="form-control" name="remartks" id="fieldD_assetCode"
+                             ng-model="assetDistribution.assetRecord.id"
+                             required />
+                      <div ng-show="editForm.remartks.$invalid">
+                          <p class="help-block"
+                             ng-show="editForm.remartks.$error.required" translate="entity.validation.required">
+                              This field is required.
+                          </p>
+                      </div>
+                  </div>
+              </div>
+          </div>-->
+
+        <!--<div class="col-md-6">
+            <div class="form-group">
+                <label  class=" control-label"  for="fieldD_assetCode" translate="stepApp.assetDistribution.assetcode">Asset code</label>
+                <div class="">
+                    <select class="form-control" id="fieldD_assetCode" name="assetRecord" ng-model="assetDistribution.assetRecord" ng-options="AssetRecord as AssetRecord.assetName for AssetRecord in assetrecords track by AssetRecord.id">
+                        <option value=""></option>
+                    </select>
+                </div>
+            </div>
+        </div>-->
+
+        <!-- end retrieve asset no by asset information -->
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="field_assetCode">Asset Code</label>
+                <span style="color:red;">*</span>
+                <input type="text" class="form-control" name="assetCode" id="field_assetCode"
+                       ng-model="assetDistribution.assetCode"
+                />
+                <div ng-show="editForm.assetCode.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.assetCode.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="field_assetName">Asset Name</label>
+                <input type="text" class="form-control" name="assetName" id="field_assetName"
+                       ng-model="assetDistribution.assetName"
+                />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="field_requestedQuantity">Requested Quantity</label>
+                <span style="color:red;">*</span>
+                <input type="number" class="form-control" name="requestedQuantity" id="field_requestedQuantity"
+                       ng-model="assetDistribution.requestedQuantity"
+                />
+                <div ng-show="editForm.requestedQuantity.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.requestedQuantity.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="field_approveQuantity">Approved Quantity</label>
+                <span style="color:red;">*</span>
+                <input type="number" class="form-control" name="approveQuantity" id="field_approveQuantity"
+                       ng-model="assetDistribution.approveQuantity"
+                />
+                <div ng-show="editForm.approveQuantity.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.approveQuantity.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class=" control-label">Asset Type</label>
+                <span style="color:red;">*</span>
+                <div class="input-margin">
+                    <label class="radio-inline">
+                        <input type="radio"
+                               ng-checked="assetDistribution.assetType == 'Fixed'"
+                               name="assetType" value="Fixed"
+                               ng-model="assetDistribution.assetType">Fixed</label>
+                    <label class="radio-inline">
+                        <input type="radio"
+                               ng-checked="assetDistribution.assetType == 'Item'"
+                               name="assetType" value="Item"
+                               ng-model="assetDistribution.assetType">Item</label>
+                </div>
+                <div ng-show="editForm.assetType.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.assetType.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!--<div class="col-md-6">
+            <div class="form-group">
+                <label for="field_assetStatus">Asset Status</label>
+                <input type="text" class="form-control" name="assetStatus" id="field_assetStatus"
+                       ng-model="assetDistribution.assetStatus ? 'Active' : 'Inactive' "
+                    />
+            </div>
+        </div>-->
+        <div class="col-md-6">
+            <div class="form-group">
+                <label  class="control-label" translate="stepApp.assetDistribution.remartks"
+                       for="field_remartks">Remartks</label>
+                        <textarea class="form-control" rows="2" cols="30" name="remartks" id="field_remartks"
+                                  ng-model="assetDistribution.remartks"
+                                  >
+                        </textarea>
+                <div ng-show="editForm.remartks.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.remartks.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 text-right">
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary"
+                        ng-disabled="editForm.$invalid || editForm.$submitted">
+                    <i class="fa fa-hdd-o"></i>
+                    <span ng-show="assetDistribution.id == null" translate="entity.action.save">Save</span>
+                    <span ng-show="assetDistribution.id != null" translate="entity.action.update">Save</span>
+                </button>
+                <button type="submit" class="btn btn-info" onclick="window.history.back()"><i
+                    class="fa fa-angle-double-left"></i>
+                    <span translate="entity.action.back">Back</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--== END ASSET DISTRIBUTION==-->
+
+
+<!--
+
+
+<div  class="panel panel-primary">
+
+    <div class="panel-heading">
+
+        <div>
+            <h4 id="myAssetDistributionLabel" translate="stepApp.assetDistribution.home.createOrEditLabel">Create AssetTypeSetup</h4>
+        </div>
+
+    </div>
+
+
+        <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+            <div class="modal-body">
+                <jh-alert-error></jh-alert-error>
+
+                <div class="form-group">
+                    <label translate="stepApp.assetDistribution.transferRef" for="field_transferRef">TransferRef</label>
+                    <input type="text" class="form-control" name="transferRef" id="field_transferRef"
+                           ng-model="assetDistribution.transferRef"
+                           required />
+                    <div ng-show="editForm.transferRef.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.transferRef.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+                <>
+                <div class="form-group">
+                    <label translate="stepApp.assetDistribution.assignedDdate" for="field_assignedDdate">AssignedDdate</label>
+                    <input type="date" class="form-control" name="assignedDdate" id="field_assignedDdate"
+                           ng-model="assetDistribution.assignedDdate"
+                    />
+                </div>
+                <>
+                <div class="form-group">
+                    <label translate="stepApp.assetDistribution.remartks" for="field_remartks">Remartks</label>
+                    <input type="text" class="form-control" name="remartks" id="field_remartks"
+                           ng-model="assetDistribution.remartks"
+                           required />
+                    <div ng-show="editForm.remartks.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.remartks.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+
+<>
+                &lt;!&ndash;//All of employee Information auto detected by ID&ndash;&gt;
+
+
+            <div class="form-group">
+               <label for=field_employeeeID>Employee ID</label>
+               <input ng-change="ValueChange(assetDistribution.employee.id)" type="text" class="form-control" name="remartks" id="field_employeeeID"
+                      ng-model="assetDistribution.employee.id"
+                      required />
+               <div ng-show="editForm.remartks.$invalid">
+                   <p class="help-block"
+                      ng-show="editForm.remartks.$error.required" translate="entity.validation.required">
+                       This field is required.
+                   </p>
+               </div>
+<>
+
+               <label translate="stepApp.assetDistribution.name" for=field_employeeeName>name</label>
+               <input ng-change="ValueChange(assetDistribution.employee.id)" type="text" class="form-control" name="remartks" id="field_employeeeName"
+                      ng-model="assetDistribution.name"
+                      required />
+               <div ng-show="editForm.remartks.$invalid">
+                   <p class="help-block"
+                      ng-show="editForm.remartks.$error.required" translate="entity.validation.required">
+                       This field is required.
+                   </p>
+               </div>
+
+
+<>
+
+
+               <label translate="stepApp.assetDistribution.department" for=fieldD_employeeeName>department</label>
+               <input ng-change="ValueChange(assetDistribution.employee.id)" type="text" class="form-control" name="remartks" id="fieldD_employeeeName"
+                      ng-model="assetDistribution.department"
+                       />
+               <div ng-show="editForm.remartks.$invalid">
+                   <p class="help-block"
+                      ng-show="editForm.remartks.$error.required" translate="entity.validation.required">
+                       This field is required.
+                   </p>
+               </div>
+<>
+
+               <label translate="stepApp.assetDistribution.designation" for=fieldD_employeeedesig>designation</label>
+               <input ng-change="ValueChange(assetDistribution.employee.id)" type="text" class="form-control" name="remartks" id="fieldD_employeeedesig"
+                      ng-model="assetDistribution.designation"
+                      required />
+               <div ng-show="editForm.remartks.$invalid">
+                   <p class="help-block"
+                      ng-show="editForm.remartks.$error.required" translate="entity.validation.required">
+                       This field is required.
+                   </p>
+               </div>
+
+
+           </div>
+<>
+
+           &lt;!&ndash;//END All of employee Information auto detected by ID&ndash;&gt;
+
+
+
+
+                &lt;!&ndash;Asset information retriving by asset no &ndash;&gt;
+<label  for=fieldD_assetCode>Asset code</label>
+   <input ng-change="AssetValueChange(assetDistribution.assetInfo)" type="text" class="form-control" name="remartks" id="fieldD_assetCode"
+          ng-model="assetDistribution.assetInfo"
+          required />
+   <div ng-show="editForm.remartks.$invalid">
+       <p class="help-block"
+          ng-show="editForm.remartks.$error.required" translate="entity.validation.required">
+           This field is required.
+       </p>
+   </div>
+<>
+   <label translate="stepApp.assetDistribution.assetName" for=fieldD_assetName>assetName</label>
+   <input ng-change="AssetValueChange(assetDistribution.assetInfo)" type="text" class="form-control" name="remartks" id="fieldD_assetName"
+          ng-model="assetrecords.assetName"
+          required />
+   <div ng-show="editForm.remartks.$invalid">
+       <p class="help-block"
+          ng-show="editForm.remartks.$error.required" translate="entity.validation.required">
+           This field is required.
+       </p>
+   </div>
+<>
+
+   <label translate="stepApp.assetDistribution.status" for=fieldD_assetStatus>status</label>
+       <input ng-change="AssetValueChange(assetDistribution.assetInfo)" type="text" class="form-control" name="remartks" id="fieldD_assetStatus"
+          ng-model="assetrecords.assetStatus"
+          required />
+   <div ng-show="editForm.remartks.$invalid">
+       <p class="help-block"
+          ng-show="editForm.remartks.$error.required" translate="entity.validation.required">
+           This field is required.
+       </p>
+   </div>
+<>
+   &lt;!&ndash;End of asset information detection&ndash;&gt;
+
+
+  <!--<div class="form-group">-->
+<!--<label translate="stepApp.assetDistribution.assetRecord" for="field_assetRecord">assetRecord</label>-->
+<!--<select class="form-control" id="field_assetRecord" name="assetRecord" ng-model="assetDistribution.assetRecord" ng-options="assetRecord as assetRecord.assetName for assetRecord in assetrecords track by assetRecord.id">-->
+<!--<option value=""></option>-->
+<!--</select>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="modal-footer">-->
+<!--<button type="button"-->
+<!--onclick="window.history.back()"-->
+<!--class="btn btn-info">-->
+<!--<span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>-->
+<!--</button>-->
+<!--<button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">-->
+<!--<span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>-->
+<!--</button>-->
+<!--</div>-->
+<!--</form>-->
+
+
+<!--</div>-->
+
+
+

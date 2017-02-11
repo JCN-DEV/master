@@ -1,0 +1,236 @@
+<div class="hrm service-form-area">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="modal-title" id="myHrEmpPreGovtJobInfoLabel"><span
+                translate="stepApp.hrEmpPreGovtJobInfo.home.profileViewEditTitle"></span> : {{hrEmployeeInfo.fullName}}
+            </h4>
+        </div>
+        <div class="panel-body bg-panel">
+            <!--=========notice=========-->
+            <div class="form-group alert-notice">
+                <span ng-show="addMode">
+                      <span ng-show="noEmployeeFound" class="alert alert-danger"><i
+                          class="fa fa-exclamation-triangle  glow"></i>&nbsp;&nbsp;&nbsp;Employee is not created yet.</span>
+                </span>
+            </div>
+            <!--=========End notice=========-->
+            <div class="panel-group hr_label">
+                <!-- For Loop Start From Here-->
+                <div class="bg-panel" ng-repeat="hrEmpPreGovtJobInfo in hrEmpPreGovtJobInfoList">
+                    <form class="form-horizontal " name="editForm" role="form" ng-submit="save()" novalidate
+                          show-validation>
+                        <div class="row hrm-view panel-heading no_padding">
+                            <div class="col-sm-7 no_padding">
+                                <strong>{{hrEmpPreGovtJobInfo.organizationName}} :
+                                    {{hrEmpPreGovtJobInfo.postName}}</strong>
+                            </div>
+                            <div class="col-sm-5 no_padding text-right">
+                                <button
+                                    ng-hide="noEmployeeFound || hrEmpPreGovtJobInfo.isLocked || hrEmpPreGovtJobInfo.logStatus==6"
+                                    type="button" ng-click="changeProfileMode(hrEmpPreGovtJobInfo)"
+                                    class="btn btn-primary btn-sm">{{hrEmpPreGovtJobInfo.viewModeText}}
+                                </button>
+                                <span ng-show="hrEmpPreGovtJobInfo.isLocked" class="alert alert-warning"><span
+                                    translate="stepApp.hrmHome.recordLocked">Pending</span></span>
+                                    <span ng-if="hrEmpPreGovtJobInfo.logStatus == 3">
+                                        <span class="alert alert-warning" translate="stepApp.hrmHome.requestRejected">Rejected</span>
+                                    </span>
+                            </div>
+                        </div>
+                        <div class="row hrm-view">
+                            <div class="col-sm-12 text-right">
+                                    <span class="alert-warning" ng-if="hrEmpPreGovtJobInfo.logStatus == 3">
+                                        <span class="control-label"
+                                              translate="stepApp.hrmHome.rejectionReason">Reason</span>: &nbsp; : &nbsp;{{hrEmpPreGovtJobInfo.logComments}}
+                                    </span>
+                            </div>
+                        </div>
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpPreGovtJobInfo.viewMode" class="input-margin">
+                                    <label class="control-label"
+                                           translate="stepApp.hrEmpPreGovtJobInfo.organizationName"
+                                           for="field_organizationName">OrganizationName</label>
+                                    <input type="text" class="form-control" name="organizationName"
+                                           id="field_organizationName"
+                                           ng-model="hrEmpPreGovtJobInfo.organizationName" required/>
+                                    <div ng-show="editForm.organizationName.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.organizationName.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEmpPreGovtJobInfo.viewMode">
+                                    <label class="control-label"
+                                           translate="stepApp.hrEmpPreGovtJobInfo.organizationName"
+                                           for="field_organizationName">OrganizationName</label>
+                                    <span class="form-control-static">&nbsp; : &nbsp;{{hrEmpPreGovtJobInfo.organizationName}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpPreGovtJobInfo.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEmpPreGovtJobInfo.postName"
+                                           for="field_postName">PostName</label>
+                                    <input type="text" class="form-control" name="postName" id="field_postName"
+                                           ng-model="hrEmpPreGovtJobInfo.postName" required/>
+                                    <div ng-show="editForm.postName.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.postName.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEmpPreGovtJobInfo.viewMode">
+                                    <label class="control-label" translate="stepApp.hrEmpPreGovtJobInfo.postName"
+                                           for="field_postName">PostName</label>
+                                    <span
+                                        class="form-control-static">&nbsp; : &nbsp;{{hrEmpPreGovtJobInfo.postName}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpPreGovtJobInfo.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEmpPreGovtJobInfo.salary"
+                                           for="field_salary">Salary</label>
+                                    <input type="number" class="form-control" name="salary" id="field_salary"
+                                           ng-model="hrEmpPreGovtJobInfo.salary" required/>
+                                    <div ng-show="editForm.salary.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.salary.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                        <p class="help-block"
+                                           ng-show="editForm.salary.$error.number" translate="entity.validation.number">
+                                            This field should be a number.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEmpPreGovtJobInfo.viewMode">
+                                    <label class="control-label" translate="stepApp.hrEmpPreGovtJobInfo.salary"
+                                           for="field_salary">Salary</label>
+                                    <span
+                                        class="form-control-static">&nbsp; : &nbsp;{{hrEmpPreGovtJobInfo.salary}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpPreGovtJobInfo.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEmpPreGovtJobInfo.fromDate"
+                                           for="field_fromDate">FromDate</label>
+                                    <input datepicker-popup="{{calendar.dateFormat}}"
+                                           is-open="calendar.opened['fromDate'+$index]"
+                                           datepicker-options="calendar.dateOptions" close-text="Close"
+                                           ng-click="calendar.open($event, 'fromDate'+$index)" class="form-control"
+                                           max-date="hrEmpPreGovtJobInfo.toDate"
+                                           name="fromDate" id="field_fromDate"
+                                           ng-model="hrEmpPreGovtJobInfo.fromDate" required/>
+                                    <div ng-show="editForm.fromDate.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.fromDate.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEmpPreGovtJobInfo.viewMode">
+                                    <label class="control-label" translate="stepApp.hrEmpPreGovtJobInfo.fromDate"
+                                           for="field_fromDate">FromDate</label>
+                                    <span class="form-control-static">&nbsp; : &nbsp;{{hrEmpPreGovtJobInfo.fromDate | date:'mediumDate'}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpPreGovtJobInfo.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEmpPreGovtJobInfo.toDate"
+                                           for="field_toDate">ToDate</label>
+                                    <input datepicker-popup="{{calendar.dateFormat}}"
+                                           is-open="calendar.opened['toDate'+$index]"
+                                           datepicker-options="calendar.dateOptions" close-text="Close"
+                                           ng-click="calendar.open($event, 'toDate'+$index)" class="form-control"
+                                           name="toDate" id="field_toDate"
+                                           min-date="hrEmpPreGovtJobInfo.fromDate"
+                                           ng-model="hrEmpPreGovtJobInfo.toDate" required/>
+                                    <div ng-show="editForm.toDate.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.toDate.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEmpPreGovtJobInfo.viewMode">
+                                    <label class="control-label" translate="stepApp.hrEmpPreGovtJobInfo.toDate"
+                                           for="field_toDate">ToDate</label>
+                                    <span class="form-control-static">&nbsp; : &nbsp;{{hrEmpPreGovtJobInfo.toDate | date:'mediumDate'}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label class="control-label" translate="stepApp.hrEmpPreGovtJobInfo.comments"
+                                       for="field_comments">Comments</label>
+                                <div ng-show="!hrEmpPreGovtJobInfo.viewMode" class="input-margin">
+                                        <textarea class="form-control" name="comments" id="field_comments"
+                                                  ng-model="hrEmpPreGovtJobInfo.comments"></textarea>
+                                </div>
+                                <span ng-show="hrEmpPreGovtJobInfo.viewMode" class="form-control-static">&nbsp; : &nbsp;{{hrEmpPreGovtJobInfo.comments}}</span>
+                            </div>
+                        </div>
+                        <div class="row hrm-view">
+                            <div class="form-group col-sm-6">
+                                <div ng-show="!hrEmpPreGovtJobInfo.viewMode" class="input-margin">
+                                    <label class="control-label" translate="stepApp.hrEmpPreGovtJobInfo.address"
+                                           for="field_address">Address</label>
+                                        <textarea class="form-control" name="address" id="field_address"
+                                                  ng-model="hrEmpPreGovtJobInfo.address" required></textarea>
+                                    <div ng-show="editForm.address.$invalid">
+                                        <p class="help-block"
+                                           ng-show="editForm.address.$error.required"
+                                           translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div ng-show="hrEmpPreGovtJobInfo.viewMode">
+                                    <label class="control-label" translate="stepApp.hrEmpPreGovtJobInfo.address"
+                                           for="field_address">Address</label>
+                                    <span
+                                        class="form-control-static">&nbsp; : &nbsp;{{hrEmpPreGovtJobInfo.address}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6 text-right">
+                                <div class="input-margin">
+                                    <button ng-show="!hrEmpPreGovtJobInfo.viewMode" type="button"
+                                            ng-click="changeProfileMode(hrEmpPreGovtJobInfo)"
+                                            class="btn btn-default btn-sm"><span
+                                        class="glyphicon glyphicon-remove"></span>&nbsp;{{hrEmpPreGovtJobInfo.viewModeText}}
+                                    </button>
+                                    <button ng-show="!hrEmpPreGovtJobInfo.viewMode"
+                                            ng-click="updateProfile(hrEmpPreGovtJobInfo, $index)"
+                                            type="button" ng-disabled="editForm.$invalid || isSaving"
+                                            class="btn btn-primary btn-sm">
+                                        <span class="glyphicon glyphicon-save"></span>&nbsp;<span
+                                        translate="entity.action.save">Save</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- End of Loop -->
+                <div class="col-sm-12 text-right">
+                    <button type="submit" class="btn btn-primary " ng-show="!addMode"
+                            ng-disabled="editForm.$invalid || isSaving" ng-click="addMore()"><i
+                        class="fa fa-plus-square"></i>
+
+                        <span translate="global.menu.account.addmore">Add More</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

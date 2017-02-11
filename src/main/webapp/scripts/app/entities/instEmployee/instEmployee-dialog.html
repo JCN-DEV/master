@@ -1,0 +1,279 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myInstEmployeeLabel" translate="stepApp.instEmployee.home.createOrEditLabel">Create or edit a InstEmployee</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="instEmployee.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmployee.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                    ng-model="instEmployee.name"
+                    required />
+            <div ng-show="editForm.name.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmployee.email" for="field_email">Email</label>
+            <input type="text" class="form-control" name="email" id="field_email"
+                    ng-model="instEmployee.email"
+                    required />
+            <div ng-show="editForm.email.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.email.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmployee.contactNo" for="field_contactNo">ContactNo</label>
+            <input type="text" class="form-control" name="contactNo" id="field_contactNo"
+                    ng-model="instEmployee.contactNo"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmployee.fatherName" for="field_fatherName">FatherName</label>
+            <input type="text" class="form-control" name="fatherName" id="field_fatherName"
+                    ng-model="instEmployee.fatherName"
+                    required />
+            <div ng-show="editForm.fatherName.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.fatherName.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmployee.motherName" for="field_motherName">MotherName</label>
+            <input type="text" class="form-control" name="motherName" id="field_motherName"
+                    ng-model="instEmployee.motherName"
+                    required />
+            <div ng-show="editForm.motherName.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.motherName.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmployee.dob" for="field_dob">Dob</label>
+            <input type="date" class="form-control" name="dob" id="field_dob"
+                    ng-model="instEmployee.dob"
+                    required />
+            <div ng-show="editForm.dob.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.dob.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmployee.category" for="field_category">Category</label>
+            <select class="form-control" name="category" ng-model="instEmployee.category" id="field_category">
+                <option value="Teacher" translate="stepApp.EmpType.Teacher">Teacher</option>
+                <option value="Employee" translate="stepApp.EmpType.Employee">Employee</option>
+                <option value="Staff" translate="stepApp.EmpType.Staff">Staff</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmployee.gender" for="field_gender">Gender</label>
+            <input type="text" class="form-control" name="gender" id="field_gender"
+                    ng-model="instEmployee.gender"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmployee.maritalStatus" for="field_maritalStatus">MaritalStatus</label>
+            <select class="form-control" name="maritalStatus" ng-model="instEmployee.maritalStatus" id="field_maritalStatus">
+                <option value="Single" translate="stepApp.maritalStatus.Single">Single</option>
+                <option value="Married" translate="stepApp.maritalStatus.Married">Married</option>
+                <option value="Widower" translate="stepApp.maritalStatus.Widower">Widower</option>
+                <option value="Widow" translate="stepApp.maritalStatus.Widow">Widow</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmployee.bloodGroup" for="field_bloodGroup">BloodGroup</label>
+            <select class="form-control" name="bloodGroup" ng-model="instEmployee.bloodGroup" id="field_bloodGroup">
+                <option value="A_POSITIVE" translate="stepApp.bloodGroup.A_POSITIVE">A_POSITIVE</option>
+                <option value="A_NEGATIVE" translate="stepApp.bloodGroup.A_NEGATIVE">A_NEGATIVE</option>
+                <option value="B_POSITIVE" translate="stepApp.bloodGroup.B_POSITIVE">B_POSITIVE</option>
+                <option value="B_NEGATIVE" translate="stepApp.bloodGroup.B_NEGATIVE">B_NEGATIVE</option>
+                <option value="O_POSITIVE" translate="stepApp.bloodGroup.O_POSITIVE">O_POSITIVE</option>
+                <option value="O_NEGATIVE" translate="stepApp.bloodGroup.O_NEGATIVE">O_NEGATIVE</option>
+                <option value="AB_POSITIVE" translate="stepApp.bloodGroup.AB_POSITIVE">AB_POSITIVE</option>
+                <option value="AB_NEGATIVE" translate="stepApp.bloodGroup.AB_NEGATIVE">AB_NEGATIVE</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmployee.tin" for="field_tin">Tin</label>
+            <input type="text" class="form-control" name="tin" id="field_tin"
+                    ng-model="instEmployee.tin"
+                     />
+        </div>
+        <div class="form-group" ngf-drop ngf-change="setImage($file, instEmployee)">
+            <label translate="stepApp.instEmployee.image" for="field_image">Image</label>
+            <div>
+                <div class="help-block clearfix">
+                    <span class="pull-left">{{instEmployee.imageContentType}} {{byteSize(instEmployee.image)}}</span>
+                    <button ng-click="instEmployee.image=null;instEmployee.imageContentType=null;"
+                            ng-if="instEmployee.image"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="file" ngf-select class="btn btn-default btn-block"
+                        ngf-change="setImage($file, instEmployee)" translate="entity.action.addblob">
+                    Add blob
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="image" id="field_image"
+                    ng-model="instEmployee.image"
+                    required />
+            <input type="hidden" class="form-control" name="imageContentType" id="field_imageContentType"
+                    ng-model="instEmployee.imageContentType" />
+            <div ng-show="editForm.image.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.image.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmployee.nationality" for="field_nationality">Nationality</label>
+            <input type="text" class="form-control" name="nationality" id="field_nationality"
+                    ng-model="instEmployee.nationality"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmployee.nid" for="field_nid">Nid</label>
+            <input type="text" class="form-control" name="nid" id="field_nid"
+                    ng-model="instEmployee.nid"
+                     />
+        </div>
+        <div class="form-group" ngf-drop ngf-change="setNidImage($file, instEmployee)">
+            <label translate="stepApp.instEmployee.nidImage" for="field_nidImage">NidImage</label>
+            <div>
+                <div class="help-block clearfix">
+                    <span class="pull-left">{{instEmployee.nidImageContentType}} {{byteSize(instEmployee.nidImage)}}</span>
+                    <button ng-click="instEmployee.nidImage=null;instEmployee.nidImageContentType=null;"
+                            ng-if="instEmployee.nidImage"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="file" ngf-select class="btn btn-default btn-block"
+                        ngf-change="setNidImage($file, instEmployee)" translate="entity.action.addblob">
+                    Add blob
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="nidImage" id="field_nidImage"
+                    ng-model="instEmployee.nidImage"
+                     />
+            <input type="hidden" class="form-control" name="nidImageContentType" id="field_nidImageContentType"
+                    ng-model="instEmployee.nidImageContentType" />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmployee.birthCertNo" for="field_birthCertNo">BirthCertNo</label>
+            <input type="text" class="form-control" name="birthCertNo" id="field_birthCertNo"
+                    ng-model="instEmployee.birthCertNo"
+                     />
+        </div>
+        <div class="form-group" ngf-drop ngf-change="setBirthCertImage($file, instEmployee)">
+            <label translate="stepApp.instEmployee.birthCertImage" for="field_birthCertImage">BirthCertImage</label>
+            <div>
+                <div class="help-block clearfix">
+                    <span class="pull-left">{{instEmployee.birthCertImageContentType}} {{byteSize(instEmployee.birthCertImage)}}</span>
+                    <button ng-click="instEmployee.birthCertImage=null;instEmployee.birthCertImageContentType=null;"
+                            ng-if="instEmployee.birthCertImage"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="file" ngf-select class="btn btn-default btn-block"
+                        ngf-change="setBirthCertImage($file, instEmployee)" translate="entity.action.addblob">
+                    Add blob
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="birthCertImage" id="field_birthCertImage"
+                    ng-model="instEmployee.birthCertImage"
+                     />
+            <input type="hidden" class="form-control" name="birthCertImageContentType" id="field_birthCertImageContentType"
+                    ng-model="instEmployee.birthCertImageContentType" />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmployee.conPerName" for="field_conPerName">ConPerName</label>
+            <input type="text" class="form-control" name="conPerName" id="field_conPerName"
+                    ng-model="instEmployee.conPerName"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmployee.conPerMobile" for="field_conPerMobile">ConPerMobile</label>
+            <input type="number" class="form-control" name="conPerMobile" id="field_conPerMobile"
+                    ng-model="instEmployee.conPerMobile"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmployee.conPerAddress" for="field_conPerAddress">ConPerAddress</label>
+            <input type="text" class="form-control" name="conPerAddress" id="field_conPerAddress"
+                    ng-model="instEmployee.conPerAddress"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label translate="stepApp.instEmployee.institute" for="field_institute">institute</label>
+            <select class="form-control" id="field_institute" name="institute" ng-model="instEmployee.institute" ng-options="institute as institute.name for institute in institutes track by institute.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmployee.designation" for="field_designation">designation</label>
+            <select class="form-control" id="field_designation" name="designation" ng-model="instEmployee.designation" ng-options="designation as designation.name for designation in designations | orderBy:'id' track by designation.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmployee.religion" for="field_religion">religion</label>
+            <select class="form-control" id="field_religion" name="religion" ng-model="instEmployee.religion" ng-options="religion as religion.name for religion in religions | orderBy:'id' track by religion.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmployee.quota" for="field_quota">quota</label>
+            <select class="form-control" id="field_quota" name="quota" ng-model="instEmployee.quota" ng-options="quota as quota.name for quota in quotas | orderBy:'id' track by quota.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmployee.courseTech" for="field_courseTech">courseTech</label>
+            <select class="form-control" id="field_courseTech" name="courseTech" ng-model="instEmployee.courseTech" ng-options="courseTech as courseTech.id for courseTech in coursetechs | orderBy:'id' track by courseTech.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmployee.gradeSetup" for="field_gradeSetup">gradeSetup</label>
+            <select class="form-control" id="field_gradeSetup" name="gradeSetup" ng-model="instEmployee.gradeSetup" ng-options="gradeSetup as gradeSetup.no for gradeSetup in gradesetups | orderBy:'id' track by gradeSetup.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.instEmployee.instEmpAddress" for="field_instEmpAddress">instEmpAddress</label>
+            <select class="form-control" id="field_instEmpAddress" multiple name="instEmpAddress" ng-model="instEmployee.instEmpAddresss" ng-options="instEmpAddress as instEmpAddress.address for instEmpAddress in instempaddresss track by instEmpAddress.id"></select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

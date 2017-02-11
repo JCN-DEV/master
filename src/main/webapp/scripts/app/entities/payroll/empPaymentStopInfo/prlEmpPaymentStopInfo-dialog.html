@@ -1,0 +1,96 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="modal-title" id="myPrlEmpPaymentStopInfoLabel" translate="stepApp.prlEmpPaymentStopInfo.home.createOrEditLabel">Create or edit a PrlEmpPaymentStopInfo</h4>
+    </div>
+    <div class="panel-body">
+        <!--<jh-alert-error></jh-alert-error>-->
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.prlEmpPaymentStopInfo.employeeInfo" for="field_employeeInfo">employeeInfo</label>
+                    <!--<select class="form-control" id="field_employeeInfo" name="employeeInfo" ng-model="prlEmpPaymentStopInfo.employeeInfo" ng-options="HrEmployeeInfo as HrEmployeeInfo.fullName for HrEmployeeInfo in hremployeeinfos track by HrEmployeeInfo.id">
+                        <option value=""></option>
+                    </select>-->
+                    <input type="text" class="form-control autocomplete" autocomplete="off" ng-model="prlEmpPaymentStopInfo.employeeInfo" typeahead='HrEmployeeInfo as (HrEmployeeInfo.fullName + " " + HrEmployeeInfo.employeeId + " " + HrEmployeeInfo.designationInfo.gradeInfo.gradeCode) for HrEmployeeInfo in hremployeeinfos | filter:$viewValue' id="field_employeeInfo" required>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div ng-if="prlEmpPaymentStopInfo.employeeInfo">
+                    Name: {{prlEmpPaymentStopInfo.employeeInfo.fullName}},
+                    Email: {{prlEmpPaymentStopInfo.employeeInfo.emailAddress}},
+                    Section: {{prlEmpPaymentStopInfo.employeeInfo.departmentInfo.departmentInfo.departmentName}},
+                    Designation: {{prlEmpPaymentStopInfo.employeeInfo.designationInfo.designationInfo.designationName}},
+                    Organization: {{prlEmpPaymentStopInfo.employeeInfo.workAreaDtl.name}},
+                    Grade: {{prlEmpPaymentStopInfo.employeeInfo.designationInfo.gradeInfo.gradeCode}}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.prlEmpPaymentStopInfo.effectedDateFrom" for="field_effectedDateFrom">EffectedDateFrom</label>
+                    <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.effectedDateFrom"
+                           datepicker-options="calendar.dateOptions" close-text="Close"
+                           ng-click="calendar.open($event, 'effectedDateFrom')" class="form-control" name="effectedDateFrom" id="field_effectedDateFrom"
+                           ng-model="prlEmpPaymentStopInfo.effectedDateFrom"/>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.prlEmpPaymentStopInfo.effectedDateTo" for="field_effectedDateTo">EffectedDateTo</label>
+                    <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.effectedDateTo"
+                           datepicker-options="calendar.dateOptions" close-text="Close" min-date="prlEmpPaymentStopInfo.effectedDateFrom"
+                           ng-click="calendar.open($event, 'effectedDateTo')" class="form-control" name="effectedDateTo" id="field_effectedDateTo"
+                           ng-model="prlEmpPaymentStopInfo.effectedDateTo"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.prlEmpPaymentStopInfo.stopActionType">StopActionType</label>
+                    <div class="form-control">
+                        <input type="radio" ng-model="prlEmpPaymentStopInfo.stopActionType" name="stopActionType" value="onlypayroll">&nbsp;Only Payroll&nbsp;|&nbsp;
+                        <input type="radio" ng-model="prlEmpPaymentStopInfo.stopActionType" name="stopActionType" value="onlyoa">&nbsp;Only O.A|&nbsp;
+                        <input type="radio" ng-model="prlEmpPaymentStopInfo.stopActionType" name="stopActionType" value="both">&nbsp;Both
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.prlEmpPaymentStopInfo.activeStatus" for="field_activeStatus">ActiveStatus</label>
+                    <input type="checkbox" class="form-control" name="activeStatus" id="field_activeStatus"
+                           ng-model="prlEmpPaymentStopInfo.activeStatus"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.prlEmpPaymentStopInfo.comments" for="field_comments">Comments</label>
+                    <textarea class="form-control" name="comments" id="field_comments"
+                           ng-model="prlEmpPaymentStopInfo.comments"></textarea>
+                </div>
+            </div>
+            <div class="col-md-6">
+
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <button type="button" class="btn btn-default" class="btn " data-dismiss="modal" onclick="window.history.back()">
+            <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;<span translate="entity.action.back">Back</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</div>
+</form>

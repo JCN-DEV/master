@@ -1,0 +1,103 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="instLevel.id == null" class="modal-title" id="myInstLevelLabel"
+            translate="stepApp.instLevel.home.createOrEditLabel">Create or edit a InstLevel</h4>
+        <h4 ng-show="instLevel.id != null" class="modal-title" id="myInstLevelLabel"
+            translate="stepApp.instLevel.home.EditLabel">Create or edit a InstLevel</h4>
+        <div class="col-md-12 modal-body">
+
+            <div class="col-md-12 no_padding">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.instLevel.code" for="field_code">Code</label>
+                        <input type="text" class="form-control" name="code" id="field_code"
+                               ng-model="instLevel.code"
+                               ng-remote-validate="/api/instLevels/instCodeUnique/"
+                               ng-remote-method="GET"
+                               ng-remote-throttle="500"
+                               placeholder="{{'stepApp.instLevel.code' | translate}}"
+                               title="{{'stepApp.instLevel.code' | translate}}"
+                               required/>
+                        <span class="message" ng-show="editForm.code.$pending">validating...</span>
+
+                        <div ng-show="editForm.code.$invalid">
+                            <p style="color:red"
+                               ng-show="editForm.code.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                        <div ng-show="editForm.code.$invalid">
+                            <p style="color:red"
+                               ng-show="editForm.code.$error.ngRemoteValidate">
+                                This Name is already exist
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.instLevel.name" for="field_name">Name</label>
+                        <input type="text" class="form-control" name="name" id="field_name"
+                               ng-model="instLevel.name"
+                               ng-remote-validate="/api/instLevels/instNameUnique/"
+                               ng-remote-method="GET"
+                               placeholder="{{'stepApp.instLevel.name' | translate}}"
+                               title="{{'stepApp.instLevel.name' | translate}}"
+                               required/>
+                        <span class="message" ng-show="editForm.name.$pending">validating...</span>
+                        <div ng-show="editForm.name.$invalid">
+                            <p style="color:red"
+                               ng-show="editForm.name.$error.ngRemoteValidate">
+                                This Name is already exist
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label translate="stepApp.instLevel.description" for="field_description">Description</label>
+                    <textarea type="text" class="form-control" name="description" id="field_description"
+                              cols="30" rows="3"
+                              title="{{'stepApp.instLevel.description' | translate}}"
+                              placeholder="{{'stepApp.instLevel.description' | translate}}"
+                              ng-model="instLevel.description"
+                    ></textarea>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label translate="stepApp.instLevel.pStatus" for="field_pStatus">PStatus</label>
+                <div id="field_pStatus">
+                    <label class="radio-inline">
+                        <input type="radio" name="pStatus" value="true"
+                               ng-checked="(instLevel.pStatus == true || instLevel.pStatus == null)"
+                               ng-model="instLevel.pStatus"><span
+                        translate="entity.action.activate" title="{{'stepApp.instLevel.pStatus' | translate}}"
+                    >
+                        Active</span>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="pStatus" value="false"
+                               ng-checked="(instLevel.pStatus == false && instLevel.pStatus != null)"
+                               ng-model="instLevel.pStatus"><span
+                        translate="entity.action.deactivate" title="{{'stepApp.instLevel.pStatus' | translate}}">
+                        Deactive</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12 modal-footer">
+            <button type="button"
+                    onclick="window.history.back()"
+                    class="btn btn-info no-print">
+                <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="instLevel.id == null" translate="entity.action.save">Save</span>
+                <span ng-show="instLevel.id != null" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

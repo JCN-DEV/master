@@ -1,0 +1,136 @@
+<div class="row">
+    <div class="col-md-3">
+        <ng-include src="'scripts/app/account/mpo/mpo-left-menu.html'"></ng-include>
+    </div>
+
+    <div class="col-md-9 lbl-dash">
+        <div class="col-md-12 common-dialogue">
+    <form class="col-sm-12 " name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-if="incrementSetup.id == null" class="modal-title" id="myIncrementSetupLabel" translate="stepApp.incrementSetup.home.createLabel">Create a IncrementSetup</h4>
+        <h4 ng-if="incrementSetup.id != null" class="modal-title" id="myIncrementSetupLabel" translate="stepApp.incrementSetup.home.editLabel">Edit a IncrementSetup</h4>
+
+        <div class="modal-body col-sm-12 gazette-setup">
+            <!--<div class="form-group">-->
+            <!--<label for="id" translate="global.field.id">ID</label>-->
+            <!--<input type="text" class="form-control" id="id" name="id"-->
+            <!--ng-model="incrementSetup.id" readonly />-->
+            <!--</div>-->
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.incrementSetup.Gazette" for="Gazette">Gazette</label>
+                <select class="form-control" id="Gazette" name="payCode" ng-model="incrementSetup.payCode" ng-options="PayScale as PayScale.payScaleClass for PayScale in payscales track by PayScale.id">
+                    <option value=""></option>
+                </select>
+            </div>
+            <div class="form-group col-sm-6">
+                <label class="control-label" translate="stepApp.incrementSetup.grade">grade</label>
+                <select class="form-control"  ng-model="incrementSetup.PayCodeSerial" name="PayCodeSerial" id="field_code" required>
+                    <option value="">Select Code</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                </select>
+            </div>
+
+
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.incrementSetup.amount" for="field_amount">Amount</label>
+                <input type="number" class="form-control" name="amount" id="field_amount"
+                       ng-model="incrementSetup.amount" ng-pattern="/^[0-9]*$/"
+                       required />
+                <div ng-show="editForm.amount.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.amount.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.amount.$error.pattern" translate="entity.validation.number">
+                        Only number is allow for amount.
+                    </p>
+                    <p class="help-block"
+                       ng-show="editForm.amount.$error.number" translate="entity.validation.number">
+                        This field should be a number.
+                    </p>
+                </div>
+            </div>
+            <!--<div class="form-group">
+                <label translate="stepApp.incrementSetup.PayCodeSerial" for="field_PayCodeSerial">PayCodeSerial</label>
+                <select class="form-control" id="field_PayCodeSerial" name="PayCodeSerial"
+                        ng-model="incrementSetup.PayCodeSerial" ng-options="PayScale as PayScale.grade for PayScale in payscales track by PayScale.grade">
+                    <option value=""></option>
+                </select>
+            </div>
+-->
+
+            <div class="form-group col-sm-6">
+                <label translate="stepApp.incrementSetup.status" for="field_status">Status</label>
+                <!--<input type="checkbox" class="form-control" name="status" id="field_status"-->
+                <!--ng-model="incrementSetup.status"-->
+                <!--/>-->
+                <div>
+                    <label  class="radio-inline"><input type="radio"  name="status" value="true" checked="true" ng-checked="incrementSetup.status == true" ng-model="incrementSetup.status"><span translate="entity.action.activate">Active</span></label>
+                    <label class="radio-inline"><input type="radio" name="status"  value="false"  ng-checked="incrementSetup.status == false" ng-model="incrementSetup.status"><span translate="entity.action.deactivate">Deactive</span></label>
+                </div>
+            </div>
+            <!--<div class="form-group">-->
+            <!--<label translate="stepApp.incrementSetup.createBy" for="field_createBy">CreateBy</label>-->
+            <!--<input type="number" class="form-control" name="createBy" id="field_createBy"-->
+            <!--ng-model="incrementSetup.createBy"-->
+            <!--/>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<label translate="stepApp.incrementSetup.createDate" for="field_createDate">CreateDate</label>-->
+            <!--<input type="date" class="form-control" name="createDate" id="field_createDate"-->
+            <!--ng-model="incrementSetup.createDate"-->
+            <!--/>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<label translate="stepApp.incrementSetup.updateBy" for="field_updateBy">UpdateBy</label>-->
+            <!--<input type="number" class="form-control" name="updateBy" id="field_updateBy"-->
+            <!--ng-model="incrementSetup.updateBy"-->
+            <!--/>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<label translate="stepApp.incrementSetup.updateDate" for="field_updateDate">UpdateDate</label>-->
+            <!--<input type="date" class="form-control" name="updateDate" id="field_updateDate"-->
+            <!--ng-model="incrementSetup.updateDate"-->
+            <!--/>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<label translate="stepApp.incrementSetup.remarks" for="field_remarks">Remarks</label>-->
+            <!--<input type="text" class="form-control" name="remarks" id="field_remarks"-->
+            <!--ng-model="incrementSetup.remarks"-->
+            <!--/>-->
+            <!--</div>-->
+
+
+
+        </div>
+        <div class="modal-footer col-sm-12">
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+            </button>
+        </div>
+    </form>
+
+</div>

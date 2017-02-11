@@ -1,0 +1,111 @@
+<div class="col-md-12 common-dialogue">
+    <form class="col-sm-12 custom-form" name="editForm" role="form" novalidate ng-submit="save()">
+            <h4 class="modal-title" id="myIisCourseInfoLabel" translate="stepApp.iisCourseInfo.home.createOrEditLabel">
+                Create or edit a IisCourseInfo</h4>
+        <div class="modal-body col-sm-12 padding-tb">
+            <!--<jh-alert-error></jh-alert-error>-->
+            <div class="form-group">
+                <label for="id" translate="global.field.id">ID</label>
+                <input type="text" class="form-control" id="id" name="id"
+                       ng-model="iisCourseInfo.id" readonly
+                       data-toggle="tooltip"
+                       tooltip="{{'global.field.id' | translate}}"
+                       placeholder="{{'global.field.id' | translate}}"
+                />
+            </div>
+            <div class="form-group">
+                <label translate="stepApp.iisCourseInfo.perDateEdu" for="field_perDateEdu">PerDateEdu</label>
+                <input type="date" class="form-control" name="perDateEdu" id="field_perDateEdu"
+                       ng-model="iisCourseInfo.perDateEdu"
+                       data-toggle="tooltip"
+                       tooltip="{{'stepApp.iisCourseInfo.perDateEdu' | translate}}"
+                       placeholder="{{'stepApp.iisCourseInfo.perDateEdu' | translate}}"
+                />
+            </div>
+            <div class="form-group">
+                <label translate="stepApp.iisCourseInfo.perDateBteb" for="field_perDateBteb">PerDateBteb</label>
+                <input type="date" class="form-control" name="perDateBteb" id="field_perDateBteb"
+                       ng-model="iisCourseInfo.perDateBteb"
+                       data-toggle="tooltip"
+                       tooltip="{{'stepApp.iisCourseInfo.perDateBteb' | translate}}"
+                       placeholder="{{'stepApp.iisCourseInfo.perDateBteb' | translate}}"
+                />
+            </div>
+            <div class="form-group">
+                <label translate="stepApp.iisCourseInfo.mpoEnlisted" for="field_mpoEnlisted">MpoEnlisted</label>
+                <input type="checkbox" class="form-control" name="mpoEnlisted" id="field_mpoEnlisted"
+                       ng-model="iisCourseInfo.mpoEnlisted"
+                       data-toggle="tooltip"
+                       tooltip="{{'stepApp.iisCourseInfo.mpoEnlisted' | translate}}"
+                       placeholder="{{'stepApp.iisCourseInfo.mpoEnlisted' | translate}}"
+                />
+            </div>
+            <div class="form-group">
+                <label translate="stepApp.iisCourseInfo.dateMpo" for="field_dateMpo">DateMpo</label>
+                <input type="text" class="form-control" name="dateMpo" id="field_dateMpo"
+                       ng-model="iisCourseInfo.dateMpo"
+                       data-toggle="tooltip"
+                       tooltip="{{'stepApp.iisCourseInfo.dateMpo' | translate}}"
+                       placeholder="{{'stepApp.iisCourseInfo.dateMpo' | translate}}"
+                />
+            </div>
+            <div class="form-group">
+                <label translate="stepApp.iisCourseInfo.seatNo" for="field_seatNo">SeatNo</label>
+                <input type="number" class="form-control" name="seatNo" id="field_seatNo"
+                       ng-model="iisCourseInfo.seatNo"
+                       data-toggle="tooltip"
+                       tooltip="{{'stepApp.iisCourseInfo.seatNo' | translate}}"
+                       placeholder="{{'stepApp.iisCourseInfo.seatNo' | translate}}"
+                />
+            </div>
+            <div class="form-group">
+                <label translate="stepApp.iisCourseInfo.shift" for="field_shift">Shift</label>
+                <input type="text" class="form-control" name="shift" id="field_shift" required
+                       ng-model="iisCourseInfo.shift"
+                       data-toggle="tooltip"
+                       tooltip="{{'stepApp.iisCourseInfo.shift' | translate}}"
+                       placeholder="{{'stepApp.iisCourseInfo.shift' | translate}}"
+                />
+            </div>
+
+            <div class="form-group">
+                <label translate="stepApp.iisCourseInfo.iisCurriculumInfo" for="field_iisCurriculumInfo">iisCurriculumInfo</label>
+                <select class="form-control" id="field_iisCurriculumInfo" name="iisCurriculumInfo"
+                        data-toggle="tooltip"
+                        tooltip="{{'stepApp.iisCourseInfo.iisCurriculumInfo' | translate}}"
+                        ng-model="iisCourseInfo.iisCurriculumInfo"
+                        ng-options="iisCurriculumInfo as iisCurriculumInfo.recNo for iisCurriculumInfo in iiscurriculuminfos track by iisCurriculumInfo.id">
+                    <option value="" translate="stepApp.iisCourseInfo.iisCurriculumInfo" ></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label translate="stepApp.iisCourseInfo.cmsTrade" for="field_cmsTrade">cmsTrade</label>
+                <select class="form-control" id="field_cmsTrade" name="cmsTrade" ng-model="iisCourseInfo.cmsTrade"
+                        data-toggle="tooltip"
+                        tooltip="{{'stepApp.iisCourseInfo.cmsTrade' | translate}}"
+                        ng-options="cmsTrade as cmsTrade.code for cmsTrade in cmstrades track by cmsTrade.id">
+                    <option value="" translate="stepApp.iisCourseInfo.cmsTrade"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label translate="stepApp.iisCourseInfo.cmsSubject" for="field_cmsSubject">cmsSubject</label>
+                <select class="form-control" id="field_cmsSubject" name="cmsSubject" ng-model="iisCourseInfo.cmsSubject"
+                        data-toggle="tooltip"
+                        tooltip="{{'stepApp.iisCourseInfo.cmsSubject' | translate}}"
+                        ng-options="cmsSubject as cmsSubject.name for cmsSubject in cmssubjects track by cmsSubject.id">
+                    <option value="" translate="stepApp.iisCourseInfo.cmsSubject"></option>
+                </select>
+            </div>
+        </div>
+        <div class="modal-footer col-sm-12">
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span translate="entity.action.save">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

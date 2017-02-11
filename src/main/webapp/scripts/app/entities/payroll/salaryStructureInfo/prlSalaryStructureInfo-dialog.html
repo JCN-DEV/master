@@ -1,0 +1,176 @@
+<div class="panel panel-default">
+
+    <div class="panel-heading">
+        <h4 class="modal-title" id="myPrlSalaryStructureInfoLabel" translate="stepApp.prlSalaryStructureInfo.home.createOrEditLabel">Create or edit a PrlSalaryStructureInfo</h4>
+    </div>
+    <div class="panel-body">
+        <form name="editForm" role="form" novalidate show-validation>
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="form-group">
+                        <label translate="stepApp.prlSalaryStructureInfo.employeeInfo" for="field_employeeInfo">employeeInfo</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control autocomplete" autocomplete="off"
+                                   ng-model="prlSalaryStructureInfo.employeeInfo"
+                                   typeahead='HrEmployeeInfo as (HrEmployeeInfo.fullName + " " + HrEmployeeInfo.employeeId + " " + HrEmployeeInfo.designationInfo.gradeInfo.gradeCode) for HrEmployeeInfo in hremployeeinfos | filter:$viewValue'
+                                   id="field_employeeInfo" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <table class="table">
+                        <tr>
+                            <td>Name:</td>
+                            <td>{{prlSalaryStructureInfo.employeeInfo.fullName}}</td>
+                            <td> Email:</td>
+                            <td>{{prlSalaryStructureInfo.employeeInfo.emailAddress}}</td>
+                        </tr>
+                        <tr>
+                            <td>Section: </td>
+                            <td>{{prlSalaryStructureInfo.employeeInfo.departmentInfo.departmentInfo.departmentName}}</td>
+                            <td>Designation:</td>
+                            <td>{{prlSalaryStructureInfo.employeeInfo.designationInfo.designationInfo.designationName}}</td>
+                        </tr>
+                        <tr>
+                            <td>Organization:</td>
+                            <td>{{prlSalaryStructureInfo.employeeInfo.workAreaDtl.name}}</td>
+                            <td>Grade: </td>
+                            <td>{{prlSalaryStructureInfo.employeeInfo.designationInfo.gradeInfo.gradeCode}}</td>
+                        </tr>
+                    </table>
+                    <div class="input-margin">
+                        <span class="message" ng-show="salaryStructureValidationChecking">validating...</span>
+                        <div ng-show="salaryStructureAlreadyExist" class="alert alert-danger">
+                            Salary Structure already exists !!!
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.prlSalaryStructureInfo.gazetteInfo" for="field_gazetteInfo">gazetteInfo</label>
+                        <select class="form-control" id="field_gazetteInfo" name="gazetteInfo"
+                                ng-model="prlSalaryStructureInfo.gazetteInfo" ng-change="loadPayscaleByGazzeteAndGrade()"
+                                ng-options="HrGazetteSetup as HrGazetteSetup.gazetteName for HrGazetteSetup in hrgazettesetups track by HrGazetteSetup.id"
+                                required>
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.prlSalaryStructureInfo.payscaleBasicInfo" for="field_payscaleBasicInfo">payscaleBasicInfo</label>
+                        <select class="form-control" id="field_payscaleBasicInfo" name="payscaleBasicInfo"
+                                ng-model="prlSalaryStructureInfo.payscaleBasicInfo"
+                                ng-change="calculateAllowanceBasedOnBasic()"
+                                ng-options="PrlPayscaleBasicInfo as PrlPayscaleBasicInfo.basicAmount for PrlPayscaleBasicInfo in prlpayscalebasicinfos track by PrlPayscaleBasicInfo.id"
+                                required>
+                            <option value=""></option>
+                        </select>
+                        {{payscaleMessage}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.prlSalaryStructureInfo.effectiveDate" for="field_effectiveDate">EffectiveDate</label>
+                        <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.effectiveDate"
+                               datepicker-options="calendar.dateOptions" close-text="Close" min-date="currentDate"
+                               ng-click="calendar.open($event, 'effectiveDate')" class="form-control" name="effectiveDate" id="field_effectiveDate"
+                               ng-model="prlSalaryStructureInfo.effectiveDate"/>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.prlSalaryStructureInfo.activeStatus" for="field_activeStatus">ActiveStatus</label>
+                        <input type="checkbox" class="form-control" name="activeStatus" id="field_activeStatus"
+                               ng-model="prlSalaryStructureInfo.activeStatus"/>
+                        <div ng-show="editForm.activeStatus.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" ng-click="saveSalaryStructure()" ng-disabled="editForm.$invalid || isSaving || salaryStructureAlreadyExist" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-save"></span>&nbsp;
+                        <span ng-show="prlSalaryStructureInfo.id==null" translate="entity.action.save">Save</span>
+                        <span ng-show="prlSalaryStructureInfo.id!=null" translate="entity.action.update">update</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+    <form name="editForm2" role="form" novalidate show-validation style="padding: 0px 15px">
+            <div class="panel panel-default">
+                <p class="bg-info">Allowance Information</p>
+                <table class="table table-striped">
+                    <tr>
+                        <th width="30%"><label class="control-label">Allowance Title</label></th>
+                        <th><label class="control-label" for="field_allowDeducValue">Allowance Value</label></th>
+                        <th><label class="control-label" translate="stepApp.prlSalaryAllowDeducInfo.basicMinimum">BasicMinimum</label></th>
+                        <th><label class="control-label" translate="stepApp.prlSalaryAllowDeducInfo.basicMaximum">BasicMaximum</label></th>
+                    </tr>
+                    <tr ng-repeat="prlSalaryAllowDeducDto in prlSalAllowDeductList | filter: { allowDeducType: 'Allowance' }">
+                        <td>
+                            <div class="form-control-static">
+                                {{prlSalaryAllowDeducDto.salaryAllowDeducInfo.allowDeducInfo.name}}&nbsp;
+                                [{{prlSalaryAllowDeducDto.fixedBasic ? 'Fixed' : '%'}}]
+                            </div>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control" name="allowDeducValue" id="field_allowDeducValue"
+                                   ng-min="prlSalaryAllowDeducDto.basicMinimum"
+                                   ng-max="prlSalaryAllowDeducDto.basicMaximum"
+                                   ng-model="prlSalaryAllowDeducDto.salaryAllowDeducInfo.allowDeducValue"/>
+                        </td>
+                        <td>
+                            <div class="form-control-static">
+                                {{prlSalaryAllowDeducDto.basicMinimum}}
+                                {{prlSalaryAllowDeducDto.fixedBasic ? '' : '['+prlSalaryAllowDeducDto.basicMinimumTmp+'%]'}}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-control-static">
+                                {{prlSalaryAllowDeducDto.basicMaximum}}
+                                {{prlSalaryAllowDeducDto.fixedBasic ? '' : '['+prlSalaryAllowDeducDto.basicMaximumTmp+'%]'}}</div>
+                        </td>
+                    </tr>
+                </table>
+                <hr>
+
+                <p class="bg-info">Deduction Information</p>
+                <table class="table table-striped">
+                    <tr>
+                        <th width="30%"><label class="control-label">Deduction Title</label></th>
+                        <th align="left"><label class="control-label">Deduction Value</label></th>
+                    </tr>
+                    <tr  ng-repeat="prlSalaryAllowDeducDto in prlSalAllowDeductList | filter: { allowDeducType: 'Deduction' }">
+                        <td><span class="form-control-static">{{prlSalaryAllowDeducDto.salaryAllowDeducInfo.allowDeducInfo.name}}</span></td>
+                        <td>
+                            <input type="number" class="form-control" name="allowDeducValue"
+                                   ng-model="prlSalaryAllowDeducDto.salaryAllowDeducInfo.allowDeducValue"/>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+
+        <div class="panel-footer">
+            <button type="button" class="btn btn-default" class="btn " data-dismiss="modal" onclick="window.history.back()">
+                <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;<span translate="entity.action.back">Back</span>
+            </button>
+            <button ng-show="prlSalaryStructureInfo.id" type="button" ng-click="saveSalaryAllowanceDeduction()" ng-disabled="editForm2.$invalid || isSaving2" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;<span >Save Allowance Deduction</span>
+            </button>
+        </div>
+    </form>
+</div>

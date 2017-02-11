@@ -1,0 +1,211 @@
+<style>
+    tabs.nav-justified, .nav-tabs.nav-justified {
+        border-bottom: 0;
+        padding: 0px 0px !important;
+    }
+</style>
+
+<div class="row">
+
+    <div class="col-md-3">
+        <ng-include src="'scripts/app/entities/jobPortal/jp-admin-menu.html'"></ng-include>
+    </div>
+
+    <div class="col-md-9 panel">
+        <div class="col-sm-12 col-head">
+            <div class="col-sm-8 col-head-heading">
+                <h3><span translate="employer-management.home.title">Manage Your Company Listing</span></h3>
+            </div>
+        </div>
+        <div class="col-md-12 padding-tb">
+            <div class="col-xs-4 no_padding">
+                <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+            </div>
+            <div class="col-xs-4">
+                <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+            </div>
+        </div>
+        <tabset justified="true">
+            <tab heading="{{'employer-management.home.pending' | translate}}" select="pendingEmployer()">
+                <div>
+                    <ng-include ng-show="singleView" src="'scripts/app/admin/employer-management/employer-detail.html'"></ng-include>
+                    <div ng-hide="singleView" class="table-responsive">
+                        <table class="table table-hover table-striped">
+                            <!--<div>
+                                <form name="searchForm" class="form-inline" ng-submit="search()" novalidate show-validation>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="search for..." required>
+                                    </div>
+                                    <button ng-disabled="searchForm.$invalid" class="btn btn-info" type="submit"><span class="glyphicon glyphicon-search"></span> <span translate="entity.action.search">Search a tempEmployer</span>
+                                    </button>
+                                </form>
+                                <button class="btn btn-default" ng-click="sync()">
+                                    <i class="glyphicon glyphicon-refresh" aria-label="sync"></i>
+                                    <span translate="entity.action.sync">sync</span>
+                                </button>
+
+                            </div>-->
+                            <caption class="notice text-center" translate="entity.action.found"
+                                     translate-values="{found: '{{pendingEmployers.length}}', total: '{{totalPending}}'}">{{pendingEmployers.length}} employers retrieved from total of {{totalPending}} employers
+                            </caption>
+
+                            <thead>
+                            <tr>
+                                <!--<th><input type="checkbox" ng-model="areAlltempEmployersSelected" ng-change="updatetempEmployersSelection(tempEmployers, areAlltempEmployersSelected)"></th>-->
+                                <th  ng-click="order('name', reverse=!reverse)" translate="stepApp.employer.companyName">Name</th>
+                                <th  ng-click="order('contactNumber', reverse=!reverse)" translate="stepApp.employer.contactNumber">ContactNumber</th>
+                                <!--<th  ng-click="order('status', reverse=!reverse)" translate="stepApp.employer.status">Status</th>-->
+                                <th  ng-click="order('status', reverse=!reverse)" translate="stepApp.employer.dateCreated">createdDate</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr dir-paginate="employer in pendingEmployers | filter:q | itemsPerPage: pageSize track by employer.id"
+                                current-page="currentPage">
+                           <!-- <tr ng-repeat="employer in pendingEmployers | filter:filter | orderBy:predicate:reverse track by employer.id">
+                                <td><input type="checkbox" ng-model="employer.isSelected"/></td>-->
+                                <td >{{employer.name}}</td>
+                                <td >{{employer.contactNumber}}</td>
+                                <!--<td >{{employer.status}}</td>-->
+                                <td >{{employer.dateCrated | date}}</td>
+                                <td  class="btn-group pull-right">
+                                    <button type="submit"
+                                            ng-click="employerDetail(employer.id)"
+                                            class="btn btn-info btn-sm">
+                                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                                    </button>
+                                    <button type="submit"
+                                            ui-sref="employer.approve({id:employer.id})"
+                                            class="btn btn-success btn-sm">
+                                        <span class="glyphicon glyphicon-sunglasses"></span>&nbsp;<span translate="entity.action.approve"> Approve</span>
+                                    </button>
+                                    <button type="submit"
+                                            ui-sref="employer.reject({id:employer.id})"
+                                            class="btn btn-danger btn-sm">
+                                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.reject"> Reject</span>
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <nav>
+                            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                                     template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+                        </nav>
+                    </div>
+                </div>
+            </tab>
+            <tab heading="{{'employer-management.home.approved' | translate}}" select="approvedEmployer()">
+                <div>
+                    <ng-include ng-show="singleView" src="'scripts/app/admin/employer-management/employer-detail.html'"></ng-include>
+                    <div ng-hide="singleView" class="table-responsive">
+                        <table class="table table-hover table-striped">
+                            <caption class="notice text-center" translate="entity.action.found"
+                                     translate-values="{found: '{{approvedEmployers.length}}', total: '{{totalApproved}}'}">{{approvedEmployers.length}} employers retrieved from total of {{totalApproved}} employers
+                            </caption>
+
+                            <thead>
+                            <tr>
+                                <th  ng-click="order('name', reverse=!reverse)" translate="stepApp.employer.companyName">Name</th>
+                                <th  ng-click="order('contactNumber', reverse=!reverse)" translate="stepApp.employer.contactNumber">ContactNumber</th>
+                                <th  ng-click="order('address', reverse=!reverse)" translate="stepApp.employer.address">Address</th>
+                                <th  ng-click="order('address', reverse=!reverse)" translate="stepApp.employer.dateCreated">date Created</th>
+                                <th  ng-click="order('address', reverse=!reverse)" translate="stepApp.employer.thana">upazila</th>
+                                <th  ng-click="order('address', reverse=!reverse)" translate="stepApp.employer.dateApproved">date Approved</th>
+                                <th ></th>
+                                <th ></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr dir-paginate="employer in approvedEmployers | filter:q | itemsPerPage: pageSize track by employer.id" current-page="currentPage">
+                            <!--<tr ng-repeat="employer in approvedEmployers | filter:filter | orderBy:predicate:reverse track by employer.id">-->
+                                <td >{{employer.name}}</td>
+                                <td >{{employer.contactNumber}}</td>
+                                <td >{{employer.address}}</td>
+                                <td >{{employer.dateCrated | date :  "dd.MM.y" }}</td>
+                                <td >{{employer.upazila.name}}</td>
+                                <td >{{employer.dateApproved | date :  "dd.MM.y"}}</td>
+                                <td  class="btn-group pull-right">
+                                    <button type="submit"
+                                            ng-click="employerDetail(employer.id)"
+                                            class="btn btn-info btn-sm">
+                                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                                    </button>
+                                    <button ng-if="employer.status == 'deActivated'"  type="submit"
+                                            ui-sref="employer.activate({id:employer.id})"
+                                            class="btn btn-success btn-sm">
+                                        <span class="glyphicon"></span>&nbsp;<span translate="entity.action.activate">Active</span>
+                                    </button>
+                                    <button ng-if="employer.status == 'approved'" type="submit"
+                                            ui-sref="employer.deactivate({id:employer.id})"
+                                            class="btn btn-danger btn-sm">
+                                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.deActivate">DeActivate</span>
+                                    </button>
+
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <nav>
+                            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                                     template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+                        </nav>
+
+                    </div>
+                </div>
+            </tab>
+            <tab heading="{{'employer-management.home.Rejected' | translate}}" select="rejectedEmployer()">
+                <div>
+                    <ng-include ng-show="singleView" src="'scripts/app/admin/employer-management/employer-detail.html'"></ng-include>
+                    <div ng-hide="singleView" class="table-responsive">
+                        <table class="table table-hover table-striped">
+                            <caption class="notice text-center" translate="entity.action.found"
+                                     translate-values="{found: '{{rejectedEmployers.length}}', total: '{{totalRejected}}'}">{{rejectedEmployers.length}} employers retrieved from total of {{totalRejected}} employers
+                            </caption>
+
+                            <thead>
+                            <tr>
+                                <th style="width:25%" ng-click="order('name', reverse=!reverse)" translate="stepApp.employer.companyName">Name</th>
+                                <th style="width:20%" ng-click="order('contactNumber', reverse=!reverse)" translate="stepApp.employer.contactNumber">ContactNumber</th>
+                                <th style="width:25%" ng-click="order('address', reverse=!reverse)" translate="stepApp.employer.address">Address</th>
+                                <th style="width:25%" ng-click="order('address', reverse=!reverse)" translate="stepApp.employer.dateCreated">dateCreated</th>
+                                <th style="width:25%" ng-click="order('address', reverse=!reverse)" translate="stepApp.employer.dateRejected">dateRejected</th>
+                                <th style="width:auto"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr dir-paginate="employer in rejectedEmployers | filter:q | itemsPerPage: pageSize track by employer.id" current-page="currentPage">
+                            <!--<tr ng-repeat="employer in rejectedEmployers | filter:filter | orderBy:predicate:reverse track by employer.id">-->
+                                <td style="width:25%">{{employer.name}}</td>
+                                <td style="width:20%">{{employer.contactNumber}}</td>
+                                <td style="width:25%">{{employer.address}}</td>
+                                <td style="width:25%">{{employer.dateCreated}}</td>
+                                <td style="width:25%">{{employer.dateRejected}}</td>
+                                <!--<td><span class="label label-danger"
+                                          ng-click="setActive(employer.user, true)" ng-show="!employer.user.activated"
+                                          translate="user-management.deactivated" style="cursor: pointer;">Desactivated</span>
+                                        <span class="label label-success"
+                                              ng-click="setActive(employer.user, false)" ng-show="employer.user.activated"
+                                              translate="user-management.activated" style="cursor: pointer;">Activated</span>
+                                </td>-->
+                                <td style="width:auto;" class="btn-group pull-right">
+                                    <button type="submit"
+                                            ng-click="employerDetail(employer.id)"
+                                            class="btn btn-info btn-sm">
+                                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                                    </button>
+
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <nav>
+                            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                                     template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+                        </nav>
+                    </div>
+                </div>
+            </tab>
+        </tabset>
+    </div>
+</div>

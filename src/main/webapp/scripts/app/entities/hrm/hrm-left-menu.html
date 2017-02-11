@@ -1,0 +1,597 @@
+<style>
+    .step-custom-menu{
+    background: #fff;
+    padding: 15px;
+    }
+    .step-custom-menu ul li a{
+    border-bottom: 1px solid #ddd;
+    color: rgb(255, 255, 255) !important;
+    border-radius: 3px;
+    margin: 0 !important;
+    padding: 7px !important;
+    font-weight: 400 !important;
+    background: #0d993b;
+    }
+    .step-custom-menu ul li a:hover{
+    background:#0b763b;
+    }
+
+    .step-custom-menu .nav {
+    margin-bottom: 0;
+    padding-left: 0;
+    list-style: none;
+    background: #E7E7E7;
+    }
+    .step-custom-menu ul li ul{
+    padding:0px;
+    }
+
+    .step-custom-menu ul li ul li a{
+    display:block;
+    background:#00672e;
+    color:#fff !important;
+    }
+    .step-custom-menu .fa{
+    margin-right: 10px !important;
+    }
+    .step-custom-menu ul li a:hover{
+    background: #0b763b none repeat scroll 0% 0% !important;
+    color: #fff !important;
+    }
+    .step-custom-menu a.active{
+    background: #212121 none repeat scroll 0% 0% !important;
+    }
+    #left-menu-id .panel{
+        margin:0px;
+    }
+</style>
+
+<div class="step-custom-menu no-print">
+    <ul class="nav nav-list" id="left-menu-id">
+        <li class="panel ">
+            <a data-toggle="collapse" data-parent="#left-menu-id" data-target="#firstLink">
+                <span translate="stepApp.leftmenu.commonAccess">Common Access</span>
+            </a>
+            <ul id="firstLink" class="collapse search-accordion">
+                <li class="">
+                    <a class="" ui-sref="hrm" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <!--<span translate="stepApp.leftmenu.dashboard">Dashboard</span>-->
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="" has-any-authority="ROLE_HRM_ADMIN">
+                    <a class="" ui-sref="hrm.employees" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <!--<span translate="stepApp.leftmenu.employeeList">Employee List</span>-->
+                        Employee List
+                    </a>
+                </li>
+
+                <li class="">
+                    <a class="" ui-sref="prlGeneratedSalaryProfile" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.prlEmployeeGeneratedSalaryMgt">Generated Salary</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="panel ">
+            <a data-toggle="collapse" data-parent="#left-menu-id" data-target="#secondLink">
+                <span translate="stepApp.leftmenu.employeeAccess">Employee Access</span><i class="pull-right fa fa-caret-down"></i>
+            </a>
+            <ul id="secondLink" class="collapse search-accordion ">
+                <li>
+                    <a ui-sref="hrEmployeeInfo.general" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.personalInformation">Personal Information</span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="hrEmpAddressInfo.profile" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.addressInformation">Address Information</span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="hrEducationInfo.profile" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.educationInformation">Education Information</span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="hrEmpTrainingInfo.profile" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.trainingInformation">Training Information</span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="hrEmpAwardInfo.profile" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.AwardInformation">Award Information</span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="hrEmpPublicationInfo.profile" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.PublicationInformation">Publication Information</span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="hrEmploymentInfo.profile" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.EmploymentInformation">Employment Information</span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="hrEmpTransferInfo.profile" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.TransferInformation">Transfer Information</span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="hrEmpPromotionInfo.profile" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.PromotionInformation">Promotion Information</span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="hrEmpAdvIncrementInfo.profile" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span
+                            translate="stepApp.leftmenu.AdvanceIncrementInformation">Advance Increment Information</span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="hrEmpIncrementInfo.profile" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.IncrementInformation">Increment Information</span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="hrEmpGovtDuesInfo.profile" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.GovtDuesInformation">Govt. Dues Information</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrEmpPreGovtJobInfo.profile" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.PreGovtJobsInformation">Pre-Govt. Jobs Information</span>
+
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrEmpProfMemberInfo.profile" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.ProfessionalMembership">Professional Membership</span>
+
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrEmpActingDutyInfo.profile" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.ActingDutyInformation">Acting Duty Information</span>
+
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrEmpForeignTourInfo.profile" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.ForeignTourInformation">Foreign Tour Information</span>
+
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrEntertainmentBenefit.profile" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.EntertainmentBenefit">Entertainment Benefit</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrEmpAcrInfo.profile" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.ACRManagementProfile">ACR Management</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrEmpOtherServiceInfo.profile" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.OtherServicesInformation"> Other Services Information</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrEmpServiceHistory.profile" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.ServiceHistoryInformation">Service History Information </span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrEmpBankAccountInfo.profile" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.BankAccountInformation">Bank Account Info</span>
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+        <li class="panel" has-any-authority="ROLE_HRM_ADMIN" >
+            <a data-toggle="collapse" data-parent="#left-menu-id" data-target="#thirdLink">
+                <span translate="stepApp.leftmenu.adminAccess">Admin Access</span><i class="pull-right fa fa-caret-down"></i>
+            </a>
+            <ul id="thirdLink" class="collapse search-accordion">
+                <li>
+                    <a ui-sref="hrEmployeeInfo" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.EmployeeManagement"> Employee Management</span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="hrEmployeeInfo.transfer" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span> Employee Transfer</span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="hrSpouseInfo" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.SpouseManagement"> Spouse Management</span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="hrNomineeInfo" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.NomineeManagement"> Nominee Management</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrEmpAddressInfo" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.AddressManagement"> Address Management</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrEmpChildrenInfo" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.ChildrenManagement"> Children Management</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrEducationInfo" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.EducationManagement"> Education Management</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrEmpTrainingInfo" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.TrainingManagement"> Training Management</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrEmpAwardInfo" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.AwardManagement"> Award Management</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrEmpPublicationInfo" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.PublicationManagement"> Publication Management</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrEmploymentInfo" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.EmploymentManagement"> Employment Management</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrEmpTransferApplInfo" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.hrmTransferApplication"> Transfer Application</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrEmpTransferInfo" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.TransferManagement"> Transfer Management</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrEmpPromotionInfo" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.PromotionManagement"> Promotion Management</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrEmpAdvIncrementInfo" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span
+                            translate="stepApp.leftmenu.AdvanceIncrementManagement"> Advance Increment Management</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrEmpIncrementInfo" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.IncrementManagement"> Increment Management</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrEmpGovtDuesInfo" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.GovtDuesManagement"> Govt. Dues Management</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrEmpPreGovtJobInfo" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.PreGovtJobsManagement"> Pre. Govt. Jobs Management</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrEmpProfMemberInfo" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span
+                            translate="stepApp.leftmenu.ProfessionalMemManagement"> Professional Mem. Management</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrEmpActingDutyInfo" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.ActingDutyManagement"> Acting Duty Management</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrEmpForeignTourInfo" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.ForeignTourManagement">Foreign Tour Management</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrEntertainmentBenefit" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.EntertainmentBenefit">Entertainment Benefit</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrEmpAcrInfo" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.ACRManagement">ACR Management</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrDepartmentalProceeding" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.DepartmentalProceeding">Departmental Proceeding</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrEmpAuditObjectionInfo" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.AuditObjections">Audit Objections</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrEmpOtherServiceInfo" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.OtherService">Other Service</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrEmpServiceHistory" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.ServiceHistory">Service History</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrEmpBankAccountInfo" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.BankAccountInformation">Bank Account Info</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrProjectInfo" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.hrProjectInfo">Project Info</span>
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+        <li class="panel" has-any-authority="ROLE_HRM_ADMIN">
+            <a data-toggle="collapse" data-parent="#left-menu-id" data-target="#fourthLink">
+                <span translate="stepApp.leftmenu.hrmSetup">HRM Setup</span><i class="pull-right fa fa-caret-down"></i>
+            </a>
+            <ul id="fourthLink" class="collapse search-accordion">
+                <li>
+                    <a ui-sref="hrEmplTypeInfo" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="global.menu.entities.hrEmplTypeInfo"></span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrEmpWorkAreaDtlInfo" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="global.menu.entities.hrEmpWorkAreaDtlInfo"></span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrClassInfo" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="global.menu.entities.hrClassInfo"></span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrGazetteSetup" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="global.menu.entities.hrGazetteSetup"></span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrGradeSetup" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="global.menu.entities.hrGradeSetup"></span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrDepartmentHeadSetup" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="global.menu.entities.hrDepartmentHeadSetup"></span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrWingSetup" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="global.menu.entities.hrWingSetup"></span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrDepartmentSetup" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="global.menu.entities.hrDepartmentSetup"></span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrDesignationHeadSetup" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="global.menu.entities.hrDesignationHeadSetup"></span>
+
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="hrDesignationSetup" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="global.menu.entities.hrDesignationSetup"></span>
+
+                    </a>
+                </li>
+
+                <!--<li>
+                    <a ui-sref="hrPayScaleSetup" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="global.menu.entities.hrPayScaleSetup"></span>
+                    </a>
+                </li>-->
+
+                <li>
+                    <a ui-sref="miscTypeSetup" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="global.menu.entities.miscTypeSetup"></span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="miscConfigSetup" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="global.menu.entities.miscConfigSetup"></span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="panel">
+            <a data-toggle="collapse" data-parent="#left-menu-id" data-target="#fifthLink">
+                <span translate="stepApp.leftmenu.hrmApplications">Application Forms</span><i class="pull-right fa fa-caret-down"></i>
+            </a>
+            <ul id="fifthLink" class="collapse search-accordion">
+                <li>
+                    <a ui-sref="hrEmpTransferApplInfo.appl" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span
+                            translate="stepApp.leftmenu.hmrEmployeeTransferApplInfo">Transfer Application Information</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a ui-sref="almEmpLeaveApplication" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.hrmLeaveApplication"></span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="almEmpLeaveCancellation" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.hrmLeaveCancellation"></span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="almOnDutyLeaveApp" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="stepApp.leftmenu.hrmOnDutyLeaveApplication"></span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="pfmsLoanApplication" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="global.menu.entities.hrmPfmsLoanApplication"></span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="pfmsUtmostGpfApp" ui-sref-active="active">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span translate="global.menu.entities.hrmPfmsUtmostGpfApp"></span>
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+        <li class="panel">
+            <a  ui-sref="jpReport({module: 'hrm'})" has-any-authority="ROLE_ADMIN" ui-sref-active="active">
+                <span translate="global.menu.report">Hr Reports</span>
+            </a>
+            <!--<ul id="fifthLink" class="collapse search-accordion">-->
+                <!--<li>-->
+                    <!--<a ui-sref="hrEmpTransferApplInfo.appl" ui-sref-active="active">-->
+                        <!--<i class="fa fa-pencil-square-o"></i>-->
+                        <!--<span-->
+                            <!--translate="stepApp.leftmenu.hmrEmployeeTransferApplInfo">Transfer Application Information</span>-->
+                    <!--</a>-->
+                <!--</li>-->
+            <!--</ul>-->
+        </li>
+
+    </ul>
+</div>

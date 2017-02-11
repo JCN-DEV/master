@@ -1,0 +1,139 @@
+<div class="cmscurriculam">
+    <div class="panel-heading cmsheading" ng-show="cmsSyllabus.version==null">
+        <h3 class="panel-title" translate="stepApp.cmsSyllabus.home.createOrEditLabel">Create or edit a CmsSyllabus</h3>
+    </div>
+    <div class="panel-heading cmsheading" ng-hide="cmsSyllabus.version==null">
+        <h3 class="panel-title" translate="stepApp.cmsSyllabus.home.edit">Create or edit a CmsSyllabus</h3>
+    </div>
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+    <div class="panel-body">
+       <!-- <jh-alert-error></jh-alert-error>
+        <div ng-show="message != '' " class="alert alert-danger">{{message}}</div>-->
+         <!--<div class="form-group">-->
+            <!--<label for="id" translate="global.field.id">ID</label>-->
+            <!--<input type="text" class="form-control" id="id" name="id"-->
+                    <!--ng-model="cmsSyllabus.id" readonly />-->
+        <!--</div>-->
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label translate="stepApp.cmsSyllabus.cmsCurriculum" for="field_cmsCurriculum">cmsCurriculum</label>
+                <select class="form-control" id="field_cmsCurriculum" name="cmsCurriculum" ng-model="cmsSyllabus.cmsCurriculum" ng-options="cmsCurriculum as cmsCurriculum.name for cmsCurriculum in cmscurriculums | filter:cmsCurriculum.status='true'">
+                    <option value="">{{cmsSyllabus.cmsCurriculum.name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="control-label" translate="stepApp.cmsSyllabus.version" for="field_version">Version</label>
+                <input type="text" class="form-control" name="version" id="field_version"
+                        ng-model="cmsSyllabus.version" ng-blur="checkSyllabusUniqueness()"
+                        required />
+                <div ng-show="editForm.version.$invalid">
+                    <p class="help-block"
+                        ng-show="editForm.version.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="control-label" translate="stepApp.cmsSyllabus.name" for="field_name">Name</label>
+                <input type="text" class="form-control" name="name" id="field_name"
+                        ng-model="cmsSyllabus.name" ng-blur="checkSyllabusUniqueness()"
+                        required />
+                <div ng-show="editForm.name.$invalid">
+                    <p class="help-block"
+                        ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+
+                <div ng-show="uniqueError">
+                    <p class="alert alert-danger"
+                       ng-show="uniqueError">
+                        The combination of Version and Syllabus name should be unique.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="control-label" translate="stepApp.cmsSyllabus.description" for="field_description">Description</label>
+                <textarea class="form-control" name="description" id="field_description"
+                        ng-model="cmsSyllabus.description"
+                         />
+            </div>
+        </div>
+
+        <div ng-show="cmsSyllabus.syllabus">
+            <object data="{{content}}" embed-src="{{content}}" type="application/pdf" style="width:100%; height:350px"/>
+        </div>
+
+        <div class="form-group col-sm-6" ngf-drop ngf-change="setSyllabus($file, cmsSyllabus)">
+            <label style="color: red">{{fileName}}</label> <label for="field_syllabus">{{fileAdded}}</label>
+
+            <div>
+                <div class="help-block clearfix">
+                    <span class="pull-left">{{cmsSyllabus.syllabusContentType}} {{byteSize(cmsSyllabus.syllabus)}}</span>
+                    <button ng-click="cmsSyllabus.syllabus=null;cmsSyllabus.syllabusContentType=null;"
+                            ng-if="cmsSyllabus.syllabus"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+
+                <button type="file" ngf-select class="btn btn-default btn-block" accept="application/pdf"
+                        ngf-change="setSyllabus($file, cmsSyllabus)" translate="stepApp.cmsSyllabus.syllabus">
+                    Add blob
+                </button>
+
+            </div>
+            <input type="hidden" class="form-control" name="cv" id="field_syllabus"
+                   ng-model="cmsSyllabus.syllabus"
+                />
+            <input type="hidden" class="form-control" name="cvContentType" id="field_syllabusContentType"
+                   ng-model="cmsSyllabus.syllabusContentType"/>
+        </div>
+
+
+
+
+
+       <!-- <div class="col-sm-6">
+            <div class="form-group">
+                <label class="control-label" translate="stepApp.cmsSyllabus.status" for="field_status">Status</label>
+                <input type="checkbox" class="form-control" name="status" id="field_status"
+                        ng-model="cmsSyllabus.status"
+                         />
+            </div>
+        </div>-->
+        <div class="col-md-6 col-sm-12 col-xs-12">
+            <div class="form-group">
+                <label class="control-label" translate="stepApp.cmsCurriculum.status" >Status</label>
+
+                <div class="input-margin">
+                    <label  class="radio-inline"><input type="radio" name="status" value="true" checked="true" ng-checked="cmsSyllabus.status == true" ng-model="cmsSyllabus.status" checked><span translate="entity.action.activate">Active</span></label>
+                    <label class="radio-inline"><input type="radio" name="status"  value="false" ng-checked="cmsSyllabus.status == false" ng-model="cmsSyllabus.status"><span translate="entity.action.deactivate">Deactive</span></label>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-sm-12 text-right">
+            <button type="submit"
+                    onclick="window.history.back()"
+                    class="btn btn-info">
+                <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+            </button>
+            <button type="button" class="btn btn-default" ng-click="clear()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.clear">Clear</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving || uniqueError" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+            </button>
+        </div>
+        </div>
+</form>
+</div>

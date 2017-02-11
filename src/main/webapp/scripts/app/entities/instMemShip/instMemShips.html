@@ -1,0 +1,90 @@
+<div class="col-md-12 common-list">
+<h2 translate="stepApp.instMemShip.home.title">InstMemShips</h2>
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" ui-sref="instMemShip.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="stepApp.instMemShip.home.createLabel">Create a new InstMemShip</span>
+                </button>
+            </div>
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a InstMemShip</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="global.field.id">ID</th>
+                    <th translate="stepApp.instMemShip.fullName">FullName</th>
+                    <th translate="stepApp.instMemShip.dob">Dob</th>
+                    <th translate="stepApp.instMemShip.gender">Gender</th>
+                    <th translate="stepApp.instMemShip.address">Address</th>
+                    <th translate="stepApp.instMemShip.email">Email</th>
+                    <th translate="stepApp.instMemShip.contact">Contact</th>
+                    <th translate="stepApp.instMemShip.designation">Designation</th>
+                    <th translate="stepApp.instMemShip.orgName">OrgName</th>
+                    <th translate="stepApp.instMemShip.orgAdd">OrgAdd</th>
+                    <th translate="stepApp.instMemShip.orgContact">OrgContact</th>
+                    <th translate="stepApp.instMemShip.date">Date</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="instMemShip in instMemShips track by instMemShip.id">
+                    <td><a ui-sref="instMemShip.detail({id:instMemShip.id})">{{instMemShip.id}}</a></td>
+                    <td>{{instMemShip.fullName}}</td>
+                        <td>{{instMemShip.dob | date:'mediumDate'}}</td>
+                    <td>{{instMemShip.gender}}</td>
+                    <td>{{instMemShip.address}}</td>
+                    <td>{{instMemShip.email}}</td>
+                    <td>{{instMemShip.contact}}</td>
+                    <td>{{instMemShip.designation}}</td>
+                    <td>{{instMemShip.orgName}}</td>
+                    <td>{{instMemShip.orgAdd}}</td>
+                    <td>{{instMemShip.orgContact}}</td>
+                        <td>{{instMemShip.date | date:'mediumDate'}}</td>
+                    <td class="text-right">
+                        <button type="submit"
+                                ui-sref="instMemShip.detail({id:instMemShip.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="instMemShip.edit({id:instMemShip.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="instMemShip.delete({id:instMemShip.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pagination">
+                <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                <li class="active"><a>{{page + 1}}</a></li>
+                <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>

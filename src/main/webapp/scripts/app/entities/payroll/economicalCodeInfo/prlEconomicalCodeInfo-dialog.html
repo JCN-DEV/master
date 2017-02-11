@@ -1,0 +1,48 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="modal-title" id="myPrlEconomicalCodeInfoLabel" translate="stepApp.prlEconomicalCodeInfo.home.createOrEditLabel">Create or edit a PrlEconomicalCodeInfo</h4>
+    </div>
+    <div class="panel-body">
+    </div>
+
+    <div class="panel-group">
+        <div class="panel ">
+
+            <table class="table table-striped">
+                <tr>
+                    <th><label class="control-label" translate="stepApp.prlEconomicalCodeInfo.codeType">CodeType</label></th>
+                    <th><label translate="stepApp.prlEconomicalCodeInfo.allowanceDeductionInfo">allowanceDeductionInfo</label></th>
+                    <th align="left"><label class="control-label" translate="stepApp.prlEconomicalCodeInfo.codeName">CodeName</label></th>
+                </tr>
+                <tr  ng-repeat="prlEconomicalCodeInfo in prlEconomicalCodeInfoList">
+                    <td><span class="form-control-static">{{prlEconomicalCodeInfo.codeType}}</span></td>
+                    <td><span class="form-control-static">{{prlEconomicalCodeInfo.allowanceDeductionInfo.name}}</span></td>
+                    <td>
+                        <input type="text" class="form-control" name="codeName" id="field_codeName"
+                               ng-model="prlEconomicalCodeInfo.codeName"
+                               ng-blur="checkEconomicalCodeUniqueness(prlEconomicalCodeInfo, $index)" required />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="panel-footer">
+        <span ng-if="updatMessage"  class="alert alert-success">
+            {{updatMessage}}
+        </span>
+        <span class="no_padding left">
+            <div data-ng-show="showError" ng-class="{fade:doFade}" class="alert alert-danger"><strong>{{errorMessage}}</strong></div>
+        </span>
+        <button type="button" class="btn btn-default" class="btn" data-dismiss="modal" onclick="window.history.back()">
+            <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;<span translate="entity.action.back">Back</span>
+        </button>
+        <button type="button" ng-disabled="duplicateCodeFound || (saveCounter != saveCounterActual)" ng-click="saveAllEconomicalCodeSetup()" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</div>
+</form>

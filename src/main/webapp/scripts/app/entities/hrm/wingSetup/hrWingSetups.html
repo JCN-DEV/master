@@ -1,0 +1,79 @@
+<div>
+    <div class="panel panel-default">
+        <div class="panel-heading" translate="stepApp.hrWingSetup.home.title">HrWingSetups</div>
+        <div class="panel-body bg-panel">
+            <div class="col-md-12 padding-tb">
+                <div class="col-xs-4 no_padding">
+                    <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+                </div>
+                <div class="col-xs-4">
+                    <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+                </div>
+                <div class="col-xs-4 no_padding text-right ">
+                    <button class="btn btn-primary" ui-sref="hrWingSetup.new">
+                        <span class="glyphicon glyphicon-plus"></span> <span
+                        translate="stepApp.hrWingSetup.home.createLabel">Create a new HrWingSetup</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-md-12 table-responsive no_padding">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th translate="global.field.serial">Serial</th>
+                        <th translate="global.field.id">ID</th>
+                        <th translate="stepApp.hrWingSetup.wingName">WingName</th>
+                        <th translate="stepApp.hrWingSetup.wingDesc">WingDesc</th>
+                        <th translate="stepApp.hrWingSetup.activeStatus">ActiveStatus</th>
+                        <th translate="stepApp.hrWingSetup.createDate">CreateDate</th>
+                        <th translate="stepApp.hrWingSetup.createBy">CreateBy</th>
+                        <th translate="stepApp.hrWingSetup.updateDate">UpdateDate</th>
+                        <th translate="stepApp.hrWingSetup.updateBy">UpdateBy</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-animate="'animate'"
+                        dir-paginate="hrWingSetup in hrWingSetups | filter:q | itemsPerPage: pageSize track by hrWingSetup.id"
+                        current-page="currentPage">
+                        <td>{{pageSize * (currentPage-1)+$index+1}}</td>
+                        <td><a ui-sref="hrWingSetup.detail({id:hrWingSetup.id})">{{hrWingSetup.id}}</a></td>
+                        <td>{{hrWingSetup.wingName}}</td>
+                        <td>{{hrWingSetup.wingDesc}}</td>
+                        <td>{{hrWingSetup.activeStatus}}</td>
+                        <td>{{hrWingSetup.createDate | date:'mediumDate'}}</td>
+                        <td>{{hrWingSetup.createBy}}</td>
+                        <td>{{hrWingSetup.updateDate | date:'mediumDate'}}</td>
+                        <td>{{hrWingSetup.updateBy}}</td>
+                        <td class="text-right">
+                            <button type="submit"
+                                    ui-sref="hrWingSetup.detail({id:hrWingSetup.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span
+                                translate="entity.action.view"> View</span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="hrWingSetup.edit({id:hrWingSetup.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                                translate="entity.action.edit"> Edit</span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="hrWingSetup.delete({id:hrWingSetup.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                                translate="entity.action.delete"> Delete</span>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <nav class="no-print">
+                <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                         template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+            </nav>
+        </div>
+    </div>
+</div>

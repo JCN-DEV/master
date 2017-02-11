@@ -1,0 +1,82 @@
+<div>
+    <h2 translate="stepApp.prlPayscaleAllowanceInfo.home.title">PrlPayscaleAllowanceInfos</h2>
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" ui-sref="prlPayscaleAllowanceInfo.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="stepApp.prlPayscaleAllowanceInfo.home.createLabel">Create a new PrlPayscaleAllowanceInfo</span>
+                </button>
+            </div>
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a PrlPayscaleAllowanceInfo</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
+                    <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="fixedBasic"><span translate="stepApp.prlPayscaleAllowanceInfo.fixedBasic">FixedBasic</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="basicMinimum"><span translate="stepApp.prlPayscaleAllowanceInfo.basicMinimum">BasicMinimum</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="basicMaximum"><span translate="stepApp.prlPayscaleAllowanceInfo.basicMaximum">BasicMaximum</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="activeStatus"><span translate="stepApp.prlPayscaleAllowanceInfo.activeStatus">ActiveStatus</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="createDate"><span translate="stepApp.prlPayscaleAllowanceInfo.createDate">CreateDate</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="createBy"><span translate="stepApp.prlPayscaleAllowanceInfo.createBy">CreateBy</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="updateDate"><span translate="stepApp.prlPayscaleAllowanceInfo.updateDate">UpdateDate</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="updateBy"><span translate="stepApp.prlPayscaleAllowanceInfo.updateBy">UpdateBy</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="payscaleInfo.name"><span translate="stepApp.prlPayscaleAllowanceInfo.payscaleInfo">payscaleInfo</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="allowanceInfo.name"><span translate="stepApp.prlPayscaleAllowanceInfo.allowanceInfo">allowanceInfo</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="prlPayscaleAllowanceInfo in prlPayscaleAllowanceInfos track by prlPayscaleAllowanceInfo.id">
+                    <td><a ui-sref="prlPayscaleAllowanceInfo.detail({id:prlPayscaleAllowanceInfo.id})">{{prlPayscaleAllowanceInfo.id}}</a></td>
+                    <td>{{prlPayscaleAllowanceInfo.fixedBasic}}</td>
+                    <td>{{prlPayscaleAllowanceInfo.basicMinimum}}</td>
+                    <td>{{prlPayscaleAllowanceInfo.basicMaximum}}</td>
+                    <td>{{prlPayscaleAllowanceInfo.activeStatus}}</td>
+                        <td>{{prlPayscaleAllowanceInfo.createDate | date:'mediumDate'}}</td>
+                    <td>{{prlPayscaleAllowanceInfo.createBy}}</td>
+                        <td>{{prlPayscaleAllowanceInfo.updateDate | date:'mediumDate'}}</td>
+                    <td>{{prlPayscaleAllowanceInfo.updateBy}}</td>
+                    <td>
+                        <a ui-sref="PrlPayscaleInfo.detail({id:prlPayscaleAllowanceInfo.payscaleInfo.id})">{{prlPayscaleAllowanceInfo.payscaleInfo.name}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="PrlAllowDeductInfo.detail({id:prlPayscaleAllowanceInfo.allowanceInfo.id})">{{prlPayscaleAllowanceInfo.allowanceInfo.name}}</a>
+                    </td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="prlPayscaleAllowanceInfo.detail({id:prlPayscaleAllowanceInfo.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="prlPayscaleAllowanceInfo.edit({id:prlPayscaleAllowanceInfo.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="prlPayscaleAllowanceInfo.delete({id:prlPayscaleAllowanceInfo.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <uib-pagination class="pagination-sm" total-items="totalItems" ng-model="page" ng-change="loadAll()"></uib-pagination>
+    </div>
+</div>

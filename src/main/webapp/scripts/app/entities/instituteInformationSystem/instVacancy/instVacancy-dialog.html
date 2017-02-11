@@ -1,0 +1,93 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()">
+        <h4 ng-show="instVacancy.id == null" class="modal-title" id="myInstVacancyLabel" translate="stepApp.instVacancy.home.createOrEditLabel">Create or edit a InstVacancy</h4>
+        <h4 ng-show="instVacancy.id != null" class="modal-title" id="myInstVacancyLabel" translate="stepApp.instVacancy.home.editLabel">Create or edit a InstVacancy</h4>
+        <div class="modal-body col-md-12 padding-tb">
+            <!-- <jh-alert-error></jh-alert-error>-->
+            <!--<div class="form-group">
+                <label for="id" translate="global.field.id">ID</label>
+                <input type="text" class="form-control" id="id" name="id"
+                        ng-model="instVacancy.id" readonly />
+            </div>-->
+
+            <div class="form-group">
+                <label translate="stepApp.instVacancy.empType" for="field_empType">EmpType</label>
+                <select class="form-control" name="empType" ng-model="instVacancy.empType" id="field_empType"
+                        data-toggle="tooltip"
+                        tooltip="{{'stepApp.instVacancy.empType' | translate}}"
+                >
+                    <option value="" translate="stepApp.instVacancy.empType"></option>
+                    <option value="Teacher" translate="stepApp.EmpTypes.Teacher">Teacher</option>
+                    <option value="Staff" translate="stepApp.EmpTypes.Staff">Staff</option>
+                </select>
+            </div>
+
+            <!--<div class="form-group">
+                <label translate="stepApp.instVacancy.filledUpVacancy" for="field_filledUpVacancy">FilledUpVacancy</label>
+                <input type="text" class="form-control" name="filledUpVacancy" id="field_filledUpVacancy"
+                        ng-model="instVacancy.filledUpVacancy"
+                         />
+            </div>
+    -->
+
+            <div class="form-group" ng-if="instVacancy.empType === 'Teacher'">
+                <label translate="stepApp.instVacancy.cmsTrade" for="field_cmsTrade">cmsTrade</label>
+                <select class="form-control" ng-change="setSubjects(instVacancy.cmsTrade.id)" id="field_cmsTrade"
+                        name="cmsTrade" ng-model="instVacancy.cmsTrade"
+                        data-toggle="tooltip"
+                        tooltip="{{'stepApp.instVacancy.cmsTrade' | translate}}"
+                        ng-options="cmsTrade as cmsTrade.name for cmsTrade in cmstrades track by cmsTrade.id">
+                    <option value="" translate="stepApp.instVacancy.cmsTrade"></option>
+                </select>
+            </div>
+            <!--<div class="form-group" ng-if="instVacancy.cmsTrade != null && instVacancy.empType === 'Teacher'">
+                <label translate="stepApp.instVacancy.cmsSubject" for="field_cmsSubject">cmsSubject</label>
+                <select class="form-control" id="field_cmsSubject" name="cmsSubject" ng-model="instVacancy.cmsSubject" ng-options="cmsSubject.cmsSubject as cmsSubject.cmsSubject.name for cmsSubject in cmsSubjects track by cmsSubject.id">
+                    <option value=""></option>
+                </select>
+            </div>
+            -->
+            <div class="form-group" ng-if="instVacancy.cmsTrade != null && instVacancy.empType === 'Teacher'">
+                <label translate="stepApp.instVacancy.cmsSubject" for="field_cmsSubject">cmsSubject</label>
+                <select class="form-control" id="field_cmsSubject" name="cmsSubject" ng-model="instVacancy.cmsSubject"
+                        ng-options="cmsSubAssign.cmsSubject as cmsSubAssign.cmsSubject.name for cmsSubAssign in cmsSubjects track by cmsSubject.id"
+                        data-toggle="tooltip"
+                        tooltip="{{'stepApp.instVacancy.cmsSubject' | translate}}"
+                >
+                    <option value="" translate="stepApp.instVacancy.cmsSubject"></option>
+                </select>
+            </div>
+            <div class="form-group" ng-if="instVacancy.empType === 'Staff'">
+                <label translate="stepApp.instVacancy.instEmplDesignation" for="field_instEmplDesignation">instEmplDesignation</label>
+                <select class="form-control" id="field_instEmplDesignation" name="instEmplDesignation"
+                        ng-model="instVacancy.instEmplDesignation"
+                        ng-options="instEmplDesignation as instEmplDesignation.name for instEmplDesignation in instempldesignations track by instEmplDesignation.id"
+                        data-toggle="tooltip"
+                        tooltip="{{'stepApp.instVacancy.instEmplDesignation' | translate}}"
+                >
+                    <option value="" translate="stepApp.instVacancy.instEmplDesignation"></option>
+                </select>
+            </div>
+
+            <div class="form-group" ng-if="instVacancy.cmsSubject != null || instVacancy.instEmplDesignation != null ">
+                <label translate="stepApp.instVacancy.totalVacancy" for="field_totalVacancy">TotalVacancy</label>
+                <input type="number" class="form-control" name="totalVacancy" id="field_totalVacancy"
+                       ng-model="instVacancy.totalVacancy"
+                       data-toggle="tooltip"
+                       tooltip="{{'stepApp.instVacancy.totalVacancy' | translate}}"
+                />
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" onclick="window.history.back()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="instVacancy.id == null" translate="entity.action.save">Save</span>
+                <span ng-show="instVacancy.id != null" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,23 @@
+<form name="deleteForm">
+    <div class="modal-header">
+        <h4 class="modal-title">Complain Document of {{smsServiceComplaint.complaintName}}</h4>
+    </div>
+
+    <div class="modal-body">
+
+        <div ng-switch on="smsServiceComplaint.complaintDocContentType">
+            <div ng-switch-when="application/pdf">
+                <iframe src="{{fileContentUrl}}" width="550px" height="500px" ></iframe>
+            </div>
+            <div ng-switch-default>
+                <img ng-src="{{fileContentUrl}}" class="img-thumbnail" />
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Close</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,134 @@
+<div class="col-md-12 common-list" xmlns="http://www.w3.org/1999/html">
+    <h2 translate="stepApp.umracRoleSetup.home.title">FeePaymentCategorySetups</h2>
+    <div class="col-md-12 padding-tb">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control" placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control" placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+        <div class="col-xs-4 no_padding text-right ">
+            <button class="btn btn-primary " ui-sref="umracRoleSetup.new">
+                <span class="glyphicon glyphicon-plus"></span><span translate="stepApp.umracRoleSetup.home.createLabel">Add New</span>
+            </button>
+        </div>
+    </div>
+    <!--<div class="col-sm-12 padding-tb no-print">
+        <div class="col-md-8 col-xs-12 no_padding">
+            <div class="col-md-6 no_padding">
+                <b><span translate="global.home.searchhere">Search Here :</span></b>
+                <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1"><i class="fa fa-search"
+                                                                                     aria-hidden="true"></i></span>
+                    <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <b><span translate="global.home.itemperpage">Items per page:</span></b>
+                <div class="input-group col-sm-4">
+                    <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-xs-12  text-right no_padding dlbtn-top">
+            <button class="btn btn-primary " ui-sref="umracRoleSetup.new">
+                <span class="glyphicon glyphicon-plus"></span><span
+                translate="stepApp.umracRoleSetup.home.createLabel">Add New</span>
+            </button>
+        </div>
+    </div>-->
+
+    <div class="modal animated zoomIn" id="deleteUmracRoleSetupConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(umracRoleSetup.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" translate="entity.delete.title">Confirm delete
+                            operation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p translate="stepApp.umracRoleSetup.delete.question"
+                           translate-values="{id: '{{umracRoleSetup.id}}'}">Are you sure you want to
+                            delete this UmracRoleSetup?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal"
+                                ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                            translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                            translate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12  no_padding table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="global.form.serial">serial</th>
+                <th translate="global.field.id">ID</th>
+                <th translate="stepApp.umracRoleSetup.roleId">RoleId</th>
+                <th translate="stepApp.umracRoleSetup.roleName">RoleName</th>
+                <th translate="stepApp.umracRoleSetup.description">Description</th>
+                <th translate="stepApp.umracRoleSetup.status">Status</th>
+                <!--<th translate="stepApp.umracRoleSetup.createDate">CreateDate</th>-->
+                <!--<th translate="stepApp.umracRoleSetup.createBy">CreateBy</th>-->
+                <!--<th translate="stepApp.umracRoleSetup.updatedBy">UpdatedBy</th>-->
+                <!--<th translate="stepApp.umracRoleSetup.updatedTime">UpdatedTime</th>-->
+                <th class="text-center" translate="entity.action.action"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr dir-paginate="umracRoleSetup in umracRoleSetups | filter:q | itemsPerPage: pageSize track by umracRoleSetup.id"
+                current-page="currentPage">
+                <td>{{pageSize * (currentPage-1)+$index+1}}</td>
+                <td><a
+                    ui-sref="umracRoleSetup.detail({id:umracRoleSetup.id})">{{umracRoleSetup.id}}</a>
+                </td>
+                <td>{{umracRoleSetup.roleId}}</td>
+                <td>{{umracRoleSetup.roleName}}</td>
+                <td>{{umracRoleSetup.description}}</td>
+                <td ng-if="umracRoleSetup.status">Active</td>
+                <td ng-if="!umracRoleSetup.status">InActive</td>
+                <!--<td>{{umracRoleSetup.status}}</td>-->
+                <!--<td>{{umracRoleSetup.createDate | date:'mediumDate'}}</td>-->
+                <!--<td>{{umracRoleSetup.createBy}}</td>-->
+                <!--<td>{{umracRoleSetup.updatedBy}}</td>-->
+                <!--<td>{{umracRoleSetup.updatedTime | date:'mediumDate'}}</td>-->
+                <td class="text-right no-print">
+                    <button type="submit"
+                            ui-sref="umracRoleSetup.detail({id:umracRoleSetup.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span
+                        translate="entity.action.view"> View</span>
+                    </button>
+                    <a type="submit"
+                       ui-sref="umracRoleSetup.edit({id:umracRoleSetup.id})"
+                       class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                        translate="entity.action.edit"> Edit</span>
+                    </a>
+                    <button type="submit"
+                            ng-click="delete(umracRoleSetup.id)"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                        translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav class="no-print">
+            <dir-pagination-controls boundary-links="true"
+                                     on-page-change="pageChangeHandler(newPageNumber)"
+                                     template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+        </nav>
+    </div>
+</div>

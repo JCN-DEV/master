@@ -1,0 +1,439 @@
+<div class="col-md-12 common-dialogue">
+    <h4 ng-show="assetRepair.id == null" id="myAssetRepairLabel" translate="stepApp.assetRepair.home.createOrEditLabel">
+        Create or edit a AssetRepair</h4>
+    <h4 ng-show="assetRepair.id != null" id="myAssetRepairLabel" translate="stepApp.assetRepair.home.EditLabel">Create
+        or edit a AssetRepair</h4>
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <div class="col-md-12 padding-tb">
+            <div class=" col-md-6 ">
+                <div class="form-group">
+                    <label translate="stepApp.assetRepair.refNo" for="" class=" control-label">Asset Reference
+                        No</label>
+
+                    <div class="input-margin">
+                        <input readonly disabled="disabled" type="text" class="form-control" id="" placeholder=""
+                               ng-model="AssetRepair.assetCode.referenceNo">
+                    </div>
+                </div>
+            </div>
+
+            <!--retrive information by asset id -->
+
+            <div class="col-md-6 ">
+                <div class="form-group">
+                    <label translate="stepApp.assetRepair.assetCode" class="  control-label" for="field_assetCode">Asset
+                        Code</label>
+
+                    <div class="input-margin">
+                        <select name="assetCode" class="form-control" id="field_assetCode" ng-model="AssetRepair.assetCode"
+                                ng-options="AssetRecord as AssetRecord.recordCode for AssetRecord in assetRecords track by AssetRecord.id">
+                            <option value="Select Asset Code"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--<div class="form-group">
+             <label translate="stepApp.assetRequisition.assetCode" for="field_assetCode">assetCode</label>
+             <input type="text" class="form-control" name="assetCode" id="field_assetCode" ng-model="assetRequisition.assetCode"/>
+         </div>-->
+            <div class="col-md-6 ">
+                <div class="form-group">
+                    <label class="  control-label" translate="stepApp.assetRepair.assetName" for=field_assetName>assetName</label>
+
+                    <div class="input-margin">
+                        <input readonly disabled="disabled" type="text" class="form-control" name="assetName"
+                               id="field_assetName"
+                               ng-model="AssetRepair.assetCode.assetName"
+                               required/>
+                        <div ng-show="editForm.assetName.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.assetName.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 ">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.assetRepair.purchaseDate" for=field_purchasedDate>purchase
+                        Date</label>
+                    <div class="input-margin">
+                        <input readonly disabled="disabled" type="text" class="form-control" name="purchaseDate"
+                               id="field_purchasedDate"
+                               ng-model="AssetRepair.assetCode.purchaseDate"
+                               required/>
+                        <div ng-show="editForm.purchaseDate.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.purchaseDate.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 ">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.assetRepair.vendorName" for=field_vendorName>vendor
+                        name</label>
+                    <div class="input-margin">
+                        <input readonly disabled="disabled" type="text" class="form-control" name="vendorName"
+                               id="field_vendorName"
+                               ng-model="AssetRepair.assetCode.vendorName"
+                               required/>
+                        <div ng-show="editForm.vendorName.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.vendorName.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Employeee Information-->
+            <div class="col-md-6 ">
+                <div class="form-group">
+                    <label class="  control-label" translate="stepApp.assetRepair.employeeDepartment"
+                           for=fieldD_assetName>used By Department</label>
+                    <div class="input-margin">
+                        <input readonly disabled="disabled"
+                               ng-change="AssetValueChange(assetRepair.assetDistribution.id)" type="text"
+                               class="form-control" name="remartks" id="fieldD_assetName"
+                               ng-model="assetdistributions.usedByDept"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 ">
+                <div class="form-group">
+                    <label class="  control-label" translate="stepApp.assetRepair.employeeName" for=fieldD_assetName>employee
+                        Name</label>
+
+                    <div class="input-margin">
+                        <input readonly disabled="disabled"
+                               ng-change="AssetValueChange(assetRepair.assetDistribution.id)" type="text"
+                               class="form-control" name="remartks" id="fieldD_assetName"
+                               ng-model="assetdistributions.empName"
+                               required/>
+                        <div ng-show="editForm.remartks.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.remartks.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 ">
+                <div class="form-group">
+                    <label class=" control-label" translate="stepApp.assetRepair.repairedBy" for="field_repairedBy">RepairedBy</label>
+
+                    <div class="input-margin">
+                        <input type="text" class="form-control" name="repairedBy" id="field_repairedBy"
+                               ng-model="assetRepair.repairedBy"
+                               required ng-maxlength="50"/>
+                        <div ng-show="editForm.repairedBy.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.repairedBy.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                            <p class="help-block"
+                               ng-show="editForm.repairedBy.$error.maxlength" translate="entity.validation.maxlength"
+                               translate-value-max="50">
+                                This field cannot be longer than 50 characters.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--<div class="col-md-6 ">-->
+            <!--<div class="form-group">-->
+            <!--<label  class="  control-label" translate="stepApp.assetRepair.dateOfProblem" for="field_dateOfProblem">DateOfProblem</label>-->
+
+            <!--<div class="input-margin">-->
+            <!--<input  type="date" class="form-control" name="dateOfProblem" id="field_dateOfProblem"-->
+            <!--ng-model="assetRepair.dateOfProblem"-->
+            <!--/>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+
+
+            <!--<div class="col-md-6 ">-->
+            <!--<div class="form-group">-->
+            <!--<label  class="control-label" translate="stepApp.assetRepair.repairDate" for="field_repairDate">RepairDate</label>-->
+
+            <!--<div class="input-margin">-->
+            <!--<input type="date" class="form-control" name="repairDate" id="field_repairDate"-->
+            <!--ng-model="assetRepair.repairDate"  />-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+
+
+            <div class="col-md-6 ">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.assetRepair.dateOfProblem" for="field_expectedDate">DateOfProblem</label>
+                    <div class="input-margin">
+                        <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.expectedDate"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               ng-click="calendar.open($event, 'expectedDate')" class="form-control" name="expectedDate"
+                               id="field_expectedDate"
+                               ng-model="assetRepair.dateOfProblem"
+                               required/>
+                        <div ng-show="editForm.expectedDate.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.expectedDate.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 ">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.assetRepair.repairDate" for="field_repair">RepairDate</label>
+                    <div class="input-margin">
+                        <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.repair"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               ng-click="calendar.open($event, 'repair')" class="form-control" name="expectedDate"
+                               id="field_repair"
+                               ng-model="assetRepair.repairDate"
+                               required/>
+                        <div ng-show="editForm.expectedDate.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.expectedDate.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 ">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.assetRepair.repairCost" for="field_repairCost">RepairCost</label>
+
+                    <div class="input-margin">
+                        <input type="number" class="form-control" name="repairCost" id="field_repairCost"
+                               ng-model="assetRepair.repairCost"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 text-right">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" ng-disabled="editForm.$invalid || editForm.$submitted">
+                        <i class="fa fa-hdd-o"></i>
+                        <span ng-show="assetRepair.id == null" translate="entity.action.save">Save</span></button>
+                    <span ng-show="assetRepair.id != null" translate="entity.action.update">Save</span>  </button>
+                    <button type="button" class="btn" onclick="window.history.back()"><i
+                        class="fa fa-angle-double-left"></i><span translate="entity.action.back">Back</span></button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<!--END ASSET REPAIR-->
+
+
+<!--
+<div  class="panel panel-primary">
+
+
+<div  class="panel panel-primary">
+
+    <div class="panel-heading">
+        <h4 class="modal-title" id="myAssetRepairLabel" translate="stepApp.assetRepair.home.createOrEditLabel">Create or edit a AssetRepair</h4>
+</div>
+
+
+
+
+
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+
+        <div class="form-group">
+            <label translate="stepApp.assetRepair.refNo" for="field_refNo">RefNo</label>
+            <input type="text" class="form-control" name="refNo" id="field_refNo"
+                    ng-model="assetRepair.refNo"
+                    required />
+            <div ng-show="editForm.refNo.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.refNo.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+
+
+        &lt;!&ndash; start asset information retrived by assetcode&ndash;&gt;
+
+       <label translate="stepApp.assetRepair.assetCode"  for=fieldD_assetCode>Asset code</label>
+        <input ng-change="AssetValueChange(assetDistribution.assetInfo)" type="text" class="form-control" name="remartks" id="fieldD_assetCode"
+               ng-model="assetDistribution.assetInfo"
+               required />
+        <div ng-show="editForm.remartks.$invalid">
+            <p class="help-block"
+               ng-show="editForm.remartks.$error.required" translate="entity.validation.required">
+                This field is required.
+            </p>
+        </div>
+
+        <label translate="stepApp.assetRepair.assetName" for=fieldD_assetName>assetName</label>
+        <input ng-change="AssetValueChange(assetDistribution.assetInfo)" type="text" class="form-control" name="remartks" id="fieldD_assetName"
+               ng-model="assetrecords.assetName"
+               required />
+        <div ng-show="editForm.remartks.$invalid">
+            <p class="help-block"
+               ng-show="editForm.remartks.$error.required" translate="entity.validation.required">
+                This field is required.
+            </p>
+        </div>
+&lt;!&ndash;<>&ndash;&gt;
+
+        <label translate="stepApp.assetRepair.purchaseDate" for=field_purchaseDate>purchase Date</label>
+        <input ng-change="AssetValueChange(assetDistribution.assetInfo)" type="text" class="form-control" name="remartks" id="field_purchaseDate"
+               ng-model="assetrecords.purchaseDate"
+               required />
+        <div ng-show="editForm.remartks.$invalid">
+            <p class="help-block"
+               ng-show="editForm.remartks.$error.required" translate="entity.validation.required">
+                This field is required.
+            </p>
+        </div>
+<>
+        &lt;!&ndash;End of asset information retrived by assetcode&ndash;&gt;
+
+
+
+
+        start employee information retrieved by empoyee id
+       <label translate="stepApp.assetRepair.employeeId" for=field_employeeId>employee id</label>
+        <input ng-change="ValueChange(assetRepair.employee)" type="text" class="form-control" name="remartks" id="field_employeeId"
+               ng-model="assetRepair.employee"
+               required />
+        <div ng-show="editForm.remartks.$invalid">
+            <p class="help-block"
+               ng-show="editForm.remartks.$error.required" translate="entity.validation.required">
+                This field is required.
+            </p>
+        </div>
+&lt;!&ndash;<>&ndash;&gt;
+        <label translate="stepApp.assetRepair.employeeName" for=field_empName>employee name</label>
+        <input ng-change="ValueChange(assetRepair.employee)"  type="text" class="form-control" name="remartks" id="field_empName"
+               ng-model="assetrecords.name"
+               required />
+        <div ng-show="editForm.remartks.$invalid">
+            <p class="help-block"
+               ng-show="editForm.remartks.$error.required" translate="entity.validation.required">
+                This field is required.
+            </p>
+        </div>
+
+<>
+
+<form  class="form-horizontal" name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+<div class="form-group">
+    <label translate="stepApp.assetRepair.refNo" for="field_refNo">RefNo</label>
+    <input type="text" class="form-control" name="refNo" id="field_refNo"
+           ng-model="assetRepair.refNo"
+           required />
+    <div ng-show="editForm.refNo.$invalid">
+        <p class="help-block"
+           ng-show="editForm.refNo.$error.required" translate="entity.validation.required">
+            This field is required.
+        </p>
+    </div>
+</div>
+
+
+        <div class="form-group">
+            <label translate="stepApp.assetRepair.repairedBy" for="field_repairedBy">RepairedBy</label>
+            <input type="text" class="form-control" name="repairedBy" id="field_repairedBy"
+                    ng-model="assetRepair.repairedBy"
+                    required ng-maxlength="50" />
+            <div ng-show="editForm.repairedBy.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.repairedBy.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.repairedBy.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="50">
+                    This field cannot be longer than 50 characters.
+                </p>
+            </div>
+        </div>
+        <>
+        <div class="form-group">
+            <label translate="stepApp.assetRepair.dateOfProblem" for="field_dateOfProblem">DateOfProblem</label>
+            <input type="date" class="form-control" name="dateOfProblem" id="field_dateOfProblem"
+                    ng-model="assetRepair.dateOfProblem"
+                     />
+        </div>
+        <>
+        <div class="form-group">
+            <label translate="stepApp.assetRepair.repairDate" for="field_repairDate">RepairDate</label>
+            <input type="text" class="form-control" name="repairDate" id="field_repairDate"
+                    ng-model="assetRepair.repairDate"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="stepApp.assetRepair.repairCost" for="field_repairCost">RepairCost</label>
+            <input type="number" class="form-control" name="repairCost" id="field_repairCost"
+                    ng-model="assetRepair.repairCost"
+                     />
+        </div>
+<>
+
+
+
+
+        &lt;!&ndash;<div class="form-group">&ndash;&gt;
+            &lt;!&ndash;<label translate="stepApp.assetRepair.employee" for="field_employee">employee</label>&ndash;&gt;
+            &lt;!&ndash;<select class="form-control" id="field_employee" name="employee" ng-model="assetRepair.employee" ng-options="employee as employee.name for employee in employees track by employee.id">&ndash;&gt;
+                &lt;!&ndash;<option value=""></option>&ndash;&gt;
+            &lt;!&ndash;</select>&ndash;&gt;
+        &lt;!&ndash;</div>&ndash;&gt;
+
+
+
+
+
+        <div class="form-group">
+            <label  for="field_assetRecord">assettRecord</label>
+            <select class="form-control" id="field_assetRecord" name="assetRecord" ng-model="assetRepair.assetDistribution" ng-options="assetDistribution as assetDistribution.transferRef for assetDistribution in assetdistributions track by assetDistribution.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+
+        <button type="button"
+                onclick="window.history.back()"
+                class="btn btn-info">
+            <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+        </button>
+
+
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+
+</div>
+</form>
+
+
+&ndash;&gt;
+&ndash;&gt;
+-->

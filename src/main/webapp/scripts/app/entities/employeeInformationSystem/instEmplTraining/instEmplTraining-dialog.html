@@ -1,0 +1,143 @@
+<div class="col-sm-12 common-dialogue">
+    <h4 class="modal-title" id="myInstEmplTrainingLabel" translate="stepApp.instEmplTraining.home.createOrEditLabel">
+        Create or edit a InstEmplTraining</h4>
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <div class="panel-body padding-tb" ng-repeat="instEmplTraining in instEmplTrainings">
+            <jh-alert-error></jh-alert-error>
+            <div class="col-sm-12 no_padding expe-info">
+                <h3>Institute Employee Training Information {{$index + 1}}</h3>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instEmplTraining.name" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                           ng-model="instEmplTraining.name"
+                           placeholder="{{'stepApp.instEmplTraining.name' | translate}}"
+                           tooltip="{{'stepApp.instEmplTraining.name' | translate}}"
+                           required/>
+                    <div ng-show="editForm.name.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instEmplTraining.subjectsCoverd"
+                           for="field_subjectsCoverd">SubjectsCoverd</label>
+                    <input type="text" class="form-control" name="subjectsCoverd" id="field_subjectsCoverd"
+                           ng-model="instEmplTraining.subjectsCoverd"
+                           placeholder="{{'stepApp.instEmplTraining.subjectsCoverd' | translate}}"
+                           tooltip="{{'stepApp.instEmplTraining.subjectsCoverd' | translate}}"
+                           required/>
+                    <div ng-show="editForm.subjectsCoverd.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.subjectsCoverd.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instEmplTraining.location" for="field_location">Location</label>
+                    <input type="text" class="form-control" name="location" id="field_location"
+                           ng-model="instEmplTraining.location"
+                           placeholder="{{'stepApp.instEmplTraining.location' | translate}}"
+                           tooltip="{{'stepApp.instEmplTraining.location' | translate}}"
+                           required/>
+
+                    <div ng-show="editForm.location.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.location.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instEmplTraining.startedDate" for="field_startedDate">StartedDate</label>
+                    <input type="text" class="form-control" name="startedDate" id="field_startedDate"
+                           ng-model="instEmplTraining.startedDate"
+                           datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened['startedDate'+$index]"
+                           placeholder="{{'entity.placeholder.dateformat' | translate}}"
+                           datepicker-options="calendar.dateOptions" close-text="Close"
+                           ng-click="calendar.open($event, 'startedDate'+$index)"
+                           tooltip="{{'stepApp.instEmplTraining.startedDate' | translate}}"
+                    />
+                </div>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instEmplTraining.endedDate" for="field_endedDate">EndedDate</label>
+                    <input type="text" class="form-control" name="endedDate" id="field_endedDate"
+                           ng-model="instEmplTraining.endedDate"
+                           datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened['endedDate'+$index]"
+                           placeholder="{{'entity.placeholder.dateformat' | translate}}"
+                           datepicker-options="calendar.dateOptions" close-text="Close"
+                           ng-click="calendar.open($event, 'endedDate'+$index)"
+                           tooltip="{{'stepApp.instEmplTraining.endedDate' | translate}}"
+                    />
+                </div>
+                <div class="form-group col-md-6">
+                    <label translate="stepApp.instEmplTraining.result" for="field_result">Result</label>
+                    <input type="text" class="form-control" name="result" id="field_result"
+                           ng-model="instEmplTraining.result"
+                           placeholder="{{'stepApp.instEmplTraining.result' | translate}}"
+                           tooltip="{{'stepApp.instEmplTraining.result' | translate}}"
+                    />
+                </div>
+                <div class="form-group col-md-6" ngf-drop ngf-change="setAttachment($file, instEmplTraining)">
+                    <label translate="stepApp.instEmplTraining.attachment" for="field_attachment">Attachment</label>
+
+                    <div>
+                        <div class="help-block clearfix">
+                            <span class="pull-left">{{instEmplTraining.attachmentContentType}} {{byteSize(instEmplTraining.attachment)}}</span>
+                            <button
+                                ng-click="instEmplTraining.attachment=null;instEmplTraining.attachmentContentType=null;"
+                                ng-if="instEmplTraining.attachment"
+                                class="btn btn-default btn-xs pull-right">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </div>
+                        <!-- <button type="file" ngf-select class="btn btn-default btn-block"
+                                             ngf-change="setAttachment($file, instEmplExperience)" translate="entity.action.addblob">
+                         Add blob
+                     </button>
+                         <input type="file" ngf-select class="btn btn-default btn-block"
+                                ngf-change="setAttachment($file, instEmplExperience)" translate="entity.action.addblob">
+                         </input>
+                     </div>-->
+                        <div class="form-group col-md-9 no_padding">
+                            <input type="text" readonly class="form-control" name="birthCertNoName"
+                                   id="field_birthCertImageName"
+                                   ng-model="instEmplTraining.attachmentName"
+                            />
+                        </div>
+                        <div class="form-group col-md-3">
+                            <button type="file" ngf-select class="btn btn-default btn-block"
+                                    ngf-change="setAttachment($file, instEmplTraining)"
+                                    translate="entity.action.addblob">
+                                Add blob
+                            </button>
+                        </div>
+                        <input type="hidden" class="form-control" name="attachment" id="field_attachment"
+                               ng-model="instEmplTraining.attachment"
+                        />
+                        <input type="hidden" class="form-control" name="attachmentContentType"
+                               id="field_attachmentContentType"
+                               ng-model="instEmplTraining.attachmentContentType"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 padding-tb">
+            <input type="button" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary" value="Add More"
+                   ng-click="AddMore()">
+        </div>
+        <div class="col-md-12 text-right">
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-hide="instEmplTrainings.length > 0" translate="entity.action.save">Save</span>
+                <span ng-show="instEmplTrainings.length > 0" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

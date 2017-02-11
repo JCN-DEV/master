@@ -1,0 +1,273 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="hrEmpForeignTourInfo.id == null" class="modal-title"
+            translate="stepApp.hrEmpForeignTourInfo.home.createOrEditLabel">Create or edit a HrEmpForeignTourInfo</h4>
+        <h4 ng-show="hrEmpForeignTourInfo.id != null" class="modal-title"
+            translate="stepApp.hrEmpForeignTourInfo.home.EditLabel">Create or edit a HrEmpForeignTourInfo</h4>
+        <div class="modal-body col-md-12 padding-tb">
+            <jh-alert-error></jh-alert-error>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" for="field_workArea"><span
+                            translate="stepApp.hrEmpForeignTourInfo.workarea">Work Area</span></label>
+                        <select class="form-control" id="field_workArea" name="workArea" ng-model="workArea"
+                                ng-change="loadModelByWorkArea(workArea)"
+                                ng-options="MiscTypeSetup as MiscTypeSetup.typeName for MiscTypeSetup in workAreaList track by MiscTypeSetup.id">
+                            <option value="">Select Work Area</option>
+                        </select>
+                        <span class="help">No of Employee: {{hremployeeinfos.length}}</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmpForeignTourInfo.employeeInfo"
+                               for="field_employeeInfo">employeeInfo</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control autocomplete" autocomplete="off"
+                                   ng-model="hrEmpForeignTourInfo.employeeInfo"
+                                   typeahead='HrEmployeeInfo as (HrEmployeeInfo.fullName + " " + HrEmployeeInfo.employeeId) for HrEmployeeInfo in hremployeeinfos | filter:$viewValue'
+                                   id="field_employeeInfo" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmpForeignTourInfo.countryName"
+                               for="field_countryName">CountryName</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="countryName" id="field_countryName"
+                                   ng-model="hrEmpForeignTourInfo.countryName"
+                                   required/>
+                            <div ng-show="editForm.countryName.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.countryName.$error.required"
+                                   translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmpForeignTourInfo.purpose"
+                               for="field_purpose">Purpose</label>
+                        <div class="input-margin">
+                            <textarea class="form-control" name="purpose" id="field_purpose"
+                                   ng-model="hrEmpForeignTourInfo.purpose"
+                                   required></textarea>
+                            <div ng-show="editForm.purpose.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.purpose.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmpForeignTourInfo.jobCategory"
+                               for="field_jobCategory">jobCategory</label>
+                        <div class="input-margin">
+                            <select class="form-control" id="field_jobCategory" name="jobCategory"
+                                    ng-model="hrEmpForeignTourInfo.jobCategory"
+                                    ng-options="MiscTypeSetup as MiscTypeSetup.typeName for MiscTypeSetup in misctypesetups track by MiscTypeSetup.id">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmpForeignTourInfo.fromDate"
+                               for="field_fromDate">FromDate</label>
+                        <div class="input-margin">
+                            <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.fromDate"
+                                   datepicker-options="calendar.dateOptions" close-text="Close"
+                                   ng-click="calendar.open($event, 'fromDate')" class="form-control" name="fromDate"
+                                   id="field_fromDate"
+                                   ng-model="hrEmpForeignTourInfo.fromDate"
+                                   required/>
+                            <div ng-show="editForm.fromDate.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.fromDate.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmpForeignTourInfo.toDate" for="field_toDate">ToDate</label>
+                        <div class="input-margin">
+                            <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.toDate"
+                                   datepicker-options="calendar.dateOptions" close-text="Close"
+                                   ng-click="calendar.open($event, 'toDate')" class="form-control" name="toDate"
+                                   id="field_toDate"
+                                   ng-model="hrEmpForeignTourInfo.toDate"
+                                   required/>
+                            <div ng-show="editForm.toDate.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.toDate.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group ">
+                        <label class="control-label" translate="stepApp.hrEmpForeignTourInfo.fundSource"
+                               for="field_fundSource">FundSource</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="fundSource" id="field_fundSource"
+                                   ng-model="hrEmpForeignTourInfo.fundSource"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmpForeignTourInfo.officeOrderDate"
+                               for="field_officeOrderDate">officeOrderDate</label>
+                        <div class="input-margin">
+                            <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.officeOrderDate"
+                                   datepicker-options="calendar.dateOptions" close-text="Close"
+                                   ng-click="calendar.open($event, 'officeOrderDate')" class="form-control" name="officeOrderDate"
+                                   id="field_officeOrderDate"
+                                   ng-model="hrEmpForeignTourInfo.officeOrderDate"
+                                   required/>
+                            <div ng-show="editForm.officeOrderDate.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.officeOrderDate.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmpForeignTourInfo.officeOrderNumber"
+                               for="field_officeOrderNumber">OfficeOrderNumber</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="officeOrderNumber"
+                                   id="field_officeOrderNumber"
+                                   ng-model="hrEmpForeignTourInfo.officeOrderNumber"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmpForeignTourInfo.goNumber"
+                               for="field_goNumber">goNumber</label>
+                        <div class="input-margin">
+                            <input type="text" class="form-control" name="goNumber" id="field_goNumber"
+                                   ng-model="hrEmpForeignTourInfo.goNumber"
+                                   required/>
+                            <div ng-show="editForm.goNumber.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.goNumber.$error.required"
+                                   translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrEmpForeignTourInfo.goDate" for="field_goDate">GoDate</label>
+                        <div class="input-margin">
+                            <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.goDate"
+                                   datepicker-options="calendar.dateOptions" close-text="Close"
+                                   ng-click="calendar.open($event, 'goDate')" class="form-control" name="goDate"
+                                   id="field_goDate"
+                                   ng-model="hrEmpForeignTourInfo.goDate"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6" ngf-drop ngf-change="setGoDoc($file, hrEmpForeignTourInfo)">
+                    <label class="control-label" translate="stepApp.hrEmpForeignTourInfo.goDoc"
+                           for="field_goDoc">GoDoc</label>
+                    <div class="input-margin">
+                        <div class="help-block clearfix">
+                            <span class="pull-left">{{hrEmpForeignTourInfo.goDocContentType}} {{byteSize(hrEmpForeignTourInfo.goDoc)}}</span>
+                            <button
+                                ng-click="hrEmpForeignTourInfo.goDoc=null;hrEmpForeignTourInfo.goDocContentType=null;"
+                                ng-if="hrEmpForeignTourInfo.goDoc"
+                                class="btn btn-default btn-xs pull-right">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </div>
+                        <button type="file" ngf-select class="btn btn-default btn-block"
+                                ngf-change="setGoDoc($file, hrEmpForeignTourInfo)" translate="entity.action.addblob">
+                            Add blob
+                        </button>
+                        <input type="hidden" class="form-control" name="goDoc" id="field_goDoc"
+                               ng-model="hrEmpForeignTourInfo.goDoc"/>
+                        <input type="hidden" class="form-control" name="goDocContentType" id="field_goDocContentType"
+                               ng-model="hrEmpForeignTourInfo.goDocContentType"/>
+                        <a ng-if="hrEmpForeignTourInfo.goDocContentType" class="btn btn-link"
+                           ng-click="previewImage(hrEmpForeignTourInfo)">View</a>
+                    </div>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label class="control-label"
+                           translate="stepApp.hrEmpForeignTourInfo.activeStatus">ActiveStatus</label>
+                    <div class="input-margin">
+                    <span>
+                        <input type="radio" data-ng-model="hrEmpForeignTourInfo.activeStatus" name="activeStatus"
+                               data-ng-value="true">&nbsp;Active&nbsp;|&nbsp;
+                        <input type="radio" data-ng-model="hrEmpForeignTourInfo.activeStatus" name="activeStatus"
+                               data-ng-value="false">&nbsp;Inactive
+                    </span>
+                        <div ng-show="editForm.activeStatus.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.activeStatus.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" class="btn " data-dismiss="modal"
+                    onclick="window.history.back()">
+                <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;<span
+                translate="entity.action.back">Back</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="hrEmpForeignTourInfo.id == null" translate="entity.action.save">Save</span>
+                <span ng-show="hrEmpForeignTourInfo.id != null" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

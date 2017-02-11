@@ -1,0 +1,108 @@
+<!--<div class="row">
+    <div class="col-md-3">
+        <ng-include src="'scripts/app/account/mpo/mpo-left-menu.html'"></ng-include>
+    </div>-->
+    <div class="col-md-12 no_padding" ng-show="showApplicationButtion">
+        <jh-alert></jh-alert>
+
+        <!--<div class=" mpo-dash">
+            <ul>
+                <li><a ui-sref="mpo.new"><i class="fa fa-list"></i> MPO Enlisting Application</a></li>
+                <li><a ui-sref="mpo.bed"><i class="fa fa-list"></i> B.ED Application</a></li>
+                <li><a ui-sref="mpo.timescale"><i class="fa fa-list"></i> Time Scale Application</a></li>
+                <li><a ui-sref="mpo.payscale"><i class="fa fa-list"></i> Pay Scale Application</a></li>
+            </ul>
+        </div>-->
+        <!--<div class="col-sm-12 mpo-list">
+            <ul class="list-inline">
+                <li><a ui-sref="mpo.new"><i class="fa fa-list"></i> MPO Enlisting Application</a></li>
+                <li><a ui-sref="mpo.bedApplication"><i class="fa fa-list"></i> B.ED Application</a></li>
+                <li><a ui-sref="mpo.timescaleApplication"><i class="fa fa-list"></i> Time Scale Application</a></li>
+                <li><a ui-sref="mpo.ApApplication"><i class="fa fa-list"></i> Assistant Professor</a></li>
+                <li><a ui-sref="mpo.ProfessorApplication"><i class="fa fa-list"></i> Principal</a></li>
+                <li><a ui-sref="mpo.payscale"><i class="fa fa-list"></i> Information Correction</a></li>
+                <li><a ui-sref="mpo.payscale"><i class="fa fa-list"></i> Name Cancellation</a></li>
+                &lt;!&ndash; <li><a ui-sref="mpo.payscale"><i class="fa fa-list"></i> Name Correction</a></li>&ndash;&gt;
+
+            </ul>
+        </div>-->
+
+
+        <!--<ul ng-show="showApplicationButtion"  class="dash-icons list-inline" >-->
+            <!--<li>-->
+                <!--<a ui-sref="mpo.new" class="btn btn-success">-->
+                    <!--<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>-->
+                    <!--<span class="glyphicon-class">MPO Enlisting Application</span>-->
+                <!--</a>-->
+            <!--</li>-->
+            <!--<li>-->
+                <!--<a ui-sref="mpo.bed" class="btn btn-success">-->
+                    <!--<span class="glyphicon glyphicon-euro" aria-hidden="true"></span>-->
+                    <!--<span class="glyphicon-class">B.ED Application</span>-->
+                <!--</a>-->
+            <!--</li>-->
+            <!--<li>-->
+                <!--<a ui-sref="mpo.timescale" class="btn btn-success">-->
+                    <!--<span class="glyphicon glyphicon-eur" aria-hidden="true"></span>-->
+                    <!--<span class="glyphicon-class">Time Scale Application</span>-->
+                <!--</a>-->
+            <!--</li>-->
+            <!--<li>-->
+                <!--<a ui-sref="mpo.payscale" class="btn btn-success">-->
+                    <!--<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>-->
+                    <!--<span class="glyphicon-class">Pay Scale Application</span>-->
+                <!--</a>-->
+            <!--</li>-->
+        <!--</ul>-->
+
+        <div ng-show="!showApplicationButtion && !isAdmin">
+            <h2 ng-show="pendingMPOCount == 0">You have no pending mpo applications</h2>
+            <h2 ng-show="pendingMPOCount == 1">You have <a style="color:red;font-style: italic" ui-sref="mpoPendingList">{{pendingMPOCount}}</a> pending mpo application</h2>
+            <h2 ng-show="pendingMPOCount > 1">You have <a style="color:red;font-style: italic" ui-sref="mpoPendingList">{{pendingMPOCount}}</a> pending mpo applications</h2>
+        </div>
+
+        <div ng-show="isAdmin">
+            <ng-include src="'scripts/app/account/mpo/mpo-search-form.html'"></ng-include>
+        </div>
+
+    </div>
+    <div class="col-md-12 no_padding">
+        <ng-include ng-show="showSearchForm && !showApplicationButtion " src="'scripts/app/account/mpo/mpo-search-form.html'"></ng-include>
+
+        <div ng-show="!showSearchForm && !showApplicationButtion" class="application_information resume_main_ ">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span translate="{{'stepApp.attachment.appEnrInfo'}}">Application Status of</span> <b>{{applicationlogs[0].mpoApplicationId.instEmployee.code}}</b></h3>
+                </div>
+                <div class="resume_main_ time-scale">
+                    <table class="table table-striped ">
+                        <thead>
+                        <tr>
+                            <th translate="{{'stepApp.attachment.Status'}}">
+                                Status
+                            </th>
+                            <th translate="{{'stepApp.attachment.ActionDate'}}">
+                                Action Date
+                            </th>
+                            <th translate="{{'stepApp.attachment.remarks'}}">
+                                Remarks
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="applicationLog in applicationlogs">
+                            <td>{{applicationLog.remarks}}</td>
+                            <td>{{applicationLog.fromDate}}</td>
+                            <td>
+                                <span class="" ng-show="applicationLog.status == 1 ">{{applicationLog.cause}}1</span>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--</div>-->

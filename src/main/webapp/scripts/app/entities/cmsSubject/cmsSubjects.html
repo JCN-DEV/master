@@ -1,0 +1,100 @@
+<div>
+    <h2 translate="stepApp.cmsSubject.home.title">CmsSubjects</h2>
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" ui-sref="cmsSubject.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="stepApp.cmsSubject.home.createLabel">Create a new CmsSubject</span>
+                </button>
+            </div>
+            <div class="col-md-8">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                    </div>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a CmsSubject</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="global.field.id">ID</th>
+                    <th translate="stepApp.cmsSubject.code">Code</th>
+                    <th translate="stepApp.cmsSubject.name">Name</th>
+                    <th translate="stepApp.cmsSubject.theoryCredHr">TheoryCredHr</th>
+                    <th translate="stepApp.cmsSubject.pracCredHr">PracCredHr</th>
+                    <th translate="stepApp.cmsSubject.totalCredHr">TotalCredHr</th>
+                    <th translate="stepApp.cmsSubject.theoryCon">TheoryCon</th>
+                    <th translate="stepApp.cmsSubject.theoryFinal">TheoryFinal</th>
+                    <th translate="stepApp.cmsSubject.pracCon">PracCon</th>
+                    <th translate="stepApp.cmsSubject.pracFinal">PracFinal</th>
+                    <th translate="stepApp.cmsSubject.totalMarks">TotalMarks</th>
+                    <th translate="stepApp.cmsSubject.description">Description</th>
+                    <th translate="stepApp.cmsSubject.status">Status</th>
+                    <th translate="stepApp.cmsSubject.cmsCurriculum">cmsCurriculum</th>
+                    <th translate="stepApp.cmsSubject.cmsSyllabus">cmsSyllabus</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="cmsSubject in cmsSubjects track by cmsSubject.id">
+                    <td><a ui-sref="cmsSubject.detail({id:cmsSubject.id})">{{cmsSubject.id}}</a></td>
+                    <td>{{cmsSubject.code}}</td>
+                    <td>{{cmsSubject.name}}</td>
+                    <td>{{cmsSubject.theoryCredHr}}</td>
+                    <td>{{cmsSubject.pracCredHr}}</td>
+                    <td>{{cmsSubject.totalCredHr}}</td>
+                    <td>{{cmsSubject.theoryCon}}</td>
+                    <td>{{cmsSubject.theoryFinal}}</td>
+                    <td>{{cmsSubject.pracCon}}</td>
+                    <td>{{cmsSubject.pracFinal}}</td>
+                    <td>{{cmsSubject.totalMarks}}</td>
+                    <td>{{cmsSubject.description}}</td>
+                    <td>{{cmsSubject.status}}</td>
+                    <td>
+                        <a ui-sref="cmsCurriculum.detail({id:cmsSubject.cmsCurriculum.id})">{{cmsSubject.cmsCurriculum.name}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="cmsSyllabus.detail({id:cmsSubject.cmsSyllabus.id})">{{cmsSubject.cmsSyllabus.name}}</a>
+                    </td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="cmsSubject.detail({id:cmsSubject.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="cmsSubject.edit({id:cmsSubject.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="cmsSubject.delete({id:cmsSubject.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pagination">
+                <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
+                <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
+                <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
+                <li class="active"><a>{{page + 1}}</a></li>
+                <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
+                <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
+                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
+                <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>

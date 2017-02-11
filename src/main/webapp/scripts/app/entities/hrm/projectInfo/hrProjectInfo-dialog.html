@@ -1,0 +1,383 @@
+<div class="col-md-12 common-dialogue">
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <h4 ng-show="hrProjectInfo.id == null" class="modal-title" id="myHrProjectInfoLabel"
+            translate="stepApp.hrProjectInfo.home.createOrEditLabel">Create or edit a HrProjectInfo</h4>
+        <h4 ng-show="hrProjectInfo.id != null" class="modal-title" id="myHrProjectInfoLabel"
+            translate="stepApp.hrProjectInfo.home.EditLabel">Create or edit a HrProjectInfo</h4>
+        <div class="modal-body col-md-12 padding-tb">
+            <!-- <jh-alert-error></jh-alert-error>-->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrProjectInfo.projectName"
+                               for="field_projectName">ProjectName</label>
+                        <input type="text" class="form-control" name="projectName" id="field_projectName"
+                               ng-model="hrProjectInfo.projectName" required/>
+                        <div ng-show="editForm.projectName.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.projectName.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrProjectInfo.projectDetail"
+                               for="field_projectDetail">ProjectDetail</label>
+                    <textarea class="form-control" name="projectDetail" id="field_projectDetail"
+                              ng-model="hrProjectInfo.projectDetail"></textarea>
+                    </div>
+                </div>
+
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label translate="stepApp.hrProjectInfo.fundSource" for="field_fundSource">fundSource</label>
+                        <select class="form-control" id="field_fundSource" name="fundSource"
+                                ng-model="hrProjectInfo.fundSource"
+                                ng-options="MiscTypeSetup as MiscTypeSetup.typeName for MiscTypeSetup in fundSourceList track by MiscTypeSetup.id">
+                            <option value="">Select Source of Fund</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrProjectInfo.projectValue"
+                               for="field_projectValue">ProjectValue</label>
+                        <input type="number" class="form-control" name="projectValue" id="field_projectValue"
+                               ng-model="hrProjectInfo.projectValue" required/>
+                        <div ng-show="editForm.projectValue.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.projectValue.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                            <p class="help-block"
+                               ng-show="editForm.projectValue.$error.number" translate="entity.validation.number">
+                                This field should be a number.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrProjectInfo.projectLocation"
+                               for="field_projectLocation">projectLocation</label>
+                        <input type="text" class="form-control" name="projectLocation" id="field_projectLocation"
+                               ng-model="hrProjectInfo.projectLocation"/>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrProjectInfo.startDate" for="field_startDate">StartDate</label>
+                        <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.startDate"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               max-date="hrProjectInfo.endDate"
+                               ng-click="calendar.open($event, 'startDate')" class="form-control" name="startDate"
+                               id="field_startDate"
+                               ng-model="hrProjectInfo.startDate"/>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group ">
+                        <label class="control-label" translate="stepApp.hrProjectInfo.endDate" for="field_endDate">EndDate</label>
+                        <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.endDate"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               min-date="hrProjectInfo.startDate"
+                               ng-click="calendar.open($event, 'endDate')" class="form-control" name="endDate"
+                               id="field_endDate"
+                               ng-model="hrProjectInfo.endDate"/>
+                    </div>
+                </div>
+            </div>
+            <p class="hrp">Project Director's Information</p>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrProjectInfo.directorName"
+                               for="field_directorName">DirectorName</label>
+                        <input type="text" class="form-control" name="directorName" id="field_directorName"
+                               ng-model="hrProjectInfo.directorName" required/>
+                        <div ng-show="editForm.directorName.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.directorName.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrProjectInfo.joiningDatePd"
+                               for="field_joiningDatePd">joiningDatePd</label>
+                        <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.joiningDatePd"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               ng-click="calendar.open($event, 'joiningDatePd')" class="form-control"
+                               name="joiningDatePd" id="field_joiningDatePd"
+                               ng-model="hrProjectInfo.joiningDatePd"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrProjectInfo.emailAddress"
+                               for="field_emailAddress">emailAddress</label>
+                        <input type="text" class="form-control" name="emailAddress" id="field_emailAddress"
+                               ng-model="hrProjectInfo.emailAddress"/>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrProjectInfo.phoneNumber"
+                               for="field_phoneNumber">phoneNumber</label>
+                        <input type="text" class="form-control" name="phoneNumber" id="field_phoneNumber"
+                               ng-model="hrProjectInfo.phoneNumber"/>
+                    </div>
+                </div>
+            </div>
+
+            <p class="hrp">Eestimated Total Cost - Original (In Lakh Taka)</p>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group ">
+                        <label class="control-label" translate="stepApp.hrProjectInfo.estTotalCostOriginal"
+                               for="field_estTotalCostOriginal">estTotalCostOriginal</label>
+                        <input type="number" class="form-control" name="estTotalCostOriginal"
+                               id="field_estTotalCostOriginal"
+                               ng-model="hrProjectInfo.estTotalCostOriginal"/>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrProjectInfo.estGobCostOriginal"
+                               for="field_estGobCostOriginal">estGobCostOriginal</label>
+                        <input type="number" class="form-control" name="estGobCostOriginal"
+                               id="field_estGobCostOriginal"
+                               ng-model="hrProjectInfo.estGobCostOriginal"/>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrProjectInfo.estPaCostOriginal"
+                               for="field_estPaCostOriginal">estPaCostOriginal</label>
+                        <input type="number" class="form-control" name="estPaCostOriginal" id="field_estPaCostOriginal"
+                               ng-model="hrProjectInfo.estPaCostOriginal"/>
+                    </div>
+                </div>
+            </div>
+
+            <p class="hrp">Estimated Cost (Revised) (In Lakh Taka)</p>
+
+            <div class="row">
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrProjectInfo.estTotalCostRevised"
+                               for="field_estTotalCostRevised">estTotalCostRevised</label>
+                        <input type="number" class="form-control" name="estTotalCostRevised"
+                               id="field_estTotalCostRevised"
+                               ng-model="hrProjectInfo.estTotalCostRevised"/>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrProjectInfo.estGobCostRevised"
+                               for="field_estGobCostRevised">estGobCostRevised</label>
+                        <input type="text" class="form-control" name="estGobCostRevised" id="field_estGobCostRevised"
+                               ng-model="hrProjectInfo.estGobCostRevised"/>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group ">
+                        <label class="control-label" translate="stepApp.hrProjectInfo.estPaCostRevised"
+                               for="field_estPaCostRevised">estPaCostRevised</label>
+                        <input type="text" class="form-control" name="estPaCostRevised" id="field_estPaCostRevised"
+                               ng-model="hrProjectInfo.estPaCostRevised"/>
+                    </div>
+                </div>
+            </div>
+            <p class="hrp">Current Year Allocation (In Lakh Taka)</p>
+
+            <div class="row">
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrProjectInfo.currentYearTotalAlloc"
+                               for="field_currentYearTotalAlloc">currentYearTotalAlloc</label>
+                        <input type="text" class="form-control" name="currentYearTotalAlloc"
+                               id="field_currentYearTotalAlloc"
+                               ng-model="hrProjectInfo.currentYearTotalAlloc"/>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group ">
+                        <label class="control-label" translate="stepApp.hrProjectInfo.currentYearGobAlloc"
+                               for="field_emailAddress">currentYearGobAlloc</label>
+                        <input type="text" class="form-control" name="currentYearGobAlloc" id="field_emailAddress"
+                               ng-model="hrProjectInfo.currentYearGobAlloc"/>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrProjectInfo.currentYearPaAlloc"
+                               for="field_currentYearPaAlloc">currentYearPaAlloc</label>
+                        <input type="text" class="form-control" name="currentYearPaAlloc" id="field_currentYearPaAlloc"
+                               ng-model="hrProjectInfo.currentYearPaAlloc"/>
+                    </div>
+                </div>
+            </div>
+
+
+            <p class="hrp">Progress of Current Month (In Lakh Taka)</p>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrProjectInfo.projectProgressTotal"
+                               for="field_projectProgressTotal">projectProgressTotal</label>
+                        <input type="text" class="form-control" name="projectProgressTotal"
+                               id="field_projectProgressTotal"
+                               ng-model="hrProjectInfo.projectProgressTotal"/>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group ">
+                        <label class="control-label" translate="stepApp.hrProjectInfo.projectProgressRevenue"
+                               for="field_projectProgressRevenue">projectProgressRevenue</label>
+                        <input type="text" class="form-control" name="projectProgressRevenue"
+                               id="field_projectProgressRevenue"
+                               ng-model="hrProjectInfo.projectProgressRevenue"/>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrProjectInfo.projectProgressCapital"
+                               for="field_projectProgressCapital">projectProgressCapital</label>
+                        <input type="text" class="form-control" name="projectProgressCapital"
+                               id="field_projectProgressCapital"
+                               ng-model="hrProjectInfo.projectProgressCapital"/>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-12 border_line"></div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrProjectInfo.projectManpower"
+                               for="field_projectManpower">projectManpower</label>
+                        <input type="text" class="form-control" name="projectManpower" id="field_projectManpower"
+                               ng-model="hrProjectInfo.projectManpower"/>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrProjectInfo.cumulProgressLastJune"
+                               for="field_cumulProgressLastJune">cumulProgressLastJune</label>
+                        <input type="text" class="form-control" name="cumulProgressLastJune"
+                               id="field_cumulProgressLastJune"
+                               ng-model="hrProjectInfo.cumulProgressLastJune"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrProjectInfo.currentMonthTotalProg"
+                               for="field_currentMonthTotalProg">currentMonthTotalProg</label>
+                        <input type="text" class="form-control" name="currentMonthTotalProg"
+                               id="field_currentMonthTotalProg"
+                               ng-model="hrProjectInfo.currentMonthTotalProg"/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrProjectInfo.currentMonthGobProg"
+                               for="field_currentMonthGobProg">currentMonthGobProg</label>
+                        <input type="text" class="form-control" name="currentMonthGobProg"
+                               id="field_currentMonthGobProg"
+                               ng-model="hrProjectInfo.currentMonthGobProg"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrProjectInfo.currentMonthPaProg"
+                               for="field_currentMonthPaProg">currentMonthPaProg</label>
+                        <input type="text" class="form-control" name="currentMonthPaProg" id="field_currentMonthPaProg"
+                               ng-model="hrProjectInfo.currentMonthPaProg"/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrProjectInfo.currentYearProgress"
+                               for="field_currentYearProgress">currentYearProgress</label>
+                        <input type="text" class="form-control" name="currentYearProgress"
+                               id="field_currentYearProgress"
+                               ng-model="hrProjectInfo.currentYearProgress"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group ">
+                        <label class="control-label" translate="stepApp.hrProjectInfo.currentYearRelease"
+                               for="field_currentYearRelease">currentYearRelease</label>
+                        <input type="text" class="form-control" name="currentYearRelease" id="field_currentYearRelease"
+                               ng-model="hrProjectInfo.currentYearRelease"/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrProjectInfo.projectStatus"
+                               for="field_projectStatus">ProjectStatus</label>
+                        <input type="text" class="form-control" name="projectStatus" id="field_projectStatus"
+                               ng-model="hrProjectInfo.projectStatus" required/>
+                        <div ng-show="editForm.projectStatus.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.projectStatus.$error.required" translate="entity.validation.required">
+                                This field is required...
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" translate="stepApp.hrProjectInfo.activeStatus"
+                               for="field_activeStatus">ActiveStatus</label>
+                        <input type="checkbox" class="form-control" name="activeStatus" id="field_activeStatus"
+                               ng-model="hrProjectInfo.activeStatus"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" class="btn " data-dismiss="modal"
+                    onclick="window.history.back()">
+                <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;<span
+                translate="entity.action.back">Back</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;
+                <span ng-show="hrProjectInfo.id == null" translate="entity.action.save">Save</span>
+                <span ng-show="hrProjectInfo.id != null" translate="entity.action.update">Save</span>
+            </button>
+        </div>
+    </form>
+</div>

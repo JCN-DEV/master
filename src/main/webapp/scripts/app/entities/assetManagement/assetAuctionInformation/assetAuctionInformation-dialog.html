@@ -1,0 +1,194 @@
+<div class="col-md-12 common-dialogue">
+    <h4 ng-show="assetAuctionInformation.id == null" class="panel-heading"
+        translate="stepApp.assetAuctionInformation.home.createOrEditLabel">Auction Information</h4>
+    <h4 ng-show="assetAuctionInformation.id != null" class="panel-heading"
+        translate="stepApp.assetAuctionInformation.home.EditLabel">Auction Information</h4>
+    <form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+        <div class="col-md-12 padding-bt">
+            <div class=" col-md-6 col-sm-12 col-xs-12 ">
+                <div class="form-group">
+                    <label translate="stepApp.assetAuctionInformation.assetReference" for="" class=" control-label">Asset
+                        Reference No</label>
+
+                    <div class="input-margin">
+                        <input readonly disabled="disabled" type="text" class="form-control" id="" placeholder=""
+                               ng-model="assetAuctionInformation.assetCode.referenceNo">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label translate="stepApp.assetAuctionInformation.assetCode" class="  control-label"
+                           for="field_assetCode">Asset Code</label>
+
+                    <div class="input-margin">
+                        <select name="assetCode"  class="form-control" id="field_assetCode" ng-model="assetAuctionInformation.assetCode"
+                                ng-options="assetRecord as assetRecord.recordCode for assetRecord in assetRecords track by assetRecord.id">
+                            <option value="Select Asset Code"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label class="  control-label" translate="stepApp.assetAuctionInformation.assetName"
+                           for=field_assetName>assetName</label>
+
+                    <div class="input-margin">
+                        <input readonly disabled="disabled" type="text" class="form-control" name="assetName"
+                               id="field_assetName"
+                               ng-model="assetAuctionInformation.assetCode.assetName"
+                               required/>
+                        <div ng-show="editForm.assetName.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.assetName.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.assetAuctionInformation.purchaseDate"
+                           for=field_purchaseDate>purchase Date</label>
+                    <div class="input-margin">
+                        <input readonly disabled="disabled" type="text" class="form-control" name="purchaseDate"
+                               id="field_purchaseDate"
+                               ng-model="assetAuctionInformation.assetCode.purchaseDate">
+
+                        <div ng-show="editForm.purchaseDate.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.purchaseDate.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.assetAuctionInformation.vendorName"
+                           for=field_vendorName>vendor name</label>
+
+                    <div class="input-margin">
+                        <input readonly disabled="disabled" type="text" class="form-control" name="vendorName"
+                               id="field_vendorName"
+                               ng-model="assetAuctionInformation.assetCode.vendorName"
+                               required/>
+                        <div ng-show="editForm.vendorName.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.vendorName.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Employeee Information-->
+
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label class="  control-label" translate="stepApp.assetAuctionInformation.employeeDepartment"
+                           for=field_employeeDepartment>used By Department</label>
+
+                    <div class="input-margin">
+                        <input readonly disabled="disabled"
+                               ng-change="AssetValueChange(assetAuctionInformation.assetDistribution.id)" type="text"
+                               class="form-control" name="remartks" id="field_employeeDepartment"
+                               ng-model="assetdistributions.usedByDept"
+                        />
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label class="  control-label" translate="stepApp.assetAuctionInformation.employeeName"
+                           for=field_employeeName>employee Name</label>
+
+                    <div class="input-margin">
+                        <input readonly disabled="disabled"
+                               ng-change="AssetValueChange(assetRepair.assetAuctionInformation.id)" type="text"
+                               class="form-control" name="remartks" id="field_employeeName"
+                               ng-model="assetdistributions.empName"
+                               required/>
+                        <div ng-show="editForm.remartks.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.remartks.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--end informationTracking by assetAuction Information-->
+
+
+            <!--<div class="col-md-6 col-sm-12 col-xs-12">-->
+            <!--<div class="form-group">-->
+            <!--<label class=" control-label" translate="stepApp.assetAuctionInformation.lastRepairDate" for="field_lastRepairDate">Last Repair Date</label>-->
+            <!--<input type="date" class="form-control" name="lastRepairDate" id="field_lastRepairDate"-->
+            <!--ng-model="assetAuctionInformation.lastRepairDate"-->
+            <!--/>-->
+            <!--</div>-->
+            <!--</div>-->
+
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label class="control-label" translate="stepApp.assetAuctionInformation.lastRepairDate"
+                           for="field_expectedDate">assigned date</label>
+                    <div class="input-margin">
+                        <input datepicker-popup="{{calendar.dateFormat}}" is-open="calendar.opened.expectedDate"
+                               datepicker-options="calendar.dateOptions" close-text="Close"
+                               ng-click="calendar.open($event, 'expectedDate')" class="form-control" name="expectedDate"
+                               id="field_expectedDate"
+                               ng-model="assetAuctionInformation.lastRepairDate"
+                               required/>
+                        <div ng-show="editForm.expectedDate.$invalid">
+                            <p class="help-block"
+                               ng-show="editForm.expectedDate.$error.required" translate="entity.validation.required">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label class=" control-label" translate="stepApp.assetAuctionInformation.isAuctionBefore"
+                           for="field_status">Status</label>
+
+                    <div class="input-margin">
+                        <label class="radio-inline"><input type="radio" name="optradio" name="status" value="true"
+                                                           ng-model="assetAuctionInformation.status">Active</label>
+                        <label class="radio-inline"><input type="radio" name="optradio" name="status" value="false"
+                                                           ng-model="assetAuctionInformation.status">Inactive</label>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary"
+                            ng-disabled="editForm.$invalid || editForm.$submitted">
+                        <i class="fa fa-hdd-o"></i>
+                        <span ng-show="assetAuctionInformation.id == null" translate="entity.action.save">Save</span>
+                        <span ng-show="assetAuctionInformation.id != null" translate="entity.action.update">Save</span>
+                    </button>
+                    <button type="submit" class="btn btn-info" onclick="window.history.back()"><i
+                        class="fa fa-angle-double-left"></i><span translate="entity.action.back">Back</span></button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+

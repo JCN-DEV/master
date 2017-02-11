@@ -1,0 +1,84 @@
+<div class="col-md-12 common-list">
+    <h2 class="panel-heading" translate="stepApp.prlOnetimeAllowInfo.home.title">PrlOnetimeAllowInfos</h2>
+    <div class="col-md-12 padding-tb">
+        <div class="col-xs-4 no_padding">
+            <input ng-model="q" id="search" class="form-control"
+                   placeholder="{{'global.home.searchhere'  | translate}}">
+        </div>
+        <div class="col-xs-4">
+            <input type="number" min="1" max="100" class="form-control"
+                   placeholder="{{'global.home.itemperpage'  | translate}}" ng-model="pageSize">
+        </div>
+        <div class="col-xs-4 no_padding text-right ">
+            <button class="btn btn-primary pull-right" ui-sref="prlOnetimeAllowInfo.new">
+                <span class="glyphicon glyphicon-plus"></span> <span
+                translate="stepApp.prlOnetimeAllowInfo.home.createLabel">Create a new PrlOnetimeAllowInfo</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="col-md-12 table-responsive no_padding">
+        <table class="table table-striped">
+            <thead>
+            <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
+                <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span
+                    class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="allowanceInfo.name"><span translate="stepApp.prlOnetimeAllowInfo.allowanceInfo">allowanceInfo</span>
+                    <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="year"><span translate="stepApp.prlOnetimeAllowInfo.year">Year</span> <span
+                    class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="basicAmountPercentage"><span
+                    translate="stepApp.prlOnetimeAllowInfo.basicAmountPercentage">BasicAmountPercentage</span>
+                    <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="effectiveDate"><span
+                    translate="stepApp.prlOnetimeAllowInfo.effectiveDate">EffectiveDate</span>
+                    <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="religion"><span translate="stepApp.prlOnetimeAllowInfo.religion">Religion</span>
+                    <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="activeStatus"><span
+                    translate="stepApp.prlOnetimeAllowInfo.activeStatus">ActiveStatus</span>
+                    <span class="glyphicon glyphicon-sort"></span></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-animate="'animate'"
+                dir-paginate="prlOnetimeAllowInfo in prlOnetimeAllowInfos | filter:q | itemsPerPage: pageSize track by prlOnetimeAllowInfo.id"
+                current-page="currentPage">
+                <td><a ui-sref="prlOnetimeAllowInfo.detail({id:prlOnetimeAllowInfo.id})">{{prlOnetimeAllowInfo.id}}</a>
+                </td>
+                <td>{{prlOnetimeAllowInfo.allowanceInfo.name}}</td>
+                <td>{{prlOnetimeAllowInfo.year}}</td>
+                <td>{{prlOnetimeAllowInfo.basicAmountPercentage}}</td>
+                <td>{{prlOnetimeAllowInfo.effectiveDate | date:'mediumDate'}}</td>
+                <td>{{prlOnetimeAllowInfo.religion}}</td>
+                <td>{{prlOnetimeAllowInfo.activeStatus ? 'Active' : 'Inactive'}}</td>
+                <td class="text-right">
+                    <button type="submit"
+                            ui-sref="prlOnetimeAllowInfo.detail({id:prlOnetimeAllowInfo.id})"
+                            class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span
+                        translate="entity.action.view"> View</span>
+                    </button>
+                    <button type="submit"
+                            ui-sref="prlOnetimeAllowInfo.edit({id:prlOnetimeAllowInfo.id})"
+                            class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                        translate="entity.action.edit"> Edit</span>
+                    </button>
+                    <button type="submit" ng-hide="true"
+                            ui-sref="prlOnetimeAllowInfo.delete({id:prlOnetimeAllowInfo.id})"
+                            class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+                        translate="entity.action.delete"> Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <nav class="no-print">
+        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                                 template-url="/scripts/components/navbar/pagination.html"></dir-pagination-controls>
+    </nav>
+</div>
