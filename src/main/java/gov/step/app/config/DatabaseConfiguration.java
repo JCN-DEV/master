@@ -43,6 +43,14 @@ public class DatabaseConfiguration {
     @Autowired(required = false)
     private MetricRegistry metricRegistry;
 
+    public MetricRegistry getMetricRegistry() {
+        return metricRegistry;
+    }
+
+    public void setMetricRegistry(MetricRegistry metricRegistry) {
+        this.metricRegistry = metricRegistry;
+    }
+
     @Bean(destroyMethod = "close")
     @ConditionalOnExpression("#{!environment.acceptsProfiles('cloud') && !environment.acceptsProfiles('heroku')}")
     public DataSource dataSource(DataSourceProperties dataSourceProperties, JHipsterProperties jHipsterProperties) {
@@ -69,7 +77,8 @@ public class DatabaseConfiguration {
         }
 
         if (metricRegistry != null) {
-            config.setMetricRegistry(metricRegistry);
+            //config.setMetricRegistry(metricRegistry); // Code added to resolve setMetricRegistry unavailable at HikariConfig
+            this.setMetricRegistry(metricRegistry);
         }
         return new HikariDataSource(config);
     }
